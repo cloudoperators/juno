@@ -1,0 +1,86 @@
+import{r as A,j as o}from"./iframe-C1z8P0kA.js";import{I}from"./Icon.component-D5zf-z5f.js";import{S as N}from"./Spinner.component-kKJenI95.js";const y=`
+  jn:font-bold
+  jn:inline-flex 
+  jn:justify-center 
+  jn:items-center
+  jn:rounded
+  jn:shadow-sm 
+  jn:w-auto
+  jn:focus:outline-hidden 
+  jn:focus-visible:ring-2
+  jn:focus-visible:ring-theme-focus
+  jn:focus-visible:ring-offset-1
+  jn:focus-visible:ring-offset-theme-focus
+  jn:disabled:opacity-50
+  jn:disabled:cursor-not-allowed
+  jn:disabled:pointer-events-none
+`,g=`
+  jn:text-sm
+  jn:leading-5
+`,x=`
+  jn:text-base
+  jn:leading-6
+`,_=`
+  jn:py-[0.3125rem]
+  jn:px-[0.5rem]
+`,L=`
+  jn:py-[0.25rem]
+  jn:px-[0.4375rem]
+`,M=`
+  jn:py-[0.4375rem]
+  jn:px-[0.625rem] 
+`,T=`
+  jn:py-[0.375rem]
+  jn:px-[0.5625rem]
+`,w=`
+  jn:bg-theme-button-default
+  jn:text-theme-button-default
+  jn:hover:bg-theme-button-default-hover
+  jn:hover:text-theme-button-default-hover
+  jn:active:bg-theme-button-default-active
+  jn:active:text-theme-button-default-active
+`,k=`
+  jn:bg-theme-button-primary
+  jn:text-theme-button-primary
+  jn:hover:bg-theme-button-primary-hover
+  jn:hover:text-theme-button-primary-hover
+  jn:active:bg-theme-button-primary-active
+  jn_active:text-theme-button-primary-active
+`,H=`
+  jn:bg-theme-button-primary-danger
+  jn:text-theme-button-primary-danger
+  jn:hover:bg-theme-button-primary-danger-hover
+  jn:hover:text-theme-button-primary-danger-hover
+  jn:active:bg-theme-button-primary-danger-active
+  jn:active:text-theme-button-primary-danger-active
+`,P=`
+  jn:bg-theme-button-subdued
+  jn:text-theme-button-subdued
+  jn:hover:bg-theme-button-subdued-hover
+  jn:hover:text-theme-button-subdued-hover
+  jn:active:bg-theme-button-subdued-active
+  jn:active:text-theme-button-subdued-active
+`,$=(e,a)=>e==="small"?a==="subdued"?`${L}`:`${_}`:a==="subdued"?`${T}`:`${M}`,C=e=>{switch(e){case"default":return w;case"primary":return k;case"primary-danger":return H;case"subdued":return P;default:return w}},E=`
+  jn:mr-2
+`,R=`
+  jn:mr-2
+`,W=e=>e==="small"?`${E}`:`${R}`,B=e=>e?"in-progress":"",O=e=>{switch(e){case"default":return"jn:text-theme-accent";case"primary":return"jn:text-white";case"primary-danger":return"jn:text-white";default:return""}},s=A.forwardRef(({label:e,title:a,variant:n="default",size:t="default",disabled:i,href:d,icon:c,className:m="",onClick:l,children:v,progress:u=!1,progressLabel:b="",...p},f)=>{const r=a||e||"",h=u?o.jsx(N,{size:t==="small"?"1.125rem":"1.5rem",color:`${O(n)}`}):c?o.jsx(I,{icon:c,title:r,className:`juno-button-icon ${e||v?W(t):""} `,size:t==="small"?"1.125rem":"1.5rem"}):null,j=u&&b?b:e||v,S=D=>{l&&l(D)},V=o.jsxs("button",{className:`
+          juno-button 
+          juno-button-${n} 
+          juno-button-${t}-size 
+          ${y} 
+          ${t==="small"?g:x} 
+          ${$(t,n)}
+          ${C(n)}
+          ${B(u)} 
+          ${m}`,disabled:i||void 0,onClick:S,ref:f,...p,type:"button",title:r,children:[h,j]}),q=o.jsxs("a",{href:d||void 0,role:"button",className:`
+          juno-button 
+          juno-button-${n} 
+          juno-button-${t}-size 
+          ${y} 
+          ${t==="small"?g:x}
+          ${$(t,n)}
+          ${C(n)}
+          ${B(u)} 
+          ${m}
+        `,disabled:i,onClick:l,ref:f,...p,title:r,children:[h,j]});return d?q:V});s.displayName="Button";try{s.displayName="Button",s.__docgenInfo={description:"The `Button` component provides an interactive element for user actions, supporting various sizes,\nstyles, and states such as disabled or in-progress.",displayName:"Button",props:{title:{defaultValue:null,description:"Specify a title for accessibility purposes. Defaults to the label if not specified.",name:"title",required:!1,type:{name:"string"}},variant:{defaultValue:{value:"default"},description:'Choose a variant for your button style. Defaults to "default" if unspecified.',name:"variant",required:!1,type:{name:"enum",value:[{value:'"default"'},{value:'"primary"'},{value:'"primary-danger"'},{value:'"subdued"'}]}},className:{defaultValue:{value:""},description:"Additional class names for styling.",name:"className",required:!1,type:{name:"string"}},children:{defaultValue:null,description:"Child elements or text to be rendered inside the button.",name:"children",required:!1,type:{name:"ReactNode"}},onClick:{defaultValue:null,description:"Click event handler for the button.",name:"onClick",required:!1,type:{name:"MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>"}},size:{defaultValue:{value:"default"},description:'Chooses the button size. Defaults to "default" if unspecified.',name:"size",required:!1,type:{name:"enum",value:[{value:'"default"'},{value:'"small"'}]}},disabled:{defaultValue:null,description:"Indicates if the button is disabled.",name:"disabled",required:!1,type:{name:"boolean"}},href:{defaultValue:null,description:"Optionally specify an href. This renders the Button as an `<a>` element.",name:"href",required:!1,type:{name:"string"}},label:{defaultValue:null,description:"Button label can be passed directly or as children.",name:"label",required:!1,type:{name:"string"}},icon:{defaultValue:null,description:"Pass the name of an icon that the button should display. Can be any icon included with Juno.",name:"icon",required:!1,type:{name:"enum",value:[{value:'"info"'},{value:'"warning"'},{value:'"danger"'},{value:'"error"'},{value:'"success"'},{value:'"search"'},{value:'"help"'},{value:'"default"'},{value:'"download"'},{value:'"accessTime"'},{value:'"accountCircle"'},{value:'"addCircle"'},{value:'"autoAwesomeMosaic"'},{value:'"autoAwesomeMotion"'},{value:'"bolt"'},{value:'"calendarToday"'},{value:'"cancel"'},{value:'"check"'},{value:'"checkCircle"'},{value:'"chevronLeft"'},{value:'"chevronRight"'},{value:'"close"'},{value:'"comment"'},{value:'"contentCopy"'},{value:'"dangerous"'},{value:'"deleteForever"'},{value:'"description"'},{value:'"dns"'},{value:'"edit"'},{value:'"errorOutline"'},{value:'"exitToApp"'},{value:'"expandLess"'},{value:'"expandMore"'},{value:'"filterAlt"'},{value:'"forum"'},{value:'"home"'},{value:'"language"'},{value:'"manageAccounts"'},{value:'"monitorHeart"'},{value:'"moreVert"'},{value:'"nightsStay"'},{value:'"notificationsOff"'},{value:'"openInBrowser"'},{value:'"openInNew"'},{value:'"place"'},{value:'"severityLow"'},{value:'"severityMedium"'},{value:'"severityHigh"'},{value:'"severityVeryHigh"'},{value:'"severityCritical"'},{value:'"severityUnknown"'},{value:'"sortShortWideArrowUp"'},{value:'"sortShortWideArrowDown"'},{value:'"sortWideShortArrowUp"'},{value:'"sortWideShortArrowDown"'},{value:'"upload"'},{value:'"wbSunny"'},{value:'"widgets"'}]}},progress:{defaultValue:{value:"false"},description:"Indicates whether the button's action is in progress.",name:"progress",required:!1,type:{name:"boolean"}},progressLabel:{defaultValue:{value:""},description:"Display an alternative label while the button's action is in progress.",name:"progressLabel",required:!1,type:{name:"string"}}}}}catch{}export{s as B};
