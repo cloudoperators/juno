@@ -30,26 +30,26 @@ pnpm add @cloudoperators/greenhouse-auth-provider
 Create an auth store in your shell application:
 
 ```tsx
-import { createAuthStore } from '@cloudoperators/greenhouse-auth-provider'
+import { createAuthStore } from "@cloudoperators/greenhouse-auth-provider"
 
 // Create the auth store
 const authStore = createAuthStore()
 
 // Update auth state when user logs in
 authStore.setAuthState({
-  status: 'authenticated',
-  token: 'user-jwt-token',
-  userId: 'user-123'
+  status: "authenticated",
+  token: "user-jwt-token",
+  userId: "user-123",
 })
 
 // Update auth state when user logs out
 authStore.setAuthState({
-  status: 'anonymous'
+  status: "anonymous",
 })
 
 // Pass to plugin (remove setAuthState to prevent plugins from modifying state)
 const authForPlugin = {
-  getSnapshot: authStore.getSnapshot
+  getSnapshot: authStore.getSnapshot,
 }
 ```
 
@@ -58,7 +58,7 @@ const authForPlugin = {
 Wrap your plugin application with the `AuthProvider`:
 
 ```tsx
-import { AuthProvider, useAuth } from '@cloudoperators/greenhouse-auth-provider'
+import { AuthProvider, useAuth } from "@cloudoperators/greenhouse-auth-provider"
 
 // In your plugin's mount function
 function MyPlugin({ embedded, auth }) {
@@ -73,16 +73,14 @@ function MyPlugin({ embedded, auth }) {
 function App() {
   const auth = useAuth()
 
-  if (auth.status === 'anonymous') {
+  if (auth.status === "anonymous") {
     return <div>Please log in</div>
   }
 
   return (
     <div>
       Welcome, user {auth.userId}
-      <button onClick={() => fetchData(auth.token)}>
-        Fetch Data
-      </button>
+      <button onClick={() => fetchData(auth.token)}>Fetch Data</button>
     </div>
   )
 }
@@ -95,7 +93,7 @@ function App() {
 For plugins running independently without a shell:
 
 ```tsx
-import { AuthProvider } from '@cloudoperators/greenhouse-auth-provider'
+import { AuthProvider } from "@cloudoperators/greenhouse-auth-provider"
 
 function MyPlugin() {
   return (
@@ -128,6 +126,7 @@ interface AuthStore {
 React component that provides authentication context to the plugin.
 
 **Props:**
+
 - `embedded: true` - Embedded mode (requires `auth` prop)
 - `embedded?: false` - Standalone mode (no `auth` prop needed)
 - `auth: EmbeddedAuth` - Auth store from shell (embedded mode only)
@@ -140,9 +139,7 @@ Hook to access authentication state in plugin components.
 **Returns:** `AuthState`
 
 ```ts
-type AuthState =
-  | { status: "anonymous" }
-  | { status: "authenticated"; token: string; userId: string }
+type AuthState = { status: "anonymous" } | { status: "authenticated"; token: string; userId: string }
 ```
 
 **Throws:** Error if used outside `AuthProvider`
@@ -172,7 +169,7 @@ This architecture avoids React version conflicts by not sharing React state or h
 The package is written in TypeScript and includes full type definitions.
 
 ```ts
-import type { AuthState, AuthStore, EmbeddedAuth } from '@cloudoperators/greenhouse-auth-provider'
+import type { AuthState, AuthStore, EmbeddedAuth } from "@cloudoperators/greenhouse-auth-provider"
 ```
 
 ## Contributing
