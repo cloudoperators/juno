@@ -22,8 +22,6 @@ export type InitialFilters = {
 
 const queryClient = new QueryClient()
 
-console.log("plugin React:", React)
-
 export type AppProps = {
   theme?: "theme-dark" | "theme-light"
   apiEndpoint?: string

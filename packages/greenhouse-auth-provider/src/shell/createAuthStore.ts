@@ -12,7 +12,7 @@ export function createAuthStore(): AuthStore {
   let state: AuthState = { status: "anonymous" }
 
   return {
-    getSnapshot: () => state,
+    getSnapshot: () => ({ ...state }),
     setAuthState: (next) => {
       state = next
     },
