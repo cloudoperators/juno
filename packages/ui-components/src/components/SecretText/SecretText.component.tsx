@@ -3,7 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useId, useState, ReactNode } from "react"
+import React, {
+  useEffect,
+  useId,
+  useState,
+  ReactNode,
+  useRef,
+  ChangeEvent,
+  HTMLAttributes,
+  FocusEventHandler,
+  ChangeEventHandler,
+  FocusEvent,
+} from "react"
 import { Textarea } from "../Textarea/index"
 import { ButtonRow } from "../ButtonRow/index"
 import { Button } from "../Button/index"
@@ -58,8 +69,12 @@ const actionStyles = `
   jn:h-[1.875rem]
 `
 
-/** A component to hold a secret text, e.g. an SSH key, and conceal or reveal as needed. */
-export const SecretText: React.FC<SecretTextProps> = ({
+/**
+ * A component to hold a secret text, e.g. an SSH key, and conceal or reveal as needed.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-secrettext--docs
+ * @see {@link SecretTextProps}
+ */
+export const SecretText = ({
   autoComplete = "off",
   className = "",
   clear = true,
@@ -96,7 +111,7 @@ export const SecretText: React.FC<SecretTextProps> = ({
   value = "",
   wrapperClassName = "",
   ...props
-}) => {
+}: SecretTextProps): ReactNode => {
   const isNotEmptyString = (str: ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
@@ -108,7 +123,7 @@ export const SecretText: React.FC<SecretTextProps> = ({
   const [val, setVal] = useState("")
   const [isCopied, setIsCopied] = useState(false)
   const [hasFocus, setHasFocus] = useState(false)
-  const timeoutRef = React.useRef<number | null>(null)
+  const timeoutRef = useRef<number | null>(null)
 
   useEffect(() => {
     setIsRevealed(reveal)
@@ -118,7 +133,7 @@ export const SecretText: React.FC<SecretTextProps> = ({
     setVal(value)
   }, [value])
 
-  const handleValueChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleValueChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setVal(event.target.value)
     onChange && onChange(event)
   }
@@ -160,12 +175,12 @@ export const SecretText: React.FC<SecretTextProps> = ({
       })
   }
 
-  const handleFocus = (event: React.FocusEvent<HTMLTextAreaElement>) => {
+  const handleFocus = (event: FocusEvent<HTMLTextAreaElement>) => {
     setHasFocus(true)
     onFocus && onFocus(event)
   }
 
-  const handleBlur = (event: React.FocusEvent<HTMLTextAreaElement>) => {
+  const handleBlur = (event: FocusEvent<HTMLTextAreaElement>) => {
     setHasFocus(false)
     onBlur && onBlur(event)
   }
@@ -301,7 +316,7 @@ export const SecretText: React.FC<SecretTextProps> = ({
   )
 }
 
-export interface SecretTextProps extends Omit<React.HTMLAttributes<HTMLTextAreaElement>, "onCopy" | "onPaste"> {
+export interface SecretTextProps extends Omit<HTMLAttributes<HTMLTextAreaElement>, "onCopy" | "onPaste"> {
   /** Whether the secret field should autocomplete. */
   autoComplete?: string
   /** Pass a custom className to the Secret input field. */
@@ -335,16 +350,16 @@ export interface SecretTextProps extends Omit<React.HTMLAttributes<HTMLTextAreaE
   /** The name of the SecretText's textarea. */
   name?: string
   /** A handler to execute when the Secret's input area looses focus. */
-  onBlur?: React.FocusEventHandler<HTMLTextAreaElement>
+  onBlur?: FocusEventHandler<HTMLTextAreaElement>
   /** A handler to execute when the Secret's content changes. */
-  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>
+  onChange?: ChangeEventHandler<HTMLTextAreaElement>
   /** A handler to execute when the user clears the Secret's content using the Clear button. */
   onClear?: () => void
   /** A handler to execute when the user copies the Secret's content to the clipboard. */
   // eslint-disable-next-line no-unused-vars
   onCopy?: (value: string) => void
   /** A handler to execute when the SecretText textarea receives focus */
-  onFocus?: React.FocusEventHandler<HTMLTextAreaElement>
+  onFocus?: FocusEventHandler<HTMLTextAreaElement>
   /** A handler to execute when the user hides the Secret's content. */
   onHide?: () => void
   /** A handler to execute when the user pastes text from the clipboard into the SecretText. */

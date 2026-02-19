@@ -3,41 +3,44 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Children, ReactElement } from "react"
+import React, { Children, Fragment, HTMLAttributes, isValidElement, ReactElement, ReactNode } from "react"
 
 import { Icon } from "../Icon"
 import { Stack } from "../Stack/Stack.component"
 import { BreadcrumbItem, BreadcrumbItemProps } from "../BreadcrumbItem/BreadcrumbItem.component"
 
-export interface BreadcrumbProps extends React.HTMLAttributes<HTMLElement> {
+export interface BreadcrumbProps extends HTMLAttributes<HTMLElement> {
   /**
-   * Additional CSS styles to apply to the breadcrumb for custom styling.
+   * Additional CSS classes for styling the breadcrumb component.
+   * @default ""
    */
   className?: string
+
   /**
    * Optional React nodes or a collection of React nodes to be rendered as custom content.
-   * The BreadcrumbItem component is typically used.
+   * The `BreadcrumbItem` component is typically used.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 /**
- * Breadcrumb is a component that structures navigational links in a breadcrumb trail.
- *
- * This component:
- * - Wraps around BreadcrumbItem or other custom components to create breadcrumb navigation.
- * - Automatically inserts separator icons between items.
- * - Filters out invalid React elements to prevent rendering errors.
+ * The `Breadcrumb` component structures navigational links in a breadcrumb trail, providing a way to display
+ * hierarchical navigation paths. It efficiently manages:
+ * - Wrapping `BreadcrumbItem` or other custom components to form breadcrumb navigation.
+ * - Automatic insertion of separator icons between items, enhancing visibility.
+ * - Filtering out invalid React elements to prevent rendering errors.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-breadcrumb-breadcrumb--docs
+ * @see {@link BreadcrumbProps}
  */
-export const Breadcrumb: React.FC<BreadcrumbProps> = ({ children, className = "", ...props }) => {
-  const childrenArray = Children.toArray(children).filter(React.isValidElement) // Filter out invalid elements
+export const Breadcrumb = ({ children, className = "", ...props }: BreadcrumbProps): ReactNode => {
+  const childrenArray = Children.toArray(children).filter(isValidElement) // Filter out invalid elements
 
   // Map each child to a BreadcrumbItem and insert separators between them, except the last one
   const breadcrumbElementsWithSeparators = childrenArray.map((child, index) => (
-    <React.Fragment key={index}>
+    <Fragment key={index}>
       <BreadcrumbItem {...(child as ReactElement<BreadcrumbItemProps>).props} />
       {index < childrenArray.length - 1 && <Icon icon="chevronRight" />}
-    </React.Fragment>
+    </Fragment>
   ))
 
   return (

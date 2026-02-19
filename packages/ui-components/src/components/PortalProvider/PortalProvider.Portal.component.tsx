@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useContext, useEffect, useState } from "react"
+import React, { CSSProperties, ReactNode, useContext, useEffect, useState } from "react"
 import { createPortal } from "react-dom"
 import { PortalContext } from "./PortalProvider.component"
 
-const portalStyles: React.CSSProperties = {
+const portalStyles: CSSProperties = {
   position: "relative",
   zIndex: "1",
 }
@@ -19,7 +19,7 @@ const portalStyles: React.CSSProperties = {
  *   </PortalProvider.Portal>
  *  ```
  */
-export const Portal: React.FC<PortalProviderPortalProps> = ({ children }) => {
+export const Portal = ({ children }: PortalProviderPortalProps): ReactNode => {
   const rootRef = useContext(PortalContext)
   const [isMounted, setIsMounted] = useState(false)
 
@@ -45,5 +45,5 @@ Portal.displayName = "PortalProvider.Portal"
 
 export interface PortalProviderPortalProps {
   /** The children to mount in a portal. Typically, these will be menus, modal dialogs, etc. */
-  children?: React.ReactNode
+  children?: ReactNode
 }

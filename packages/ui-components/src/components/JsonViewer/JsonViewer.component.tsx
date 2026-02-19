@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useContext, useLayoutEffect } from "react"
+import React, { HTMLAttributes, HTMLProps, ReactNode, useContext, useLayoutEffect, useMemo, useState } from "react"
 import * as themes from "./themes"
 import { SearchInput } from "../SearchInput"
 import { ExpandControlType, ExpandIconProps, TypeValueLabelType } from "./JsonViewer.types"
@@ -53,7 +53,7 @@ export const getTypeOfTheValue = (value: unknown): TypeValueLabelType => {
 
 // this component renders the expand icon depends on the expanded prop
 // per entry
-const ExpandIcon: React.FC<ExpandIconProps> = ({ expanded }) => {
+const ExpandIcon = ({ expanded }: ExpandIconProps): ReactNode => {
   const { colors } = useContext(ThemeContext)
   return (
     <svg
@@ -78,10 +78,10 @@ const ExpandIcon: React.FC<ExpandIconProps> = ({ expanded }) => {
   )
 }
 
-const StringWithHighlight: React.FC<StringWithHighlightProps> = ({ value }) => {
+const StringWithHighlight = ({ value }: StringWithHighlightProps): ReactNode => {
   const { colors, searchTerm } = useContext(ThemeContext)
 
-  const highlight = React.useMemo(() => {
+  const highlight = useMemo(() => {
     if (value === undefined || value === null || !searchTerm || searchTerm === "") return null
 
     try {
@@ -119,7 +119,7 @@ interface StringWithHighlightProps {
 }
 
 // Key label (left side) with highlight functionality
-const NameLabel: React.FC<NameLabelProps> = ({ name }) => {
+const NameLabel = ({ name }: NameLabelProps): ReactNode => {
   const { colors } = useContext(ThemeContext)
   const isIndex = typeof name === "number"
   const color = isIndex ? colors.index : colors.key
@@ -143,7 +143,7 @@ interface NameLabelProps {
 // this component show the right side of the json, type + value
 // for null, NaN and undefined values a background is shown
 // value label (left side) with highlight functionality
-const TypeValueLabel: React.FC<TypeValueLabelProps> = ({ type, value }) => {
+const TypeValueLabel = ({ type, value }: TypeValueLabelProps): ReactNode => {
   const { colors, truncate } = useContext(ThemeContext)
   const undefinedValue = ["nan", "null", "undefined"].includes(type)
   let label = type === "string" ? `"${value as string}"` : `${value as any}`
@@ -184,7 +184,7 @@ interface TypeValueLabelProps {
   value: unknown
 }
 
-const Toolbar: React.FC = () => {
+const Toolbar = () => {
   const { colors, onExpandAll, onSearch } = useContext(ThemeContext)
 
   return (
@@ -212,6 +212,7 @@ const Toolbar: React.FC = () => {
           backgroundColor: colors.toolbar.background,
           color: colors.toolbar.foreground,
         }}
+        //@ts-ignore
         onChange={(e) => onSearch && onSearch(e.target.value)}
         clear
         onClear={() => onSearch && onSearch(null)}
@@ -220,7 +221,7 @@ const Toolbar: React.FC = () => {
   )
 }
 
-const ExpandButton: React.FC<ExpandButtonProps> = ({ children, isExpanded, setIsExpanded }) => {
+const ExpandButton = ({ children, isExpanded, setIsExpanded }: ExpandButtonProps): ReactNode => {
   return (
     <span
       style={{ cursor: "pointer", display: "inline-block" }}
@@ -234,18 +235,16 @@ const ExpandButton: React.FC<ExpandButtonProps> = ({ children, isExpanded, setIs
 }
 
 interface ExpandButtonProps {
-  children?: React.ReactNode
+  children?: ReactNode
   isExpanded: boolean
   // eslint-disable-next-line no-unused-vars
   setIsExpanded: (value: boolean) => void
 }
 
 // This component renders a row of json entry
-const JsonData: React.FC<JsonDataProps> = ({ name, value, nestedLevel = 0 }) => {
+const JsonData = ({ name, value, nestedLevel = 0 }: JsonDataProps): ReactNode => {
   const { colors, expanded, searchTerm, indentWidth, expandAll } = useContext(ThemeContext)
-  const [isExpanded, setIsExpanded] = React.useState(
-    expanded === true || (expanded !== false && expanded > nestedLevel)
-  )
+  const [isExpanded, setIsExpanded] = useState(expanded === true || (expanded !== false && expanded > nestedLevel))
 
   useLayoutEffect(() => {
     if (!expandAll) return
@@ -262,9 +261,9 @@ const JsonData: React.FC<JsonDataProps> = ({ name, value, nestedLevel = 0 }) => 
     }
   }, [searchTerm])
 
-  const dataType = React.useMemo(() => getTypeOfTheValue(value), [value])
+  const dataType = useMemo(() => getTypeOfTheValue(value), [value])
 
-  const children = React.useMemo(() => {
+  const children = useMemo(() => {
     if (dataType === "array") {
       return (value as Array<unknown>).map((v, i) => ({ name: i, value: v }))
     }
@@ -343,14 +342,20 @@ const JsonData: React.FC<JsonDataProps> = ({ name, value, nestedLevel = 0 }) => 
   )
 }
 
-interface JsonDataProps extends React.HTMLAttributes<HTMLDivElement> {
+interface JsonDataProps extends HTMLAttributes<HTMLDivElement> {
   name?: string | number | boolean
   value?: unknown
   nestedLevel?: number
 }
 
-/** A component to render json data in a nice way. */
-export const JsonViewer: React.FC<JsonViewerProps> = ({
+/**
+ * The `JsonViewer` component provides a structured visualization of JSON data,
+ * with support for syntax highlighting, collapsible elements, and search functionality.
+ * Tailorable themes and display settings are available for user customization.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-jsonviewer--docs
+ * @see {@link JsonViewerProps}
+ */
+export const JsonViewer = ({
   data = {},
   showRoot = false,
   toolbar = false,
@@ -361,7 +366,7 @@ export const JsonViewer: React.FC<JsonViewerProps> = ({
   truncate = false,
   className,
   ...props
-}) => {
+}: JsonViewerProps): ReactNode => {
   const currentTheme =
     typeof theme === "string"
       ? themes[theme]
@@ -371,8 +376,8 @@ export const JsonViewer: React.FC<JsonViewerProps> = ({
         }
 
   const colors = colorMap(currentTheme)
-  const [searchTerm, setSearchTerm] = React.useState<string | null>("")
-  const [expandAll, setExpandAll] = React.useState<ExpandControlType | null>(null)
+  const [searchTerm, setSearchTerm] = useState<string | null>("")
+  const [expandAll, setExpandAll] = useState<ExpandControlType | null>(null)
 
   return (
     <ThemeContext.Provider
@@ -407,18 +412,27 @@ export const JsonViewer: React.FC<JsonViewerProps> = ({
 
 type ThemeType = "dark" | "light"
 
-export interface JsonViewerProps extends Omit<React.HTMLProps<HTMLDivElement>, "data"> {
-  /** Pass a valid json. Required.  */
-  // data: PropTypes.object.isRequired,
+export interface JsonViewerProps extends Omit<HTMLProps<HTMLDivElement>, "data"> {
+  /**
+   * JSON data to render; essential for visualizing complex structures.
+   */
   data: string | object | object[]
-  /** pass a styles object */
+
+  /** Pass a styles object for inline customizations. */
   style?: object
-  /** show toolbar */
+
+  /**
+   * Toggles toolbar display, including expansion and search functionalities.
+   * @default false
+   */
   toolbar?: boolean
-  /** show root key */
+
+  /**
+   * Displays the root node key for hierarchical clarity.
+   * @default false
+   */
   showRoot?: boolean
-  /** dark, light or map of colors
-   *
+  /** Preset theme (dark/light) or map of colors for custom styling.
    * @param dark dark theme
    * @param light light theme
    * @param base00 background
@@ -439,12 +453,26 @@ export interface JsonViewerProps extends Omit<React.HTMLProps<HTMLDivElement>, "
    * @param base0F copy icon, type "integer"
    */
   theme?: themes.JsonViewerTheme | ThemeType
-  /** expanded can be true|false or a number. The number denotes the hierarchy level to which the object is expanded. */
+  /**
+   * Default expansion level for JSON objects, set as true, false, or a numeric level.
+   * @default 1
+   */
   expanded?: boolean | number
-  // cut strings after max length is reached, default length is 100 characters, if set to true. Or specifcy a different character length. */
+
+  /**
+   * Max length for truncating strings within displayed JSON data; defaults to 100 characters if true.
+   */
   truncate?: boolean | number
-  /* indent width */
+
+  /**
+   * Pixel width for indentation.
+   * @default 4
+   */
   indentWidth?: number
-  /* add custom classes */
+
+  /**
+   * Additional CSS classes for styled customization.
+   * @default ""
+   */
   className?: string
 }

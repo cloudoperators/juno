@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 import "./page-footer.css"
 
 const basePageFooterStyles = `
@@ -17,10 +17,13 @@ const basePageFooterStyles = `
   jn:bg-theme-pagefooter
 `
 
-export interface PageFooterProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Additional custom styling class name for the footer container */
+export interface PageFooterProps extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * Additional custom styling class name for the footer container.
+   * @default ""
+   */
   className?: string
-  /** The content to render inside the footer, typically links or informational text
+  /** The content to render inside the footer, typically links or informational text.
    * Use a list structure e.g. `<ul>` with `<li>` for grouped content or links, as in examples.
    * Available CSS classes for styling:
    * - `.juno-pagefooter-title`: Style for a title element within a column.
@@ -28,18 +31,21 @@ export interface PageFooterProps extends React.HTMLAttributes<HTMLDivElement> {
    * - `.juno-pagefooter-items-inline`: Style for a single line list with pipe separators.
    * - `.juno-pagefooter-item`: Style for individual list items.
    */
-  children?: React.ReactNode
-  /** Optional copyright notice to display within the footer */
+  children?: ReactNode
+  /**
+   * Optional copyright notice to display within the footer.
+   * @default ""
+   */
   copyright?: string
 }
 
 /**
- * PageFooter component renders a footer at the bottom of the page.
- * It consists of a flexible content area for children and an optional copyright section.
- * Usage:
- * The component can be used to add legal disclaimers, links, or other contextual information at the page's footer.
+ * `PageFooter` component renders a footer at the bottom of the page.
+ * It can include links, informational text, and an optional copyright notice.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-pagefooter--docs
+ * @see {@link PageFooterProps}
  */
-export const PageFooter: React.FC<PageFooterProps> = ({ className = "", children, copyright = "", ...props }) => {
+export const PageFooter = ({ className = "", children, copyright = "", ...props }: PageFooterProps): ReactNode => {
   return (
     <div className={`juno-pagefooter ${basePageFooterStyles} ${className}`} role="contentinfo" {...props}>
       <div className="juno-pagefooter-content">

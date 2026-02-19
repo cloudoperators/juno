@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useContext, useEffect, useState, ReactNode } from "react"
+import React, { useContext, useEffect, useState, ReactNode, MouseEvent, HTMLAttributes, MouseEventHandler } from "react"
 
 import { NavigationContext } from "../Navigation/Navigation.component"
 import { Icon, KnownIcons } from "../Icon/Icon.component"
@@ -18,8 +18,14 @@ const disabledStyles = `
   jn:cursor-not-allowed
 `
 
-/** A generic Navigation Item component. For internal use only. Use to wrap more semantic, role-specific navigation item components such as `SidenavigationItem`, `TabNavigationItem` , `TopNavigationItem` around. */
-export const NavigationItem: React.FC<NavigationItemProps> = ({
+/**
+ * `NavigationItem` acts as a singular navigational unit within a `Navigation`,
+ * offering styles for active and inactive states, and supporting disabled
+ * interactions internally.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/internal-navigation-navigationitem--docs
+ * @see {@link NavigationItemProps}
+ */
+export const NavigationItem = ({
   active = false,
   activeItemStyles = "",
   ariaLabel = "",
@@ -34,7 +40,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
   value = "",
   wrapperClassName = "",
   ...props
-}) => {
+}: NavigationItemProps): ReactNode => {
   // Utility
   const isNotEmptyString = (str: ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
@@ -77,7 +83,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
     setIsActive(active)
   }, [activeItem, active])
 
-  const handleClick = (event: React.MouseEvent<EventTarget>) => {
+  const handleClick = (event: MouseEvent<EventTarget>) => {
     if (disabled) {
       event.preventDefault()
     } else {
@@ -149,31 +155,75 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
   )
 }
 
-export interface NavigationItemProps extends React.HTMLAttributes<HTMLElement> {
-  /** Whether the navigation item is the currently active item. If an acitve item is set on the parent, the one on the parent will win. */
+export interface NavigationItemProps extends HTMLAttributes<HTMLElement> {
+  /**
+   * Whether the navigation item is the currently active item. If an active item is set on the parent, the one on the parent will win.
+   * @default false
+   */
   active?: boolean
-  /** Styles to apply to the active item*/
+
+  /**
+   * Styles to apply when the item is active.
+   * @default ""
+   */
   activeItemStyles?: string
-  /** The aria-label of the item */
+
+  /**
+   * The aria-label of the item for accessibility.
+   */
   ariaLabel?: string
-  /** Pass custom classNames to the item itself. */
+
+  /**
+   * Pass custom classNames to the item itself.
+   * @default ""
+   */
   className?: string
-  /** The child string of the item. Will override `label` when passed. */
+
+  /**
+   * The child nodes of the item, overriding `label` if specified.
+   */
   children?: ReactNode
-  /** Whether the item is disabled */
+
+  /**
+   * Determines if the item is disabled.
+   * @default false
+   */
   disabled?: boolean
-  /** An icon to render in the item */
+
+  /**
+   * An icon to render within the item for visual indication.
+   */
   icon?: KnownIcons
-  /* Pass styles that apply to IN-active items only, in the event activeStyles are overwritten by defaultStyles affecting the same CSS property*/
+
+  /**
+   * Styles applied to inactive items, ensuring differentiation from active.
+   * @default ""
+   */
   inactiveItemStyles?: string
-  /** The label of the item. Will be rendered if no children are passed */
+
+  /**
+   * The label of the item, displayed if `children` are not provided.
+   */
   label?: string
-  /** The href of the item. The item will be rendered as an `<a>` element when passed, instead of a `<button>`.  */
+
+  /**
+   * Presence transforms the item into an anchor, enabling navigation.
+   */
   href?: string
-  /** Handler to execute when the item is clicked */
-  onClick?: React.MouseEventHandler<EventTarget>
-  /** The value of the item as a technical identifier. Use if needed to be different from the visble `label` or child string. Will only be rendered when no `label` prop and no children are passed. */
+
+  /**
+   * Handler executed during item clicks for operational logic.
+   */
+  onClick?: MouseEventHandler<EventTarget>
+
+  /**
+   * Value for technical/item identification purposes, utilized when differing from `label` or child strings.
+   */
   value?: string
-  /** Pass a custom className to the parent `<li>` element of the item. */
+
+  /**
+   * Pass className to parent `<li>` element, styling the container.
+   * @default ""
+   */
   wrapperClassName?: string
 }
