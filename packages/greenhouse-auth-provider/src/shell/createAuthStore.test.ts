@@ -23,14 +23,24 @@ describe("AuthStore", () => {
     const store = createAuthStore()
     expect(store.getSnapshot()).toEqual({ status: "anonymous" })
     store.setAuthState({ status: "authenticated", token: "new-token", userId: "user2", userName: "janedoe" })
-    expect(store.getSnapshot()).toEqual({ status: "authenticated", token: "new-token", userId: "user2", userName: "janedoe" })
+    expect(store.getSnapshot()).toEqual({
+      status: "authenticated",
+      token: "new-token",
+      userId: "user2",
+      userName: "janedoe",
+    })
   })
 
   it("should update authenticated state with new token", () => {
     const store = createAuthStore()
     store.setAuthState({ status: "authenticated", token: "token1", userId: "user1", userName: "johndoe" })
     store.setAuthState({ status: "authenticated", token: "token2", userId: "user1", userName: "johndoe" })
-    expect(store.getSnapshot()).toEqual({ status: "authenticated", token: "token2", userId: "user1", userName: "johndoe" })
+    expect(store.getSnapshot()).toEqual({
+      status: "authenticated",
+      token: "token2",
+      userId: "user1",
+      userName: "johndoe",
+    })
   })
 
   it("should return the same reference for getSnapshot", () => {
@@ -54,6 +64,11 @@ describe("AuthStore", () => {
     store.setAuthState({ status: "authenticated", token: "token2", userId: "user2", userName: "user2name" })
     store.setAuthState({ status: "anonymous" })
     store.setAuthState({ status: "authenticated", token: "token3", userId: "user3", userName: "user3name" })
-    expect(store.getSnapshot()).toEqual({ status: "authenticated", token: "token3", userId: "user3", userName: "user3name" })
+    expect(store.getSnapshot()).toEqual({
+      status: "authenticated",
+      token: "token3",
+      userId: "user3",
+      userName: "user3name",
+    })
   })
 })

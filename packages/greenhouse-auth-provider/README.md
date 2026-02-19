@@ -80,8 +80,7 @@ function App() {
 
   return (
     <div>
-      Welcome, {auth.userName} (ID: {auth.userId})
-      <button onClick={() => fetchData(auth.token)}>Fetch Data</button>
+      Welcome, {auth.userName} (ID: {auth.userId})<button onClick={() => fetchData(auth.token)}>Fetch Data</button>
     </div>
   )
 }
@@ -140,9 +139,7 @@ Hook to access authentication state in plugin components.
 **Returns:** `AuthState`
 
 ```ts
-type AuthState =
-  | { status: "anonymous" }
-  | { status: "authenticated"; token: string; userId: string; userName: string }
+type AuthState = { status: "anonymous" } | { status: "authenticated"; token: string; userId: string; userName: string }
 ```
 
 **Throws:** Error if used outside `AuthProvider`

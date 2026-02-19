@@ -150,7 +150,12 @@ describe("AuthProvider", () => {
 
   it("handles nested components accessing auth", () => {
     const mockAuth: EmbeddedAuth = {
-      getSnapshot: () => ({ status: "authenticated", token: "nested-token", userId: "nested-user", userName: "nesteduser" }),
+      getSnapshot: () => ({
+        status: "authenticated",
+        token: "nested-token",
+        userId: "nested-user",
+        userName: "nesteduser",
+      }),
     }
 
     const DeepNestedComponent = () => {
