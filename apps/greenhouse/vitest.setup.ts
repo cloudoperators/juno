@@ -66,12 +66,12 @@ beforeAll(() => {
   }
 
   // Mock for Text nodes (this is what CodeMirror is calling)
-  if (typeof Text.prototype.getClientRects === "undefined") {
+  if (typeof (Text.prototype as any).getClientRects === "undefined") {
     // @ts-expect-error - Adding missing DOM API for testing
     Text.prototype.getClientRects = mockGetClientRects
   }
 
-  if (typeof Text.prototype.getBoundingClientRect === "undefined") {
+  if (typeof (Text.prototype as any).getBoundingClientRect === "undefined") {
     // @ts-expect-error - Adding missing DOM API for testing
     Text.prototype.getBoundingClientRect = mockGetBoundingClientRect
   }

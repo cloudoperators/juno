@@ -65,7 +65,7 @@ export const FilterSelect = ({ filters, isLoading, error, onChange }: FilterSele
           data-testid="combobox-filterValue"
           value={selectedFilterValue}
           disabled={!selectedFilterId}
-          onChange={(value) => {
+          onChange={(value: string | number | boolean) => {
             handleValueChange(String(value))
           }}
         >

@@ -54,7 +54,6 @@ const fixMarkdownLists = `
 const StyledApp = (props: any) => {
   const theme = props.theme ? props.theme : "theme-dark"
   return (
-    // @ts-expect-error TS(2339): Property 'theme' does not exist on type 'any'.
     <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
       {/* load styles inside the shadow dom */}
       <style>{styles.toString()}</style>

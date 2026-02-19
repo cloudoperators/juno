@@ -37,7 +37,6 @@ const App = (props = {}) => {
 
 const StyledApp = (props: any) => {
   return (
-    // @ts-expect-error TS(2339): Property 'theme' does not exist on type 'any'.
     <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
       {/* load styles inside the shadow dom */}
       <style>{styles.toString()}</style>
