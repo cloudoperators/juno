@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 import { Icon, KnownIcons, KnownIconsEnum } from "../Icon/Icon.component"
 
 const badgeBaseStyles = `
+  jn:inline-flex
   jn:rounded
   jn:text-sm
   jn:text-theme-default
@@ -29,36 +30,37 @@ const iconStyles = "jn:mr-1 jn:items-center"
 
 export type BadgeVariantType = "default" | "info" | "success" | "warning" | "danger" | "error"
 
-export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
+export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   /**
-   * Specify an optional semantic variant that determines the appearance of a badge.
+   * Specify a semantic variant that determines the appearance of the badge.
+   * @default "default"
    */
   variant?: BadgeVariantType
 
   /**
-   * Optional.
-   * If true, an icon corresponding to the variant will be displayed.
-   * If a string is provided and it's a valid icon name, that icon will be displayed.
+   * Determines whether to display an icon. If set to `true`, an icon related
+   * to the variant will be used. If a valid string representing a known icon
+   * is provided, that icon will be displayed.
+   * @default false
    */
   icon?: boolean | KnownIcons
 
   /**
-   * Pass an optional string of text to be rendered as content.
-   * Alternatively, content can be passed as children (see below).
-   * If children are provided, they will take precedence.
+   * The optional text content of the badge. If children are provided, they take precedence.
    */
   text?: string
 
   /**
-   * Pass an optional CSS class to apply to the message.
+   * Additional CSS class to apply to the badge.
+   * @default ""
    */
   className?: string
 
   /**
-   * Pass optional React nodes or a collection of React nodes to be rendered as content.
-   * Takes precedence over the text property.
+   * React nodes or a collection of React nodes to be rendered as content, taking
+   * precedence over the `text` property.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 const getVariantStyle = (variant: BadgeVariantType): string => badgeVariantStyles[variant] || badgeVariantStyles.default
@@ -83,29 +85,30 @@ const isValidIcon = (icon: string): icon is KnownIcons => {
 }
 
 /**
- * A Badge is used to visually represent properties or states of an entity.
- * It supports multiple semantic versions, each with distinct styling.
- * Optionally, an icon can be included to further emphasize the meaning.
+ * The `Badge` component visually represents properties or states of an entity.
+ * It supports multiple semantic variants, each with distinct styling. An optional
+ * icon can be included to further emphasize meaning.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-badge--docs
+ * @see {@link BadgeProps}
  */
-export const Badge: React.FC<BadgeProps> = ({
+export const Badge = ({
   variant = "default",
   icon = false,
   text = "",
   className = "",
   children,
   ...props
-}) => {
+}: BadgeProps): ReactNode => {
   const iconToRender = getIcon(icon, variant)
   const iconColor = getIconColor(icon, variant)
 
   return (
     <span
       className={`
-        juno-badge 
-        juno-badge-${variant} 
-        ${badgeBaseStyles} 
-        ${getVariantStyle(variant)} 
-        ${icon ? "jn:inline-flex" : ""} 
+        juno-badge
+        juno-badge-${variant}
+        ${badgeBaseStyles}
+        ${getVariantStyle(variant)}
         ${className}`}
       {...props}
     >

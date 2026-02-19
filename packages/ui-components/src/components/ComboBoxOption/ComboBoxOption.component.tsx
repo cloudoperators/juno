@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Fragment, useEffect, useContext } from "react"
+import React, { Fragment, useEffect, useContext, HTMLProps, ReactNode } from "react"
 import { ComboboxOption } from "@headlessui/react"
 import { ComboBoxContext } from "../ComboBox/ComboBox.component"
 import { Icon } from "../Icon/Icon.component"
@@ -49,14 +49,21 @@ const truncateOptionStyles = `
   jn:whitespace-nowrap
 `
 
-export const ComboBoxOption: React.FC<ComboBoxOptionProps> = ({
+/**
+ * `ComboBoxOption` is a component used within a `ComboBox` to represent each selectable option.
+ * It displays the option's label and value, and indicates the selected state with styles or an icon.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-combobox-comboboxoption--docs
+ * @see {@link ComboBoxOptionProps}
+ */
+
+export const ComboBoxOption = ({
   children,
   disabled = false,
   value = "",
   label = "",
   className = "",
   ...props
-}) => {
+}: ComboBoxOptionProps): ReactNode => {
   const comboBoxContext = useContext(ComboBoxContext)
   const {
     selectedValue: selectedValue,
@@ -99,15 +106,27 @@ export const ComboBoxOption: React.FC<ComboBoxOptionProps> = ({
   )
 }
 
-export interface ComboBoxOptionProps extends React.HTMLProps<HTMLLIElement> {
-  /** Content to render inside the ComboBoxOption. Is specified should be string. */
+export interface ComboBoxOptionProps extends HTMLProps<HTMLLIElement> {
+  /**
+   * Content to render inside the ComboBoxOption. Should be specified as a string.
+   */
   children?: string
-  /** If option is disabled. */
+
+  /**
+   * If true, the option is disabled and not selectable.
+   * @default false
+   */
   disabled?: boolean
-  /** Option value. */
+
+  /** The value to be submitted if this option is selected. */
   value?: string
-  /** Option label. */
+
+  /** The label text for the option, displayed when `children` is not provided. */
   label?: string
-  /** CSS class for the option. */
+
+  /**
+   * CSS class names for custom styling.
+   * @default ""
+   */
   className?: string
 }

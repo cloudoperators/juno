@@ -3,29 +3,34 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactNode, isValidElement } from "react"
+import React, { Children, HTMLAttributes, ReactNode, cloneElement, isValidElement } from "react"
 import { Stack } from "../Stack/Stack.component"
 import "./input-group.css"
 
 type VariantTypes = "default" | "primary" | "primary-danger" | "subdued"
 
-export interface InputGroupProps extends React.HTMLAttributes<HTMLElement> {
+export interface InputGroupProps extends HTMLAttributes<HTMLElement> {
   /**
    * The children to render within the InputGroup.
    * This can be any React node or a collection of React nodes such as Buttons, TextInput, and Select elements.
    */
-  children?: React.ReactNode
+  children?: ReactNode
+
   /**
    * Additional CSS class name(s) to apply to the InputGroup for custom styling.
+   * @default ""
    */
   className?: string
+
   /**
    * The variant style to apply to the group and its children.
    */
   variant?: VariantTypes
+
   /**
    * If true, all elements within the InputGroup will be disabled.
    * Individual elements can override this setting if needed.
+   * @default false
    */
   disabled?: boolean
 }
@@ -33,10 +38,9 @@ export interface InputGroupProps extends React.HTMLAttributes<HTMLElement> {
 type InheritedProps = { variant?: VariantTypes; disabled?: boolean }
 
 /**
- * Clones a child element with inherited variant and disabled props.
- * Individual child props will override inherited ones if specified.
- *
- * @returns A cloned child element with the variant and disabled props applied.
+ * The `InputGroup` component visually groups related elements such as buttons,
+ * text inputs, and select elements, providing cohesive styling and optional
+ * variant and disabled states.
  */
 const cloneElementWithInheritedProps = (
   child: ReactNode,
@@ -49,7 +53,7 @@ const cloneElementWithInheritedProps = (
     variant: child.props.variant || parentVariant,
     disabled: child.props.disabled || parentDisabled,
   }
-  return React.cloneElement(child, combinedProps)
+  return cloneElement(child, combinedProps)
 }
 
 const getClassNames = (baseClassName: string, variant: VariantTypes, disabled: boolean): string => {
@@ -62,18 +66,18 @@ const getClassNames = (baseClassName: string, variant: VariantTypes, disabled: b
 /**
  * InputGroup is a component used to visually group related elements such as
  * Buttons, TextInput, and Select elements, providing a cohesive styling approach.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/wip-inputgroup--docs
+ * @see {@link InputGroupProps}
  */
-export const InputGroup: React.FC<InputGroupProps> = ({
+export const InputGroup = ({
   children,
   className = "",
   variant = "default",
   disabled = false,
   ...props
-}) => {
+}: InputGroupProps): ReactNode => {
   // Clone each child element with inherited variant and disabled props
-  const modifiedChildren = React.Children.map(children, (child) =>
-    cloneElementWithInheritedProps(child, variant, disabled)
-  )
+  const modifiedChildren = Children.map(children, (child) => cloneElementWithInheritedProps(child, variant, disabled))
 
   const inputGroupClassName = getClassNames("juno-input-group", variant, disabled)
 

@@ -3,12 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { forwardRef } from "react"
+import React, { forwardRef, HTMLAttributes, MouseEvent, ReactNode } from "react"
 import "./data-grid-row.css"
 
+/**
+ * `DataGridRow` represents a row in a `DataGrid`, supporting interactions such as selection and click handling.
+ * It provides styles for active states and custom behavior when interacted with.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-datagrid-datagridrow--docs
+ * @see {@link DataGridRowProps}
+ */
 export const DataGridRow = forwardRef<HTMLDivElement, DataGridRowProps>(
   ({ isSelected = false, onClick, className = "", children, ...props }, ref) => {
-    const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    const handleClick = (event: MouseEvent<HTMLDivElement>) => {
       if (onClick) onClick(event)
     }
 
@@ -29,7 +35,7 @@ export const DataGridRow = forwardRef<HTMLDivElement, DataGridRowProps>(
 
 DataGridRow.displayName = "DataGridRow"
 
-export interface DataGridRowProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface DataGridRowProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Indicates if the DataGridRow should be in an active state,
    * applying styles for persistent selection or activation.
@@ -39,7 +45,7 @@ export interface DataGridRowProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Row click handler
    */
-  onClick?: (_event: React.MouseEvent<HTMLDivElement>) => void
+  onClick?: (_event: MouseEvent<HTMLDivElement>) => void
 
   /**
    * Additional custom CSS class names that can be applied to the DataGridRow.
@@ -49,5 +55,5 @@ export interface DataGridRowProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Elements or components that will be rendered within the DataGridRow.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 }

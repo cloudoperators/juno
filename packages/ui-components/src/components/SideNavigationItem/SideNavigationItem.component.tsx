@@ -3,7 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useContext, createContext, ReactElement, ReactNode } from "react"
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  createContext,
+  ReactElement,
+  ReactNode,
+  HTMLAttributes,
+  MouseEventHandler,
+  Children,
+  MouseEvent,
+} from "react"
 import { Icon, KnownIcons } from "../Icon/Icon.component"
 import "./sidenavigationitem.css"
 
@@ -30,7 +41,7 @@ const disabledStyles = `
   jn:cursor-not-allowed
 `
 
-export interface SideNavigationItemProps extends React.HTMLAttributes<HTMLElement> {
+export interface SideNavigationItemProps extends HTMLAttributes<HTMLElement> {
   /** Provides an accessibility label for the navigation item. */
   ariaLabel?: string
 
@@ -51,7 +62,7 @@ export interface SideNavigationItemProps extends React.HTMLAttributes<HTMLElemen
   label?: ReactNode
 
   /** Function handler triggered upon item click. */
-  onClick?: React.MouseEventHandler<HTMLElement>
+  onClick?: MouseEventHandler<HTMLElement>
 
   /** Controls whether the item is expanded by default. */
   open?: boolean
@@ -73,9 +84,12 @@ export interface SideNavigationItemProps extends React.HTMLAttributes<HTMLElemen
  * - State Indicators: Supports active and disabled states, visually indicating the current focus or usability.
  * - Expandable Sections: When nested, automatically renders expand/collapse controls for child navigation items.
  * - Customization: Offers extensive styling versatility through CSS classes and optional icon rendering for visual enhancement.
+ *
+ * @see https://cloudoperators.github.io/juno/?path=/docs/navigation-sidenavigation-sidenavigationitem--docs
+ * @see {@link SideNavigationItemProps}
  */
 
-export const SideNavigationItem: React.FC<SideNavigationItemProps> = ({
+export const SideNavigationItem = ({
   ariaLabel = "",
   children,
   disabled = false,
@@ -86,7 +100,7 @@ export const SideNavigationItem: React.FC<SideNavigationItemProps> = ({
   open = false,
   selected = false,
   ...props
-}) => {
+}: SideNavigationItemProps): ReactNode => {
   const [isOpen, setIsOpen] = useState(open)
   const level = useContext(LevelContext)
 
@@ -95,13 +109,13 @@ export const SideNavigationItem: React.FC<SideNavigationItemProps> = ({
     setIsOpen(open)
   }, [open])
 
-  const handleToggleOpen = (e: React.MouseEvent<HTMLElement>) => {
+  const handleToggleOpen = (e: MouseEvent<HTMLElement>) => {
     if (disabled) return
     e.stopPropagation() //Prevent event bubbling when expanding/collapsing
     setIsOpen(!isOpen)
   }
 
-  const handleMainClick = (e: React.MouseEvent<HTMLElement>) => {
+  const handleMainClick = (e: MouseEvent<HTMLElement>) => {
     if (disabled) return
     if (!isOpen) setIsOpen(!isOpen)
     if (href) {
@@ -112,7 +126,7 @@ export const SideNavigationItem: React.FC<SideNavigationItemProps> = ({
   }
 
   const renderExpandIcon = () =>
-    typeof children !== "string" && React.Children.count(children) > 0 ? (
+    typeof children !== "string" && Children.count(children) > 0 ? (
       <span onClick={handleToggleOpen} role="button" tabIndex={0}>
         <Icon
           size="24"

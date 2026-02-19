@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { createContext, useEffect, useId, useMemo, useState, ReactNode } from "react"
+import React, { createContext, useEffect, useId, useMemo, useState, ReactNode, ButtonHTMLAttributes } from "react"
 import { Listbox, ListboxOptions, Label as ListboxLabel, ListboxButton } from "@headlessui/react"
 import { Label } from "../Label"
 import { Icon } from "../Icon"
@@ -86,7 +86,7 @@ export type SelectContextProps = {
 export const SelectContext = createContext<SelectContextProps | undefined>(undefined)
 
 export interface SelectProps
-  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "value" | "defaultValue" | "onChange"> {
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "value" | "defaultValue" | "onChange"> {
   /** Pass an aria-label to the Select toggle button */
   ariaLabel?: string
   /** The children to render as options. Use the SelectOption component, and SelectDivider if needed. */
@@ -146,11 +146,13 @@ export interface SelectProps
   wrapperClassName?: string
 }
 
-/** 
-  A Select component that can be configured to allow selecting a single item or multiple items.
-  Pass a `defaultValue` to render as an uncontrolled component that tracks its open state etc internally.
-*/
-export const Select: React.FC<SelectProps> = ({
+/**
+ * A Select component that can be configured to allow selecting a single item or multiple items.
+ * Pass a `defaultValue` to render as an uncontrolled component that tracks its open state etc internally.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-select-select--docs
+ * @see {@link SelectProps}
+ */
+export const Select = ({
   ariaLabel = "",
   children,
   className = "",
@@ -178,7 +180,7 @@ export const Select: React.FC<SelectProps> = ({
   width = "full",
   wrapperClassName = "",
   ...props
-}) => {
+}: SelectProps): ReactNode => {
   const isValueNotEmpty = (value: ReactNode): boolean => {
     return !(typeof value === "string" && value.trim().length === 0)
   }

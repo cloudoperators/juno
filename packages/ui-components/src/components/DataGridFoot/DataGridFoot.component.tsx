@@ -3,9 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 
-export const DataGridFoot: React.FC<DataGridFootProps> = ({ className = "", children, ...props }) => {
+/**
+ * `DataGridFoot` is used to display a footer section for a `DataGrid`, supporting summary data or controls
+ * related to the grid content. It is styled consistently with other grid sections.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/wip-datagrid-datagridfoot--docs
+ * @see {@link DataGridFootProps}
+ */
+export const DataGridFoot = ({ className = "", children, ...props }: DataGridFootProps): ReactNode => {
   return (
     <tfoot className={`juno-datagrid-foot ${className}`} {...props}>
       {children}
@@ -13,9 +19,15 @@ export const DataGridFoot: React.FC<DataGridFootProps> = ({ className = "", chil
   )
 }
 
-export interface DataGridFootProps extends React.HTMLAttributes<HTMLTableSectionElement> {
-  /** Children to render in the DataGridFoot */
-  children?: React.ReactNode
-  /** Add a classname */
+export interface DataGridFootProps extends HTMLAttributes<HTMLTableSectionElement> {
+  /**
+   * Elements or components to render within the DataGridFoot.
+   */
+  children?: ReactNode
+
+  /**
+   * Custom CSS class names for styling.
+   * @default ""
+   */
   className?: string
 }
