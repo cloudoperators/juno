@@ -23,7 +23,7 @@ export const Overview = ({ pluginPreset }: { pluginPreset: PluginPreset }) => (
     <Section className="pt-0">
       <PluginPresetStats pluginPreset={pluginPreset} />
     </Section>
-    <Section className="flex">
+    <Section className="flex gap-4">
       <BasicInformation pluginPreset={pluginPreset} />
       <ClusterSelector pluginPreset={pluginPreset} />
     </Section>

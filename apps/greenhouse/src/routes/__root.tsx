@@ -12,10 +12,15 @@ import ShellLayout from "../components/layout/ShellLayout"
 import useApi from "../hooks/useApi"
 import { usePlugin } from "../components/StoreProvider"
 
+export type User = {
+  organization: string
+  supportGroups: string[]
+}
+
 export type RouteContext = {
   appProps: AppProps
   apiClient: ReturnType<typeof createClient> | null
-  organization: string
+  user: User
 }
 
 export const Route = createRootRouteWithContext<RouteContext>()({

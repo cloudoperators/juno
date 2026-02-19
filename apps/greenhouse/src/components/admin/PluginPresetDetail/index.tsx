@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react"
+import React from "react"
 import { useParams, useRouteContext } from "@tanstack/react-router"
 import { useQuery } from "@tanstack/react-query"
 import {
@@ -24,46 +24,42 @@ import { isReady } from "../utils"
 import { ErrorMessage } from "../common/ErrorBoundary/ErrorMessage"
 import YamlViewer from "../common/YamlViewer"
 
-const PluginPresetDetailContent = ({ pluginPreset }: { pluginPreset: PluginPreset }) => {
-  const [selectedTabIndex, setSelectedTabIndex] = useState(0)
-
-  return (
-    <Tabs selectedIndex={selectedTabIndex} onSelect={setSelectedTabIndex}>
-      <TabList>
-        <Tab label="Overview" />
-        <Tab label="Configuration" />
-        <Tab label="YAML" />
-      </TabList>
-      <TabPanel>
-        <Container px={false} py>
-          <Overview pluginPreset={pluginPreset} />
-        </Container>
-      </TabPanel>
-      <TabPanel>
-        <Container px={false} py>
-          <ConfigurationOverrides pluginPreset={pluginPreset} />
-        </Container>
-      </TabPanel>
-      <TabPanel>
-        <Container px={false} py>
-          <YamlViewer value={pluginPreset} />
-        </Container>
-      </TabPanel>
-    </Tabs>
-  )
-}
+const PluginPresetDetailContent = ({ pluginPreset }: { pluginPreset: PluginPreset }) => (
+  <Tabs>
+    <TabList>
+      <Tab label="Overview" />
+      <Tab label="Configuration" />
+      <Tab label="YAML" />
+    </TabList>
+    <TabPanel>
+      <Container px={false} py>
+        <Overview pluginPreset={pluginPreset} />
+      </Container>
+    </TabPanel>
+    <TabPanel>
+      <Container px={false} py>
+        <ConfigurationOverrides pluginPreset={pluginPreset} />
+      </Container>
+    </TabPanel>
+    <TabPanel>
+      <Container px={false} py>
+        <YamlViewer value={pluginPreset} />
+      </Container>
+    </TabPanel>
+  </Tabs>
+)
 
 export const PluginPresetDetail = () => {
   const { pluginPresetName } = useParams({ from: "/admin/plugin-presets/$pluginPresetName" })
-  const { apiClient, organization } = useRouteContext({ from: "/admin/plugin-presets/$pluginPresetName" })
+  const { apiClient, user } = useRouteContext({ from: "/admin/plugin-presets/$pluginPresetName" })
 
   const {
     data: pluginPreset,
     isLoading,
     error,
   } = useQuery({
-    queryKey: [FETCH_PLUGIN_PRESET_CACHE_KEY, organization, pluginPresetName],
-    queryFn: () => fetchPluginPreset({ apiClient, namespace: organization, pluginPresetName }),
+    queryKey: [FETCH_PLUGIN_PRESET_CACHE_KEY, user.organization, pluginPresetName],
+    queryFn: () => fetchPluginPreset({ apiClient, namespace: user.organization, pluginPresetName }),
   })
 
   return (

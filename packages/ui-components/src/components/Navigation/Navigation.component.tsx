@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { createContext, useEffect, useState, ReactNode } from "react"
+import React, { createContext, useEffect, useState, ReactNode, HTMLAttributes } from "react"
 
 // eslint-disable-next-line no-unused-vars
 type ItemChangeHandler = (value: ReactNode) => void
@@ -33,8 +33,14 @@ interface NavigationMappingItem {
   displayName: ReactNode
 }
 
-/** A generic Navigation component providing all the necessary functionality for a navigation. For internal use only. Not to be used directly, but to be wrapped by more role-specific / semantic navigation components such as `TabNavigation`, `TopNavigation`, `SideNavigation`. */
-export const Navigation: React.FC<NavigationProps> = ({
+/**
+ * A generic `Navigation` component that offers context-managed item selection,
+ * designed for internal use with semantic wrappers like `SideNavigation`,
+ * `TabNavigation`, and `TopNavigation`.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/internal-navigation--docs
+ * @see {@link NavigationProps}
+ */
+export const Navigation = ({
   activeItem = "",
   ariaLabel = "",
   children,
@@ -42,7 +48,7 @@ export const Navigation: React.FC<NavigationProps> = ({
   disabled = false,
   onActiveItemChange,
   ...props
-}) => {
+}: NavigationProps): ReactNode => {
   const [activeItm, setActiveItm] = useState<ReactNode>("")
   const [items, setItems] = useState(new Map<ReactNode, NavigationMappingItem>())
 
@@ -127,17 +133,36 @@ export const Navigation: React.FC<NavigationProps> = ({
   )
 }
 
-export interface NavigationProps extends React.HTMLAttributes<HTMLUListElement> {
-  /** The currently active item. Pass the `value`, `label` prop, or the child string of the respective NavigationItem. */
+export interface NavigationProps extends HTMLAttributes<HTMLUListElement> {
+  /**
+   * The currently active item. Pass the `value`, `label` prop, or the child string of the respective NavigationItem.
+   */
   activeItem?: ReactNode
-  /** The aria label of the navigation */
+
+  /**
+   * The aria label of the navigation for accessibility purposes.
+   */
   ariaLabel?: string
-  /** The child navigation items of the navigation  */
+
+  /**
+   * The child navigation items to be rendered within the navigation component.
+   */
   children?: ReactNode
-  /** Pass a custom className to the navigation parent element */
+
+  /**
+   * Pass a custom className to the navigation parent element.
+   * @default ""
+   */
   className?: string
-  /** Whether the navigation is disabled. Will disable all children. */
+
+  /**
+   * Whether the navigation is disabled, affecting interactivity for all children.
+   * @default false
+   */
   disabled?: boolean
-  /** Handler to execute when the active item changes. */
+
+  /**
+   * Handler to execute when the active item changes.
+   */
   onActiveItemChange?: ItemChangeHandler
 }

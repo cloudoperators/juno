@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactNode } from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 
 const formHintBaseStyles = `
   jn:text-xs
@@ -12,7 +12,7 @@ const formHintBaseStyles = `
 
 type FormHintVariant = "help" | "error" | "success"
 
-export interface FormHintProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface FormHintProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * The content to render as a hint for a form element.
    * If children are provided, they will take precedence over text.
@@ -22,16 +22,19 @@ export interface FormHintProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * The text to render as a hint for a form element.
    * Overridden by children, if provided.
+   * @default ""
    */
   text?: ReactNode
 
   /**
    * The variant of the hint ("help", "error", or "success") determining its appearance.
+   * @default "help"
    */
   variant?: FormHintVariant
 
   /**
    * Additional CSS classes to apply to the form hint for custom styling.
+   * @default ""
    */
   className?: string
 }
@@ -48,15 +51,18 @@ const getVariantStyles = (variant: FormHintVariant): string => {
 }
 
 /**
- * A FormHint component used to provide contextual help, error, or success messages associated with form elements.
+ * The `FormHint` component provides contextual messages associated with form elements,
+ * such as help, error, or success messages. It adjusts appearance based on the variant specified.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-formhint--docs
+ * @see {@link FormHintProps}
  */
-export const FormHint: React.FC<FormHintProps> = ({
+export const FormHint = ({
   children,
   text = "",
   variant = "help",
   className = "",
   ...props
-}) => {
+}: FormHintProps): ReactNode => {
   return (
     <div
       className={`

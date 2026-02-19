@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { forwardRef } from "react"
+import React, { forwardRef, HTMLAttributes, ReactNode } from "react"
 import { DataGridCell } from "../DataGridCell/index"
 
 const headCellBaseStyles = `
@@ -13,6 +13,12 @@ const headCellBaseStyles = `
 	jn:border-theme-background-lvl-0
 `
 
+/**
+ * `DataGridHeadCell` is designed for use within a `DataGrid` header, defining column attributes and appearance.
+ * It accommodates configurations like sorting (future implementation) and display styles.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-datagrid-datagridheadcell--docs
+ * @see {@link DataGridHeadCellProps}
+ */
 export const DataGridHeadCell = forwardRef<HTMLDivElement, DataGridHeadCellProps>(
   (
     {
@@ -49,7 +55,7 @@ export const DataGridHeadCell = forwardRef<HTMLDivElement, DataGridHeadCellProps
 
 DataGridHeadCell.displayName = "DataGridHeadCell"
 
-export interface DataGridHeadCellProps extends React.HTMLAttributes<HTMLElement> {
+export interface DataGridHeadCellProps extends HTMLAttributes<HTMLElement> {
   /** Whether the DataGrid should be sortable by this column */
   // sortable: PropTypes.bool,
   /** Add a col span to the cell. This works like a colspan in a normal html table, so you have to take care not to place too many cells in a row if some of them have a colspan.  */
@@ -57,7 +63,7 @@ export interface DataGridHeadCellProps extends React.HTMLAttributes<HTMLElement>
   /** Set nowrap to true if the cell content shouldn't wrap (this is achieved by adding white-space: nowrap;) */
   nowrap?: boolean
   /** Children to render in the DataGridHeadCell */
-  children?: React.ReactNode
+  children?: ReactNode
   /** Add a classname */
   className?: string
 }

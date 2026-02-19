@@ -3,7 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo, useContext, useId, ReactNode } from "react"
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useContext,
+  useId,
+  ReactNode,
+  ChangeEvent,
+  MouseEvent,
+  HTMLAttributes,
+  ChangeEventHandler,
+  MouseEventHandler,
+} from "react"
 import { CheckboxGroupContext } from "../CheckboxGroup/CheckboxGroup.component"
 import { Label } from "../Label/index"
 import { Icon } from "../Icon/index"
@@ -94,7 +106,16 @@ const hintStyles = `
   jn:ml-6
 `
 
-export const Checkbox: React.FC<CheckboxProps> = ({
+/**
+ * The `Checkbox` component is a versatile form element that allows users to
+ * select one or multiple options. It can display states such as checked,
+ * indeterminate, invalid, and valid, and integrates with a checkbox group context
+ * for collective state management. This component supports labels, icons,
+ * error/success indicators, and custom event handlers.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-checkbox-checkbox--docs
+ * @see {@link CheckboxProps}
+ */
+export const Checkbox = ({
   checked = false,
   className = "",
   disabled = false,
@@ -112,8 +133,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   valid = false,
   value = "",
   ...props
-}) => {
-  // Utility
+}: CheckboxProps): ReactNode => {
   const isNotEmptyString = (str: ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
@@ -130,7 +150,6 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     updateSelectedValue: updateGroupSelectedValue,
   } = checkboxGroupContext || {}
 
-  // Lazily initialise the Checkbox:
   const initialChecked = () => {
     if (checkboxGroupContext) {
       if (groupSelectedOptions && groupSelectedOptions.includes(value)) {
@@ -183,7 +202,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     setIsValid(validated)
   }, [validated])
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setIsChecked(!isChecked)
     // If we are in a context, update :
     if (groupHandleCheckboxChange && typeof groupHandleCheckboxChange === "function") {
@@ -193,7 +212,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     onChange && onChange(event)
   }
 
-  const handleClick = (event: React.MouseEvent<HTMLInputElement>) => {
+  const handleClick = (event: MouseEvent<HTMLInputElement>) => {
     onClick && onClick(event)
   }
 
@@ -318,37 +337,91 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   )
 }
 
-export interface CheckboxProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Whether the Checkbox is checked */
+export interface CheckboxProps extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * Specifies if the Checkbox is checked.
+   * @default false
+   */
   checked?: boolean
-  /** Pass a custom className */
+
+  /**
+   * Custom CSS class for styling the Checkbox.
+   * @default ""
+   */
   className?: string
-  /** Whether the Checkbox is disabled */
+
+  /**
+   * Specifies if the Checkbox is disabled.
+   * @default false
+   */
   disabled?: boolean
-  /** A text to render when the Checkbox has an error or could not be validated */
+
+  /**
+   * Text to display when the Checkbox has an error.
+   */
   errortext?: ReactNode
-  /** A helptext to render to explain meaning and significance of the Checkbox */
+
+  /**
+   * Help text explaining the significance of the Checkbox.
+   */
   helptext?: ReactNode
-  /** The id of the Radio. An id will be automatically generated if not passed. */
+
+  /**
+   * The ID of the Checkbox. Auto-generated if not provided.
+   */
   id?: string
-  /** Whether the Checkbox is indeterminate. Applicable ONLY if the Checkbox represents multiple child Checkboxes with non--identical checked state. */
+
+  /**
+   * Specifies if the Checkbox is in an indeterminate state; used for mixed states.
+   * @default false
+   */
   indeterminate?: boolean
-  /** Whether the Checkbox was validated unsuccessfully */
+
+  /**
+   * Indicates whether the Checkbox validation failed.
+   * @default false
+   */
   invalid?: boolean
-  /** The label of the Checkbox */
+
+  /**
+   * The label text for the Checkbox.
+   */
   label?: string
-  /** The name of the Checkbox */
+
+  /**
+   * The name attribute of the Checkbox.
+   */
   name?: string
-  /** handler to be executed when the Checkbox changes. */
-  onChange?: React.ChangeEventHandler<HTMLInputElement>
-  /** handler to be executed when the Checkbox is clicked. */
-  onClick?: React.MouseEventHandler<HTMLInputElement>
-  /** Whether the Checkbox is required */
+
+  /**
+   * Event handler for change events on the Checkbox.
+   */
+  onChange?: ChangeEventHandler<HTMLInputElement>
+
+  /**
+   * Event handler for click events on the Checkbox.
+   */
+  onClick?: MouseEventHandler<HTMLInputElement>
+
+  /**
+   * Specifies if the Checkbox is required for form validation.
+   * @default false
+   */
   required?: boolean
-  /** A text to render when the Checkbox was successfully validated */
+
+  /**
+   * Text to display when the Checkbox passes validation.
+   */
   successtext?: ReactNode
-  /** Whether the Checkbox was successfully validated */
+
+  /**
+   * Indicates whether the Checkbox validation succeeded.
+   * @default false
+   */
   valid?: boolean
-  /** The value of the Checkbox */
+
+  /**
+   * The value attribute of the Checkbox.
+   */
   value?: string
 }

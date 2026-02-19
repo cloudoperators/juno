@@ -3,23 +3,31 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 import "./formatted-text.css"
 
-export interface FormattedTextProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Add custom class name */
+export interface FormattedTextProps extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * Custom CSS class name for styling the formatted text container.
+   * @default ""
+   */
   className?: string
-  children?: React.ReactNode
+
+  /** Rendering content within the formatted text container. */
+  children?: ReactNode
 }
 
 /**
- * A very basic layout container with padding.
+ * The `FormattedText` component provides a container for stylized text.
+ * It supports custom content and additional styling through class names.
+ * @see https://cloudoperators.github.io/juno/?path=/story/components-formattedtext--basic
+ * @see {@link FormattedTextProps}
  */
-export const FormattedText: React.FC<FormattedTextProps> = ({
+export const FormattedText = ({
   className = "", // Default value for className
   children, // Default value for children
   ...props
-}) => {
+}: FormattedTextProps): ReactNode => {
   return (
     <div className={`formatted-text-container ${className} `} {...props}>
       {children}

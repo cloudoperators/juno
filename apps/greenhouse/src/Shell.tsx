@@ -25,7 +25,10 @@ const router = createRouter({
   context: {
     appProps: undefined!,
     apiClient: null,
-    organization: undefined!,
+    user: {
+      organization: undefined!,
+      supportGroups: [],
+    },
   },
 })
 
@@ -58,10 +61,12 @@ const getBasePath = (auth: any) => {
   return orgString ? orgString.split(":")[1] : undefined
 }
 
-const getOrganization = (auth: unknown) => {
+const getUser = (auth: unknown) => ({
   // @ts-expect-error - auth?.data type needs to be properly defined
-  return auth?.data?.raw?.groups?.find((g: any) => g.startsWith("organization:"))?.split(":")[1]
-}
+  organization: auth?.data?.raw?.groups?.find((g: any) => g.startsWith("organization:"))?.split(":")[1] ?? "",
+  // @ts-expect-error - auth?.data type needs to be properly defined
+  supportGroups: auth?.data?.parsed?.supportGroups ?? [],
+})
 
 function App(props: AppProps) {
   const auth = useAuth()
@@ -71,7 +76,7 @@ function App(props: AppProps) {
   // Create k8s client if apiEndpoint and token are available
   // @ts-expect-error - apiEndpoint type needs to be properly typed as string
   const apiClient = apiEndpoint && token ? createClient({ apiEndpoint, token }) : null
-  const organization = getOrganization(auth)
+  const user = getUser(auth)
 
   /*
    * Dynamically change the type of history on the router
@@ -81,7 +86,7 @@ function App(props: AppProps) {
    */
   router.update({
     basepath: getBasePath(auth),
-    context: { appProps: props, apiClient, organization },
+    context: { appProps: props, apiClient, user },
     stringifySearch: encodeV2,
     parseSearch: decodeV2,
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),

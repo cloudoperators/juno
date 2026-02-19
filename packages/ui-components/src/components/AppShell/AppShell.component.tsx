@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactNode } from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 import { AppBody } from "../AppBody/index"
 import { PageHeader } from "../PageHeader/index"
 import { MainContainer } from "../MainContainer/index"
@@ -13,9 +13,13 @@ import { PageFooter } from "../PageFooter/index"
 import { HeaderContainer } from "../HeaderContainer/index"
 
 /**
- * Body of the app. Treat this like the body tag of an html page.
+ * The `AppShell` component provides the foundational layout structure for the application.
+ * It acts similarly to an HTML `body` element, organizing pages with headers, footers,
+ * navigation, and content areas. For simpler manual layout setup, consider using `AppBody`.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-appshell--docs
+ * @see {@link AppShellProps}
  */
-export const AppShell: React.FC<AppShellProps> = ({
+export const AppShell = ({
   children,
   className = "",
   embedded = false,
@@ -25,10 +29,10 @@ export const AppShell: React.FC<AppShellProps> = ({
   sideNavigation,
   topNavigation,
   ...props
-}) => {
-  // Determine whether to pass set fullWidth to true in embedded mode or not:
-  // In embedded mode (i.e. embedded == true), fullWidthContent should default to true, unless explicitly passed as false.
-  // In non-embedded mode, fullWidthContent should default to false, unless explicitly set to true.
+}: AppShellProps): ReactNode => {
+  // Determine whether to set fullWidth to true in embedded mode or not:
+  // In embedded mode (i.e., embedded === true), fullWidthContent defaults to true unless explicitly set to false.
+  // In non-embedded mode, fullWidthContent defaults to false unless explicitly set to true.
   const fullWidthOrDefault = embedded ? fullWidthContent !== false : fullWidthContent === true
 
   return (
@@ -38,7 +42,7 @@ export const AppShell: React.FC<AppShellProps> = ({
           {topNavigation && <HeaderContainer fullWidth={fullWidthOrDefault}>{topNavigation}</HeaderContainer>}
           <MainContainer>
             <MainContainerInner fullWidth={fullWidthOrDefault} className={`${topNavigation ? "jn:mt-[3.875rem]" : ""}`}>
-              {sideNavigation && sideNavigation}
+              {sideNavigation}
               <ContentContainer>{children}</ContentContainer>
             </MainContainerInner>
           </MainContainer>
@@ -64,22 +68,49 @@ export const AppShell: React.FC<AppShellProps> = ({
   )
 }
 
-export interface AppShellProps extends React.HTMLAttributes<HTMLElement> {
-  /** The main content of the app. */
+export interface AppShellProps extends HTMLAttributes<HTMLElement> {
+  /**
+   * The main content of the app.
+   */
   children?: ReactNode
-  /** Pass either the `<PageHeader>` component or if you don't need to add any content to the page header pass a string to be used as the app name in the standard page header. */
-  pageHeader?: ReactNode
-  /** Optional. If specified pass a `<PageFooter>` component. If undefined will use default PageFooter */
-  pageFooter?: ReactNode
-  /** Optional. If specified expects a `<TopNavigation>` component. If undefined no top navigation is rendered. */
-  topNavigation?: ReactNode
-  /** Optional. If specified expects a `<SideNavigation>` component. If undefined no side navigation is rendered. */
-  sideNavigation?: ReactNode
-  /** Optional: Defaults to false. Set embedded to true if app is to be rendered embedded in another app/page.
-   * In this case only the content area and children are rendered, a TopNavigation if passed, but no header/footer or remaining layout components */
-  embedded?: boolean
-  /** Whether the main page / view content can spread over the full available width of the viewport or not. Default is `false` (resulting in a width-constrained, centred content column on very wide screens) UNLESS the AppShell is rendered with embedded as true, then the main content will be full-width by default. In embedded mode, `fullWidthContent` can still be passed as `false` explicitly. */
-  fullWidthContent?: boolean
-  /** Add a custom class name */
+
+  /**
+   * Add a custom class name to style the component.
+   * @default ""
+   */
   className?: string
+
+  /**
+   * Determines if the app should be rendered in embedded mode, reducing layout components to core content.
+   * @default false
+   */
+  embedded?: boolean
+
+  /**
+   * Pass either a `<PageHeader>` component or a string to be used as the application name in the standard page header.
+   * @default `<PageHeader />`
+   */
+  pageHeader?: ReactNode
+
+  /**
+   * An optional `<PageFooter>` component if specified. Uses the default `<PageFooter />` if undefined.
+   * @default `<PageFooter />`
+   */
+  pageFooter?: ReactNode
+
+  /**
+   * Optional `<TopNavigation>` component. Only rendered if provided.
+   */
+  topNavigation?: ReactNode
+
+  /**
+   * Optional `<SideNavigation>` component. Only rendered if provided.
+   */
+  sideNavigation?: ReactNode
+
+  /**
+   * Indicates whether the main content should span the full viewport width.
+   * Defaults to `false` unless embedded, allowing content to occupy full width.
+   */
+  fullWidthContent?: boolean
 }

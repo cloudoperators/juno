@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { createContext, useCallback, useEffect, useMemo, useRef, ReactNode } from "react"
+import React, { createContext, useCallback, useEffect, useMemo, useRef, ReactNode, useContext } from "react"
 import { ShadowRoot, ShadowRootMode } from "../ShadowRoot/ShadowRoot.component"
 // import tailwindTheme from "../../../tailwind.config"
 import Fonts from "./Fonts"
@@ -47,6 +47,9 @@ export const DEFAULT_THEME_NAME = "theme-dark"
  *   styles and fonts are added inline
  * ShadowRoot:
  *   <ShadowRoot><StyleProvider>Content</StyleProvider></ShadowRoot>
+ *
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-styleprovider--docs
+ * @see {@link StyleProviderProps}
  */
 export const StyleProvider = ({
   stylesWrapper = "inline",
@@ -160,4 +163,4 @@ export interface StyleProviderProps {
 
 // Export a helper hook to use styles in nested components
 // Returns {styles, theme, currentTheme, setThemeClass, addCssClass, removeCssClass}
-StyleProvider.useStyles = () => React.useContext(StylesContext)!
+StyleProvider.useStyles = () => useContext(StylesContext)!

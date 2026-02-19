@@ -3,14 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 import { TabPanel as ReactTabPanel } from "react-tabs"
 
 /**
-The TabPanel holds content related to a Tab in a TabList in a wrapping Tab component. Not to be used standalone / outside a Tabs wrapper.
-*/
+ * The TabPanel holds content related to a Tab in a TabList in a wrapping Tab component. Not to be used standalone / outside a Tabs wrapper.
+ *  * @see https://cloudoperators.github.io/juno/?path=/docs/layout-tabs-tabpanel--docs
+ * @see {@link TabPanelProps}
+ */
 
-export const TabPanel = ({ children, className = "", ...props }: TabPanelProps) => {
+export const TabPanel = ({ children, className = "", ...props }: TabPanelProps): ReactNode => {
   return (
     <ReactTabPanel className={`juno-tabpanel ${className}`} selectedClassName="juno-tabpanel-selected" {...props}>
       {children}
@@ -20,6 +22,6 @@ export const TabPanel = ({ children, className = "", ...props }: TabPanelProps) 
 
 TabPanel.tabsRole = "TabPanel"
 
-export interface TabPanelProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface TabPanelProps extends HTMLAttributes<HTMLDivElement> {
   /** The content to show/render when the associated Tab is selected */
 }

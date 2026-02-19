@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo, useId, createContext, ReactNode } from "react"
+import React, { useState, useEffect, useMemo, useId, createContext, ReactNode, HTMLAttributes } from "react"
 import { Label } from "../Label/index"
 import { Icon } from "../Icon/index"
 import { FormHint } from "../FormHint/index"
@@ -73,9 +73,11 @@ export interface RadioGroupContextProps {
 export const RadioGroupContext = createContext<RadioGroupContextProps>({})
 
 /**
-A component to wrap and group individual Radio components: All contained child Radio elements will share the same `name`-attribute passed as a prop to the group, and thus make the Radios work with each other as expected.
-*/
-export const RadioGroup: React.FC<RadioGroupProps> = ({
+ * A component to wrap and group individual Radio components: All contained child Radio elements will share the same `name`-attribute passed as a prop to the group, and thus make the Radios work with each other as expected.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-radio-radiogroup--docs
+ * @see {@link RadioGroupProps}
+ */
+export const RadioGroup = ({
   children,
   className = "",
   disabled = false,
@@ -91,7 +93,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
   successtext = "",
   valid = false,
   ...props
-}) => {
+}: RadioGroupProps): ReactNode => {
   // Utility
   const isNotEmptyString = (str: ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
@@ -192,7 +194,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
   )
 }
 
-export interface RadioGroupProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
+export interface RadioGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
   /** The children of the RadioGroup. Typically, these will be `Radio` components. */
   children?: ReactNode
   /** Pass a custom className */
