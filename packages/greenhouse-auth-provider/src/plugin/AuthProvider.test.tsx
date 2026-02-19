@@ -16,6 +16,7 @@ const TestComponentWithDetails = () => {
         <div data-testid="status">{state.status}</div>
         <div data-testid="token">{state.token}</div>
         <div data-testid="userId">{state.userId}</div>
+        <div data-testid="username">{state.userName}</div>
       </div>
     )
   }
@@ -39,7 +40,7 @@ describe("AuthProvider", () => {
 
   it("renders authenticated state", () => {
     const mockAuth: EmbeddedAuth = {
-      getSnapshot: () => ({ status: "authenticated", token: "jwt", userId: "user1" }),
+      getSnapshot: () => ({ status: "authenticated", token: "jwt", userId: "user1", userName: "johndoe" }),
     }
 
     render(
@@ -51,9 +52,9 @@ describe("AuthProvider", () => {
     expect(screen.getByText("authenticated")).toBeInTheDocument()
   })
 
-  it("renders authenticated state with token and userId", () => {
+  it("renders authenticated state with token, userId and userName", () => {
     const mockAuth: EmbeddedAuth = {
-      getSnapshot: () => ({ status: "authenticated", token: "test-token", userId: "test-user" }),
+      getSnapshot: () => ({ status: "authenticated", token: "test-token", userId: "test-user", userName: "testuser" }),
     }
 
     render(
@@ -65,6 +66,7 @@ describe("AuthProvider", () => {
     expect(screen.getByTestId("status")).toHaveTextContent("authenticated")
     expect(screen.getByTestId("token")).toHaveTextContent("test-token")
     expect(screen.getByTestId("userId")).toHaveTextContent("test-user")
+    expect(screen.getByTestId("username")).toHaveTextContent("testuser")
   })
 
   it("renders children in standalone mode", () => {
@@ -119,7 +121,7 @@ describe("AuthProvider", () => {
 
   it("provides different auth states to multiple children", () => {
     const mockAuth: EmbeddedAuth = {
-      getSnapshot: () => ({ status: "authenticated", token: "shared-token", userId: "user1" }),
+      getSnapshot: () => ({ status: "authenticated", token: "shared-token", userId: "user1", userName: "shareduser" }),
     }
 
     const Child1 = () => {
@@ -130,7 +132,7 @@ describe("AuthProvider", () => {
     const Child2 = () => {
       const auth = useAuth()
       if (auth.status === "authenticated") {
-        return <div data-testid="child2">{auth.userId}</div>
+        return <div data-testid="child2">{auth.userName}</div>
       }
       return <div data-testid="child2">anonymous</div>
     }
@@ -143,12 +145,12 @@ describe("AuthProvider", () => {
     )
 
     expect(screen.getByTestId("child1")).toHaveTextContent("authenticated")
-    expect(screen.getByTestId("child2")).toHaveTextContent("user1")
+    expect(screen.getByTestId("child2")).toHaveTextContent("shareduser")
   })
 
   it("handles nested components accessing auth", () => {
     const mockAuth: EmbeddedAuth = {
-      getSnapshot: () => ({ status: "authenticated", token: "nested-token", userId: "nested-user" }),
+      getSnapshot: () => ({ status: "authenticated", token: "nested-token", userId: "nested-user", userName: "nesteduser" }),
     }
 
     const DeepNestedComponent = () => {

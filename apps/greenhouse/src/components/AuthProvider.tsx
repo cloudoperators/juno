@@ -164,7 +164,8 @@ const initializeRealOidc = (
       pluginAuth.setAuthState({
         status: "authenticated",
         token: data?.auth?.JWT,
-        userId: data?.auth?.parsed?.fullName,
+        userId: data?.auth?.parsed?.userId,
+        userName: data?.auth?.parsed?.fullName,
       })
       // set the organization name in the URL
       if (!orgName) setOrganizationToUrl(data?.auth?.raw?.groups, enableHashedRouting)

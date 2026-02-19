@@ -40,6 +40,7 @@ authStore.setAuthState({
   status: "authenticated",
   token: "user-jwt-token",
   userId: "user-123",
+  userName: "johndoe",
 })
 
 // Update auth state when user logs out
@@ -79,7 +80,7 @@ function App() {
 
   return (
     <div>
-      Welcome, user {auth.userId}
+      Welcome, {auth.userName} (ID: {auth.userId})
       <button onClick={() => fetchData(auth.token)}>Fetch Data</button>
     </div>
   )
@@ -139,7 +140,9 @@ Hook to access authentication state in plugin components.
 **Returns:** `AuthState`
 
 ```ts
-type AuthState = { status: "anonymous" } | { status: "authenticated"; token: string; userId: string }
+type AuthState =
+  | { status: "anonymous" }
+  | { status: "authenticated"; token: string; userId: string; userName: string }
 ```
 
 **Throws:** Error if used outside `AuthProvider`
