@@ -1,5 +1,12 @@
 # @cloudoperators/juno-ui-components
 
+## 6.1.1
+
+### Patch Changes
+
+- aff8f05: Improve component descriptions and prop documentation in the editor for better developer experience
+- 6b26feb: fix(ui): Badge - inline-flex is now always applied by default. Previously this was only done in case of using Badge with icon. This change leads to consistent rendering with and without icon.
+
 ## 6.1.0
 
 ### Minor Changes

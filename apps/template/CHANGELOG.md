@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-template
 
+## 2.0.31
+
+### Patch Changes
+
+- Updated dependencies [aff8f05]
+- Updated dependencies [6b26feb]
+  - @cloudoperators/juno-ui-components@6.1.1
+
 ## 2.0.30
 
 ### Patch Changes
