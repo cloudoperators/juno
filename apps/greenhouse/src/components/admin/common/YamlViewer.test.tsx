@@ -54,11 +54,13 @@ describe("YamlViewer", () => {
 
   describe("error handling", () => {
     it("should display error message when YAML serialization fails", () => {
-      // Create an object that will cause yaml.dump to fail
-      const circularRef: any = { a: 1 }
-      circularRef.self = circularRef
+      // Create an object with a function property which yaml.dump cannot serialize
+      const invalidData = {
+        name: "test",
+        invalidFunction: () => {},
+      }
 
-      render(<YamlViewer value={circularRef} data-testid="codemirror" />)
+      render(<YamlViewer value={invalidData} data-testid="codemirror" />)
 
       // Check if ErrorMessage is rendered (outside editor)
       expect(screen.getByText(/Failed to serialize object to YAML/i)).toBeInTheDocument()
