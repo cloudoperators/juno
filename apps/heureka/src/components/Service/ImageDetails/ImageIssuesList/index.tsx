@@ -81,7 +81,7 @@ const VulnerabilitiesTabContent = ({
           <DataGridHeadCell>Vulnerability</DataGridHeadCell>
           <DataGridHeadCell>Target Date</DataGridHeadCell>
           <DataGridHeadCell>Description</DataGridHeadCell>
-          <DataGridHeadCell>Actions</DataGridHeadCell>
+          <DataGridHeadCell />
         </DataGridRow>
 
         {issuesPromise && (
@@ -148,7 +148,7 @@ const RemediatedVulnerabilitiesTabContent = ({
         />
       </Stack>
       <div className="mt-4">
-        <DataGrid columns={4} minContentColumns={[0, 1, 2]} cellVerticalAlignment="top">
+        <DataGrid columns={5} minContentColumns={[0, 1, 2, 4]} cellVerticalAlignment="top">
           <DataGridRow>
             <DataGridHeadCell>
               <Icon icon="monitorHeart" />
@@ -156,15 +156,16 @@ const RemediatedVulnerabilitiesTabContent = ({
             <DataGridHeadCell>Vulnerability</DataGridHeadCell>
             <DataGridHeadCell>Target Date</DataGridHeadCell>
             <DataGridHeadCell>Description</DataGridHeadCell>
+            <DataGridHeadCell />
           </DataGridRow>
 
           {issuesPromise && (
             <ErrorBoundary
               displayErrorMessage
-              fallbackRender={getErrorDataRowComponent({ colspan: 4 })}
+              fallbackRender={getErrorDataRowComponent({ colspan: 5 })}
               resetKeys={[issuesPromise, remediationsPromise]}
             >
-              <Suspense fallback={<LoadingDataRow colSpan={4} />}>
+              <Suspense fallback={<LoadingDataRow colSpan={5} />}>
                 <RemediatedIssuesDataRows
                   issuesPromise={issuesPromise}
                   remediationsPromise={remediationsPromise}

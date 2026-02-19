@@ -89,7 +89,7 @@ const RemediationHistoryTable = ({
           <DataGridCell>{r.type ?? "—"}</DataGridCell>
           <DataGridCell>{r.description ?? "—"}</DataGridCell>
           <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
-            <PopupMenu icon="moreVert" className="whitespace-nowrap" disabled={!!revertingId}>
+            <PopupMenu icon="moreVert" className="whitespace-nowrap ml-auto" disabled={!!revertingId}>
               <PopupMenuOptions>
                 <PopupMenuItem
                   label={revertingId === r.remediationId ? "Reverting..." : "Revert False Positive"}
@@ -188,7 +188,7 @@ export const RemediationHistoryPanel = ({
                 <DataGridHeadCell>Remediated By</DataGridHeadCell>
                 <DataGridHeadCell>Type</DataGridHeadCell>
                 <DataGridHeadCell>Description</DataGridHeadCell>
-                <DataGridHeadCell>Actions</DataGridHeadCell>
+                <DataGridHeadCell />
               </DataGridRow>
               <Suspense fallback={<LoadingDataRow colSpan={COLUMN_SPAN} />}>
                 <RemediationHistoryTable remediationsPromise={remediationsPromise} onRevert={handleRevert} />

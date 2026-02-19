@@ -11,7 +11,7 @@ import { RemediatedIssueDataRow } from "./RemediatedIssueDataRow"
 import { getNormalizedImageVulnerabilitiesResponse } from "../../../../Services/utils"
 import { GetRemediationsQuery, GetImagesQuery } from "../../../../../generated/graphql"
 
-const COLUMN_SPAN = 4
+const COLUMN_SPAN = 5
 
 type RemediatedIssuesDataRowsProps = {
   issuesPromise: Promise<ObservableQuery.Result<GetImagesQuery>>

@@ -126,7 +126,7 @@ export const IssuesDataRow = ({
         </DataGridCell>
         {showFalsePositiveAction && (
           <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
-            <PopupMenu icon="moreVert" className="whitespace-nowrap">
+            <PopupMenu icon="moreVert" className="whitespace-nowrap ml-auto">
               <PopupMenuOptions>
                 <PopupMenuItem label="Mark False Positive" onClick={handleFalsePositiveClick} />
               </PopupMenuOptions>
