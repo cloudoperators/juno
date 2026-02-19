@@ -88,7 +88,7 @@ const RemediationHistoryTable = ({
           <DataGridCell>{r.remediatedBy ?? "—"}</DataGridCell>
           <DataGridCell>{r.type ?? "—"}</DataGridCell>
           <DataGridCell>{r.description ?? "—"}</DataGridCell>
-          <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
+          <DataGridCell className="cursor-default interactive" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
             <PopupMenu icon="moreVert" className="whitespace-nowrap" disabled={!!revertingId}>
               <PopupMenuOptions>
                 <PopupMenuItem

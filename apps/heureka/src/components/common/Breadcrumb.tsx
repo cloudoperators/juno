@@ -27,7 +27,7 @@ export const Breadcrumb = () => {
             key={i}
             label={crumb?.label}
             icon={"icon" in crumb ? crumb.icon : undefined}
-            onClick={(e) => {
+            onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
               e.preventDefault()
               navigate({
                 to: pathname,

@@ -150,7 +150,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
           <DateTimePicker
             label="Expiration Date"
             value={expirationDate ?? undefined}
-            onChange={(dates) => setExpirationDate(dates?.[0] ?? null)}
+            onChange={(dates: Date[] | null) => setExpirationDate(dates?.[0] ?? null)}
             minDate="today"
             helptext="Optional. When this false positive should no longer be considered valid."
           />
