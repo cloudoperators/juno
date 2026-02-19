@@ -55,6 +55,7 @@
     "@cloudoperators/juno-oauth": "workspace:*",
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
+    "@cloudoperators/greenhouse-auth-provider": "workspace:*",
     "@codemirror/lang-yaml": "6.1.2",
     "@tanstack/react-query": "5.90.16",
     "@tanstack/react-router": "1.150.0",

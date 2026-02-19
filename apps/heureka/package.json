@@ -30,6 +30,7 @@
   "dependencies": {
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
+    "@cloudoperators/greenhouse-auth-provider": "workspace:*",
     "@tanstack/react-query": "5.90.16",
     "@tanstack/react-router": "1.150.0",
     "react": "19.2.3",

@@ -9,7 +9,8 @@
         "@cloudoperators/juno-app-supernova#build",
         "@cloudoperators/juno-app-heureka#build",
         "@cloudoperators/juno-app-doop#build",
-        "@cloudoperators/juno-k8s-client#build"
+        "@cloudoperators/juno-k8s-client#build",
+        "@cloudoperators/greenhouse-auth-provider#build"
       ]
     },
     "build": {
@@ -20,7 +21,8 @@
         "@cloudoperators/juno-app-supernova#build",
         "@cloudoperators/juno-app-heureka#build",
         "@cloudoperators/juno-app-doop#build",
-        "@cloudoperators/juno-k8s-client#build"
+        "@cloudoperators/juno-k8s-client#build",
+        "@cloudoperators/greenhouse-auth-provider#build"
       ]
     },
     "build:static": {
@@ -31,7 +33,8 @@
         "@cloudoperators/juno-app-supernova#build",
         "@cloudoperators/juno-app-heureka#build",
         "@cloudoperators/juno-app-doop#build",
-        "@cloudoperators/juno-k8s-client#build"
+        "@cloudoperators/juno-k8s-client#build",
+        "@cloudoperators/greenhouse-auth-provider#build"
       ]
     },
     "test": {
@@ -42,7 +45,8 @@
         "@cloudoperators/juno-app-supernova#build",
         "@cloudoperators/juno-app-heureka#build",
         "@cloudoperators/juno-app-doop#build",
-        "@cloudoperators/juno-k8s-client#build"
+        "@cloudoperators/juno-k8s-client#build",
+        "@cloudoperators/greenhouse-auth-provider#build"
       ]
     },
     "typecheck": {
@@ -53,7 +57,8 @@
         "@cloudoperators/juno-app-supernova#build",
         "@cloudoperators/juno-app-heureka#build",
         "@cloudoperators/juno-app-doop#build",
-        "@cloudoperators/juno-k8s-client#build"
+        "@cloudoperators/juno-k8s-client#build",
+        "@cloudoperators/greenhouse-auth-provider#build"
       ]
     }
   }

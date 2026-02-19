@@ -4,12 +4,12 @@
  */
 
 import React from "react"
-import { render, screen } from "@testing-library/react"
+import { render, screen, waitFor } from "@testing-library/react"
 import { Configuration } from "./Configuration"
 import { Plugin } from "../../types/k8sTypes"
 
 describe("Configuration", () => {
-  it("should render configuration values and filter out injected values", () => {
+  it("should render configuration values and filter out injected values", async () => {
     const mockPlugin: Plugin = {
       metadata: {
         name: "test-plugin",
@@ -37,13 +37,15 @@ describe("Configuration", () => {
 
     render(<Configuration plugin={mockPlugin} />)
 
-    expect(screen.getByText("Configuration")).toBeInTheDocument()
-    expect(screen.getByText("customValue")).toBeInTheDocument()
-    expect(screen.getByText("test-value")).toBeInTheDocument()
-    expect(screen.getByText("anotherValue")).toBeInTheDocument()
-    expect(screen.getByText("123")).toBeInTheDocument()
-    // Injected value should not be rendered
-    expect(screen.queryByText("global.greenhouse.injectedValue")).not.toBeInTheDocument()
-    expect(screen.queryByText("should-be-filtered")).not.toBeInTheDocument()
+    await waitFor(() => {
+      expect(screen.getByText("Configuration")).toBeInTheDocument()
+      expect(screen.getByText("customValue")).toBeInTheDocument()
+      expect(screen.getByText("test-value")).toBeInTheDocument()
+      expect(screen.getByText("anotherValue")).toBeInTheDocument()
+      expect(screen.getByText("123")).toBeInTheDocument()
+      // Injected value should not be rendered
+      expect(screen.queryByText("global.greenhouse.injectedValue")).not.toBeInTheDocument()
+      expect(screen.queryByText("should-be-filtered")).not.toBeInTheDocument()
+    })
   })
 })

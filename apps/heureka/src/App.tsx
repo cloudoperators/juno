@@ -14,6 +14,7 @@ import { ErrorBoundary } from "./components/common/ErrorBoundary"
 import { getClient } from "./apollo-client"
 import { routeTree } from "./routeTree.gen"
 import { StoreProvider } from "./store/StoreProvider"
+import { AuthProvider, EmbeddedAuth } from "@cloudoperators/greenhouse-auth-provider"
 
 export type InitialFilters = {
   support_group?: string[]
@@ -28,6 +29,7 @@ export type AppProps = {
   initialFilters?: InitialFilters
   basePath?: string
   enableHashedRouting?: boolean
+  auth?: EmbeddedAuth
 }
 
 const router = createRouter({
@@ -94,9 +96,11 @@ const App = (props: AppProps) => {
             <AppShell embedded={props.embedded} pageHeader={<PageHeader applicationName="Heureka" />}>
               <ErrorBoundary>
                 <StrictMode>
-                  <StoreProvider>
-                    <RouterProvider basepath={props.basePath || "/"} router={router} />
-                  </StoreProvider>
+                  <AuthProvider embedded={props.embedded} auth={props.auth}>
+                    <StoreProvider>
+                      <RouterProvider basepath={props.basePath || "/"} router={router} />
+                    </StoreProvider>
+                  </AuthProvider>
                 </StrictMode>
               </ErrorBoundary>
             </AppShell>

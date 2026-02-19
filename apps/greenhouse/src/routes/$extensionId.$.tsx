@@ -17,7 +17,7 @@ export const Route = createFileRoute("/$extensionId/$")({
 function RouteComponent() {
   const config = usePlugin().config()
   // @ts-expect-error TS(2339): Property 'data' does not exist on type 'unknown'.
-  const { data: auth } = useAuth()
+  const { data: auth, pluginAuth } = useAuth()
   const { extensionId } = Route.useParams()
   const { appProps } = Route.useRouteContext()
   const appConfig = config[extensionId]
@@ -26,5 +26,5 @@ function RouteComponent() {
     return null
   }
 
-  return <Extension id={extensionId} config={appConfig} auth={auth} appProps={appProps} />
+  return <Extension id={extensionId} config={appConfig} auth={auth} appProps={appProps} pluginAuth={pluginAuth} />
 }
