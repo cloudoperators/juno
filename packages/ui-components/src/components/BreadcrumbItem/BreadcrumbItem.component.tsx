@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode, MouseEvent, HTMLAttributes, MouseEventHandler } from "react"
 import { Icon, KnownIcons } from "../Icon/Icon.component"
 
 const breadcrumbItemBaseStyles = `
@@ -19,49 +19,67 @@ const breadcrumbLinkBaseStyles = `
   jn:inline-flex
 `
 
-export interface BreadcrumbItemProps extends React.HTMLAttributes<HTMLSpanElement> {
+export interface BreadcrumbItemProps extends HTMLAttributes<HTMLSpanElement> {
   /**
-   * The icon type to display in the breadcrumb item.
+   * The type of icon to display within the breadcrumb item.
    */
   icon?: KnownIcons
+
   /**
-   * A URL the breadcrumb item points to for navigation.
+   * The URL that the breadcrumb item points to for navigation.
+   * @default "#"
    */
   href?: string
+
   /**
-   * The text to display inside the breadcrumb item.
+   * The text to display within the breadcrumb item.
+   * @default "Item"
    */
   label?: string
+
   /**
-   * The value for the aria-label attribute, used to improve accessibility.
+   * The value for the `aria-label` attribute, enhancing accessibility by providing a textual description.
    */
   ariaLabel?: string
+
   /**
-   * Determines if this item is the last or currently active breadcrumb.
+   * Specifies whether this item is the last or currently active breadcrumb.
+   * @default false
    */
   active?: boolean
+
   /**
-   * The click event handler for the breadcrumb item.
+   * The click event handler for the breadcrumb item, called when the item is clicked.
    */
-  onClick?: React.MouseEventHandler<HTMLAnchorElement>
+  onClick?: MouseEventHandler<HTMLAnchorElement>
+
   /**
-   * If true, disables the breadcrumb item.
+   * If `true`, disables the breadcrumb item, preventing interaction.
+   * @default false
    */
   disabled?: boolean
+
   /**
-   * Additional CSS class names to apply to the breadcrumb item for custom styling.
+   * Additional CSS class names to apply for custom styling of the breadcrumb item.
+   * @default ""
    */
   className?: string
+
   /**
-   * Custom content to render within the breadcrumb item, replacing the default content.
+   * Custom content to be rendered inside the breadcrumb item, replacing default content.
+   * This takes precedence over other content.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 /**
- * BreadcrumbItem represents an individual item within a Breadcrumb component.
+ * The `BreadcrumbItem` component represents an individual item within a Breadcrumb component.
+ * It can render as either a static label or a navigable link, depending on the `active`
+ * and `disabled` states. It supports custom icons, labels, and click functionality.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-breadcrumb-breadcrumbitem--docs
+ * @see {@link BreadcrumbItemProps}
  */
-export const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({
+export const BreadcrumbItem = ({
   href = "#",
   label = "Item",
   ariaLabel = "",
@@ -72,8 +90,9 @@ export const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({
   className = "",
   icon,
   ...props
-}) => {
-  if (children) return <>{children}</>
+}: BreadcrumbItemProps): ReactNode => {
+  if (children) return <>{children}</> // Render custom content if provided
+
   const iconElement = icon ? (
     <Icon icon={icon} size="18" color="jn:text-theme-default" className={label ? "jn:mr-1" : ""} />
   ) : null
@@ -93,11 +112,11 @@ export const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({
     )
   }
 
-  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleLinkClick = (event: MouseEvent<HTMLAnchorElement>) => {
     if (onClick && !disabled) onClick(event)
   }
 
-  // Render the breadcrumb item as a link if neither active or disabled
+  // Render the breadcrumb item as a link if neither active nor disabled
   return (
     <span className={combinedClassName} {...props}>
       <a href={href} className={breadcrumbLinkBaseStyles} aria-label={ariaLabel || label} onClick={handleLinkClick}>

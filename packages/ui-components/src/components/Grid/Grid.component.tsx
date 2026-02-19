@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 
 // Styles to apply when the 'auto' prop is true, overriding default grid column properties
 const autoStyles = {
@@ -13,27 +13,34 @@ const autoStyles = {
   "--grid-column-default-width": "auto",
 }
 
-export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface GridProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Controls whether columns should auto-size.
    * If true, this will override the default 12-column grid layout.
+   * @default false
    */
   auto?: boolean
+
   /**
    * Elements to be rendered within the grid.
    */
-  children?: React.ReactNode
+  children?: ReactNode
+
   /**
    * Additional CSS classes to apply to the grid for custom styling.
+   * @default ""
    */
   className?: string
 }
 
 /**
- * A general-use grid component.
- * Used in conjunction with GridColumn and GridRow components to create a flexible grid layout.
+ * The `Grid` component establishes a customizable grid layout, enabling
+ * responsive design. It collaborates with `GridColumn` and `GridRow` for
+ * flexible arrangement of content.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-grid-grid--docs
+ * @see {@link GridProps}
  */
-export const Grid: React.FC<GridProps> = ({ auto = false, children, className = "", ...props }) => {
+export const Grid = ({ auto = false, children, className = "", ...props }: GridProps): ReactNode => {
   const gridStyles = auto ? autoStyles : {}
 
   return (

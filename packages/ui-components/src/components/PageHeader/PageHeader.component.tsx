@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactElement, ReactNode } from "react"
+import React, { HTMLAttributes, isValidElement, MouseEventHandler, ReactElement, ReactNode } from "react"
 import DefaultLogo from "../../img/JunoUI_logo.svg"
 
 const pageHeaderStyles = `
@@ -62,13 +62,13 @@ const optionsStyles = `
 `
 
 /**
- * The `PageHeader` component renders a header for an application with customisable `logo`, `title` and other options.
- * Ideally, the custom logo component should return an `<img />` or an inline `<svg>` element.
- * When using SVG, ensure the file is optimized to eliminate any superfluous elements or data that can contribute to increased file size and reduced performance. `Svgo` is a great tool to optimize `svg` files. Make sure the `viewBox` element is not removed when optimizing a file for usage a a header logo.
- * Pass as prop to `AppShell` so it gets slotted into the correct place in the layout. If building your layout manually without `AppShell` place as first child of AppBody.
+ * `PageHeader` component renders the top header of an application.
+ * It includes customizable `logo`, `title`, and other options.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-pageheader--docs
+ * @see {@link PageHeaderProps}
  */
 
-export const PageHeader: React.FC<PageHeaderProps> = ({
+export const PageHeader = ({
   heading = "",
   applicationName = "",
   href = "",
@@ -77,9 +77,9 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   children,
   onClick,
   ...props
-}) => {
+}: PageHeaderProps): ReactNode => {
   const Logo =
-    typeof logo === "function" || React.isValidElement(logo)
+    typeof logo === "function" || isValidElement(logo)
       ? logo
       : logo && <DefaultLogo alt="" data-testid="default-logo" />
 
@@ -114,33 +114,38 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   )
 }
 
-export interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PageHeaderProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Name of the application.
+   * @default ""
    */
   applicationName?: string | ReactElement
   /**
-   * @deprecated - Replaced by `applicationName`. If `applicationName` is provided, it will take precedence.
+   * Deprecated - Replaced by `applicationName`. If `applicationName` is provided, it takes precedence.
+   * @default ""
    */
   heading?: string | ReactElement
   /**
-   * Link to open when applicationName or logo is clicked. If `onClick` is provided, it will take precedence.
+   * Link to open when applicationName or logo is clicked.
+   * @default ""
    */
   href?: string
   /**
    * Custom class names.
+   * @default ""
    */
   className?: string
   /**
    * Application logo.
+   * @default true
    */
   logo?: boolean | ReactElement
   /**
-   * Handler executed when `applicationName` or `logo` are clicked.
+   * Handler executed on click of `applicationName` or `logo`.
    */
-  onClick?: React.MouseEventHandler<HTMLDivElement>
+  onClick?: MouseEventHandler<HTMLDivElement>
   /**
-   * Children to render in the header such as user name, avatar, log-in/out button, etc.
+   * Children to render in header like user info, avatar, log-in/out button, etc.
    */
   children?: ReactNode
 }

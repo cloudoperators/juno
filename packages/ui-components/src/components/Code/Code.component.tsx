@@ -3,17 +3,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ComponentPropsWithoutRef, ReactNode } from "react"
 
 const codeStyles = `
   jn:bg-theme-code-block
   jn:text-sm
 `
 
-/** A basic inline `<code>` component.
- *   Accepts "content" prop or renders children as passed.
+/**
+ * The `Code` component is a lightweight inline `<code>` element used for displaying code snippets or text.
+ * It can accept content directly through the `content` prop or render children encapsulated within it.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-code--docs
+ * @see {@link CodeProps}
  */
-export const Code: React.FC<CodeProps> = ({ content = "", children, className = "", ...props }) => {
+export const Code = ({ content = "", children, className = "", ...props }: CodeProps): ReactNode => {
   return (
     <code className={`juno-code ${codeStyles} ${className}`} {...props}>
       {content || children}
@@ -21,8 +24,18 @@ export const Code: React.FC<CodeProps> = ({ content = "", children, className = 
   )
 }
 
-export interface CodeProps extends React.ComponentPropsWithoutRef<"code"> {
+export interface CodeProps extends ComponentPropsWithoutRef<"code"> {
+  /**
+   * Text content to render within the code element. Overrides `children`.
+   * @default ""
+   */
   content?: string
+
+  /** Additional CSS class names for styling the code element.
+   * @default ""
+   */
   className?: string
-  children?: React.ReactNode
+
+  /** Elements or text to render inside the code element. */
+  children?: ReactNode
 }

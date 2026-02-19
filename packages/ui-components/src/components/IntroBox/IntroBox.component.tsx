@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode, useMemo } from "react"
 
 const introbox = (variant: string, heroImage: string) => {
   return `
@@ -55,26 +55,50 @@ const introboxHeading = `
     jn:font-bold
 `
 
-export interface IntroBoxProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
-  /** Pass an optional title */
+export interface IntroBoxProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
+  /**
+   * Pass an optional title.
+   * @default ""
+   */
   title?: string
-  /** Pass a string of text to be rendered as contents. Alternatively, contents can be passed as children (see below) */
+
+  /**
+   * Pass a string of text to be rendered as contents. Alternatively, contents can be passed as children (see below).
+   * @default ""
+   */
   text?: string
-  /** Pass a custom class */
+
+  /**
+   * Pass a variant style to affect the layout of the intro box.
+   * @default "default"
+   */
   variant?: "default" | "hero"
-  /** optional "hero" flavor image for hero variant. Specify as css bg image string pointing to an image in your app (see template app for an example). Will always be positioned top and right */
+
+  /**
+   * Optional "hero" flavor image for hero variant. Specify as css bg image string pointing to an image.
+   */
   heroImage?: string
-  /** Pass a custom class */
+
+  /**
+   * Pass a custom class or classes for styling the intro box.
+   * @default ""
+   */
   className?: string
-  /** Pass child nodes to be rendered as content */
-  children?: React.ReactNode
+
+  /**
+   * Pass child nodes to be rendered as content, taking precedence over `text`.
+   */
+  children?: ReactNode
 }
 
 /**
-* An Introbox holds generally important information to help understand the contents, purpose, or state of a whole page or view, or individual sections on longer pages.
-Use sparingly, there should never be any two or more subsequent instances of Introbox as direct siblings/neighbors on an individual view.
-*/
-export const IntroBox: React.FC<IntroBoxProps> = ({
+ * The `IntroBox` component presents important information about the contents,
+ * purpose, or state of a page or view, using distinct styles for emphasis.
+ * Supports "hero" variant with optional background images.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-introbox--docs
+ * @see {@link IntroBoxProps}
+ */
+export const IntroBox = ({
   title = "",
   text = "",
   variant = "default",
@@ -82,8 +106,8 @@ export const IntroBox: React.FC<IntroBoxProps> = ({
   className = "",
   children,
   ...props
-}) => {
-  const isHeroWithImage = React.useMemo(() => {
+}: IntroBoxProps): ReactNode => {
+  const isHeroWithImage = useMemo(() => {
     return heroImage && variant === "hero"
   }, [variant, heroImage])
 

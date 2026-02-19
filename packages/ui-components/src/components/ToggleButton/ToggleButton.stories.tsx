@@ -17,13 +17,11 @@ const meta: Meta<typeof ToggleButton> = {
       control: {
         type: "object",
       },
-      description: "Array of options to cycle through, can be plain values or objects with value and label.",
     },
     value: {
       control: {
         type: "text",
       },
-      description: "The currently selected value from the options.",
     },
     disabled: {
       control: "boolean",
@@ -31,11 +29,9 @@ const meta: Meta<typeof ToggleButton> = {
     },
     renderLabel: {
       control: false,
-      description: "A function to render the label based on the selected value.",
     },
     onChange: {
       action: "toggleChanged",
-      description: "Callback for whenever the toggle changes.",
     },
     variant: {
       control: {

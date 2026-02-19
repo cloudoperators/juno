@@ -3,14 +3,26 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, ChangeEvent, KeyboardEvent, MouseEvent, useCallback } from "react"
+import React, {
+  useState,
+  useEffect,
+  ChangeEvent,
+  KeyboardEvent,
+  MouseEvent,
+  useCallback,
+  ReactNode,
+  MouseEventHandler,
+  KeyboardEventHandler,
+  ChangeEventHandler,
+  HTMLProps,
+} from "react"
 
 import { Icon } from "../Icon"
 import { Stack } from "../Stack"
 
 import "./searchinput.css"
 
-export interface SearchInputProps extends Omit<React.HTMLProps<HTMLInputElement>, "onClick"> {
+export interface SearchInputProps extends Omit<HTMLProps<HTMLInputElement>, "onClick"> {
   /**
    * Specifies the name attribute for the input element.
    */
@@ -56,19 +68,19 @@ export interface SearchInputProps extends Omit<React.HTMLProps<HTMLInputElement>
   /**
    * Click handler for the search icon.
    */
-  onClick?: React.MouseEventHandler<HTMLElement>
+  onClick?: MouseEventHandler<HTMLElement>
   /**
    * Change handler for the search input.
    */
-  onChange?: React.ChangeEventHandler<HTMLInputElement>
+  onChange?: ChangeEventHandler<HTMLInputElement>
   /**
    * KeyPress handler for the search input. By default, triggers the onSearch function when the 'Enter' key is pressed.
    */
-  onKeyPress?: React.KeyboardEventHandler<HTMLInputElement>
+  onKeyPress?: KeyboardEventHandler<HTMLInputElement>
   /**
    * Click handler for the 'Clear' button.
    */
-  onClear?: React.MouseEventHandler<HTMLElement>
+  onClear?: MouseEventHandler<HTMLElement>
 }
 
 const getWrapperStyles = (variant: "rounded" | "hero" | "default"): string => {
@@ -135,8 +147,10 @@ const getClearIconSize = (variant: "rounded" | "hero" | "default"): string => {
  * A SearchInput is a controlled input component for searching.
  * It provides a text field to enter a search query and optional clear and search icons.
  * Three styling variants are supported: "rounded", "hero", and "default".
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-searchinput--docs
+ * @see {@link SearchInputProps}
  */
-export const SearchInput: React.FC<SearchInputProps> = ({
+export const SearchInput = ({
   value = "",
   name = "search",
   variant = "default",
@@ -151,7 +165,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   placeholder = "Search…",
   className = "",
   ...props
-}) => {
+}: SearchInputProps): ReactNode => {
   const [val, setValue] = useState(value)
 
   useEffect(() => {

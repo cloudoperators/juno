@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactNode } from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 
 import { Navigation } from "../Navigation/Navigation.component"
 
@@ -14,11 +14,13 @@ const topNavStyles = `
 `
 
 /**
-A generic horizontal top level navigation component. To be placed below the application header but above application content.
-Place `TopNavigationItem` elements as children.
-*/
+ * A generic horizontal top level navigation component. To be placed below the application header but above application content.
+ * Place `TopNavigationItem` elements as children.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/navigation-topnavigation-topnavigation--docs
+ * @see {@link TopNavigationProps}
+ */
 
-export const TopNavigation: React.FC<TopNavigationProps> = ({
+export const TopNavigation = ({
   activeItem,
   ariaLabel,
   children,
@@ -26,7 +28,7 @@ export const TopNavigation: React.FC<TopNavigationProps> = ({
   disabled = false,
   onActiveItemChange,
   ...props
-}) => {
+}: TopNavigationProps): ReactNode => {
   return (
     <Navigation
       activeItem={activeItem}
@@ -41,7 +43,7 @@ export const TopNavigation: React.FC<TopNavigationProps> = ({
   )
 }
 
-export interface TopNavigationProps extends React.HTMLAttributes<HTMLElement> {
+export interface TopNavigationProps extends HTMLAttributes<HTMLElement> {
   /** The active navigation item by label */
   activeItem?: ReactNode
   /** The aria-label of the navigation. Specify when there are more than one elements with an implicit or explicit `role="navigation"` on a page/view. */
