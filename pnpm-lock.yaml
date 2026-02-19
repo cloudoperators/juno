@@ -302,7 +302,7 @@ importers:
     dependencies:
       '@cloudoperators/greenhouse-auth-provider':
         specifier: workspace:*
-        version: link:../../packages/greenhouse-auth-proivider
+        version: link:../../packages/greenhouse-auth-provider
       '@cloudoperators/juno-app-doop':
         specifier: workspace:*
         version: link:../doop
@@ -426,7 +426,7 @@ importers:
     dependencies:
       '@cloudoperators/greenhouse-auth-provider':
         specifier: workspace:*
-        version: link:../../packages/greenhouse-auth-proivider
+        version: link:../../packages/greenhouse-auth-provider
       '@cloudoperators/juno-ui-components':
         specifier: workspace:*
         version: link:../../packages/ui-components
@@ -774,7 +774,7 @@ importers:
         specifier: 8.53.0
         version: 8.53.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
 
-  packages/greenhouse-auth-proivider:
+  packages/greenhouse-auth-provider:
     devDependencies:
       '@cloudoperators/juno-config':
         specifier: workspace:*

@@ -56,7 +56,6 @@ function Extension({ id, config, auth, appProps, pluginAuth }: ExtensionProps) {
         ...(!config.core
           ? {
               embedded: true,
-              token: auth?.JWT,
               basePath: `${router.basepath === "/" ? "" : router.basepath}/${config.id}`,
               enableHashedRouting: appProps?.enableHashedRouting || false,
               auth: authForPlugin,
@@ -67,7 +66,7 @@ function Extension({ id, config, auth, appProps, pluginAuth }: ExtensionProps) {
     return () => {
       app.unmount() // Unmount the app when the component is unmounted
     }
-  }, [config])
+  }, [config, pluginAuth])
 
   // Only render if AppComponent is not null
   return (

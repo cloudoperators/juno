@@ -4,7 +4,7 @@
   "description": "Package provides authentication for Greenhouse and plugins",
   "author": "UI-Team",
   "private": true,
-  "source": "src/index.js",
+  "source": "src/index.ts",
   "main": "build/index.js",
   "module": "build/index.js",
   "repository": "https://github.com/cloudoperators/juno/tree/main/packages/greenhouse-auth-provider",
