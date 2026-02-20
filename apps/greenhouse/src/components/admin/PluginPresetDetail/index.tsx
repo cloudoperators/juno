@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { useCallback } from "react"
 import { useParams, useRouteContext } from "@tanstack/react-router"
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import {
   Container,
   Tabs,
@@ -23,6 +23,7 @@ import { PluginPreset } from "../types/k8sTypes"
 import { isReady } from "../utils"
 import { ErrorMessage } from "../common/ErrorBoundary/ErrorMessage"
 import YamlViewer from "../common/YamlViewer"
+import { ReconcileButton } from "../common/ReconcileButton"
 
 const PluginPresetDetailContent = ({ pluginPreset }: { pluginPreset: PluginPreset }) => (
   <Tabs>
@@ -52,6 +53,7 @@ const PluginPresetDetailContent = ({ pluginPreset }: { pluginPreset: PluginPrese
 export const PluginPresetDetail = () => {
   const { pluginPresetName } = useParams({ from: "/admin/plugin-presets/$pluginPresetName" })
   const { apiClient, user } = useRouteContext({ from: "/admin/plugin-presets/$pluginPresetName" })
+  const queryClient = useQueryClient()
 
   const {
     data: pluginPreset,
@@ -62,17 +64,30 @@ export const PluginPresetDetail = () => {
     queryFn: () => fetchPluginPreset({ apiClient, namespace: user.organization, pluginPresetName }),
   })
 
+  const handleReconcile = useCallback(() => {
+    // Invalidate and refetch the plugin preset
+    queryClient.invalidateQueries({ queryKey: [FETCH_PLUGIN_PRESET_CACHE_KEY, user.organization, pluginPresetName] })
+  }, [queryClient, user.organization, pluginPresetName])
+
   return (
     <Stack direction="vertical" gap="4">
-      <Stack gap="2" alignment="center">
-        <ContentHeading className="pb-0">{pluginPresetName}</ContentHeading>
-        {pluginPreset && (
-          <Badge
-            icon
-            text={isReady(pluginPreset) ? "Ready" : "Failing"}
-            variant={isReady(pluginPreset) ? "success" : "error"}
-          />
-        )}
+      <Stack direction="horizontal" distribution="between">
+        <Stack gap="2" alignment="center">
+          <ContentHeading className="pb-0">{pluginPresetName}</ContentHeading>
+          {pluginPreset && (
+            <Badge
+              icon
+              text={isReady(pluginPreset) ? "Ready" : "Failing"}
+              variant={isReady(pluginPreset) ? "success" : "error"}
+            />
+          )}
+        </Stack>
+        <ReconcileButton
+          resourceType="pluginpresets"
+          resourceName={pluginPresetName}
+          namespace={user.organization}
+          onReconcile={handleReconcile}
+        />
       </Stack>
       <p>Plugin preset configuration and instance status</p>
       {isLoading && <p>Loading...</p>}
