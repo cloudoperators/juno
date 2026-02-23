@@ -58,6 +58,7 @@ export const ReconcileButton: React.FC<ReconcileButtonProps> = ({
         size="small"
         label={annotateMutation.isPending ? "Reconciling" : "Reconcile"}
         onClick={handleReconcile}
+        progress={annotateMutation.isPending}
         disabled={annotateMutation.isPending}
       />
       {annotateMutation.error && <ErrorMessage error={annotateMutation.error} />}

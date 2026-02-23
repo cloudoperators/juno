@@ -21,9 +21,7 @@ export const annotateResource = async ({
   const url = `/apis/${apiGroup}/${apiVersion}/namespaces/${namespace}/${resourceType}/${resourceName}`
 
   const patchData = {
-    metadata: {
-      annotations: annotations,
-    },
+    metadata: { annotations },
   }
 
   return await apiClient.patch(url, patchData)
