@@ -1,5 +1,18 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.10.0
+
+### Minor Changes
+
+- 39de31e: Add reconcile button to annotate PluginPreset and Plugin resources.
+
+### Patch Changes
+
+- 2f84dbf: Introduces a new authentication provider package that enables secure, read-only authentication state sharing between the Greenhouse shell app and plugins.
+- 441e92e: fix(greenhouse): prevent wide content from causing page-level horizontal scrollbar
+- Updated dependencies [2f84dbf]
+  - @cloudoperators/juno-app-heureka@1.0.2
+
 ## 0.9.0
 
 ### Minor Changes
