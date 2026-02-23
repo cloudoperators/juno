@@ -1,5 +1,11 @@
 # heureka
 
+## 1.0.2
+
+### Patch Changes
+
+- 2f84dbf: Introduces a new authentication provider package that enables secure, read-only authentication state sharing between the Greenhouse shell app and plugins.
+
 ## 1.0.1
 
 ### Patch Changes
