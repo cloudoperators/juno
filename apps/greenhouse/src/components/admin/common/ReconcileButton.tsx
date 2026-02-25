@@ -6,10 +6,10 @@
 import React from "react"
 import { useRouteContext } from "@tanstack/react-router"
 import { useMutation } from "@tanstack/react-query"
-import { Button, Stack } from "@cloudoperators/juno-ui-components"
+import { Button } from "@cloudoperators/juno-ui-components"
+import { useActions } from "@cloudoperators/juno-messages-provider"
 import { annotateResource } from "../api/annotateResource"
 import { RouteContext } from "../../../routes/__root"
-import { ErrorMessage } from "./ErrorBoundary/ErrorMessage"
 
 interface ReconcileButtonProps {
   resourceType: string
@@ -27,6 +27,7 @@ export const ReconcileButton: React.FC<ReconcileButtonProps> = ({
   onError,
 }) => {
   const { apiClient } = useRouteContext({ strict: false }) as RouteContext
+  const { addMessage } = useActions()
 
   const annotateMutation = useMutation({
     mutationFn: () =>
@@ -42,7 +43,11 @@ export const ReconcileButton: React.FC<ReconcileButtonProps> = ({
     onSuccess: () => {
       onReconcile?.()
     },
-    onError: (error: Error) => {
+    onError: (error) => {
+      addMessage({
+        variant: "error",
+        text: `Failed to reconcile ${resourceType} "${resourceName}": ${error.message}`,
+      })
       onError?.(error)
     },
   })
@@ -52,16 +57,13 @@ export const ReconcileButton: React.FC<ReconcileButtonProps> = ({
   }
 
   return (
-    <Stack direction="vertical" gap="2" alignment="end">
-      <Button
-        variant="subdued"
-        size="small"
-        label={annotateMutation.isPending ? "Reconciling" : "Reconcile"}
-        onClick={handleReconcile}
-        progress={annotateMutation.isPending}
-        disabled={annotateMutation.isPending}
-      />
-      {annotateMutation.error && <ErrorMessage error={annotateMutation.error} />}
-    </Stack>
+    <Button
+      variant="subdued"
+      size="small"
+      label={annotateMutation.isPending ? "Reconciling" : "Reconcile"}
+      onClick={handleReconcile}
+      progress={annotateMutation.isPending}
+      disabled={annotateMutation.isPending}
+    />
   )
 }

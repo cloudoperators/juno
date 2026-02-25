@@ -15,6 +15,7 @@ import {
   RouterProvider,
 } from "@tanstack/react-router"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { ReconcileButton } from "./ReconcileButton"
 
 const renderComponent = async (onReconcile?: () => void, mockPatch?: any, onError?: (error: Error) => void) => {
@@ -25,28 +26,30 @@ const renderComponent = async (onReconcile?: () => void, mockPatch?: any, onErro
     getParentRoute: () => rootRoute,
     path: "/test",
     component: () => (
-      <QueryClientProvider
-        client={
-          new QueryClient({
-            defaultOptions: {
-              queries: {
-                retry: false,
+      <MessagesProvider>
+        <QueryClientProvider
+          client={
+            new QueryClient({
+              defaultOptions: {
+                queries: {
+                  retry: false,
+                },
+                mutations: {
+                  retry: false,
+                },
               },
-              mutations: {
-                retry: false,
-              },
-            },
-          })
-        }
-      >
-        <ReconcileButton
-          resourceType="plugins"
-          resourceName="test-plugin"
-          namespace="test-namespace"
-          onReconcile={onReconcile}
-          onError={onError}
-        />
-      </QueryClientProvider>
+            })
+          }
+        >
+          <ReconcileButton
+            resourceType="plugins"
+            resourceName="test-plugin"
+            namespace="test-namespace"
+            onReconcile={onReconcile}
+            onError={onError}
+          />
+        </QueryClientProvider>
+      </MessagesProvider>
     ),
   })
   const routeTree = rootRoute.addChildren([testRoute])
