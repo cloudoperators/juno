@@ -41,7 +41,7 @@ jobs:
             Python-2.0
             BSD*
             Unlicense
-          exclude-packages: |
+          allow-dependencies-licenses: |
             spawndamnit@3.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
