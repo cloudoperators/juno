@@ -69,8 +69,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - title: "license-check"
-            command: "pnpm run check-licenses"
           - title: "lint-check"
             command: "pnpm lint"
           - title: "type-check"

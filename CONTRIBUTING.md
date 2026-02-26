@@ -80,7 +80,7 @@ Before submitting your pull request, please ensure your code passes the followin
 - **Prettier**: Ensure your code is properly formatted by running `pnpm check-format`.
 - **Title lint**: Ensure your title is following conventional commit format, for more details please check the [workflow](.github/workflows/ci-title-lint-check.yaml)
 - **License Header**: Verify that every source file includes the correct license header as specified above.
-- **Allowed Licenses**: Ensure that any dependencies added are compliant with the list of allowed licenses (see in `package.json`). Check with `pnpm check-licenses`.
+- **Allowed Licenses**: Ensure that any dependencies added are compliant with the list of allowed licenses (see in `dependency-check.yaml`).
 - **REUSE Compliance**: Ensure that your contributions are compliant with the [REUSE guidelines](./reuse/dep5).
 - **Tests**: Make sure all tests pass. Run `pnpm test` at the root level to ensure your code didn't break other packages.
 
