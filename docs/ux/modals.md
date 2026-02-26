@@ -63,6 +63,12 @@ Do not use Modals for Sign-In. We have dedicated full-page Sign-In patterns.
 
 Some Modals may allow the user to cancel/close or choose from multiple actions. If one action is the most likely or recommended action, it should be represented by a `primary` button.
 
+![Modal - CTA](images/Modal-CTA-2.svg)
+
+In modal dialogs, the primary call-to-action (CTA) is typically placed on the right, with secondary actions such as “Cancel” positioned to its left. Placing the `primary` action on the right reinforces visual hierarchy, reduces cognitive load, and supports faster decision-making. Consistency with common design systems also helps meet user expectations and minimizes the risk of misclicks.
+
+![Modal - CTA](images/Modal-CTA-1.svg)
+
 ## Modal Content and Title
 
 Keep Modal content short, descriptive, and concise. Modals are not a good place for long texts.

@@ -12,6 +12,8 @@ An established Popup menu pattern used in many user interfaces is the OverflowMe
 
 ### When to use an OverflowMenu
 
+![OverflowMenu](images/Overflow_Menus.svg)
+
 Use an OverflowMenu when:
 
 - The options or actions in the menu are associated with or targeted at a specific item
