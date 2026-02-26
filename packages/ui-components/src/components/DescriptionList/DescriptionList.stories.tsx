@@ -39,11 +39,19 @@ export const MultiplePairsRightAligned: Story = {
     <DescriptionList alignTerms="right" {...args}>
       <DT>Shipping</DT>
       <DD>Standard shipping: 5-7 business days.</DD>
-      <DT>Payment Options</DT>
       <DD>
         Credit/Debit cards, PayPal, and bank transfer. Lots and lots and lots of options. Oh so many, many options.
       </DD>
-      <div className="">
+      <DD>
+        Credit/Debit cards, PayPal, and bank transfer. Lots and lots and lots of options. Oh so many, many options.
+      </DD>
+      <div className="custom1">
+        <DT>Payment Options</DT>
+        <DD>
+          Credit/Debit cards, PayPal, and bank transfer. Lots and lots and lots of options. Oh so many, many options.
+        </DD>
+      </div>
+      <div className="custom2">
         <DT>Delivery Time</DT>
         <DD>1 day, 2 days, 3 days.</DD>
       </div>
