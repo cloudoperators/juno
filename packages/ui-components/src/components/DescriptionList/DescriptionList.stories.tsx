@@ -34,13 +34,15 @@ export const Default: Story = {
 /**
  * You can use many definitions per term.
  */
-export const MultipleDefinitions: Story = {
+export const MultiplePairsRightAligned: Story = {
   render: (args) => (
-    <DescriptionList {...args}>
+    <DescriptionList alignTerms="right" {...args}>
       <DT>Shipping</DT>
       <DD>Standard shipping: 5-7 business days.</DD>
       <DT>Payment Options</DT>
-      <DD>Credit/Debit cards, PayPal, and bank transfer.</DD>
+      <DD>
+        Credit/Debit cards, PayPal, and bank transfer. Lots and lots and lots of options. Oh so many, many options.
+      </DD>
       <div className="">
         <DT>Delivery Time</DT>
         <DD>1 day, 2 days, 3 days.</DD>

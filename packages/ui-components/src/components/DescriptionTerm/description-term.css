@@ -12,6 +12,6 @@
   font-weight: bold;
   gap: 0.25rem;
   grid-column: 1;
-  height: 2rem;
   white-space: nowrap;
+  padding: 0.5rem;
 }

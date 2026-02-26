@@ -6,17 +6,16 @@
 .dl {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  padding: 0.5rem;
 }
 
 .dl > div {
   display: contents;
 }
 
-.dl > div > .dt {
-  grid-column: 1;
+.dl.align-left .dt {
+  text-align: left;
 }
 
-.dl > div > .dd {
-  grid-column: 2;
+.dl.align-right .dt {
+  text-align: right;
 }

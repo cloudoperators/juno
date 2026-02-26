@@ -32,11 +32,10 @@ export interface DescriptionListProps {
  * This component enforces structure by expecting child elements of DescriptionTerm or DescriptionDefinition,
  * aligning them according to the specified terms alignment.
  */
-export const DescriptionList: React.FC<DescriptionListProps> = ({ children, alignTerms = "right", className = "" }) => (
+export const DescriptionList: React.FC<DescriptionListProps> = ({ children, alignTerms = "left", className = "" }) => (
   <dl
-    className={`dl ${className}`}
+    className={`dl ${alignTerms === "right" ? "align-right" : "align-left"} ${className}`}
     data-testid="description-list"
-    style={{ justifyContent: alignTerms === "right" ? "flex-end" : "flex-start" }}
   >
     {children}
   </dl>
