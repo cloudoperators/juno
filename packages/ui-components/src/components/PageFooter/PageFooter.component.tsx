@@ -3,44 +3,55 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
-import CCloudShape from "../../img/ccloud_shape.svg"
+import React, { HTMLAttributes, ReactNode } from "react"
+import "./page-footer.css"
 
-const basePageFooter = `
-  jn:flex
+const basePageFooterStyles = `
   jn:shrink-0
   jn:grow-0
   jn:basis-auto
   jn:relative
-  jn:bg-theme-global-bg
   jn:min-h-[3.25rem]
-  jn:pl-6
-  jn:pr-24
-  jn:py-5
   jn:z-50
+  jn:text-theme-pagefooter
+  jn:bg-theme-pagefooter
 `
 
-const logoStyles = `
-  jn:h-[2.625rem]
-  jn:absolute
-  jn:right-0
-  jn:bottom-0
-`
-
-/**
- * The page footer component renders a footer at the bottom of the website. Place as last child of AppBody.
- */
-export const PageFooter: React.FC<PageFooterProps> = ({ className = "", children, ...props }) => {
-  return (
-    <div className={`juno-pagefooter ${basePageFooter} ${className}`} role="contentinfo" {...props}>
-      {children}
-      <CCloudShape className={logoStyles} alt="cloud shape" />
-    </div>
-  )
+export interface PageFooterProps extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * Additional custom styling class name for the footer container.
+   * @default ""
+   */
+  className?: string
+  /** The content to render inside the footer, typically links or informational text.
+   * Use a list structure e.g. `<ul>` with `<li>` for grouped content or links, as in examples.
+   * Available CSS classes for styling:
+   * - `.juno-pagefooter-title`: Style for a title element within a column.
+   * - `.juno-pagefooter-items`: Style for a list of items.
+   * - `.juno-pagefooter-items-inline`: Style for a single line list with pipe separators.
+   * - `.juno-pagefooter-item`: Style for individual list items.
+   */
+  children?: ReactNode
+  /**
+   * Optional copyright notice to display within the footer.
+   * @default ""
+   */
+  copyright?: string
 }
 
-export interface PageFooterProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Add custom class name */
-  className?: string
-  children?: React.ReactNode
+/**
+ * `PageFooter` component renders a footer at the bottom of the page.
+ * It can include links, informational text, and an optional copyright notice.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-pagefooter--docs
+ * @see {@link PageFooterProps}
+ */
+export const PageFooter = ({ className = "", children, copyright = "", ...props }: PageFooterProps): ReactNode => {
+  return (
+    <div className={`juno-pagefooter ${basePageFooterStyles} ${className}`} role="contentinfo" {...props}>
+      <div className="juno-pagefooter-content">
+        <div className={"juno-pagefooter-children"}>{children}</div>
+        {copyright && <div className="juno-pagefooter-copyright">{copyright}</div>}
+      </div>
+    </div>
+  )
 }

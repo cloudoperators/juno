@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 
 const containerStyles = (px: boolean, py: boolean) => {
   return `
@@ -13,9 +13,12 @@ const containerStyles = (px: boolean, py: boolean) => {
 }
 
 /**
- * A very basic layout container with padding.
+ * The `Container` component serves as a basic layout container with configurable padding options,
+ * providing structure and spacing within layouts.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-container--docs
+ * @see {@link ContainerProps}
  */
-export const Container: React.FC<ContainerProps> = ({ px = true, py = false, className = "", children, ...props }) => {
+export const Container = ({ px = true, py = false, className = "", children, ...props }: ContainerProps): ReactNode => {
   return (
     <div className={`juno-container ${containerStyles(px, py)} ${className}`} {...props}>
       {children}
@@ -23,12 +26,24 @@ export const Container: React.FC<ContainerProps> = ({ px = true, py = false, cla
   )
 }
 
-export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Choose false if you don't want horizontal padding to be added. */
+export interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * Specifies whether horizontal padding should be added.
+   * @default true
+   */
   px?: boolean
-  /** Set to true to add vertical padding. */
+
+  /**
+   * Specifies whether vertical padding should be added.
+   * @default false
+   */
   py?: boolean
-  /** Add custom class name */
+
+  /** Additional custom class names for styling the container.
+   * @default ""
+   */
   className?: string
-  children?: React.ReactNode
+
+  /** Elements or components to render within the Container. */
+  children?: ReactNode
 }

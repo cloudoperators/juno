@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { DataGridRow, DataGridCell, Pill, Stack, Button } from "@cloudoperators/juno-ui-components"
+import { DataGridRow, DataGridCell, Pill, Stack } from "@cloudoperators/juno-ui-components"
 import { SeverityCount } from "../../../common/SeverityCount"
 import { ServiceType } from "../../../types"
 
@@ -38,10 +38,9 @@ type ServiceDataRowProps = {
   item: ServiceType
   selected: boolean
   onItemClick: () => void
-  onServiceDetailClick: () => void
 }
 
-export const ServiceDataRow = ({ item, selected, onItemClick, onServiceDetailClick }: ServiceDataRowProps) => (
+export const ServiceDataRow = ({ item, selected, onItemClick }: ServiceDataRowProps) => (
   <DataGridRow className="cursor-pointer" isSelected={selected} onClick={onItemClick}>
     <DataGridCell>{item.name}</DataGridCell>
     {/* Due to UX designer feedback, when showing counts with severity icons in datagrid cells,
@@ -63,9 +62,6 @@ export const ServiceDataRow = ({ item, selected, onItemClick, onServiceDetailCli
     </DataGridCell>
     <DataGridCell>
       <ServiceDetails serviceDetails={item.serviceDetails} />
-    </DataGridCell>
-    <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
-      <Button label="Show Details" onClick={onServiceDetailClick} size="small" className="whitespace-nowrap" />
     </DataGridCell>
   </DataGridRow>
 )

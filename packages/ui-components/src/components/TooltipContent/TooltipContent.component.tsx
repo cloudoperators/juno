@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { forwardRef, HTMLAttributes, ReactNode } from "react"
 import { useMergeRefs } from "@floating-ui/react"
 
 import { Icon } from "../Icon/Icon.component"
@@ -38,17 +38,19 @@ const getIcon = (variant: ToolTipVariant) => {
   }
 }
 
-export interface TooltipContentProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface TooltipContentProps extends HTMLAttributes<HTMLDivElement> {
   /** Pass child nodes to display in the tooltip */
-  children?: React.ReactNode
+  children?: ReactNode
   /** Pass a className to render to the icon button*/
   className?: string
 }
 
 /**
  * Put content for a tooltip here. See Tooltip for more in-depth explanation and examples.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-tooltip-tooltipcontent--docs
+ * @see {@link TooltipContentProps}
  */
-export const TooltipContent = React.forwardRef<HTMLElement, TooltipContentProps>(function TooltipContent(
+export const TooltipContent = forwardRef<HTMLElement, TooltipContentProps>(function TooltipContent(
   { className = "", children, ...props },
   propRef
 ) {

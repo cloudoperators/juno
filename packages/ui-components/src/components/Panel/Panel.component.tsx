@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useRef, FC, HTMLAttributes, ReactNode, MouseEvent, MouseEventHandler } from "react"
+import React, { useState, useEffect, useRef, HTMLAttributes, ReactNode, MouseEvent, MouseEventHandler } from "react"
 import { createPortal } from "react-dom"
 
 import { Icon } from "../Icon/Icon.component"
@@ -94,8 +94,10 @@ export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
 /**
  * A Panel component that slides in from the right side of the screen.
  * It can be used to display additional content/controls for the content area.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-panel-panel--docs
+ * @see {@link PanelProps}
  */
-export const Panel: FC<PanelProps> = ({
+export const Panel = ({
   heading = "",
   size = "default",
   opened = false,
@@ -104,7 +106,7 @@ export const Panel: FC<PanelProps> = ({
   className = "",
   children,
   ...props
-}) => {
+}: PanelProps): ReactNode => {
   const [isOpen, setIsOpen] = useState(opened)
   const [isCloseable, setIsCloseable] = useState(closeable)
   const [isTransitioning, setIsTransitioning] = useState(false)

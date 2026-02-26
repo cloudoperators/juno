@@ -1,5 +1,37 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.19.21
+
+### Patch Changes
+
+- Updated dependencies [aff8f05]
+- Updated dependencies [6b26feb]
+  - @cloudoperators/juno-ui-components@6.1.1
+  - @cloudoperators/juno-messages-provider@0.2.30
+
+## 0.19.20
+
+### Patch Changes
+
+- 359d33c: Makes route search validation Zod v4–ready (filter by prefix before parse) and upgrade zod to v4
+- Updated dependencies [6246658]
+- Updated dependencies [6a3c001]
+- Updated dependencies [ce5ee1f]
+- Updated dependencies [787458b]
+  - @cloudoperators/juno-ui-components@6.1.0
+  - @cloudoperators/juno-messages-provider@0.2.29
+
+## 0.19.19
+
+### Patch Changes
+
+- 34716d7: Show default duration of correct format in alert silence creation dropdown.
+- Updated dependencies [b886342]
+- Updated dependencies [ccedd57]
+- Updated dependencies [129754c]
+  - @cloudoperators/juno-ui-components@6.0.0
+  - @cloudoperators/juno-messages-provider@0.2.28
+
 ## 0.19.18
 
 ### Patch Changes

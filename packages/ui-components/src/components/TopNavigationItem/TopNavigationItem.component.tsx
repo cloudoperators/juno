@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, MouseEventHandler, ReactNode } from "react"
 import { NavigationItem } from "../NavigationItem/index"
 import { KnownIcons } from "../Icon/Icon.component"
 
@@ -37,9 +37,11 @@ const topNavActiveItemStyles = `
 `
 
 /**
-An individual item of a top level navigation. Place inside TopNavigation.
-*/
-export const TopNavigationItem: React.FC<TopNavigationItemProps> = ({
+ * An individual item of a top level navigation. Place inside TopNavigation.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/navigation-topnavigation-topnavigationitem--docs
+ * @see {@link TopNavigationItemProps}
+ */
+export const TopNavigationItem = ({
   active = false,
   ariaLabel,
   children,
@@ -51,7 +53,7 @@ export const TopNavigationItem: React.FC<TopNavigationItemProps> = ({
   onClick,
   value = "",
   ...props
-}) => {
+}: TopNavigationItemProps): ReactNode => {
   return (
     <NavigationItem
       active={active}
@@ -71,13 +73,13 @@ export const TopNavigationItem: React.FC<TopNavigationItemProps> = ({
   )
 }
 
-export interface TopNavigationItemProps extends React.HTMLAttributes<HTMLElement> {
+export interface TopNavigationItemProps extends HTMLAttributes<HTMLElement> {
   /** Whether the item is the currently active item */
   active?: boolean
   /** The aria label of the item */
   ariaLabel?: string
   /** The children to render. In order to make the navigation work, you also need to pass a `value` or `label` prop, or both. */
-  children?: React.ReactNode
+  children?: ReactNode
   /** Whether the item is disabled */
   disabled?: boolean
   /** pass an icon name */
@@ -89,7 +91,7 @@ export interface TopNavigationItemProps extends React.HTMLAttributes<HTMLElement
   /** The link the item should point to. Will render the item as an anchor if passed */
   href?: string
   /** A handler to execute once the navigation item is clicked. Will render the item as a button element if passed */
-  onClick?: React.MouseEventHandler<HTMLElement>
-  /** An optional technical identifier fort the tab. If not passed, the label will be used to identify the tab. NOTE: If value is passed, the value of the active tab MUST be used when setting the activeItem prop on the parent TabNavigation.*/
+  onClick?: MouseEventHandler<HTMLElement>
+  /** An optional technical identifier for the tab. If not passed, the label will be used to identify the tab. NOTE: If value is passed, the value of the active tab MUST be used when setting the activeItem prop on the parent TabNavigation.*/
   value?: string
 }

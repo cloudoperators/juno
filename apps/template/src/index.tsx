@@ -4,10 +4,19 @@
  */
 
 import React from "react"
-import { createRoot } from "react-dom/client"
-import App from "./App"
+import { createRoot, Root } from "react-dom/client"
+import { AppProps } from "./App"
 
-const container = document.getElementById("root") as HTMLDivElement
-const root = createRoot(container)
+let root: Root
 
-root.render(<App />)
+type Options = {
+  props?: AppProps
+}
+
+export const mount = async (container: Element | DocumentFragment, options: Options = {}): Promise<void> => {
+  const { default: App } = await import("./App")
+  root = createRoot(container)
+  root.render(React.createElement(App, options?.props))
+}
+
+export const unmount = () => root?.unmount()

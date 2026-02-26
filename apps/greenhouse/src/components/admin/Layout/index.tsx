@@ -4,20 +4,30 @@
  */
 
 import React from "react"
-import { Container } from "@cloudoperators/juno-ui-components"
+import { Container, Stack } from "@cloudoperators/juno-ui-components"
 import { Breadcrumb } from "./Breadcrumb"
 import { Navigation } from "./Navigation"
+import { ErrorMessage } from "../common/ErrorBoundary/ErrorMessage"
+import { Outlet } from "@tanstack/react-router"
+import { MessagesProvider, Messages } from "@cloudoperators/juno-messages-provider"
 
 type LayoutProps = {
-  children: React.ReactNode
+  error?: Error
 }
 
-export const Layout = ({ children }: LayoutProps) => (
+export const Layout = ({ error }: LayoutProps) => (
   <>
     <Navigation />
     <Container py px>
       <Breadcrumb />
-      <Container px={false}>{children}</Container>
+      <MessagesProvider>
+        <Stack direction="vertical" gap="4">
+          <Messages />
+          {/* If an error from a sub-route reaches this layout, display it inline
+              while keeping the navigation and breadcrumb visible for context. */}
+          {error ? <ErrorMessage error={error} /> : <Outlet />}
+        </Stack>
+      </MessagesProvider>
     </Container>
   </>
 )

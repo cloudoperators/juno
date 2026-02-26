@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { forwardRef, LegacyRef } from "react"
+import React, { forwardRef, HTMLProps, LegacyRef, MouseEvent, MouseEventHandler } from "react"
 
 /* Import Icons here. The icon svgs in the icons folder correspond to the respective "xyz_24px.svg" from material-ui icons.
  */
@@ -942,6 +942,12 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
   }
 }
 
+/**
+ * The `Icon` component provides a versatile way to render SVG icons with customizable size,
+ * color, and accessibility features. Icons can be interactive through click events or embedded links.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-icon--docs
+ * @see {@link IconProps}
+ */
 export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>(function Icon(
   { icon, color = "", size = 24, title = "", className = "", href = "", disabled = false, onClick, ...props },
   ref
@@ -960,13 +966,13 @@ export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>
     ...iconProps,
   })
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     onClick && onClick(event)
   }
 
   const button = (
     <button
-      {...(props as React.HTMLProps<HTMLButtonElement>)}
+      {...(props as HTMLProps<HTMLButtonElement>)}
       type="button"
       onClick={handleClick}
       className={`juno-icon-button ${buttonIconStyles} ${className}`}
@@ -980,7 +986,7 @@ export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>
 
   const anchor = (
     <a
-      {...(props as React.HTMLProps<HTMLAnchorElement>)}
+      {...(props as HTMLProps<HTMLAnchorElement>)}
       aria-label={title || icon || undefined}
       href={href}
       className={`juno-icon-link ${anchorIconStyles} ${className}`}
@@ -995,14 +1001,33 @@ export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>
   return href ? anchor : onClick ? button : <span ref={ref}>{icn}</span>
 })
 
-export interface IconProps
-  extends Omit<React.HTMLProps<HTMLAnchorElement> | React.HTMLProps<HTMLButtonElement>, "size"> {
+export interface IconProps extends Omit<HTMLProps<HTMLAnchorElement> | HTMLProps<HTMLButtonElement>, "size"> {
+  /** The name of the icon to render. */
   icon?: KnownIcons
+
+  /** Specifies the color of the icon. */
   color?: string
+
+  /** Determines the size of the icon, either a number or string representing pixels/rem. */
   size?: string | number
+
+  /** Accessibility title for the icon, useful for screen readers. */
   title?: string
+
+  /** Additional CSS class names for custom styling.
+   * @default ""
+   */
   className?: string
+
+  /** URL for navigation via anchor element when clicked. */
   href?: string
+
+  /**
+   * Determines if the icon is interactive or not.
+   * @default false
+   */
   disabled?: boolean
-  onClick?: React.MouseEventHandler<HTMLButtonElement>
+
+  /** Click event handler for icon interaction, applicable to button elements. */
+  onClick?: MouseEventHandler<HTMLButtonElement>
 }

@@ -1,5 +1,41 @@
 # @cloudoperators/juno-ui-components
 
+## 6.1.1
+
+### Patch Changes
+
+- aff8f05: Improve component descriptions and prop documentation in the editor for better developer experience
+- 6b26feb: fix(ui): Badge - inline-flex is now always applied by default. Previously this was only done in case of using Badge with icon. This change leads to consistent rendering with and without icon.
+
+## 6.1.0
+
+### Minor Changes
+
+- ce5ee1f: added SignInForm component
+
+### Patch Changes
+
+- 6246658: Decouple components public interfaces from the third party library types.
+- 6a3c001: fix(ui): fix DateTimePicker time input colors
+- 787458b: fix wrap=false statement in Stack component
+
+## 6.0.0
+
+### Major Changes
+
+- b886342: Feature: Enhanced `PageFooter` Component for Flexible Theming and Accessibility
+  - Removed hardcoded cloud illustration, allowing CSS-based branding customization.
+  - Added a `copyright` prop for optional right-side rendering.
+  - Updated `children` rendering to support single/multiple items with defined spacing.
+  - Integrated ARIA roles and attributes (role="group", aria-labelledby) for better semantic clarity.
+  - Implemented design tokens, accommodating `light` and `dark` modes.
+  - Added `PageFooter` to Example App.
+
+### Patch Changes
+
+- ccedd57: Improve `DataGrid` and `DataGridRow` documentation by adding more information about interactive styling.
+- 129754c: Bind the border color of `Card` to the global `--color-border-default` variable.
+
 ## 5.12.0
 
 ### Minor Changes

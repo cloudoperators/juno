@@ -8,10 +8,9 @@ import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { createMemoryHistory, createRootRoute, createRoute, Outlet, RouterProvider } from "@tanstack/react-router"
 import { PortalProvider } from "@cloudoperators/juno-ui-components/index"
-import * as fetchImages from "../../../api/fetchImages"
 import { ServicesList } from "./index"
 import { getTestRouter } from "../../../mocks/getTestRouter"
-import { mockImagesPromise, mockServicesPromise } from "../../../mocks/promises"
+import { mockServicesPromise } from "../../../mocks/promises"
 
 const renderComponent = () => {
   const rootRoute = createRootRoute({
@@ -50,20 +49,11 @@ describe("ServicesList", () => {
     expect(await screen.findByText("alpha")).toBeInTheDocument()
   })
 
-  it("should render service panel when clicking on a service", async () => {
-    vitest.spyOn(fetchImages, "fetchImages").mockReturnValue(mockImagesPromise)
+  it("should navigate to service details page when clicking on a service row", async () => {
     const { user, router } = await act(() => renderComponent())
 
-    //click on the service
     await user.click(await screen.findByText("alpha"))
 
-    //expect the url to change
-    expect(router.state.location.href).toBe("/services?service=alpha")
-
-    // expect the service panel to be opened
-    expect(await screen.findByText("Alpha Overview")).toBeInTheDocument()
-
-    // expect the image version to be displayed
-    expect(await screen.findByText("repo1")).toBeInTheDocument()
+    expect(router.state.location.pathname).toBe("/services/alpha")
   })
 })

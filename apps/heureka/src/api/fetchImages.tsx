@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ApolloQueryResult } from "@apollo/client"
+import { ObservableQuery } from "@apollo/client"
 import { GetImagesDocument, GetImagesQuery, ImageFilter, VulnerabilityFilter } from "../generated/graphql"
 import { RouteContext } from "../routes/-types"
 
@@ -29,7 +29,7 @@ export const fetchImages = ({
   firstVersions,
   afterVersions,
   vulFilter,
-}: FetchImagesParams): Promise<ApolloQueryResult<GetImagesQuery>> => {
+}: FetchImagesParams): Promise<ObservableQuery.Result<GetImagesQuery>> => {
   return queryClient.ensureQueryData({
     queryKey: [
       "images",

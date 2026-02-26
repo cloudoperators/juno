@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode, MouseEvent, MouseEventHandler, HTMLProps } from "react"
 import { Button } from "../Button/index"
 import { ButtonRow } from "../ButtonRow/index"
 import { KnownIcons } from "../Icon/Icon.component"
@@ -23,13 +23,13 @@ const defaultmodalfooterstyles = `
 `
 
 /**
-A Footer component for Modal.
-Renders a simple "Close" Button (and accepts a corresponding onCancel-handler) by default.
-Can be passed a confirmButtonLabel and cancelButton label with corresponding onConfirm- and onCancel-handlers.
-Can alternatively render all custom children as passed.
-*/
-
-export const ModalFooter: React.FC<ModalFooterProps> = ({
+ * The `ModalFooter` component is a versatile footer meant for the `Modal`, offering
+ * default or customizable confirm and cancel buttons, and an option to pass
+ * custom content.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-modal-modalfooter--docs
+ * @see {@link ModalFooterProps}
+ */
+export const ModalFooter = ({
   className = "",
   children,
   confirmButtonLabel = "",
@@ -41,12 +41,12 @@ export const ModalFooter: React.FC<ModalFooterProps> = ({
   onConfirm,
   onCancel,
   ...props
-}) => {
-  const handleConfirmClick = (event: React.MouseEvent<HTMLElement>) => {
+}: ModalFooterProps): ReactNode => {
+  const handleConfirmClick = (event: MouseEvent<HTMLElement>) => {
     onConfirm && onConfirm(event)
   }
 
-  const handleCancelClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleCancelClick = (event: MouseEvent<HTMLElement>) => {
     onCancel && onCancel(event)
   }
 
@@ -89,25 +89,59 @@ export const ModalFooter: React.FC<ModalFooterProps> = ({
   )
 }
 
-export interface ModalFooterProps extends React.HTMLProps<HTMLDivElement> {
-  /** A custom className. Useful to configure flex items alignment when passing custom content as children. */
+export interface ModalFooterProps extends HTMLProps<HTMLDivElement> {
+  /**
+   * A custom className. Useful to configure flex items alignment when passing custom content as children.
+   * @default ""
+   */
   className?: string
-  /** Custom children to render. */
-  children?: React.ReactNode
-  /** The label for the Confirm-button. When passed, the component will render a Confirm button and a cancel button, otherwise the component will ONLY render a Close-Button. */
+
+  /**
+   * Custom children content replacing default button structure.
+   */
+  children?: ReactNode
+
+  /**
+   * The label for the Confirm-button. When passed, the component will render a Confirm button and a cancel button, otherwise the component will ONLY render a Close-Button.
+   * @default ""
+   */
   confirmButtonLabel?: string
-  /** Custom label for the cancel button. ONLY has an effect if a `confirmButtonLabel` is passed. */
+
+  /**
+   * Custom label for the cancel button. ONLY has an effect if a `confirmButtonLabel` is passed.
+   * @default "Close"
+   */
   cancelButtonLabel?: string
-  /** Pass an Icon name to show on the confirming action button */
+
+  /**
+   * Pass an Icon name to show on the confirming action button.
+   */
   confirmButtonIcon?: KnownIcons
-  /** Pass an icon name to show on the cancelling button */
+
+  /**
+   * Pass an icon name to show on the cancelling button.
+   */
   cancelButtonIcon?: KnownIcons
-  /** Determines whether the confirm action button should be disabled */
+
+  /**
+   * Determines whether the confirm action button should be disabled.
+   * @default false
+   */
   disableConfirmButton?: boolean
-  /** Determines whether the cancel action button should be disabled */
+
+  /**
+   * Determines whether the cancel action button should be disabled.
+   * @default false
+   */
   disableCancelButton?: boolean
-  /** Handler to execute once the confirming button is clicked */
-  onConfirm?: React.MouseEventHandler<HTMLElement>
-  /** Handler to execute once the cancelling button is clicked */
-  onCancel?: React.MouseEventHandler<HTMLElement>
+
+  /**
+   * Handler to execute once the confirming button is clicked.
+   */
+  onConfirm?: MouseEventHandler<HTMLElement>
+
+  /**
+   * Handler to execute once the cancelling button is clicked.
+   */
+  onCancel?: MouseEventHandler<HTMLElement>
 }

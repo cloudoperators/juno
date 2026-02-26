@@ -50,18 +50,13 @@ export const extractSearchStringFromHashFragment = (searchString: string) => {
   return searchString.slice(postHashParams, preHashParams === -1 ? undefined : preHashParams)
 }
 
-export const getFiltersForUrl = (prefix: string, filters: any) => {
-  return {
-    ...Object.entries(filters)
-      .map(([key, value]) => {
-        if (value === undefined || value === null) return {}
-        if (Array.isArray(value)) {
-          return { [`${prefix}${key}`]: value }
-        }
-        return { [`${prefix}${key}`]: value }
-      })
-      .reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-  }
+export const getFiltersForUrl = (prefix: string, filters: any): Record<string, string | string[]> => {
+  return Object.entries(filters ?? {})
+    .filter(([, value]) => value !== undefined && value !== null)
+    .reduce<Record<string, string | string[]>>((acc, [key, value]) => {
+      acc[`${prefix}${key}`] = Array.isArray(value) ? value : (value as string)
+      return acc
+    }, {})
 }
 
 export const convertAppStateToUrlState = (appState: any) => {

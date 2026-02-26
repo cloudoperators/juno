@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 
 const headerContainerStyles = `
   jn:flex
@@ -15,12 +15,18 @@ const headerContainerStyles = `
   jn:bg-theme-global-bg
 `
 
-export const HeaderContainer: React.FC<HeaderContainerProps> = ({
+/**
+ * The `HeaderContainer` component serves as a fixed, styled container at the top
+ * of a page or view, supporting full-width or constrained layouts.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/internal-headercontainer--docs
+ * @see {@link HeaderContainerProps}
+ */
+export const HeaderContainer = ({
   fullWidth = false,
   className = "",
   children,
   ...props
-}) => {
+}: HeaderContainerProps): ReactNode => {
   return (
     <div
       className={`
@@ -35,10 +41,21 @@ export const HeaderContainer: React.FC<HeaderContainerProps> = ({
   )
 }
 
-export interface HeaderContainerProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Whether the page/view content will stretch over the full width of the viewport or not. Default is `false`. */
+export interface HeaderContainerProps extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * Whether the page/view content will stretch over the full width of the viewport or not.
+   * @default false
+   */
   fullWidth?: boolean
-  /** Add custom class name */
+
+  /**
+   * Custom CSS class name to apply to the header container.
+   * @default ""
+   */
   className?: string
-  children?: React.ReactNode
+
+  /**
+   * Content to be rendered within the header container.
+   */
+  children?: ReactNode
 }

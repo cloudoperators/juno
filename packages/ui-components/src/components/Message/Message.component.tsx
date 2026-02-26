@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useState, useRef } from "react"
+import React, { useEffect, useState, useRef, MutableRefObject, ReactNode, HTMLAttributes } from "react"
 
 import { Icon } from "../Icon"
 import { KnownIcons, KnownIconsEnum } from "../Icon/Icon.component"
@@ -63,14 +63,14 @@ const messageVariantStyles = {
 
 export type MessageVariantType = "info" | "warning" | "danger" | "error" | "success"
 
-export interface MessageProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface MessageProps extends HTMLAttributes<HTMLDivElement> {
   /**
-   * Pass an optional title.
+   * Optional title for the message.
    */
   title?: string
 
   /**
-   * Pass an optional string of text to be rendered as content.
+   * Optional string of text to be rendered as content.
    * Alternatively, content can be passed as children (see below).
    * If children are provided, they will take precedence.
    */
@@ -78,22 +78,26 @@ export interface MessageProps extends React.HTMLAttributes<HTMLDivElement> {
 
   /**
    * Specify an optional semantic variant that determines the appearance of a message.
+   * @default "info"
    */
   variant?: MessageVariantType
 
   /**
    * Optional. If true, the message will have a 'close' button to dismiss it.
+   * @default false
    */
   dismissible?: boolean
 
   /**
    * Optional. If true, the message will be automatically dismissed after the default or passed autoDismissTimeout.
+   * @default false
    */
   autoDismiss?: boolean
 
   /**
    * Optional. The timeout in milliseconds after which the message auto-dismisses.
    * By default 10000 (10s).
+   * @default 10000
    */
   autoDismissTimeout?: number
 
@@ -104,6 +108,7 @@ export interface MessageProps extends React.HTMLAttributes<HTMLDivElement> {
 
   /**
    * Pass an optional CSS class to apply to the message.
+   * @default ""
    */
   className?: string
 
@@ -111,7 +116,7 @@ export interface MessageProps extends React.HTMLAttributes<HTMLDivElement> {
    * Pass optional React nodes or a collection of React nodes to be rendered as content.
    * Takes precedence over the text property.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 const getBackgroundStyle = (variant: MessageVariantType): string => {
@@ -183,7 +188,7 @@ const initiateAutoDismiss = (
   autoDismiss: boolean,
   timeout: number,
   hideMessage: () => void,
-  timeoutRef: React.MutableRefObject<number | null>
+  timeoutRef: MutableRefObject<number | null>
 ) => {
   // Ensure that auto-dismiss is enabled and that timeout value is valid
   if (!autoDismiss || timeout < 1) return
@@ -198,7 +203,7 @@ const initiateAutoDismiss = (
 }
 
 // Clear auto-dismiss timeout, if exists and reset the timeout reference
-const clearAutoDismissTimeout = (timeoutRef: React.MutableRefObject<number | null>) => {
+const clearAutoDismissTimeout = (timeoutRef: MutableRefObject<number | null>) => {
   if (timeoutRef.current !== null) {
     clearTimeout(timeoutRef.current)
     timeoutRef.current = null
@@ -206,10 +211,12 @@ const clearAutoDismissTimeout = (timeoutRef: React.MutableRefObject<number | nul
 }
 
 /**
- * A Message holds generally important information to help understand the contents, purpose, or state of a whole page or view.
- * Use sparingly, there should never be two or more subsequent instances of Message as direct siblings/neighbors on an individual view.
+ * The `Message` component displays important information or alerts concerning the content,
+ * page state, or the view's purpose, with support for dismissible and auto-dismiss features.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-message--docs
+ * @see {@link MessageProps}
  */
-export const Message: React.FC<MessageProps> = ({
+export const Message = ({
   title,
   variant = "info",
   dismissible = false,
@@ -218,7 +225,7 @@ export const Message: React.FC<MessageProps> = ({
   onDismiss,
   className = "",
   ...props
-}) => {
+}: MessageProps): ReactNode => {
   const [visible, setVisible] = useState<boolean>(true)
   const autoDismissTimeoutRef = useRef<number | null>(null)
   const { text, children } = props

@@ -3,7 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useMemo, useId, useRef, ReactNode } from "react"
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useId,
+  useRef,
+  ReactNode,
+  ChangeEvent,
+  HTMLProps,
+  ChangeEventHandler,
+  FocusEventHandler,
+  FocusEvent,
+} from "react"
 import { Label } from "../Label/index"
 import { Icon } from "../Icon/index"
 import { FormHint } from "../FormHint/FormHint.component"
@@ -77,11 +89,13 @@ interface IconsProps {
   disabled: boolean
 }
 
-/** 
-A controlled Text Input.
-Also covers email, telephone, password, url derivates. 
-*/
-export const Textarea: React.FC<TextareaProps> = ({
+/**
+ * A controlled Text Input.
+ * Also covers email, telephone, password, URL derivatives.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-textarea--docs
+ * @see {@link TextareaProps}
+ */
+export const Textarea = ({
   name,
   value = "",
   id = "",
@@ -104,7 +118,7 @@ export const Textarea: React.FC<TextareaProps> = ({
   width = "full",
   wrapperClassName = "",
   ...props
-}) => {
+}: TextareaProps): ReactNode => {
   const isNotEmptyString = (str: ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
@@ -145,17 +159,17 @@ export const Textarea: React.FC<TextareaProps> = ({
     setIsValid(validated)
   }, [validated])
 
-  const handleValueChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleValueChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setValue(event.target.value)
     onChange && onChange(event)
   }
 
-  const handleFocus = (event: React.FocusEvent<HTMLTextAreaElement>) => {
+  const handleFocus = (event: FocusEvent<HTMLTextAreaElement>) => {
     setFocus(true)
     onFocus && onFocus(event)
   }
 
-  const handleBlur = (event: React.FocusEvent<HTMLTextAreaElement>) => {
+  const handleBlur = (event: FocusEvent<HTMLTextAreaElement>) => {
     setFocus(false)
     onBlur && onBlur(event)
   }
@@ -244,7 +258,7 @@ export const Textarea: React.FC<TextareaProps> = ({
 
 type WidthType = "full" | "auto"
 
-export interface TextareaProps extends React.HTMLProps<HTMLTextAreaElement> {
+export interface TextareaProps extends HTMLProps<HTMLTextAreaElement> {
   /** Pass a name attribute */
   name?: string
   /** The label of the textarea */
@@ -272,11 +286,11 @@ export interface TextareaProps extends React.HTMLProps<HTMLTextAreaElement> {
   /** Pass a valid autocomplete value. We do not police validity. */
   autoComplete?: string
   /** Pass a change handler */
-  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>
+  onChange?: ChangeEventHandler<HTMLTextAreaElement>
   /** Pass a focus handler */
-  onFocus?: React.FocusEventHandler<HTMLTextAreaElement>
+  onFocus?: FocusEventHandler<HTMLTextAreaElement>
   /** Pass a blur handler */
-  onBlur?: React.FocusEventHandler<HTMLTextAreaElement>
+  onBlur?: FocusEventHandler<HTMLTextAreaElement>
   /** A helptext to render to explain meaning and significance of the Textarea */
   helptext?: ReactNode
   /** A text to render when the Textarea was successfully validated */

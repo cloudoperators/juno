@@ -94,3 +94,49 @@ export const mapObject = <T, U>(obj: Record<string, T>, iteratee: (value: T, key
   })
   return result
 }
+
+/**
+ * Filters raw URL search params to only known keys and keys that start with any allowed prefix.
+ * Use this before Zod parsing when you need prefix-based catchall validation
+ * (Zod v4 no longer provides ctx.path in preprocess).
+ *
+ * Reusable pattern for route validateSearch: filter first, then parse with a schema that has
+ * .catchall(z.union([z.string(), z.array(z.string()), z.undefined()])).
+ */
+export function filterSearchParamsByPrefix(
+  raw: Record<string, unknown>,
+  knownKeys: string[],
+  allowedPrefixes: string[]
+): Record<string, unknown> {
+  const result: Record<string, unknown> = {}
+  for (const key of knownKeys) {
+    if (Object.prototype.hasOwnProperty.call(raw, key)) {
+      result[key] = raw[key]
+    }
+  }
+  for (const key of Object.keys(raw)) {
+    if (allowedPrefixes.some((p) => key.startsWith(p))) {
+      result[key] = raw[key]
+    }
+  }
+  return result
+}
+
+/**
+ * Extracts the first 7 characters after "sha256:" from a version string.
+ * If the version doesn't match the pattern, returns the original version.
+ * @param version - The version string (e.g., "sha256:abc123def456...")
+ * @returns The first 7 characters after "sha256:" or the original version
+ */
+export const getShortSha256 = (version: string): string => {
+  if (!version) return version
+
+  // Check if it starts with "sha256:"
+  const sha256Match = version.match(/^sha256:(.{7})/)
+  if (sha256Match) {
+    return sha256Match[1] // Return the first 7 characters after "sha256:"
+  }
+
+  // If it doesn't match the pattern, return as is
+  return version
+}

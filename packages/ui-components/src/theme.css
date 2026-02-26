@@ -329,6 +329,10 @@
   --color-theme-button-sundued-hover: var(--color-button-subdued-hover-text);
   --color-theme-button-sundued-active: var(--color-button-subdued-active-text);
 
+  /* PageFooter */
+  --text-color-theme-pagefooter: var(--color-pagefooter-text);
+  --background-color-theme-pagefooter: var(--color-pagefooter-background);
+
   /* TODO Border Color */
   --border-theme-button-subdued: 1px solid var(--color-button-subdued-border);
   --border-theme-button-subdued-hover: var(--color-button-subdued-hover-border);
@@ -619,7 +623,7 @@
   --color-select-bg: var(--color-background-lvl-3);
   /* LT Card */
   --color-card-background-default: var(--color-white);
-  --color-card-border-default: var(--color-juno-grey-light-7);
+  --color-card-border-default: var(--color-border-default);
   /* LT Checkbox */
   --color-checkbox-bg: var(--color-background-lvl-5);
   --color-checkbox-checked-color: var(--color-accent);
@@ -721,6 +725,14 @@
   --color-dd-background: var(--color-transparent);
   --color-dd-text: var(--color-text-high);
   --color-dd-dt-border: var(--color-border-default);
+  /* LT PageFooter */
+  --color-pagefooter-text: var(--color-text-light);
+  --color-pagefooter-background: var(--color-white);
+  --color-pagefooter-border: var(--color-border-default);
+  --color-pagefooter-title: var(--color-text-default);
+  --color-pagefooter-item-default: var(--color-text-light);
+  --color-pagefooter-item-hover: var(--color-text-light);
+  --color-pagefooter-item-active: var(--color-accent);
   --color-border-default: var(--color-juno-grey-light-7);
 }
 
@@ -866,7 +878,7 @@
   --color-select-bg: var(--color-background-lvl-4);
   /* DT Card */
   --color-card-background-default: var(--color-juno-grey-blue-10);
-  --color-card-border-default: var(--color-juno-grey-blue-3);
+  --color-card-border-default: var(--color-border-default);
   /* DT Checkbox */
   --color-checkbox-bg: var(--color-background-lvl-5);
   --color-checkbox-checked-color: var(--color-accent);
@@ -966,6 +978,14 @@
   --color-dd-background: var(--color-transparent);
   --color-dd-text: var(--color-text-high);
   --color-dd-dt-border: var(--color-border-default);
+  /* DT PageFooter */
+  --color-pagefooter-text: var(--color-text-light);
+  --color-pagefooter-background: var(--color-juno-grey-blue-10);
+  --color-pagefooter-border: var(--color-border-default);
+  --color-pagefooter-title: var(--color-text-default);
+  --color-pagefooter-item-default: var(--color-text-light);
+  --color-pagefooter-item-hover: var(--color-text-light);
+  --color-pagefooter-item-active: var(--color-accent);
   --color-border-default: var(--color-juno-grey-blue-3);
 }
 

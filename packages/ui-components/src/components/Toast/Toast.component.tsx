@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useState } from "react"
+import React, { HTMLAttributes, ReactNode, useEffect, useRef, useState } from "react"
 import { Icon } from "../Icon/index"
 
 const toastStyles = `
@@ -30,11 +30,11 @@ const getMuiIcon = (messageType: IconType) => {
   }
 }
 type IconType = "info" | "warning" | "danger" | "error" | "success"
-export interface ToastProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ToastProps extends HTMLAttributes<HTMLDivElement> {
   /** Specify a semantic variant */
   variant?: IconType
   /** Pass child nodes to be rendered as contents */
-  children?: React.ReactNode
+  children?: ReactNode
   /** Pass an optional text */
   text?: string
   /** Optional. If set to 'true', the message will be automatically dismissed after 10 seconds by default or after the specified autoDismissTimeout */
@@ -48,10 +48,12 @@ export interface ToastProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /**
-A Toast component. Use for short-lived, temporary/transient messaging to users relating to their current usage context, e.g. 'Edits changed successfully'. For more general, persistent messaging, e.g. 'Our servers will be down for maintenance all weekend', use Message instead.
-*/
+ * A Toast component. Use for short-lived, temporary/transient messaging to users relating to their current usage context, e.g. 'Edits changed successfully'. For more general, persistent messaging, e.g. 'Our servers will be down for maintenance all weekend', use Message instead.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/wip-toast--docs
+ * @see {@link ToastProps}
+ */
 
-export const Toast: React.FC<ToastProps> = ({
+export const Toast = ({
   variant = "info",
   children,
   text = "",
@@ -60,13 +62,13 @@ export const Toast: React.FC<ToastProps> = ({
   onDismiss,
   className = "",
   ...props
-}) => {
+}: ToastProps): ReactNode => {
   const [visible, setVisible] = useState(true)
 
   // ----- Timeout stuff -------
-  const timeoutRef = React.useRef(setTimeout(() => hideMessage(), autoDismissTimeout))
+  const timeoutRef = useRef(setTimeout(() => hideMessage(), autoDismissTimeout))
 
-  React.useEffect(() => {
+  useEffect(() => {
     return () => clearTimeout(timeoutRef.current) // clear when component is unmounted
   }, [])
 

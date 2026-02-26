@@ -11,7 +11,8 @@ describe("getErrorDataRowComponent", () => {
   it("should render error message when ErrorDataRow component is used", () => {
     const ErrorDataRow = getErrorDataRowComponent({ colspan: 5 })
     const testError = new Error("Test error message")
-    render(<ErrorDataRow error={testError} />)
+    const mockResetErrorBoundary = vi.fn()
+    render(<ErrorDataRow error={testError} resetErrorBoundary={mockResetErrorBoundary} />)
     const errorText = screen.getByText(/Test error message/)
     expect(errorText).toBeInTheDocument()
   })
@@ -19,7 +20,8 @@ describe("getErrorDataRowComponent", () => {
   it("should render with correct colSpan prop", () => {
     const ErrorDataRow = getErrorDataRowComponent({ colspan: 7 })
     const testError = new Error("Test error")
-    const { container } = render(<ErrorDataRow error={testError} />)
+    const mockResetErrorBoundary = vi.fn()
+    const { container } = render(<ErrorDataRow error={testError} resetErrorBoundary={mockResetErrorBoundary} />)
     const cell = container.querySelector('[style*="grid-column: span 7"]')
     expect(cell).toBeInTheDocument()
   })

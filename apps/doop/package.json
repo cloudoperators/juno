@@ -1,12 +1,8 @@
 {
   "name": "@cloudoperators/juno-app-doop",
-  "version": "2.6.15",
+  "version": "2.6.18",
   "author": "UI-Team",
   "type": "module",
-  "contributors": [
-    "Andreas Pfau",
-    "Arturo Reuschenbach Pucernau"
-  ],
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/doop",
   "exports": {
     ".": "./build/index.js"
@@ -15,11 +11,11 @@
   "private": true,
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
-    "@tanstack/react-query": "5.90.12",
+    "@tanstack/react-query": "5.90.16",
     "@tailwindcss/vite": "4.1.18",
-    "@tanstack/router-plugin": "1.139.14",
+    "@tanstack/router-plugin": "1.150.0",
     "@testing-library/jest-dom": "6.9.1",
-    "@testing-library/react": "16.3.0",
+    "@testing-library/react": "16.3.1",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "4.7.0",
@@ -28,9 +24,9 @@
     "react-markdown": "10.1.0",
     "shadow-dom-testing-library": "1.13.1",
     "tailwindcss": "4.1.18",
-    "vite": "7.2.7",
+    "vite": "7.3.1",
     "vitest": "3.2.4",
-    "zustand": "4.5.7"
+    "zustand": "5.0.11"
   },
   "scripts": {
     "test": "vitest run",
@@ -47,7 +43,7 @@
     "@cloudoperators/juno-messages-provider": "workspace:*",
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
-    "@tanstack/react-router": "1.139.16",
+    "@tanstack/react-router": "1.150.0",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   }

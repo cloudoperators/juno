@@ -1,5 +1,75 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.10.0
+
+### Minor Changes
+
+- 39de31e: Add reconcile button to annotate PluginPreset and Plugin resources.
+
+### Patch Changes
+
+- 2f84dbf: Introduces a new authentication provider package that enables secure, read-only authentication state sharing between the Greenhouse shell app and plugins.
+- 441e92e: fix(greenhouse): prevent wide content from causing page-level horizontal scrollbar
+- Updated dependencies [2f84dbf]
+  - @cloudoperators/juno-app-heureka@1.0.2
+
+## 0.9.0
+
+### Minor Changes
+
+- c786282: Added plugin instance detail page that can be accessible at `/admin/plugin-presets/$pluginPresetName/plugin-instances/$pluginInstance`.
+
+### Patch Changes
+
+- 42e57aa: Typed the plugin state in the store
+- Updated dependencies [aff8f05]
+- Updated dependencies [6b26feb]
+  - @cloudoperators/juno-ui-components@6.1.1
+  - @cloudoperators/juno-app-doop@2.6.18
+  - @cloudoperators/juno-app-heureka@1.0.1
+  - @cloudoperators/juno-app-supernova@0.19.21
+  - @cloudoperators/juno-messages-provider@0.2.30
+
+## 0.8.1
+
+### Patch Changes
+
+- 359d33c: Makes route search validation Zod v4–ready (filter by prefix before parse) and upgrade zod to v4
+- 4a100f3: Replace JSON viewer with YAML editor for plugin preset admin area
+- Updated dependencies [6246658]
+- Updated dependencies [6a3c001]
+- Updated dependencies [ce5ee1f]
+- Updated dependencies [48156b0]
+- Updated dependencies [359d33c]
+- Updated dependencies [787458b]
+  - @cloudoperators/juno-ui-components@6.1.0
+  - @cloudoperators/juno-app-heureka@1.0.0
+  - @cloudoperators/juno-app-supernova@0.19.20
+  - @cloudoperators/juno-app-doop@2.6.17
+  - @cloudoperators/juno-messages-provider@0.2.29
+
+## 0.8.0
+
+### Minor Changes
+
+- 0e8a0bd: Add plugin preset detail view that can be accessible at `/admin/plugin-presets/:pluginPresetName`.
+
+## 0.7.23
+
+### Patch Changes
+
+- 4d79f5a: The `/admin/plugin-presets` page now displays overview of available plugin presets, allows user to filter and see overall statistics.
+- Updated dependencies [b886342]
+- Updated dependencies [ccedd57]
+- Updated dependencies [34716d7]
+- Updated dependencies [0d62d35]
+- Updated dependencies [129754c]
+  - @cloudoperators/juno-ui-components@6.0.0
+  - @cloudoperators/juno-app-supernova@0.19.19
+  - @cloudoperators/juno-app-heureka@0.9.16
+  - @cloudoperators/juno-app-doop@2.6.16
+  - @cloudoperators/juno-messages-provider@0.2.28
+
 ## 0.7.22
 
 ### Patch Changes

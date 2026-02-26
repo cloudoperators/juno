@@ -15,7 +15,7 @@ import { ErrorBoundary } from "../../common/ErrorBoundary"
 import { LoadingDataRow } from "../../common/LoadingDataRow"
 import { getErrorDataRowComponent } from "../../common/getErrorDataRow"
 
-const COLUMN_SPAN = 8
+const COLUMN_SPAN = 7
 
 export const ServicesList = () => {
   const { queryClient, apiClient } = useRouteContext({ from: "/services/" })
@@ -54,7 +54,6 @@ export const ServicesList = () => {
             Vulnerability Counts
           </DataGridHeadCell>
           <DataGridHeadCell>Details</DataGridHeadCell>
-          <DataGridHeadCell></DataGridHeadCell>
         </DataGridRow>
         <ErrorBoundary
           displayErrorMessage

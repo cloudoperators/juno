@@ -10,7 +10,7 @@ To add Juno UI components to your app as a development dependency, install them 
 pnpm add @cloudoperators/juno-ui-components
 ```
 
-…or declare manually as a dev-dependency:
+or declare manually as a dev-dependency:
 
 ```js
 // package.json

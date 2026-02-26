@@ -1,5 +1,38 @@
 # @cloudoperators/juno-app-template
 
+## 2.0.31
+
+### Patch Changes
+
+- Updated dependencies [aff8f05]
+- Updated dependencies [6b26feb]
+  - @cloudoperators/juno-ui-components@6.1.1
+
+## 2.0.30
+
+### Patch Changes
+
+- Updated dependencies [6246658]
+- Updated dependencies [6a3c001]
+- Updated dependencies [ce5ee1f]
+- Updated dependencies [787458b]
+  - @cloudoperators/juno-ui-components@6.1.0
+
+## 2.0.29
+
+### Patch Changes
+
+- bbe4d3a: Clean up the template application to align with the standard Juno setup.
+
+## 2.0.28
+
+### Patch Changes
+
+- Updated dependencies [b886342]
+- Updated dependencies [ccedd57]
+- Updated dependencies [129754c]
+  - @cloudoperators/juno-ui-components@6.0.0
+
 ## 2.0.27
 
 ### Patch Changes

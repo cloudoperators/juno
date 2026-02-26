@@ -17,15 +17,12 @@ const meta: Meta<typeof SortButton> = {
         type: "radio",
         options: ["asc", "desc"],
       },
-      description: "Initial sort order state, either ascending ('asc') or descending ('desc').",
     },
     disabled: {
       control: "boolean",
-      description: "Whether the sort button is disabled.",
     },
     onChange: {
       action: "orderChanged",
-      description: "Callback triggered when the sort order changes.",
     },
   },
 }
@@ -37,13 +34,6 @@ export const Default: Story = {
   args: {
     order: "desc",
     onChange: (order) => console.log("Sort order changed to:", order),
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Default SortButton toggling between ascending and descending order.",
-      },
-    },
   },
 }
 

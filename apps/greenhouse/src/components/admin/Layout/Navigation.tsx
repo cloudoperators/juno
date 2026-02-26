@@ -9,16 +9,12 @@ import { TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-compon
 
 export const navigationItems = [
   {
-    label: "Clusters",
-    value: "/admin/clusters",
-  },
-  {
-    label: "Teams",
-    value: "/admin/teams",
-  },
-  {
     label: "Plugin Presets",
     value: "/admin/plugin-presets",
+  },
+  {
+    label: "Clusters",
+    value: "/admin/clusters",
   },
 ] as const
 
@@ -27,6 +23,10 @@ type VisitedPages = Partial<Record<NavigationItem["value"], AnySchema>>
 
 const isValidNavigationValue = (value: unknown): value is NavigationItem["value"] => {
   return typeof value === "string" && navigationItems.some((item) => item.value === value)
+}
+
+const getNavigationValueFromPath = (path: string): NavigationItem["value"] | undefined => {
+  return navigationItems.find((item) => path.includes(item.value))?.value
 }
 
 export const Navigation = () => {
@@ -38,9 +38,10 @@ export const Navigation = () => {
     // Type guard to ensure link is a valid NavigationItem value
     if (isValidNavigationValue(link)) {
       const currentPath = matches[matches.length - 1].id
-      // Save the current pages's URL state to restore it later
-      if (isValidNavigationValue(currentPath)) {
-        visitedPages.current[currentPath] = matches[matches.length - 1].search
+      // Save the current page's URL state to restore it later
+      const currentNavValue = getNavigationValueFromPath(currentPath)
+      if (currentNavValue) {
+        visitedPages.current[currentNavValue] = matches[matches.length - 1].search
       }
       navigate({
         to: link,

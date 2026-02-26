@@ -1,12 +1,7 @@
 {
   "name": "@cloudoperators/juno-app-supernova",
-  "version": "0.19.18",
+  "version": "0.19.21",
   "author": "UI-Team",
-  "contributors": [
-    "Esther Schmitz",
-    "Arturo Reuschenbach Puncernau",
-    "Tilman Haupt"
-  ],
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/supernova",
   "license": "Apache-2.0",
   "source": "src/index.js",
@@ -18,10 +13,10 @@
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
     "@tailwindcss/vite": "4.1.18",
-    "@tanstack/react-query": "5.90.12",
-    "@tanstack/router-plugin": "1.139.14",
+    "@tanstack/react-query": "5.90.16",
+    "@tanstack/router-plugin": "1.150.0",
     "@testing-library/jest-dom": "6.9.1",
-    "@testing-library/react": "16.3.0",
+    "@testing-library/react": "16.3.1",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "4.7.0",
@@ -30,9 +25,9 @@
     "jsdom": "26.1.0",
     "shadow-dom-testing-library": "1.13.1",
     "tailwindcss": "4.1.18",
-    "vite": "7.2.7",
+    "vite": "7.3.1",
     "vitest": "3.2.4",
-    "zustand": "4.5.7"
+    "zustand": "5.0.11"
   },
   "scripts": {
     "test": "vitest run",
@@ -49,9 +44,9 @@
     "@cloudoperators/juno-messages-provider": "workspace:*",
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
-    "@tanstack/react-router": "1.139.16",
+    "@tanstack/react-router": "1.150.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-error-boundary": "6.0.0"
+    "react-error-boundary": "6.1.0"
   }
 }

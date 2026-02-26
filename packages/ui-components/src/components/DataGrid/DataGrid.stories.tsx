@@ -5,10 +5,12 @@
 
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import { DataGrid } from "./index"
-import { DataGridRow } from "../DataGridRow/index"
-import { DataGridCell } from "../DataGridCell/index"
-import { DataGridHeadCell } from "../DataGridHeadCell/index"
+
+import { Button } from "../Button"
+import { DataGrid } from "./DataGrid.component"
+import { DataGridRow } from "../DataGridRow"
+import { DataGridCell } from "../DataGridCell"
+import { DataGridHeadCell } from "../DataGridHeadCell"
 
 const defaultColumns = 3
 
@@ -16,6 +18,10 @@ type TemplateProps = {
   hideHead?: boolean
   includeColSpanRow?: boolean
 } & React.ComponentProps<typeof DataGrid>
+
+type DataGridRowStoryProps = {
+  items: { content: string }[]
+} & React.ComponentProps<typeof DataGridRow>
 
 const meta: Meta<typeof DataGrid> = {
   title: "Components/DataGrid/DataGrid",
@@ -167,6 +173,80 @@ export const ColSpanCell: StoryObj<TemplateProps> = {
     docs: {
       description: {
         story: "With a col span cell",
+      },
+    },
+  },
+}
+
+export const HoverableRow: StoryObj<DataGridRowStoryProps> = {
+  render: (args) => (
+    <DataGrid columns={defaultColumns}>
+      <DataGridRow>
+        <DataGridHeadCell>ID</DataGridHeadCell>
+        <DataGridHeadCell>Name</DataGridHeadCell>
+        <DataGridHeadCell>Status</DataGridHeadCell>
+      </DataGridRow>
+      {Array.from({ length: 4 }, (_, rowIndex) => (
+        <DataGridRow {...args} key={`row_${rowIndex}`} onClick={() => alert(`Row ${rowIndex + 1} clicked.`)}>
+          <DataGridCell key={`cell_id_${rowIndex}`}>{`ID-${rowIndex + 1}`}</DataGridCell>
+          <DataGridCell key={`cell_name_${rowIndex}`}>{`Name-${rowIndex + 1}`}</DataGridCell>
+          <DataGridCell key={`cell_status_${rowIndex}`}>{`Status-${rowIndex + 1}`}</DataGridCell>
+        </DataGridRow>
+      ))}
+    </DataGrid>
+  ),
+  args: {
+    items: [],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "When `onClick` is set, the entire DataGridRow exhibits visual feedback on hover, enhancing interactivity.",
+      },
+    },
+  },
+}
+
+export const HoverableRowWithInteractableElements: StoryObj<DataGridRowStoryProps> = {
+  render: (args) => (
+    <DataGrid columns={defaultColumns + 1}>
+      <DataGridRow>
+        <DataGridHeadCell>ID</DataGridHeadCell>
+        <DataGridHeadCell>Name</DataGridHeadCell>
+        <DataGridHeadCell>Status</DataGridHeadCell>
+        <DataGridHeadCell>Action</DataGridHeadCell>
+      </DataGridRow>
+      {Array.from({ length: 4 }, (_, rowIndex) => (
+        <DataGridRow {...args} key={`row_${rowIndex}`} onClick={() => alert(`Row ${rowIndex + 1} clicked.`)}>
+          <DataGridCell key={`cell_id_${rowIndex}`}>{`ID-${rowIndex + 1}`}</DataGridCell>
+          <DataGridCell key={`cell_name_${rowIndex}`}>{`Name-${rowIndex + 1}`}</DataGridCell>
+          <DataGridCell key={`cell_status_${rowIndex}`}>{`Status-${rowIndex + 1}`}</DataGridCell>
+          <DataGridCell key={`cell_button_${rowIndex}`}>
+            {rowIndex === 0 ? (
+              <Button
+                label="Trigger button event only"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  alert(`Button clicked in Row 1`)
+                }}
+              />
+            ) : (
+              `None`
+            )}
+          </DataGridCell>
+        </DataGridRow>
+      ))}
+    </DataGrid>
+  ),
+  args: {
+    items: [],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "You can enhance `DataGridRow` by incorporating interactive elements such as `Button`. Remember to add `event.stopPropogation()` to the event handler of the interactive element. See [DataGridRow](?path=/docs/components-datagrid-datagridrow--docs) for more info.",
       },
     },
   },

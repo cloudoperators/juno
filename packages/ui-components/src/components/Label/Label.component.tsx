@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { forwardRef, HTMLAttributes } from "react"
 
 const labelstyles = `
   jn:text-theme-high
@@ -42,10 +42,12 @@ const disabledstyles = `
 `
 
 /**
- * A re-usable Label component
+ * The `Label` component is a reusable, accessible label for form elements.
+ * It supports optional features like disabling, required indicators, and floating label styles.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-label--docs
+ * @see {@link LabelProps}
  */
-
-export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
+export const Label = forwardRef<HTMLLabelElement, LabelProps>(
   (
     {
       text = "",
@@ -91,19 +93,44 @@ export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
 
 Label.displayName = "Label"
 
-export interface LabelProps extends React.HTMLAttributes<HTMLLabelElement> {
-  /** Pass a string of text to be rendered as contents. Required.  */
+export interface LabelProps extends HTMLAttributes<HTMLLabelElement> {
+  /**
+   * Text content for the label, required for display.
+   */
   text?: string
-  /** An Id of an input element to associate the label with */
+
+  /**
+   * ID of an input element to associate the label with for accessibility.
+   */
   htmlFor?: string
-  /** Required */
+
+  /**
+   * Displays the required indicator when set.
+   * @default false
+   */
   required?: boolean
-  /** Pass a className */
+
+  /**
+   * Custom CSS class names for label styling.
+   * @default ""
+   */
   className?: string
-  /** Label for a disabled input */
+
+  /**
+   * Enables disabled styling to indicate non-interactive fields.
+   * @default false
+   */
   disabled?: boolean
-  /** Whether the label is floating */
+
+  /**
+   * Applies floating label styles for improved UX.
+   * @default false
+   */
   floating?: boolean
-  /** Whether the label is minimized. Requires `floating` set to TRUE, otherwise it will have no effect. */
+
+  /**
+   * Applies minimized label styles; requires `floating` to be `true`.
+   * @default false
+   */
   minimized?: boolean
 }

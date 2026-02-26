@@ -3,7 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useRef, useId, ReactNode } from "react"
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useId,
+  ReactNode,
+  MouseEvent,
+  HTMLProps,
+  ReactElement,
+  MouseEventHandler,
+} from "react"
 import { createPortal } from "react-dom"
 import { FocusTrap } from "focus-trap-react"
 import { ModalFooter } from "../ModalFooter/index"
@@ -73,19 +83,12 @@ const sizeClass = (size: ModalSize) => {
 }
 
 /**
-A generic Modal component.
-
-The Modal component can automatically create cancelling and confirming buttons with the desired labels and handlers. 
-
-For more complex use cases, more buttons, etc., an instance of `<ModalFooter>` with all custom content as children can be passed as prop `modalFooter` and will be rendered.
-
-The Modal uses a boolean 'open' prop to determine whether it is open or not. Alternatively, the open state can be handled outside the component, e.g. in a global state. In this case the 'open' prop needs to be passed as true always, otherwise the Modal component will not render.
-
-By default, the modal will close (i.e. set its `open` state to false) once the user cancels the Modal. When confirming, you will have to either set the `open` to false to close the modal, or use whatever global state mechanism you have to handle modals.
-
-To make the modal less intrusive and effectively un-modal it, pass `closeOnBackdropClick`. This will close the modal when the user clicks the modal backdrop.
-*/
-export const Modal: React.FC<ModalProps> = ({
+ * The `Modal` component provides a flexible dialog window for user interactions,
+ * supporting titles, dismissal controls, sizing options, and comprehensive footer configurations.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-modal-modal--docs
+ * @see {@link ModalProps}
+ */
+export const Modal = ({
   title = "",
   heading = "",
   ariaLabel,
@@ -109,7 +112,7 @@ export const Modal: React.FC<ModalProps> = ({
   onConfirm,
   onCancel,
   ...props
-}) => {
+}: ModalProps): ReactNode => {
   const uniqueId = () => "juno-modal-" + useId()
 
   const [isOpen, setIsOpen] = useState(open)
@@ -133,11 +136,11 @@ export const Modal: React.FC<ModalProps> = ({
     setisCloseableOnEsc(closeOnEsc)
   }, [closeOnEsc])
 
-  const handleConfirmClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleConfirmClick = (event: MouseEvent<HTMLElement>) => {
     onConfirm && onConfirm(event)
   }
 
-  const handleCancelClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleCancelClick = (event: MouseEvent<HTMLElement>) => {
     setIsOpen(false)
     onCancel && onCancel(event)
   }
@@ -149,7 +152,7 @@ export const Modal: React.FC<ModalProps> = ({
     }
   }
 
-  const handleBackdropClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleBackdropClick = (event: MouseEvent<HTMLElement>) => {
     if (isCloseabelOnBackdropClick) {
       setIsOpen(false)
       onCancel && onCancel(event)
@@ -253,50 +256,126 @@ export const Modal: React.FC<ModalProps> = ({
 
 type ModalSize = "small" | "large" | "xl" | "2xl"
 
-export interface ModalProps extends Omit<React.HTMLProps<HTMLDivElement>, "size" | "title"> {
-  /** The title of the modal. This will be rendering as the heading of the modal, and the modal's `arial-labelledby` attribute will reference the title/heading element. If the modal does not have `title` or `heading`, use `ariaLabel` to provide an accessible name for the modal. */
+export interface ModalProps extends Omit<HTMLProps<HTMLDivElement>, "size" | "title"> {
+  /**
+   * The title of the modal. This will be rendering as the heading of the modal, and the modal's `aria-labelledby` attribute will reference the title/heading element. If the modal does not have `title` or `heading`, use `ariaLabel` to provide an accessible name for the modal.
+   */
   title?: ReactNode
-  /** Also the title of the modal, just for API flexibility. If both `title` and `heading` are passed, `title` will take precedence. */
+
+  /**
+   * Also the title of the modal, just for API flexibility. If both `title` and `heading` are passed, `title` will take precedence.
+   */
   heading?: ReactNode
-  /** The aria-label of the modal. Use only if the modal does NOT have a `title` or `heading`.  */
+
+  /**
+   * The aria-label of the modal. Use only if the modal does NOT have a `title` or `heading`.
+   */
   ariaLabel?: string
-  /** By default, the first element in the tab order of the Modal content will be focussed. To specify an element to be focussed when the modal opens, pass an element, DOM node, or selector string. */
+
+  /**
+   * By default, the first element in the tab order of the Modal content will be focussed. To specify an element to be focussed when the modal opens, pass an element, DOM node, or selector string.
+   */
   initialFocus?: HTMLElement | SVGElement | string
-  /** Whether the modal will be open */
+
+  /**
+   * Whether the modal will be open.
+   * @default false
+   */
   open?: boolean
-  /** Whether the modal can be closed using an "X"-Button at the top right. Defaults to true. */
+
+  /**
+   * Whether the modal can be closed using an "X"-Button at the top right.
+   * @default true
+   */
   closeable?: boolean
-  /** Whether the modal should be closed when the backdrop is clicked. Essentially 'un-modals' the modal. */
-  closeOnEsc?: boolean
-  /** The Modal size */
+
+  /**
+   * Whether the modal should be closed when the backdrop is clicked. Essentially 'un-modals' the modal.
+   * @default false
+   */
   closeOnBackdropClick?: boolean
-  /** Determines whether the close button should be disabled */
+
+  /**
+   * Determines whether the close button should be disabled.
+   * @default false
+   */
   disableCloseButton?: boolean
-  /** Whether the modal can be closed by hitting the ESC key */
+
+  /**
+   * Whether the modal can be closed by hitting the ESC key.
+   * @default true
+   */
+  closeOnEsc?: boolean
+
+  /**
+   * The Modal size, determines the aesthetics of the modal.
+   * @default small
+   */
   size?: ModalSize
-  /** Pass to remove default padding from the content area of the modal */
+
+  /**
+   * Pass to remove default padding from the content area of the modal.
+   * @default false
+   */
   unpad?: boolean
-  /** Custom className to add to the modal */
+
+  /**
+   * Custom className to add to the modal for additional styling.
+   * @default ""
+   */
   className?: string
-  /** The children of the modal. These will be rendered as the modal content. To render custom buttons at the bottom, see `modalFooter` below.*/
-  children?: React.ReactNode
-  /** Optional. Pass a `<ModalFooter />` component with custom content as required. Will default to using the `<ModalFooter/>` component internally. */
-  modalFooter?: React.ReactElement
-  /** Pass a label to render a confirm button and a Cancel button */
+
+  /**
+   * The children of the modal. These will be rendered as the modal content. To render custom buttons at the bottom, see `modalFooter` below.
+   */
+  children?: ReactNode
+
+  /**
+   * Optional. Pass a `<ModalFooter />` component with custom content as required. Will default to using the `<ModalFooter/>` component internally.
+   */
+  modalFooter?: ReactElement
+
+  /**
+   * Pass a label to render a confirm button and a Cancel button.
+   * @default ""
+   */
   confirmButtonLabel?: string
-  /** Pass a label for the cancel button. Defaults to "Cancel" */
+
+  /**
+   * Pass a label for the cancel button. Defaults to "Cancel".
+   * @default "Cancel"
+   */
   cancelButtonLabel?: string
-  /** Pass an Icon name to show on the confirming action button */
+
+  /**
+   * Pass an Icon name to show on the confirming action button.
+   */
   confirmButtonIcon?: KnownIcons
-  /** Pass an icon name to show on the cancelling button */
+
+  /**
+   * Pass an icon name to show on the cancelling button.
+   */
   cancelButtonIcon?: KnownIcons
-  /** Determines whether the confirm action button should be disabled */
+
+  /**
+   * Determines whether the confirm action button should be disabled.
+   * @default false
+   */
   disableConfirmButton?: boolean
-  /** Determines whether the cancel action button should be disabled */
+
+  /**
+   * Determines whether the cancel action button should be disabled.
+   * @default false
+   */
   disableCancelButton?: boolean
-  /** A handler to execute once the modal is confirmed by clicking the confrim button if exists. Note that we do not close the modal automatically. */
-  onConfirm?: React.MouseEventHandler<HTMLElement>
-  /** A handler to execute once the modal is cancelled or dismissed using the x-Close button,  Cancel-button or pressing ESC */
-  // eslint-disable-next-line no-unused-vars
-  onCancel?: (event: React.MouseEvent<HTMLElement> | KeyboardEvent) => void
+
+  /**
+   * A handler to execute once the modal is confirmed by clicking the confirm button if exists. Note that we do not close the modal automatically.
+   */
+  onConfirm?: MouseEventHandler<HTMLElement>
+
+  /**
+   * A handler to execute once the modal is cancelled or dismissed using the x-Close button,  Cancel-button or pressing ESC.
+   */
+  onCancel?: (_event: MouseEvent<HTMLElement> | KeyboardEvent) => void
 }

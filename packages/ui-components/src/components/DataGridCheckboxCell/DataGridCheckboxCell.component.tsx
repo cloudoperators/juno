@@ -3,17 +3,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ChangeEventHandler, HTMLAttributes, ReactNode } from "react"
 import { Checkbox } from "../Checkbox/Checkbox.component"
 import { DataGridCell } from "../DataGridCell/DataGridCell.component"
 
-export const DataGridCheckboxCell: React.FC<DataGridCheckboxCellProps> = ({
+/**
+ * `DataGridCheckboxCell` integrates a checkbox within a `DataGrid` cell, ideal for selection-based interactions.
+ * It manages the selected state and supports custom behaviors upon state changes.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/wip-datagrid-datagridcheckboxcell--docs
+ * @see {@link DataGridCheckboxCellProps}
+ */
+export const DataGridCheckboxCell = ({
   selected = false,
   disabled = false,
   className = "",
   onChange,
   ...props
-}) => {
+}: DataGridCheckboxCellProps): ReactNode => {
   return (
     <DataGridCell className={`juno-datagrid-checkbox-cell ${className}`} {...props}>
       <Checkbox disabled={disabled} checked={selected} onChange={onChange} />
@@ -21,13 +27,25 @@ export const DataGridCheckboxCell: React.FC<DataGridCheckboxCellProps> = ({
   )
 }
 
-export interface DataGridCheckboxCellProps extends React.HTMLAttributes<HTMLElement> {
-  /** Whether the row this cell belongs to is selected */
+export interface DataGridCheckboxCellProps extends HTMLAttributes<HTMLElement> {
+  /**
+   * Indicates selected state of the associated row.
+   * @default false
+   */
   selected?: boolean
-  /** Whether the item is disabled */
+
+  /**
+   * Determines if the checkbox is disabled.
+   * @default false
+   */
   disabled?: boolean
-  /** Add a classname to the cell */
+
+  /**
+   * Additional class names for styling.
+   * @default ""
+   */
   className?: string
-  /** Handler to change the selected state of the row */
-  onChange?: React.ChangeEventHandler<HTMLInputElement>
+
+  /** Event handler for changes in the checkbox's state. */
+  onChange?: ChangeEventHandler<HTMLInputElement>
 }

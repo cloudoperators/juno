@@ -18,11 +18,13 @@ const formTitleStyles = `
 export interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
   /**
    * Title for the form.
+   * @default ""
    */
   title?: string
 
   /**
    * Additional CSS classes to apply to the form for custom styling.
+   * @default ""
    */
   className?: string
 
@@ -34,10 +36,13 @@ export interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
 }
 
 /**
- * A Form component used to encapsulate FormSections and/or FormGroups.
- * Can be used to build complex forms with structured sections.
+ * The `Form` component is designed to encapsulate form sections and groups,
+ * providing a structured way to build complex forms. It can include a title and
+ * supports additional styling through custom CSS classes.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/forms-form--docs
+ * @see {@link FormProps}
  */
-export const Form: React.FC<FormProps> = ({ title = "", className = "", children, ...props }) => {
+export const Form = ({ title = "", className = "", children, ...props }: FormProps): ReactNode => {
   return (
     <form className={`juno-form ${formBaseStyles} ${className}`} {...props}>
       {title ? <h1 className={`juno-form-heading ${formTitleStyles}`}>{title}</h1> : null}

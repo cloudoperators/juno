@@ -12,6 +12,11 @@ type NavigationItemType = {
   value: string
 }
 
+type SavedRouteState = {
+  search: AnySchema
+  params: Record<string, string>
+}
+
 const navigationItems: NavigationItemType[] = [
   {
     label: "Services",
@@ -24,20 +29,44 @@ const navigationItems: NavigationItemType[] = [
 ]
 
 export const Navigation = () => {
-  const visitedPages = useRef<Record<string, AnySchema>>({})
+  const visitedPages = useRef<Record<string, SavedRouteState>>({})
   const navigate = useNavigate()
   const matches = useMatches()
 
-  const handleTabSelect = (link: React.ReactNode) => {
-    // Save the current pages's URL state to restore it later
+  const persistCurrentPageState = () => {
     const currentPath = matches[matches.length - 1].routeId
-    visitedPages.current[currentPath] = matches[matches.length - 1].search
-    if (typeof link === "string") {
-      navigate({
-        to: link,
-        search: visitedPages.current[link] ?? {}, // restore the url state of the target page
-      })
+    // Get the first segment of the current path (e.g., "/services/" from "/services/$services/$image")
+    const firstSegment = currentPath.split("/").slice(0, 2).join("/") + "/"
+
+    // Remove any existing entries that start with the same segment
+    Object.keys(visitedPages.current).forEach((path) => {
+      if (path.startsWith(firstSegment)) {
+        delete visitedPages.current[path]
+      }
+    })
+
+    visitedPages.current[currentPath] = {
+      search: matches[matches.length - 1].search,
+      params: matches[matches.length - 1].params,
     }
+  }
+
+  const handleTabSelect = (link: React.ReactNode) => {
+    // Ensure the activeItem is a string before proceeding
+    if (typeof link !== "string") return
+
+    // Save the current pages's URL state to restore it later
+    persistCurrentPageState()
+
+    // Check if we have previously visited a page that starts with the target link
+    const previouslyVisitedPath = Object.keys(visitedPages.current).filter((path) => path.startsWith(link))
+    const to = previouslyVisitedPath.length > 0 ? previouslyVisitedPath[0] : link
+
+    navigate({
+      to,
+      params: visitedPages.current[to]?.params ?? {},
+      search: visitedPages.current[to]?.search ?? {},
+    })
   }
 
   const getActiveItem = () => {

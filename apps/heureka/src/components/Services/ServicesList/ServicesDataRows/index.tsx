@@ -12,7 +12,7 @@ import { getNormalizedServicesResponse } from "../../utils"
 import { ApolloQueryResult } from "@apollo/client"
 import { GetServicesQuery } from "../../../../generated/graphql"
 
-const COLUMN_SPAN = 8
+const COLUMN_SPAN = 7
 
 type ServicesDataRowsProps = {
   servicesPromise: Promise<ApolloQueryResult<GetServicesQuery>>
@@ -24,19 +24,15 @@ export const ServicesDataRows = ({ servicesPromise }: ServicesDataRowsProps) => 
   const { error, data } = use(servicesPromise)
   const { services } = getNormalizedServicesResponse(data)
 
-  const openServiceOverviewPanel = useCallback((service: ServiceType) => {
-    navigate({
-      to: "/services",
-      search: (prev) => ({ ...prev, service: service.name }), // copy the existing search params and add new `service` param
-    })
-  }, [])
-
-  const goToServiceDetailsPage = useCallback((service: ServiceType) => {
-    navigate({
-      to: "/services/$service",
-      params: { service: service.name },
-    })
-  }, [])
+  const goToServiceDetailsPage = useCallback(
+    (serviceItem: ServiceType) => {
+      navigate({
+        to: "/services/$service",
+        params: { service: serviceItem.name },
+      })
+    },
+    [navigate]
+  )
 
   if (error) {
     return <EmptyDataGridRow colSpan={COLUMN_SPAN}>Error loading services</EmptyDataGridRow>
@@ -51,8 +47,7 @@ export const ServicesDataRows = ({ servicesPromise }: ServicesDataRowsProps) => 
       key={item.id}
       item={item}
       selected={item.name === service}
-      onItemClick={() => openServiceOverviewPanel(item)}
-      onServiceDetailClick={() => goToServiceDetailsPage(item)}
+      onItemClick={() => goToServiceDetailsPage(item)}
     />
   ))
 }

@@ -1,11 +1,8 @@
 {
   "name": "@cloudoperators/juno-messages-provider",
-  "version": "0.2.27",
+  "version": "0.2.30",
   "description": "Messages provider",
   "author": "UI-Team",
-  "contributors": [
-    "Arturo Reuschenbach Pucernau"
-  ],
   "repository": "https://github.com/cloudoperators/juno/tree/main/packages/messages-provider",
   "source": "src/index.js",
   "main": "build/index.js",
@@ -21,21 +18,21 @@
   "peerDependencies": {
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "zustand": "4.5.7"
+    "zustand": "5.0.11"
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
     "@testing-library/jest-dom": "6.9.1",
-    "@testing-library/react": "16.3.0",
+    "@testing-library/react": "16.3.1",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "typescript": "5.9.3",
-    "vite": "7.2.7",
+    "vite": "7.3.1",
     "vite-plugin-dts": "4.5.4",
     "vitest": "3.2.4",
-    "zustand": "4.5.7"
+    "zustand": "5.0.11"
   },
   "dependencies": {
     "@cloudoperators/juno-ui-components": "workspace:*"
