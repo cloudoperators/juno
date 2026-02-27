@@ -102,7 +102,7 @@ describe("Modal", () => {
     expect(screen.getByRole("dialog")).toHaveAttribute("aria-labelledby", modalTitleId)
   })
 
-  test("renders an arial-label attribute as passed", async () => {
+  test("renders an aria-label attribute as passed", async () => {
     await waitFor(() =>
       render(
         <PortalProvider>

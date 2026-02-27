@@ -9,7 +9,7 @@ import { yaml } from "@codemirror/lang-yaml"
 import yamlParser from "js-yaml"
 import { ErrorMessage } from "../common/ErrorBoundary/ErrorMessage"
 
-interface YamlViewerProps {
+interface YamlViewerProps extends Omit<React.ComponentProps<typeof CodeMirror>, "value"> {
   value: object
 }
 
