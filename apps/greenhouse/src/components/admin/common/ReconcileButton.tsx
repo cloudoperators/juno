@@ -44,11 +44,20 @@ export const ReconcileButton: React.FC<ReconcileButtonProps> = ({
       onReconcile?.()
     },
     onError: (error) => {
+      let errorMessage = "Unknown error"
+      if (error instanceof Error) {
+        errorMessage = error.message
+      } else if (typeof error === "string") {
+        errorMessage = error
+      }
       addMessage({
         variant: "error",
-        text: `Failed to reconcile ${resourceType} "${resourceName}": ${error.message}`,
+        text: `Failed to reconcile ${resourceType} "${resourceName}": ${errorMessage}`,
       })
-      onError?.(error)
+      if (onError) {
+        const errorForCallback = error instanceof Error ? error : new Error(errorMessage)
+        onError(errorForCallback)
+      }
     },
   })
 
