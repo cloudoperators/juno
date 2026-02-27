@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@cloudoperators/juno-ui-components": "workspace:*",
-    "@tailwindcss/vite": "4.1.18",
+    "@tailwindcss/vite": "4.2.0",
     "@vitejs/plugin-react": "4.7.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
-    "@tailwindcss/vite": "4.1.18",
+    "@tailwindcss/vite": "4.2.0",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
     "@testing-library/user-event": "14.6.1",
@@ -57,7 +57,7 @@
     "eslint-plugin-tailwindcss": "3.18.2",
     "jsdom": "26.1.0",
     "prettier": "3.8.1",
-    "tailwindcss": "4.1.18",
+    "tailwindcss": "4.2.0",
     "typescript": "5.9.3",
     "vite": "7.3.1",
     "vite-plugin-svgr": "4.5.0",
