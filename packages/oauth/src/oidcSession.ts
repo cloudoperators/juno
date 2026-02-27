@@ -133,6 +133,7 @@ const refreshOidcToken = async ({ issuerURL, clientID, flowType, refreshToken }:
     }
   } catch (error: unknown) {
     if (error instanceof Error) {
+      // eslint-disable-next-line preserve-caught-error -- Error cause not supported in ES6 target
       throw new Error("(OAUTH) refresh token, " + error?.message)
     } else {
       throw error
