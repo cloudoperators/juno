@@ -7,6 +7,10 @@ import React from "react"
 import PluginNav from "../nav/PluginNav"
 import NotificationsContainer from "../NotificationsContainer"
 
+interface ShellLayoutProps {
+  children: React.ReactNode
+}
+
 const shellStyles = `
   grid
   grid-cols-[max-content_auto]
@@ -22,7 +26,7 @@ const mainStyles = `
   overflow-x-auto
   min-w-0`
 
-const ShellLayout = ({ children }: any) => {
+const ShellLayout = ({ children }: ShellLayoutProps) => {
   return (
     <div className={`greenhouse-shell ${shellStyles}`}>
       <PluginNav />
