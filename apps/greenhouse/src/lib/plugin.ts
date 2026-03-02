@@ -91,20 +91,7 @@ const Plugin = ({ environment, apiEndpoint, currentHost }: any) => {
   const store = createStore<PluginState>()(
     devtools(() => ({
       active: [],
-      config: {
-        [`org-admin`]: createPluginConfig({
-          id: "org-admin",
-          core: true,
-          name: "org-admin",
-          displayName: "Organization",
-          navType: NAV_TYPES.MNG,
-          props: {
-            assetsUrl: currentHost,
-            apiEndpoint: apiEndpoint,
-            environment: environment,
-          },
-        }),
-      },
+      config: {},
       appConfig: [], // kube app configs
       mngConfig: [], // management app configs
       isFetching: false,

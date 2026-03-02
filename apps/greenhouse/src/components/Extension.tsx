@@ -20,8 +20,6 @@ const getApp = (appName: string) => {
       return doop
     case "heureka":
       return heureka
-    case "org-admin":
-      return admin
     default:
       return null
   }

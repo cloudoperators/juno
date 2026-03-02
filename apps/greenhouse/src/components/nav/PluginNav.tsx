@@ -24,6 +24,7 @@ const AppIcon = ({ name }: any) => {
       return <DoopIcon />
     case "heureka":
       return <HeurekaIcon />
+    case "admin":
     default:
       return <Icon icon="autoAwesomeMosaic" />
   }
@@ -65,7 +66,10 @@ const PluginNav = () => {
   const mngConfig = usePlugin().mngConfig()
   const navigate = useNavigate({ from: "/" })
   const matches = useMatches()
-  const activeApp = matches.find((match) => match.routeId === "/$extensionId/$")?.params.extensionId
+  const extensionIdMatch = matches.find((match) => match.routeId === "/$extensionId/$")?.params.extensionId
+  const isAdminRoute = matches.some((match) => match.routeId.startsWith("/admin"))
+  // If we're on /admin route, set activeApp to "admin", otherwise use extension ID
+  const activeApp = isAdminRoute ? "admin" : extensionIdMatch
   // @ts-expect-error TS(2339): Property 'data' does not exist on type 'unknown'.
   const { data: authData, loggedIn, login, logout } = useAuth()
 
@@ -106,6 +110,19 @@ const PluginNav = () => {
         alignment="center"
         className="mt-4 py-4 border-theme-background-lvl-1 border-y-2"
       >
+        {/* Static Organization/Admin navigation item */}
+        <Stack
+          direction="vertical"
+          gap="3"
+          alignment="center"
+          className={`greenhouse-nav-item ${navItem(activeApp === "admin")}`}
+          role="button"
+          onClick={() => navigateToApp("admin")}
+        >
+          <AppIcon name="admin" />
+          <span className={appNameStyles}>Organization</span>
+        </Stack>
+
         {mngConfig.map((appConf: any, i: any) => (
           <Stack
             direction="vertical"
