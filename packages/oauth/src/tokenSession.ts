@@ -13,8 +13,8 @@ interface AuthData {
 }
 
 export const composeAuthData = (token: string, options: any): { authData: AuthData | null; error: Error | null } => {
-  let tokenData: Record<string, unknown> = {}
-  let parsedData: unknown = {}
+  let tokenData: Record<string, unknown>
+  let parsedData: unknown
 
   try {
     tokenData = decodeIDToken(token)
