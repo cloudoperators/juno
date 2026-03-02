@@ -1,4 +1,4 @@
-name: "Vulnerability and Licence Check"
+name: "Vulnerability and License Check"
 
 on:
   pull_request:
@@ -26,7 +26,7 @@ jobs:
         uses: actions/dependency-review-action@3c4e3dcb1aa7874d2c16be7d79418e9b7efd6261 # v4.8.2
         with:
           fail-on-severity: high
-          allow-licenses: MIT, ISC, Apache-2.0, BSD-2-Clause, BSD-3-Clause, BSD-4-Clause, CC-BY-3.0, CC-BY-4.0, BlueOak-1.0.0, CC0-1.0, 0BSD, Python-2.0, Unlicense
+          allow-licenses: MIT, ISC, Apache-2.0, BSD-2-Clause, BSD-3-Clause, BSD-4-Clause, 0BSD, CC-BY-3.0, CC-BY-4.0, BlueOak-1.0.0, CC0-1.0, Python-2.0, Unlicense
           repo-token: ${{ secrets.GITHUB_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
