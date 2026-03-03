@@ -1,5 +1,11 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.11.1
+
+### Patch Changes
+
+- 3351602: Upgrade aquasecurity/trivy-action because of deleted release.
+
 ## 0.11.0
 
 ### Minor Changes
