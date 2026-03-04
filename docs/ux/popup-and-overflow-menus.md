@@ -15,12 +15,9 @@ An established Popup menu pattern used in many user interfaces is the OverflowMe
 Use an OverflowMenu when:
 
 - The options or actions in the menu are associated with or targeted at a specific item
-- there is not enough space to show the available options inline / as-is.
-- there are more than 2-3 options available for the item the options are associated with
 
 Do NOT use an overflow item when:
 
-- There is only one action (unless there really is no other way of placing that option)
 - It is impossible for a user to establish what item or UI element the menu and its options refer to
 
 When using a PopupMenu, always make sure:
