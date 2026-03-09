@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -32,7 +32,7 @@ export interface DescriptionListProps {
  * This component enforces structure by expecting child elements of DescriptionTerm or DescriptionDefinition,
  * aligning them according to the specified terms alignment.
  */
-export const DescriptionList: React.FC<DescriptionListProps> = ({ children, alignTerms = "left", className = "" }) => (
+export const DescriptionList: React.FC<DescriptionListProps> = ({ children, alignTerms = "right", className = "" }) => (
   <dl
     className={`dl ${alignTerms === "right" ? "align-right" : "align-left"} ${className}`}
     data-testid="description-list"
