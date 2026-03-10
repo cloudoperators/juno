@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+// Kick off test
+
 import { CodegenConfig } from "@graphql-codegen/cli"
 //@ts-ignore
 import * as dotenv from "dotenv"
