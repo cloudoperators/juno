@@ -14,10 +14,6 @@ const datagridtoolbarstyles = `
 	jn:mb-px
 `
 
-const childrenWrapperStyles = `
-	jn:ml-auto
-`
-
 /**
  * `DataGridToolbar` provides an action bar for a `DataGrid`, designed to hold controls like buttons and search inputs
  * for performing group operations and interfacing with the grid content.
