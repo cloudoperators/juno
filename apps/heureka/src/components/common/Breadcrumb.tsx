@@ -7,10 +7,8 @@ import React from "react"
 import { Breadcrumb as BreadcrumbContainer, BreadcrumbItem } from "@cloudoperators/juno-ui-components"
 import { isMatch, useMatches, useNavigate } from "@tanstack/react-router"
 
-// Kick off test
-
 export const Breadcrumb = () => {
-  const navigate1 = useNavigate()
+  const navigate2 = useNavigate()
   const matches = useMatches()
   const matchesWithCrumbs = matches.filter((match) => isMatch(match, "loaderData.crumb"))
 
@@ -31,7 +29,7 @@ export const Breadcrumb = () => {
             icon={"icon" in crumb ? crumb.icon : undefined}
             onClick={(e) => {
               e.preventDefault()
-              navigate1({
+              navigate2({
                 to: pathname,
               })
             }}
