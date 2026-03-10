@@ -25,15 +25,6 @@ jobs:
   reuse-compliance:
     uses: cloudoperators/common/.github/workflows/shared-reuse.yaml@main
 
-  reuse-compliance-check:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
-
-      - name: REUSE Compliance Check
-        uses: fsfe/reuse-action@676e2d560c9a403aa252096d99fcab3e1132b0f5 # v6
-
   license-headers:
     permissions:
       contents: write
