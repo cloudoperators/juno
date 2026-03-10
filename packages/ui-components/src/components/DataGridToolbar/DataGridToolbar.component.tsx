@@ -24,7 +24,14 @@ const childrenWrapperStyles = `
  * @see https://cloudoperators.github.io/juno/?path=/docs/components-datagrid-datagridtoolbar--docs
  * @see {@link DataGridToolbarProps}
  */
-export const DataGridToolbar = ({ search, className = "", children, ...props }: DataGridToolbarProps): ReactNode => {
+export const DataGridToolbar = ({
+  search,
+  className = "",
+  children,
+  alignRight = true,
+  ...props
+}: DataGridToolbarProps): ReactNode => {
+  const childrenWrapperStyles = alignRight ? "jn:ml-auto" : ""
   return (
     <div className={`juno-datagrid-toolbar ${datagridtoolbarstyles} ${className}`} {...props}>
       {search && <div>{search}</div>}
@@ -49,4 +56,12 @@ export interface DataGridToolbarProps extends HTMLAttributes<HTMLDivElement> {
    * @default ""
    */
   className?: string
+
+  /**
+   * Determines whether the children are automatically aligned to the right side within the toolbar.
+   * When true, applies `ml-auto` to the children wrapper, pushing content right.
+   * When false, no automatic alignment is applied, allowing for custom layouts.
+   * @default true
+   */
+  alignRight?: boolean
 }

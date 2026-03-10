@@ -24,4 +24,16 @@ describe("DataGridToolbar", () => {
     expect(screen.getByTestId("23")).toBeInTheDocument()
     expect(screen.getByTestId("23")).toHaveAttribute("data-lolol")
   })
+
+  test("applies jn:ml-auto correctly when alignRight true", () => {
+    render(<DataGridToolbar data-testid="my-datagridtoolbar" />)
+    expect(screen.getByTestId("my-datagridtoolbar")).toBeInTheDocument()
+    expect(screen.getByTestId("my-datagridtoolbar").firstChild).toHaveClass("jn:ml-auto")
+  })
+
+  test("doesn't apply jn:ml-auto correctly when alignRight false", () => {
+    render(<DataGridToolbar data-testid="my-datagridtoolbar" alignRight={false} />)
+    expect(screen.getByTestId("my-datagridtoolbar")).toBeInTheDocument()
+    expect(screen.getByTestId("my-datagridtoolbar").firstChild).not.toHaveClass("jn:ml-auto")
+  })
 })
