@@ -8,7 +8,7 @@ import { Breadcrumb as BreadcrumbContainer, BreadcrumbItem } from "@cloudoperato
 import { isMatch, useMatches, useNavigate } from "@tanstack/react-router"
 
 export const Breadcrumb = () => {
-  const navigate2 = useNavigate()
+  const navigate = useNavigate()
   const matches = useMatches()
   const matchesWithCrumbs = matches.filter((match) => isMatch(match, "loaderData.crumb"))
 
@@ -29,7 +29,7 @@ export const Breadcrumb = () => {
             icon={"icon" in crumb ? crumb.icon : undefined}
             onClick={(e) => {
               e.preventDefault()
-              navigate2({
+              navigate({
                 to: pathname,
               })
             }}
