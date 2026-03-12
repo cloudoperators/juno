@@ -14,6 +14,7 @@ import { ComboBoxOption } from "../ComboBoxOption"
 import { Button } from "../Button"
 import { NativeSelectOption } from "../NativeSelectOption"
 import { NativeSelect } from "../NativeSelect"
+import { InputGroup } from "../InputGroup"
 
 const meta: Meta<typeof DataGridToolbar> = {
   title: "Components/DataGrid/DataGridToolbar",
@@ -25,12 +26,6 @@ const meta: Meta<typeof DataGridToolbar> = {
         type: { summary: "ReactNode" },
       },
     },
-    search: {
-      control: false,
-      table: {
-        type: { summary: "ReactElement" },
-      },
-    },
   },
 }
 
@@ -39,78 +34,50 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   render: (args: DataGridToolbarProps) => (
-    <DataGridToolbar {...args}>
-      <button>Add</button>
-    </DataGridToolbar>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Optional toolbar for use in DataGrid. Use ButtonRow for multiple buttons",
-      },
-    },
-  },
-  args: {},
-}
-
-export const ComplexLayout: Story = {
-  render: (args: DataGridToolbarProps) => (
-    <DataGridToolbar {...args}>
-      <Stack direction="vertical" gap="4" className="w-full">
-        <Stack alignment="center" gap="8">
-          <NativeSelect>
-            <NativeSelectOption key={0} value="o-1" label="Option 1" />,
-            <NativeSelectOption key={1} value="o-2" label="Option 2" />,
-            <NativeSelectOption key={2} value="o-3" label="Option 3" />,
-            <ComboBox>
-              <ComboBoxOption value="electronics" />
-              <ComboBoxOption value="clothing" />
-              <ComboBoxOption value="furniture" />
-            </ComboBox>
-          </NativeSelect>
-          <Button label="Clear all" variant="subdued" />
-          <SearchInput placeholder="Search items..." className="ml-auto" />
-        </Stack>
-        <Stack gap="2" wrap>
-          <Pill pillKey="category" pillValue="electronics" closeable />
-          <Pill pillKey="status" pillValue="active" closeable />
-          <Pill pillKey="priority" pillValue="high" closeable />
-        </Stack>
+    <DataGridToolbar {...args} className="">
+      <Stack gap="4">
+        <SearchInput placeholder="Search items..." className="" />
+        <Button label="Create" />
       </Stack>
     </DataGridToolbar>
   ),
   parameters: {
     docs: {
       description: {
-        story: "Demonstrates a complex toolbar layout with elements aligned right, by default.",
+        story:
+          "Demonstrates a simple toolbar layout with children right-aligned by default. Use ButtonRow for multiple buttons.",
       },
     },
   },
 }
 
-export const ComplexLayoutAlignLeft: Story = {
+export const ComplexCustomLayout: Story = {
   render: (args: DataGridToolbarProps) => (
     <DataGridToolbar {...args}>
-      <Stack direction="vertical" gap="4" className="w-full">
-        <Stack alignment="center" gap="8">
-          <NativeSelect>
-            <NativeSelectOption key={0} value="o-1" label="Option 1" />,
-            <NativeSelectOption key={1} value="o-2" label="Option 2" />,
-            <NativeSelectOption key={2} value="o-3" label="Option 3" />,
-            <ComboBox>
-              <ComboBoxOption value="electronics" />
-              <ComboBoxOption value="clothing" />
-              <ComboBoxOption value="furniture" />
-            </ComboBox>
-          </NativeSelect>
-          <Button label="Clear all" variant="subdued" />
-          <SearchInput placeholder="Search items..." className="ml-auto" />
+      <Stack direction="horizontal" distribution="between">
+        <Stack direction="vertical" gap="4" className="">
+          <Stack alignment="center" gap="4">
+            <InputGroup>
+              <NativeSelect name="Filter" value="category">
+                <NativeSelectOption value="category" label="Category" />
+                <NativeSelectOption value="status" label="Status" />
+                <NativeSelectOption value="priority" label="Priority" />
+              </NativeSelect>
+              <ComboBox>
+                <ComboBoxOption value="electronics" />
+                <ComboBoxOption value="clothing" />
+                <ComboBoxOption value="furniture" />
+              </ComboBox>
+            </InputGroup>
+            <Button label="Clear all" variant="subdued" />
+          </Stack>
+          <Stack gap="2" wrap>
+            <Pill pillKey="category" pillValue="electronics" closeable />
+            <Pill pillKey="status" pillValue="active" closeable />
+            <Pill pillKey="priority" pillValue="high" closeable />
+          </Stack>
         </Stack>
-        <Stack gap="2" wrap>
-          <Pill pillKey="category" pillValue="electronics" closeable />
-          <Pill pillKey="status" pillValue="active" closeable />
-          <Pill pillKey="priority" pillValue="high" closeable />
-        </Stack>
+        <SearchInput placeholder="Search items..." className="" />
       </Stack>
     </DataGridToolbar>
   ),
@@ -121,7 +88,7 @@ export const ComplexLayoutAlignLeft: Story = {
     docs: {
       description: {
         story:
-          "Demonstrates a complex toolbar layout with elements aligned left or center and search input on the right.",
+          "Demonstrates a complex toolbar layout with custom styling - children aligned left and search aligned right.",
       },
     },
   },
