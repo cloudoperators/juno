@@ -112,7 +112,7 @@ export default function YamlViewer({ value, className = "", ...props }: YamlView
 
   return (
     <div className={`overflow-x-auto max-w-full ${className}`} {...props}>
-      {error ? <ErrorMessage error={new Error(error)} /> : <div ref={containerRef} />}
+      {error ? <ErrorMessage error={error} /> : <div ref={containerRef} />}
     </div>
   )
 }
