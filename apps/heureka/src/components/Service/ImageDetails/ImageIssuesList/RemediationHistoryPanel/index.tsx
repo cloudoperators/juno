@@ -27,6 +27,7 @@ import { EmptyDataGridRow } from "../../../../common/EmptyDataGridRow"
 import { LoadingDataRow } from "../../../../common/LoadingDataRow"
 import { getErrorDataRowComponent } from "../../../../common/getErrorDataRow"
 import type { RemediatedVulnerability } from "../../../../Services/utils"
+import { useTimedState } from "../../../../../utils"
 
 type RemediationHistoryPanelProps = {
   service: string
@@ -115,7 +116,7 @@ export const RemediationHistoryPanel = ({
   onRevertSuccess,
 }: RemediationHistoryPanelProps) => {
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
-  const [revertMessage, setRevertMessage] = useState<RevertMessage | null>(null)
+  const [revertMessage, setRevertMessage] = useTimedState<RevertMessage>(5000, (m) => m.variant === "success")
 
   const remediationsPromise = useMemo(() => {
     if (!vulnerability) return null

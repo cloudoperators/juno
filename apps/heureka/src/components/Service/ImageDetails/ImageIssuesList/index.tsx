@@ -19,6 +19,7 @@ import {
   Message,
 } from "@cloudoperators/juno-ui-components"
 import { getNormalizedImageVulnerabilitiesResponse, ServiceImage } from "../../../Services/utils"
+import { useTimedState } from "../../../../utils"
 import type { VulnerabilityFilter } from "../../../../generated/graphql"
 import { fetchImages } from "../../../../api/fetchImages"
 import { fetchRemediations } from "../../../../api/fetchRemediations"
@@ -198,8 +199,6 @@ const RemediatedVulnerabilitiesTabContent = ({
   )
 }
 
-const SUCCESS_MESSAGE_DURATION_MS = 5000
-
 export const ImageIssuesList = ({
   service,
   image,
@@ -236,7 +235,7 @@ export const ImageIssuesList = ({
     },
     [navigate, service, image.repository]
   )
-  const [vulnerabilitiesSuccessMessage, setVulnerabilitiesSuccessMessage] = useState<string | null>(null)
+  const [vulnerabilitiesSuccessMessage, setVulnerabilitiesSuccessMessage] = useTimedState<string>(5000)
   const [, setRefreshKey] = useState(0)
 
   const refreshIssuesData = useCallback(
@@ -326,12 +325,6 @@ export const ImageIssuesList = ({
       image: [image.repository],
     },
   })
-
-  useEffect(() => {
-    if (!vulnerabilitiesSuccessMessage) return
-    const timer = setTimeout(() => setVulnerabilitiesSuccessMessage(null), SUCCESS_MESSAGE_DURATION_MS)
-    return () => clearTimeout(timer)
-  }, [vulnerabilitiesSuccessMessage])
 
   const handleFalsePositiveSuccess = useCallback(
     async (cveNumber: string) => {
