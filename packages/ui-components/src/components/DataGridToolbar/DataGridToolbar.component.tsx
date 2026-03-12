@@ -27,7 +27,7 @@ export const DataGridToolbar = ({
   const childrenWrapperStyles = alignRight ? "jn:ml-auto" : ""
   const alignmentToolbarStyles = alignRight ? "jn:flex jn:items-center" : ""
   return (
-    <div className={`juno-datagrid-toolbar ${baseToolbarStyles} ${alignmentToolbarStyles}${className}`} {...props}>
+    <div className={`juno-datagrid-toolbar ${baseToolbarStyles} ${alignmentToolbarStyles} ${className}`} {...props}>
       <div className={childrenWrapperStyles}>{children}</div>
     </div>
   )
