@@ -4,11 +4,7 @@
  */
 
 import { describe, it, expect } from "vitest"
-import {
-  resolveOrganization,
-  computeRouterBasePath,
-  getRouterBasePath,
-} from "./organizationResolver"
+import { resolveOrganization, computeRouterBasePath, getRouterBasePath } from "./organizationResolver"
 
 describe("organizationResolver", () => {
   describe("resolveOrganization", () => {
