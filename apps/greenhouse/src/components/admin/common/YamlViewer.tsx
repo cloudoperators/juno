@@ -36,7 +36,7 @@ export default function YamlViewer({ value, ...props }: YamlViewerProps) {
   return (
     <div ref={containerRef} className="overflow-x-auto max-w-full">
       {error ? (
-        <ErrorMessage error={new Error(error)} />
+        <ErrorMessage error={error} />
       ) : (
         <CodeMirror
           value={yamlContent}
