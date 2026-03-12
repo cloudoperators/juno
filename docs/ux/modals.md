@@ -2,12 +2,6 @@
 
 # Modals
 
-> [!NOTE]  
-> We have recently decided to move the primary action button in Modals to the very right, as is reflected below.
-> Unfortunately, the `Modal` component as of the time of writing doesn't reflect this yet, and places the primary button as the leftmost one, at least when created by the component using the API.
-> We will remedy this situation as soon, an issue to do that exists here: #1487 .
-> Once this change is merged, we can remove this note.
-
 A Modal is a focused UI element that interrupts user flow and prevents interaction with the underlying page or view until it is completed or dismissed.
 
 Best used for short, self-contained tasks or decisions that require user focus. Tasks in a Modal require completion or dismissal before the user can continue interacting with the current page or view.
