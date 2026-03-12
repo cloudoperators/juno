@@ -148,7 +148,7 @@ const RemediatedVulnerabilitiesTabContent = ({
         />
       </Stack>
       <div className="mt-4">
-        <DataGrid columns={5} minContentColumns={[0, 1, 2, 4]} cellVerticalAlignment="top">
+        <DataGrid columns={4} minContentColumns={[0, 1, 2]} cellVerticalAlignment="top">
           <DataGridRow>
             <DataGridHeadCell>
               <Icon icon="monitorHeart" />
@@ -156,7 +156,6 @@ const RemediatedVulnerabilitiesTabContent = ({
             <DataGridHeadCell>Vulnerability</DataGridHeadCell>
             <DataGridHeadCell>Target Date</DataGridHeadCell>
             <DataGridHeadCell>Description</DataGridHeadCell>
-            <DataGridHeadCell />
           </DataGridRow>
 
           {issuesPromise && (

@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from "react"
-import { DataGridRow, DataGridCell, Stack, Icon, PopupMenu, PopupMenuOptions } from "@cloudoperators/juno-ui-components"
+import { DataGridRow, DataGridCell, Stack, Icon } from "@cloudoperators/juno-ui-components"
 import { IssueIcon } from "../../../../../common/IssueIcon"
 import { IssueTimestamp } from "../../../../../common/IssueTimestamp"
 import { ImageVulnerability } from "../../../../../Services/utils"
@@ -96,11 +96,6 @@ export const RemediatedIssueDataRow = ({ issue, selected, onSelect }: Remediated
             </a>
           )}
         </Stack>
-      </DataGridCell>
-      <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
-        <PopupMenu icon="moreVert" className="whitespace-nowrap ml-auto">
-          <PopupMenuOptions />
-        </PopupMenu>
       </DataGridCell>
     </DataGridRow>
   )
