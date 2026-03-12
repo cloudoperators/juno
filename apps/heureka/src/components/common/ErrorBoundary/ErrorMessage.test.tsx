@@ -31,4 +31,18 @@ describe("ErrorMessage", () => {
     const errorText = screen.getByText("TestError: Something went wrong")
     expect(errorText).toBeInTheDocument()
   })
+
+  it("renders error from string", () => {
+    const error = "Failed to load data"
+    render(<ErrorMessage error={error} />)
+    const errorText = screen.getByText("Error: Failed to load data")
+    expect(errorText).toBeInTheDocument()
+  })
+
+  it("renders default message for unknown error types", () => {
+    const error = { someOtherProperty: "value" }
+    render(<ErrorMessage error={error} />)
+    const errorText = screen.getByText("Error: Something went wrong")
+    expect(errorText).toBeInTheDocument()
+  })
 })
