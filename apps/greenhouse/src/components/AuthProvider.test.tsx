@@ -138,10 +138,7 @@ describe("AuthProvider", () => {
       const wrapper1 = ({ children }: any) => <AuthProvider options={{ mockAuth: 123 }}>{children}</AuthProvider>
       const { result: result1 } = renderHook(() => useAuth(), { wrapper: wrapper1 })
       expect(result1.current.loggedIn).toBe(false)
-      expect(consoleWarnSpy).toHaveBeenCalledWith(
-        expect.stringContaining("Invalid mockAuth value"),
-        123
-      )
+      expect(consoleWarnSpy).toHaveBeenCalledWith(expect.stringContaining("Invalid mockAuth value"), 123)
 
       consoleWarnSpy.mockClear()
 
@@ -149,10 +146,7 @@ describe("AuthProvider", () => {
       const wrapper2 = ({ children }: any) => <AuthProvider options={{ mockAuth: [1, 2, 3] }}>{children}</AuthProvider>
       const { result: result2 } = renderHook(() => useAuth(), { wrapper: wrapper2 })
       expect(result2.current.loggedIn).toBe(false)
-      expect(consoleWarnSpy).toHaveBeenCalledWith(
-        expect.stringContaining("Invalid mockAuth value"),
-        [1, 2, 3]
-      )
+      expect(consoleWarnSpy).toHaveBeenCalledWith(expect.stringContaining("Invalid mockAuth value"), [1, 2, 3])
 
       consoleWarnSpy.mockRestore()
     })
