@@ -9,7 +9,6 @@ import { Messages } from "@cloudoperators/juno-messages-provider"
 import { useAuth } from "./AuthProvider"
 
 const NotificationsContainer = () => {
-  // @ts-expect-error TS(2339): Property 'isDemoMode' does not exist on type 'unkn... Remove this comment to see the full error message
   const { isDemoMode } = useAuth()
 
   return (

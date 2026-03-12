@@ -22,7 +22,6 @@ export const Route = createFileRoute("/admin/clusters")({
 })
 
 function RouteComponent() {
-  // @ts-expect-error TS(2339): Property 'data' does not exist on type 'unknown'.
   const { data: authData } = useAuth()
   const { addMessage, removeMessage } = useActions()
   const apiEndpoint = useGlobalsApiEndpoint()
