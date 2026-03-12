@@ -14,6 +14,7 @@ There are several designs for sign-in pages which can be found as re-usable temp
 ## Sign-In Form Validation
 
 ## Failed Sign-In
+
 When signing-in a user failed, the respective messaging should **never** give away any exact information about the failed sign-in that would give an attacker information they did not have before. For example, the messaging must not state whether an account exists with the user name or email that was attempted to sign in with.
 
 The same goes for when a user tried to reset a password: The message should never state whether an account for the email or user name the password was attempted to reset for actually exists or not.
