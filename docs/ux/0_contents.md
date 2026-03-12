@@ -25,7 +25,7 @@
 4. [UX Patterns](ux-patterns-md)
    1. Page And User Flow
    2. Authentication And Access
-      1. Sign In
+      1. [Sign In](sign-in.md)
       2. [UI For Unauthorized Users](ui-for-unauthorized-users.md)
    3. Displaying and Interacting With Data
    4. Wizard Pattern
