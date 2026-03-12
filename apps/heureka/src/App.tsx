@@ -75,10 +75,10 @@ const App = (props: AppProps) => {
   const authForProvider = useMemo(() => toEmbeddedAuth(props.auth), [props.auth])
 
   const authUserId = useMemo(() => {
-    if (!authForProvider) return null
+    if (!props.embedded || !authForProvider) return null
     const state = authForProvider.getSnapshot()
     return state.status === "authenticated" ? state.userId : null
-  }, [authForProvider])
+  }, [props.embedded, authForProvider])
 
   /*
    * Dynamically change the type of history on the router
