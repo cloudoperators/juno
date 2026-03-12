@@ -104,6 +104,58 @@ describe("AuthProvider", () => {
       // @ts-expect-error TS(2531): Object is possibly 'null'.
       expect(result.current.data.parsed.groups).toEqual(mockAuthData.groups)
     })
+
+    it("preserves case in JSON string mockAuth data", () => {
+      const replaceStateSpy = vi.spyOn(window.history, "replaceState").mockImplementation(() => {})
+
+      // Test with mixed-case data that should NOT be lowercased
+      const mockAuthData = {
+        email: "Jane.Doe@Example.com",
+        name: "Jane Doe",
+        groups: ["organization:TestOrg", "team:DevTeam"],
+      }
+      const mockAuthDataString = JSON.stringify(mockAuthData)
+
+      const wrapper = ({ children }: any) => (
+        <AuthProvider options={{ mockAuth: mockAuthDataString }}>{children}</AuthProvider>
+      )
+
+      const { result } = renderHook(() => useAuth(), { wrapper })
+
+      expect(replaceStateSpy).toHaveBeenCalledTimes(1)
+      // @ts-expect-error TS(2531): Object is possibly 'null'.
+      expect(result.current.data.raw.email).toEqual("Jane.Doe@Example.com")
+      // @ts-expect-error TS(2531): Object is possibly 'null'.
+      expect(result.current.data.raw.name).toEqual("Jane Doe")
+      // @ts-expect-error TS(2531): Object is possibly 'null'.
+      expect(result.current.data.raw.groups).toContain("organization:TestOrg")
+    })
+
+    it("rejects invalid mockAuth values (number, array, etc)", () => {
+      const consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => {})
+
+      // Test with number (invalid)
+      const wrapper1 = ({ children }: any) => <AuthProvider options={{ mockAuth: 123 }}>{children}</AuthProvider>
+      const { result: result1 } = renderHook(() => useAuth(), { wrapper: wrapper1 })
+      expect(result1.current.loggedIn).toBe(false)
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        expect.stringContaining("Invalid mockAuth value"),
+        123
+      )
+
+      consoleWarnSpy.mockClear()
+
+      // Test with array (invalid)
+      const wrapper2 = ({ children }: any) => <AuthProvider options={{ mockAuth: [1, 2, 3] }}>{children}</AuthProvider>
+      const { result: result2 } = renderHook(() => useAuth(), { wrapper: wrapper2 })
+      expect(result2.current.loggedIn).toBe(false)
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        expect.stringContaining("Invalid mockAuth value"),
+        [1, 2, 3]
+      )
+
+      consoleWarnSpy.mockRestore()
+    })
   })
 
   describe("initializes demo auth session", () => {

@@ -4,6 +4,7 @@
  */
 
 import { z } from "zod"
+import type { AuthStore } from "@cloudoperators/greenhouse-auth-provider"
 
 /**
  * Types for OAuth/OIDC authentication data
@@ -90,8 +91,8 @@ export interface AuthContextValue {
   loggedIn: boolean
   error: string | null
   data: AuthData | null
-  pluginAuth: any
+  pluginAuth: AuthStore
   isDemoMode: boolean
   login: () => void
-  logout: (options?: { resetOIDCSession?: boolean; silent?: boolean }) => void
+  logout: () => void
 }

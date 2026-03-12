@@ -58,12 +58,13 @@ function resolveMockAuth(value: MockAuthValue): { isMock: boolean; parsedAuth: T
   }
 
   if (typeof value === "string") {
-    const trimmed = value.trim().toLowerCase()
-    if (trimmed === "true") {
+    const trimmed = value.trim()
+    // Only lowercase for boolean check, not for JSON parsing
+    if (trimmed.toLowerCase() === "true") {
       return { isMock: true, parsedAuth: {} }
     }
 
-    // Try parsing JSON string
+    // Try parsing JSON string (use original case-sensitive trimmed string)
     try {
       const parsed = JSON.parse(trimmed)
       // Validate the parsed JSON
@@ -78,8 +79,15 @@ function resolveMockAuth(value: MockAuthValue): { isMock: boolean; parsedAuth: T
     return { isMock: false, parsedAuth: null }
   }
 
-  // It's an object (TokenData), already validated by MockAuthValue type
-  return { isMock: true, parsedAuth: value }
+  // It's an object - validate with Zod to ensure runtime safety
+  const validation = TokenDataSchema.safeParse(value)
+  if (validation.success) {
+    return { isMock: true, parsedAuth: validation.data }
+  }
+
+  // Invalid object (e.g., array, number, invalid structure)
+  console.warn("Invalid mockAuth value: expected boolean, TokenData object, or JSON string", value)
+  return { isMock: false, parsedAuth: null }
 }
 
 const initializeDemoAuth = (
@@ -262,10 +270,10 @@ export const AuthProvider = ({ options, children }: any) => {
   }
 
   // Memoized logout function
-  const logout = () => {
+  const logout = (options?: { resetOIDCSession?: boolean; silent?: boolean }) => {
     oidcInstance.current?.logout({
-      resetOIDCSession: true,
-      silent: true,
+      resetOIDCSession: options?.resetOIDCSession ?? true,
+      silent: options?.silent ?? true,
     })
     setAuthData(null)
     setOidcError(null)
