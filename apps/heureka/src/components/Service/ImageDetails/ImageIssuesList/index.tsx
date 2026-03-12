@@ -334,44 +334,14 @@ export const ImageIssuesList = ({
     return () => clearTimeout(timer)
   }, [vulnerabilitiesSuccessMessage])
 
-  const VulnerabilitiesTab = () => {
-    const handleFalsePositiveSuccess = useCallback(
-      async (cveNumber: string) => {
-        await refreshIssuesData(cveNumber)
-        const text = `Vulnerability ${cveNumber} marked as false positive successfully.`
-        setVulnerabilitiesSuccessMessage(text)
-      },
-      [refreshIssuesData]
-    )
-
-    return (
-      <VulnerabilitiesTabContent
-        service={service}
-        image={image}
-        setSearchTerm={setSearchTerm}
-        setPageCursor={setPageCursor}
-        issuesPromise={issuesPromise}
-        successMessage={vulnerabilitiesSuccessMessage}
-        onFalsePositiveSuccess={handleFalsePositiveSuccess}
-      />
-    )
-  }
-
-  const RemediatedVulnerabilitiesTab = () => {
-    return (
-      <RemediatedVulnerabilitiesTabContent
-        service={service}
-        image={image.repository}
-        setSearchTerm={setRemediatedSearchTerm}
-        issuesPromise={remediatedIssuesPromise}
-        remediationsPromise={remediationsPromise}
-        setPageCursor={setRemediatedPageCursor}
-        onDataRefresh={refreshIssuesData}
-        selectedVulnerability={vulRemediations ?? null}
-        onSelectVulnerability={handleRemediationPanelVulnerabilityChange}
-      />
-    )
-  }
+  const handleFalsePositiveSuccess = useCallback(
+    async (cveNumber: string) => {
+      await refreshIssuesData(cveNumber)
+      const text = `Vulnerability ${cveNumber} marked as false positive successfully.`
+      setVulnerabilitiesSuccessMessage(text)
+    },
+    [refreshIssuesData]
+  )
 
   return (
     <>
@@ -381,10 +351,28 @@ export const ImageIssuesList = ({
           <Tab label="Remediated Vulnerabilities" />
         </TabList>
         <TabPanel>
-          <VulnerabilitiesTab />
+          <VulnerabilitiesTabContent
+            service={service}
+            image={image}
+            setSearchTerm={setSearchTerm}
+            setPageCursor={setPageCursor}
+            issuesPromise={issuesPromise}
+            successMessage={vulnerabilitiesSuccessMessage}
+            onFalsePositiveSuccess={handleFalsePositiveSuccess}
+          />
         </TabPanel>
         <TabPanel>
-          <RemediatedVulnerabilitiesTab />
+          <RemediatedVulnerabilitiesTabContent
+            service={service}
+            image={image.repository}
+            setSearchTerm={setRemediatedSearchTerm}
+            issuesPromise={remediatedIssuesPromise}
+            remediationsPromise={remediationsPromise}
+            setPageCursor={setRemediatedPageCursor}
+            onDataRefresh={refreshIssuesData}
+            selectedVulnerability={vulRemediations ?? null}
+            onSelectVulnerability={handleRemediationPanelVulnerabilityChange}
+          />
         </TabPanel>
       </Tabs>
     </>

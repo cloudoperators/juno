@@ -10,6 +10,7 @@ import {
   Button,
   Stack,
   Textarea,
+  TextInput,
   DateTimePicker,
   Message,
 } from "@cloudoperators/juno-ui-components"
@@ -23,6 +24,8 @@ type FalsePositiveModalProps = {
   severity?: string
   service: string
   image: string
+  /** User ID from auth (provided by parent under AuthProvider). When set, User ID field is read-only. */
+  authUserId?: string | null
   /** Error message to show when createRemediation fails. */
   errorMessage?: string | null
   /** Called when submit fails so the parent can set errorMessage. */
@@ -47,14 +50,21 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
   severity,
   service,
   image,
+  authUserId = null,
   errorMessage,
   onSetError,
 }) => {
   const [description, setDescription] = useState<string>("")
+  const [manualUserId, setManualUserId] = useState<string>("")
   const [expirationDate, setExpirationDate] = useState<Date | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [descriptionError, setDescriptionError] = useState<string>("")
+  const [userIdError, setUserIdError] = useState<string>("")
   const isMountedRef = useRef(true)
+
+  const manualUserIdTrimmed = manualUserId.trim()
+  const remediatedBy = authUserId ?? (manualUserIdTrimmed || undefined)
+  const isUserIdValid = !!remediatedBy
 
   useEffect(() => {
     return () => {
@@ -69,8 +79,13 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
       setDescriptionError("Description is required")
       return
     }
+    if (!remediatedBy) {
+      setUserIdError("User ID is required")
+      return
+    }
 
     setDescriptionError("")
+    setUserIdError("")
     setIsSubmitting(true)
     try {
       const input: RemediationInput = {
@@ -79,12 +94,14 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
         service,
         image,
         description: descriptionTrimmed,
+        ...(remediatedBy && { remediatedBy }),
         ...(severity && { severity: toSeverityValue(severity) }),
         ...(expirationDate && { expirationDate: expirationDate.toISOString() }),
       }
       await onConfirm(input)
       if (isMountedRef.current) {
         setDescription("")
+        setManualUserId("")
         setExpirationDate(null)
         onClose()
       }
@@ -102,8 +119,10 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
 
   const handleClose = () => {
     setDescription("")
+    setManualUserId("")
     setExpirationDate(null)
     setDescriptionError("")
+    setUserIdError("")
     onSetError?.(null)
     onClose()
   }
@@ -129,7 +148,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
               onClick={handleConfirm}
               label={CONFIRM_LABEL}
               variant="primary"
-              disabled={isSubmitting || !descriptionTrimmed}
+              disabled={isSubmitting || !descriptionTrimmed || !isUserIdValid}
             />
           </Stack>
         </ModalFooter>
@@ -145,6 +164,22 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
         </div>
         <div>
           <strong>Image:</strong> {image}
+        </div>
+        <div>
+          <TextInput
+            label="User ID"
+            value={authUserId ?? manualUserId}
+            onChange={(e) => {
+              setManualUserId(e.target.value)
+              if (userIdError) setUserIdError("")
+            }}
+            disabled={!!authUserId}
+            required
+            invalid={!!userIdError}
+            errortext={userIdError}
+            placeholder={authUserId ? undefined : "Enter your user ID"}
+            helptext={authUserId ? "User ID from current session (read-only)." : "Enter your user ID."}
+          />
         </div>
         <div>
           <DateTimePicker

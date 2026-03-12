@@ -18,6 +18,7 @@ import { IssueTimestamp } from "../../../../../common/IssueTimestamp"
 import { ImageVulnerability } from "../../../../../Services/utils"
 import { getSeverityColor, useTextOverflow } from "../../../../../../utils"
 import { FalsePositiveModal } from "../../../FalsePositiveModal"
+import { useAuthUserId } from "../../../../../../App"
 import { useRouteContext } from "@tanstack/react-router"
 import { createRemediation } from "../../../../../../api/createRemediation"
 import { RemediationInput } from "../../../../../../generated/graphql"
@@ -53,6 +54,7 @@ export const IssuesDataRow = ({
   const [createError, setCreateError] = useState<string | null>(null)
   const { needsExpansion, textRef } = useTextOverflow(issue?.description || "")
   const { apiClient } = useRouteContext({ from: "/services/$service" })
+  const authUserId = useAuthUserId()
 
   if (!issue || !issue.name) {
     return null
@@ -143,6 +145,7 @@ export const IssuesDataRow = ({
           severity={issue.severity}
           service={service}
           image={image}
+          authUserId={authUserId}
           errorMessage={createError}
           onSetError={setCreateError}
         />

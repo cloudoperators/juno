@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { StrictMode } from "react"
+import React, { createContext, StrictMode, useContext, useMemo } from "react"
 import { ApolloProvider } from "@apollo/client/react"
 import { createRouter, RouterProvider, createHashHistory, createBrowserHistory } from "@tanstack/react-router"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
@@ -16,12 +16,25 @@ import { routeTree } from "./routeTree.gen"
 import { StoreProvider } from "./store/StoreProvider"
 import { AuthProvider, EmbeddedAuth } from "@cloudoperators/greenhouse-auth-provider"
 
+/**
+ * Auth user ID for the current user when embedded and authenticated; null otherwise.
+ * Derived from auth.getSnapshot() at App render time — intentionally NOT using useAuth()
+ * because the package may run on a different React instance (micro-frontend architecture).
+ * The shell remounts this plugin on auth change, so getSnapshot() is always fresh at mount.
+ */
+export const AuthUserIdContext = createContext<string | null>(null)
+export const useAuthUserId = () => useContext(AuthUserIdContext)
+
 export type InitialFilters = {
   support_group?: string[]
 }
 
+/** Same as README: AuthState = { status: "anonymous" } | { status: "authenticated"; token; userId; userName }; EmbeddedAuth = { getSnapshot(): AuthState } */
+export type { AuthState, EmbeddedAuth } from "@cloudoperators/greenhouse-auth-provider"
+
 const queryClient = new QueryClient()
 
+/** Auth can be EmbeddedAuth (from shell) or a plain AuthState (e.g. from appProps.json, which cannot contain functions). */
 export type AppProps = {
   theme?: "theme-dark" | "theme-light"
   apiEndpoint?: string
@@ -29,7 +42,7 @@ export type AppProps = {
   initialFilters?: InitialFilters
   basePath?: string
   enableHashedRouting?: boolean
-  auth?: EmbeddedAuth
+  auth?: EmbeddedAuth | import("@cloudoperators/greenhouse-auth-provider").AuthState
 }
 
 const router = createRouter({
@@ -47,10 +60,25 @@ declare module "@tanstack/react-router" {
   }
 }
 
+/** Normalize auth so AuthProvider always receives EmbeddedAuth (with getSnapshot). Plain objects from appProps.json are wrapped. */
+function toEmbeddedAuth(auth: AppProps["auth"]): EmbeddedAuth | undefined {
+  if (!auth) return undefined
+  if (typeof (auth as EmbeddedAuth).getSnapshot === "function") return auth as EmbeddedAuth
+  return { getSnapshot: () => auth as import("@cloudoperators/greenhouse-auth-provider").AuthState }
+}
+
 const App = (props: AppProps) => {
   const apiClient = getClient({
     uri: props.apiEndpoint,
   })
+
+  const authForProvider = useMemo(() => toEmbeddedAuth(props.auth), [props.auth])
+
+  const authUserId = useMemo(() => {
+    if (!authForProvider) return null
+    const state = authForProvider.getSnapshot()
+    return state.status === "authenticated" ? state.userId : null
+  }, [authForProvider])
 
   /*
    * Dynamically change the type of history on the router
@@ -96,10 +124,12 @@ const App = (props: AppProps) => {
             <AppShell embedded={props.embedded} pageHeader={<PageHeader applicationName="Heureka" />}>
               <ErrorBoundary>
                 <StrictMode>
-                  <AuthProvider embedded={props.embedded} auth={props.auth}>
-                    <StoreProvider>
-                      <RouterProvider basepath={props.basePath || "/"} router={router} />
-                    </StoreProvider>
+                  <AuthProvider embedded={!!authForProvider && !!props.embedded} auth={authForProvider as EmbeddedAuth}>
+                    <AuthUserIdContext.Provider value={authUserId}>
+                      <StoreProvider>
+                        <RouterProvider basepath={props.basePath || "/"} router={router} />
+                      </StoreProvider>
+                    </AuthUserIdContext.Provider>
                   </AuthProvider>
                 </StrictMode>
               </ErrorBoundary>

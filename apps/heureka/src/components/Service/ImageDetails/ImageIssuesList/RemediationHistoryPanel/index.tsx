@@ -83,16 +83,16 @@ const RemediationHistoryTable = ({
     <>
       {remediatedVulnerabilities.map((r: RemediatedVulnerability) => (
         <DataGridRow key={r.remediationId}>
+          <DataGridCell className="whitespace-nowrap">{r.type ?? "—"}</DataGridCell>
           <DataGridCell className="whitespace-nowrap">{formatDateTime(r.expirationDate)}</DataGridCell>
           <DataGridCell className="whitespace-nowrap">{formatDateTime(r.remediationDate)}</DataGridCell>
           <DataGridCell>{r.remediatedBy ?? "—"}</DataGridCell>
-          <DataGridCell>{r.type ?? "—"}</DataGridCell>
           <DataGridCell>{r.description ?? "—"}</DataGridCell>
           <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
             <PopupMenu icon="moreVert" className="whitespace-nowrap ml-auto" disabled={!!revertingId}>
               <PopupMenuOptions>
                 <PopupMenuItem
-                  label={revertingId === r.remediationId ? "Reverting..." : "Revert False Positive"}
+                  label={revertingId === r.remediationId ? "Reverting..." : "Revert"}
                   onClick={() => handleRevert(r)}
                   disabled={!!revertingId}
                 />
@@ -183,10 +183,10 @@ export const RemediationHistoryPanel = ({
           >
             <DataGrid columns={COLUMN_SPAN} cellVerticalAlignment="top">
               <DataGridRow>
+                <DataGridHeadCell>Type</DataGridHeadCell>
                 <DataGridHeadCell>Expiration Date</DataGridHeadCell>
                 <DataGridHeadCell>Remediation Date</DataGridHeadCell>
                 <DataGridHeadCell>Remediated By</DataGridHeadCell>
-                <DataGridHeadCell>Type</DataGridHeadCell>
                 <DataGridHeadCell>Description</DataGridHeadCell>
                 <DataGridHeadCell />
               </DataGridRow>
