@@ -23,11 +23,8 @@ describe("AuthProvider", () => {
     it("initializes default the oidc session but return error because no issuerUrl or clientId provided", () => {
       const wrapper = ({ children }: any) => <AuthProvider options={{}}>{children}</AuthProvider>
       const { result } = renderHook(() => useAuth(), { wrapper })
-      // @ts-expect-error TS(2531): Object is possibly 'null'.
       expect(result.current.loggedIn).toBe(false)
-      // @ts-expect-error TS(2531): Object is possibly 'null'.
       expect(result.current.isDemoMode).toBe(false)
-      // @ts-expect-error TS(2531): Object is possibly 'null'.
       expect(result.current.error).not.toBe(null)
     })
   })
