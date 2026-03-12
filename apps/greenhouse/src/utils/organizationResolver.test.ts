@@ -7,7 +7,6 @@ import { describe, it, expect } from "vitest"
 import {
   resolveOrganization,
   computeRouterBasePath,
-  extractOrganizationName,
   getRouterBasePath,
 } from "./organizationResolver"
 
