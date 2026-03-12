@@ -13,7 +13,7 @@ export const getErrorDataRowComponent = ({ colspan }: { colspan: number }) => {
   const ErrorDataRow = ({ error }: FallbackProps) => (
     <EmptyDataGridRow colSpan={colspan}>
       <Stack gap="2" alignment="center">
-        <ErrorMessage error={error as Error} />
+        <ErrorMessage error={error} />
       </Stack>
     </EmptyDataGridRow>
   )

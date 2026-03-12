@@ -6,6 +6,7 @@
 import React, { createContext, useContext, useState, useMemo, useRef, useEffect } from "react"
 import { oidcSession, mockedSession, tokenSession } from "@cloudoperators/juno-oauth"
 import { createAuthStore, AuthStore } from "@cloudoperators/greenhouse-auth-provider"
+import { extractOrganizationName } from "../utils/organizationResolver"
 
 const setOrganizationToUrl = (groups: any, enableHashedRouting: boolean) => {
   const orgName = groups?.find((g: any) => g.startsWith("organization:"))?.split(":")[1]
@@ -70,18 +71,6 @@ function resolveMockAuth(value: any) {
   }
 
   return result
-}
-
-const extractOrganizationName = (enableHashedRouting: boolean) => {
-  const currentUrl = new URL(window.location.href)
-
-  // Try to extract from subdomain
-  let match = currentUrl.host.match(/^(.+)\.dashboard\..+/)
-  if (match) return match[1]
-  // If enableHashedRouting is true, take path from the hashed part of the URL otherwise take it from the pathname
-  const path = enableHashedRouting ? currentUrl.hash.replace("#/", "") : currentUrl.pathname
-  const pathParts = path.split("/").filter(Boolean)
-  return pathParts.length > 0 ? pathParts[0] : undefined
 }
 
 const initializeDemoAuth = (
@@ -200,9 +189,10 @@ export const AuthProvider = ({ options, children }: any) => {
       demoOrg = "demo",
       demoUserToken,
       enableHashedRouting,
+      basePath,
     } = options || {}
 
-    const orgName = extractOrganizationName(enableHashedRouting)
+    const orgName = extractOrganizationName(enableHashedRouting, basePath)
 
     // extract mock params
     const { isMock, parsedAuth } = resolveMockAuth(mockAuth)
