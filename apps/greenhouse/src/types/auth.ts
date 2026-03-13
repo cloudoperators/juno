@@ -83,7 +83,7 @@ export interface OidcSessionInstance {
   login: () => void
   logout: (options?: any) => void
   refresh?: () => void
-  currentState?: () => OidcSessionState
+  currentState?: () => any
 }
 
 export interface AuthContextValue {

@@ -226,7 +226,7 @@ export const AuthProvider = ({ options, children }: any) => {
         setOidcError,
         setOrganizationToUrl,
         pluginAuth
-      ) as OidcSessionInstance
+      )
       return oidcInstance.current
     }
 
@@ -239,7 +239,7 @@ export const AuthProvider = ({ options, children }: any) => {
         enableHashedRouting,
         setAuthData,
         setOrganizationToUrl
-      ) as OidcSessionInstance
+      )
       return oidcInstance.current
     }
 
@@ -254,7 +254,7 @@ export const AuthProvider = ({ options, children }: any) => {
         setAuthData,
         setOrganizationToUrl,
         pluginAuth
-      ) as OidcSessionInstance
+      )
       return oidcInstance.current
     }
 
