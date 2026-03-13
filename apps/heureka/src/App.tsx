@@ -29,7 +29,6 @@ export type InitialFilters = {
   support_group?: string[]
 }
 
-/** Same as README: AuthState = { status: "anonymous" } | { status: "authenticated"; token; userId; userName }; EmbeddedAuth = { getSnapshot(): AuthState } */
 export type { AuthState, EmbeddedAuth } from "@cloudoperators/greenhouse-auth-provider"
 
 const queryClient = new QueryClient()

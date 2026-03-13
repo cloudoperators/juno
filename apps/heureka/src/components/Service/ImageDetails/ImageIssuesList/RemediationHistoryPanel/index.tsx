@@ -139,16 +139,15 @@ export const RemediationHistoryPanel = ({
       const text = `The false positive for ${vulnerability ?? "unknown"} has been reverted. The status may take up to 5–6 minutes to update in the tables.`
       setRevertMessage({ variant: "success", text })
 
-      // Refresh panel/list data after showing success feedback.
-      try {
-        if (vulnerability) {
-          await onRevertSuccess?.(vulnerability)
-        }
-      } catch (refreshError) {
-        const refreshMsg = refreshError instanceof Error ? refreshError.message : "Failed to refresh data after revert"
-        setRevertMessage({
-          variant: "error",
-          text: `Revert succeeded, but ${refreshMsg.toLowerCase()}. You may need to refresh the page.`,
+      // Refresh panel/list data in the background — do not await so the
+      // spinner clears at the same time as the success message appears.
+      if (vulnerability) {
+        Promise.resolve(onRevertSuccess?.(vulnerability)).catch((refreshError) => {
+          const refreshMsg = refreshError instanceof Error ? refreshError.message : "Failed to refresh data after revert"
+          setRevertMessage({
+            variant: "error",
+            text: `Revert succeeded, but ${refreshMsg.toLowerCase()}. You may need to refresh the page.`,
+          })
         })
       }
     } catch (err) {
