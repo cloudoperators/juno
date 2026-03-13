@@ -134,6 +134,8 @@ export const RemediationHistoryPanel = ({
   }, [service, image, vulnerability, apiClient, queryClient])
 
   const handleRevert = async (remediationId: string) => {
+    // Clear any existing feedback when starting a new revert operation.
+    setRevertMessage(null)
     try {
       await deleteRemediation({ apiClient, remediationId })
       const text = `The false positive for ${vulnerability ?? "unknown"} has been reverted. The status may take up to 5–6 minutes to update in the tables.`

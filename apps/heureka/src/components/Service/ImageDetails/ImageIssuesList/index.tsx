@@ -238,9 +238,12 @@ export const ImageIssuesList = ({
   const [vulnerabilitiesSuccessMessage, setVulnerabilitiesSuccessMessage] = useTimedState<string>(10000)
   const [, setRefreshKey] = useState(0)
   const pollTimeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([])
+  const isMountedRef = useRef(true)
 
   useEffect(() => {
+    isMountedRef.current = true
     return () => {
+      isMountedRef.current = false
       pollTimeoutsRef.current.forEach(clearTimeout)
     }
   }, [])
@@ -289,19 +292,26 @@ export const ImageIssuesList = ({
       pollTimeoutsRef.current.forEach(clearTimeout)
       pollTimeoutsRef.current = []
       ;[2.5 * 60 * 1000, 5 * 60 * 1000].forEach((delay) => {
-        const id = setTimeout(async () => {
-          await queryClient.invalidateQueries({
+        const id = setTimeout(() => {
+          queryClient.invalidateQueries({
             predicate: (query) => {
-              const [key] = query.queryKey as [string]
-              return key === "images" || key === "remediations"
+              const [key, filter] = query.queryKey as [
+                string,
+                { service?: string[]; image?: string[]; repository?: string[]; vulnerability?: string[] } | undefined,
+              ]
+              if (key === "images" || key === "remediations") {
+                return matchesCurrentServiceAndImage(filter)
+              }
+              return false
             },
           })
+          if (!isMountedRef.current) return
           setRefreshKey((k) => k + 1)
         }, delay)
         pollTimeoutsRef.current.push(id)
       })
     },
-    [queryClient, service, image.repository]
+    [queryClient, service, image.repository, isMountedRef]
   )
 
   const openVulFilter = {

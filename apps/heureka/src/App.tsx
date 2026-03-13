@@ -79,6 +79,11 @@ const App = (props: AppProps) => {
     return state.status === "authenticated" ? state.userId : null
   }, [props.embedded, authForProvider])
 
+  const authProviderProps =
+    props.embedded && authForProvider
+      ? ({ embedded: true as const, auth: authForProvider } as const)
+      : ({ embedded: false as const } as const)
+
   /*
    * Dynamically change the type of history on the router
    * based on the enableHashedRouting prop. This ensures that
@@ -123,7 +128,7 @@ const App = (props: AppProps) => {
             <AppShell embedded={props.embedded} pageHeader={<PageHeader applicationName="Heureka" />}>
               <ErrorBoundary>
                 <StrictMode>
-                  <AuthProvider embedded={!!authForProvider && !!props.embedded} auth={authForProvider as EmbeddedAuth}>
+                  <AuthProvider {...authProviderProps}>
                     <AuthUserIdContext.Provider value={authUserId}>
                       <StoreProvider>
                         <RouterProvider basepath={props.basePath || "/"} router={router} />
