@@ -15,6 +15,7 @@ import styles from "./styles.css?inline"
 import StoreProvider, { useGlobalsApiEndpoint } from "./components/StoreProvider"
 import { AuthProvider, useAuth } from "./components/AuthProvider"
 import { routeTree } from "./routeTree.gen"
+import { getRouterBasePath } from "./utils/organizationResolver"
 
 // Create a new query client instance
 const queryClient = new QueryClient()
@@ -47,18 +48,7 @@ export type AppProps = {
   demoUserToken?: string
   currentHost?: string
   enableHashedRouting?: boolean
-}
-
-const getBasePath = (auth: any) => {
-  // Determine if org is part of the domain
-  const currentUrl = new URL(window.location.href)
-  const organizationIsPartOfDomain = currentUrl.host.match(/^(.+)\.dashboard\..+/)
-  if (organizationIsPartOfDomain) {
-    return "/"
-  }
-  // If the organization is not part of the domain, extract it from the auth token
-  const orgString = auth?.data?.raw.groups?.find((g: any) => g.indexOf("organization:") === 0)
-  return orgString ? orgString.split(":")[1] : undefined
+  basePath?: string
 }
 
 const getUser = (auth: unknown) => ({
@@ -85,7 +75,8 @@ function App(props: AppProps) {
    * want the app to use browser history.
    */
   router.update({
-    basepath: getBasePath(auth),
+    // @ts-expect-error - auth?.data type needs to be properly defined
+    basepath: getRouterBasePath(auth?.data?.raw?.groups, props.basePath),
     context: { appProps: props, apiClient, user },
     stringifySearch: encodeV2,
     parseSearch: decodeV2,

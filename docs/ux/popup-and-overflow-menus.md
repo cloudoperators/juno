@@ -14,14 +14,18 @@ An established Popup menu pattern used in many user interfaces is the OverflowMe
 
 Use an OverflowMenu when:
 
-- The options or actions in the menu are associated with or targeted at a specific item
-- there is not enough space to show the available options inline / as-is.
-- there are more than 2-3 options available for the item the options are associated with
+- the options or actions in the menu are associated with or targeted at a specific item
+- there are multiple options per item
+- there is only a single option per item, but showing it inline in the item itself as an icon or button would lead to page clutter, the option is likely rarely to be used, or the action is highly destructive
 
 Do NOT use an overflow item when:
 
-- There is only one action (unless there really is no other way of placing that option)
-- It is impossible for a user to establish what item or UI element the menu and its options refer to
+- it is impossible for a user to establish what item or UI element the menu and its options refer to
+- there is only a single option on the item, and that single option is often used so putting it inside menu feels like additional legwork, and/or that single option is not highly destructive
+
+### Bottom Line
+
+When in doubt and to prevent page clutter, it is usually the safer option to also put single item options in an overflow menu, unless the option is very often used, and not destructive. To avoid page clutter, another option is to display the button or icon inline, but only make it appear when hovering the item/row.
 
 When using a PopupMenu, always make sure:
 

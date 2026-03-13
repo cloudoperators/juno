@@ -46,3 +46,4 @@ const StyledApp = (props: any) => {
 }
 
 export default StyledApp
+export { App as ClustersAppWithoutShadowDOM }

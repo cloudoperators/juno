@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { useCallback } from "react"
 import { useParams, useRouteContext } from "@tanstack/react-router"
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import {
   Container,
   Tabs,
@@ -21,6 +21,7 @@ import { Overview } from "./Overview"
 import { Plugin } from "../types/k8sTypes"
 import { ErrorMessage } from "../common/ErrorBoundary/ErrorMessage"
 import YamlViewer from "../common/YamlViewer"
+import { ReconcileButton } from "../common/ReconcileButton"
 
 const isPluginReady = (plugin: Plugin) => {
   return plugin.status?.statusConditions?.conditions?.some((c) => c.type === "Ready" && c.status === "True")
@@ -54,6 +55,7 @@ export const PluginInstanceDetail = () => {
   const { apiClient, user } = useRouteContext({
     from: "/admin/plugin-presets/$pluginPresetName/plugin-instances/$pluginInstance",
   })
+  const queryClient = useQueryClient()
 
   const {
     data: plugin,
@@ -64,17 +66,30 @@ export const PluginInstanceDetail = () => {
     queryFn: () => fetchPlugin({ apiClient, namespace: user.organization, pluginName: pluginInstance }),
   })
 
+  const handleReconcile = useCallback(() => {
+    // Invalidate and refetch the plugin
+    queryClient.invalidateQueries({ queryKey: [FETCH_PLUGIN_CACHE_KEY, user.organization, pluginInstance] })
+  }, [queryClient, user.organization, pluginInstance])
+
   return (
     <Stack direction="vertical" gap="4">
-      <Stack gap="2" alignment="center">
-        <ContentHeading className="pb-0">{pluginInstance}</ContentHeading>
-        {plugin && (
-          <Badge
-            icon
-            text={isPluginReady(plugin) ? "Ready" : "Failing"}
-            variant={isPluginReady(plugin) ? "success" : "error"}
-          />
-        )}
+      <Stack direction="horizontal" distribution="between">
+        <Stack gap="2" alignment="center">
+          <ContentHeading className="pb-0">{pluginInstance}</ContentHeading>
+          {plugin && (
+            <Badge
+              icon
+              text={isPluginReady(plugin) ? "Ready" : "Failing"}
+              variant={isPluginReady(plugin) ? "success" : "error"}
+            />
+          )}
+        </Stack>
+        <ReconcileButton
+          resourceType="plugins"
+          resourceName={pluginInstance}
+          namespace={user.organization}
+          onReconcile={handleReconcile}
+        />
       </Stack>
       <p>Plugin instance configuration and status</p>
       {isLoading && <p>Loading...</p>}

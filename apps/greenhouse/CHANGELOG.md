@@ -1,5 +1,35 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.11.1
+
+### Patch Changes
+
+- 3351602: Upgrade aquasecurity/trivy-action because of deleted release.
+
+## 0.11.0
+
+### Minor Changes
+
+- 7333427: Replace old admin area with the new one.
+
+### Patch Changes
+
+- 9c81f92: Added type guard to check if error is an `Error` instance before accessing `message` property, preventing potential `undefined` display to users
+- d98d06a: Removed inline error message from ReconcileButton and use MessagesProvider instead to display page level errors.
+
+## 0.10.0
+
+### Minor Changes
+
+- 39de31e: Add reconcile button to annotate PluginPreset and Plugin resources.
+
+### Patch Changes
+
+- 2f84dbf: Introduces a new authentication provider package that enables secure, read-only authentication state sharing between the Greenhouse shell app and plugins.
+- 441e92e: fix(greenhouse): prevent wide content from causing page-level horizontal scrollbar
+- Updated dependencies [2f84dbf]
+  - @cloudoperators/juno-app-heureka@1.0.2
+
 ## 0.9.0
 
 ### Minor Changes

@@ -108,7 +108,7 @@ The first and last word of a heading or title is always capitalized.
 
 Written numerals such as "One", "Nine", "Thousands" are capitalized. For compound numerals only the first part is capitalized: "Twenty-one".
 
-Never use All-caps, ever.
+**Never use All-caps, ever.**
 
 Do not use punctuations unless they are required to convey actual meaning.
 

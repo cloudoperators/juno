@@ -25,7 +25,7 @@
 4. [UX Patterns](ux-patterns-md)
    1. Page And User Flow
    2. Authentication And Access
-      1. Sign In
+      1. [Sign In](sign-in.md)
       2. [UI For Unauthorized Users](ui-for-unauthorized-users.md)
    3. Displaying and Interacting With Data
    4. Wizard Pattern
@@ -39,6 +39,6 @@
    3. [Error Handling, Loading And Empty States](error-handling-loading-empty-states.md)
    4. [Transient States And Progress](transient-states-and-progress.md)
 6. Versioning, Deprecation Policy
-   [7. Resources](resources.md)
-7. Appendix
+7. [Resources](resources.md)
+8. Appendix
    1. Terminology/Glossary
