@@ -162,10 +162,10 @@ const RemediatedVulnerabilitiesTabContent = ({
           {issuesPromise && (
             <ErrorBoundary
               displayErrorMessage
-              fallbackRender={getErrorDataRowComponent({ colspan: 5 })}
+              fallbackRender={getErrorDataRowComponent({ colspan: 4 })}
               resetKeys={[issuesPromise, remediationsPromise]}
             >
-              <Suspense fallback={<LoadingDataRow colSpan={5} />}>
+              <Suspense fallback={<LoadingDataRow colSpan={4} />}>
                 <RemediatedIssuesDataRows
                   issuesPromise={issuesPromise}
                   remediationsPromise={remediationsPromise}
