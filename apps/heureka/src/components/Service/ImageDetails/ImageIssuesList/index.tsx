@@ -352,9 +352,9 @@ export const ImageIssuesList = ({
 
   const handleFalsePositiveSuccess = useCallback(
     async (cveNumber: string) => {
-      await refreshIssuesData(cveNumber)
       const text = `Vulnerability ${cveNumber} has been marked as a false positive. The status may take up to 5–6 minutes to update in the tables.`
       setVulnerabilitiesSuccessMessage(text)
+      await refreshIssuesData(cveNumber)
     },
     [refreshIssuesData]
   )

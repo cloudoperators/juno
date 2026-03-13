@@ -78,7 +78,8 @@ export const IssuesDataRow = ({
     try {
       await createRemediation({ apiClient, input })
       const cveNumber = issue?.name || "unknown"
-      await onFalsePositiveSuccess?.(cveNumber)
+      // Fire refresh in the background so the spinner clears immediately after createRemediation.
+      Promise.resolve(onFalsePositiveSuccess?.(cveNumber)).catch(() => {})
     } catch (error) {
       setIsModalOpen(true)
       return { error: error instanceof Error ? error.message : "Failed to create remediation" }
