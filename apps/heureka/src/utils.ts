@@ -131,13 +131,21 @@ export function useTimedState<T>(
   shouldExpire?: (value: T) => boolean
 ): [T | null, Dispatch<SetStateAction<T | null>>] {
   const [value, setValue] = useState<T | null>(null)
+  const shouldExpireRef = useRef<typeof shouldExpire>()
+
+  // Keep the ref updated with the latest predicate without tying the timer effect
+  // to the predicate's identity (which may change across renders).
+  useEffect(() => {
+    shouldExpireRef.current = shouldExpire
+  }, [shouldExpire])
 
   useEffect(() => {
     if (value === null) return
-    if (shouldExpire && !shouldExpire(value)) return
+    const predicate = shouldExpireRef.current
+    if (predicate && !predicate(value)) return
     const timer = setTimeout(() => setValue(null), duration)
     return () => clearTimeout(timer)
-  }, [value, duration, shouldExpire])
+  }, [value, duration])
 
   return [value, setValue]
 }
