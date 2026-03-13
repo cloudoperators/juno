@@ -131,7 +131,7 @@ export function useTimedState<T>(
   shouldExpire?: (value: T) => boolean
 ): [T | null, Dispatch<SetStateAction<T | null>>] {
   const [value, setValue] = useState<T | null>(null)
-  const shouldExpireRef = useRef<typeof shouldExpire>()
+  const shouldExpireRef = useRef<typeof shouldExpire>(undefined)
 
   // Keep the ref updated with the latest predicate without tying the timer effect
   // to the predicate's identity (which may change across renders).
