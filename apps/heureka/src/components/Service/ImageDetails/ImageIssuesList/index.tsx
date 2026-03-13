@@ -329,7 +329,7 @@ export const ImageIssuesList = ({
   const handleFalsePositiveSuccess = useCallback(
     async (cveNumber: string) => {
       await refreshIssuesData(cveNumber)
-      const text = `Vulnerability ${cveNumber} marked as false positive successfully.`
+      const text = `Vulnerability ${cveNumber} has been marked as a false positive. Changes may take a few moments to appear in the tables.`
       setVulnerabilitiesSuccessMessage(text)
     },
     [refreshIssuesData]

@@ -135,7 +135,7 @@ export const RemediationHistoryPanel = ({
   const handleRevert = async (remediationId: string) => {
     try {
       await deleteRemediation({ apiClient, remediationId })
-      const text = `Vulnerability ${vulnerability ?? "unknown"} reverted from false positive successfully.`
+      const text = `The false positive for ${vulnerability ?? "unknown"} has been reverted. Changes may take a few moments to appear in the tables.`
       setRevertMessage({ variant: "success", text })
 
       // Refresh panel/list data after showing success feedback.
@@ -178,6 +178,7 @@ export const RemediationHistoryPanel = ({
         )}
         {remediationsPromise && (
           <ErrorBoundary
+            className="mt-4"
             displayErrorMessage
             fallbackRender={getErrorDataRowComponent({ colspan: COLUMN_SPAN })}
             resetKeys={[remediationsPromise]}
