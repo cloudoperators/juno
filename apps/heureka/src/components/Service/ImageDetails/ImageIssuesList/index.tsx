@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Suspense, useState, useCallback, useEffect } from "react"
+import React, { Suspense, useState, useCallback, useEffect, useRef } from "react"
 import { useNavigate, useRouteContext } from "@tanstack/react-router"
 import {
   DataGrid,
@@ -235,8 +235,15 @@ export const ImageIssuesList = ({
     },
     [navigate, service, image.repository]
   )
-  const [vulnerabilitiesSuccessMessage, setVulnerabilitiesSuccessMessage] = useTimedState<string>(5000)
+  const [vulnerabilitiesSuccessMessage, setVulnerabilitiesSuccessMessage] = useTimedState<string>(10000)
   const [, setRefreshKey] = useState(0)
+  const pollTimeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([])
+
+  useEffect(() => {
+    return () => {
+      pollTimeoutsRef.current.forEach(clearTimeout)
+    }
+  }, [])
 
   const refreshIssuesData = useCallback(
     async (vulnerability: string) => {
@@ -276,6 +283,23 @@ export const ImageIssuesList = ({
       })
 
       setRefreshKey((k) => k + 1)
+
+      // Cancel any pending polls from a previous operation and schedule fresh ones.
+      // The backend takes ~5–6 min to propagate changes, so we poll at 2.5 and 5 min.
+      pollTimeoutsRef.current.forEach(clearTimeout)
+      pollTimeoutsRef.current = []
+      ;[2.5 * 60 * 1000, 5 * 60 * 1000].forEach((delay) => {
+        const id = setTimeout(async () => {
+          await queryClient.invalidateQueries({
+            predicate: (query) => {
+              const [key] = query.queryKey as [string]
+              return key === "images" || key === "remediations"
+            },
+          })
+          setRefreshKey((k) => k + 1)
+        }, delay)
+        pollTimeoutsRef.current.push(id)
+      })
     },
     [queryClient, service, image.repository]
   )
@@ -289,7 +313,7 @@ export const ImageIssuesList = ({
     ...(remediatedSearchTerm ? { search: [remediatedSearchTerm] } : {}),
   }
 
-  const issuesPromise = fetchImages({
+  const activeIssuesPromise = fetchImages({
     apiClient,
     queryClient,
     filter: {
@@ -329,7 +353,7 @@ export const ImageIssuesList = ({
   const handleFalsePositiveSuccess = useCallback(
     async (cveNumber: string) => {
       await refreshIssuesData(cveNumber)
-      const text = `Vulnerability ${cveNumber} has been marked as a false positive. Changes may take a few moments to appear in the tables.`
+      const text = `Vulnerability ${cveNumber} has been marked as a false positive. The status may take up to 5–6 minutes to update in the tables.`
       setVulnerabilitiesSuccessMessage(text)
     },
     [refreshIssuesData]
@@ -348,7 +372,7 @@ export const ImageIssuesList = ({
             image={image}
             setSearchTerm={setSearchTerm}
             setPageCursor={setPageCursor}
-            issuesPromise={issuesPromise}
+            issuesPromise={activeIssuesPromise}
             successMessage={vulnerabilitiesSuccessMessage}
             onFalsePositiveSuccess={handleFalsePositiveSuccess}
           />

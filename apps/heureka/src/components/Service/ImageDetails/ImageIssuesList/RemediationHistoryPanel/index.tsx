@@ -17,6 +17,7 @@ import {
   PopupMenuItem,
   Message,
   Stack,
+  Spinner,
 } from "@cloudoperators/juno-ui-components"
 import { fetchRemediations } from "../../../../../api/fetchRemediations"
 import { deleteRemediation } from "../../../../../api/deleteRemediation"
@@ -90,15 +91,15 @@ const RemediationHistoryTable = ({
           <DataGridCell>{r.remediatedBy ?? "—"}</DataGridCell>
           <DataGridCell>{r.description ?? "—"}</DataGridCell>
           <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
-            <PopupMenu icon="moreVert" className="whitespace-nowrap ml-auto" disabled={!!revertingId}>
-              <PopupMenuOptions>
-                <PopupMenuItem
-                  label={revertingId === r.remediationId ? "Reverting..." : "Revert"}
-                  onClick={() => handleRevert(r)}
-                  disabled={!!revertingId}
-                />
-              </PopupMenuOptions>
-            </PopupMenu>
+            {revertingId === r.remediationId ? (
+              <Spinner variant="primary" size="small" className="ml-auto" />
+            ) : (
+              <PopupMenu icon="moreVert" className="whitespace-nowrap ml-auto" disabled={!!revertingId}>
+                <PopupMenuOptions>
+                  <PopupMenuItem label="Revert" onClick={() => handleRevert(r)} disabled={!!revertingId} />
+                </PopupMenuOptions>
+              </PopupMenu>
+            )}
           </DataGridCell>
         </DataGridRow>
       ))}
@@ -116,7 +117,7 @@ export const RemediationHistoryPanel = ({
   onRevertSuccess,
 }: RemediationHistoryPanelProps) => {
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
-  const [revertMessage, setRevertMessage] = useTimedState<RevertMessage>(5000, (m) => m.variant === "success")
+  const [revertMessage, setRevertMessage] = useTimedState<RevertMessage>(10000, (m) => m.variant === "success")
 
   const remediationsPromise = useMemo(() => {
     if (!vulnerability) return null
@@ -135,7 +136,7 @@ export const RemediationHistoryPanel = ({
   const handleRevert = async (remediationId: string) => {
     try {
       await deleteRemediation({ apiClient, remediationId })
-      const text = `The false positive for ${vulnerability ?? "unknown"} has been reverted. Changes may take a few moments to appear in the tables.`
+      const text = `The false positive for ${vulnerability ?? "unknown"} has been reverted. The status may take up to 5–6 minutes to update in the tables.`
       setRevertMessage({ variant: "success", text })
 
       // Refresh panel/list data after showing success feedback.
@@ -183,7 +184,7 @@ export const RemediationHistoryPanel = ({
             fallbackRender={getErrorDataRowComponent({ colspan: COLUMN_SPAN })}
             resetKeys={[remediationsPromise]}
           >
-            <DataGrid columns={COLUMN_SPAN} cellVerticalAlignment="top">
+            <DataGrid columns={COLUMN_SPAN} minContentColumns={[0, 1, 2, 3, 5]} cellVerticalAlignment="top">
               <DataGridRow>
                 <DataGridHeadCell>Type</DataGridHeadCell>
                 <DataGridHeadCell>Expiration Date</DataGridHeadCell>

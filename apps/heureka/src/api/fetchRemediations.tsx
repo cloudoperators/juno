@@ -20,9 +20,11 @@ export const fetchRemediations = ({
 
   return queryClient.ensureQueryData({
     queryKey,
+    staleTime: 2.5 * 60 * 1000,
     queryFn: () =>
       apiClient.query<GetRemediationsQuery>({
         query: GetRemediationsDocument,
+        fetchPolicy: "network-only",
         variables: {
           filter,
         },

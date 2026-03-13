@@ -19,7 +19,7 @@ import { RemediationInput, RemediationTypeValues, SeverityValues } from "../../.
 type FalsePositiveModalProps = {
   open: boolean
   onClose: () => void
-  onConfirm: (input: RemediationInput) => Promise<void>
+  onConfirm: (input: RemediationInput) => Promise<{ error: string } | void>
   vulnerability: string
   severity?: string
   service: string
@@ -98,12 +98,16 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
         ...(severity && { severity: toSeverityValue(severity) }),
         ...(expirationDate && { expirationDate: expirationDate.toISOString() }),
       }
-      await onConfirm(input)
+      const result = await onConfirm(input)
       if (isMountedRef.current) {
-        setDescription("")
-        setManualUserId("")
-        setExpirationDate(null)
-        onClose()
+        if (result?.error) {
+          onSetError?.(result.error)
+        } else {
+          setDescription("")
+          setManualUserId("")
+          setExpirationDate(null)
+          onClose()
+        }
       }
     } catch (error) {
       const message = error instanceof Error ? error.message : "Failed to create remediation"
