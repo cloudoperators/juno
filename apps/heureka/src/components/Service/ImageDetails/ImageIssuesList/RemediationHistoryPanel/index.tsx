@@ -143,7 +143,8 @@ export const RemediationHistoryPanel = ({
       // spinner clears at the same time as the success message appears.
       if (vulnerability) {
         Promise.resolve(onRevertSuccess?.(vulnerability)).catch((refreshError) => {
-          const refreshMsg = refreshError instanceof Error ? refreshError.message : "Failed to refresh data after revert"
+          const refreshMsg =
+            refreshError instanceof Error ? refreshError.message : "Failed to refresh data after revert"
           setRevertMessage({
             variant: "error",
             text: `Revert succeeded, but ${refreshMsg.toLowerCase()}. You may need to refresh the page.`,
