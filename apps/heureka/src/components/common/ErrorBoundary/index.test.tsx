@@ -58,7 +58,8 @@ describe("ErrorBoundary", () => {
         <Component />
       </ErrorBoundary>
     )
-    expect(container.firstChild?.nodeName).not.toBe("DIV")
+    // Children are rendered directly — no extra wrapper div with a class attribute
+    expect(container.querySelector("div[class]")).toBeNull()
     expect(screen.getByText("Some Component")).toBeInTheDocument()
   })
 
