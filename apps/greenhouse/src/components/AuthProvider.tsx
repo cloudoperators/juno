@@ -195,7 +195,7 @@ export const AuthProvider = ({ options, children }: any) => {
 
   const pluginAuth = pluginAuthRef.current
 
-  const initializeOidc = (): OidcSessionInstance | null => {
+  const initializeOidc = () => {
     if (oidcInstance.current || oidcError) return oidcInstance.current
     setIsDemoMode(false)
     const {
