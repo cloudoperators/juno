@@ -35,10 +35,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: (args: DataGridToolbarProps) => (
     <DataGridToolbar {...args}>
-      <Stack gap="4">
-        <SearchInput placeholder="Search items..." />
-        <Button label="Create" />
-      </Stack>
+      <Button label="Create" />
     </DataGridToolbar>
   ),
   parameters: {
@@ -58,15 +55,15 @@ export const ComplexCustomLayout: Story = {
         <Stack direction="vertical" gap="4">
           <Stack alignment="center" gap="4">
             <InputGroup>
-              <NativeSelect name="Filter" value="category">
+              <NativeSelect name="Filter" value="category" wrapperClassName="jn:w-full">
                 <NativeSelectOption value="category" label="Category" />
                 <NativeSelectOption value="status" label="Status" />
                 <NativeSelectOption value="priority" label="Priority" />
               </NativeSelect>
               <ComboBox>
-                <ComboBoxOption value="electronics" />
-                <ComboBoxOption value="clothing" />
-                <ComboBoxOption value="furniture" />
+                <ComboBoxOption value="Electronics" />
+                <ComboBoxOption value="Clothing" />
+                <ComboBoxOption value="Furniture" />
               </ComboBox>
             </InputGroup>
             <Button label="Clear all" variant="subdued" />
