@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-template
 
+## 2.0.32
+
+### Patch Changes
+
+- c6ab015: Upgrade @vitest/ui to 4.1.0
+- Updated dependencies [68ba389]
+  - @cloudoperators/juno-ui-components@6.1.2
+
 ## 2.0.31
 
 ### Patch Changes
