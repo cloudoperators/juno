@@ -1,9 +1,9 @@
 /*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { LegacyRef } from "react"
+import React from "react"
 import { Icon } from "../Icon/index"
 import { KnownIcons } from "../Icon/Icon.component"
 import { Spinner } from "../Spinner/index"
@@ -38,24 +38,24 @@ const btnDefaultBase = `
 `
 
 const btnSmallDefaultPadding = `
-  jn:py-[0.3125rem]
+  jn:py-1.25
   jn:px-[0.5rem]
 `
 
 const btnSmallSubduedPadding = `
   jn:py-[0.25rem]
-  jn:px-[0.4375rem]
+  jn:px-1.75
 `
 
 // default size padding
 const btnDefaultPadding = `
-  jn:py-[0.4375rem]
-  jn:px-[0.625rem] 
+  jn:py-1.75
+  jn:px-2.5 
 `
 
 const btnDefaultSubduedPadding = `
-  jn:py-[0.375rem]
-  jn:px-[0.5625rem]
+  jn:py-1.5
+  jn:px-2.25
 `
 
 const defaultButtonColors = `
@@ -163,6 +163,7 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
     {
       label,
       title,
+      type = "button",
       variant = "default",
       size = "default",
       disabled,
@@ -180,7 +181,7 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
     const titleValue = title || label || ""
 
     const buttonIcon = progress ? (
-      <Spinner size={size === "small" ? "1.125rem" : "1.5rem"} color={`${spinnerColorClass(variant)}`} />
+      <Spinner size={size === "small" ? "1.125rem" : "1.5rem"} color={spinnerColorClass(variant)} />
     ) : icon ? (
       <Icon
         icon={icon}
@@ -210,9 +211,9 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
           ${className}`}
         disabled={disabled || undefined}
         onClick={handleClick}
-        ref={ref as LegacyRef<HTMLButtonElement>}
+        ref={ref as React.Ref<HTMLButtonElement>}
         {...(props as React.HTMLProps<HTMLButtonElement>)}
-        type="button"
+        type={type}
         title={titleValue}
       >
         {buttonIcon}
@@ -237,7 +238,7 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
         `}
         disabled={disabled}
         onClick={onClick}
-        ref={ref as LegacyRef<HTMLAnchorElement>}
+        ref={ref as React.Ref<HTMLAnchorElement>}
         {...(props as React.HTMLProps<HTMLAnchorElement>)}
         title={titleValue}
       >
@@ -276,6 +277,8 @@ export interface ButtonProps
   className?: string
   /** Click handler  */
   onClick?: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
+  /** Button type. Defaults to `button`. */
+  type?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"]
   /** Whether the button action is in progress */
   progress?: boolean
   /** Display an alternative label while the button action is in progress */
