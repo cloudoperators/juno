@@ -315,11 +315,22 @@ export interface ButtonProps extends Omit<HTMLProps<HTMLAnchorElement> | HTMLPro
    * @default ""
    */
   className?: string
-  /** Click handler  */
+
+  /**
+   * Click event handler for the button.
+   */
   onClick?: MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
-  /** Button type. Defaults to `button`. */
+
+  /**
+   * Button type.
+   * @default "button"
+   */
   type?: ButtonHTMLAttributes<HTMLButtonElement>["type"]
-  /** Whether the button action is in progress */
+
+  /**
+   * Indicates whether the button's action is in progress.
+   * @default false
+   */
   progress?: boolean
 
   /**
