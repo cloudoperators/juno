@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
-import { Tab as ReactTab, TabProps as ReactTabProps } from "react-tabs"
+import React, { HTMLProps, ReactNode } from "react"
+import { Tab as ReactTab } from "react-tabs"
 import { Icon } from "../Icon/index"
 import { KnownIcons } from "../Icon/Icon.component"
 
@@ -31,11 +31,19 @@ const iconStyles = `
   jn:mr-2
 `
 
-/** A Tab Component representing an individual Tab inside a wrapping TabList inside a wrapping Tabs component. Not to be used standalone outside of the mentioned parent components.
-
-
-*/
-export const Tab = ({ children, label = "", icon, disabled = false, className = "", ...props }: TabProps) => {
+/**
+ * A Tab Component representing an individual Tab inside a wrapping TabList inside a wrapping Tabs component. Not to be used standalone outside of the mentioned parent components.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-tabs-tab--docs
+ * @see {@link TabProps}
+ */
+export const Tab = ({
+  children,
+  label = "",
+  icon,
+  disabled = false,
+  className = "",
+  ...props
+}: TabProps): ReactNode => {
   return (
     <ReactTab
       className={`juno-tab ${tabStyles} ${className}`}
@@ -52,15 +60,13 @@ export const Tab = ({ children, label = "", icon, disabled = false, className = 
 
 Tab.tabsRole = "Tab"
 
-export interface TabProps extends ReactTabProps {
+export interface TabProps extends Omit<HTMLProps<HTMLLIElement>, "tabIndex"> {
   /** The children to render inside the Tab (-button) */
-  children?: React.ReactNode
+  children?: ReactNode
   /** The Tab label (only rendered when no children are supplied) */
   label?: string
   /** Pass the name of an icon to render in the Tab. Can be any icon included with Juno. */
   icon?: KnownIcons
   /** Whether the Tab is disabled */
   disabled?: boolean
-  /** Add custom classNames to the Tab */
-  className?: string
 }

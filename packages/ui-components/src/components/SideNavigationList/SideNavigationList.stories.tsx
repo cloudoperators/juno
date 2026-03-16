@@ -20,14 +20,6 @@ const meta: Meta<typeof SideNavigationList> = {
       </SideNavigation>
     ),
   ],
-  parameters: {
-    docs: {
-      description: {
-        component:
-          "The SideNavigationList component organizes SideNavigationItems in a structured list format, supporting hierarchical navigation capabilities.",
-      },
-    },
-  },
 }
 
 export default meta

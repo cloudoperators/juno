@@ -156,7 +156,10 @@ const spinnerColorClass = (variant: ButtonVariant) => {
 }
 
 /**
- * The basic button component. Use this for `onClick` interactions.
+ * The `Button` component provides an interactive element for user actions, supporting various sizes,
+ * styles, and states such as disabled or in-progress.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-button--docs
+ * @see {@link ButtonProps}
  */
 export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
   (
@@ -258,22 +261,52 @@ type ButtonSize = "small" | "default"
 
 export interface ButtonProps
   extends Omit<React.HTMLProps<HTMLAnchorElement> | React.HTMLProps<HTMLButtonElement>, "size"> {
+  /**
+   * Child elements or text to be rendered inside the button.
+   */
   children?: React.ReactNode
-  /** Choose a variant for your purpose. May leave empty to get default button. */
+
+  /**
+   * Choose a variant for your button style. Defaults to "default" if unspecified.
+   * @default "default"
+   */
   variant?: ButtonVariant
-  /** Leave empty for default size */
+
+  /**
+   * Chooses the button size. Defaults to "default" if unspecified.
+   * @default "default"
+   */
   size?: ButtonSize
-  /** Whether the button is disabled */
+
+  /**
+   * Indicates if the button is disabled.
+   */
   disabled?: boolean
-  /** Optionally specify an href. This will turn the Button into an <a> element */
+
+  /**
+   * Optionally specify an href. This renders the Button as an `<a>` element.
+   */
   href?: string
-  /** Button label can be passed like this or as children */
+
+  /**
+   * Button label can be passed directly or as children.
+   */
   label?: string
-  /** Specify title for accessibility. Gets value of label if no title specified */
+
+  /**
+   * Specify a title for accessibility purposes. Defaults to the label if not specified.
+   */
   title?: string
-  /** Pass the name of an icon the button should show. Can be any icon included with Juno. */
+
+  /**
+   * Pass the name of an icon that the button should display. Can be any icon included with Juno.
+   */
   icon?: KnownIcons
-  /** Pass a className */
+
+  /**
+   * Additional class names for styling.
+   * @default ""
+   */
   className?: string
   /** Click handler  */
   onClick?: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
@@ -281,6 +314,9 @@ export interface ButtonProps
   type?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"]
   /** Whether the button action is in progress */
   progress?: boolean
-  /** Display an alternative label while the button action is in progress */
+
+  /**
+   * Display an alternative label while the button's action is in progress.
+   */
   progressLabel?: string
 }

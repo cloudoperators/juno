@@ -40,7 +40,7 @@ const AppContent = ({ expires }: any) => {
   }
 
   return (
-    <Container>
+    <Container px={false}>
       <>
         <DataGridToolbar>
           <ButtonRow>

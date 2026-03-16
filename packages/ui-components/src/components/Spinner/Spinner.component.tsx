@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLProps, ReactNode } from "react"
 
 const spinnerBaseStyles = `
   jn:animate-spin 
@@ -32,16 +32,19 @@ const defaultColor = `
   jn:text-theme-on-default
 `
 
-/** 
-A generic Spinner component to indicate an individual component or portion of the UI is busy processing or awaiting data. 
-To indicate full views, panels, or other larger parts of an interface are busy or waiting for data, use LoadingIndicator instead.*/
-export const Spinner: React.FC<SpinnerProps> = ({
+/**
+ * A generic Spinner component to indicate an individual component or portion of the UI is busy processing or awaiting data.
+ * To indicate full views, panels, or other larger parts of an interface are busy or waiting for data, use LoadingIndicator instead.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-spinner--docs
+ * @see {@link SpinnerProps}
+ */
+export const Spinner = ({
   variant = "default",
   size,
   className = "",
   color = "",
   ...props
-}) => {
+}: SpinnerProps): ReactNode => {
   const mode = () => {
     switch (variant) {
       case "primary":
@@ -92,7 +95,7 @@ export const Spinner: React.FC<SpinnerProps> = ({
 
 type SpinnerVariant = "primary" | "danger" | "default" | "success" | "warning"
 
-export interface SpinnerProps extends Omit<React.HTMLProps<SVGSVGElement>, "size"> {
+export interface SpinnerProps extends Omit<HTMLProps<SVGSVGElement>, "size"> {
   /** The semantic color variant of the Spinner */
   variant?: SpinnerVariant
   /** The size of the spinner: `small`, `large`, or any valid CSS length like `1.5rem`*/

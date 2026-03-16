@@ -3,27 +3,29 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { cloneElement, forwardRef, HTMLAttributes, HTMLProps, isValidElement, ReactNode, RefObject } from "react"
 
 import { useMergeRefs } from "@floating-ui/react"
 
 import { useTooltipState } from "../Tooltip/Tooltip.component"
 
-export interface TooltipTriggerProps extends React.HTMLAttributes<HTMLElement> {
+export interface TooltipTriggerProps extends HTMLAttributes<HTMLElement> {
   /** If true, the child you passed to the TooltipTrigger is rendered as the trigger element, instead of the default trigger component. This is useful if you e.g. want to use a Button or Icon as the trigger. */
   asChild?: boolean
   /** Pass child nodes to display in the tooltip */
-  children?: React.ReactNode
+  children?: ReactNode
   /** Pass a className to render to the trigger element */
   className?: string
 }
-type CustomProps = React.HTMLProps<HTMLElement> & {
+type CustomProps = HTMLProps<HTMLElement> & {
   "data-state"?: string
 }
 /**
  * This is the trigger element for a tooltip. See Tooltip for more in-depth explanation and examples.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-tooltip-tooltiptrigger--docs
+ * @see {@link TooltipTriggerProps}
  */
-export const TooltipTrigger = React.forwardRef<HTMLElement, TooltipTriggerProps>(function TooltipTrigger(
+export const TooltipTrigger = forwardRef<HTMLElement, TooltipTriggerProps>(function TooltipTrigger(
   { children, asChild = false, className = "", ...props },
   propRef
 ) {
@@ -33,9 +35,9 @@ export const TooltipTrigger = React.forwardRef<HTMLElement, TooltipTriggerProps>
   // merge all the refs
   const ref = useMergeRefs([state.refs?.setReference, propRef])
   // `asChild` allows the user to pass any element as the anchor
-  if (asChild && React.isValidElement(children)) {
+  if (asChild && isValidElement(children)) {
     const childrenProps = children.props as CustomProps
-    const childrenRef = childrenProps.ref as React.RefObject<HTMLElement>
+    const childrenRef = childrenProps.ref as RefObject<HTMLElement>
     const setReference = state.refs?.setReference
     const ref = useMergeRefs([setReference, propRef, childrenRef])
 
@@ -48,7 +50,7 @@ export const TooltipTrigger = React.forwardRef<HTMLElement, TooltipTriggerProps>
     }
     const combinedProps = state.getReferenceProps(referencedProps)
 
-    return React.cloneElement(children, combinedProps)
+    return cloneElement(children, combinedProps)
   }
 
   return (

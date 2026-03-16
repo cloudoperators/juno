@@ -4,8 +4,9 @@
  */
 
 import React from "react"
-import { JsonViewer, Stack } from "@cloudoperators/juno-ui-components"
+import { Stack, ContentHeading } from "@cloudoperators/juno-ui-components"
 import { PluginPreset } from "../../types/k8sTypes"
+import YamlViewer from "../../common/YamlViewer"
 
 interface ClusterSelectorProps {
   pluginPreset: PluginPreset
@@ -16,8 +17,8 @@ export const ClusterSelector: React.FC<ClusterSelectorProps> = ({ pluginPreset }
 
   return (
     <Stack gap="4" direction="vertical" className="flex-1">
-      <h3>Cluster Selector</h3>
-      {clusterSelector ? <JsonViewer expanded data={clusterSelector} /> : <p>No cluster selector configured</p>}
+      <ContentHeading>Cluster Selector</ContentHeading>
+      {clusterSelector ? <YamlViewer value={clusterSelector} /> : <p>No cluster selector configured</p>}
     </Stack>
   )
 }

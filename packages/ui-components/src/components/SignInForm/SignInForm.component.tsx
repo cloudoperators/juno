@@ -63,14 +63,14 @@ export interface SignInFormProps extends Omit<FormHTMLAttributes<HTMLFormElement
  * A SignInForm component that renders consistent, configurable sign-in forms.
  * Use this component to create authentication forms with a standard layout and styling.
  */
-export const SignInForm: React.FC<SignInFormProps> = ({
+export const SignInForm = ({
   title = "Sign In",
   error = false,
   resetPwUrl = null,
   className = "",
   children,
   ...props
-}) => {
+}: SignInFormProps): ReactNode => {
   const errorMessage = error === true ? "Authentication failed" : typeof error === "string" ? error : null
 
   return (

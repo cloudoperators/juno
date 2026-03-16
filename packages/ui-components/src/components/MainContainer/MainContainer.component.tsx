@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 
 const mainStyles = `
   jn:flex
@@ -12,10 +12,12 @@ const mainStyles = `
 `
 
 /**
- * Only needed if you want to build your app's scaffold manually. In most cases it is better to use the AppShell component instead.
- * The main container for app content.
+ * The `MainContainer` is the core container for application content, ideal for manual scaffold setups.
+ * In most instances, `AppShell` offers a comprehensive layout alternative.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/internal-maincontainer--docs
+ * @see {@link MainContainerProps}
  */
-export const MainContainer: React.FC<MainContainerProps> = ({ className = "", children, ...props }) => {
+export const MainContainer = ({ className = "", children, ...props }: MainContainerProps): ReactNode => {
   return (
     <main className={`juno-main ${mainStyles} ${className}`} {...props}>
       {children}
@@ -23,8 +25,15 @@ export const MainContainer: React.FC<MainContainerProps> = ({ className = "", ch
   )
 }
 
-export interface MainContainerProps extends React.HTMLAttributes<HTMLElement> {
-  /** Add custom class name */
+export interface MainContainerProps extends HTMLAttributes<HTMLElement> {
+  /**
+   * Custom CSS class names for styling the main container.
+   * @default ""
+   */
   className?: string
-  children?: React.ReactNode
+
+  /**
+   * Components or content to render within the main container.
+   */
+  children?: ReactNode
 }

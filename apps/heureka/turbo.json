@@ -4,31 +4,36 @@
     "dev": {
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
-        "@cloudoperators/juno-url-state-provider#build"
+        "@cloudoperators/juno-url-state-provider#build",
+        "@cloudoperators/greenhouse-auth-provider#build"
       ]
     },
     "test": {
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
-        "@cloudoperators/juno-url-state-provider#build"
+        "@cloudoperators/juno-url-state-provider#build",
+        "@cloudoperators/greenhouse-auth-provider#build"
       ]
     },
     "build": {
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
-        "@cloudoperators/juno-url-state-provider#build"
+        "@cloudoperators/juno-url-state-provider#build",
+        "@cloudoperators/greenhouse-auth-provider#build"
       ]
     },
     "typecheck": {
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
-        "@cloudoperators/juno-url-state-provider#build"
+        "@cloudoperators/juno-url-state-provider#build",
+        "@cloudoperators/greenhouse-auth-provider#build"
       ]
     },
     "build:static": {
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
-        "@cloudoperators/juno-url-state-provider#build"
+        "@cloudoperators/juno-url-state-provider#build",
+        "@cloudoperators/greenhouse-auth-provider#build"
       ]
     }
   }

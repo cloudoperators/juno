@@ -141,6 +141,13 @@ export type { DataGridHeadCellProps } from "./components/DataGridHeadCell/DataGr
 export type { DataGridRowProps } from "./components/DataGridRow/DataGridRow.component"
 export type { DataGridToolbarProps } from "./components/DataGridToolbar/DataGridToolbar.component"
 export type { DateTimePickerProps } from "./components/DateTimePicker/DateTimePicker.component"
+export type {
+  DateOption,
+  DateLimit,
+  LocaleKey,
+  CustomLocale,
+  DateChangeHandler,
+} from "./components/DateTimePicker/DateTimePicker.types"
 export type { FormProps } from "./components/Form/Form.component"
 export type { FormattedTextProps } from "./components/FormattedText/FormattedText.component"
 export type { FormRowProps } from "./components/FormRow/FormRow.component"

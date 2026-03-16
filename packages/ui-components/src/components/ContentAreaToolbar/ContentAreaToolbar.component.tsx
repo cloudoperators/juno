@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 
 const baseToolbarStyles = `
   jn:bg-theme-background-lvl-1
@@ -14,22 +14,26 @@ const baseToolbarStyles = `
   jn:justify-end
 `
 
-export interface ContentAreaToolbarProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ContentAreaToolbarProps extends HTMLAttributes<HTMLDivElement> {
   /**
-   * Additional CSS classes for custom styling.
+   * Custom CSS classes for styling the toolbar.
+   * @default ""
    */
   className?: string
+
   /**
-   * Custom content to render within the content area toolbar.
+   * Content or elements to render within the content area toolbar.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 /**
- * ContentAreaToolbar represents the main toolbar within the content area.
- * It is designed to hold main actions relevant to the current page.
+ * The `ContentAreaToolbar` represents the main toolbar within a content area, providing space
+ * for main actions relevant to the current page context. It supports custom content and styling.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-contentareatoolbar--docs
+ * @see {@link ContentAreaToolbarProps}
  */
-export const ContentAreaToolbar: React.FC<ContentAreaToolbarProps> = ({ className = "", children, ...props }) => {
+export const ContentAreaToolbar = ({ className = "", children, ...props }: ContentAreaToolbarProps): ReactNode => {
   return (
     <div className={`juno-content-area-toolbar ${baseToolbarStyles} ${className}`} {...props}>
       {children}

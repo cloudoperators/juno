@@ -9,6 +9,7 @@ export const Route = createFileRoute("/admin/plugin-presets")({
   loader: () => ({
     crumb: {
       label: "Plugin Presets",
+      icon: "home",
     },
   }),
   component: Outlet,

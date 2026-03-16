@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Stack } from "@cloudoperators/juno-ui-components"
+import { Stack, ContentHeading } from "@cloudoperators/juno-ui-components"
 import { PluginPreset } from "../../types/k8sTypes"
 import ReadinessConditions from "../../common/ReadinessConditions"
 
@@ -14,7 +14,7 @@ type ConditionsProps = {
 
 export const Conditions: React.FC<ConditionsProps> = ({ pluginPreset }) => (
   <Stack direction="vertical" gap="4">
-    <h3>Conditions</h3>
+    <ContentHeading>Conditions</ContentHeading>
     <ReadinessConditions conditions={pluginPreset.status?.statusConditions?.conditions || []} enableDetailsView />
   </Stack>
 )

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactNode } from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 
 const baseContainerStyles = `
   jn:flex-col
@@ -14,24 +14,24 @@ const baseContainerStyles = `
   jn:relative
 `
 
-export interface ContentContainerProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ContentContainerProps extends HTMLAttributes<HTMLDivElement> {
   /**
-   * Additional CSS classes for custom styling.
+   * Additional CSS class names for styling the content container.
+   * @default ""
    */
   className?: string
-  /**
-   * Custom content to render within the container.
-   */
+
+  /** Components or elements to render inside the content container. */
   children?: ReactNode
 }
 
 /**
- * ContentContainer serves as a wrapper for app content.
- * It is intended for manual app scaffold creation. In most cases, using the AppShell component instead is recommended.
- *
- * Note: When the browser window is wider than the max breakpoint width, the content within this container will be centered on the screen.
+ * The `ContentContainer` serves as a wrapper for application content, designed for manual layout creation.
+ * It can center content when the browser window is wider than the max breakpoint.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/internal-contentcontainer--docs
+ * @see {@link ContentContainerProps}
  */
-export const ContentContainer: React.FC<ContentContainerProps> = ({ className = "", children, ...props }) => {
+export const ContentContainer = ({ className = "", children, ...props }: ContentContainerProps): ReactNode => {
   return (
     <div className={`juno-content-container ${baseContainerStyles} ${className}`} {...props}>
       {children}

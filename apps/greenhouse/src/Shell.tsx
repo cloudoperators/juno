@@ -15,6 +15,8 @@ import styles from "./styles.css?inline"
 import StoreProvider, { useGlobalsApiEndpoint } from "./components/StoreProvider"
 import { AuthProvider, useAuth } from "./components/AuthProvider"
 import { routeTree } from "./routeTree.gen"
+import { getRouterBasePath } from "./utils/organizationResolver"
+import type { AuthContextValue, MockAuthValue } from "./types/auth"
 
 // Create a new query client instance
 const queryClient = new QueryClient()
@@ -25,7 +27,10 @@ const router = createRouter({
   context: {
     appProps: undefined!,
     apiClient: null,
-    organization: undefined!,
+    user: {
+      organization: undefined!,
+      supportGroups: [],
+    },
   },
 })
 
@@ -40,38 +45,26 @@ export type AppProps = {
   authClientId?: string
   authIssuerUrl?: string
   demoOrg?: string
-  mockAuth?: boolean
+  mockAuth?: MockAuthValue
   demoUserToken?: string
   currentHost?: string
   enableHashedRouting?: boolean
+  basePath?: string
 }
 
-const getBasePath = (auth: any) => {
-  // Determine if org is part of the domain
-  const currentUrl = new URL(window.location.href)
-  const organizationIsPartOfDomain = currentUrl.host.match(/^(.+)\.dashboard\..+/)
-  if (organizationIsPartOfDomain) {
-    return "/"
-  }
-  // If the organization is not part of the domain, extract it from the auth token
-  const orgString = auth?.data?.raw.groups?.find((g: any) => g.indexOf("organization:") === 0)
-  return orgString ? orgString.split(":")[1] : undefined
-}
-
-const getOrganization = (auth: unknown) => {
-  // @ts-expect-error - auth?.data type needs to be properly defined
-  return auth?.data?.raw?.groups?.find((g: any) => g.startsWith("organization:"))?.split(":")[1]
-}
+const getUser = (auth: AuthContextValue) => ({
+  organization: auth?.data?.raw?.groups?.find((g) => g.startsWith("organization:"))?.split(":")[1] ?? "",
+  supportGroups: auth?.data?.parsed?.supportGroups ?? [],
+})
 
 function App(props: AppProps) {
   const auth = useAuth()
   const apiEndpoint = useGlobalsApiEndpoint()
-  // @ts-expect-error - useAuth return type is not properly typed
   const token = auth?.data?.JWT
   // Create k8s client if apiEndpoint and token are available
   // @ts-expect-error - apiEndpoint type needs to be properly typed as string
   const apiClient = apiEndpoint && token ? createClient({ apiEndpoint, token }) : null
-  const organization = getOrganization(auth)
+  const user = getUser(auth)
 
   /*
    * Dynamically change the type of history on the router
@@ -80,8 +73,8 @@ function App(props: AppProps) {
    * want the app to use browser history.
    */
   router.update({
-    basepath: getBasePath(auth),
-    context: { appProps: props, apiClient, organization },
+    basepath: getRouterBasePath(auth?.data?.raw?.groups, props.basePath),
+    context: { appProps: props, apiClient, user },
     stringifySearch: encodeV2,
     parseSearch: decodeV2,
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),

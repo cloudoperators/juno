@@ -20,17 +20,17 @@ const Section = ({ children, ...rest }: React.HTMLAttributes<HTMLDivElement>) =>
 
 export const Overview = ({ pluginPreset }: { pluginPreset: PluginPreset }) => (
   <>
-    <Section>
+    <Section className="pt-0">
       <PluginPresetStats pluginPreset={pluginPreset} />
     </Section>
-    <Section className="flex">
+    <Section className="flex gap-4">
       <BasicInformation pluginPreset={pluginPreset} />
       <ClusterSelector pluginPreset={pluginPreset} />
     </Section>
     <Section>
       <Conditions pluginPreset={pluginPreset} />
     </Section>
-    <Section>
+    <Section className="pb-0">
       <PluginInstances />
     </Section>
   </>

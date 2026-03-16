@@ -5,9 +5,13 @@
 
 import React, { createContext, useContext, useState, useMemo, useRef, useEffect } from "react"
 import { oidcSession, mockedSession, tokenSession } from "@cloudoperators/juno-oauth"
+import { createAuthStore, AuthStore } from "@cloudoperators/greenhouse-auth-provider"
+import { extractOrganizationName } from "../utils/organizationResolver"
+import { TokenDataSchema } from "../types/auth"
+import type { OidcSessionState, AuthContextValue, OidcSessionInstance, TokenData, MockAuthValue } from "../types/auth"
 
-const setOrganizationToUrl = (groups: any, enableHashedRouting: boolean) => {
-  const orgName = groups?.find((g: any) => g.startsWith("organization:"))?.split(":")[1]
+const setOrganizationToUrl = (groups: string[] | undefined, enableHashedRouting: boolean) => {
+  const orgName = groups?.find((g: string) => g.startsWith("organization:"))?.split(":")[1]
 
   if (!orgName) return
 
@@ -32,55 +36,58 @@ const setOrganizationToUrl = (groups: any, enableHashedRouting: boolean) => {
   } else {
     url.pathname = pathWithOrg
   }
-  // @ts-expect-error TS(2345): Argument of type 'null' is not assignable to param... Remove this comment to see the full error message
-  window.history.replaceState(null, null, url.href)
+  window.history.replaceState({}, "", url.href)
 }
 
-function resolveMockAuth(value: any) {
-  const result = { isMock: false, parsedAuth: null }
-
+/**
+ * Resolves mock authentication configuration with runtime validation
+ *
+ * @param value - Can be:
+ *   - boolean: true enables mock with default token, false disables
+ *   - TokenData: Plain object with token attributes (iss, sub, aud, exp, iat, nonce, email, groups, etc.)
+ *   - string: "true" or JSON string that will be parsed
+ *
+ * @returns Object with isMock flag and parsedAuth token data
+ */
+function resolveMockAuth(value: MockAuthValue): { isMock: boolean; parsedAuth: TokenData | null } {
   if (typeof value === "boolean") {
-    // If value is a boolean, set `isMock` accordingly
-    // and return an empty object for `true`, otherwise `null`
-    result.isMock = value
-    // @ts-expect-error TS(2322): Type '{} | null' is not assignable to type 'null'.
-    result.parsedAuth = value ? {} : null
-  } else if (typeof value === "string") {
-    const trimmed = value.trim().toLowerCase()
-    if (trimmed === "true") {
-      // If the string is "true", treat it as a mock with an empty object
-      result.isMock = true
-      // @ts-expect-error TS(2322): Type '{}' is not assignable to type 'null'.
-      result.parsedAuth = {}
-    } else {
-      try {
-        // Try parsing the string as JSON
-        result.isMock = true
-        result.parsedAuth = JSON.parse(value)
-      } catch {
-        result.isMock = false
-        result.parsedAuth = null
-      }
+    return {
+      isMock: value,
+      parsedAuth: value ? {} : null,
     }
-  } else if (typeof value === "object" && value !== null) {
-    // If value is a non-null object, treat it as a mock
-    result.isMock = true
-    result.parsedAuth = value
   }
 
-  return result
-}
+  if (typeof value === "string") {
+    const trimmed = value.trim()
+    // Only lowercase for boolean check, not for JSON parsing
+    if (trimmed.toLowerCase() === "true") {
+      return { isMock: true, parsedAuth: {} }
+    }
 
-const extractOrganizationName = (enableHashedRouting: boolean) => {
-  const currentUrl = new URL(window.location.href)
+    // Try parsing JSON string (use original case-sensitive trimmed string)
+    try {
+      const parsed = JSON.parse(trimmed)
+      // Validate the parsed JSON
+      const validation = TokenDataSchema.safeParse(parsed)
+      if (validation.success) {
+        return { isMock: true, parsedAuth: validation.data }
+      }
+    } catch {
+      // Invalid JSON, return disabled mock
+    }
 
-  // Try to extract from subdomain
-  let match = currentUrl.host.match(/^(.+)\.dashboard\..+/)
-  if (match) return match[1]
-  // If enableHashedRouting is true, take path from the hashed part of the URL otherwise take it from the pathname
-  const path = enableHashedRouting ? currentUrl.hash.replace("#/", "") : currentUrl.pathname
-  const pathParts = path.split("/").filter(Boolean)
-  return pathParts.length > 0 ? pathParts[0] : undefined
+    return { isMock: false, parsedAuth: null }
+  }
+
+  // It's an object - validate with Zod to ensure runtime safety
+  const validation = TokenDataSchema.safeParse(value)
+  if (validation.success) {
+    return { isMock: true, parsedAuth: validation.data }
+  }
+
+  // Invalid object (e.g., array, number, invalid structure)
+  console.warn("Invalid mockAuth value: expected boolean, TokenData object, or JSON string", value)
+  return { isMock: false, parsedAuth: null }
 }
 
 const initializeDemoAuth = (
@@ -90,7 +97,8 @@ const initializeDemoAuth = (
   enableHashedRouting: boolean,
   setAuthData: any,
   setOidcError: any,
-  setOrganizationToUrl: any
+  setOrganizationToUrl: any,
+  pluginAuth: AuthStore
 ) => {
   return tokenSession({
     token: demoUserToken,
@@ -104,6 +112,12 @@ const initializeDemoAuth = (
         return
       }
       setAuthData(data)
+      pluginAuth.setAuthState({
+        status: "authenticated",
+        token: data?.auth?.JWT,
+        userId: data?.auth?.parsed?.userId,
+        userName: data?.auth?.parsed?.fullName,
+      })
       // set the organization name in the URL
       if (!orgName) setOrganizationToUrl(data?.auth?.raw?.groups, enableHashedRouting)
     },
@@ -138,7 +152,8 @@ const initializeRealOidc = (
   orgName: any,
   enableHashedRouting: boolean,
   setAuthData: any,
-  setOrganizationToUrl: any
+  setOrganizationToUrl: any,
+  pluginAuth: AuthStore
 ) => {
   const requestParams = JSON.stringify({
     connector_id: !orgName ? undefined : orgName,
@@ -153,20 +168,32 @@ const initializeRealOidc = (
     flowType: "code",
     onUpdate: (data: any) => {
       setAuthData(data)
+      pluginAuth.setAuthState({
+        status: "authenticated",
+        token: data?.auth?.JWT,
+        userId: data?.auth?.parsed?.userId,
+        userName: data?.auth?.parsed?.fullName,
+      })
       // set the organization name in the URL
       if (!orgName) setOrganizationToUrl(data?.auth?.raw?.groups, enableHashedRouting)
     },
   })
 }
 
-// @ts-expect-error TS(2554): Expected 1 arguments, but got 0.
-const AuthContext = createContext()
+const AuthContext = createContext<AuthContextValue | undefined>(undefined)
 
 export const AuthProvider = ({ options, children }: any) => {
-  const [authData, setAuthData] = useState(null)
+  const [authData, setAuthData] = useState<OidcSessionState | null>(null)
   const [isDemoMode, setIsDemoMode] = useState(false)
-  const [oidcError, setOidcError] = useState(null)
-  const oidcInstance = useRef(null)
+  const [oidcError, setOidcError] = useState<string | null>(null)
+  const oidcInstance = useRef<OidcSessionInstance | null>(null)
+  const pluginAuthRef = useRef<AuthStore | null>(null)
+
+  if (!pluginAuthRef.current) {
+    pluginAuthRef.current = createAuthStore()
+  }
+
+  const pluginAuth = pluginAuthRef.current
 
   const initializeOidc = () => {
     if (oidcInstance.current || oidcError) return oidcInstance.current
@@ -178,9 +205,10 @@ export const AuthProvider = ({ options, children }: any) => {
       demoOrg = "demo",
       demoUserToken,
       enableHashedRouting,
+      basePath,
     } = options || {}
 
-    const orgName = extractOrganizationName(enableHashedRouting)
+    const orgName = extractOrganizationName(enableHashedRouting, basePath)
 
     // extract mock params
     const { isMock, parsedAuth } = resolveMockAuth(mockAuth)
@@ -189,7 +217,6 @@ export const AuthProvider = ({ options, children }: any) => {
     if (demoOrg === orgName && !isMock) {
       console.debug("Initializing new demo auth session")
       setIsDemoMode(true)
-      // @ts-ignore
       oidcInstance.current = initializeDemoAuth(
         orgName,
         demoUserToken,
@@ -197,7 +224,8 @@ export const AuthProvider = ({ options, children }: any) => {
         enableHashedRouting,
         setAuthData,
         setOidcError,
-        setOrganizationToUrl
+        setOrganizationToUrl,
+        pluginAuth
       )
       return oidcInstance.current
     }
@@ -224,60 +252,58 @@ export const AuthProvider = ({ options, children }: any) => {
         orgName,
         enableHashedRouting,
         setAuthData,
-        setOrganizationToUrl
+        setOrganizationToUrl,
+        pluginAuth
       )
       return oidcInstance.current
     }
 
     const error = "Invalid OIDC configuration, issuerURL and clientID are required"
     console.error(error)
-    // @ts-expect-error TS(2345): Argument of type '"Invalid OIDC configuration, iss... Remove this comment to see the full error message
     setOidcError(error)
-    return
+    return null
   }
 
   // Memoized login function
   const login = () => {
-    // @ts-expect-error TS(2339): Property 'login' does not exist on type 'never'.
-    oidcInstance.current?.login?.()
+    oidcInstance.current?.login()
   }
 
   // Memoized logout function
-  const logout = () => {
-    // @ts-expect-error TS(2339): Property 'logout' does not exist on type 'never'.
-    oidcInstance.current?.logout?.({
-      resetOIDCSession: true,
-      silent: true,
+  const logout = (options?: { resetOIDCSession?: boolean; silent?: boolean }) => {
+    oidcInstance.current?.logout({
+      resetOIDCSession: options?.resetOIDCSession ?? true,
+      silent: options?.silent ?? true,
     })
     setAuthData(null)
     setOidcError(null)
   }
 
   useEffect(() => {
-    // @ts-expect-error TS(2322): Type 'null | undefined' is not assignable to type ... Remove this comment to see the full error message
     oidcInstance.current = initializeOidc()
   }, [options])
 
   const contextValue = useMemo(
     () => ({
-      // @ts-expect-error TS(2339): Property 'isProcessing' does not exist on type 'ne... Remove this comment to see the full error message
       isProcessing: authData ? authData?.isProcessing : false,
-      // @ts-expect-error TS(2339): Property 'loggedIn' does not exist on type 'never'... Remove this comment to see the full error message
       loggedIn: authData ? authData?.loggedIn : false,
-      // @ts-expect-error TS(2339): Property 'error' does not exist on type 'never'.
       error: authData ? authData?.error : oidcError,
-      // @ts-expect-error TS(2339): Property 'auth' does not exist on type 'never'.
       data: authData ? authData?.auth : null,
+      pluginAuth,
       isDemoMode,
       login,
       logout,
     }),
-    [authData, login, logout]
+    [authData, pluginAuth, login, logout]
   )
 
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
 }
 
-export const useAuth = () => {
-  return useContext(AuthContext)
+export const useAuth = (): AuthContextValue => {
+  const context = useContext(AuthContext)
+  if (context === undefined) {
+    throw new Error("useAuth must be used within an AuthProvider")
+  }
+  return context
 }

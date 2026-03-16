@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ComponentType, useEffect } from "react"
+import React, { ComponentType, useEffect, FC } from "react"
 
 function withDeprecationWarning<T extends object>(WrappedComponent: ComponentType<T>, message: string) {
-  const ComponentWithDeprecationWarning: React.FC<T> = (props: T) => {
+  const ComponentWithDeprecationWarning: FC<T> = (props: T) => {
     useEffect(() => {
       console.warn(message)
     }, [])

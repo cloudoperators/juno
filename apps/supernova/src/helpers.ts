@@ -23,7 +23,7 @@ export const parseError = (error: any) => {
 }
 
 const parseMessage = (message: any) => {
-  let newMsg = message
+  let newMsg
   try {
     newMsg = JSON.parse(message)
     if (newMsg?.message) {

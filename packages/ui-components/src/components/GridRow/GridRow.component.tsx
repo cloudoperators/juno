@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 
 const baseRowStyles = `
     jn:flex
@@ -11,23 +11,27 @@ const baseRowStyles = `
     jn:m-grid-row
 `
 
-export interface GridRowProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface GridRowProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Elements to be rendered within the grid row.
    * Typically, these would be GridColumn components.
    */
-  children?: React.ReactNode
+  children?: ReactNode
+
   /**
    * Additional CSS classes to apply to the grid row for custom styling.
+   * @default ""
    */
   className?: string
 }
 
 /**
- * A grid row container to hold GridColumn elements inside a Grid.
- * This component ensures that its children are wrapped correctly in a flexbox layout.
+ * The `GridRow` component acts as a container to hold `GridColumn` elements
+ * within a `Grid`. It ensures proper flexbox wrapping for responsive design.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-grid-gridrow--docs
+ * @see {@link GridRowProps}
  */
-export const GridRow: React.FC<GridRowProps> = ({ children, className = "", ...props }) => {
+export const GridRow = ({ children, className = "", ...props }: GridRowProps): ReactNode => {
   return (
     <div className={`juno-grid-row ${baseRowStyles} ${className}`} {...props}>
       {children}

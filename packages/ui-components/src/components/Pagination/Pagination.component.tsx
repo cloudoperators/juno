@@ -5,7 +5,7 @@
 
 /* eslint-disable no-unused-vars */
 
-import React, { useEffect, useState } from "react"
+import React, { ChangeEvent, HTMLAttributes, ReactNode, useEffect, useState, KeyboardEvent } from "react"
 
 import { Stack } from "../Stack/Stack.component"
 import { Button } from "../Button/Button.component"
@@ -23,7 +23,7 @@ const spinnerStyles = `jn:ml-3`
 
 const inputStyles = `justify-normal`
 
-export type PaginationProps = Omit<React.HTMLAttributes<HTMLDivElement>, "onBlur"> & {
+export type PaginationProps = Omit<HTMLAttributes<HTMLDivElement>, "onBlur"> & {
   /**
    * The variant determines the style and user interaction method of the Pagination component:
    * - "default": Renders previous and next buttons only.
@@ -92,8 +92,10 @@ export type PaginationProps = Omit<React.HTMLAttributes<HTMLDivElement>, "onBlur
 
 /**
  * The Pagination component provides navigation controls for paginated content.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-pagination--docs
+ * @see {@link PaginationProps}
  */
-export const Pagination: React.FC<PaginationProps> = ({
+export const Pagination = ({
   variant = "default",
   currentPage,
   totalPages,
@@ -110,7 +112,7 @@ export const Pagination: React.FC<PaginationProps> = ({
   progress = false,
   className = "",
   ...props
-}) => {
+}: PaginationProps): ReactNode => {
   const [controlCurrentPage, setControlCurrentPage] = useState<number | undefined>(currentPage)
   const [controlTotalPage, setControlTotalPage] = useState<number | undefined>(pages ? pages : totalPages)
 
@@ -174,7 +176,7 @@ export const Pagination: React.FC<PaginationProps> = ({
     onSelectChange?.(convertedNumber)
   }
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     // Ensure that the input value is a valid integer
     let inputValue = event.target.value ? parseInt(event.target.value, 10) : undefined
 
@@ -191,7 +193,7 @@ export const Pagination: React.FC<PaginationProps> = ({
     onInputChange && onInputChange(inputValue)
   }
 
-  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" && controlCurrentPage !== undefined) {
       onKeyPress && onKeyPress(controlCurrentPage)
     }

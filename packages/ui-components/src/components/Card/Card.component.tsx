@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 
 const cardStyles = `
   jn:text-sm
@@ -16,25 +16,33 @@ const cardStyles = `
 
 const cardPadding = "jn:p-4"
 
-export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Components or elements to be rendered as content.
    */
-  children?: React.ReactNode
+  children?: ReactNode
+
   /**
-   * Optional padding.
+   * Optional padding for the Card component.
+   * @default false
    */
   padding?: boolean
+
   /**
-   * Additional CSS styles.
+   * Additional CSS styles to apply.
+   * @default ""
    */
   className?: string
 }
 
 /**
- * A generic Card component with optional padding.
+ * The `Card` component acts as a versatile container for various types of content, providing
+ * an optional padding feature for additional layout flexibility. It is commonly used for
+ * displaying information or grouping elements, allowing for consistent styling and shadow effects.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-card--docs
+ * @see {@link CardProps}
  */
-export const Card: React.FC<CardProps> = ({ children, padding = false, className = "", ...props }) => {
+export const Card = ({ children, padding = false, className = "", ...props }: CardProps): ReactNode => {
   const combinedClassName = `juno-card ${cardStyles} ${padding ? cardPadding : ""} ${className}`
   return (
     <div className={combinedClassName} {...props}>

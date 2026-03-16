@@ -12,13 +12,13 @@ import { useRouteContext } from "@tanstack/react-router"
 import { Stats } from "../common/Stats/Stats"
 
 export const PluginPresetsStats = () => {
-  const { apiClient, organization } = useRouteContext({ from: "/admin/plugin-presets" })
+  const { apiClient, user } = useRouteContext({ from: "/admin/plugin-presets" })
 
   return (
     <Stats
       title="PluginPreset Health Distribution"
-      queryKey={[FETCH_PLUGIN_PRESETS_STATS_CACHE_KEY, organization]}
-      queryFn={() => fetchPluginPresetsStats({ apiClient, namespace: organization })}
+      queryKey={[FETCH_PLUGIN_PRESETS_STATS_CACHE_KEY, user.organization]}
+      queryFn={() => fetchPluginPresetsStats({ apiClient, namespace: user.organization })}
     />
   )
 }

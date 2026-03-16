@@ -19,18 +19,18 @@ import { FilterSelect } from "../common/FilterSelect"
 
 export const PluginPresetsFilters = () => {
   const navigate = useNavigate()
-  const { apiClient, organization } = useRouteContext({ from: "/admin/plugin-presets" })
+  const { apiClient, user } = useRouteContext({ from: "/admin/plugin-presets" })
   const { filterSettings } = useLoaderData({ from: "/admin/plugin-presets/" })
   const {
     data: filters,
     isLoading,
     error,
   } = useQuery({
-    queryKey: [FETCH_PLUGIN_PRESETS_FILTERS_CACHE_KEY, organization],
+    queryKey: [FETCH_PLUGIN_PRESETS_FILTERS_CACHE_KEY, user.organization],
     queryFn: () =>
       fetchPluginPresetsFilters({
         apiClient,
-        namespace: organization,
+        namespace: user.organization,
       }),
   })
 
@@ -66,7 +66,7 @@ export const PluginPresetsFilters = () => {
   )
 
   return (
-    <Stack direction="vertical" gap="4" className="bg-theme-background-lvl-1 py-2 px-4 ">
+    <Stack direction="vertical" gap="4" className="bg-theme-background-lvl-1 py-2 px-4 mb-px">
       <Stack alignment="start" gap="4">
         <InputGroup>
           <FilterSelect

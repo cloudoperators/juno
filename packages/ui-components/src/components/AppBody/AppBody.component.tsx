@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { ReactNode, HTMLAttributes } from "react"
 
 const containerStyles = `
   jn:flex
@@ -12,10 +12,15 @@ const containerStyles = `
 `
 
 /**
- * Only needed if you want to build your app's scaffold manually. In most cases it is better to use the AppShell component instead.
- * Body of the app. Treat this like the body tag of an html page.
+ * The `AppBody` component serves as the main container for the body of your application.
+ * It is specifically useful when you require manual setup of the app's layout, providing
+ * flexibility and control over the structure of the application body. For most cases,
+ * consider using the `AppShell` component which encompasses more features suitable for
+ * typical application scaffolding.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/internal-appbody--docs
+ * @see {@link AppBodyProps}
  */
-export const AppBody: React.FC<AppBodyProps> = ({ className = "", children, ...props }) => {
+export const AppBody = ({ className = "", children, ...props }: AppBodyProps): ReactNode => {
   return (
     <div className={`juno-body ${containerStyles} ${className}`} {...props}>
       {children}
@@ -23,9 +28,15 @@ export const AppBody: React.FC<AppBodyProps> = ({ className = "", children, ...p
   )
 }
 
-export interface AppBodyProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Add custom class name */
+export interface AppBodyProps extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * Add custom class name to style the component.
+   * @default ""
+   */
   className?: string
-  /** Pass children nodes */
-  children?: React.ReactNode
+
+  /**
+   * The content to be rendered inside the AppBody component.
+   */
+  children?: ReactNode
 }

@@ -14,6 +14,7 @@ import {
 } from "@tanstack/react-router"
 import { render, screen, waitForElementToBeRemoved } from "@testing-library/react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { PluginPresetDetail } from "./index"
 import { mockPluginPresets } from "../__mocks__/pluginPresets"
 
@@ -25,19 +26,21 @@ const renderComponent = async (mockPromise: Promise<unknown>) => {
     getParentRoute: () => rootRoute,
     path: "/admin/plugin-presets/$pluginPresetName",
     component: () => (
-      <QueryClientProvider
-        client={
-          new QueryClient({
-            defaultOptions: {
-              queries: {
-                retry: false,
+      <MessagesProvider>
+        <QueryClientProvider
+          client={
+            new QueryClient({
+              defaultOptions: {
+                queries: {
+                  retry: false,
+                },
               },
-            },
-          })
-        }
-      >
-        <PluginPresetDetail />
-      </QueryClientProvider>
+            })
+          }
+        >
+          <PluginPresetDetail />
+        </QueryClientProvider>
+      </MessagesProvider>
     ),
   })
   const routeTree = rootRoute.addChildren([testRoute])
@@ -50,7 +53,10 @@ const renderComponent = async (mockPromise: Promise<unknown>) => {
           return mockPromise
         },
       },
-      organization: "test-org",
+      user: {
+        organization: "test-org",
+        supportGroups: [],
+      },
     },
     history: createMemoryHistory({
       initialEntries: ["/admin/plugin-presets/preset-1"],
@@ -65,11 +71,8 @@ describe("PluginPresetDetail", () => {
     await renderComponent(new Promise((resolve) => resolve(mockPreset)))
 
     expect(screen.getByRole("heading", { name: "preset-1" })).toBeInTheDocument()
-
-    await waitForElementToBeRemoved(() => screen.queryByText("Loading..."))
-
-    expect(screen.getByText("Overview")).toBeInTheDocument()
-    expect(screen.getByText("Configuration Overrides")).toBeInTheDocument()
-    expect(screen.getByText("Raw Data")).toBeInTheDocument()
+    expect(await screen.findByText("Overview")).toBeInTheDocument()
+    expect(screen.getByText("Configuration")).toBeInTheDocument()
+    expect(screen.getByText("YAML")).toBeInTheDocument()
   })
 })

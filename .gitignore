@@ -22,3 +22,5 @@ act_*.json
 .secret
 
 .out-of-code-insights
+.claude
+claude.md

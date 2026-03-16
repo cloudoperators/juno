@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { FC } from "react"
+import React, { HTMLAttributes, ReactNode, MouseEvent } from "react"
 import { Icon } from "../Icon"
 
 // eslint-disable-next-line no-unused-vars
-type EventHandler = (event: React.MouseEvent<HTMLElement>, id: string) => void
+type EventHandler = (event: MouseEvent<HTMLElement>, id: string) => void
 
 const pillStyles = (onClick: boolean) => {
   return `
@@ -49,9 +49,11 @@ const pillValueStyles = (onClick: boolean) => {
 }
 
 /**
-A Pill to represent a value, or key and value. Can e.g. be used to represent selected filter values in a filter component. Can optionally be closed. On close the uid, if provided, or the pillKey is returned in the callback.
+ * A Pill to represent a value, or key and value. Can e.g. be used to represent selected filter values in a filter component. Can optionally be closed. On close the uid, if provided, or the pillKey is returned in the callback.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-pill--docs
+ * @see {@link PillProps}
  */
-export const Pill: FC<PillProps> = ({
+export const Pill = ({
   uid = "",
   pillKey = "",
   pillKeyLabel = "",
@@ -62,12 +64,12 @@ export const Pill: FC<PillProps> = ({
   onClose,
   className = "",
   ...props
-}) => {
-  const handleCloseClick = (event: React.MouseEvent<HTMLElement>) => {
+}: PillProps): ReactNode => {
+  const handleCloseClick = (event: MouseEvent<HTMLElement>) => {
     onClose && onClose(event, uid || pillKey || pillValue)
   }
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event: MouseEvent<HTMLElement>) => {
     onClick && onClick(event, uid || pillKey || pillValue)
   }
 
@@ -92,7 +94,7 @@ export const Pill: FC<PillProps> = ({
   )
 }
 
-export interface PillProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onClick"> {
+export interface PillProps extends Omit<HTMLAttributes<HTMLDivElement>, "onClick"> {
   /** The unique identifier of the pill. Returned by the onClose callback */
   uid?: string
   /** The key of the filter the pill represents. Returned by the onClose callback if uid undefined. Optional. */

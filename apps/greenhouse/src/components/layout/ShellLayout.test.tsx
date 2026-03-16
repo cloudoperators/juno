@@ -35,7 +35,9 @@ const renderComponent = () => {
       <AuthProvider options={{ mockAuth: true }}>
         <MessagesProvider>
           <StoreProvider>
-            <ShellLayout />
+            <ShellLayout>
+              <Outlet />
+            </ShellLayout>
           </StoreProvider>
         </MessagesProvider>
       </AuthProvider>

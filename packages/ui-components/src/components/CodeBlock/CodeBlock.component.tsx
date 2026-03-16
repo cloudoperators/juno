@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useRef, useCallback } from "react"
+import React, { useState, useRef, useCallback, useEffect, ReactNode, HTMLAttributes } from "react"
 import { JsonViewer } from "../JsonViewer"
 import { Icon } from "../Icon"
 
@@ -105,8 +105,13 @@ const jsonTheme = {
   base0F: "var(--color-syntax-highlight-base0F)", // integer value
 }
 
-/**  A basic CodeBlock component. Accepts a content prop or children. Will render a pre-wrapped code element. */
-export const CodeBlock: React.FC<CodeBlockProps> = ({
+/**
+ * The `CodeBlock` component renders a block of preformatted code or content. It offers features such
+ * as optional wrapping, copying to clipboard, and syntax highlighting for JSON content via a custom viewer.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-codeblock--docs
+ * @see {@link CodeBlockProps}
+ */
+export const CodeBlock = ({
   content = "",
   children,
   wrap = true,
@@ -115,11 +120,11 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
   lang = "",
   className = "",
   ...props
-}) => {
+}: CodeBlockProps): ReactNode => {
   const [isCopied, setIsCopied] = useState(false)
-  const timeoutRef = React.useRef<number | null>(null)
+  const timeoutRef = useRef<number | null>(null)
   const { heading } = props
-  React.useEffect(() => {
+  useEffect(() => {
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current)
@@ -180,21 +185,49 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
 
 type CodeBlockSize = "auto" | "small" | "medium" | "large"
 
-export interface CodeBlockProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "content" | "children"> {
-  /** The content to render. Used when `lang` is "json". Otherwise, if children are not provided. */
+export interface CodeBlockProps extends Omit<HTMLAttributes<HTMLDivElement>, "content" | "children"> {
+  /**
+   * The content to render. Used when `lang` is "json". Overrides children if not specified.
+   * Defaults to an empty string or object.
+   */
   content?: string | object
-  /** The children to render. Used when `lang` is NOT "json", overriding `content`. */
-  children?: React.ReactNode
-  /** Pass at title to render. Will look like a single tab. */
+
+  /**
+   * Elements or text to render inside the code block. Used when `lang` is not "json", overriding `content`.
+   */
+  children?: ReactNode
+
+  /**
+   * Optional caption or title to render, styled like a tab.
+   */
   heading?: string
-  /** Set whether the code should wrap or not. Default is true. */
+
+  /**
+   * Determines whether the code should wrap.
+   * @default true
+   */
   wrap?: boolean
-  /** Set the size of the CodeBlock. Default is "auto" */
+
+  /**
+   * Specifies the size of the CodeBlock.
+   * @default "auto"
+   */
   size?: CodeBlockSize
-  /** Render a button to copy the code to the clipboard. Defaults to true */
+
+  /**
+   * Enables or disables the copy-to-clipboard option.
+   * @default true
+   */
   copy?: boolean
-  /** Pass a lang prop. Passing "json" will render a fully-featured JsonView. Will also add a data-lang attribute to the codeblock */
+
+  /**
+   * Language for the content. "json" will render a structured JsonView. Adds a data-lang attribute.
+   */
   lang?: string
-  /** Add a custom className to the wrapper of the CodeBlock */
+
+  /**
+   * Additional CSS classes for customizing the CodeBlock styling.
+   * @default ""
+   */
   className?: string
 }

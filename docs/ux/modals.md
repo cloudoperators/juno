@@ -45,15 +45,18 @@ Do not show Modals without user interaction. A Modal must be triggered by a prio
 
 ### One Primary Action
 
-A Modal should have only one primary action. This is the action triggered when the user presses the **Enter** key while the Modal is open.
+A Modal should have only one primary action. This is the action triggered when the user presses the **Enter** key while the Modal is open. The button that triggers the primary action is always the rightmost button.
 
 ### Redundant Cancel/Close
 
-A Modal has a Close (“X”) button in the top right, and a Cancel/Close button at the bottom. Both should close the Modal without changing the state of the application, effectively cancelling any pending actions.
+A Modal has a Close (“X”) button in the top right, and a Cancel/Close button at the bottom. In most cases, these two will do the same thing: Cancel the Modal and close it.
+However, there may be situations where they don't: The Cancel button will actually cancel an ongoing (background) action or process (as in terminating it), while the close-X in the top right will only close the Modal, without the actual process being affected. In order to allow the Modal component to work in these cases as well, the component does not automatically sync the states of the two buttons, e.g. users will have to make sure to disable both buttons individually when needed.
+
+Both should close the Modal without changing the state of the application, effectively cancelling any pending actions.
 
 ### Destructive Actions and Confirmation of Destructive Actions
 
-Modals may be used for destructive tasks, such as deleting an entity, or for confirming such tasks when triggered inline. In this case, the primary button should be styled as `primary-danger`.
+Modals may be used for destructive tasks, such as deleting an entity, or for confirming such tasks when triggered inline. In this case, the primary button should be styled as `primary-danger` (red).
 
 ### No Sign-In Modals
 
@@ -61,7 +64,7 @@ Do not use Modals for Sign-In. We have dedicated full-page Sign-In patterns.
 
 ### Multiple-Action Modals
 
-Some Modals may allow the user to cancel/close or choose from multiple actions. If one action is the most likely or recommended action, it should be represented by a `primary` button.
+Some Modals may allow the user to cancel/close or choose from multiple actions. If one action is the most likely or recommended action, it should be represented by a `primary` button, and be positioned as the rightmost button.
 
 ## Modal Content and Title
 
@@ -90,6 +93,18 @@ Use titles that clearly state the action and the affected object or entity:
 - "Add Organization 'frontend-devs' to Project"
 - "Revoke API Key 'dev-key-03'"
 
+## Messages in Modals, Modal Semantics
+
+It is usually not necessary to use `Message` inside a Modal just to convey contextual information to users. When using a semantic `Message` inside a Modal, make sure to align the semantics with the primary action button: `info`-semantics for the blue primary action button, `danger` when the action is potentially destructive, and the primary action button of the Modal is `primary-danger` (red). The overall goal is to not have different, i.e. conflicting semantic colors in the same Modal, as this will be perceived as highly confusing by users.
+
 ## Modal Accessibility
 
 Modals should trap keyboard focus so it cycles within the focusable elements inside the Modal, and never leaves until the Modal is closed. A Modal should generally have `role="dialog"` assigned.
+
+## Form Validation Specifics in Modals
+
+In many instances, Modals will present some kind of form to the user to fill in order to proceed with the respective action represented by the Modal. Some or all of the fields will be mandatory to fill and/or require their value(s) to comply with specific validation rules. As long as any required field in the Modal does not have a value or a validation on any field in the Modal fails, the primary action/ confirming button must be disabled. Ideally, re-evaluate the fields (and thus the resulting state of the button) via `onChange` for a smooth and responsive feel.
+
+## Never Lock Users in Modals
+
+As a user should always be triggered by a user, it should also always be possible for the user to close a Modal by clicking the closing X-button and/or a Cancel button.

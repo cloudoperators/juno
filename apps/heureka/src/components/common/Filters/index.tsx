@@ -37,7 +37,7 @@ export const Filters = ({ filtersPromise, filterSettings, onFilterChange, search
         <InputGroup>
           <ErrorBoundary
             displayErrorMessage
-            fallbackRender={(props) => <PlaceHolderFilterSelect error={props.error as Error} />}
+            fallbackRender={(props) => <PlaceHolderFilterSelect error={props.error} />}
           >
             <Suspense fallback={<PlaceHolderFilterSelect loading />}>
               <FilterSelect
