@@ -70,7 +70,6 @@ const PluginNav = () => {
   const isAdminRoute = matches.some((match) => match.routeId.startsWith("/admin"))
   // If we're on /admin route, set activeApp to "admin", otherwise use extension ID
   const activeApp = isAdminRoute ? "admin" : extensionIdMatch
-  // @ts-expect-error TS(2339): Property 'data' does not exist on type 'unknown'.
   const { data: authData, loggedIn, login, logout } = useAuth()
 
   const navigateToApp = (appId: string) => {

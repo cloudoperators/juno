@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { render, screen, waitFor } from "@testing-library/react"
+import { render, screen, waitFor, within } from "@testing-library/react"
 import { describe, it, expect } from "vitest"
 import YamlViewer from "./YamlViewer"
 
@@ -21,13 +21,13 @@ describe("YamlViewer", () => {
         },
       }
 
-      render(<YamlViewer value={mockData} data-testid="codemirror" />)
+      render(<YamlViewer value={mockData} data-testid="yaml-viewer" />)
 
       await waitFor(() => {
-        const editor = screen.getByTestId("codemirror")
-        expect(editor).toBeInTheDocument()
-        expect(editor).toHaveAttribute("aria-label", "YAML data viewer (read-only)")
-        expect(editor).toHaveAttribute("aria-readonly", "true")
+        const editorWrapper = screen.getByTestId("yaml-viewer")
+        expect(editorWrapper).toBeInTheDocument()
+        const editorContent = within(editorWrapper).getByLabelText("YAML data viewer (read-only)")
+        expect(editorContent).toHaveAttribute("aria-readonly", "true")
       })
     })
 
@@ -40,11 +40,11 @@ describe("YamlViewer", () => {
         },
       }
 
-      render(<YamlViewer value={mockData} data-testid="codemirror" />)
+      render(<YamlViewer value={mockData} data-testid="yaml-viewer" />)
 
       await waitFor(() => {
-        const editor = screen.getByTestId("codemirror")
-        const editorText = editor.textContent || ""
+        const editorWrapper = screen.getByTestId("yaml-viewer")
+        const editorText = editorWrapper.textContent || ""
 
         expect(editorText).toContain("apiVersion")
         expect(editorText).toContain("v1")
@@ -65,12 +65,14 @@ describe("YamlViewer", () => {
         invalidFunction: () => {},
       }
 
-      render(<YamlViewer value={invalidData} data-testid="codemirror" />)
+      render(<YamlViewer value={invalidData} data-testid="yaml-viewer" />)
 
       await waitFor(() => {
         // Check if ErrorMessage is rendered (outside editor)
         expect(screen.getByText(/Failed to serialize object to YAML/i)).toBeInTheDocument()
-        expect(screen.queryByTestId("codemirror")).not.toBeInTheDocument()
+        // expect(screen.queryByTestId("yaml-viewer")).not.toBeInTheDocument()
+        const editorWrapper = screen.getByTestId("yaml-viewer")
+        expect(within(editorWrapper).queryByLabelText("YAML data viewer (read-only)")).not.toBeInTheDocument()
       })
     })
   })
