@@ -37,7 +37,7 @@ export const AppShell: React.FC<AppShellProps> = ({
         <>
           {topNavigation && <HeaderContainer fullWidth={fullWidthOrDefault}>{topNavigation}</HeaderContainer>}
           <MainContainer>
-            <MainContainerInner fullWidth={fullWidthOrDefault} className={`${topNavigation ? "jn:mt-[3.875rem]" : ""}`}>
+            <MainContainerInner fullWidth={fullWidthOrDefault} className={`${topNavigation ? "jn:mt-15.5" : ""}`}>
               {sideNavigation && sideNavigation}
               <ContentContainer>{children}</ContentContainer>
             </MainContainerInner>
@@ -51,7 +51,7 @@ export const AppShell: React.FC<AppShellProps> = ({
           </HeaderContainer>
           {/* Wrap everything except page header and footer and navigations in a main container. Add top margin to MainContainerInner as we are not in embedded mode here. */}
           <MainContainer>
-            <MainContainerInner fullWidth={fullWidthOrDefault} className="jn:mt-[3.875rem]">
+            <MainContainerInner fullWidth={fullWidthOrDefault} className="jn:mt-15.5">
               {sideNavigation}
               <ContentContainer>{children}</ContentContainer>
             </MainContainerInner>
