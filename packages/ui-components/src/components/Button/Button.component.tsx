@@ -3,7 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, {
+  forwardRef,
+  HTMLProps,
+  MouseEventHandler,
+  ReactNode,
+  MouseEvent,
+  ButtonHTMLAttributes,
+  Ref,
+} from "react"
 import { Icon } from "../Icon/index"
 import { KnownIcons } from "../Icon/Icon.component"
 import { Spinner } from "../Spinner/index"
@@ -161,7 +169,7 @@ const spinnerColorClass = (variant: ButtonVariant) => {
  * @see https://cloudoperators.github.io/juno/?path=/docs/components-button--docs
  * @see {@link ButtonProps}
  */
-export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
+export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
   (
     {
       label,
@@ -196,7 +204,7 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
 
     const buttonLabel = progress && progressLabel ? progressLabel : label || children
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+    const handleClick = (event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
       onClick && onClick(event)
     }
 
@@ -214,8 +222,8 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
           ${className}`}
         disabled={disabled || undefined}
         onClick={handleClick}
-        ref={ref as React.Ref<HTMLButtonElement>}
-        {...(props as React.HTMLProps<HTMLButtonElement>)}
+        ref={ref as Ref<HTMLButtonElement>}
+        {...(props as HTMLProps<HTMLButtonElement>)}
         type={type}
         title={titleValue}
       >
@@ -241,8 +249,8 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
         `}
         disabled={disabled}
         onClick={onClick}
-        ref={ref as React.Ref<HTMLAnchorElement>}
-        {...(props as React.HTMLProps<HTMLAnchorElement>)}
+        ref={ref as Ref<HTMLAnchorElement>}
+        {...(props as HTMLProps<HTMLAnchorElement>)}
         title={titleValue}
       >
         {buttonIcon}
@@ -259,12 +267,11 @@ Button.displayName = "Button"
 type ButtonVariant = "primary" | "primary-danger" | "default" | "subdued"
 type ButtonSize = "small" | "default"
 
-export interface ButtonProps
-  extends Omit<React.HTMLProps<HTMLAnchorElement> | React.HTMLProps<HTMLButtonElement>, "size"> {
+export interface ButtonProps extends Omit<HTMLProps<HTMLAnchorElement> | HTMLProps<HTMLButtonElement>, "size"> {
   /**
    * Child elements or text to be rendered inside the button.
    */
-  children?: React.ReactNode
+  children?: ReactNode
 
   /**
    * Choose a variant for your button style. Defaults to "default" if unspecified.
@@ -309,9 +316,9 @@ export interface ButtonProps
    */
   className?: string
   /** Click handler  */
-  onClick?: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
+  onClick?: MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
   /** Button type. Defaults to `button`. */
-  type?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"]
+  type?: ButtonHTMLAttributes<HTMLButtonElement>["type"]
   /** Whether the button action is in progress */
   progress?: boolean
 

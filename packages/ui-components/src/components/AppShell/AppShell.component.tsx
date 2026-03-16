@@ -42,7 +42,7 @@ export const AppShell = ({
           {topNavigation && <HeaderContainer fullWidth={fullWidthOrDefault}>{topNavigation}</HeaderContainer>}
           <MainContainer>
             <MainContainerInner fullWidth={fullWidthOrDefault} className={`${topNavigation ? "jn:mt-15.5" : ""}`}>
-              {sideNavigation && sideNavigation}
+              {sideNavigation}
               <ContentContainer>{children}</ContentContainer>
             </MainContainerInner>
           </MainContainer>
