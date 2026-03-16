@@ -22,5 +22,10 @@ act_*.json
 .secret
 
 .out-of-code-insights
-.claude
+.claude/memory/
+.claude/plans/
+.claude/agent-memory/
+.claude/agents/
+.claude/*.json
+.claude/*.md
 claude.md
