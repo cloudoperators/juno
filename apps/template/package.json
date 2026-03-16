@@ -42,7 +42,7 @@
     "@typescript-eslint/parser": "6.21.0",
     "@vitejs/plugin-react-swc": "3.11.0",
     "@vitejs/plugin-react": "4.7.0",
-    "@vitest/ui": "3.2.4",
+    "@vitest/ui": "4.1.0",
     "eslint": "10.0.2",
     "eslint-config-prettier": "9.1.2",
     "eslint-plugin-prettier": "5.5.5",
