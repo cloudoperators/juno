@@ -45,7 +45,8 @@
   },
   "pnpm": {
     "overrides": {
-      "minimatch": ">=10.2.4"
+      "minimatch": ">=10.2.4",
+      "flat-cache>flatted": ">=3.4.1"
     }
   }
 }
