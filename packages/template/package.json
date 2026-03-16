@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
-    "@types/node": "24.10.13",
+    "@types/node": "24.10.15",
     "jsdom": "26.1.0",
     "typescript": "5.9.3",
     "vite": "7.3.1",
