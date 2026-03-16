@@ -12,7 +12,7 @@ import {
   Outlet,
   RouterProvider,
 } from "@tanstack/react-router"
-import { render, screen } from "@testing-library/react"
+import { render, screen, waitForElementToBeRemoved } from "@testing-library/react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { PluginPresetDetail } from "./index"
 import { mockPluginPresets } from "../__mocks__/pluginPresets"
@@ -65,6 +65,9 @@ describe("PluginPresetDetail", () => {
     await renderComponent(new Promise((resolve) => resolve(mockPreset)))
 
     expect(screen.getByRole("heading", { name: "preset-1" })).toBeInTheDocument()
+
+    await waitForElementToBeRemoved(() => screen.queryByText("Loading..."))
+
     expect(screen.getByText("Overview")).toBeInTheDocument()
     expect(screen.getByText("Configuration Overrides")).toBeInTheDocument()
     expect(screen.getByText("Raw Data")).toBeInTheDocument()
