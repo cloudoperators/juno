@@ -1,5 +1,21 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.11.2
+
+### Patch Changes
+
+- 13ef69a: Correctly extract organisation name from URL with basePath and add TypeScript types and Zod validation for auth system.
+- 4bbfb0e: Improve ErrorMessage type safety.
+- 252b908: Migrate YamlViewer from @uiw/react-codemirror to native CodeMirror packages
+- Updated dependencies [c6ab015]
+- Updated dependencies [4bbfb0e]
+- Updated dependencies [68ba389]
+  - @cloudoperators/juno-app-heureka@1.0.3
+  - @cloudoperators/juno-ui-components@6.1.2
+  - @cloudoperators/juno-app-doop@2.6.19
+  - @cloudoperators/juno-app-supernova@0.19.22
+  - @cloudoperators/juno-messages-provider@0.2.31
+
 ## 0.11.1
 
 ### Patch Changes
