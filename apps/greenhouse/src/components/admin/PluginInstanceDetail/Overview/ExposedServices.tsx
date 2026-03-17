@@ -11,6 +11,7 @@ import {
   DataGridHeadCell,
   DataGridCell,
   ContentHeading,
+  button,
 } from "@cloudoperators/juno-ui-components"
 import { Plugin } from "../../types/k8sTypes"
 
@@ -21,6 +22,8 @@ type ExposedServicesProps = {
 export const ExposedServices: React.FC<ExposedServicesProps> = ({ plugin }) => {
   const exposedServices = plugin.status?.exposedServices || {}
   const entries = Object.entries(exposedServices)
+
+  console.log(">>>>>>>>>>>>>Exposed Services:", entries)
 
   return (
     <Stack direction="vertical" gap="4">
@@ -37,7 +40,15 @@ export const ExposedServices: React.FC<ExposedServicesProps> = ({ plugin }) => {
           </DataGridRow>
           {entries.map(([url, service]) => (
             <DataGridRow key={url}>
-              <DataGridCell>{service.name}</DataGridCell>
+              <DataGridCell>
+                {url ? (
+                  <a href={url} target="_blank" rel="noopener noreferrer">
+                    {service.name}
+                  </a>
+                ) : (
+                  service.name
+                )}
+              </DataGridCell>
               <DataGridCell>{service.namespace}</DataGridCell>
               <DataGridCell>{service.port}</DataGridCell>
               <DataGridCell>{service.protocol}</DataGridCell>
