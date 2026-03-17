@@ -15,6 +15,7 @@ import {
   Message,
 } from "@cloudoperators/juno-ui-components"
 import { RemediationInput, RemediationTypeValues, SeverityValues } from "../../../../generated/graphql"
+import { useAuthUserId } from "../../../../App"
 
 type FalsePositiveModalProps = {
   open: boolean
@@ -24,8 +25,6 @@ type FalsePositiveModalProps = {
   severity?: string
   service: string
   image: string
-  /** User ID from auth (provided by parent under AuthProvider). When set, User ID field is read-only. */
-  authUserId?: string | null
   /** Error message to show when createRemediation fails. */
   errorMessage?: string | null
   /** Called when submit fails so the parent can set errorMessage. */
@@ -50,10 +49,10 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
   severity,
   service,
   image,
-  authUserId = null,
   errorMessage,
   onSetError,
 }) => {
+  const authUserId = useAuthUserId()
   const [description, setDescription] = useState<string>("")
   const [manualUserId, setManualUserId] = useState<string>("")
   const [expirationDate, setExpirationDate] = useState<Date | null>(null)

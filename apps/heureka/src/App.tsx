@@ -14,7 +14,7 @@ import { ErrorBoundary } from "./components/common/ErrorBoundary"
 import { getClient } from "./apollo-client"
 import { routeTree } from "./routeTree.gen"
 import { StoreProvider } from "./store/StoreProvider"
-import { AuthProvider, EmbeddedAuth } from "@cloudoperators/greenhouse-auth-provider"
+import { AuthProvider, EmbeddedAuth, type AuthState } from "@cloudoperators/greenhouse-auth-provider"
 
 /**
  * Auth user ID for the current user when embedded and authenticated; null otherwise.
@@ -41,7 +41,7 @@ export type AppProps = {
   initialFilters?: InitialFilters
   basePath?: string
   enableHashedRouting?: boolean
-  auth?: EmbeddedAuth | import("@cloudoperators/greenhouse-auth-provider").AuthState
+  auth?: EmbeddedAuth | AuthState
 }
 
 const router = createRouter({
@@ -63,7 +63,7 @@ declare module "@tanstack/react-router" {
 function toEmbeddedAuth(auth: AppProps["auth"]): EmbeddedAuth | undefined {
   if (!auth) return undefined
   if (typeof (auth as EmbeddedAuth).getSnapshot === "function") return auth as EmbeddedAuth
-  return { getSnapshot: () => auth as import("@cloudoperators/greenhouse-auth-provider").AuthState }
+  return { getSnapshot: () => auth as AuthState }
 }
 
 const App = (props: AppProps) => {

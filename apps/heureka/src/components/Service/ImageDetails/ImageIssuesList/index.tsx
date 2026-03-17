@@ -236,6 +236,7 @@ export const ImageIssuesList = ({
     [navigate, service, image.repository]
   )
   const [vulnerabilitiesSuccessMessage, setVulnerabilitiesSuccessMessage] = useTimedState<string>(10000)
+  const [pollErrorMessage, setPollErrorMessage] = useTimedState<string>(10000)
   const [, setRefreshKey] = useState(0)
   const pollTimeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([])
   const isMountedRef = useRef(true)
@@ -289,29 +290,42 @@ export const ImageIssuesList = ({
 
       // Cancel any pending polls from a previous operation and schedule fresh ones.
       // The backend takes ~5–6 min to propagate changes, so we poll at 2.5 and 5 min.
+      // Note: we intentionally use setTimeout + invalidateQueries here instead of
+      // React Query's refetchInterval. The entire data layer in this app uses
+      // queryClient.ensureQueryData() + React use() for Suspense-based data fetching,
+      // not useQuery hooks.
       pollTimeoutsRef.current.forEach(clearTimeout)
       pollTimeoutsRef.current = []
       ;[2.5 * 60 * 1000, 5 * 60 * 1000].forEach((delay) => {
         const id = setTimeout(() => {
-          queryClient.invalidateQueries({
-            predicate: (query) => {
-              const [key, filter] = query.queryKey as [
-                string,
-                { service?: string[]; image?: string[]; repository?: string[]; vulnerability?: string[] } | undefined,
-              ]
-              if (key === "images" || key === "remediations") {
-                return matchesCurrentServiceAndImage(filter)
-              }
-              return false
-            },
-          })
-          if (!isMountedRef.current) return
-          setRefreshKey((k) => k + 1)
+          queryClient
+            .invalidateQueries({
+              predicate: (query) => {
+                const [key, filter] = query.queryKey as [
+                  string,
+                  { service?: string[]; image?: string[]; repository?: string[]; vulnerability?: string[] } | undefined,
+                ]
+                if (key === "images" || key === "remediations") {
+                  return matchesCurrentServiceAndImage(filter)
+                }
+                return false
+              },
+            })
+            .then(() => {
+              if (!isMountedRef.current) return
+              setRefreshKey((k) => k + 1)
+            })
+            .catch(() => {
+              if (!isMountedRef.current) return
+              setPollErrorMessage(
+                "Background data refresh failed. The table may not reflect the latest status, you can refresh the page to see the latest data."
+              )
+            })
         }, delay)
         pollTimeoutsRef.current.push(id)
       })
     },
-    [queryClient, service, image.repository, isMountedRef]
+    [queryClient, service, image.repository, isMountedRef, setPollErrorMessage]
   )
 
   const openVulFilter = {
@@ -371,6 +385,11 @@ export const ImageIssuesList = ({
 
   return (
     <>
+      {pollErrorMessage && (
+        <div className="mb-4">
+          <Message text={pollErrorMessage} variant="error" />
+        </div>
+      )}
       <Tabs selectedIndex={selectedTabIndex} onSelect={handleTabSelect} variant="content">
         <TabList>
           <Tab label="Active Vulnerabilities" />
