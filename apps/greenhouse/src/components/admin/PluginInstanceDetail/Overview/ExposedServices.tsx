@@ -37,7 +37,11 @@ export const ExposedServices: React.FC<ExposedServicesProps> = ({ plugin }) => {
           </DataGridRow>
           {entries.map(([url, service]) => (
             <DataGridRow key={url}>
-              <DataGridCell>{service.name}</DataGridCell>
+              <DataGridCell>
+                <a href={url} target="_blank" rel="noopener noreferrer" className="text-theme-link hover:underline">
+                  {service.name}
+                </a>
+              </DataGridCell>
               <DataGridCell>{service.namespace}</DataGridCell>
               <DataGridCell>{service.port}</DataGridCell>
               <DataGridCell>{service.protocol}</DataGridCell>

@@ -82,4 +82,49 @@ describe("ExposedServices", () => {
     expect(screen.getByText("8080")).toBeInTheDocument()
     expect(screen.getByText("http")).toBeInTheDocument()
   })
+
+  it("should render service names as links with correct URLs", () => {
+    const mockPlugin: Plugin = {
+      metadata: {
+        name: "test-plugin",
+      },
+      spec: {
+        pluginDefinition: "test-definition",
+        pluginDefinitionRef: { name: "test-definition" },
+        deletionPolicy: "Delete",
+      },
+      status: {
+        exposedServices: {
+          "https://example.com": {
+            name: "example-service",
+            namespace: "default",
+            type: "ingress",
+            protocol: "https",
+            port: 443,
+          },
+          "https://api.example.com": {
+            name: "api-service",
+            namespace: "api-namespace",
+            type: "service",
+            protocol: "http",
+            port: 8080,
+          },
+        },
+      },
+    }
+
+    render(<ExposedServices plugin={mockPlugin} />)
+
+    // Check first service link
+    const exampleLink = screen.getByRole("link", { name: "example-service" })
+    expect(exampleLink).toHaveAttribute("href", "https://example.com")
+    expect(exampleLink).toHaveAttribute("target", "_blank")
+    expect(exampleLink).toHaveAttribute("rel", "noopener noreferrer")
+
+    // Check second service link
+    const apiLink = screen.getByRole("link", { name: "api-service" })
+    expect(apiLink).toHaveAttribute("href", "https://api.example.com")
+    expect(apiLink).toHaveAttribute("target", "_blank")
+    expect(apiLink).toHaveAttribute("rel", "noopener noreferrer")
+  })
 })
