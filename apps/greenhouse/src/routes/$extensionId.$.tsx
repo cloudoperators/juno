@@ -3,15 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { useEffect } from "react"
 import { createFileRoute } from "@tanstack/react-router"
-
+import { useActions } from "@cloudoperators/juno-messages-provider"
 import { usePlugin } from "../components/StoreProvider"
 import { useAuth } from "../components/AuthProvider"
 import Extension from "../components/Extension"
 
 export const Route = createFileRoute("/$extensionId/$")({
   component: RouteComponent,
+  errorComponent: ErrorComponent,
   // Force the route to remount when extensionId changes
   // This prevents splat/param state from being preserved between different plugins
   remountDeps: ({ params }) => params.extensionId,
@@ -19,14 +20,30 @@ export const Route = createFileRoute("/$extensionId/$")({
 
 function RouteComponent() {
   const config = usePlugin().config()
-  const { data: auth, pluginAuth } = useAuth()
+  const { pluginAuth } = useAuth()
   const { extensionId } = Route.useParams()
   const { appProps } = Route.useRouteContext()
   const appConfig = config[extensionId]
 
   if (!appConfig) {
-    return null
+    throw new Error(`No such "${extensionId}" plugin found`)
   }
 
-  return <Extension id={extensionId} config={appConfig} auth={auth} appProps={appProps} pluginAuth={pluginAuth} />
+  return <Extension id={extensionId} config={appConfig} appProps={appProps} pluginAuth={pluginAuth} />
+}
+
+function ErrorComponent({ error }: { error: Error }) {
+  const { addMessage, removeMessage } = useActions()
+  const normalizedError = error instanceof Error ? error : new Error("Unknown error")
+  useEffect(() => {
+    const messageId = addMessage({
+      variant: "error",
+      text: normalizedError.message,
+      dismissible: false,
+    })
+
+    return () => removeMessage(messageId)
+  }, [addMessage, removeMessage, normalizedError])
+
+  return null
 }
