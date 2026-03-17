@@ -6,13 +6,13 @@ Several Juno components — including `Message`, `Badge`, `Toast`, and `Tooltip`
 
 Juno uses the following semantic variants:
 
-| Variant | Meaning | Typical use |
-|---|---|---|
-| `info` | Neutral, informational | General guidance, hints, status messages with no urgency |
-| `success` | Positive outcome | Confirmation that an operation completed successfully |
-| `warning` | Caution required | Non-blocking issue the user should be aware of or act on |
-| `error` | Something went wrong | A failure the user should be informed about |
-| `danger` | High-risk or destructive | Destructive actions, data loss, irreversible consequences |
+| Variant   | Meaning                  | Typical use                                               |
+| --------- | ------------------------ | --------------------------------------------------------- |
+| `info`    | Neutral, informational   | General guidance, hints, status messages with no urgency  |
+| `success` | Positive outcome         | Confirmation that an operation completed successfully     |
+| `warning` | Caution required         | Non-blocking issue the user should be aware of or act on  |
+| `error`   | Something went wrong     | A failure the user should be informed about               |
+| `danger`  | High-risk or destructive | Destructive actions, data loss, irreversible consequences |
 
 ## `error` vs. `danger`
 
@@ -20,7 +20,7 @@ Use `error` for system or operation failures. Use `danger` for situations where 
 
 ## `warning` vs. `error`
 
-A `warning` does not mean something has failed — it signals that something *might* go wrong, or that the user should proceed carefully. An `error` means something already has gone wrong.
+A `warning` does not mean something has failed — it signals that something _might_ go wrong, or that the user should proceed carefully. An `error` means something already has gone wrong.
 
 ## Use Variants as Intended
 
