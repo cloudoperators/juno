@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 6.1.3
+
+### Patch Changes
+
+- 11eabd6: Added customizable type property for the button component.
+
 ## 6.1.2
 
 ### Patch Changes
