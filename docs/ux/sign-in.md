@@ -3,7 +3,7 @@
 # Sign-In
 
 > [!NOTE]  
-> The below mentioned sign-in form templates have not yet been implemented and are not yet available. The `SignInForm` itself however does component exist and must be used to create Sign-In forms.
+> The below mentioned sign-in form templates have not yet been implemented and are not yet available. The `SignInForm` component itself however does exist and must be used to create Sign-In forms.
 
 There is a dedicated `SignInForm`component to be used when implementing sign-in forms and pages.
 
