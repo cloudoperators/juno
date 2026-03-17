@@ -7,29 +7,16 @@
 /// <reference types="vite/client" />
 
 declare module "@cloudoperators/juno-app-doop" {
-  export * from "@cloudoperators/juno-app-doop"
-  export function mount(current: HTMLDivElement, arg1: { props: any }) {
-    throw new Error("Function not implemented.")
-  }
-  export function unmount() {
-    throw new Error("Function not implemented.")
-  }
+  export function mount(container: HTMLElement, options?: Record<string, any>): void
+  export function unmount(): void
 }
+
 declare module "@cloudoperators/juno-app-supernova" {
-  export * from "@cloudoperators/juno-app-supernova"
-  export function mount(current: HTMLDivElement, arg1: { props: any }) {
-    throw new Error("Function not implemented.")
-  }
-  export function unmount() {
-    throw new Error("Function not implemented.")
-  }
+  export function mount(container: HTMLElement, options?: Record<string, any>): void
+  export function unmount(): void
 }
+
 declare module "@cloudoperators/juno-app-heureka" {
-  export * from "@cloudoperators/juno-app-heureka"
-  export function mount() {
-    throw new Error("Function not implemented.")
-  }
-  export function unmount() {
-    throw new Error("Function not implemented.")
-  }
+  export function mount(container: HTMLElement, options?: Record<string, any>): void
+  export function unmount(): void
 }

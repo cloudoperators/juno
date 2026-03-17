@@ -3,18 +3,26 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { createRoot } from "react-dom/client"
+import { createRoot, Root } from "react-dom/client"
 import React from "react"
+import App from "./App"
 
-// export mount and unmount functions
-export const mount = (container: any, options = {}) => {
-  import("./App").then((App) => {
-    // @ts-expect-error TS(2339) FIXME: Property 'root' does not exist on type '(container... Remove this comment to see the full error message
-    mount.root = createRoot(container)
-    // @ts-expect-error TS(2339) FIXME: Property 'root' does not exist on type '(container... Remove this comment to see the full error message
-    mount.root.render(React.createElement(App.default, options?.props))
-  })
+export type PluginModule = {
+  mount: (container: HTMLElement, options?: any) => void
+  unmount: () => void
 }
 
-// @ts-expect-error TS(2339) FIXME: Property 'root' does not exist on type '(container... Remove this comment to see the full error message
-export const unmount = () => mount.root && mount.root.unmount()
+let root: Root | null = null
+
+// export mount and unmount functions
+export const mount = (container: HTMLElement, options: any = {}) => {
+  root = createRoot(container)
+  root.render(React.createElement(App, options?.props))
+}
+
+export const unmount = () => {
+  if (root) {
+    root.unmount()
+    root = null
+  }
+}

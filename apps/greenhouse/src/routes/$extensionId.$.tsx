@@ -12,6 +12,9 @@ import Extension from "../components/Extension"
 
 export const Route = createFileRoute("/$extensionId/$")({
   component: RouteComponent,
+  // Force the route to remount when extensionId changes
+  // This prevents splat/param state from being preserved between different plugins
+  remountDeps: ({ params }) => params.extensionId,
 })
 
 function RouteComponent() {
