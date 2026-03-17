@@ -127,6 +127,7 @@ const RemediatedVulnerabilitiesTabContent = ({
   onDataRefresh,
   selectedVulnerability,
   onSelectVulnerability,
+  refreshKey,
 }: {
   service: string
   image: string
@@ -137,6 +138,7 @@ const RemediatedVulnerabilitiesTabContent = ({
   onDataRefresh?: (vulnerability: string) => void | Promise<void>
   selectedVulnerability: string | null
   onSelectVulnerability: (cve: string | null) => void
+  refreshKey: number
 }) => {
   return (
     <>
@@ -194,6 +196,7 @@ const RemediatedVulnerabilitiesTabContent = ({
         vulnerability={selectedVulnerability}
         onClose={() => onSelectVulnerability(null)}
         onRevertSuccess={onDataRefresh}
+        refreshKey={refreshKey}
       />
     </>
   )
@@ -237,7 +240,7 @@ export const ImageIssuesList = ({
   )
   const [vulnerabilitiesSuccessMessage, setVulnerabilitiesSuccessMessage] = useTimedState<string>(10000)
   const [pollErrorMessage, setPollErrorMessage] = useTimedState<string>(10000)
-  const [, setRefreshKey] = useState(0)
+  const [refreshKey, setRefreshKey] = useState(0)
   const pollTimeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([])
   const isMountedRef = useRef(true)
 
@@ -251,6 +254,7 @@ export const ImageIssuesList = ({
 
   const refreshIssuesData = useCallback(
     async (vulnerability: string) => {
+      // Helper: match only queries for the currently viewed service + image.
       const matchesCurrentServiceAndImage = (
         filter: { service?: string[]; image?: string[]; repository?: string[]; vulnerability?: string[] } | undefined
       ) =>
@@ -259,6 +263,7 @@ export const ImageIssuesList = ({
         ((Array.isArray(filter?.image) && filter.image.includes(image.repository)) ||
           (Array.isArray(filter?.repository) && filter.repository.includes(image.repository)))
 
+      // 1. Immediately refetch remediations for the affected CVE so the panel shows fresh data.
       await queryClient.refetchQueries({
         type: "all",
         predicate: (query) => {
@@ -275,6 +280,7 @@ export const ImageIssuesList = ({
         },
       })
 
+      // 2. Immediately refetch images so the active/remediated tabs reflect the change.
       await queryClient.refetchQueries({
         type: "all",
         predicate: (query) => {
@@ -286,14 +292,13 @@ export const ImageIssuesList = ({
         },
       })
 
+      // 3. Bump refreshKey so memoized promises (e.g. RemediationHistoryPanel) re-read from cache.
       setRefreshKey((k) => k + 1)
 
-      // Cancel any pending polls from a previous operation and schedule fresh ones.
-      // The backend takes ~5–6 min to propagate changes, so we poll at 2.5 and 5 min.
-      // Note: we intentionally use setTimeout + invalidateQueries here instead of
-      // React Query's refetchInterval. The entire data layer in this app uses
-      // queryClient.ensureQueryData() + React use() for Suspense-based data fetching,
-      // not useQuery hooks.
+      // 4. Schedule background re-polls at 2.5 min and 5 min.
+      //    The backend takes ~5–6 min to propagate, so a second pass catches late updates.
+      //    Note: we use setTimeout + invalidateQueries (not refetchInterval) because the data
+      //    layer relies on ensureQueryData + React use() for Suspense, not useQuery hooks.
       pollTimeoutsRef.current.forEach(clearTimeout)
       pollTimeoutsRef.current = []
       ;[2.5 * 60 * 1000, 5 * 60 * 1000].forEach((delay) => {
@@ -417,6 +422,7 @@ export const ImageIssuesList = ({
             onDataRefresh={refreshIssuesData}
             selectedVulnerability={vulRemediations ?? null}
             onSelectVulnerability={handleRemediationPanelVulnerabilityChange}
+            refreshKey={refreshKey}
           />
         </TabPanel>
       </Tabs>

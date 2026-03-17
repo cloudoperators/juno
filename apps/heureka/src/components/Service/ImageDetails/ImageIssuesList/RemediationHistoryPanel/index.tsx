@@ -37,6 +37,8 @@ type RemediationHistoryPanelProps = {
   onClose: () => void
   /** Called after a successful revert so the parent can refetch getRemediations and getImages. */
   onRevertSuccess?: (vulnerability: string) => void | Promise<void>
+  /** Increment to force a fresh fetch of remediations (e.g. after createRemediation or deleteRemediation). */
+  refreshKey?: number
 }
 
 const COLUMN_SPAN = 6
@@ -115,6 +117,7 @@ export const RemediationHistoryPanel = ({
   vulnerability,
   onClose,
   onRevertSuccess,
+  refreshKey,
 }: RemediationHistoryPanelProps) => {
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
   const [revertMessage, setRevertMessage] = useTimedState<RevertMessage>(10000, (m) => m.variant === "success")
@@ -122,16 +125,17 @@ export const RemediationHistoryPanel = ({
   const remediationsPromise = useMemo(() => {
     if (!vulnerability) return null
 
-    return fetchRemediations({
-      apiClient,
-      queryClient,
-      filter: {
-        service: [service],
-        image: [image],
-        vulnerability: [vulnerability],
-      },
-    })
-  }, [service, image, vulnerability, apiClient, queryClient])
+    const filter = {
+      service: [service],
+      image: [image],
+      vulnerability: [vulnerability],
+    }
+
+    // Always fetch from scratch — the panel opens on user interaction and must show current state.
+    // staleTime: 0 makes ensureQueryData treat any cached entry as immediately stale, forcing a
+    // network request without cancelling in-flight queries (unlike removeQueries).
+    return fetchRemediations({ apiClient, queryClient, filter, staleTime: 0 })
+  }, [service, image, vulnerability, apiClient, queryClient, refreshKey])
 
   const handleRevert = async (remediationId: string) => {
     // Clear any existing feedback when starting a new revert operation.
