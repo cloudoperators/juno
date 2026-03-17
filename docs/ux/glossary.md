@@ -48,8 +48,11 @@ An architectural pattern where a UI is composed of independently developed and d
 **Modal**
 A dialog overlay that interrupts the current workflow to focus the user's attention on a specific task or confirmation. Requires explicit user dismissal.
 
+**Mode**
+A variant within a theme defining its visual appearance for a specific context or preference — such as light, dark, or high contrast. See also: Theme.
+
 **Overflow Menu**
-A contextual menu triggered by a three-dot icon (⋮), used to surface additional actions for a specific item when displaying them inline would cause clutter.
+A contextual menu triggered by a three-dot icon (⋮), used to surface additional actions for a specific item when displaying them inline would cause clutter or make them appear more important or often used than they actually are.
 
 **Page Footer**
 The optional bottom region of a Juno application layout. Available as a slot in AppShell.
@@ -61,10 +64,10 @@ The mandatory top region of a Juno application layout. Contains the app logo and
 A small overlay menu triggered by user interaction, used to present a set of contextual actions or options. See also: Overflow Menu.
 
 **Primary Action**
-The single most important action in a given context (e.g. in a modal or form). Each view or dialog should have at most one primary action button.
+The single most important action in a given context (e.g. in a modal or form). Each view or dialog should have at most one primary action button unless it is purely informational and only uses a "Close" option.
 
 **Progress Bar**
-A component indicating progress toward a known or estimated target. Use for batch operations where a percentage of completion can be meaningfully shown.
+A component indicating progress toward a known or estimated target. Use for operations where a percentage of completion can be meaningfully shown.
 
 **Semantic Variant**
 A named value (`info`, `success`, `warning`, `error`, `danger`) accepted by several Juno components to communicate meaning through visual appearance. Must be chosen based on intent, not aesthetics.
@@ -74,6 +77,9 @@ The primary navigation element in Juno applications, rendered vertically on the 
 
 **Spinner**
 A loading indicator for situations where progress cannot be numerically represented, space is limited, or showing gradual progress is not desirable.
+
+**Theme**
+A named set of CSS variables that defines the visual appearance of a Juno application. A theme may include multiple modes. See also: Mode.
 
 **Themeability**
 Juno's support for visual customization via CSS variables. Full theming support is planned but not yet fully implemented.
