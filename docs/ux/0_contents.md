@@ -41,4 +41,4 @@
 6. Versioning, Deprecation Policy
 7. [Resources](resources.md)
 8. Appendix
-   1. Terminology/Glossary
+   1. [Terminology/Glossary](glossary.md)
