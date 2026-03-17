@@ -66,6 +66,9 @@ The single most important action in a given context (e.g. in a modal or form). E
 **Progress Bar**
 A component indicating progress toward a known or estimated target. Use for batch operations where a percentage of completion can be meaningfully shown.
 
+**Semantic Variant**
+A named value (`info`, `success`, `warning`, `error`, `danger`) accepted by several Juno components to communicate meaning through visual appearance. Must be chosen based on intent, not aesthetics.
+
 **Side Navigation**
 The primary navigation element in Juno applications, rendered vertically on the left side of the content area. Supports flat, grouped, or hierarchical structures up to three levels deep.
 

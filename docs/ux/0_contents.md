@@ -18,6 +18,7 @@
    2. [Layout Fundamentals](layout-fundamentals.md)
    3. [Navigation Fundamentals](navigation-fundamentals.md)
    4. [The AppShell](the-appshell.md)
+   5. [Semantic Variants](semantic-variants.md)
 3. [Layout And Application Structure](layout-and-application-structure.md)
    1. [Juno Layout](juno-layout.md)
    2. [Embedded ApplicationLayout](embedded-application-layout.md)
