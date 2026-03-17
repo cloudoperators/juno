@@ -1,5 +1,17 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.11.3
+
+### Patch Changes
+
+- 332b710: Adds link to the exposed service withi.
+- Updated dependencies [11eabd6]
+  - @cloudoperators/juno-ui-components@6.1.3
+  - @cloudoperators/juno-app-doop@2.6.20
+  - @cloudoperators/juno-app-heureka@1.0.4
+  - @cloudoperators/juno-app-supernova@0.19.23
+  - @cloudoperators/juno-messages-provider@0.2.32
+
 ## 0.11.2
 
 ### Patch Changes
