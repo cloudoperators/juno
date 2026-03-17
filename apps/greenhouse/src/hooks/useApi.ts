@@ -14,7 +14,6 @@ import { useAuth } from "../components/AuthProvider"
 // get plugin configs from k8s api
 // @ts-ignore
 const useApi = () => {
-  // @ts-expect-error TS(2339): Property 'data' does not exist on type 'unknown'.
   const { data: authData } = useAuth()
   const apiEndpoint = useGlobalsApiEndpoint()
   const assetsHost = useGlobalsAssetsHost()

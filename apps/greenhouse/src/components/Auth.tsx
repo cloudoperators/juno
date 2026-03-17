@@ -19,7 +19,6 @@ import { useAuth } from "./AuthProvider"
  *
  */
 const Auth = ({ children }: any) => {
-  // @ts-expect-error TS(2339): Property 'isProcessing' does not exist on type 'un... Remove this comment to see the full error message
   const { isProcessing: authIsProcessing, loggedIn: authLoggedIn, error: authError, login } = useAuth()
 
   if (authLoggedIn) {

@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-supernova",
-  "version": "0.19.21",
+  "version": "0.19.23",
   "author": "UI-Team",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/supernova",
   "license": "Apache-2.0",
@@ -12,9 +12,9 @@
   "private": true,
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
-    "@tailwindcss/vite": "4.2.0",
+    "@tailwindcss/vite": "4.2.1",
     "@tanstack/react-query": "5.90.21",
-    "@tanstack/router-plugin": "1.161.3",
+    "@tanstack/router-plugin": "1.161.4",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
     "@types/react": "19.2.14",
@@ -24,7 +24,7 @@
     "interweave": "13.1.1",
     "jsdom": "26.1.0",
     "shadow-dom-testing-library": "1.13.1",
-    "tailwindcss": "4.2.0",
+    "tailwindcss": "4.2.1",
     "vite": "7.3.1",
     "vitest": "3.2.4",
     "zustand": "5.0.11"
@@ -44,7 +44,7 @@
     "@cloudoperators/juno-messages-provider": "workspace:*",
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
-    "@tanstack/react-router": "1.161.3",
+    "@tanstack/react-router": "1.161.4",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-error-boundary": "6.1.1"

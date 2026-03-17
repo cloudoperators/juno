@@ -82,4 +82,36 @@ describe("ExposedServices", () => {
     expect(screen.getByText("8080")).toBeInTheDocument()
     expect(screen.getByText("http")).toBeInTheDocument()
   })
+
+  it("should render service names as links to their URLs", () => {
+    const mockPlugin: Plugin = {
+      metadata: {
+        name: "test-plugin",
+      },
+      spec: {
+        pluginDefinition: "test-definition",
+        pluginDefinitionRef: { name: "test-definition" },
+        deletionPolicy: "Delete",
+      },
+      status: {
+        exposedServices: {
+          "https://example.com": {
+            name: "example-service",
+            namespace: "default",
+            type: "ingress",
+            protocol: "https",
+            port: 443,
+          },
+        },
+      },
+    }
+
+    render(<ExposedServices plugin={mockPlugin} />)
+
+    const link = screen.getByRole("link", { name: /example-service/i })
+    expect(link).toBeInTheDocument()
+    expect(link).toHaveAttribute("href", "https://example.com")
+    expect(link).toHaveAttribute("target", "_blank")
+    expect(link).toHaveAttribute("rel", "noopener noreferrer")
+  })
 })
