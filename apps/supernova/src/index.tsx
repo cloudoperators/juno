@@ -11,11 +11,6 @@ interface MountOptions {
   props?: Record<string, any>
 }
 
-export type PluginModule = {
-  mount: (container: HTMLElement, options?: MountOptions) => void
-  unmount: () => void
-}
-
 let root: Root | null = null
 
 // export mount and unmount functions

@@ -5,7 +5,10 @@
   "type": "module",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/doop",
   "exports": {
-    ".": "./build/index.js"
+    ".": {
+      "types": "./src/types/index.d.ts",
+      "default": "./build/index.js"
+    }
   },
   "license": "Apache-2.0",
   "private": true,

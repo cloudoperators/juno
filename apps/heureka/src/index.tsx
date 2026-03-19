@@ -13,11 +13,6 @@ type Options = {
   props?: AppProps
 }
 
-export type PluginModule = {
-  mount: (container: HTMLElement, options?: Options) => void
-  unmount: () => void
-}
-
 export const mount = (container: HTMLElement, options: Options = {}) => {
   root = createRoot(container)
   root.render(React.createElement(App, options?.props))

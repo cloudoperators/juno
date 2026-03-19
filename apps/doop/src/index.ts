@@ -7,11 +7,6 @@ import { createRoot, Root } from "react-dom/client"
 import React from "react"
 import App from "./App"
 
-export type PluginModule = {
-  mount: (container: HTMLElement, options?: any) => void
-  unmount: () => void
-}
-
 let root: Root | null = null
 
 // export mount and unmount functions

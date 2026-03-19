@@ -7,11 +7,7 @@ import { useEffect, useRef, useState } from "react"
 import { useRouter } from "@tanstack/react-router"
 import { AppProps } from "../Shell"
 import type { AuthStore } from "@cloudoperators/greenhouse-auth-provider"
-
-type PluginModule = {
-  mount: (container: HTMLElement, options?: Record<string, any>) => void
-  unmount: () => void
-}
+import type { PluginModule } from "@cloudoperators/juno-app-supernova"
 
 // Cache loaded modules at the module level (persists across component mounts)
 const moduleCache = new Map<string, PluginModule>()
