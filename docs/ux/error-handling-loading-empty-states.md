@@ -59,9 +59,9 @@ A single component fails to render and/or does not receive the expected API data
 - Render as much of the page/view as possible,
 - Give feedback in the scope/context of the affected component.
 
--> TODO: Identify components prone to such errors, design and implement loading, empty, error states. (A good and most urgent candidate is DataGrid.)
+> **TODO:** Identify components prone to such errors, design and implement loading, empty, error states. (A good and most urgent candidate is DataGrid.)
 
--> TODO: identify and design error and empty states for affected components
+> **TODO:** Identify and design error and empty states for affected components.
 
 ## Operation/Action/CRUD errors
 
@@ -73,10 +73,12 @@ A user has initiated an action, such as creating, updating, or deleting an item 
 - Give user feedback with as much detail as possible using Messages (use Notifications once NotificationManager is implemented).
 - Do not interfere with or block other, potentially later initiated user actions.
 - Provide shortcuts/links to retry where and if possible.
-- TODO: (Avoid blocking UI elements, such as modals waiting for async action to complete, etc. vs Create modal with lots of data entered, when this creation fails, keep modal open with entered data);
-- TODO: If async / transient state persists, show busy state ("Creating"). If too long/timeout/positive result not to expect, change to static error state.
 
--> TODO: Concept and Implement NotificationsManager
+> **TODO:** Resolve open question: avoid blocking UI elements such as modals waiting for async action to complete, vs. keeping modal open with entered data when creation fails.
+
+> **TODO:** If async/transient state persists, show busy state ("Creating"). If too long, timeout, or positive result not to expect, change to static error state.
+
+> **TODO:** Concept and implement NotificationsManager.
 
 ## Validation Errors
 
@@ -102,7 +104,9 @@ A user has initiated an action, such as creating, updating, or deleting an item 
 
 ### What To Do
 
-- Clear messaging - Show offline or timeout state (Design TODO? prioritize!)
+- Clear messaging - Show offline or timeout state
+
+> **TODO:** Design offline/timeout state (prioritize!)
 - Provide manual retry option
 
 ## General Error Handling Rules
@@ -129,7 +133,7 @@ Stick to these outlines as much as possible, use patterns as provided by Juno UI
 
 # Diagram
 
-TODO: Diagram of error types and handling strategies and patterns, do once hierarchy is reviewed.
+> **TODO:** Create a diagram of error types and handling strategies and patterns, once hierarchy is reviewed.
 
 # Loading / Busy States
 
@@ -149,7 +153,7 @@ Many components may be rendered, but do not have any content to show, such as Da
 
 Components or views may be busy rendering or fetching data, or a piece of UI needs to reflect being busy due to an action initiated by the user. If you can, communicate the UI is busy, and with exactly what (Don’t overdo it, users will expect the UI to be busy once they have triggered an action)
 
-TODO: don't show multiple spinners in parallel, if one spinner in a higher context could work as well.
+> **TODO:** Don’t show multiple spinners in parallel if one spinner in a higher context could work as well.
 
 ### What To Do
 
