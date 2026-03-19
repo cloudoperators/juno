@@ -36,8 +36,9 @@ const useApi = () => {
 
     return client
       .get(`/apis/greenhouse.sap/v1alpha1/namespaces/${namespace}/plugins`, {
-        // @ts-ignore
-        limit: 500,
+        params: {
+          labelSelector: "greenhouse.sap/ui-plugin=true",
+        },
       })
       .then((configs: any) => {
         // create config map

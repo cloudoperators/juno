@@ -5,7 +5,7 @@
 
 import React from "react"
 import { createRoot, Root } from "react-dom/client"
-import { AppProps } from "./App"
+import App, { AppProps } from "./App"
 
 let root: Root
 
@@ -14,10 +14,8 @@ type Options = {
 }
 
 export const mount = (container: HTMLElement, options: Options = {}) => {
-  import("./App").then((App) => {
-    root = createRoot(container)
-    root.render(React.createElement(App.default, options?.props))
-  })
+  root = createRoot(container)
+  root.render(React.createElement(App, options?.props))
 }
 
 export const unmount = () => root?.unmount()

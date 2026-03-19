@@ -3,75 +3,35 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Suspense, useEffect, useRef } from "react"
-import { useRouter } from "@tanstack/react-router"
-import * as supernova from "@cloudoperators/juno-app-supernova"
-import * as doop from "@cloudoperators/juno-app-doop"
-import * as heureka from "@cloudoperators/juno-app-heureka"
-import * as admin from "../components/core-apps/org-admin"
+import React from "react"
 import { AppProps } from "../Shell"
-import type { AuthStore, EmbeddedAuth } from "@cloudoperators/greenhouse-auth-provider"
-
-const getApp = (appName: string) => {
-  switch (appName) {
-    case "supernova":
-      return supernova
-    case "doop":
-      return doop
-    case "heureka":
-      return heureka
-    default:
-      return null
-  }
-}
+import type { AuthStore } from "@cloudoperators/greenhouse-auth-provider"
+import { usePluginLoader } from "../hooks/usePluginLoader"
 
 type ExtensionProps = {
   id: string
   config: any
-  auth: any
   appProps: AppProps
   pluginAuth: AuthStore
 }
 
-function Extension({ id, config, auth, appProps, pluginAuth }: ExtensionProps) {
-  const router = useRouter()
-  const appContainerRef = useRef<HTMLDivElement>(null)
-  const app = getApp(config.name)
-
-  // Remove the setter from the pluginAuth before passing it to the plugin, to prevent plugins from changing the auth state directly
-  const authForPlugin: EmbeddedAuth = Object.freeze({
-    getSnapshot: pluginAuth.getSnapshot,
+function Extension({ id, config, appProps, pluginAuth }: ExtensionProps) {
+  const { isLoading, containerRef } = usePluginLoader({
+    pluginName: config.name,
+    config,
+    appProps,
+    pluginAuth,
   })
 
-  useEffect(() => {
-    if (!app || !appContainerRef.current) {
-      return
-    }
+  if (isLoading) {
+    return (
+      <div>
+        <div>Loading...</div>
+      </div>
+    )
+  }
 
-    app.mount(appContainerRef.current, {
-      props: {
-        ...config.props,
-        ...(!config.core
-          ? {
-              embedded: true,
-              basePath: `${router.basepath === "/" ? "" : router.basepath}/${config.id}`,
-              enableHashedRouting: appProps?.enableHashedRouting || false,
-              auth: authForPlugin,
-            }
-          : { auth: auth }),
-      },
-    })
-    return () => {
-      app.unmount() // Unmount the app when the component is unmounted
-    }
-  }, [config, pluginAuth])
-
-  // Only render if AppComponent is not null
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div key={id} ref={appContainerRef}></div>
-    </Suspense>
-  )
+  return <div key={id} ref={containerRef}></div>
 }
 
 export default Extension
