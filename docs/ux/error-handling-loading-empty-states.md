@@ -40,11 +40,7 @@ Show Error page, navigation should reflect current route/url, but we inform them
 ### Authorized content, unauthorized action
 
 The user is logged in and authorized to see the content they are looking at, and we have rendered functional UI elements for that action/feature, but they do not have permission for an action they tried to initiate.
-If we know that the user does not have the correct permissions to initiate an action refer to "ui-for-unauthorized-users.md" for guidance and decision matrix.
--> render disabled elements, communicate why
--> render functional elements, show respective error once action was initiated
-
--> Link to When to render what for unauthorized users
+If we know that the user does not have the correct permissions to initiate an action, refer to [UI Elements for Non-Authorized Users](ui-for-unauthorized-users.md) for guidance and a decision matrix.
 
 #### What To Do
 
@@ -107,6 +103,7 @@ A user has initiated an action, such as creating, updating, or deleting an item 
 - Clear messaging - Show offline or timeout state
 
 > **TODO:** Design offline/timeout state (prioritize!)
+
 - Provide manual retry option
 
 ## General Error Handling Rules
