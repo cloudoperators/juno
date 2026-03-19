@@ -31,7 +31,7 @@ Redirect to login page, remember where user wanted to go and redirect once authe
 
 ### (Page level) Unauthorized (Forbidden, 403)
 
-The user is athenticated and trying to see a page they are not authorized to see.
+The user is authenticated and trying to see a page they are not authorized to see.
 
 #### What To Do
 
@@ -40,11 +40,7 @@ Show Error page, navigation should reflect current route/url, but we inform them
 ### Authorized content, unauthorized action
 
 The user is logged in and authorized to see the content they are looking at, and we have rendered functional UI elements for that action/feature, but they do not have permission for an action they tried to initiate.
-If we know that the user does not have the correct permissions to initiate an action refer to "ui-for-unauthorized-users.md" for guidance and decision matrix.
--> render disabled elements, communicate why
--> render functional elements, show respective error once action was initiated
-
--> Link to When to render what for unauthorized users
+If we know that the user does not have the correct permissions to initiate an action, refer to [UI Elements for Non-Authorized Users](ui-for-unauthorized-users.md) for guidance and a decision matrix.
 
 #### What To Do
 
@@ -54,14 +50,14 @@ Treat as Operation/Action/CRUD error (see below) with corresponding clear commun
 
 A single component fails to render and/or does not receive the expected API data.
 
-### What To DO
+### What To Do
 
 - Render as much of the page/view as possible,
 - Give feedback in the scope/context of the affected component.
 
--> TODO: Identify components prone to such errors, design and implement loading, empty, error states. (A good and most urgent candidate is DataGrid.)
+> **TODO:** Identify components prone to such errors, design and implement loading, empty, error states. (A good and most urgent candidate is DataGrid.)
 
--> TODO: identify and design error and empty states for affected components
+> **TODO:** Identify and design error and empty states for affected components.
 
 ## Operation/Action/CRUD errors
 
@@ -73,10 +69,12 @@ A user has initiated an action, such as creating, updating, or deleting an item 
 - Give user feedback with as much detail as possible using Messages (use Notifications once NotificationManager is implemented).
 - Do not interfere with or block other, potentially later initiated user actions.
 - Provide shortcuts/links to retry where and if possible.
-- TODO: (Avoid blocking UI elements, such as modals waiting for async action to complete, etc. vs Create modal with lots of data entered, when this creation fails, keep modal open with entered data);
-- TODO: If async / transient state persists, show busy state ("Creating"). If too long/timeout/positive result not to expect, change to static error state.
 
--> TODO: Concept and Implement NotificationsManager
+> **TODO:** Resolve open question: avoid blocking UI elements such as modals waiting for async action to complete, vs. keeping modal open with entered data when creation fails.
+
+> **TODO:** If async/transient state persists, show busy state ("Creating"). If too long, timeout, or positive result not to expect, change to static error state.
+
+> **TODO:** Concept and implement NotificationsManager.
 
 ## Validation Errors
 
@@ -84,7 +82,7 @@ A user has initiated an action, such as creating, updating, or deleting an item 
 
 - Required fields missing
 - wrong formatting of input (email, number, date) where applicable
-- business rule violation (e.g. validity of input in one field depednign on input of another one, etc)
+- business rule violation (e.g. validity of input in one field depending on input of another one, etc)
 
 ### What To Do
 
@@ -99,13 +97,14 @@ A user has initiated an action, such as creating, updating, or deleting an item 
 ### Examples
 
 - network outage or flaky network
-- ~~offline mode if applicable (not an error per se, but necessary to communicate)––
 
 ### What To Do
 
-- Clear messaging - Show offline or timeout state (Design TODO? prioritize!)
+- Clear messaging - Show offline or timeout state
+
+> **TODO:** Design offline/timeout state (prioritize!)
+
 - Provide manual retry option
-- ~~automatically check network availablity and resume ~~
 
 ## General Error Handling Rules
 
@@ -131,7 +130,7 @@ Stick to these outlines as much as possible, use patterns as provided by Juno UI
 
 # Diagram
 
-TODO: Diagram of error types and handling strategies and patterns, do once hierarchy is reviewed.
+> **TODO:** Create a diagram of error types and handling strategies and patterns, once hierarchy is reviewed.
 
 # Loading / Busy States
 
@@ -151,11 +150,11 @@ Many components may be rendered, but do not have any content to show, such as Da
 
 Components or views may be busy rendering or fetching data, or a piece of UI needs to reflect being busy due to an action initiated by the user. If you can, communicate the UI is busy, and with exactly what (Don’t overdo it, users will expect the UI to be busy once they have triggered an action)
 
-TODO: don't show multiple spinners in parallel, if one spinner in a higher context could work as well.
+> **TODO:** Don’t show multiple spinners in parallel if one spinner in a higher context could work as well.
 
 ### What To Do
 
-- Show something is happing using the built-in states and mechanisms
+- Show something is happening using the built-in states and mechanisms
 - Use LoadingIndicator
 - Block what needs blocking: If some elements are not usable when the ui is busy, disable them
 - For longer processes, allow canceling where feasible/possible
