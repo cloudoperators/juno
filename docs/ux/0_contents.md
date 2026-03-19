@@ -33,7 +33,7 @@
    5. Inline Adding And Deleting Items
    6. [Modals](modals.md)
    7. [PopupMenus](popup-and-overflow-menus.md)
-   8. Messages & Notifications
+   8. [Messages & Notifications](messages-and-notifications.md)
 5. [Application Design Guidelines](application-design-guidelines.md)
    1. Interaction Guidelines
    2. [UX Writing / Content Guidelines](ux-writing-content-design.md)
