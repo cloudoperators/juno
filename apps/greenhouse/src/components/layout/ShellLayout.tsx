@@ -19,20 +19,22 @@ const shellStyles = `
   min-w-0`
 
 const mainStyles = `
-  py-4
-  pl-4
   bg-theme-content-area-bg
-  h-full
   overflow-x-auto
-  min-w-0`
+  min-w-0
+  h-full`
+
+const contentStyles = `
+  py-4
+  pl-4`
 
 const ShellLayout = ({ children }: ShellLayoutProps) => {
   return (
     <div className={`greenhouse-shell ${shellStyles}`}>
       <PluginNav />
-      <div className="min-w-0">
+      <div className={`greenhouse-main ${mainStyles}`}>
         <NotificationsContainer />
-        <div className={`greenhouse-main ${mainStyles}`}>{children}</div>
+        <div className={contentStyles}>{children}</div>
       </div>
     </div>
   )
