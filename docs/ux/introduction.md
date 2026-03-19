@@ -10,4 +10,4 @@ Juno is a highly flexible, open source Design System providing components and pa
 
 This documentation is aimed at designers and developers to gain an overview of the core concepts and common patterns of Juno and help them making the right decisions when building up applications.
 
-An overview of all components included with Juno, their variations and APIs as well as more technical information can be found in the [Juno UI Components Storybook]().
+An overview of all components included with Juno, their variations and APIs as well as more technical information can be found in the [Juno UI Components Storybook](https://cloudoperators.github.io/juno/).

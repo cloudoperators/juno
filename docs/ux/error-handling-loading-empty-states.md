@@ -99,13 +99,11 @@ A user has initiated an action, such as creating, updating, or deleting an item 
 ### Examples
 
 - network outage or flaky network
-- ~~offline mode if applicable (not an error per se, but necessary to communicate)––
 
 ### What To Do
 
 - Clear messaging - Show offline or timeout state (Design TODO? prioritize!)
 - Provide manual retry option
-- ~~automatically check network availability and resume ~~
 
 ## General Error Handling Rules
 

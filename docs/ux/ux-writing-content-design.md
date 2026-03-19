@@ -200,7 +200,7 @@ We’re polite by respecting the time and professionalism of our users, but as a
 
 ## If in Doubt, Ask Us : )
 
-When you’re in doubt how to speak/write/sound in a given context, please feel free to reach out to us at the design team. We will do our best to support you and our users, and we may learn something along the way, too, that may inform our work and these guidelines going forward.
+When you’re in doubt how to speak/write/sound in a given context, feel free to reach out to us at the design team. We will do our best to support you and our users, and we may learn something along the way, too, that may inform our work and these guidelines going forward.
 
 ## References
 
