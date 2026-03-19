@@ -41,7 +41,7 @@ Substantiations often feel very formal and unwelcoming, also they are much more 
 
 ## Take Professional Users Seriously
 
-Our users conduct serious and responsible work, thus we should treat them accordingly. Refrain from using overly colloqial language that may seem adequate in a hip, b2c app built by a start-up, it may be way off in the context we are dealing with.
+Our users conduct serious and responsible work, thus we should treat them accordingly. Refrain from using overly colloquial language that may seem adequate in a hip, b2c app built by a start-up, it may be way off in the context we are dealing with.
 
 ### Do
 
@@ -53,7 +53,7 @@ Our users conduct serious and responsible work, thus we should treat them accord
 
 ## Be Precise, Use just Enough Jargon
 
-We speak to technically minded, professional users, and the very subject of applications built with Juno is very technical. This allows and even requires us to speak in a precise, technical manner. Rule of thumb: We are humans speaking to humans, so do not use technical or social jargon where not necessary. We are professionals speaking to professionals and we mutually respect each other accrdingly, so we never sound patronizing. When writing, imagine you’re speaking to a capable peer.
+We speak to technically minded, professional users, and the very subject of applications built with Juno is very technical. This allows and even requires us to speak in a precise, technical manner. Rule of thumb: We are humans speaking to humans, so do not use technical or social jargon where not necessary. We are professionals speaking to professionals and we mutually respect each other accordingly, so we never sound patronizing. When writing, imagine you’re speaking to a capable peer.
 However, if a certain term that may be regarded as jargon is established lingo in our field of expertise, or in the context of underlying products and solutions, such as Kubernetes, etc., by all means use it to communicate as clearly and non-ambiguously as possible.
 In any event, precison over verbosity.
 
@@ -72,7 +72,7 @@ When labeling elements of our UI, we avoid possesive pronouns where possible:
 "My Account"
 "Your Account"
 
-If at all necessary, use "Me"/"My" when labeling UI elements that users may perceive as extensions of their personality, such as user profiles or other representations of personal data. If you can avoid it without loosing clarity though, avoid.
+If at all necessary, use "Me"/"My" when labeling UI elements that users may perceive as extensions of their personality, such as user profiles or other representations of personal data. If you can avoid it without losing clarity though, avoid.
 
 ## Title Case
 
@@ -125,7 +125,7 @@ Do not use punctuations unless they are required to convey actual meaning.
 "Sign In"
 "Confirm To Terminate An Action"
 
-(Don't capitalize artciles, numerals,etc. as by the rules above)
+(Don't capitalize articles, numerals,etc. as by the rules above)
 
 "There was an error"
 (Capitalize words as outlined)
@@ -140,7 +140,7 @@ Do not use punctuations unless they are required to convey actual meaning.
 
 ## Be Ready For Internationalization
 
-Currently, most apps built with Juno UI are in English only, but that may change at some point. Keep that in mind when writing content, don’t use metaphors or figures of speach that are language-specific and presumably hard or impossible to translate.
+Currently, most apps built with Juno UI are in English only, but that may change at some point. Keep that in mind when writing content, don’t use metaphors or figures of speech that are language-specific and presumably hard or impossible to translate.
 
 ## Consistency
 
@@ -200,7 +200,7 @@ We’re polite by respecting the time and professionalism of our users, but as a
 
 ## If in Doubt, Ask Us : )
 
-When you’re in doubt how to speak/write/sound in a given context, please feel free to reach out to us at the design team. We will do our best to support you and our users, and we may learn something along the way, too, that may inform our work and these guidelines going forward.
+When you’re in doubt how to speak/write/sound in a given context, feel free to reach out to us at the design team. We will do our best to support you and our users, and we may learn something along the way, too, that may inform our work and these guidelines going forward.
 
 ## References
 

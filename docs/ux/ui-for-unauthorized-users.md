@@ -14,7 +14,7 @@ This decision depends on the context of the specific application, the sensitivit
 
 Assuming we **_do know_** whether the current user is authorized to use a specific element / functionality on the UI, there are certain factors that determine whether we render it or not, and if yes, in what state.
 
-If the feature is generally available to all, most or many users, with the current one just not (yet) meeting some requirmeents to use them, we should render but disable it.
+If the feature is generally available to all, most or many users, with the current one just not (yet) meeting some requirements to use them, we should render but disable it.
 
 When using this option consider communicating the fact they are not authorized for this specific action or feature using appropriate means, such as a tooltip on the button, a message or info block in close proximity to the disabled element(s).
 
