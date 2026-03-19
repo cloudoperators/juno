@@ -45,11 +45,17 @@ The state of a view or component while data is being fetched. Should communicate
 **Micro-Frontend**
 An architectural pattern where a UI is composed of independently developed and deployed frontend applications. Juno supports micro-frontend architectures.
 
+**Message**
+A static UI element for displaying contextual feedback, warnings, or information inline within a page or view. Rendered as part of the layout and remains visible until the condition that triggered it is resolved or the user dismisses it. See also: Notification.
+
 **Modal**
 A dialog overlay that interrupts the current workflow to focus the user's attention on a specific task or confirmation. Requires explicit user dismissal.
 
 **Mode**
 A variant within a theme defining its visual appearance for a specific context or preference — such as light, dark, or high contrast. See also: Theme.
+
+**Notification**
+A transient, dynamic message that appears independently of the page layout — typically as a "toast" — to inform users of events occurring outside their current focus. Not yet available; requires the NotificationsManager component. See also: Message.
 
 **Overflow Menu**
 A contextual menu triggered by a three-dot icon (⋮), used to surface additional actions for a specific item when displaying them inline would cause clutter or make them appear more important or often used than they actually are.
