@@ -50,7 +50,7 @@ Treat as Operation/Action/CRUD error (see below) with corresponding clear commun
 
 A single component fails to render and/or does not receive the expected API data.
 
-### What To DO
+### What To Do
 
 - Render as much of the page/view as possible,
 - Give feedback in the scope/context of the affected component.
