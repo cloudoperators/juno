@@ -31,7 +31,7 @@ Redirect to login page, remember where user wanted to go and redirect once authe
 
 ### (Page level) Unauthorized (Forbidden, 403)
 
-The user is athenticated and trying to see a page they are not authorized to see.
+The user is authenticated and trying to see a page they are not authorized to see.
 
 #### What To Do
 
@@ -84,7 +84,7 @@ A user has initiated an action, such as creating, updating, or deleting an item 
 
 - Required fields missing
 - wrong formatting of input (email, number, date) where applicable
-- business rule violation (e.g. validity of input in one field depednign on input of another one, etc)
+- business rule violation (e.g. validity of input in one field depending on input of another one, etc)
 
 ### What To Do
 
@@ -105,7 +105,7 @@ A user has initiated an action, such as creating, updating, or deleting an item 
 
 - Clear messaging - Show offline or timeout state (Design TODO? prioritize!)
 - Provide manual retry option
-- ~~automatically check network availablity and resume ~~
+- ~~automatically check network availability and resume ~~
 
 ## General Error Handling Rules
 
@@ -155,7 +155,7 @@ TODO: don't show multiple spinners in parallel, if one spinner in a higher conte
 
 ### What To Do
 
-- Show something is happing using the built-in states and mechanisms
+- Show something is happening using the built-in states and mechanisms
 - Use LoadingIndicator
 - Block what needs blocking: If some elements are not usable when the ui is busy, disable them
 - For longer processes, allow canceling where feasible/possible
