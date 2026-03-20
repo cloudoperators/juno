@@ -14,8 +14,6 @@ export default () =>
     currentTeam: "",
     defaultTeam: "",
     teamMemberships: [],
-    // @ts-expect-error TS(1117): An object literal cannot have multiple properties ... Remove this comment to see the full error message
-    namespace: "",
 
     actions: {
       initialize: (endpoint: any, token: any, namespace: any, userGroup: any) =>
