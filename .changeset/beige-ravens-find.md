@@ -1,5 +1,4 @@
 ---
-"@cloudoperators/juno-url-state-provider": patch
 "@cloudoperators/juno-ui-components": patch
 "@cloudoperators/juno-app-greenhouse": patch
 "@cloudoperators/juno-app-supernova": patch
