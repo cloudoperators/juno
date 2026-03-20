@@ -71,7 +71,7 @@ const parseInitialFilters = (
 ): Record<string, string[]> => {
   if (!initialFilters) return {}
 
-  if (typeof initialFilters !== "object" || initialFilters === null || Array.isArray(initialFilters)) {
+  if (typeof initialFilters !== "object" || Array.isArray(initialFilters)) {
     console.warn("[supernova]::parseInitialFilters: initialFilters object is not an object")
     return {}
   }
