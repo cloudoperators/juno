@@ -28,7 +28,7 @@ export interface GlobalsSlice {
   globals: GlobalState & { actions: GlobalActions }
 }
 
-const createGlobalsSlice: StateCreator<GlobalsSlice, [], [], GlobalsSlice> = (set) => ({
+const createGlobalsSlice: StateCreator<GlobalsSlice, [], [], GlobalsSlice> = (set, _get, _api) => ({
   globals: {
     urlStateKey: "",
     apiEndpoint: null,
