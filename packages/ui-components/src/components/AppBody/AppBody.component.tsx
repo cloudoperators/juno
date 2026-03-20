@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactNode, HTMLAttributes } from "react"
+import React, { ReactNode, HTMLAttributes, HtmlHTMLAttributes } from "react"
 
 const containerStyles = `
   jn:flex
