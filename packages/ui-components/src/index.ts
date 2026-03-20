@@ -36,6 +36,9 @@ export { DataGridHeadCell } from "./components/DataGridHeadCell/DataGridHeadCell
 export { DataGridRow } from "./components/DataGridRow/DataGridRow.component"
 export { DataGridToolbar } from "./components/DataGridToolbar/DataGridToolbar.component"
 export { DateTimePicker } from "./components/DateTimePicker/DateTimePicker.component"
+export { DescriptionList, DL } from "./components/DescriptionList/DescriptionList.component"
+export { DescriptionTerm, DT } from "./components/DescriptionTerm/DescriptionTerm.component"
+export { DescriptionDefinition, DD } from "./components/DescriptionDefinition/DescriptionDefinition.component"
 export { Form } from "./components/Form/Form.component"
 export { FormattedText } from "./components/FormattedText/FormattedText.component"
 export { FormRow } from "./components/FormRow/FormRow.component"
@@ -148,6 +151,9 @@ export type {
   CustomLocale,
   DateChangeHandler,
 } from "./components/DateTimePicker/DateTimePicker.types"
+export type { DescriptionListProps } from "./components/DescriptionList/DescriptionList.component"
+export type { DescriptionTermProps } from "./components/DescriptionTerm/DescriptionTerm.component"
+export type { DescriptionDefinitionProps } from "./components/DescriptionDefinition/DescriptionDefinition.component"
 export type { FormProps } from "./components/Form/Form.component"
 export type { FormattedTextProps } from "./components/FormattedText/FormattedText.component"
 export type { FormRowProps } from "./components/FormRow/FormRow.component"
