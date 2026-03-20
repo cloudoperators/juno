@@ -44,8 +44,6 @@ describe("store tests", () => {
   })
 
   describe("Modify Cluster", () => {
-    const version = "greenhouse.sap/v1alpha1"
-
     test("check valid modification", () => {
       const { result } = renderHook(() => useStore())
       act(() => {
