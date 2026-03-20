@@ -12,9 +12,6 @@ import {
   DataGridHeadCell,
   DataGridRow,
   DataGridToolbar,
-  Panel,
-  PanelBody,
-  Stack,
 } from "@cloudoperators/juno-ui-components"
 import React, { useEffect } from "react"
 import ReactMarkDown from "react-markdown"
@@ -34,7 +31,6 @@ interface PluginDefinitionDetailProps {
 }
 
 const PluginDefinitionDetail: React.FC<PluginDefinitionDetailProps> = (props: PluginDefinitionDetailProps) => {
-  const showPluginDefinitionDetails = useStore((state: any) => state.showPluginDefinitionDetails)
   const setShowPluginDefinitionDetails = useStore((state: any) => state.setShowPluginDefinitionDetails)
 
   const setShowPluginDefinitionEdit = useStore((state: any) => state.setShowEditForm)
@@ -43,7 +39,6 @@ const PluginDefinitionDetail: React.FC<PluginDefinitionDetailProps> = (props: Pl
   const { getPluginsByLabelSelector: getPluginsByLabelSelector } = usePluginApi()
 
   const { fetchMarkDown: fetchMarkDown } = useFetchMarkDown()
-  const setIsEditMode = useStore((state: any) => state.setIsPluginEditMode)
 
   const setEditFormData = useStore((state: any) => state.setEditFormData)
   const setEditFormState = useStore((state: any) => state.setEditFormState)

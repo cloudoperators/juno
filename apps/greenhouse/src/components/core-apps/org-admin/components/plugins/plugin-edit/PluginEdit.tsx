@@ -42,7 +42,6 @@ interface PluginEditProps {
 }
 const PluginEdit: React.FC<PluginEditProps> = (props: PluginEditProps) => {
   const namespace = useStore((state: any) => state.namespace)
-  const showEditForm = useStore((state: any) => state.showEditForm)
   const setShowEditForm = useStore((state: any) => state.setShowEditForm)
 
   const editFormState = useStore((state: any) => state.editFormState)
@@ -147,10 +146,6 @@ const PluginEdit: React.FC<PluginEditProps> = (props: PluginEditProps) => {
   }, [editFormData.metadata?.labels])
 
   const kindName = isPluginPreset ? "Plugin Preset" : "Plugin"
-
-  const onPanelClose = () => {
-    setShowEditForm(false)
-  }
 
   const [submitMessage, setSubmitResultMessage] = React.useState<SubmitMessage>({ message: "", ok: false })
   const onSubmit = async () => {
