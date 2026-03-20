@@ -4,9 +4,10 @@
  */
 
 import React, { useMemo, useRef, useEffect } from "react"
-import { EditorView, highlightWhitespace, lineNumbers } from "@codemirror/view"
+import { EditorView, highlightWhitespace, lineNumbers, keymap } from "@codemirror/view"
 import { EditorState } from "@codemirror/state"
 import { yaml } from "@codemirror/lang-yaml"
+import { foldGutter, foldKeymap } from "@codemirror/language"
 import { oneDark } from "@codemirror/theme-one-dark"
 import yamlParser from "js-yaml"
 import { ErrorMessage } from "../common/ErrorBoundary/ErrorMessage"
@@ -22,6 +23,8 @@ function createEditorExtensions() {
     oneDark,
     highlightWhitespace(),
     lineNumbers(),
+    foldGutter(),
+    keymap.of(foldKeymap),
     EditorView.editable.of(false),
     EditorView.lineWrapping,
     EditorView.theme({
