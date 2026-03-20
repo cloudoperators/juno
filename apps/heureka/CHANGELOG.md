@@ -1,5 +1,13 @@
 # heureka
 
+## 1.0.5
+
+### Patch Changes
+
+- e5deade: Optimize plugin loading with dynamic imports and improve navigation between plugins. Plugins now load on-demand instead of being bundled upfront, reducing initial bundle size by 66%. Added module caching to eliminate loading spinners on return visits. Fixed URL state pollution when switching between plugins using TanStack Router's remountDeps. Also filters plugins server-side to fetch only UI plugins.
+- Updated dependencies [dac772c]
+  - @cloudoperators/juno-ui-components@6.2.0
+
 ## 1.0.4
 
 ### Patch Changes
