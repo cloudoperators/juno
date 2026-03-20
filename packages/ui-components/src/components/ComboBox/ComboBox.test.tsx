@@ -107,12 +107,12 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox id="My Id" />
+          <ComboBox id="my-id" />
         </AppShellProvider>
       )
     )
     expect(screen.getByRole("combobox")).toBeInTheDocument()
-    expect(screen.getByRole("combobox")).toHaveAttribute("id", "My Id")
+    expect(screen.getByRole("combobox")).toHaveAttribute("id", "my-id")
   })
 
   test("renders the id of the ComboBox input as the for attribute of the label", async () => {

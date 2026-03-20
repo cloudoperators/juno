@@ -41,7 +41,7 @@ const AlertStatus = ({ alert }: any) => {
 
   return (
     <div className="cursor-default">
-      {alert && <span>{alert?.status?.state}</span>}
+      {alert?.status?.state && <span>{alert.status.state}</span>}
       {inhibitor && (
         <div className="text-xs mt-2">
           <Stack direction="vertical">

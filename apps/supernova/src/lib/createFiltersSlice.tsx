@@ -66,18 +66,20 @@ const parsePredefinedFilters = (predefinedFilters: any[]): FilterState["predefin
 }
 
 const parseInitialFilters = (
-  initialFilters: Record<string, string[]>,
+  initialFilters: Record<string, string[]> | null | undefined,
   filterLabels: string[]
 ): Record<string, string[]> => {
   if (!initialFilters) return {}
 
-  if (typeof initialFilters !== "object" || initialFilters === null) {
+  if (typeof initialFilters !== "object" || Array.isArray(initialFilters)) {
     console.warn("[supernova]::parseInitialFilters: initialFilters object is not an object")
     return {}
   }
 
+  const validatedFilters: Record<string, string[]> = initialFilters
+
   // Check if all values are arrays
-  initialFilters = Object.entries(initialFilters).reduce((acc: any, [key, value]) => {
+  const filteredByType = Object.entries(validatedFilters).reduce((acc: Record<string, string[]>, [key, value]) => {
     if (Array.isArray(value)) {
       acc[key] = value // valid key-value pair
     } else {
@@ -87,25 +89,28 @@ const parseInitialFilters = (
   }, {})
 
   // Check if all keys are in filterLabelValues
-  if (!Object.keys(initialFilters).every((key) => filterLabels.includes(key))) {
+  if (!Object.keys(filteredByType).every((key) => filterLabels.includes(key))) {
     console.warn(
       "[supernova]::parseInitialFilters: Some keys of the initialFilters object are not valid filter labels. They must be configured as filterLabels first. Using only valid keys."
     )
 
     // filter out the keys that are not in filterLabels, return the rest
     // this will ensure that at least the valid keys are used as initial filters
-    const filtered = Object.keys(initialFilters)
+    const filtered = Object.keys(filteredByType)
       .filter((key) => filterLabels.includes(key))
-      .reduce((obj, key) => {
-        return {
-          ...obj,
-          [key]: initialFilters[key],
-        }
-      }, {})
+      .reduce(
+        (obj, key) => {
+          return {
+            ...obj,
+            [key]: filteredByType[key],
+          }
+        },
+        {} as Record<string, string[]>
+      )
     return filtered
   }
 
-  return initialFilters
+  return filteredByType
 }
 
 const parseActivePredefinedFilter = (predefinedFilters: any): string | null => {

@@ -120,8 +120,7 @@ const Highlighter = () => {
   React.useEffect(() => {
     const observers = createObservers((mutations: any) => {
       for (const mutation of mutations) {
-        // @ts-expect-error TS(2367) FIXME: This condition will always return 'false' since th... Remove this comment to see the full error message
-        if (!mutation.type === "childList") continue
+        if (mutation.type !== "childList") continue
 
         // ignore changes to search nodes
         const addedOrRemovedNodes = Array.from(mutation.addedNodes).concat(Array.from(mutation.removedNodes))
