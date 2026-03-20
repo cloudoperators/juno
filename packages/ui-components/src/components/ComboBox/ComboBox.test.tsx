@@ -107,7 +107,7 @@ describe("ComboBox", () => {
     await waitFor(() =>
       render(
         <AppShellProvider shadowRoot={false}>
-          <ComboBox id="My Id" />
+          <ComboBox id="my-id" />
         </AppShellProvider>
       )
     )
