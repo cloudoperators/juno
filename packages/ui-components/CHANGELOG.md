@@ -1,5 +1,12 @@
 # @cloudoperators/juno-ui-components
 
+## 6.2.0
+
+### Minor Changes
+
+- dac772c: - Added `alignRight` prop to `DataGridToolbar` for flexible alignment control, allowing users to customize layout.
+  - Removed `search` prop, which is a BREAKING CHANGE. All elements should be passed as `children`.
+
 ## 6.1.3
 
 ### Patch Changes
