@@ -17,6 +17,7 @@ import {
   PopupMenuItem,
   Message,
   Stack,
+  Spinner,
 } from "@cloudoperators/juno-ui-components"
 import { fetchRemediations } from "../../../../../api/fetchRemediations"
 import { deleteRemediation } from "../../../../../api/deleteRemediation"
@@ -27,6 +28,7 @@ import { EmptyDataGridRow } from "../../../../common/EmptyDataGridRow"
 import { LoadingDataRow } from "../../../../common/LoadingDataRow"
 import { getErrorDataRowComponent } from "../../../../common/getErrorDataRow"
 import type { RemediatedVulnerability } from "../../../../Services/utils"
+import { useTimedState } from "../../../../../utils"
 
 type RemediationHistoryPanelProps = {
   service: string
@@ -35,6 +37,8 @@ type RemediationHistoryPanelProps = {
   onClose: () => void
   /** Called after a successful revert so the parent can refetch getRemediations and getImages. */
   onRevertSuccess?: (vulnerability: string) => void | Promise<void>
+  /** Increment to force a fresh fetch of remediations (e.g. after createRemediation or deleteRemediation). */
+  refreshKey?: number
 }
 
 const COLUMN_SPAN = 6
@@ -83,21 +87,21 @@ const RemediationHistoryTable = ({
     <>
       {remediatedVulnerabilities.map((r: RemediatedVulnerability) => (
         <DataGridRow key={r.remediationId}>
+          <DataGridCell className="whitespace-nowrap">{r.type ?? "—"}</DataGridCell>
           <DataGridCell className="whitespace-nowrap">{formatDateTime(r.expirationDate)}</DataGridCell>
           <DataGridCell className="whitespace-nowrap">{formatDateTime(r.remediationDate)}</DataGridCell>
           <DataGridCell>{r.remediatedBy ?? "—"}</DataGridCell>
-          <DataGridCell>{r.type ?? "—"}</DataGridCell>
           <DataGridCell>{r.description ?? "—"}</DataGridCell>
           <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
-            <PopupMenu icon="moreVert" className="whitespace-nowrap" disabled={!!revertingId}>
-              <PopupMenuOptions>
-                <PopupMenuItem
-                  label={revertingId === r.remediationId ? "Reverting..." : "Revert False Positive"}
-                  onClick={() => handleRevert(r)}
-                  disabled={!!revertingId}
-                />
-              </PopupMenuOptions>
-            </PopupMenu>
+            {revertingId === r.remediationId ? (
+              <Spinner variant="primary" size="small" className="ml-auto" />
+            ) : (
+              <PopupMenu icon="moreVert" className="whitespace-nowrap ml-auto" disabled={!!revertingId}>
+                <PopupMenuOptions>
+                  <PopupMenuItem label="Revert" onClick={() => handleRevert(r)} disabled={!!revertingId} />
+                </PopupMenuOptions>
+              </PopupMenu>
+            )}
           </DataGridCell>
         </DataGridRow>
       ))}
@@ -113,40 +117,44 @@ export const RemediationHistoryPanel = ({
   vulnerability,
   onClose,
   onRevertSuccess,
+  refreshKey,
 }: RemediationHistoryPanelProps) => {
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
-  const [revertMessage, setRevertMessage] = useState<RevertMessage | null>(null)
+  const [revertMessage, setRevertMessage] = useTimedState<RevertMessage>(10000, (m) => m.variant === "success")
 
   const remediationsPromise = useMemo(() => {
     if (!vulnerability) return null
 
-    return fetchRemediations({
-      apiClient,
-      queryClient,
-      filter: {
-        service: [service],
-        image: [image],
-        vulnerability: [vulnerability],
-      },
-    })
-  }, [service, image, vulnerability, apiClient, queryClient])
+    const filter = {
+      service: [service],
+      image: [image],
+      vulnerability: [vulnerability],
+    }
+
+    // Always fetch from scratch — the panel opens on user interaction and must show current state.
+    // staleTime: 0 makes ensureQueryData treat any cached entry as immediately stale, forcing a
+    // network request without cancelling in-flight queries (unlike removeQueries).
+    return fetchRemediations({ apiClient, queryClient, filter, staleTime: 0 })
+  }, [service, image, vulnerability, apiClient, queryClient, refreshKey])
 
   const handleRevert = async (remediationId: string) => {
+    // Clear any existing feedback when starting a new revert operation.
+    setRevertMessage(null)
     try {
       await deleteRemediation({ apiClient, remediationId })
-      const text = `Vulnerability ${vulnerability ?? "unknown"} reverted from false positive successfully.`
+      const text = `The false positive for ${vulnerability ?? "unknown"} has been reverted. The status may take up to 5–6 minutes to update in the tables.`
       setRevertMessage({ variant: "success", text })
 
-      // Refresh panel/list data after showing success feedback.
-      try {
-        if (vulnerability) {
-          await onRevertSuccess?.(vulnerability)
-        }
-      } catch (refreshError) {
-        const refreshMsg = refreshError instanceof Error ? refreshError.message : "Failed to refresh data after revert"
-        setRevertMessage({
-          variant: "error",
-          text: `Revert succeeded, but ${refreshMsg.toLowerCase()}. You may need to refresh the page.`,
+      // Refresh panel/list data in the background — do not await so the
+      // spinner clears at the same time as the success message appears.
+      if (vulnerability) {
+        Promise.resolve(onRevertSuccess?.(vulnerability)).catch((refreshError) => {
+          const refreshMsg =
+            refreshError instanceof Error ? refreshError.message : "Failed to refresh data after revert"
+          setRevertMessage({
+            variant: "error",
+            text: `Revert succeeded, but ${refreshMsg.toLowerCase()}. You may need to refresh the page.`,
+          })
         })
       }
     } catch (err) {
@@ -177,18 +185,19 @@ export const RemediationHistoryPanel = ({
         )}
         {remediationsPromise && (
           <ErrorBoundary
+            className="mt-4"
             displayErrorMessage
             fallbackRender={getErrorDataRowComponent({ colspan: COLUMN_SPAN })}
             resetKeys={[remediationsPromise]}
           >
-            <DataGrid columns={COLUMN_SPAN} cellVerticalAlignment="top">
+            <DataGrid columns={COLUMN_SPAN} minContentColumns={[0, 1, 2, 3, 5]} cellVerticalAlignment="top">
               <DataGridRow>
+                <DataGridHeadCell>Type</DataGridHeadCell>
                 <DataGridHeadCell>Expiration Date</DataGridHeadCell>
                 <DataGridHeadCell>Remediation Date</DataGridHeadCell>
                 <DataGridHeadCell>Remediated By</DataGridHeadCell>
-                <DataGridHeadCell>Type</DataGridHeadCell>
                 <DataGridHeadCell>Description</DataGridHeadCell>
-                <DataGridHeadCell>Actions</DataGridHeadCell>
+                <DataGridHeadCell />
               </DataGridRow>
               <Suspense fallback={<LoadingDataRow colSpan={COLUMN_SPAN} />}>
                 <RemediationHistoryTable remediationsPromise={remediationsPromise} onRevert={handleRevert} />

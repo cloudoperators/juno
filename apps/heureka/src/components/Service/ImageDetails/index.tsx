@@ -104,22 +104,17 @@ export const ImageDetails = ({
           <DataGridRow>
             <DataGridHeadCell>Versions ({versions.length})</DataGridHeadCell>
             <DataGridCell>
-              <div className="grid grid-cols-[repeat(auto-fill,_minmax(5rem,_auto))] gap-x-4 gap-y-1">
+              <Stack gap="1" direction="horizontal" wrap>
                 {displayedVersions.map((version) => (
-                  <a
+                  <Pill
                     key={version.id}
-                    href="#"
+                    pillValue={version.version}
+                    pillValueLabel={getShortSha256(version.version)}
                     title={version.version}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      handleVersionClick(version.version)
-                    }}
-                    className="link-hover w-fit"
-                  >
-                    {getShortSha256(version.version)}
-                  </a>
+                    onClick={() => handleVersionClick(version.version)}
+                  />
                 ))}
-              </div>
+              </Stack>
               {hasMoreVersions && (
                 <a
                   href="#"

@@ -10,15 +10,17 @@ import {
   Button,
   Stack,
   Textarea,
+  TextInput,
   DateTimePicker,
   Message,
 } from "@cloudoperators/juno-ui-components"
 import { RemediationInput, RemediationTypeValues, SeverityValues } from "../../../../generated/graphql"
+import { useAuthUserId } from "../../../../App"
 
 type FalsePositiveModalProps = {
   open: boolean
   onClose: () => void
-  onConfirm: (input: RemediationInput) => Promise<void>
+  onConfirm: (input: RemediationInput) => Promise<{ error: string } | void>
   vulnerability: string
   severity?: string
   service: string
@@ -50,11 +52,18 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
   errorMessage,
   onSetError,
 }) => {
+  const authUserId = useAuthUserId()
   const [description, setDescription] = useState<string>("")
+  const [manualUserId, setManualUserId] = useState<string>("")
   const [expirationDate, setExpirationDate] = useState<Date | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [descriptionError, setDescriptionError] = useState<string>("")
+  const [userIdError, setUserIdError] = useState<string>("")
   const isMountedRef = useRef(true)
+
+  const manualUserIdTrimmed = manualUserId.trim()
+  const remediatedBy = authUserId ?? (manualUserIdTrimmed || undefined)
+  const isUserIdValid = !!remediatedBy
 
   useEffect(() => {
     return () => {
@@ -69,8 +78,13 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
       setDescriptionError("Description is required")
       return
     }
+    if (!remediatedBy) {
+      setUserIdError("User ID is required")
+      return
+    }
 
     setDescriptionError("")
+    setUserIdError("")
     setIsSubmitting(true)
     try {
       const input: RemediationInput = {
@@ -79,14 +93,20 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
         service,
         image,
         description: descriptionTrimmed,
+        ...(remediatedBy && { remediatedBy }),
         ...(severity && { severity: toSeverityValue(severity) }),
         ...(expirationDate && { expirationDate: expirationDate.toISOString() }),
       }
-      await onConfirm(input)
+      const result = await onConfirm(input)
       if (isMountedRef.current) {
-        setDescription("")
-        setExpirationDate(null)
-        onClose()
+        if (result?.error) {
+          onSetError?.(result.error)
+        } else {
+          setDescription("")
+          setManualUserId("")
+          setExpirationDate(null)
+          onClose()
+        }
       }
     } catch (error) {
       const message = error instanceof Error ? error.message : "Failed to create remediation"
@@ -102,8 +122,10 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
 
   const handleClose = () => {
     setDescription("")
+    setManualUserId("")
     setExpirationDate(null)
     setDescriptionError("")
+    setUserIdError("")
     onSetError?.(null)
     onClose()
   }
@@ -129,7 +151,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
               onClick={handleConfirm}
               label={CONFIRM_LABEL}
               variant="primary"
-              disabled={isSubmitting || !descriptionTrimmed}
+              disabled={isSubmitting || !descriptionTrimmed || !isUserIdValid}
             />
           </Stack>
         </ModalFooter>
@@ -145,6 +167,22 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
         </div>
         <div>
           <strong>Image:</strong> {image}
+        </div>
+        <div>
+          <TextInput
+            label="User ID"
+            value={authUserId ?? manualUserId}
+            onChange={(e) => {
+              setManualUserId(e.target.value)
+              if (userIdError) setUserIdError("")
+            }}
+            disabled={!!authUserId}
+            required
+            invalid={!!userIdError}
+            errortext={userIdError}
+            placeholder={authUserId ? undefined : "Enter your user ID"}
+            helptext={authUserId ? "User ID from current session (read-only)." : "Enter your user ID."}
+          />
         </div>
         <div>
           <DateTimePicker
