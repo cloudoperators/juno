@@ -276,8 +276,7 @@ function onGlobalChange(callback) {
  * every listener but only if the individual state has changed.
  */
 window.addEventListener("popstate", function (event) {
-  const newUrl = event.target.location.href
-  const state = URLToState(newUrl)
+  const state = URLToState()
   Object.keys(state).forEach((stateID) => {
     informListener(stateID, state[stateID])
   })
