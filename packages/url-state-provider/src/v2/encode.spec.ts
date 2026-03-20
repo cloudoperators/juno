@@ -25,7 +25,7 @@ describe("encode", () => {
     it.each`
       description                    | input
       ${"not an object (null)"}      | ${null}
-      ${"not an object (undefined)"} | ${void 0}
+      ${"not an object (undefined)"} | ${undefined}
       ${"not an object (true)"}      | ${true}
       ${"not an object (false)"}     | ${false}
       ${"not an object (number)"}    | ${1}
