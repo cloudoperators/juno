@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { HtmlHTMLAttributes } from "react"
 
 import { Pill, Stack } from "@cloudoperators/juno-ui-components"
 import { useNavigate } from "@tanstack/react-router"
