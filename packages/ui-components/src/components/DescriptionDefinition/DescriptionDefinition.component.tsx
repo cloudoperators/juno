@@ -4,7 +4,17 @@
  */
 
 import React, { ReactNode } from "react"
-import "./description-definition.css"
+
+const baseStyles = `
+  jn:grid
+  jn:items-start
+  jn:border-b 
+  jn:border-theme-default
+  jn:bg-dd-background
+  jn:text-dd-text
+  jn:p-2
+  jn:col-span-3
+`
 
 export interface DescriptionDefinitionProps {
   /**
@@ -22,7 +32,7 @@ export interface DescriptionDefinitionProps {
  * Pairs with DescriptionTerm to complete the term-description association, offering flexible content styling.
  */
 export const DescriptionDefinition: React.FC<DescriptionDefinitionProps> = ({ children, className = "" }) => (
-  <dd className={`dd ${className}`}>{children}</dd>
+  <dd className={`dd ${baseStyles} ${className}`}>{children}</dd>
 )
 
 export const DD = DescriptionDefinition

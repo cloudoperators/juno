@@ -14,9 +14,6 @@
 @import "./components/ThemeToggle/themeToggle.css" layer(utilities);
 @import "./components/DataGridRow/data-grid-row.css" layer(utilities);
 @import "./components/SideNavigationItem/sidenavigationitem.css" layer(utilities);
-@import "./components/DescriptionList/description-list.css" layer(utilities);
-@import "./components/DescriptionTerm/description-term.css" layer(utilities);
-@import "./components/DescriptionDefinition/description-definition.css" layer(utilities);
 @import "./components/PageFooter/page-footer.css" layer(utilities);
 
 :root,
@@ -415,7 +412,7 @@
   --text-color-theme-sidenavigation-item-active: var(--color-sidenavigation-item-active);
 
   /* Component Border Colors: */
-  --border-color-theme-default: var(--color-dd-dt-border);
+  --border-color-theme-default: var(--color-border-default);
 
   --border-color-theme-box-default: var(--color-box-border);
 
@@ -492,6 +489,12 @@
 
   --shadow-theme-default: var(--box-shadow-default);
   --shadow-theme-default-hover: var(--box-shadow-hover);
+
+  /* Description - DescriptionList, DescriptionTerm, DescriptionDefinition */
+  --color-dt-background: var(--color-background-lvl-1);
+  --color-dd-background: var(--color-transparent);
+  --color-dt-text: var(--color-text-high);
+  --color-dd-text: var(--color-text-high);
 }
 
 /* JUNO THEME: LIGHT MODE */
@@ -731,12 +734,6 @@
   /* LT Box Shadow */
   --box-shadow-default: 0 1px 2px 0 rgba(34, 54, 73, 0.3);
   --box-shadow-hover: 0 0 0 1px var(--color-color-shadow, rgba(79, 79, 79, 0.3)), 0 2px 8px 0 rgba(0, 0, 0, 0.3);
-  /* LT Description - DescriptionList, DescriptionTerm, DescriptionDefinition */
-  --color-dt-background: var(--color-background-lvl-1);
-  --color-dt-text: var(--color-text-high);
-  --color-dd-background: var(--color-transparent);
-  --color-dd-text: var(--color-text-high);
-  --color-dd-dt-border: var(--color-border-default);
   /* LT PageFooter */
   --color-pagefooter-text: var(--color-text-light);
   --color-pagefooter-background: var(--color-white);
@@ -984,12 +981,6 @@
   /* DT Box Shadow */
   --box-shadow-default: 0 1px 2px 0 rgba(34, 54, 73, 0.3);
   --box-shadow-hover: 0 1px 2px 0 rgba(34, 54, 73, 0.3);
-  /* DT Description - DescriptionList, DescriptionTerm, DescriptionDefinition */
-  --color-dt-background: var(--color-background-lvl-1);
-  --color-dt-text: var(--color-text-high);
-  --color-dd-background: var(--color-transparent);
-  --color-dd-text: var(--color-text-high);
-  --color-dd-dt-border: var(--color-border-default);
   /* DT PageFooter */
   --color-pagefooter-text: var(--color-text-light);
   --color-pagefooter-background: var(--color-juno-grey-blue-10);

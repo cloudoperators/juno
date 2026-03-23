@@ -25,30 +25,40 @@ type Story = StoryObj<typeof DescriptionList>
 export const Default: Story = {
   render: (args) => (
     <DescriptionList {...args}>
-      <DT>Warranty</DT>
-      <DD>2 years limited warranty with options for extension.</DD>
+      <DT>Shipping</DT>
+      <DD>Standard shipping: 5-7 business days.</DD>
+      <DT>Payment Options</DT>
+      <DD>
+        Credit/Debit cards, PayPal, and bank transfer. Lots and lots and lots of options. Oh so many, many options.
+      </DD>
+      <DT>Delivery Time</DT>
+      <DD>1 day, 2 days, 3 days.</DD>
     </DescriptionList>
   ),
 }
 
-/**
- * You can use many definitions per term.
- */
-export const MultiplePairsRightAligned: Story = {
+export const RightAligned: Story = {
   render: (args) => (
     <DescriptionList alignTerms="right" {...args}>
-      <DT>Shipping</DT>
+      <DT>Shipping Method</DT>
       <DD>Standard shipping: 5-7 business days.</DD>
-      <div className="custom1">
-        <DT>Payment Options</DT>
-        <DD>
-          Credit/Debit cards, PayPal, and bank transfer. Lots and lots and lots of options. Oh so many, many options.
-        </DD>
-      </div>
-      <div className="custom2">
-        <DT>Delivery Time</DT>
-        <DD>1 day, 2 days, 3 days.</DD>
-      </div>
+      <DT>Payment Options</DT>
+      <DD>
+        Credit/Debit cards, PayPal, and bank transfer. Lots and lots of options available for a seamless transaction
+        experience.
+      </DD>
+      <DT>Delivery Time</DT>
+      <DD>Estimated delivery between 1 to 3 business days after shipping.</DD>
+      <DT>Return Policy</DT>
+      <DD>
+        Returns are accepted within 30 days of purchase. Items must be returned in their original packaging and
+        condition.
+      </DD>
+      <DT>Customer Support</DT>
+      <DD>
+        Available via phone, email, and live chat from 9 AM to 6 PM, Monday to Friday. Our support team is ready to
+        assist with any inquiries.
+      </DD>
     </DescriptionList>
   ),
 }

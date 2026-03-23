@@ -4,7 +4,22 @@
  */
 
 import React, { ReactNode } from "react"
-import "./description-term.css"
+
+const baseStyles = `
+jn:grid 
+jn:items-start 
+jn:border-b 
+jn:border-theme-default
+jn:bg-dt-background
+jn:text-dt-text
+jn:font-bold
+jn:gap-y-[0.25rem]
+jn:whitespace-nowrap 
+jn:p-2
+jn:col-span-1
+jn:group-[.align-right]:text-right 
+jn:group-[.align-left]:text-left
+`
 
 export interface DescriptionTermProps {
   /**
@@ -22,7 +37,7 @@ export interface DescriptionTermProps {
  * Used to denote terms, headers, or keys in a semantic way, allowing for flexible styling.
  */
 export const DescriptionTerm: React.FC<DescriptionTermProps> = ({ children, className = "" }) => (
-  <dt className={`dt ${className}`}>{children}</dt>
+  <dt className={`dt ${baseStyles} ${className}`}>{children}</dt>
 )
 
 export const DT = DescriptionTerm

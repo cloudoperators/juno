@@ -6,7 +6,6 @@
 import React, { ReactElement } from "react"
 import { DescriptionTermProps } from "../DescriptionTerm"
 import { DescriptionDefinitionProps } from "../DescriptionDefinition"
-import "./description-list.css"
 
 export interface DescriptionListProps {
   /**
@@ -34,7 +33,7 @@ export interface DescriptionListProps {
  */
 export const DescriptionList: React.FC<DescriptionListProps> = ({ children, alignTerms = "right", className = "" }) => (
   <dl
-    className={`dl ${alignTerms === "right" ? "align-right" : "align-left"} ${className}`}
+    className={`dl jn:grid jn:grid-cols-4 jn:group ${alignTerms === "right" ? "align-right" : "align-left"} ${className}`}
     data-testid="description-list"
   >
     {children}
