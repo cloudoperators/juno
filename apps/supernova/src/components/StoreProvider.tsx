@@ -5,7 +5,6 @@
 
 import React, { createContext, useContext } from "react"
 import { createStore, useStore, StoreApi } from "zustand"
-import { devtools } from "zustand/middleware"
 
 import createSilencesSlice, { SilencesSlice } from "../lib/createSilencesSlice"
 import createAlertsSlice, { AlertsSlice } from "../lib/createAlertsSlice"

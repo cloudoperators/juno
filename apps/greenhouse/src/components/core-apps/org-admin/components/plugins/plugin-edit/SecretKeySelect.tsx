@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { PluginOptionValueFrom, Secret, SecretDataEntry } from "../../../types/types"
+import { PluginOptionValueFrom } from "../../../types/types"
 
 import { Stack, Select, SelectOption } from "@cloudoperators/juno-ui-components"
 import usePluginDefinitionsStore from "../plugindefinitions/store"
