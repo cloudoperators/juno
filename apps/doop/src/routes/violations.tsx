@@ -4,7 +4,7 @@
  */
 
 import React, { useLayoutEffect } from "react"
-import { createFileRoute, retainSearchParams } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router"
 import { z } from "zod"
 import AppContent from "../components/AppContent"
 import { convertUrlStateToAppState, getFiltersForUrl } from "../lib/urlStateUtils"

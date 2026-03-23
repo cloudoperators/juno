@@ -5,7 +5,7 @@
 
 import React, { StrictMode, useLayoutEffect } from "react"
 
-import { AppShellProvider, ContentHeading } from "@cloudoperators/juno-ui-components"
+import { AppShellProvider } from "@cloudoperators/juno-ui-components"
 import { RouterProvider, createBrowserHistory, createHashHistory, createRouter } from "@tanstack/react-router"
 import { decodeV2, encodeV2, registerConsumer } from "@cloudoperators/juno-url-state-provider"
 import styles from "./styles.css?inline"
