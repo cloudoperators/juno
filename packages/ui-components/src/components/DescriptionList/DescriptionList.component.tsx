@@ -27,7 +27,7 @@ export interface DescriptionListProps {
 }
 
 /**
- * A wrapper component that semantically represents a list of terms and their corresponding descriptions using HTML <dl> elements.
+ * A wrapper component that semantically represents a list of terms and their corresponding descriptions.
  * This component enforces structure by expecting child elements of DescriptionTerm or DescriptionDefinition,
  * aligning them according to the specified terms alignment.
  */
