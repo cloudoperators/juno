@@ -60,9 +60,9 @@ export const Default: Story = {
   ),
 }
 
-export const RightAligned: Story = {
+export const LeftAligned: Story = {
   render: (args) => (
-    <DL alignTerms="right" {...args}>
+    <DL alignTerms="left" {...args}>
       <DT>Shipping Method</DT>
       <DD>Standard shipping: 5-7 business days.</DD>
       <DT>Payment Options</DT>
