@@ -6,7 +6,7 @@ As a design system for building consistent, data-dense user interfaces for techn
 
 ## Flexibility
 
-Juno aims to provide maximum flexibility for users. Owing to the technical nature of the applications to be built with Juno.
+Juno aims to provide maximum flexibility, owing to the technical nature of the applications it is designed to support.
 
 ## Consistency
 

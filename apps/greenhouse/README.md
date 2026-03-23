@@ -52,6 +52,8 @@ These are the customizable application properties (appProps) that you can define
 - **demoOrg** (optional): `"demo"`. If the organization name matches this value, the app will use the demo user token for authentication.
 - **demoUserToken** (optional): `"token for demo user"`. Used for authentication if `demoOrg` and `demoUserToken` are set, and the organization name matches `demoOrg`.
   **Note:** This is ignored if `mockAuth` is set.
+- **basePath** (optional, default: `/`):  
+  Specifies the root path under which the application is served. Useful for deploying the app to a subdirectory. If not provided, defaults to the root path `/`.
 
 ## Contributing
 

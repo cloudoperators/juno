@@ -18,6 +18,7 @@
    2. [Layout Fundamentals](layout-fundamentals.md)
    3. [Navigation Fundamentals](navigation-fundamentals.md)
    4. [The AppShell](the-appshell.md)
+   5. [Semantic Variants](semantic-variants.md)
 3. [Layout And Application Structure](layout-and-application-structure.md)
    1. [Juno Layout](juno-layout.md)
    2. [Embedded ApplicationLayout](embedded-application-layout.md)
@@ -25,14 +26,14 @@
 4. [UX Patterns](ux-patterns-md)
    1. Page And User Flow
    2. Authentication And Access
-      1. Sign In
+      1. [Sign In](sign-in.md)
       2. [UI For Unauthorized Users](ui-for-unauthorized-users.md)
    3. Displaying and Interacting With Data
    4. Wizard Pattern
    5. Inline Adding And Deleting Items
    6. [Modals](modals.md)
    7. [PopupMenus](popup-and-overflow-menus.md)
-   8. Messages & Notifications
+   8. [Messages & Notifications](messages-and-notifications.md)
 5. [Application Design Guidelines](application-design-guidelines.md)
    1. Interaction Guidelines
    2. [UX Writing / Content Guidelines](ux-writing-content-design.md)
@@ -41,4 +42,4 @@
 6. Versioning, Deprecation Policy
 7. [Resources](resources.md)
 8. Appendix
-   1. Terminology/Glossary
+   1. [Terminology/Glossary](glossary.md)

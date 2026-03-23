@@ -60,18 +60,18 @@ export const ModalFooter = ({
       ) : confirmButtonLabel || onConfirm ? (
         <ButtonRow>
           <Button
-            variant="primary"
-            label={confirmButtonLabel || "Confirm"}
-            icon={confirmButtonIcon || undefined}
-            disabled={disableConfirmButton}
-            onClick={handleConfirmClick}
-          />
-          <Button
             variant="subdued"
             label={cancelButtonLabel || "Cancel"}
             disabled={disableCancelButton}
             icon={cancelButtonIcon || undefined}
             onClick={handleCancelClick}
+          />
+          <Button
+            variant="primary"
+            label={confirmButtonLabel || "Confirm"}
+            icon={confirmButtonIcon || undefined}
+            disabled={disableConfirmButton}
+            onClick={handleConfirmClick}
           />
         </ButtonRow>
       ) : (

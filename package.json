@@ -45,8 +45,8 @@
   },
   "pnpm": {
     "overrides": {
-      "eslint-plugin-react>minimatch": ">=10.2.4",
-      "glob>minimatch": ">=10.2.4"
+      "minimatch": ">=10.2.4",
+      "flat-cache>flatted": ">=3.4.1"
     }
   }
 }

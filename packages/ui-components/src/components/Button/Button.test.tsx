@@ -132,6 +132,16 @@ describe("Button", () => {
     expect(screen.getByRole("button")).toHaveAttribute("data-lolol")
   })
 
+  test("defaults to type button", () => {
+    render(<Button label="Default type" />)
+    expect(screen.getByRole("button", { name: "Default type" })).toHaveAttribute("type", "button")
+  })
+
+  test("allows overriding type", () => {
+    render(<Button label="Submit" type="submit" />)
+    expect(screen.getByRole("button", { name: "Submit" })).toHaveAttribute("type", "submit")
+  })
+
   test("renders an icon with the defined button title", () => {
     render(<Button title="customTitle" icon="default" />)
     expect(screen.getByRole("img")).toBeInTheDocument()

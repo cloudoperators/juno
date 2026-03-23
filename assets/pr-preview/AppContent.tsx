@@ -32,16 +32,16 @@ const AppContent: React.FC = () => {
       <br />
       <ul>
         <li>
-          <a href="/greenhouse/index.html#/demo">Greenhouse</a>
+          <a href="/greenhouse/demo">Greenhouse</a>
         </li>
         <li>
-          <a href="/supernova/index.html">Supernova</a>
+          <a href="/supernova/">Supernova</a>
         </li>
         <li>
-          <a href="/doop/index.html">Doop</a>
+          <a href="/doop/">Doop</a>
         </li>
         <li>
-          <a href="/heureka/index.html">Heureka</a>
+          <a href="/heureka/">Heureka</a>
         </li>
       </ul>
     </div>

@@ -1,19 +1,22 @@
 {
   "name": "@cloudoperators/juno-app-doop",
-  "version": "2.6.18",
+  "version": "2.6.20",
   "author": "UI-Team",
   "type": "module",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/doop",
   "exports": {
-    ".": "./build/index.js"
+    ".": {
+      "types": "./src/types/index.d.ts",
+      "default": "./build/index.js"
+    }
   },
   "license": "Apache-2.0",
   "private": true,
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
     "@tanstack/react-query": "5.90.21",
-    "@tailwindcss/vite": "4.2.0",
-    "@tanstack/router-plugin": "1.161.3",
+    "@tailwindcss/vite": "4.2.1",
+    "@tanstack/router-plugin": "1.161.4",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
     "@types/react": "19.2.14",
@@ -23,7 +26,7 @@
     "jsdom": "26.1.0",
     "react-markdown": "10.1.0",
     "shadow-dom-testing-library": "1.13.1",
-    "tailwindcss": "4.2.0",
+    "tailwindcss": "4.2.1",
     "vite": "7.3.1",
     "vitest": "3.2.4",
     "zustand": "5.0.11"
@@ -43,7 +46,7 @@
     "@cloudoperators/juno-messages-provider": "workspace:*",
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
-    "@tanstack/react-router": "1.161.3",
+    "@tanstack/react-router": "1.161.4",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   }

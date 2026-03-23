@@ -14,7 +14,6 @@ import { useAuth } from "../components/AuthProvider"
 // get plugin configs from k8s api
 // @ts-ignore
 const useApi = () => {
-  // @ts-expect-error TS(2339): Property 'data' does not exist on type 'unknown'.
   const { data: authData } = useAuth()
   const apiEndpoint = useGlobalsApiEndpoint()
   const assetsHost = useGlobalsAssetsHost()
@@ -37,8 +36,9 @@ const useApi = () => {
 
     return client
       .get(`/apis/greenhouse.sap/v1alpha1/namespaces/${namespace}/plugins`, {
-        // @ts-ignore
-        limit: 500,
+        params: {
+          labelSelector: "greenhouse.sap/ui-plugin=true",
+        },
       })
       .then((configs: any) => {
         // create config map

@@ -1,5 +1,21 @@
 # heureka
 
+## 1.0.4
+
+### Patch Changes
+
+- Updated dependencies [11eabd6]
+  - @cloudoperators/juno-ui-components@6.1.3
+
+## 1.0.3
+
+### Patch Changes
+
+- c6ab015: Upgrade @vitest/ui to 4.1.0
+- 4bbfb0e: Improve ErrorMessage type safety.
+- Updated dependencies [68ba389]
+  - @cloudoperators/juno-ui-components@6.1.2
+
 ## 1.0.2
 
 ### Patch Changes
