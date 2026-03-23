@@ -31,7 +31,7 @@
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
     "@types/node": "24.3.2",
-    "eslint": "10.0.2",
+    "eslint": "10.1.0",
     "husky": "9.1.7",
     "license-checker-rseidelsohn": "4.4.2",
     "prettier": "3.6.2",
@@ -46,7 +46,7 @@
   "pnpm": {
     "overrides": {
       "minimatch": ">=10.2.4",
-      "flat-cache>flatted": ">=3.4.1"
+      "@vitest/ui>flatted": ">=3.4.2"
     }
   }
 }
