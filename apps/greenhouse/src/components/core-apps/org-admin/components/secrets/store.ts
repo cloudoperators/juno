@@ -95,19 +95,4 @@ const useStore = create<State>((set: any) => ({
     })),
 }))
 
-const updateSecrets = (existingSecrets: Secret[], newSecrets: Secret[]): Secret[] => {
-  let returnSecrets = existingSecrets
-  newSecrets.forEach((inputSecret) => {
-    const index = existingSecrets.findIndex((knownSecret: any) => {
-      return knownSecret.metadata!.name === inputSecret.metadata!.name
-    })
-    if (index >= 0) {
-      returnSecrets[index] = inputSecret
-    } else {
-      returnSecrets.push(inputSecret)
-    }
-  })
-  return returnSecrets
-}
-
 export default useStore
