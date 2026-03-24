@@ -16,19 +16,19 @@ const meta: Meta<typeof DL> = {
     docs: {
       description: {
         component: `
-A wrapper component that semantically represents a list of terms and their corresponding descriptions. 
+A wrapper component that contains a list of terms and their corresponding descriptions. 
 
-This component enforces structure by expecting child elements of \`DescriptionTerm\` or \`DescriptionDefinition\`.
+This component enforces structure by expecting child elements of \`DescriptionTerm\` and \`DescriptionDefinition\`.
 
 ### Grid Layout
 - By default, the component uses a 4-column grid layout where each \`DescriptionTerm\` spans 1 column and each \`DescriptionDefinition\` spans 3 columns.
-- Customize the grid template by passing other Tailwind CSS grid classes via the \`className\` prop to override the defaults.
+- Customise the grid template by passing other Tailwind CSS grid classes via the \`className\` prop to override the defaults.
 
 #### Example
 \`\`\`jsx
-<DL className="jn:grid-cols-2">
-  <DT className="jn:col-span-1">Shipping Method</DT>
-  <DD className="jn:col-span-2">Standard shipping: 5-7 business days.</DD>
+<DL className="grid-cols-2">
+  <DT className="col-span-1">Shipping Method</DT>
+  <DD className="col-span-1">Standard shipping: 5-7 business days.</DD>
 </DL>
 \`\`\`
         `,
