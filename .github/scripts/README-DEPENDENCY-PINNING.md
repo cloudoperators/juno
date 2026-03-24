@@ -30,11 +30,10 @@ node .github/scripts/check-pinned-dependencies.js
 
 ### In CI/CD
 
-The check runs automatically on:
+The check runs automatically as part of the CI checks matrix (`.github/workflows/ci-checks.yaml`) on:
 
-- All pull requests that modify `package.json` files
-- Pushes to main branch
-- As part of the CI checks matrix
+- All pull requests (opened, synchronized, reopened)
+- Pushes to `changeset-release/main` branch
 
 ### Example Output
 
@@ -175,8 +174,7 @@ This script is part of a defense-in-depth strategy:
 
 ## Related Files
 
-- `.github/workflows/check-dependency-pinning.yaml` - Standalone workflow
-- `.github/workflows/ci-checks.yaml` - Integrated into CI checks matrix
+- `.github/workflows/ci-checks.yaml` - Integrated into CI checks matrix (line 80-81)
 - `.npmrc` - Contains `save-exact=true` for auto-pinning
 - `pnpm-lock.yaml` - Locks all transitive dependencies
 
