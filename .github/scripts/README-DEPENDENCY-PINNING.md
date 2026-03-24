@@ -11,6 +11,7 @@ Using version ranges (`^`, `~`, `>=`, etc.) allows package managers to automatic
 - **Inconsistent builds**: Different environments may install different versions
 
 ### Historical Examples:
+
 - `event-stream@3.3.6` - Bitcoin wallet stealer injected via compromised dependency
 - `ua-parser-js@0.7.29` - Cryptominer backdoor in specific version
 - `coa@2.0.3` - Password stealer affecting 9M downloads/week
@@ -30,6 +31,7 @@ node .github/scripts/check-pinned-dependencies.js
 ### In CI/CD
 
 The check runs automatically on:
+
 - All pull requests that modify `package.json` files
 - Pushes to main branch
 - As part of the CI checks matrix
@@ -37,6 +39,7 @@ The check runs automatically on:
 ### Example Output
 
 **All dependencies pinned (✅):**
+
 ```
 Checking for pinned dependencies...
 
@@ -53,6 +56,7 @@ Files checked: 17
 ```
 
 **Unpinned dependencies found (❌):**
+
 ```
 Checking for pinned dependencies...
 
@@ -81,15 +85,18 @@ Example: Change "^1.2.3" to "1.2.3"
 ## What's Checked
 
 ### Dependency Fields (Checked):
+
 - ✅ `dependencies`
 - ✅ `devDependencies`
 - ✅ `optionalDependencies`
 
 ### Fields Skipped:
+
 - ⏭️ `peerDependencies` (ranges expected here)
 - ⏭️ `peerDependenciesMeta`
 
 ### Allowed Patterns:
+
 - `workspace:*` - Monorepo workspace dependencies
 - `npm:` - npm protocol references
 - `file:` - Local file dependencies
@@ -97,6 +104,7 @@ Example: Change "^1.2.3" to "1.2.3"
 - `patch:` - Patched dependencies (pnpm)
 
 ### Unpinned Patterns (Blocked):
+
 - `^1.2.3` - Caret (allows minor/patch updates)
 - `~1.2.3` - Tilde (allows patch updates)
 - `>=1.2.0` - Greater than or equal
@@ -112,21 +120,19 @@ Edit `.github/scripts/check-pinned-dependencies.js` to customize:
 ```javascript
 const config = {
   // Allow specific packages to have ranges
-  allowedUnpinnedPackages: [
-    'some-internal-package'
-  ],
+  allowedUnpinnedPackages: ["some-internal-package"],
 
   // Ignore specific packages completely
-  ignorePackages: [
-    'example-package'
-  ],
-};
+  ignorePackages: ["example-package"],
+}
 ```
 
 ## Fixing Unpinned Dependencies
 
 ### Automatic Fix (Recommended):
+
 Add to `.npmrc`:
+
 ```ini
 save-exact=true
 ```
@@ -134,16 +140,18 @@ save-exact=true
 This ensures new packages are automatically pinned when installed.
 
 ### Manual Fix:
+
 ```json
 {
   "dependencies": {
-    "lodash": "^4.17.23",   // ❌ Unpinned
-    "lodash": "4.17.23"     // ✅ Pinned
+    "lodash": "^4.17.23", // ❌ Unpinned
+    "lodash": "4.17.23" // ✅ Pinned
   }
 }
 ```
 
 ### Update All Dependencies:
+
 ```bash
 # 1. Remove version prefixes from package.json
 # 2. Regenerate lock file
