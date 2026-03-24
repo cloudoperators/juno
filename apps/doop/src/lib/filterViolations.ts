@@ -85,7 +85,7 @@ const filterByActiveFilters = (violationGroups: any[], clusterIdentities: any[],
             true
           )
         )
-        found = found && constraint.violation_groups?.length > 0
+        found = (constraint.violation_groups?.length ?? 0) > 0
       }
 
       // ############ CLUSTER FILTERS ############

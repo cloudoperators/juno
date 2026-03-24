@@ -77,6 +77,8 @@ jobs:
             command: "pnpm run typecheck"
           - title: "format-check"
             command: "pnpm run check-format --check '**/*.{js,jsx,ts,tsx}'"
+          - title: "dependency-pinning-check"
+            command: "node .github/scripts/check-pinned-dependencies.js"
           - title: "tests"
             command: "pnpm build && pnpm run test"
 
