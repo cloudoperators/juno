@@ -126,7 +126,7 @@ class DependencyChecker {
 
       // Check peerDependencies for info only (warnings, not errors)
       if (pkg.peerDependencies) {
-        for (const [name, version] of Object.entries(pkg.peerDependencies)) {
+        for (const [, version] of Object.entries(pkg.peerDependencies)) {
           if (!this.isPinned(version) && !config.allowedPatterns.some((p) => p.test(version))) {
             // This is expected for peer deps, just note it
             // Don't add to warnings to avoid noise
