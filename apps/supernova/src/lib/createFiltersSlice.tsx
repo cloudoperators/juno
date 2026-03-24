@@ -98,15 +98,12 @@ const parseInitialFilters = (
     // this will ensure that at least the valid keys are used as initial filters
     const filtered = Object.keys(filteredByType)
       .filter((key) => filterLabels.includes(key))
-      .reduce(
-        (obj, key) => {
-          return {
-            ...obj,
-            [key]: filteredByType[key],
-          }
-        },
-        {} as Record<string, string[]>
-      )
+      .reduce<Record<string, string[]>>((obj, key) => {
+        return {
+          ...obj,
+          [key]: filteredByType[key],
+        }
+      }, {})
     return filtered
   }
 
