@@ -29,7 +29,7 @@ describe("DescriptionTerm", () => {
 
   it("can render complex children", () => {
     render(
-      <DescriptionTerm>
+      <DescriptionTerm data-arbitrary-prop={"data-madeup-content"}>
         <span>Complex Term</span> <strong>Content</strong>
       </DescriptionTerm>
     )
@@ -38,14 +38,13 @@ describe("DescriptionTerm", () => {
   })
 
   it("receives and applies arbitrary props", () => {
-    const dataId = "custom-id"
     render(
-      <DescriptionTerm data-testid={dataId}>
+      <DescriptionTerm data-testid={"custom-id"} data-arbitrary-prop={"data-madeup-content"}>
         <span>Complex Term</span> <strong>Content</strong>
       </DescriptionTerm>
     )
 
-    const dtElement = screen.getByTestId(dataId)
-    expect(dtElement).toHaveAttribute("data-testid", dataId)
+    const dtElement = screen.getByTestId("custom-id")
+    expect(dtElement).toHaveAttribute("data-arbitrary-prop", "data-madeup-content")
   })
 })

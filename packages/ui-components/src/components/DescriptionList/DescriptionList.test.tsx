@@ -75,15 +75,14 @@ describe("DescriptionList", () => {
   })
 
   it("receives and applies arbitrary props", () => {
-    const dataId = "custom-id"
     render(
-      <DescriptionList data-testid={dataId}>
+      <DescriptionList data-testid={"custom-id"} data-arbitrary-prop={"data-madeup-content"}>
         <DescriptionTerm>Term 7</DescriptionTerm>
         <DescriptionDefinition>Definition 7</DescriptionDefinition>
       </DescriptionList>
     )
 
-    const dlElement = screen.getByTestId(dataId)
-    expect(dlElement).toHaveAttribute("data-testid", dataId)
+    const dlElement = screen.getByTestId("custom-id")
+    expect(dlElement).toHaveAttribute("data-arbitrary-prop", "data-madeup-content")
   })
 })

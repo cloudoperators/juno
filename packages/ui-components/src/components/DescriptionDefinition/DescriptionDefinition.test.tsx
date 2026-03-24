@@ -51,4 +51,15 @@ describe("DescriptionDefinition", () => {
     expect(screen.getByText("Complex")).toBeInTheDocument()
     expect(screen.getByText("Content")).toBeInTheDocument()
   })
+
+  it("receives and applies arbitrary props", () => {
+    render(
+      <DescriptionDefinition data-testid={"custom-id"} data-arbitrary-prop={"data-madeup-content"}>
+        <span>Complex Term</span> <strong>Content</strong>
+      </DescriptionDefinition>
+    )
+
+    const ddElement = screen.getByTestId("custom-id")
+    expect(ddElement).toHaveAttribute("data-arbitrary-prop", "data-madeup-content")
+  })
 })
