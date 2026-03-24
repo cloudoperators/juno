@@ -11,7 +11,7 @@ import { DescriptionList } from "../DescriptionList"
 import { DescriptionTerm } from "../DescriptionTerm"
 
 describe("DescriptionDefinition", () => {
-  it("renders child DescriptionTerm and DescriptionDefinition components with correct test IDs", () => {
+  it("renders child DescriptionTerm and DescriptionDefinition components with arbitrary test props", () => {
     render(
       <DescriptionList>
         <DescriptionTerm data-testid={"term-1"}>Term 1</DescriptionTerm>
@@ -27,40 +27,28 @@ describe("DescriptionDefinition", () => {
 
     expect(definitionElement).toBeInTheDocument()
     expect(definitionElement).toHaveTextContent("Definition 1")
+  })
 
-    it("applies custom className", () => {
-      const customClass = "custom-class"
-      render(<DescriptionDefinition className={customClass}>Test Description</DescriptionDefinition>)
-      const ddElement = screen.getByText("Test Description")
-      expect(ddElement).toHaveClass(customClass)
-    })
+  it("applies custom className", () => {
+    const customClass = "custom-class"
+    render(<DescriptionDefinition className={customClass}>Test Description</DescriptionDefinition>)
+    const ddElement = screen.getByText("Test Description")
+    expect(ddElement).toHaveClass(customClass)
+  })
 
-    it("renders within a <dd> element", () => {
-      render(<DescriptionDefinition>Test Description</DescriptionDefinition>)
-      const ddElement = screen.getByText("Test Description")
-      expect(ddElement.tagName).toBe("DD")
-    })
+  it("renders within a <dd> element", () => {
+    render(<DescriptionDefinition>Test Description</DescriptionDefinition>)
+    const ddElement = screen.getByText("Test Description")
+    expect(ddElement.tagName).toBe("DD")
+  })
 
-    it("can render complex children", () => {
-      render(
-        <DescriptionDefinition>
-          <span>Complex</span> <strong>Content</strong>
-        </DescriptionDefinition>
-      )
-      expect(screen.getByText("Complex")).toBeInTheDocument()
-      expect(screen.getByText("Content")).toBeInTheDocument()
-    })
-
-    it("receives and applies arbitrary props", () => {
-      const dataId = "custom-id"
-      render(
-        <DescriptionDefinition data-testid={dataId}>
-          <span>Complex Term</span> <strong>Content</strong>
-        </DescriptionDefinition>
-      )
-
-      const ddElement = screen.getByTestId(dataId)
-      expect(ddElement).toHaveAttribute("data-testid", dataId)
-    })
+  it("can render complex children", () => {
+    render(
+      <DescriptionDefinition>
+        <span>Complex</span> <strong>Content</strong>
+      </DescriptionDefinition>
+    )
+    expect(screen.getByText("Complex")).toBeInTheDocument()
+    expect(screen.getByText("Content")).toBeInTheDocument()
   })
 })
