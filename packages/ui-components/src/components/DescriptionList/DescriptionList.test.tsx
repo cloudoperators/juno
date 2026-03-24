@@ -36,21 +36,27 @@ describe("DescriptionList", () => {
   })
 
   it("aligns terms to the right by default", () => {
-    render(
+    const { container } = render(
       <DescriptionList>
         <DescriptionTerm>Term 3</DescriptionTerm>
         <DescriptionDefinition>Definition 3</DescriptionDefinition>
       </DescriptionList>
     )
+
+    const dlElement = container.querySelector("dl")
+    expect(dlElement).toHaveClass("align-right")
   })
 
-  it("aligns terms to the left when specified", () => {
-    render(
+  it("aligns terms to the left", () => {
+    const { container } = render(
       <DescriptionList alignTerms="left">
         <DescriptionTerm>Left Term</DescriptionTerm>
         <DescriptionDefinition>Definition for Left Term</DescriptionDefinition>
       </DescriptionList>
     )
+
+    const dlElement = container.querySelector("dl")
+    expect(dlElement).toHaveClass("align-left")
   })
 
   it("renders multiple terms and definitions in a single list", () => {
