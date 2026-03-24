@@ -14,12 +14,19 @@ describe("DescriptionList", () => {
   it("renders child DescriptionTerm and DescriptionDefinition components correctly", () => {
     render(
       <DescriptionList>
-        <DescriptionTerm>Term 1</DescriptionTerm>
-        <DescriptionDefinition>Definition 1</DescriptionDefinition>
+        <DescriptionTerm data-testid="term-1">Term 1</DescriptionTerm>
+        <DescriptionDefinition data-testid="definition-1">Definition 1</DescriptionDefinition>
       </DescriptionList>
     )
-    expect(screen.getByText("Term 1")).toBeInTheDocument()
-    expect(screen.getByText("Definition 1")).toBeInTheDocument()
+
+    const termElement = screen.getByTestId("term-1")
+    const definitionElement = screen.getByTestId("definition-1")
+
+    expect(termElement).toBeInTheDocument()
+    expect(termElement).toHaveTextContent("Term 1")
+
+    expect(definitionElement).toBeInTheDocument()
+    expect(definitionElement).toHaveTextContent("Definition 1")
   })
 
   it("applies custom className to the <dl> element", () => {

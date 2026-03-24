@@ -16,7 +16,7 @@ const meta: Meta<typeof DL> = {
     docs: {
       description: {
         component: `
-A wrapper component that contains a list of terms and their corresponding descriptions. 
+A component that contains a list of terms and their corresponding descriptions. 
 
 This component enforces structure by expecting child elements of \`DescriptionTerm\` and \`DescriptionDefinition\`.
 
