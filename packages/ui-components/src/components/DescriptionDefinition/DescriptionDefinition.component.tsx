@@ -31,8 +31,10 @@ export interface DescriptionDefinitionProps {
  * Represents the definition or description in a description list, rendering as an HTML <dd> element.
  * Pairs with DescriptionTerm to complete the term-description association, offering flexible content styling.
  */
-export const DescriptionDefinition: React.FC<DescriptionDefinitionProps> = ({ children, className = "" }) => (
-  <dd className={`dd ${baseStyles} ${className}`}>{children}</dd>
+export const DescriptionDefinition: React.FC<DescriptionDefinitionProps> = ({ children, className = "", ...props }) => (
+  <dd className={`dd ${baseStyles} ${className}`} {...props}>
+    {children}
+  </dd>
 )
 
 export const DD = DescriptionDefinition

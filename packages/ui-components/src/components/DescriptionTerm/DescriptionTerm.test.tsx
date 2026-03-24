@@ -36,4 +36,16 @@ describe("DescriptionTerm", () => {
     expect(screen.getByText("Complex Term")).toBeInTheDocument()
     expect(screen.getByText("Content")).toBeInTheDocument()
   })
+
+  it("receives and applies arbitrary props", () => {
+    const dataId = "custom-id"
+    render(
+      <DescriptionTerm data-testid={dataId}>
+        <span>Complex Term</span> <strong>Content</strong>
+      </DescriptionTerm>
+    )
+
+    const dtElement = screen.getByTestId(dataId)
+    expect(dtElement).toHaveAttribute("data-testid", dataId)
+  })
 })

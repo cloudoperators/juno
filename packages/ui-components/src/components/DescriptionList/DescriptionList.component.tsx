@@ -27,14 +27,19 @@ export interface DescriptionListProps {
 }
 
 /**
- * A wrapper component that semantically represents a list of terms and their corresponding descriptions.
+ * A component that semantically represents a list of terms and their corresponding descriptions.
  * This component enforces structure by expecting child elements of DescriptionTerm or DescriptionDefinition,
  * aligning them according to the specified terms alignment.
  */
-export const DescriptionList: React.FC<DescriptionListProps> = ({ children, alignTerms = "right", className = "" }) => (
+export const DescriptionList: React.FC<DescriptionListProps> = ({
+  children,
+  alignTerms = "right",
+  className = "",
+  ...props
+}) => (
   <dl
     className={`dl jn:grid jn:grid-cols-4 jn:group ${alignTerms === "right" ? "align-right" : "align-left"} ${className}`}
-    data-testid="description-list"
+    {...props}
   >
     {children}
   </dl>

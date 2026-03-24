@@ -36,8 +36,10 @@ export interface DescriptionTermProps {
  * Represents a term in a description list, rendering an HTML <dt> element.
  * Used to denote terms, headers, or keys in a semantic way, allowing for flexible styling.
  */
-export const DescriptionTerm: React.FC<DescriptionTermProps> = ({ children, className = "" }) => (
-  <dt className={`dt ${baseStyles} ${className}`}>{children}</dt>
+export const DescriptionTerm: React.FC<DescriptionTermProps> = ({ children, className = "", ...props }) => (
+  <dt className={`dt ${baseStyles} ${className}`} {...props}>
+    {children}
+  </dt>
 )
 
 export const DT = DescriptionTerm

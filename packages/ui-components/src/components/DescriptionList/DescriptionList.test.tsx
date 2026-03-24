@@ -25,7 +25,7 @@ describe("DescriptionList", () => {
   it("applies custom className to the <dl> element", () => {
     const customClass = "custom-class"
     render(
-      <DescriptionList className={customClass}>
+      <DescriptionList data-testid={"description-list"} className={customClass}>
         <DescriptionTerm>Term 2</DescriptionTerm>
         <DescriptionDefinition>Definition 2</DescriptionDefinition>
       </DescriptionList>
@@ -72,5 +72,18 @@ describe("DescriptionList", () => {
     expect(screen.getByText("Definition 4")).toBeInTheDocument()
     expect(screen.getByText("Term 5")).toBeInTheDocument()
     expect(screen.getByText("Definition 5")).toBeInTheDocument()
+  })
+
+  it("receives and applies arbitrary props", () => {
+    const dataId = "custom-id"
+    render(
+      <DescriptionList data-testid={dataId}>
+        <DescriptionTerm>Term 7</DescriptionTerm>
+        <DescriptionDefinition>Definition 7</DescriptionDefinition>
+      </DescriptionList>
+    )
+
+    const dlElement = screen.getByTestId(dataId)
+    expect(dlElement).toHaveAttribute("data-testid", dataId)
   })
 })

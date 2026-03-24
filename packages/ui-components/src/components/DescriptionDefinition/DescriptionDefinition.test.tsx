@@ -7,12 +7,26 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import { describe, it, expect } from "vitest"
 import { DescriptionDefinition } from "../DescriptionDefinition"
+import { DescriptionList } from "../DescriptionList"
+import { DescriptionTerm } from "../DescriptionTerm"
 
 describe("DescriptionDefinition", () => {
-  it("renders the children correctly", () => {
-    render(<DescriptionDefinition>Test Description</DescriptionDefinition>)
-    expect(screen.getByText("Test Description")).toBeInTheDocument()
-  })
+  it("renders child DescriptionTerm and DescriptionDefinition components with correct test IDs", () => {
+    render(
+      <DescriptionList>
+        <DescriptionTerm data-testid={"term-1"}>Term 1</DescriptionTerm>
+        <DescriptionDefinition data-testid={"def-1"}>Definition 1</DescriptionDefinition>
+      </DescriptionList>
+    );
+
+    const termElement = screen.getByTestId("term-1");
+    const definitionElement = screen.getByTestId("def-1");
+
+    expect(termElement).toBeInTheDocument();
+    expect(termElement).toHaveTextContent("Term 1");
+
+    expect(definitionElement).toBeInTheDocument();
+    expect(definitionElement).toHaveTextContent("Definition 1");
 
   it("applies custom className", () => {
     const customClass = "custom-class"
@@ -35,5 +49,17 @@ describe("DescriptionDefinition", () => {
     )
     expect(screen.getByText("Complex")).toBeInTheDocument()
     expect(screen.getByText("Content")).toBeInTheDocument()
+  })
+
+  it("receives and applies arbitrary props", () => {
+    const dataId = "custom-id"
+    render(
+      <DescriptionDefinition data-testid={dataId}>
+        <span>Complex Term</span> <strong>Content</strong>
+      </DescriptionDefinition>
+    )
+
+    const ddElement = screen.getByTestId(dataId)
+    expect(ddElement).toHaveAttribute("data-testid", dataId)
   })
 })
