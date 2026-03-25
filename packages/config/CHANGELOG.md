@@ -1,5 +1,11 @@
 # @cloudoperators/juno-config
 
+## 0.0.6
+
+### Patch Changes
+
+- 8a6d495: Bump eslint version to fix high vulnerabilities related to transitive npm dependency `flatted`.
+
 ## 0.0.5
 
 ### Patch Changes

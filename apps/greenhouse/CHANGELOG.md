@@ -1,5 +1,34 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.12.0
+
+### Minor Changes
+
+- e5deade: Optimize plugin loading with dynamic imports and improve navigation between plugins. Plugins now load on-demand instead of being bundled upfront, reducing initial bundle size by 66%. Added module caching to eliminate loading spinners on return visits. Fixed URL state pollution when switching between plugins using TanStack Router's remountDeps. Also filters plugins server-side to fetch only UI plugins.
+
+### Patch Changes
+
+- b7becbc: Resolves all CodeQL static analysis warnings to improve code quality, reliability, and maintainability. These fixes address potential bugs, redundant code, and anti-patterns detected by automated code scanning.
+- 25237e6: Pin CodeMirror dependencies
+- c8a6676: Removes unused variables, imports, functions, and classes identified by static code analysis to improve code quality and maintainability.
+- c2bc301: Restructure ShellLayout to apply padding only to content area rather than the entire main container. This allows NotificationsContainer (demo banner) to stick to the top without padding while eliminating unwanted whitespace below PluginNav.
+- 32a4b5f: Add foldGutter and foldKeymap extensions to enable collapsing/expanding YAML attributes in the viewer. Users can now click fold icons in the gutter to collapse nested structures.
+- Updated dependencies [b7becbc]
+- Updated dependencies [8a6d495]
+- Updated dependencies [e5deade]
+- Updated dependencies [51dfc1c]
+- Updated dependencies [c8a6676]
+- Updated dependencies [dac772c]
+  - @cloudoperators/juno-ui-components@6.2.0
+  - @cloudoperators/juno-app-supernova@0.19.24
+  - @cloudoperators/juno-app-doop@2.6.21
+  - @cloudoperators/juno-app-heureka@1.0.5
+  - @cloudoperators/juno-messages-provider@0.2.33
+  - @cloudoperators/greenhouse-auth-provider@1.0.0
+  - @cloudoperators/juno-k8s-client@1.1.2
+  - @cloudoperators/juno-oauth@1.4.9
+  - @cloudoperators/juno-url-state-provider@3.0.7
+
 ## 0.11.3
 
 ### Patch Changes

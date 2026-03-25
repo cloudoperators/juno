@@ -1,5 +1,15 @@
 # @cloudoperators/juno-messages-provider
 
+## 0.2.33
+
+### Patch Changes
+
+- c8a6676: Removes unused variables, imports, functions, and classes identified by static code analysis to improve code quality and maintainability.
+- Updated dependencies [b7becbc]
+- Updated dependencies [51dfc1c]
+- Updated dependencies [dac772c]
+  - @cloudoperators/juno-ui-components@6.2.0
+
 ## 0.2.32
 
 ### Patch Changes

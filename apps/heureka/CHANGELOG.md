@@ -1,5 +1,18 @@
 # heureka
 
+## 1.0.5
+
+### Patch Changes
+
+- 8a6d495: Bump eslint version to fix high vulnerabilities related to transitive npm dependency `flatted`.
+- e5deade: Optimize plugin loading with dynamic imports and improve navigation between plugins. Plugins now load on-demand instead of being bundled upfront, reducing initial bundle size by 66%. Added module caching to eliminate loading spinners on return visits. Fixed URL state pollution when switching between plugins using TanStack Router's remountDeps. Also filters plugins server-side to fetch only UI plugins.
+- Updated dependencies [b7becbc]
+- Updated dependencies [51dfc1c]
+- Updated dependencies [dac772c]
+  - @cloudoperators/juno-ui-components@6.2.0
+  - @cloudoperators/greenhouse-auth-provider@1.0.0
+  - @cloudoperators/juno-url-state-provider@3.0.7
+
 ## 1.0.4
 
 ### Patch Changes

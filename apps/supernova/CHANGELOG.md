@@ -1,5 +1,20 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.19.24
+
+### Patch Changes
+
+- b7becbc: Resolves all CodeQL static analysis warnings to improve code quality, reliability, and maintainability. These fixes address potential bugs, redundant code, and anti-patterns detected by automated code scanning.
+- e5deade: Optimize plugin loading with dynamic imports and improve navigation between plugins. Plugins now load on-demand instead of being bundled upfront, reducing initial bundle size by 66%. Added module caching to eliminate loading spinners on return visits. Fixed URL state pollution when switching between plugins using TanStack Router's remountDeps. Also filters plugins server-side to fetch only UI plugins.
+- c8a6676: Removes unused variables, imports, functions, and classes identified by static code analysis to improve code quality and maintainability.
+- Updated dependencies [b7becbc]
+- Updated dependencies [51dfc1c]
+- Updated dependencies [c8a6676]
+- Updated dependencies [dac772c]
+  - @cloudoperators/juno-ui-components@6.2.0
+  - @cloudoperators/juno-messages-provider@0.2.33
+  - @cloudoperators/juno-url-state-provider@3.0.7
+
 ## 0.19.23
 
 ### Patch Changes
