@@ -44,7 +44,7 @@ describe("DescriptionTerm", () => {
       </DescriptionTerm>
     )
 
-    const dtElement = screen.getByTestId("custom-id")
+    const dtElement = screen.getByRole("term")
     expect(dtElement).toHaveAttribute("data-arbitrary-prop", "data-madeup-content")
   })
 })

@@ -59,7 +59,7 @@ describe("DescriptionDefinition", () => {
       </DescriptionDefinition>
     )
 
-    const ddElement = screen.getByTestId("custom-id")
+    const ddElement = screen.getByRole("definition")
     expect(ddElement).toHaveAttribute("data-arbitrary-prop", "data-madeup-content")
   })
 })
