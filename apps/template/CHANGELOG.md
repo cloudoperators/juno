@@ -1,5 +1,15 @@
 # @cloudoperators/juno-app-template
 
+## 2.0.34
+
+### Patch Changes
+
+- 8a6d495: Bump eslint version to fix high vulnerabilities related to transitive npm dependency `flatted`.
+- Updated dependencies [b7becbc]
+- Updated dependencies [51dfc1c]
+- Updated dependencies [dac772c]
+  - @cloudoperators/juno-ui-components@6.2.0
+
 ## 2.0.33
 
 ### Patch Changes
