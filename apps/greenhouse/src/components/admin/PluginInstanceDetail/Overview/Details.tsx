@@ -15,13 +15,13 @@ import {
 } from "@cloudoperators/juno-ui-components"
 import { Plugin } from "../../types/k8sTypes"
 
-interface BasicInformationProps {
+interface DetailsProps {
   plugin: Plugin
 }
 
-export const BasicInformation: React.FC<BasicInformationProps> = ({ plugin }) => (
+export const Details: React.FC<DetailsProps> = ({ plugin }) => (
   <Stack gap="4" direction="vertical">
-    <ContentHeading>Basic Information</ContentHeading>
+    <ContentHeading>Details</ContentHeading>
     <Stack direction="horizontal">
       <DataGrid columns={2} minContentColumns={[0]} className="flex-1">
         <DataGridRow>
@@ -29,7 +29,7 @@ export const BasicInformation: React.FC<BasicInformationProps> = ({ plugin }) =>
           <DataGridCell>{plugin.metadata?.name}</DataGridCell>
         </DataGridRow>
         <DataGridRow>
-          <DataGridHeadCell nowrap>Plugin Preset</DataGridHeadCell>
+          <DataGridHeadCell nowrap>PluginPreset</DataGridHeadCell>
           <DataGridCell>{plugin.metadata?.labels?.["greenhouse.sap/pluginpreset"]}</DataGridCell>
         </DataGridRow>
         <DataGridRow>

@@ -5,11 +5,11 @@
 
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import { BasicInformation } from "./BasicInformation"
+import { Details } from "./Details"
 import { Plugin } from "../../types/k8sTypes"
 
-describe("BasicInformation", () => {
-  it("should render plugin basic information", () => {
+describe("Details", () => {
+  it("should render plugin details", () => {
     const mockPlugin: Plugin = {
       metadata: {
         name: "test-plugin",
@@ -26,9 +26,9 @@ describe("BasicInformation", () => {
       },
     }
 
-    render(<BasicInformation plugin={mockPlugin} />)
+    render(<Details plugin={mockPlugin} />)
 
-    expect(screen.getByText("Basic Information")).toBeInTheDocument()
+    expect(screen.getByText("Details")).toBeInTheDocument()
     expect(screen.getByText("test-plugin")).toBeInTheDocument()
     expect(screen.getAllByText("test-preset").length).toBeGreaterThan(0)
     expect(screen.getByText("test-plugin-def")).toBeInTheDocument()

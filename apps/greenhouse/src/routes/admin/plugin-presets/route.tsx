@@ -8,7 +8,7 @@ import { createFileRoute, Outlet } from "@tanstack/react-router"
 export const Route = createFileRoute("/admin/plugin-presets")({
   loader: () => ({
     crumb: {
-      label: "Plugin Presets",
+      label: "PluginPresets",
       icon: "home",
     },
   }),
