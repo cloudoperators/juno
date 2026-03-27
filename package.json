@@ -28,7 +28,7 @@
     "pre:push": "turbo run lint typecheck"
   },
   "devDependencies": {
-    "@changesets/cli": "2.29.7",
+    "@changesets/cli": "2.30.0",
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
     "@types/node": "24.3.2",
@@ -47,7 +47,8 @@
   "pnpm": {
     "overrides": {
       "minimatch": ">=10.2.4",
-      "@vitest/ui>flatted": ">=3.4.2"
+      "flatted": ">=3.4.2",
+      "picomatch": ">=4.0.4"
     }
   }
 }
