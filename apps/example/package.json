@@ -29,7 +29,7 @@
     "shadow-dom-testing-library": "1.13.1",
     "tailwindcss": "4.2.1",
     "vite": "8.0.3",
-    "vitest": "4.1.2"
+    "vitest": "3.2.4"
   },
   "dependencies": {
     "@cloudoperators/juno-messages-provider": "workspace:*",
