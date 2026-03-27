@@ -8,4 +8,4 @@
 "@cloudoperators/juno-app-doop": patch
 ---
 
-Fix medium and high vulnerabilities related to transitive dependencies `picomatch` by upgrading root project dependencies and where not possible, locking `picomatch` at versions without vulnerabilities.
+Fix high vulnerabilities related to transitive dependencies `picomatch` by upgrading root project dependencies and where not possible, locking `picomatch` at versions without vulnerabilities.
