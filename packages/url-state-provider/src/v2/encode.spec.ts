@@ -22,19 +22,32 @@ describe("encode", () => {
   })
 
   describe("returns empty string for non-object values", () => {
-    it.each`
-      description                    | input
-      ${"not an object (null)"}      | ${null}
-      ${"not an object (undefined)"} | ${undefined}
-      ${"not an object (true)"}      | ${true}
-      ${"not an object (false)"}     | ${false}
-      ${"not an object (number)"}    | ${1}
-      ${"not an object (string)"}    | ${"string"}
-      ${"is an empty object"}        | ${{}}
-      ${"a regular expression"}      | ${/regexp/}
-      ${"an array"}                  | ${[1, 2, 3]}
-    `("returns '' when input is $description", ({ input }) => {
-      expect(encode(input)).toBe("")
+    it("returns '' when input is not an object (null)", () => {
+      expect(encode(null as any)).toBe("")
+    })
+    it("returns '' when input is not an object (undefined)", () => {
+      expect(encode(undefined as any)).toBe("")
+    })
+    it("returns '' when input is not an object (true)", () => {
+      expect(encode(true as any)).toBe("")
+    })
+    it("returns '' when input is not an object (false)", () => {
+      expect(encode(false as any)).toBe("")
+    })
+    it("returns '' when input is not an object (number)", () => {
+      expect(encode(1 as any)).toBe("")
+    })
+    it("returns '' when input is not an object (string)", () => {
+      expect(encode("string" as any)).toBe("")
+    })
+    it("returns '' when input is an empty object", () => {
+      expect(encode({})).toBe("")
+    })
+    it("returns '' when input is a regular expression", () => {
+      expect(encode(/regexp/ as any)).toBe("")
+    })
+    it("returns '' when input is an array", () => {
+      expect(encode([1, 2, 3] as any)).toBe("")
     })
   })
 
