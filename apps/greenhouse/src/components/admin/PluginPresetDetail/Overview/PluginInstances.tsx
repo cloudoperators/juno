@@ -14,7 +14,9 @@ import {
   Icon,
   Stack,
   ContentHeading,
-  Button,
+  PopupMenu,
+  PopupMenuOptions,
+  PopupMenuItem,
 } from "@cloudoperators/juno-ui-components"
 import { LoadingDataRow } from "../../common/LoadingDataRow"
 import { ErrorBoundary } from "../../common/ErrorBoundary"
@@ -50,20 +52,18 @@ const DataRows = ({ colSpan }: { colSpan: number }) => {
     <>
       {plugins.map((plugin) => {
         const ready = isPluginReady(plugin)
+        const navigateToDetails = () => {
+          navigate({
+            to: "/admin/plugin-presets/$pluginPresetName/plugin-instances/$pluginInstance",
+            params: {
+              pluginPresetName,
+              pluginInstance: plugin.metadata?.name || "",
+            },
+          })
+        }
 
         return (
-          <DataGridRow
-            key={plugin.metadata?.name}
-            onClick={() => {
-              navigate({
-                to: "/admin/plugin-presets/$pluginPresetName/plugin-instances/$pluginInstance",
-                params: {
-                  pluginPresetName,
-                  pluginInstance: plugin.metadata?.name || "",
-                },
-              })
-            }}
-          >
+          <DataGridRow key={plugin.metadata?.name} onClick={navigateToDetails}>
             <DataGridCell>
               <Icon icon={ready ? "checkCircle" : "error"} color={ready ? "text-theme-success" : "text-theme-danger"} />
             </DataGridCell>
@@ -71,9 +71,11 @@ const DataRows = ({ colSpan }: { colSpan: number }) => {
             <DataGridCell>{plugin.spec?.clusterName}</DataGridCell>
             <DataGridCell>{ready ? "Ready" : "Not Ready"}</DataGridCell>
             <DataGridCell nowrap>
-              <Button size="small" variant="primary" className="w-fit">
-                View details
-              </Button>
+              <PopupMenu onClick={(e) => e.stopPropagation()}>
+                <PopupMenuOptions>
+                  <PopupMenuItem label="View Details" onClick={navigateToDetails} />
+                </PopupMenuOptions>
+              </PopupMenu>
             </DataGridCell>
           </DataGridRow>
         )
@@ -107,7 +109,7 @@ export const PluginInstances = () => {
             <span>{`(${ready} ready, ${notReady} not ready)`}</span>
           </div>
         </Stack>
-        <DataGrid columns={COLUMN_SPAN}>
+        <DataGrid columns={COLUMN_SPAN} minContentColumns={[4]}>
           <DataGridRow>
             <DataGridHeadCell>
               <Icon icon="monitorHeart" />
@@ -115,7 +117,7 @@ export const PluginInstances = () => {
             <DataGridHeadCell>Plugin Name</DataGridHeadCell>
             <DataGridHeadCell>Cluster</DataGridHeadCell>
             <DataGridHeadCell>Status</DataGridHeadCell>
-            <DataGridHeadCell>Actions</DataGridHeadCell>
+            <DataGridHeadCell></DataGridHeadCell>
           </DataGridRow>
 
           <ErrorBoundary displayErrorMessage fallbackRender={getErrorDataRowComponent({ colspan: COLUMN_SPAN })}>
