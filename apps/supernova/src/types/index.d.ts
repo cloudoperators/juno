@@ -4,3 +4,13 @@
  */
 
 /// <reference types="vite/client" />
+
+declare module "@cloudoperators/juno-app-supernova" {
+  export type PluginModule = {
+    mount: (container: HTMLElement, options?: Record<string, any>) => void
+    unmount: () => void
+  }
+
+  export function mount(container: HTMLElement, options?: Record<string, any>): void
+  export function unmount(): void
+}

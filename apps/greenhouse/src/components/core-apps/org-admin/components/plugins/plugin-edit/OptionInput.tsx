@@ -21,9 +21,8 @@ export const OptionInput: React.FC<OptionInputProps> = (props: OptionInputProps)
   const [errortext, setErrorText] = useState<string>("")
 
   const handleJsonValidation = (value: string) => {
-    let object
     try {
-      object = JSON.parse(value)
+      JSON.parse(value)
     } catch (e) {
       setValid(false)
       setErrorText("Invalid JSON")

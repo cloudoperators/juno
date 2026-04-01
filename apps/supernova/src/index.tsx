@@ -5,6 +5,7 @@
 
 import { createRoot, Root } from "react-dom/client"
 import React from "react"
+import App from "./App"
 
 interface MountOptions {
   props?: Record<string, any>
@@ -14,10 +15,8 @@ let root: Root | null = null
 
 // export mount and unmount functions
 export const mount = (container: HTMLElement, options: MountOptions = {}) => {
-  import("./App").then((App) => {
-    root = createRoot(container)
-    root.render(React.createElement(App.default, options?.props))
-  })
+  root = createRoot(container)
+  root.render(React.createElement(App, options?.props))
 }
 
 export const unmount = () => {

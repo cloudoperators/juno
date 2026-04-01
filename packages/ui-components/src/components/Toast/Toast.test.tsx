@@ -91,7 +91,7 @@ describe("Toast", () => {
   })
 
   test("renders all props as passed", () => {
-    render(<Toast data-testid="my-toast" id="My shiny little Message" />)
-    expect(screen.getByTestId("my-toast")).toHaveAttribute("id", "My shiny little Message")
+    render(<Toast data-testid="my-toast" id="my-shiny-little-message" />)
+    expect(screen.getByTestId("my-toast")).toHaveAttribute("id", "my-shiny-little-message")
   })
 })

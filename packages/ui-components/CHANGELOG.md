@@ -1,5 +1,17 @@
 # @cloudoperators/juno-ui-components
 
+## 6.2.0
+
+### Minor Changes
+
+- 51dfc1c: Add `DescriptionList`, `DescriptionTerm` and `DescriptionDefinition` components and export them as `DL`, `DT`, `DD` shorthand.
+- dac772c: - Added `alignRight` prop to `DataGridToolbar` for flexible alignment control, allowing users to customize layout.
+  - Removed `search` prop, which is a BREAKING CHANGE. All elements should be passed as `children`.
+
+### Patch Changes
+
+- b7becbc: Resolves all CodeQL static analysis warnings to improve code quality, reliability, and maintainability. These fixes address potential bugs, redundant code, and anti-patterns detected by automated code scanning.
+
 ## 6.1.3
 
 ### Patch Changes

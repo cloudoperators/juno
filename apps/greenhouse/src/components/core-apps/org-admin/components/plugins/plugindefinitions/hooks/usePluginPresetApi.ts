@@ -17,7 +17,6 @@ export type PluginPresetApiResponse = {
 export const usePluginPresetApi = () => {
   const { get, create, update, deleteObject } = useApi()
   const namespace = useStore((state: any) => state.namespace)
-  const { client } = useClient()
 
   const getPluginPreset = (pluginPreset: PluginPreset): Promise<PluginPresetApiResponse> => {
     return get<PluginPreset>(

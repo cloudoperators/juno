@@ -4,7 +4,7 @@
  */
 
 import * as React from "react"
-import { renderHook, act, waitFor } from "@testing-library/react"
+import { renderHook, act } from "@testing-library/react"
 import { useMessages, useActions, MessagesProvider } from "./index"
 
 const originalConsoleError = global.console.error

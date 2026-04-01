@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-carbon",
-  "version": "1.0.34",
+  "version": "1.0.35",
   "author": "UI-Team",
   "type": "module",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/template",
@@ -49,7 +49,7 @@
     "@vitejs/plugin-react-swc": "3.11.0",
     "@vitest/ui": "4.1.0",
     "autoprefixer": "10.4.27",
-    "eslint": "10.0.3",
+    "eslint": "10.1.0",
     "eslint-config-prettier": "9.1.2",
     "eslint-plugin-prettier": "5.5.5",
     "eslint-plugin-react": "7.37.5",
@@ -61,7 +61,7 @@
     "typescript": "5.9.3",
     "vite": "7.3.1",
     "vite-plugin-svgr": "4.5.0",
-    "vite-tsconfig-paths": "5.1.4",
+    "vite-tsconfig-paths": "6.1.1",
     "vitest": "3.2.4"
   }
 }

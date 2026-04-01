@@ -6,16 +6,17 @@
 import React, { createContext, useContext } from "react"
 
 import { useStore as create } from "zustand"
-import createStore from "./lib/store"
+import createStoreFactory from "./lib/store"
 
-// @ts-expect-error TS(2554): Expected 1 arguments, but got 0.
-const StoreContext = createContext()
-const StoreProvider = ({ options, children }: any) => (
-  // @ts-expect-error TS(2554): Expected 0 arguments, but got 1.
-  <StoreContext.Provider value={createStore(options)}>{children}</StoreContext.Provider>
+const StoreContext = createContext<ReturnType<typeof createStoreFactory> | null>(null)
+const StoreProvider = ({ children }: any) => (
+  <StoreContext.Provider value={createStoreFactory()}>{children}</StoreContext.Provider>
 )
-// @ts-expect-error TS(2554): Expected 1 arguments, but got 0.
-const useAppStore = (selector: any) => create(useContext(StoreContext), selector)
+const useAppStore = (selector: any) => {
+  const store = useContext(StoreContext)
+  if (!store) throw new Error("useAppStore must be used within StoreProvider")
+  return create(store, selector)
+}
 
 export const useActivePlugin = () => useAppStore((state: any) => state.active)
 export const useActions = () => useAppStore((state: any) => state.actions)

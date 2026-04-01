@@ -23,7 +23,6 @@ import { useClusterApi } from "../hooks/useClusterApi"
 
 const ClusterEdit: React.FC<any> = () => {
   const clusterInEdit = useStore((state: any) => state.clusterInEdit)
-  clusterInEdit?.spec
   const setClusterInEdit = useStore((state: any) => state.setClusterInEdit)
 
   const [submitMessage, setSubmitResultMessage] = React.useState<ResultMessage>({ message: "", ok: false })

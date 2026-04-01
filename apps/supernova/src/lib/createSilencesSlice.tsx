@@ -163,14 +163,16 @@ const createSilencesSlice: (options?: Record<string, any>) => StateCreator<AppSt
 
         setSilences: ({ items }) => {
           if (!items) return
-          ;(set((state: any) => ({
-            silences: {
-              ...state.silences,
-              items: items,
-              updatedAt: Date.now(),
-            },
-          })),
-            false)
+          set(
+            (state: any) => ({
+              silences: {
+                ...state.silences,
+                items: items,
+                updatedAt: Date.now(),
+              },
+            }),
+            false
+          )
         },
 
         /* 
