@@ -376,11 +376,11 @@
   --background-color-theme-topnavigation-item-active: var(--color-topnavigation-item-active-bg);
 
   /* Component Background Images: */
-  --background-image-theme-message-default: var(--gradient-message-default-bg);
-  --background-image-theme-message-success: var(--gradient-message-success-bg);
-  --background-image-theme-message-warning: var(--gradient-message-warning-bg);
-  --background-image-theme-message-danger: var(--gradient-message-danger-bg);
-  --background-image-theme-message-error: var(--gradient-message-error-bg);
+  --background-color-theme-message-default: var(--color-message-default-bg);
+  --background-color-theme-message-success: var(--color-message-success-bg);
+  --background-color-theme-message-warning: var(--color-message-warning-bg);
+  --background-color-theme-message-danger: var(--color-message-danger-bg);
+  --background-color-theme-message-error: var(--color-message-error-bg);
 
   /* Component Text Colors: */
   --text-color-theme-highest: var(--color-text-highest);
@@ -603,15 +603,15 @@
 
   /* LT Message */
   --color-message-danger-border: var(--color-danger);
-  --gradient-message-danger-bg: linear-gradient(90deg, rgb(255, 231, 224) 0%, rgb(255, 180, 158) 100%);
+  --color-message-danger-bg: rgb(249, 229, 229);
   --color-message-default-border: var(--color-info);
-  --gradient-message-default-bg: linear-gradient(90deg, rgb(229, 244, 248) 0%, rgb(46, 168, 196) 100%);
+  --color-message-default-bg: rgb(229, 241, 250);
   --color-message-error-border: var(--color-error);
-  --gradient-message-error-bg: linear-gradient(90deg, rgb(255, 231, 224) 0%, rgb(255, 180, 158) 100%);
+  --color-message-error-bg: rgb(249, 229, 229);
   --color-message-warning-border: var(--color-warning);
-  --gradient-message-warning-bg: linear-gradient(90deg, rgb(253, 245, 226) 0%, rgb(255, 231, 147) 100%);
+  --color-message-warning-bg: rgb(255, 247, 229);
   --color-message-success-border: var(--color-success);
-  --gradient-message-success-bg: linear-gradient(90deg, rgb(230, 247, 233) 0%, rgb(170, 229, 180) 100%);
+  --color-message-success-bg: rgb(237, 248, 232);
 
   /* LT Introbox */
   --color-introbox-bg: var(--color-background-lvl-2);
@@ -853,15 +853,15 @@
 
   /* DT Message */
   --color-message-danger-border: var(--color-danger);
-  --gradient-message-danger-bg: linear-gradient(90deg, rgb(57, 39, 38) 0%, rgb(124, 48, 30) 100%);
+  --color-message-danger-bg: rgb(49, 27, 26);
   --color-message-default-border: var(--color-info);
-  --gradient-message-default-bg: linear-gradient(90deg, rgb(28, 57, 65) 0%, rgb(25, 108, 119) 100%);
+  --color-message-default-bg: rgb(14, 48, 57);
   --color-message-error-border: var(--color-error);
-  --gradient-message-error-bg: linear-gradient(90deg, rgb(57, 39, 38) 0%, rgb(124, 48, 30) 100%);
+  --color-message-error-bg: rgb(49, 27, 26);
   --color-message-warning-border: var(--color-warning);
-  --gradient-message-warning-bg: linear-gradient(90deg, rgb(57, 56, 36) 0%, rgb(124, 104, 24) 100%);
+  --color-message-warning-bg: rgb(49, 47, 24);
   --color-message-success-border: var(--color-success);
-  --gradient-message-success-bg: linear-gradient(90deg, rgb(32, 55, 46) 0%, rgb(39, 102, 57) 100%);
+  --color-message-success-bg: rgba(20, 48, 34);
   /* DT Introbox */
   --color-introbox-bg: var(--color-background-lvl-2);
   --color-introbox-border: var(--color-accent);

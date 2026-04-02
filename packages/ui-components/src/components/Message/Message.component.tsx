@@ -14,7 +14,11 @@ const messageBaseStyles = `
     jn:rounded
     jn:leading-5
     jn:overflow-hidden
-    jn:items-center
+    jn:items-top
+`
+const messageIconStyles = `
+    jn:mt-2
+	jn:mb-2 // In case without message title, to keep height consistent
 `
 
 const messageHeadingStyles = `
@@ -22,16 +26,17 @@ const messageHeadingStyles = `
 `
 
 const messageContentStyles = `
-    jn:py-3
+    jn:pt-2
+	jn:pb-2.5
     jn:pr-4
-    jn:ml-7
+    jn:ml-2.5
 `
 
 const messageBorderStyles = `
     jn:w-[4px]
     jn:self-stretch
     jn:border-l-4
-    jn:mr-6
+    jn:mr-2.5
     jn:shrink-0
 `
 
@@ -40,7 +45,7 @@ const dismissButtonStyles = `
     jn:self-stretch
     jn:flex
     jn:flex-col
-    jn:py-2.5
+    jn:py-2
     jn:pr-2.5
 `
 
@@ -257,7 +262,7 @@ export const Message = ({
       {...props}
     >
       <div className={`juno-message-border ${messageBorderStyles} ${variantStyle}`}></div>
-      <Icon icon={iconToRender} className={`${getIconStyles(variant)}`} />
+      <Icon icon={iconToRender} size={21} className={`${getIconStyles(variant)} ${messageIconStyles}`} />
       <div className={`juno-message-content ${messageContentStyles}`}>
         {title && <h1 className={messageHeadingStyles}>{title}</h1>}
         <div>{children || text}</div>
