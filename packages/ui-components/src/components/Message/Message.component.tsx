@@ -14,7 +14,7 @@ const messageBaseStyles = `
     jn:rounded
     jn:leading-5
     jn:overflow-hidden
-    jn:items-top
+    jn:items-start
 `
 const messageIconStyles = `
     jn:mt-2
