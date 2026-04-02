@@ -1,5 +1,12 @@
 # @cloudoperators/juno-ui-components
 
+## 6.2.1
+
+### Patch Changes
+
+- 078d641: upgrades background colors and spacing in message component
+- b4bc2c2: Fix high vulnerabilities related to transitive dependencies `picomatch` by upgrading root project dependencies and where not possible, locking `picomatch` at versions without vulnerabilities.
+
 ## 6.2.0
 
 ### Minor Changes
