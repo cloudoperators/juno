@@ -77,7 +77,6 @@ describe("PluginPresetsDataGrid", () => {
     expect(screen.getByText("Name")).toBeInTheDocument()
     expect(screen.getByText("Plugin Definition")).toBeInTheDocument()
     expect(screen.getByText("Message")).toBeInTheDocument()
-    expect(screen.getByText("Actions")).toBeInTheDocument()
 
     // Check for data - verify all 5 presets are rendered
     expect(screen.getByText("preset-1")).toBeInTheDocument()

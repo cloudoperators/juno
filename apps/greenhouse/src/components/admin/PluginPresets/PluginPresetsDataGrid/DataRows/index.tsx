@@ -4,7 +4,14 @@
  */
 
 import React from "react"
-import { DataGridRow, DataGridCell, Button, Icon } from "@cloudoperators/juno-ui-components"
+import {
+  DataGridRow,
+  DataGridCell,
+  Icon,
+  PopupMenu,
+  PopupMenuOptions,
+  PopupMenuItem,
+} from "@cloudoperators/juno-ui-components"
 import { useSuspenseQuery } from "@tanstack/react-query"
 import { useRouteContext, useSearch, useNavigate } from "@tanstack/react-router"
 import { fetchPluginPresets, FETCH_PLUGIN_PRESETS_CACHE_KEY } from "../../../api/plugin-presets/fetchPluginPresets"
@@ -61,9 +68,11 @@ export const DataRows = ({ colSpan }: DataRowsProps) => {
           <DataGridCell>{!isReady(preset) ? getReadyCondition(preset)?.message : ""}</DataGridCell>
           <DataGridCell>{preset.metadata?.labels?.[SUPPORT_GROUP_LABEL]}</DataGridCell>
           <DataGridCell nowrap>
-            <Button size="small" variant="primary" className="w-fit">
-              View details
-            </Button>
+            <PopupMenu onClick={(e) => e.stopPropagation()}>
+              <PopupMenuOptions>
+                <PopupMenuItem label="View Details" onClick={() => handleRowClick(preset.metadata?.name || "")} />
+              </PopupMenuOptions>
+            </PopupMenu>
           </DataGridCell>
         </DataGridRow>
       ))}

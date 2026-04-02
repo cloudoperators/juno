@@ -6,37 +6,31 @@
 import React, { useCallback } from "react"
 import { useParams, useRouteContext } from "@tanstack/react-router"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import {
-  Container,
-  Tabs,
-  TabList,
-  Tab,
-  TabPanel,
-  Stack,
-  Badge,
-  ContentHeading,
-} from "@cloudoperators/juno-ui-components"
+import { Container, Tabs, TabList, Tab, TabPanel, Stack, ContentHeading } from "@cloudoperators/juno-ui-components"
 import { fetchPlugin, FETCH_PLUGIN_CACHE_KEY } from "../api/plugins/fetchPlugin"
 import { Overview } from "./Overview"
+import { Configuration } from "./Overview/Configuration"
 import { Plugin } from "../types/k8sTypes"
 import { ErrorMessage } from "../common/ErrorBoundary/ErrorMessage"
 import YamlViewer from "../common/YamlViewer"
 import { ReconcileButton } from "../common/ReconcileButton"
-
-const isPluginReady = (plugin: Plugin) => {
-  return plugin.status?.statusConditions?.conditions?.some((c) => c.type === "Ready" && c.status === "True")
-}
 
 const PluginInstanceDetailContent = ({ plugin }: { plugin: Plugin }) => (
   <>
     <Tabs>
       <TabList>
         <Tab label="Overview" />
+        <Tab label="Configuration" />
         <Tab label="YAML" />
       </TabList>
       <TabPanel>
         <Container px={false} py>
           <Overview plugin={plugin} />
+        </Container>
+      </TabPanel>
+      <TabPanel>
+        <Container px={false} py>
+          <Configuration plugin={plugin} />
         </Container>
       </TabPanel>
       <TabPanel>
@@ -76,13 +70,6 @@ export const PluginInstanceDetail = () => {
       <Stack direction="horizontal" distribution="between">
         <Stack gap="2" alignment="center">
           <ContentHeading className="pb-0">{pluginInstance}</ContentHeading>
-          {plugin && (
-            <Badge
-              icon
-              text={isPluginReady(plugin) ? "Ready" : "Failing"}
-              variant={isPluginReady(plugin) ? "success" : "error"}
-            />
-          )}
         </Stack>
         <ReconcileButton
           resourceType="plugins"
