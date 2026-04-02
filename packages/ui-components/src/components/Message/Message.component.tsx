@@ -18,7 +18,7 @@ const messageBaseStyles = `
 `
 const messageIconStyles = `
     jn:mt-2
-	jn:mb-2 // In case without message title, to keep height consistent
+	jn:mb-2
 `
 
 const messageHeadingStyles = `
