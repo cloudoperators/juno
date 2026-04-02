@@ -12,16 +12,18 @@ export const ErrorBoundary = ({
   displayErrorMessage,
   fallbackRender,
   resetKeys,
+  className,
 }: {
   children: ReactNode
   displayErrorMessage?: boolean
   fallbackRender?: (props: FallbackProps) => ReactNode
   resetKeys?: any
+  className?: string
 }) => (
   <ReactErrorBoundary
     resetKeys={resetKeys}
     fallbackRender={!!displayErrorMessage ? fallbackRender || ErrorMessage : () => null}
   >
-    {children}
+    {className ? <div className={className}>{children}</div> : children}
   </ReactErrorBoundary>
 )

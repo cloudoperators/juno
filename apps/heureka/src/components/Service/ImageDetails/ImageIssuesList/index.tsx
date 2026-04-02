@@ -19,6 +19,7 @@ import {
   Message,
 } from "@cloudoperators/juno-ui-components"
 import { getNormalizedImageVulnerabilitiesResponse, ServiceImage } from "../../../Services/utils"
+import { useTimedState } from "../../../../utils"
 import type { VulnerabilityFilter } from "../../../../generated/graphql"
 import { fetchImages } from "../../../../api/fetchImages"
 import { fetchRemediations } from "../../../../api/fetchRemediations"
@@ -45,6 +46,7 @@ const VulnerabilitiesTabContent = ({
   setSearchTerm,
   setPageCursor,
   issuesPromise,
+  remediationsPromise,
   successMessage,
   onFalsePositiveSuccess,
 }: {
@@ -53,6 +55,7 @@ const VulnerabilitiesTabContent = ({
   setSearchTerm: (term: string | undefined) => void
   setPageCursor: (cursor: string | null | undefined) => void
   issuesPromise: ReturnType<typeof fetchImages>
+  remediationsPromise: ReturnType<typeof fetchRemediations>
   successMessage: string | null
   onFalsePositiveSuccess: (cveNumber: string) => void | Promise<void>
 }) => {
@@ -81,18 +84,19 @@ const VulnerabilitiesTabContent = ({
           <DataGridHeadCell>Vulnerability</DataGridHeadCell>
           <DataGridHeadCell>Target Date</DataGridHeadCell>
           <DataGridHeadCell>Description</DataGridHeadCell>
-          <DataGridHeadCell>Actions</DataGridHeadCell>
+          <DataGridHeadCell />
         </DataGridRow>
 
         {issuesPromise && (
           <ErrorBoundary
             displayErrorMessage
             fallbackRender={getErrorDataRowComponent({ colspan: 5 })}
-            resetKeys={[issuesPromise]}
+            resetKeys={[issuesPromise, remediationsPromise]}
           >
             <Suspense fallback={<LoadingDataRow colSpan={5} />}>
               <IssuesDataRows
                 issuesPromise={issuesPromise}
+                remediationsPromise={remediationsPromise}
                 service={service}
                 image={image.repository}
                 onFalsePositiveSuccess={onFalsePositiveSuccess}
@@ -126,6 +130,7 @@ const RemediatedVulnerabilitiesTabContent = ({
   onDataRefresh,
   selectedVulnerability,
   onSelectVulnerability,
+  refreshKey,
 }: {
   service: string
   image: string
@@ -133,9 +138,10 @@ const RemediatedVulnerabilitiesTabContent = ({
   issuesPromise: ReturnType<typeof fetchImages>
   remediationsPromise: ReturnType<typeof fetchRemediations>
   setPageCursor: (cursor: string | null | undefined) => void
-  onDataRefresh?: (vulnerability: string) => void | Promise<void>
+  onDataRefresh?: () => void | Promise<void>
   selectedVulnerability: string | null
   onSelectVulnerability: (cve: string | null) => void
+  refreshKey: number
 }) => {
   return (
     <>
@@ -193,12 +199,11 @@ const RemediatedVulnerabilitiesTabContent = ({
         vulnerability={selectedVulnerability}
         onClose={() => onSelectVulnerability(null)}
         onRevertSuccess={onDataRefresh}
+        refreshKey={refreshKey}
       />
     </>
   )
 }
-
-const SUCCESS_MESSAGE_DURATION_MS = 5000
 
 export const ImageIssuesList = ({
   service,
@@ -236,61 +241,59 @@ export const ImageIssuesList = ({
     },
     [navigate, service, image.repository]
   )
-  const [vulnerabilitiesSuccessMessage, setVulnerabilitiesSuccessMessage] = useState<string | null>(null)
-  const [, setRefreshKey] = useState(0)
+  const [vulnerabilitiesSuccessMessage, setVulnerabilitiesSuccessMessage] = useTimedState<string>(10000)
+  const [refreshKey, setRefreshKey] = useState(0)
 
-  const refreshIssuesData = useCallback(
-    async (vulnerability: string) => {
-      const matchesCurrentServiceAndImage = (
-        filter: { service?: string[]; image?: string[]; repository?: string[]; vulnerability?: string[] } | undefined
-      ) =>
-        Array.isArray(filter?.service) &&
-        filter.service.includes(service) &&
-        ((Array.isArray(filter?.image) && filter.image.includes(image.repository)) ||
-          (Array.isArray(filter?.repository) && filter.repository.includes(image.repository)))
+  const refreshIssuesData = useCallback(async () => {
+    const matchesCurrentServiceAndImage = (
+      filter: { service?: string[]; image?: string[]; repository?: string[]; vulnerability?: string[] } | undefined
+    ) =>
+      Array.isArray(filter?.service) &&
+      filter.service.includes(service) &&
+      ((Array.isArray(filter?.image) && filter.image.includes(image.repository)) ||
+        (Array.isArray(filter?.repository) && filter.repository.includes(image.repository)))
 
-      await queryClient.refetchQueries({
-        type: "all",
-        predicate: (query) => {
-          const [key, filter] = query.queryKey as [
-            string,
-            { service?: string[]; image?: string[]; repository?: string[]; vulnerability?: string[] } | undefined,
-          ]
-          return (
-            key === "remediations" &&
-            matchesCurrentServiceAndImage(filter) &&
-            Array.isArray(filter?.vulnerability) &&
-            filter.vulnerability.includes(vulnerability)
-          )
-        },
-      })
+    // Refetch all remediations for the current service+image.
+    // This covers both the broad split query (service+image) and the per-CVE panel query.
+    // The remediations data is the source of truth for which tab a vulnerability appears in:
+    // after mark FP the new record is fetched here and the CVE moves to the Remediated tab immediately,
+    // after revert the deleted record is gone and the CVE moves back to Active immediately —
+    // without waiting for the backend to update the vulnerability status.
+    await queryClient.refetchQueries({
+      type: "all",
+      predicate: (query) => {
+        const [key, filter] = query.queryKey as [
+          string,
+          { service?: string[]; image?: string[]; repository?: string[]; vulnerability?: string[] } | undefined,
+        ]
+        return key === "remediations" && matchesCurrentServiceAndImage(filter)
+      },
+    })
 
-      await queryClient.refetchQueries({
-        type: "all",
-        predicate: (query) => {
-          const [key, filter] = query.queryKey as [
-            string,
-            { service?: string[]; image?: string[]; repository?: string[]; vulnerability?: string[] } | undefined,
-          ]
-          return key === "images" && matchesCurrentServiceAndImage(filter)
-        },
-      })
+    // Refetch images to keep counts and pagination in sync.
+    await queryClient.refetchQueries({
+      type: "all",
+      predicate: (query) => {
+        const [key, filter] = query.queryKey as [
+          string,
+          { service?: string[]; image?: string[]; repository?: string[]; vulnerability?: string[] } | undefined,
+        ]
+        return key === "images" && matchesCurrentServiceAndImage(filter)
+      },
+    })
 
-      setRefreshKey((k) => k + 1)
-    },
-    [queryClient, service, image.repository]
-  )
+    setRefreshKey((k) => k + 1)
+  }, [queryClient, service, image.repository])
 
-  const openVulFilter = {
-    status: "open",
-    ...(searchTerm ? { search: [searchTerm] } : {}),
-  }
-  const remediatedVulFilter = {
-    status: "remediated",
-    ...(remediatedSearchTerm ? { search: [remediatedSearchTerm] } : {}),
-  }
+  // No status filter — remediations are the sole source of truth for which tab a CVE belongs to.
+  // Active tab shows CVEs without a remediation record; Remediated tab shows CVEs with one.
+  // This makes mark-FP and revert reflect immediately without waiting for backend status updates.
+  const activeVulFilter: VulnerabilityFilter | undefined = searchTerm ? { search: [searchTerm] } : undefined
+  const remediatedVulFilter: VulnerabilityFilter | undefined = remediatedSearchTerm
+    ? { search: [remediatedSearchTerm] }
+    : undefined
 
-  const issuesPromise = fetchImages({
+  const activeIssuesPromise = fetchImages({
     apiClient,
     queryClient,
     filter: {
@@ -299,7 +302,7 @@ export const ImageIssuesList = ({
     },
     firstVulnerabilities: 20,
     afterVulnerabilities: pageCursor,
-    vulFilter: openVulFilter as VulnerabilityFilter,
+    vulFilter: activeVulFilter,
   })
 
   const remediatedIssuesPromise = fetchImages({
@@ -311,7 +314,7 @@ export const ImageIssuesList = ({
     },
     firstVulnerabilities: 20,
     afterVulnerabilities: remediatedPageCursor,
-    vulFilter: remediatedVulFilter as VulnerabilityFilter,
+    vulFilter: remediatedVulFilter,
   })
 
   useEffect(() => {
@@ -327,50 +330,14 @@ export const ImageIssuesList = ({
     },
   })
 
-  useEffect(() => {
-    if (!vulnerabilitiesSuccessMessage) return
-    const timer = setTimeout(() => setVulnerabilitiesSuccessMessage(null), SUCCESS_MESSAGE_DURATION_MS)
-    return () => clearTimeout(timer)
-  }, [vulnerabilitiesSuccessMessage])
-
-  const VulnerabilitiesTab = () => {
-    const handleFalsePositiveSuccess = useCallback(
-      async (cveNumber: string) => {
-        await refreshIssuesData(cveNumber)
-        const text = `Vulnerability ${cveNumber} marked as false positive successfully.`
-        setVulnerabilitiesSuccessMessage(text)
-      },
-      [refreshIssuesData]
-    )
-
-    return (
-      <VulnerabilitiesTabContent
-        service={service}
-        image={image}
-        setSearchTerm={setSearchTerm}
-        setPageCursor={setPageCursor}
-        issuesPromise={issuesPromise}
-        successMessage={vulnerabilitiesSuccessMessage}
-        onFalsePositiveSuccess={handleFalsePositiveSuccess}
-      />
-    )
-  }
-
-  const RemediatedVulnerabilitiesTab = () => {
-    return (
-      <RemediatedVulnerabilitiesTabContent
-        service={service}
-        image={image.repository}
-        setSearchTerm={setRemediatedSearchTerm}
-        issuesPromise={remediatedIssuesPromise}
-        remediationsPromise={remediationsPromise}
-        setPageCursor={setRemediatedPageCursor}
-        onDataRefresh={refreshIssuesData}
-        selectedVulnerability={vulRemediations ?? null}
-        onSelectVulnerability={handleRemediationPanelVulnerabilityChange}
-      />
-    )
-  }
+  const handleFalsePositiveSuccess = useCallback(
+    async (cveNumber: string) => {
+      const text = `Vulnerability ${cveNumber} has been marked as a false positive and moved to the Remediated list.`
+      setVulnerabilitiesSuccessMessage(text)
+      await refreshIssuesData()
+    },
+    [refreshIssuesData]
+  )
 
   return (
     <>
@@ -380,10 +347,30 @@ export const ImageIssuesList = ({
           <Tab label="Remediated Vulnerabilities" />
         </TabList>
         <TabPanel>
-          <VulnerabilitiesTab />
+          <VulnerabilitiesTabContent
+            service={service}
+            image={image}
+            setSearchTerm={setSearchTerm}
+            setPageCursor={setPageCursor}
+            issuesPromise={activeIssuesPromise}
+            remediationsPromise={remediationsPromise}
+            successMessage={vulnerabilitiesSuccessMessage}
+            onFalsePositiveSuccess={handleFalsePositiveSuccess}
+          />
         </TabPanel>
         <TabPanel>
-          <RemediatedVulnerabilitiesTab />
+          <RemediatedVulnerabilitiesTabContent
+            service={service}
+            image={image.repository}
+            setSearchTerm={setRemediatedSearchTerm}
+            issuesPromise={remediatedIssuesPromise}
+            remediationsPromise={remediationsPromise}
+            setPageCursor={setRemediatedPageCursor}
+            onDataRefresh={refreshIssuesData}
+            selectedVulnerability={vulRemediations ?? null}
+            onSelectVulnerability={handleRemediationPanelVulnerabilityChange}
+            refreshKey={refreshKey}
+          />
         </TabPanel>
       </Tabs>
     </>

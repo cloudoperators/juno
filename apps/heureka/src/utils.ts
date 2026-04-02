@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, Dispatch, SetStateAction } from "react"
 import { KnownIcons } from "@cloudoperators/juno-ui-components"
 
 export const capitalizeFirstLetter = (str: string): string => {
@@ -120,6 +120,34 @@ export function filterSearchParamsByPrefix(
     }
   }
   return result
+}
+
+/**
+ * Like useState, but automatically clears the value to null after `duration` ms.
+ * An optional `shouldExpire` predicate controls which values auto-clear (defaults to all non-null values).
+ */
+export function useTimedState<T>(
+  duration: number,
+  shouldExpire?: (value: T) => boolean
+): [T | null, Dispatch<SetStateAction<T | null>>] {
+  const [value, setValue] = useState<T | null>(null)
+  const shouldExpireRef = useRef<typeof shouldExpire>(undefined)
+
+  // Keep the ref updated with the latest predicate without tying the timer effect
+  // to the predicate's identity (which may change across renders).
+  useEffect(() => {
+    shouldExpireRef.current = shouldExpire
+  }, [shouldExpire])
+
+  useEffect(() => {
+    if (value === null) return
+    const predicate = shouldExpireRef.current
+    if (predicate && !predicate(value)) return
+    const timer = setTimeout(() => setValue(null), duration)
+    return () => clearTimeout(timer)
+  }, [value, duration])
+
+  return [value, setValue]
 }
 
 /**
