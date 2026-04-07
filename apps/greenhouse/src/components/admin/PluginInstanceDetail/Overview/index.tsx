@@ -5,9 +5,8 @@
 
 import React from "react"
 import { Container } from "@cloudoperators/juno-ui-components"
-import { BasicInformation } from "./BasicInformation"
+import { Details } from "./Details"
 import { Conditions } from "./Conditions"
-import { Configuration } from "./Configuration"
 import { ExposedServices } from "./ExposedServices"
 import { Plugin } from "../../types/k8sTypes"
 
@@ -23,13 +22,10 @@ export const Overview = ({ plugin }: { plugin: Plugin }) => (
       <Conditions plugin={plugin} />
     </Section>
     <Section className="flex">
-      <BasicInformation plugin={plugin} />
+      <Details plugin={plugin} />
     </Section>
     <Section>
       <ExposedServices plugin={plugin} />
-    </Section>
-    <Section>
-      <Configuration plugin={plugin} />
     </Section>
   </>
 )

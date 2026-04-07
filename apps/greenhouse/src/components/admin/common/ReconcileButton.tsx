@@ -41,6 +41,12 @@ export const ReconcileButton: React.FC<ReconcileButtonProps> = ({
         },
       }),
     onSuccess: () => {
+      addMessage({
+        variant: "success",
+        text: `Successfully marked for reconciliation`,
+        autoDismiss: true,
+        autoDismissTimeout: 3000,
+      })
       onReconcile?.()
     },
     onError: (error) => {
