@@ -1,5 +1,11 @@
 # @cloudoperators/juno-oauth
 
+## 1.4.10
+
+### Patch Changes
+
+- f69e63e: fix: address CVE-2026-39363 vulnerability in vite
+
 ## 1.4.9
 
 ### Patch Changes

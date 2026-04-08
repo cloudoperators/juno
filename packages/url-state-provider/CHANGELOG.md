@@ -1,5 +1,11 @@
 # @cloudoperators/juno-url-state-provider
 
+## 3.0.8
+
+### Patch Changes
+
+- f69e63e: fix: address CVE-2026-39363 vulnerability in vite
+
 ## 3.0.7
 
 ### Patch Changes

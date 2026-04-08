@@ -1,5 +1,11 @@
 # @cloudoperators/juno-communicator
 
+## 2.2.24
+
+### Patch Changes
+
+- f69e63e: fix: address CVE-2026-39363 vulnerability in vite
+
 ## 2.2.23
 
 ### Patch Changes
