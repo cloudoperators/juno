@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-communicator",
-  "version": "2.2.23",
+  "version": "2.2.24",
   "description": "Send and receive across tabs",
   "author": "UI-Team",
   "type": "module",
@@ -31,10 +31,10 @@
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
-    "@types/node": "24.10.15",
+    "@types/node": "24.12.0",
     "jsdom": "26.1.0",
     "typescript": "5.9.3",
-    "vite": "7.3.1",
+    "vite": "7.3.2",
     "vite-plugin-dts": "4.5.4",
     "vitest": "3.2.4"
   }

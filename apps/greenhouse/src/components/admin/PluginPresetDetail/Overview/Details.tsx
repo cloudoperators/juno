@@ -15,13 +15,13 @@ import {
 } from "@cloudoperators/juno-ui-components"
 import { PluginPreset } from "../../types/k8sTypes"
 
-interface BasicInformationProps {
+interface DetailsProps {
   pluginPreset: PluginPreset
 }
 
-export const BasicInformation: React.FC<BasicInformationProps> = ({ pluginPreset }) => (
+export const Details: React.FC<DetailsProps> = ({ pluginPreset }) => (
   <Stack gap="4" direction="vertical" className="flex-1">
-    <ContentHeading>Basic Information</ContentHeading>
+    <ContentHeading>Details</ContentHeading>
     <DataGrid columns={2} minContentColumns={[0]}>
       <DataGridRow>
         <DataGridHeadCell nowrap>Name</DataGridHeadCell>
@@ -32,8 +32,16 @@ export const BasicInformation: React.FC<BasicInformationProps> = ({ pluginPreset
         <DataGridCell>{pluginPreset.spec?.plugin?.pluginDefinitionRef?.name}</DataGridCell>
       </DataGridRow>
       <DataGridRow>
+        <DataGridHeadCell nowrap>Release Name</DataGridHeadCell>
+        <DataGridCell>{pluginPreset.spec?.plugin?.releaseName ?? "--"}</DataGridCell>
+      </DataGridRow>
+      <DataGridRow>
+        <DataGridHeadCell nowrap>Release Namespace</DataGridHeadCell>
+        <DataGridCell>{pluginPreset.spec?.plugin?.releaseNamespace ?? "--"}</DataGridCell>
+      </DataGridRow>
+      <DataGridRow>
         <DataGridHeadCell nowrap>Owning Team</DataGridHeadCell>
-        <DataGridCell>{pluginPreset.metadata?.labels?.["greenhouse.sap/owned-by"]}</DataGridCell>
+        <DataGridCell>{pluginPreset.metadata?.labels?.["greenhouse.sap/owned-by"] ?? "--"}</DataGridCell>
       </DataGridRow>
       {pluginPreset.metadata?.labels && Object.keys(pluginPreset.metadata.labels).length > 0 && (
         <DataGridRow>

@@ -9,7 +9,7 @@ import { TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-compon
 
 export const navigationItems = [
   {
-    label: "Plugin Presets",
+    label: "PluginPresets",
     value: "/admin/plugin-presets",
   },
   {
