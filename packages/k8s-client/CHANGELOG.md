@@ -1,5 +1,11 @@
 # @cloudoperators/juno-k8s-client
 
+## 1.1.3
+
+### Patch Changes
+
+- f69e63e: fix: address CVE-2026-39363 vulnerability in vite
+
 ## 1.1.2
 
 ### Patch Changes
