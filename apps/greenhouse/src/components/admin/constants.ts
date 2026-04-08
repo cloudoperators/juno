@@ -10,4 +10,5 @@ export const SUPPORT_GROUP_LABEL = "greenhouse.sap/owned-by"
 export const FILTER_IDS = {
   PLUGIN_PRESET_DEFINITION: "pluginPresetDefinition",
   SUPPORT_GROUP: "supportGroup",
+  CLUSTER: "cluster",
 } as const
