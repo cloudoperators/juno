@@ -15,7 +15,7 @@ import {
   Message,
 } from "@cloudoperators/juno-ui-components"
 import { RemediationInput, RemediationTypeValues, SeverityValues } from "../../../../generated/graphql"
-import { useAuthUserId } from "../../../../App"
+import { useAuth } from "@cloudoperators/greenhouse-auth-provider"
 
 type FalsePositiveModalProps = {
   open: boolean
@@ -52,7 +52,8 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
   errorMessage,
   onSetError,
 }) => {
-  const authUserId = useAuthUserId()
+  const auth = useAuth()
+  const authUserId = auth.status === "authenticated" ? auth.userId : null
   const [description, setDescription] = useState<string>("")
   const [manualUserId, setManualUserId] = useState<string>("")
   const [expirationDate, setExpirationDate] = useState<Date | null>(null)

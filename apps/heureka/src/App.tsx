@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { createContext, StrictMode, useContext, useMemo } from "react"
+import React, { StrictMode, useMemo } from "react"
 import { ApolloProvider } from "@apollo/client/react"
 import { createRouter, RouterProvider, createHashHistory, createBrowserHistory } from "@tanstack/react-router"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
@@ -15,16 +15,6 @@ import { getClient } from "./apollo-client"
 import { routeTree } from "./routeTree.gen"
 import { StoreProvider } from "./store/StoreProvider"
 import { AuthProvider, EmbeddedAuth, type AuthState } from "@cloudoperators/greenhouse-auth-provider"
-
-/**
- * Auth user ID for the current user when embedded and authenticated; null otherwise.
- * Derived from auth.getSnapshot() at App render time — intentionally NOT using useAuth()
- * because greenhouse-auth-provider bundles its own React, so calling useAuth() from within
- * the app's React tree hits a different React dispatcher and throws an invalid hook error.
- * The shell remounts this plugin on auth change, so getSnapshot() is always fresh at mount.
- */
-export const AuthUserIdContext = createContext<string | null>(null)
-export const useAuthUserId = () => useContext(AuthUserIdContext)
 
 export type InitialFilters = {
   support_group?: string[]
@@ -73,12 +63,6 @@ const App = (props: AppProps) => {
   })
 
   const authForProvider = useMemo(() => toEmbeddedAuth(props.auth), [props.auth])
-
-  const authUserId = useMemo(() => {
-    if (!props.embedded || !authForProvider) return null
-    const state = authForProvider.getSnapshot()
-    return state.status === "authenticated" ? state.userId : null
-  }, [props.embedded, authForProvider])
 
   const authProviderProps =
     props.embedded && authForProvider
@@ -130,11 +114,9 @@ const App = (props: AppProps) => {
               <ErrorBoundary>
                 <StrictMode>
                   <AuthProvider {...authProviderProps}>
-                    <AuthUserIdContext.Provider value={authUserId}>
-                      <StoreProvider>
-                        <RouterProvider basepath={props.basePath || "/"} router={router} />
-                      </StoreProvider>
-                    </AuthUserIdContext.Provider>
+                    <StoreProvider>
+                      <RouterProvider basepath={props.basePath || "/"} router={router} />
+                    </StoreProvider>
                   </AuthProvider>
                 </StrictMode>
               </ErrorBoundary>
