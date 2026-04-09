@@ -7,9 +7,12 @@ import React, { Suspense } from "react"
 import { act, render, screen } from "@testing-library/react"
 import { ObservableQuery } from "@apollo/client"
 import { createMemoryHistory, createRootRoute, createRoute, Outlet, RouterProvider } from "@tanstack/react-router"
+import { AuthProvider } from "@cloudoperators/greenhouse-auth-provider"
 import { IssuesDataRows } from "./index"
 import { GetImagesQuery, GetRemediationsQuery } from "../../../../../generated/graphql"
 import { getTestRouter } from "../../../../../mocks/getTestRouter"
+
+const mockAuth = { getSnapshot: () => ({ status: "anonymous" as const }) }
 
 // --------------------------------------------------------------------------
 // Helpers
@@ -128,7 +131,11 @@ function renderWithRouter(
     routeTree,
     history: createMemoryHistory({ initialEntries: ["/services/my-service"] }),
   })
-  return render(<RouterProvider router={router} />)
+  return render(
+    <AuthProvider embedded auth={mockAuth}>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  )
 }
 
 // --------------------------------------------------------------------------
