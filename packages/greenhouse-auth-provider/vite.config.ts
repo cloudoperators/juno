@@ -4,6 +4,7 @@
  */
 
 import dts from "vite-plugin-dts"
+import { peerDependencies } from "./package.json"
 
 export default {
   build: {
@@ -12,6 +13,9 @@ export default {
       name: "greenhouse-auth-provider", // Replace with your library's global name
       formats: ["es"], // Output formats: ESM and CommonJS
       fileName: () => `index.js`, // Output file names
+    },
+    rollupOptions: {
+      external: Object.keys(peerDependencies), // Prevent peer deps from being bundled
     },
     outDir: "build",
   },

@@ -11,8 +11,9 @@ import {
   PopupMenu,
   PopupMenuOptions,
   PopupMenuItem,
+  Spinner,
+  Icon,
 } from "@cloudoperators/juno-ui-components"
-import { Icon } from "@cloudoperators/juno-ui-components"
 import { IssueIcon } from "../../../../../common/IssueIcon"
 import { IssueTimestamp } from "../../../../../common/IssueTimestamp"
 import { ImageVulnerability } from "../../../../../Services/utils"
@@ -50,6 +51,7 @@ export const IssuesDataRow = ({
 }: IssuesDataRowProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [createError, setCreateError] = useState<string | null>(null)
   const { needsExpansion, textRef } = useTextOverflow(issue?.description || "")
   const { apiClient } = useRouteContext({ from: "/services/$service" })
@@ -67,15 +69,20 @@ export const IssuesDataRow = ({
     setIsModalOpen(true)
   }
 
-  const handleModalConfirm = async (input: RemediationInput) => {
+  const handleModalConfirm = async (input: RemediationInput): Promise<{ error: string } | void> => {
     setCreateError(null)
+    setIsModalOpen(false)
+    setIsSubmitting(true)
     try {
       await createRemediation({ apiClient, input })
       const cveNumber = issue?.name || "unknown"
-      await onFalsePositiveSuccess?.(cveNumber)
-      setIsModalOpen(false)
+      // Fire refresh in the background so the spinner clears immediately after createRemediation.
+      Promise.resolve(onFalsePositiveSuccess?.(cveNumber)).catch(() => {})
     } catch (error) {
-      setCreateError(error instanceof Error ? error.message : "Failed to create remediation")
+      setIsModalOpen(true)
+      return { error: error instanceof Error ? error.message : "Failed to create remediation" }
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -126,11 +133,15 @@ export const IssuesDataRow = ({
         </DataGridCell>
         {showFalsePositiveAction && (
           <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
-            <PopupMenu icon="moreVert" className="whitespace-nowrap">
-              <PopupMenuOptions>
-                <PopupMenuItem label="Mark False Positive" onClick={handleFalsePositiveClick} />
-              </PopupMenuOptions>
-            </PopupMenu>
+            {isSubmitting ? (
+              <Spinner variant="primary" size="small" className="ml-auto" />
+            ) : (
+              <PopupMenu icon="moreVert" className="whitespace-nowrap ml-auto">
+                <PopupMenuOptions>
+                  <PopupMenuItem label="Mark False Positive" onClick={handleFalsePositiveClick} />
+                </PopupMenuOptions>
+              </PopupMenu>
+            )}
           </DataGridCell>
         )}
       </DataGridRow>
