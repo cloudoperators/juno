@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { StrictMode, useMemo } from "react"
+import React, { StrictMode } from "react"
 import { ApolloProvider } from "@apollo/client/react"
 import { createRouter, RouterProvider, createHashHistory, createBrowserHistory } from "@tanstack/react-router"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
@@ -14,7 +14,7 @@ import { ErrorBoundary } from "./components/common/ErrorBoundary"
 import { getClient } from "./apollo-client"
 import { routeTree } from "./routeTree.gen"
 import { StoreProvider } from "./store/StoreProvider"
-import { AuthProvider, EmbeddedAuth, type AuthState } from "@cloudoperators/greenhouse-auth-provider"
+import { AuthProvider, type AuthState, type EmbeddedAuth } from "@cloudoperators/greenhouse-auth-provider"
 
 export type InitialFilters = {
   support_group?: string[]
@@ -50,24 +50,10 @@ declare module "@tanstack/react-router" {
   }
 }
 
-/** Normalize auth so AuthProvider always receives EmbeddedAuth (with getSnapshot). Plain objects from appProps.json are wrapped. */
-function toEmbeddedAuth(auth: AppProps["auth"]): EmbeddedAuth | undefined {
-  if (!auth) return undefined
-  if (typeof (auth as EmbeddedAuth).getSnapshot === "function") return auth as EmbeddedAuth
-  return { getSnapshot: () => auth as AuthState }
-}
-
 const App = (props: AppProps) => {
   const apiClient = getClient({
     uri: props.apiEndpoint,
   })
-
-  const authForProvider = useMemo(() => toEmbeddedAuth(props.auth), [props.auth])
-
-  const authProviderProps =
-    props.embedded && authForProvider
-      ? ({ embedded: true as const, auth: authForProvider } as const)
-      : ({ embedded: false as const } as const)
 
   /*
    * Dynamically change the type of history on the router
@@ -113,7 +99,13 @@ const App = (props: AppProps) => {
             <AppShell embedded={props.embedded} pageHeader={<PageHeader applicationName="Heureka" />}>
               <ErrorBoundary>
                 <StrictMode>
-                  <AuthProvider {...authProviderProps}>
+                  <AuthProvider
+                    embedded={props.embedded && !!props.auth}
+                    auth={
+                      props.auth &&
+                      ("getSnapshot" in props.auth ? props.auth : { getSnapshot: () => props.auth as AuthState })
+                    }
+                  >
                     <StoreProvider>
                       <RouterProvider basepath={props.basePath || "/"} router={router} />
                     </StoreProvider>
