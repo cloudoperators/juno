@@ -19,7 +19,8 @@ import { AuthProvider, EmbeddedAuth, type AuthState } from "@cloudoperators/gree
 /**
  * Auth user ID for the current user when embedded and authenticated; null otherwise.
  * Derived from auth.getSnapshot() at App render time — intentionally NOT using useAuth()
- * because the package may run on a different React instance (micro-frontend architecture).
+ * because greenhouse-auth-provider bundles its own React, so calling useAuth() from within
+ * the app's React tree hits a different React dispatcher and throws an invalid hook error.
  * The shell remounts this plugin on auth change, so getSnapshot() is always fresh at mount.
  */
 export const AuthUserIdContext = createContext<string | null>(null)
