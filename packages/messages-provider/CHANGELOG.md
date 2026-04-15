@@ -1,5 +1,11 @@
 # @cloudoperators/juno-messages-provider
 
+## 0.2.35
+
+### Patch Changes
+
+- c4a3574: Moved to trusted publishing
+
 ## 0.2.34
 
 ### Patch Changes
