@@ -19,6 +19,7 @@ import { IssueTimestamp } from "../../../../../common/IssueTimestamp"
 import { ImageVulnerability } from "../../../../../Services/utils"
 import { getSeverityColor, useTextOverflow } from "../../../../../../utils"
 import { FalsePositiveModal } from "../../../FalsePositiveModal"
+import { RiskAcceptanceModal } from "../../../RiskAcceptanceModal"
 import { useRouteContext } from "@tanstack/react-router"
 import { createRemediation } from "../../../../../../api/createRemediation"
 import { RemediationInput } from "../../../../../../generated/graphql"
@@ -51,8 +52,10 @@ export const IssuesDataRow = ({
 }: IssuesDataRowProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isRiskAcceptanceModalOpen, setIsRiskAcceptanceModalOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [createError, setCreateError] = useState<string | null>(null)
+  const [riskAcceptanceError, setRiskAcceptanceError] = useState<string | null>(null)
   const { needsExpansion, textRef } = useTextOverflow(issue?.description || "")
   const { apiClient } = useRouteContext({ from: "/services/$service" })
 
@@ -89,6 +92,31 @@ export const IssuesDataRow = ({
   const handleModalClose = () => {
     setCreateError(null)
     setIsModalOpen(false)
+  }
+
+  const handleRiskAcceptanceClick = () => {
+    setIsRiskAcceptanceModalOpen(true)
+  }
+
+  const handleRiskAcceptanceConfirm = async (input: RemediationInput): Promise<{ error: string } | void> => {
+    setRiskAcceptanceError(null)
+    setIsRiskAcceptanceModalOpen(false)
+    setIsSubmitting(true)
+    try {
+      await createRemediation({ apiClient, input })
+      const cveNumber = issue?.name || "unknown"
+      Promise.resolve(onFalsePositiveSuccess?.(cveNumber)).catch(() => {})
+    } catch (error) {
+      setIsRiskAcceptanceModalOpen(true)
+      return { error: error instanceof Error ? error.message : "Failed to create remediation" }
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleRiskAcceptanceClose = () => {
+    setRiskAcceptanceError(null)
+    setIsRiskAcceptanceModalOpen(false)
   }
 
   return (
@@ -139,6 +167,7 @@ export const IssuesDataRow = ({
               <PopupMenu icon="moreVert" className="whitespace-nowrap ml-auto">
                 <PopupMenuOptions>
                   <PopupMenuItem label="Mark False Positive" onClick={handleFalsePositiveClick} />
+                  <PopupMenuItem label="Mark Risk Accepted" onClick={handleRiskAcceptanceClick} />
                 </PopupMenuOptions>
               </PopupMenu>
             )}
@@ -146,17 +175,30 @@ export const IssuesDataRow = ({
         )}
       </DataGridRow>
       {showFalsePositiveAction && (
-        <FalsePositiveModal
-          open={isModalOpen}
-          onClose={handleModalClose}
-          onConfirm={handleModalConfirm}
-          vulnerability={issue.name}
-          severity={issue.severity}
-          service={service}
-          image={image}
-          errorMessage={createError}
-          onSetError={setCreateError}
-        />
+        <>
+          <FalsePositiveModal
+            open={isModalOpen}
+            onClose={handleModalClose}
+            onConfirm={handleModalConfirm}
+            vulnerability={issue.name}
+            severity={issue.severity}
+            service={service}
+            image={image}
+            errorMessage={createError}
+            onSetError={setCreateError}
+          />
+          <RiskAcceptanceModal
+            open={isRiskAcceptanceModalOpen}
+            onClose={handleRiskAcceptanceClose}
+            onConfirm={handleRiskAcceptanceConfirm}
+            vulnerability={issue.name}
+            severity={issue.severity}
+            service={service}
+            image={image}
+            errorMessage={riskAcceptanceError}
+            onSetError={setRiskAcceptanceError}
+          />
+        </>
       )}
     </>
   )
