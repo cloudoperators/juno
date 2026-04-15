@@ -1,5 +1,21 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.12.3
+
+### Patch Changes
+
+- Updated dependencies [f7682fd]
+  - @cloudoperators/juno-app-supernova@0.19.26
+
+## 0.12.2
+
+### Patch Changes
+
+- bacab82: fix: address CVE-2026-4800 vulnerability in lodash
+- Updated dependencies [43695db]
+  - @cloudoperators/juno-app-heureka@1.1.0
+  - @cloudoperators/greenhouse-auth-provider@1.0.2
+
 ## 0.12.1
 
 ### Patch Changes
