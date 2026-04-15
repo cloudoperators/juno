@@ -14,14 +14,17 @@ import { ErrorBoundary } from "./components/common/ErrorBoundary"
 import { getClient } from "./apollo-client"
 import { routeTree } from "./routeTree.gen"
 import { StoreProvider } from "./store/StoreProvider"
-import { AuthProvider, EmbeddedAuth } from "@cloudoperators/greenhouse-auth-provider"
+import { AuthProvider, type AuthState, type EmbeddedAuth } from "@cloudoperators/greenhouse-auth-provider"
 
 export type InitialFilters = {
   support_group?: string[]
 }
 
+export type { AuthState, EmbeddedAuth } from "@cloudoperators/greenhouse-auth-provider"
+
 const queryClient = new QueryClient()
 
+/** Auth can be EmbeddedAuth (from shell) or a plain AuthState (e.g. from appProps.json, which cannot contain functions). */
 export type AppProps = {
   theme?: "theme-dark" | "theme-light"
   apiEndpoint?: string
@@ -29,7 +32,7 @@ export type AppProps = {
   initialFilters?: InitialFilters
   basePath?: string
   enableHashedRouting?: boolean
-  auth?: EmbeddedAuth
+  auth?: EmbeddedAuth | AuthState
 }
 
 const router = createRouter({
@@ -96,7 +99,13 @@ const App = (props: AppProps) => {
             <AppShell embedded={props.embedded} pageHeader={<PageHeader applicationName="Heureka" />}>
               <ErrorBoundary>
                 <StrictMode>
-                  <AuthProvider embedded={props.embedded} auth={props.auth}>
+                  <AuthProvider
+                    embedded={props.embedded && !!props.auth}
+                    auth={
+                      props.auth &&
+                      ("getSnapshot" in props.auth ? props.auth : { getSnapshot: () => props.auth as AuthState })
+                    }
+                  >
                     <StoreProvider>
                       <RouterProvider basepath={props.basePath || "/"} router={router} />
                     </StoreProvider>

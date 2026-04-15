@@ -1,5 +1,41 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.12.3
+
+### Patch Changes
+
+- Updated dependencies [f7682fd]
+  - @cloudoperators/juno-app-supernova@0.19.26
+
+## 0.12.2
+
+### Patch Changes
+
+- bacab82: fix: address CVE-2026-4800 vulnerability in lodash
+- Updated dependencies [43695db]
+  - @cloudoperators/juno-app-heureka@1.1.0
+  - @cloudoperators/greenhouse-auth-provider@1.0.2
+
+## 0.12.1
+
+### Patch Changes
+
+- 6bea057: Address UI feedback: inline status bars for PluginPresets and PluginInstances, Configuration tab in PluginInstanceDetail, rename BasicInformation to Details.
+- b4bc2c2: Fix high vulnerabilities related to transitive dependencies `picomatch` by upgrading root project dependencies and where not possible, locking `picomatch` at versions without vulnerabilities.
+- 6bea057: Address UI feedback on new admin area.
+- Updated dependencies [078d641]
+- Updated dependencies [b4bc2c2]
+- Updated dependencies [f69e63e]
+  - @cloudoperators/juno-ui-components@6.2.1
+  - @cloudoperators/juno-app-supernova@0.19.25
+  - @cloudoperators/juno-app-heureka@1.0.6
+  - @cloudoperators/juno-app-doop@2.6.22
+  - @cloudoperators/greenhouse-auth-provider@1.0.1
+  - @cloudoperators/juno-k8s-client@1.1.3
+  - @cloudoperators/juno-messages-provider@0.2.34
+  - @cloudoperators/juno-oauth@1.4.10
+  - @cloudoperators/juno-url-state-provider@3.0.8
+
 ## 0.12.0
 
 ### Minor Changes

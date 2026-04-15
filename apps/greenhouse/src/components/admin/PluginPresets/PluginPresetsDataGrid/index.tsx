@@ -26,7 +26,7 @@ export const PluginPresetsDataGrid = () => {
         <DataGridHeadCell>Plugin Definition</DataGridHeadCell>
         <DataGridHeadCell>Message</DataGridHeadCell>
         <DataGridHeadCell>Support Group</DataGridHeadCell>
-        <DataGridHeadCell>Actions</DataGridHeadCell>
+        <DataGridHeadCell></DataGridHeadCell>
       </DataGridRow>
 
       <ErrorBoundary

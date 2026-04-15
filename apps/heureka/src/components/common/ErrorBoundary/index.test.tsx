@@ -40,6 +40,29 @@ describe("ErrorBoundary", () => {
     expect(screen.getByText("Some Component")).toBeInTheDocument()
   })
 
+  it("should wrap children in a div with className when className is provided", () => {
+    const { container } = render(
+      <ErrorBoundary className="my-class">
+        <Component />
+      </ErrorBoundary>
+    )
+    const wrapper = container.firstChild as HTMLElement
+    expect(wrapper.tagName).toBe("DIV")
+    expect(wrapper).toHaveClass("my-class")
+    expect(screen.getByText("Some Component")).toBeInTheDocument()
+  })
+
+  it("should render children without a wrapper div when className is not provided", () => {
+    const { container } = render(
+      <ErrorBoundary>
+        <Component />
+      </ErrorBoundary>
+    )
+    // Children are rendered directly — no extra wrapper div with a class attribute
+    expect(container.querySelector("div[class]")).toBeNull()
+    expect(screen.getByText("Some Component")).toBeInTheDocument()
+  })
+
   describe("when error occurs", () => {
     it("should render null when displayErrorMessage is false", () => {
       const { container } = render(

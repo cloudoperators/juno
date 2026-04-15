@@ -7,7 +7,10 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { PortalProvider } from "@cloudoperators/juno-ui-components"
+import { AuthProvider } from "@cloudoperators/greenhouse-auth-provider"
 import { FalsePositiveModal } from "./index"
+
+const mockAuth = { getSnapshot: () => ({ status: "anonymous" as const }) }
 
 const defaultProps = {
   open: true,
@@ -20,9 +23,11 @@ const defaultProps = {
 
 const renderModal = (props = {}) => {
   return render(
-    <PortalProvider>
-      <FalsePositiveModal {...defaultProps} {...props} />
-    </PortalProvider>
+    <AuthProvider embedded auth={mockAuth}>
+      <PortalProvider>
+        <FalsePositiveModal {...defaultProps} {...props} />
+      </PortalProvider>
+    </AuthProvider>
   )
 }
 
