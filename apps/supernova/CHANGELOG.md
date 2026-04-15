@@ -1,5 +1,11 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.19.26
+
+### Patch Changes
+
+- f7682fd: fix(supernova): filter combobox no longer cuts off values beyond position 100
+
 ## 0.19.25
 
 ### Patch Changes
