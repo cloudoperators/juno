@@ -1,0 +1,22 @@
+{
+  "extends": "@cloudoperators/juno-config/typescript/base.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "jsx": "react-jsx",
+    "strict": true,
+    "skipLibCheck": true,
+    "outDir": "build",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "allowSyntheticDefaultImports": true,
+    "types": ["vitest/globals", "@testing-library/jest-dom", "@types/react"]
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./types/**/*.ts",
+    "./src/**/*.tsx",
+    "vitest.setup.ts"
+  ],
+  "exclude": ["node_modules", "build"]
+}

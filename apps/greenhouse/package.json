@@ -50,6 +50,7 @@
     "@cloudoperators/greenhouse-auth-provider": "workspace:*",
     "@cloudoperators/juno-app-doop": "workspace:*",
     "@cloudoperators/juno-app-heureka": "workspace:*",
+    "@cloudoperators/juno-app-perses": "workspace:*",
     "@cloudoperators/juno-app-supernova": "workspace:*",
     "@cloudoperators/juno-k8s-client": "workspace:*",
     "@cloudoperators/juno-messages-provider": "workspace:*",

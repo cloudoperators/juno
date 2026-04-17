@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PersesRouteImport } from './routes/perses'
 import { Route as OrgAdminRouteImport } from './routes/org-admin'
 import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as IndexRouteImport } from './routes/index'
@@ -22,6 +23,11 @@ import { Route as AdminPluginPresetsPluginPresetNameIndexRouteImport } from './r
 import { Route as AdminPluginPresetsPluginPresetNamePluginInstancesRouteRouteImport } from './routes/admin/plugin-presets/$pluginPresetName/plugin-instances/route'
 import { Route as AdminPluginPresetsPluginPresetNamePluginInstancesPluginInstanceRouteImport } from './routes/admin/plugin-presets/$pluginPresetName/plugin-instances/$pluginInstance'
 
+const PersesRoute = PersesRouteImport.update({
+  id: '/perses',
+  path: '/perses',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OrgAdminRoute = OrgAdminRouteImport.update({
   id: '/org-admin',
   path: '/org-admin',
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
   '/org-admin': typeof OrgAdminRoute
+  '/perses': typeof PersesRoute
   '/admin/plugin-presets': typeof AdminPluginPresetsRouteRouteWithChildren
   '/$extensionId/$': typeof ExtensionIdSplatRoute
   '/admin/clusters': typeof AdminClustersRoute
@@ -107,6 +114,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/org-admin': typeof OrgAdminRoute
+  '/perses': typeof PersesRoute
   '/$extensionId/$': typeof ExtensionIdSplatRoute
   '/admin/clusters': typeof AdminClustersRoute
   '/admin': typeof AdminIndexRoute
@@ -120,6 +128,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
   '/org-admin': typeof OrgAdminRoute
+  '/perses': typeof PersesRoute
   '/admin/plugin-presets': typeof AdminPluginPresetsRouteRouteWithChildren
   '/$extensionId/$': typeof ExtensionIdSplatRoute
   '/admin/clusters': typeof AdminClustersRoute
@@ -136,6 +145,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/org-admin'
+    | '/perses'
     | '/admin/plugin-presets'
     | '/$extensionId/$'
     | '/admin/clusters'
@@ -149,6 +159,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/org-admin'
+    | '/perses'
     | '/$extensionId/$'
     | '/admin/clusters'
     | '/admin'
@@ -161,6 +172,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/org-admin'
+    | '/perses'
     | '/admin/plugin-presets'
     | '/$extensionId/$'
     | '/admin/clusters'
@@ -176,11 +188,19 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRouteRoute: typeof AdminRouteRouteWithChildren
   OrgAdminRoute: typeof OrgAdminRoute
+  PersesRoute: typeof PersesRoute
   ExtensionIdSplatRoute: typeof ExtensionIdSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/perses': {
+      id: '/perses'
+      path: '/perses'
+      fullPath: '/perses'
+      preLoaderRoute: typeof PersesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/org-admin': {
       id: '/org-admin'
       path: '/org-admin'
@@ -338,6 +358,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRouteRoute: AdminRouteRouteWithChildren,
   OrgAdminRoute: OrgAdminRoute,
+  PersesRoute: PersesRoute,
   ExtensionIdSplatRoute: ExtensionIdSplatRoute,
 }
 export const routeTree = rootRouteImport

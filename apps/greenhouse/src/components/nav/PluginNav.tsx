@@ -9,6 +9,7 @@ import GreenhouseLogo from "../../assets/greenhouse_logo.svg?react"
 import SupernovaIcon from "../../assets/juno_supernova.svg?react"
 import DoopIcon from "../../assets/juno_doop.svg?react"
 import HeurekaIcon from "../../assets/juno_heureka.svg?react"
+import PersesIcon from "../../assets/juno_perses.svg?react"
 
 import { Icon, Stack, Button } from "@cloudoperators/juno-ui-components"
 import { usePlugin } from "../../components/StoreProvider"
@@ -24,6 +25,8 @@ const AppIcon = ({ name }: any) => {
       return <DoopIcon />
     case "heureka":
       return <HeurekaIcon />
+    case "perses":
+      return <PersesIcon />
     case "admin":
     default:
       return <Icon icon="autoAwesomeMosaic" />
@@ -68,8 +71,9 @@ const PluginNav = () => {
   const matches = useMatches()
   const extensionIdMatch = matches.find((match) => match.routeId === "/$extensionId/$")?.params.extensionId
   const isAdminRoute = matches.some((match) => match.routeId.startsWith("/admin"))
+  const isPersesRoute = matches.some((match) => match.routeId === "/perses")
   // If we're on /admin route, set activeApp to "admin", otherwise use extension ID
-  const activeApp = isAdminRoute ? "admin" : extensionIdMatch
+  const activeApp = isAdminRoute ? "admin" : isPersesRoute ? "perses" : extensionIdMatch
   const { data: authData, loggedIn, login, logout } = useAuth()
 
   const navigateToApp = (appId: string) => {
@@ -102,6 +106,19 @@ const PluginNav = () => {
           <span className={appNameStyles}>{appConf.displayName}</span>
         </Stack>
       ))}
+
+      <Stack
+        direction="vertical"
+        alignment="center"
+        className={`greenhouse-nav-item ${navItem(activeApp === "perses")}`}
+        role="button"
+        // @ts-ignore
+        tabIndex="0"
+        onClick={() => navigate({ to: "/perses" })}
+      >
+        <AppIcon name="perses" />
+        <span className={appNameStyles}>Dashboards</span>
+      </Stack>
 
       <Stack
         direction="vertical"

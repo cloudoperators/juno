@@ -1,0 +1,11 @@
+<!--
+  ~ SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+  ~ SPDX-License-Identifier: Apache-2.0
+-->
+
+<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" viewBox="0 0 36 36">
+  <rect x="3"  y="3"    width="22" height="5.1" rx="2.55"/>
+  <rect x="11" y="11.3" width="22" height="5.1" rx="2.55"/>
+  <rect x="3"  y="19.6" width="22" height="5.1" rx="2.55"/>
+  <rect x="3"  y="27.9" width="8"  height="5.1" rx="2.55"/>
+</svg>

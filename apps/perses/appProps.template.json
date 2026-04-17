@@ -1,0 +1,7 @@
+{
+  "endpoint": "YOUR_PROMETHEUS_DATASOURCE_URL",
+  "theme": "theme-dark",
+  "embedded": false,
+  "basePath": "/",
+  "enableHashedRouting": false
+}

@@ -30,6 +30,9 @@ const getApp = async (appName: string): Promise<PluginModule | null> => {
     case "heureka":
       module = await import("@cloudoperators/juno-app-heureka")
       break
+    case "perses":
+      module = await import("@cloudoperators/juno-app-perses")
+      break
   }
 
   // Cache it for next time
