@@ -64,15 +64,20 @@ export const DataRows = ({ colSpan }: DataRowsProps) => {
         const serviceData = exposedServices ? Object.values(exposedServices)[0] : { name: "", namespace: "" }
 
         return (
-          <DataGridRow key={`${pluginName}-${serviceUrl}`} className="cursor-pointer">
+          <DataGridRow key={`${pluginName}-${serviceUrl}`}>
             {/* Name */}
             <DataGridCell>
-              <a href={serviceUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                <Stack gap="2">
-                  <Icon size="18" color="jn-global-text" icon="openInNew" />
-                  {serviceData.name || ""}
-                </Stack>
-              </a>
+              {serviceUrl ? (
+                <a href={serviceUrl} target="_blank" rel="noopener noreferrer" className="cursor-pointer">
+                  <Stack gap="2">
+                    {serviceData.name || ""}
+                    {/* remove onclick */}
+                    <Icon size="18" color="jn-global-text" icon="openInNew" onClick={() => {}} />
+                  </Stack>
+                </a>
+              ) : (
+                serviceData.name
+              )}
             </DataGridCell>
             {/* Cluster */}
             <DataGridCell>{clusterName}</DataGridCell>

@@ -19,10 +19,9 @@ export const ExposedServicesDataGrid = () => {
     <DataGrid columns={COLUMN_SPAN}>
       <DataGridRow>
         <DataGridHeadCell>Name</DataGridHeadCell>
-        {/* <DataGridHeadCell>Service URL</DataGridHeadCell> */}
         <DataGridHeadCell>Cluster</DataGridHeadCell>
         <DataGridHeadCell>Plugin</DataGridHeadCell>
-        <DataGridHeadCell>Owner</DataGridHeadCell>
+        <DataGridHeadCell>Support Group</DataGridHeadCell>
       </DataGridRow>
 
       <ErrorBoundary
