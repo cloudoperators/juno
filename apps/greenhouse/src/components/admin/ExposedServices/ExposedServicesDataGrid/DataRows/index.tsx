@@ -56,10 +56,10 @@ export const DataRows = ({ colSpan }: DataRowsProps) => {
             <DataGridCell>
               {serviceUrl ? (
                 <a href={serviceUrl} target="_blank" rel="noopener noreferrer" className="cursor-pointer">
-                  <Stack gap="2">
+                  <Stack gap="2" alignment="center">
                     {serviceData.name || ""}
                     {/* Remove onclick - components bug */}
-                    <Icon size="18" color="jn-global-text" icon="openInNew" onClick={() => {}} />
+                    <Icon size="18" icon="openInNew" />
                   </Stack>
                 </a>
               ) : (
