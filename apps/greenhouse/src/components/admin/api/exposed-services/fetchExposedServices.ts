@@ -4,12 +4,15 @@
  */
 
 import { FilterSettings } from "../../common/types"
-import { PluginPreset, Plugin } from "../../types/k8sTypes"
+import { ExposedServices } from "../../types/k8sTypes"
 import { CLUSTER_LABEL, FILTER_IDS, SUPPORT_GROUP_LABEL, EXPOSED_SERVICES_LABEL } from "../../constants"
 
 export const FETCH_EXPOSED_SERVICES_CACHE_KEY = "exposedServices"
 
-const applyFilterSettings = (exposedServices: PluginPreset[], filterSettings?: FilterSettings): PluginPreset[] => {
+const applyFilterSettings = (
+  exposedServices: ExposedServices[],
+  filterSettings?: FilterSettings
+): ExposedServices[] => {
   if (filterSettings?.selectedFilters) {
     // Filter by cluster
     const clusterValues = filterSettings.selectedFilters.filter((f) => f.id === FILTER_IDS.CLUSTER).map((f) => f.value)
@@ -46,7 +49,7 @@ const applyFilterSettings = (exposedServices: PluginPreset[], filterSettings?: F
   return exposedServices
 }
 
-const applySorting = (exposedServices: PluginPreset[]): PluginPreset[] => {
+const applySorting = (exposedServices: ExposedServices[]): ExposedServices[] => {
   return exposedServices.sort((a, b) => {
     // Sort alphabetically by name
     const aName = a.metadata?.name?.toLowerCase() || ""
@@ -66,7 +69,7 @@ export const fetchExposedServices = async ({
   apiClient: any
   namespace: string
   filterSettings?: FilterSettings
-}): Promise<Plugin[]> => {
+}): Promise<ExposedServices[]> => {
   // Filter only by plugins that have exposed services
   const response = await apiClient.get(`/apis/greenhouse.sap/v1alpha1/namespaces/${namespace}/plugins`, {
     params: {

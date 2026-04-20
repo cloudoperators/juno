@@ -7,5 +7,6 @@ import type { components } from "./schema"
 
 export type PluginPreset = components["schemas"]["PluginPreset"]
 export type Plugin = components["schemas"]["Plugin"]
+export type ExposedServices = components["schemas"]["ExposedServices"]
 export type PluginOptionValues = NonNullable<Plugin["spec"]>["optionValues"]
 export type PluginOptionValue = NonNullable<PluginOptionValues>[number]

@@ -15,10 +15,9 @@ import {
 import { render, screen } from "@testing-library/react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ExposedServicesDataGrid } from "./index"
-import { mockPluginPresets, MockPluginPresetsResponse } from "../../__mocks__/pluginPresets"
-import { mockExposedServices } from "../../__mocks__/exposedServices"
+import { mockExposedServices, MockExposedServicesResponse } from "../../__mocks__/exposedServices"
 
-const renderComponent = async (mockPromise: Promise<MockPluginPresetsResponse | unknown>) => {
+const renderComponent = async (mockPromise: Promise<MockExposedServicesResponse | unknown>) => {
   const rootRoute = createRootRoute({
     component: () => <Outlet />,
   })
@@ -71,7 +70,7 @@ const renderComponent = async (mockPromise: Promise<MockPluginPresetsResponse | 
 
 describe("ExposedServicesDataGrid", () => {
   it("should render plugin presets", async () => {
-    await renderComponent(new Promise<MockPluginPresetsResponse>((resolve) => resolve(mockPluginPresets)))
+    await renderComponent(new Promise<MockExposedServicesResponse>((resolve) => resolve(mockExposedServices)))
 
     // Check for column headers
     expect(screen.getByText("Name")).toBeInTheDocument()

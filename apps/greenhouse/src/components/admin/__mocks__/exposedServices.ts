@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Plugin } from "../types/k8sTypes"
+import { ExposedServices } from "../types/k8sTypes"
 
-export type MockPluginsResponse = {
-  items: Plugin[]
+export type MockExposedServicesResponse = {
+  items: ExposedServices[]
 }
 
-// Plugins with exposed services
-export const mockExposedServices: Plugin[] = [
+// The standalone mock data can remain as ExposedServices[]
+export const mockExposedServices: ExposedServices[] = [
   {
     apiVersion: "greenhouse.sap/v1alpha1",
     kind: "Plugin",
@@ -61,3 +61,7 @@ export const mockExposedServices: Plugin[] = [
     },
   },
 ]
+
+export const mockExposedServicesResponse: MockExposedServicesResponse = {
+  items: mockExposedServices,
+}
