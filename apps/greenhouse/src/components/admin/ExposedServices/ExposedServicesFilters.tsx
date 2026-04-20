@@ -5,22 +5,24 @@
 
 import React, { useCallback } from "react"
 import { useLoaderData, useNavigate, useRouteContext } from "@tanstack/react-router"
-import { FilterSettings, SelectedFilter } from "../common/types"
-import { getFiltersForUrl } from "../utils"
-import { SELECTED_FILTER_PREFIX } from "../constants"
 import { Stack, InputGroup, Button, SearchInput } from "@cloudoperators/juno-ui-components/index"
-import { SelectedFilters } from "../common/SelectedFilters"
+
+import { getFiltersForUrl } from "../utils"
 import { useQuery } from "@tanstack/react-query"
+import { SELECTED_FILTER_PREFIX } from "../constants"
 import { FilterSelect } from "../common/FilterSelect"
+import { SelectedFilters } from "../common/SelectedFilters"
 import {
   FETCH_EXPOSED_SERVICES_FILTERS_CACHE_KEY,
   fetchExposedServicesFilters,
-} from "../api/plugin-exposed-services/fetchExposedServicesFilters"
+} from "../api/exposed-services/fetchExposedServicesFilters"
+import { FilterSettings, SelectedFilter } from "../common/types"
 
 export const ExposedServicesFilters = () => {
   const navigate = useNavigate()
   const { apiClient, user } = useRouteContext({ from: "/admin/exposed-services" })
   const { filterSettings } = useLoaderData({ from: "/admin/exposed-services" })
+
   const {
     data: filters,
     isLoading,
@@ -77,7 +79,7 @@ export const ExposedServicesFilters = () => {
               const filterExists = filterSettings.selectedFilters?.some(
                 (filter) => filter.id === selectedFilter.id && filter.value === selectedFilter.value
               )
-              //only add the filter if it does not already exist
+              // Only add filter if it does not already exist
               if (!filterExists) {
                 updateFilters({
                   ...filterSettings,

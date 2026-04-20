@@ -4,16 +4,14 @@
  */
 
 import React, { useState } from "react"
-import { Container, ContentHeading, Button, Stack, DataGridToolbar } from "@cloudoperators/juno-ui-components"
-import { useIsFetching, useQuery, useQueryClient } from "@tanstack/react-query"
-import {
-  FETCH_EXPOSED_SERVICES_CACHE_KEY,
-  fetchExposedServices,
-} from "../api/plugin-exposed-services/fetchExposedServices"
-import { ExposedServicesDataGrid } from "./ExposedServicesDataGrid"
-import { ExposedServicesFilters } from "./ExposedServicesFilters"
 import { useRouteContext, useSearch } from "@tanstack/react-router"
-import { extractFilterSettingsFromSearchParams, isReady } from "../utils"
+import { useIsFetching, useQuery, useQueryClient } from "@tanstack/react-query"
+import { Container, ContentHeading, Button, Stack, DataGridToolbar } from "@cloudoperators/juno-ui-components"
+
+import { extractFilterSettingsFromSearchParams } from "../utils"
+import { ExposedServicesFilters } from "./ExposedServicesFilters"
+import { ExposedServicesDataGrid } from "./ExposedServicesDataGrid"
+import { FETCH_EXPOSED_SERVICES_CACHE_KEY, fetchExposedServices } from "../api/exposed-services/fetchExposedServices"
 
 export const ExposedServices = () => {
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now())
@@ -28,11 +26,7 @@ export const ExposedServices = () => {
     setLastUpdatedAt(Date.now())
   }
 
-  const {
-    data: exposedServices,
-    isLoading,
-    error,
-  } = useQuery({
+  const { data: exposedServices } = useQuery({
     queryKey: [FETCH_EXPOSED_SERVICES_CACHE_KEY, user.organization, filterSettings],
     queryFn: () =>
       fetchExposedServices({
@@ -43,14 +37,12 @@ export const ExposedServices = () => {
   })
 
   const total = exposedServices?.length ?? 0
-  const ready = exposedServices?.filter(isReady).length ?? 0
-  const notReady = total - ready
 
   return (
     <>
       <Container px={false} py={false}>
         <ContentHeading>Exposed Services Overview</ContentHeading>
-        <p>Monitor exposed services</p>
+        <p>Monitor exposed services for all plugins</p>
       </Container>
       <Container px={false} py>
         <ExposedServicesFilters />

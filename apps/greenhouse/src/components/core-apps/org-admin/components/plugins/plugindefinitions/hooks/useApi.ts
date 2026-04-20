@@ -17,8 +17,6 @@ export const useApi = (debug?: boolean) => {
 
   const get = useCallback(
     async <T extends AllowedApiObject>(url: string, object: T, params?: any): Promise<ApiResponse> => {
-      let response: T
-
       if (!client || !namespace) {
         return { ok: false, message: "Client or namespace not available" }
       }

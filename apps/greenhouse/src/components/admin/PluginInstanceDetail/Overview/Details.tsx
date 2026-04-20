@@ -15,6 +15,7 @@ import {
   Icon,
 } from "@cloudoperators/juno-ui-components"
 import { Plugin } from "../../types/k8sTypes"
+import { SUPPORT_GROUP_LABEL } from "../../constants"
 
 interface DetailsProps {
   plugin: Plugin
@@ -28,7 +29,7 @@ export const Details: React.FC<DetailsProps> = ({ plugin }) => {
         <a href={url} target="_blank" rel="noopener noreferrer">
           <Stack gap="2">
             {service.name}
-            {/* remove onclick */}
+            {/* Remove onclick - components bug */}
             <Icon size="18" color="jn-global-text" icon="openInNew" onClick={() => {}} />
           </Stack>
         </a>
@@ -57,7 +58,7 @@ export const Details: React.FC<DetailsProps> = ({ plugin }) => {
           </DataGridRow>
           <DataGridRow>
             <DataGridHeadCell nowrap>Owning Team</DataGridHeadCell>
-            <DataGridCell>{plugin.metadata?.labels?.["greenhouse.sap/owned-by"]}</DataGridCell>
+            <DataGridCell>{plugin.metadata?.labels?.[SUPPORT_GROUP_LABEL]}</DataGridCell>
           </DataGridRow>
         </DataGrid>
         <DataGrid columns={2} minContentColumns={[0]} className="flex-1">

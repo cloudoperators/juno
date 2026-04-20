@@ -6,6 +6,8 @@
 export const SELECTED_FILTER_PREFIX = "f_"
 
 export const SUPPORT_GROUP_LABEL = "greenhouse.sap/owned-by"
+export const CLUSTER_LABEL = "greenhouse.sap/cluster"
+export const EXPOSED_SERVICES_LABEL = "greenhouse.sap/plugin-exposed-services=true"
 
 export const FILTER_IDS = {
   PLUGIN_PRESET_DEFINITION: "pluginPresetDefinition",
