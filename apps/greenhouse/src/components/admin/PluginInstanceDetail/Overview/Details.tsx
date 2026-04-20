@@ -24,14 +24,17 @@ interface DetailsProps {
 export const Details: React.FC<DetailsProps> = ({ plugin }) => {
   const exposedServices = plugin.status?.exposedServices || {}
   const exposedServicesLinks = Object.entries(exposedServices).map(([url, service], index) => (
-    <span key={url}>
+    <span key={`${url}-${service.name}-${index}`}>
       {url ? (
-        <a href={url} target="_blank" rel="noopener noreferrer">
-          <Stack gap="2">
-            {service.name}
-            {/* Remove onclick - components bug */}
-            <Icon size="18" color="jn-global-text" icon="openInNew" onClick={() => {}} />
-          </Stack>
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Open ${service.name} in a new tab`}
+          className="cursor-pointer"
+        >
+          <div className="inline-block mr-2">{service.name || ""}</div>
+          <Icon size="18" icon="openInNew" className="inline-block" />
         </a>
       ) : (
         service.name
@@ -79,8 +82,10 @@ export const Details: React.FC<DetailsProps> = ({ plugin }) => {
             </DataGridRow>
           )}
           <DataGridRow>
-            <DataGridHeadCell nowrap>Exposed Services</DataGridHeadCell>
-            <DataGridCell>{exposedServicesLinks.length > 0 ? exposedServicesLinks : ""}</DataGridCell>
+            <DataGridHeadCell>Exposed Services</DataGridHeadCell>
+            <DataGridCell className="inline-block">
+              {exposedServicesLinks.length > 0 ? exposedServicesLinks : "--"}
+            </DataGridCell>
           </DataGridRow>
         </DataGrid>
       </Stack>

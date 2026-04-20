@@ -25,7 +25,7 @@ const getSupportGroupValues = (services: PluginPreset[]) =>
     )
   ).filter((value): value is string => !!value)
 
-const extractilters = (exposedServices: PluginPreset[]) => {
+const extractFilters = (exposedServices: PluginPreset[]) => {
   return [
     {
       id: FILTER_IDS.CLUSTER,
@@ -55,5 +55,5 @@ export const fetchExposedServicesFilters = async ({
       labelSelector: EXPOSED_SERVICES_LABEL,
     },
   })
-  return Array.isArray(response?.items) ? extractilters(response.items) : []
+  return Array.isArray(response?.items) ? extractFilters(response.items) : []
 }
