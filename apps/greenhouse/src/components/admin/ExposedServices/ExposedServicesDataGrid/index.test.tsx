@@ -78,21 +78,11 @@ describe("ExposedServicesDataGrid", () => {
     expect(screen.getByText("Plugin")).toBeInTheDocument()
     expect(screen.getByText("Support Group")).toBeInTheDocument()
 
-    // Check for data - verify all 2 exposed services are rendered
+    // Check for data - exposed services rendered
     expect(screen.getByText("service1")).toBeInTheDocument()
-    // expect(screen.getByText("service2")).toBeInTheDocument()
+    expect(screen.getByText("service2")).toBeInTheDocument()
 
-    // Check some instance counts
-    // expect(screen.getByText("2/3")).toBeInTheDocument()
-    // expect(screen.getByText("0/2")).toBeInTheDocument()
-    // expect(screen.getByText("1/1")).toBeInTheDocument()
-    // expect(screen.getByText("3/5")).toBeInTheDocument()
-    // expect(screen.getByText("0/1")).toBeInTheDocument()
+    // Check for data - cluster rendered
+    expect(screen.getByText("demo")).toBeInTheDocument()
   })
-
-  // it("should render the error message while fetching data", async () => {
-  //   await renderComponent(new Promise((_, reject) => reject(new Error("Something went wrong"))))
-  //   // Wait for error to appear
-  //   expect(await screen.findByText("Error: Something went wrong")).toBeInTheDocument()
-  // })
 })
