@@ -55,10 +55,7 @@ jobs:
             ${{ runner.os }}-pnpm-
 
       - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build
-        run: pnpm build
+        run: pnpm install --frozen-lockfile && pnpm build
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
