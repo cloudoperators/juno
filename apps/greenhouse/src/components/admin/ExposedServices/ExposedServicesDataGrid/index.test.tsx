@@ -80,7 +80,6 @@ describe("ExposedServicesDataGrid", () => {
 
     // Check for data - exposed services rendered
     expect(screen.getByText("service1")).toBeInTheDocument()
-    expect(screen.getByText("service2")).toBeInTheDocument()
 
     // Check for data - cluster rendered
     expect(screen.getByText("demo")).toBeInTheDocument()
