@@ -106,9 +106,17 @@ describe("RiskAcceptanceModal", () => {
       expect(screen.getByRole("button", { name: "Accept Risk" })).toBeDisabled()
     })
 
-    it("shows an error message when errorMessage prop is provided", () => {
-      renderModal({ errorMessage: "Server error occurred" })
-      expect(screen.getByText("Server error occurred")).toBeInTheDocument()
+    it("shows an error message when onConfirm returns an error", async () => {
+      const onConfirm = vi.fn().mockResolvedValue({ error: "Server error occurred" })
+      const user = userEvent.setup()
+      renderModal({ onConfirm })
+
+      await user.type(screen.getByPlaceholderText(/Enter your user ID/i), "user-123")
+      await user.type(screen.getByPlaceholderText(/Add a description explaining the reason/i), "Some reason")
+      fireEvent.change(screen.getByLabelText("Expiration Date"), { target: { value: "2026-12-31" } })
+      await user.click(screen.getByRole("button", { name: "Accept Risk" }))
+
+      expect(await screen.findByText("Server error occurred")).toBeInTheDocument()
     })
   })
 
@@ -222,17 +230,21 @@ describe("RiskAcceptanceModal", () => {
       )
     })
 
-    it("clears error message and calls onSetError(null) when Cancel is clicked with an active server error", async () => {
+    it("clears error message when Cancel is clicked after a server error", async () => {
+      const onConfirm = vi.fn().mockResolvedValue({ error: "Server error occurred" })
       const onClose = vi.fn()
-      const onSetError = vi.fn()
       const user = userEvent.setup()
-      renderModal({ onClose, onSetError, errorMessage: "Server error occurred" })
+      renderModal({ onConfirm, onClose })
 
-      expect(screen.getByText("Server error occurred")).toBeInTheDocument()
+      await user.type(screen.getByPlaceholderText(/Enter your user ID/i), "user-123")
+      await user.type(screen.getByPlaceholderText(/Add a description explaining the reason/i), "Some reason")
+      fireEvent.change(screen.getByLabelText("Expiration Date"), { target: { value: "2026-12-31" } })
+      await user.click(screen.getByRole("button", { name: "Accept Risk" }))
+
+      expect(await screen.findByText("Server error occurred")).toBeInTheDocument()
 
       await user.click(screen.getByRole("button", { name: "Cancel" }))
       expect(onClose).toHaveBeenCalledTimes(1)
-      expect(onSetError).toHaveBeenCalledWith(null)
     })
   })
 })

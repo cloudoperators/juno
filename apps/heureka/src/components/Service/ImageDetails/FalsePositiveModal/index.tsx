@@ -25,10 +25,6 @@ type FalsePositiveModalProps = {
   severity?: string
   service: string
   image: string
-  /** Error message to show when createRemediation fails. */
-  errorMessage?: string | null
-  /** Called when submit fails so the parent can set errorMessage. */
-  onSetError?: (message: string | null) => void
 }
 
 const CONFIRM_LABEL = "Mark as False Positive"
@@ -49,8 +45,6 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
   severity,
   service,
   image,
-  errorMessage,
-  onSetError,
 }) => {
   const auth = useAuth()
   const authUserId = auth.status === "authenticated" ? auth.userId : null
@@ -61,6 +55,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
   const [descriptionError, setDescriptionError] = useState<string>("")
   const [userIdError, setUserIdError] = useState<string>("")
   const [expirationDateError, setExpirationDateError] = useState<string>("")
+  const [apiError, setApiError] = useState<string | null>(null)
   const isMountedRef = useRef(true)
 
   const manualUserIdTrimmed = manualUserId.trim()
@@ -72,6 +67,18 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
       isMountedRef.current = false
     }
   }, [])
+
+  useEffect(() => {
+    if (!open) {
+      setDescription("")
+      setManualUserId("")
+      setExpirationDate(null)
+      setDescriptionError("")
+      setUserIdError("")
+      setExpirationDateError("")
+      setApiError(null)
+    }
+  }, [open])
 
   const descriptionTrimmed = description.trim()
 
@@ -105,25 +112,19 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
         expirationDate: expirationDate.toISOString(),
       }
       const result = await onConfirm(input)
-      if (isMountedRef.current) {
-        if (result?.error) {
-          onSetError?.(result.error)
-        } else {
-          setDescription("")
-          setManualUserId("")
-          setExpirationDate(null)
-          onClose()
-        }
+      if (result?.error) {
+        setApiError(result.error)
+      } else if (isMountedRef.current) {
+        setDescription("")
+        setManualUserId("")
+        setExpirationDate(null)
+        onClose()
       }
     } catch (error) {
       const message = error instanceof Error ? error.message : "Failed to create remediation"
-      if (isMountedRef.current) {
-        onSetError?.(message)
-      }
+      setApiError(message)
     } finally {
-      if (isMountedRef.current) {
-        setIsSubmitting(false)
-      }
+      setIsSubmitting(false)
     }
   }
 
@@ -134,7 +135,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
     setDescriptionError("")
     setUserIdError("")
     setExpirationDateError("")
-    onSetError?.(null)
+    setApiError(null)
     onClose()
   }
 
@@ -166,7 +167,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
       }
     >
       <Stack gap="4" direction="vertical">
-        {errorMessage && <Message text={errorMessage} variant="error" />}
+        {apiError && <Message text={apiError} variant="error" />}
         <div>
           <strong>Vulnerability:</strong> {vulnerability}
         </div>

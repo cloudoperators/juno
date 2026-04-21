@@ -56,8 +56,6 @@ export const IssuesDataRow = ({
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isRiskAcceptanceModalOpen, setIsRiskAcceptanceModalOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [createError, setCreateError] = useState<string | null>(null)
-  const [riskAcceptanceError, setRiskAcceptanceError] = useState<string | null>(null)
   const { needsExpansion, textRef } = useTextOverflow(issue?.description || "")
   const { apiClient } = useRouteContext({ from: "/services/$service" })
 
@@ -70,13 +68,7 @@ export const IssuesDataRow = ({
     setIsExpanded(!isExpanded)
   }
 
-  const handleFalsePositiveClick = () => {
-    setIsModalOpen(true)
-  }
-
   const handleModalConfirm = async (input: RemediationInput): Promise<{ error: string } | void> => {
-    setCreateError(null)
-    setIsModalOpen(false)
     setIsSubmitting(true)
     try {
       await createRemediation({ apiClient, input })
@@ -84,41 +76,23 @@ export const IssuesDataRow = ({
       // Fire refresh in the background so the spinner clears immediately after createRemediation.
       Promise.resolve(onFalsePositiveSuccess?.(cveNumber)).catch(() => {})
     } catch (error) {
-      setIsModalOpen(true)
       return { error: error instanceof Error ? error.message : "Failed to create remediation" }
     } finally {
       setIsSubmitting(false)
     }
   }
 
-  const handleModalClose = () => {
-    setCreateError(null)
-    setIsModalOpen(false)
-  }
-
-  const handleRiskAcceptanceClick = () => {
-    setIsRiskAcceptanceModalOpen(true)
-  }
-
   const handleRiskAcceptanceConfirm = async (input: RemediationInput): Promise<{ error: string } | void> => {
-    setRiskAcceptanceError(null)
-    setIsRiskAcceptanceModalOpen(false)
     setIsSubmitting(true)
     try {
       await createRemediation({ apiClient, input })
       const cveNumber = issue?.name || "unknown"
       Promise.resolve(onRiskAcceptanceSuccess?.(cveNumber)).catch(() => {})
     } catch (error) {
-      setIsRiskAcceptanceModalOpen(true)
       return { error: error instanceof Error ? error.message : "Failed to create remediation" }
     } finally {
       setIsSubmitting(false)
     }
-  }
-
-  const handleRiskAcceptanceClose = () => {
-    setRiskAcceptanceError(null)
-    setIsRiskAcceptanceModalOpen(false)
   }
 
   return (
@@ -168,8 +142,8 @@ export const IssuesDataRow = ({
             ) : (
               <PopupMenu icon="moreVert" className="whitespace-nowrap ml-auto">
                 <PopupMenuOptions>
-                  <PopupMenuItem label="Mark False Positive" onClick={handleFalsePositiveClick} />
-                  <PopupMenuItem label="Accept Risk" onClick={handleRiskAcceptanceClick} />
+                  <PopupMenuItem label="Mark False Positive" onClick={() => setIsModalOpen(true)} />
+                  <PopupMenuItem label="Accept Risk" onClick={() => setIsRiskAcceptanceModalOpen(true)} />
                 </PopupMenuOptions>
               </PopupMenu>
             )}
@@ -180,25 +154,21 @@ export const IssuesDataRow = ({
         <>
           <FalsePositiveModal
             open={isModalOpen}
-            onClose={handleModalClose}
+            onClose={() => setIsModalOpen(false)}
             onConfirm={handleModalConfirm}
             vulnerability={issue.name}
             severity={issue.severity}
             service={service}
             image={image}
-            errorMessage={createError}
-            onSetError={setCreateError}
           />
           <RiskAcceptanceModal
             open={isRiskAcceptanceModalOpen}
-            onClose={handleRiskAcceptanceClose}
+            onClose={() => setIsRiskAcceptanceModalOpen(false)}
             onConfirm={handleRiskAcceptanceConfirm}
             vulnerability={issue.name}
             severity={issue.severity}
             service={service}
             image={image}
-            errorMessage={riskAcceptanceError}
-            onSetError={setRiskAcceptanceError}
           />
         </>
       )}

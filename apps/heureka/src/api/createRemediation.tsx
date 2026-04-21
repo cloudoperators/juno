@@ -20,14 +20,24 @@ export const createRemediation = async ({
   apiClient,
   input,
 }: CreateRemediationParams): Promise<CreateRemediationMutation["createRemediation"]> => {
-  const result = await apiClient.mutate<CreateRemediationMutation, CreateRemediationMutationVariables>({
-    mutation: CreateRemediationDocument,
-    variables: { input },
-  })
+  try {
+    const result = await apiClient.mutate<CreateRemediationMutation, CreateRemediationMutationVariables>({
+      mutation: CreateRemediationDocument,
+      variables: { input },
+    })
 
-  if (!result.data?.createRemediation) {
-    throw new Error("Failed to create remediation")
+    if (!result.data?.createRemediation) {
+      throw new Error("Failed to create remediation")
+    }
+
+    return result.data.createRemediation
+  } catch (error) {
+    if (error && typeof error === "object" && "graphQLErrors" in error) {
+      const gqlErrors = (error as { graphQLErrors: Array<{ message: string }> }).graphQLErrors
+      if (gqlErrors?.length) {
+        throw Object.assign(new Error(gqlErrors.map((e) => e.message).join("; ")), { cause: error })
+      }
+    }
+    throw error
   }
-
-  return result.data.createRemediation
 }

@@ -55,8 +55,6 @@ export const RemediatedIssueDataRow = ({
   const [isFalsePositiveModalOpen, setIsFalsePositiveModalOpen] = useState(false)
   const [isRiskAcceptanceModalOpen, setIsRiskAcceptanceModalOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [falsePositiveError, setFalsePositiveError] = useState<string | null>(null)
-  const [riskAcceptanceError, setRiskAcceptanceError] = useState<string | null>(null)
   const { needsExpansion, textRef } = useTextOverflow(issue?.description || "")
   const { apiClient } = useRouteContext({ from: "/services/$service" })
 
@@ -66,15 +64,12 @@ export const RemediatedIssueDataRow = ({
   }
 
   const handleFalsePositiveConfirm = async (input: RemediationInput): Promise<{ error: string } | void> => {
-    setFalsePositiveError(null)
-    setIsFalsePositiveModalOpen(false)
     setIsSubmitting(true)
     try {
       await createRemediation({ apiClient, input })
       const cveNumber = issue?.name || "unknown"
       Promise.resolve(onRemediationSuccess?.(cveNumber)).catch(() => {})
     } catch (error) {
-      setIsFalsePositiveModalOpen(true)
       return { error: error instanceof Error ? error.message : "Failed to create remediation" }
     } finally {
       setIsSubmitting(false)
@@ -82,15 +77,12 @@ export const RemediatedIssueDataRow = ({
   }
 
   const handleRiskAcceptanceConfirm = async (input: RemediationInput): Promise<{ error: string } | void> => {
-    setRiskAcceptanceError(null)
-    setIsRiskAcceptanceModalOpen(false)
     setIsSubmitting(true)
     try {
       await createRemediation({ apiClient, input })
       const cveNumber = issue?.name || "unknown"
       Promise.resolve(onRemediationSuccess?.(cveNumber)).catch(() => {})
     } catch (error) {
-      setIsRiskAcceptanceModalOpen(true)
       return { error: error instanceof Error ? error.message : "Failed to create remediation" }
     } finally {
       setIsSubmitting(false)
@@ -175,31 +167,21 @@ export const RemediatedIssueDataRow = ({
       </DataGridRow>
       <FalsePositiveModal
         open={isFalsePositiveModalOpen}
-        onClose={() => {
-          setFalsePositiveError(null)
-          setIsFalsePositiveModalOpen(false)
-        }}
+        onClose={() => setIsFalsePositiveModalOpen(false)}
         onConfirm={handleFalsePositiveConfirm}
         vulnerability={issue.name}
         severity={issue.severity}
         service={service}
         image={image}
-        errorMessage={falsePositiveError}
-        onSetError={setFalsePositiveError}
       />
       <RiskAcceptanceModal
         open={isRiskAcceptanceModalOpen}
-        onClose={() => {
-          setRiskAcceptanceError(null)
-          setIsRiskAcceptanceModalOpen(false)
-        }}
+        onClose={() => setIsRiskAcceptanceModalOpen(false)}
         onConfirm={handleRiskAcceptanceConfirm}
         vulnerability={issue.name}
         severity={issue.severity}
         service={service}
         image={image}
-        errorMessage={riskAcceptanceError}
-        onSetError={setRiskAcceptanceError}
       />
     </>
   )

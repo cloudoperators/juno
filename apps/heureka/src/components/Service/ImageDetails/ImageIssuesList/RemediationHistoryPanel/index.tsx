@@ -60,7 +60,7 @@ const RemediationHistoryTable = ({
   onRevert,
 }: {
   remediationsPromise: ReturnType<typeof fetchRemediations>
-  onRevert: (remediationId: string) => Promise<void>
+  onRevert: (remediation: RemediatedVulnerability) => Promise<void>
 }) => {
   const [revertingId, setRevertingId] = useState<string | null>(null)
   const { error, data } = use(remediationsPromise)
@@ -69,7 +69,7 @@ const RemediationHistoryTable = ({
   const handleRevert = async (r: RemediatedVulnerability) => {
     setRevertingId(r.remediationId)
     try {
-      await onRevert(r.remediationId)
+      await onRevert(r)
     } finally {
       setRevertingId(null)
     }
@@ -137,12 +137,14 @@ export const RemediationHistoryPanel = ({
     return fetchRemediations({ apiClient, queryClient, filter, staleTime: 0 })
   }, [service, image, vulnerability, apiClient, queryClient, refreshKey])
 
-  const handleRevert = async (remediationId: string) => {
+  const handleRevert = async (remediation: RemediatedVulnerability) => {
     // Clear any existing feedback when starting a new revert operation.
     setRevertMessage(null)
     try {
-      await deleteRemediation({ apiClient, remediationId })
-      const text = `The false positive for ${vulnerability ?? "unknown"} has been reverted and moved back to the Active list.`
+      await deleteRemediation({ apiClient, remediationId: remediation.remediationId })
+      const typeLabel = remediation.type ?? "remediation"
+      const dateLabel = remediation.remediationDate ? ` from ${formatDateTime(remediation.remediationDate)}` : ""
+      const text = `The ${typeLabel}${dateLabel} for ${vulnerability ?? "unknown"} has been reverted.`
       setRevertMessage({ variant: "success", text })
 
       // Refresh panel/list data in the background — do not await so the
