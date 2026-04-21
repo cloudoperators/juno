@@ -1,33 +1,47 @@
-name: Auto-request Copilot Review 🤖
+name: Check Copilot Review 🤖
 
 on:
   pull_request:
     types:
       - opened
-      - reopened
       - synchronize
+      - reopened
       - ready_for_review
+  pull_request_review:
+    types:
+      - submitted
 
 permissions:
   contents: read
-  pull-requests: write
+  pull-requests: read
+  statuses: write
+  checks: write
 
 jobs:
-  request-copilot-review:
+  check-copilot-reviewed:
     runs-on: ubuntu-latest
-    name: Request Copilot Review
+    name: Verify Copilot Review
     steps:
-      - name: Request review from Copilot
+      - name: Check if Copilot has reviewed
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            // Request review from Copilot
-            await github.rest.pulls.requestReviewers({
+            const { data: reviews } = await github.rest.pulls.listReviews({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              pull_number: context.payload.pull_request.number,
-              reviewers: ['copilot']
+              pull_number: context.payload.pull_request.number
             });
 
-            console.log('✅ Copilot review requested successfully');
+            const copilotReviewed = reviews.some(review =>
+              review.user.login.toLowerCase() === 'copilot'
+            );
+
+            if (copilotReviewed) {
+              console.log('✅ Copilot has reviewed this PR');
+              core.setOutput('conclusion', 'success');
+            } else {
+              console.log('❌ Copilot has not reviewed this PR yet');
+              console.log('Please request a review from Copilot manually');
+              core.setFailed('Copilot review required - please request review from Copilot');
+            }
