@@ -27,12 +27,14 @@ import { useNavigate } from "@tanstack/react-router"
 import { addFilter } from "../../lib/urlStateUtils"
 import { ACTIVE_FILTERS_PREFIX } from "../../constants"
 
+const ITEMS_PER_PAGE = 100
+
 const FilterSelect = () => {
   const navigate = useNavigate()
   const [filterLabel, setFilterLabel] = useState("")
   const [filterValue, setFilterValue] = useState("")
   const [comboBoxQuery, setComboBoxQuery] = useState("")
-  const [displayLimit, setDisplayLimit] = useState(100)
+  const [displayLimit, setDisplayLimit] = useState(ITEMS_PER_PAGE)
   const { addActiveFilter, loadFilterLabelValues, clearFilters, setSearchTerm } = useFilterActions()
   const filterLabels = useFilterLabels()
   const filterLabelValues = useFilterLabelValues()
@@ -42,7 +44,7 @@ const FilterSelect = () => {
   const handleFilterLabelChange = (value: any) => {
     setFilterLabel(value)
     setComboBoxQuery("")
-    setDisplayLimit(100) // reset display limit when changing filter label
+    setDisplayLimit(ITEMS_PER_PAGE) // reset display limit when changing filter label
     // lazy loading of all possible values for this label (only load them if we haven't already)
     if (!filterLabelValues[value]?.values) {
       loadFilterLabelValues(value)
@@ -84,6 +86,47 @@ const FilterSelect = () => {
     return () => clearTimeout(debouncedSearchTerm)
   }
 
+  const handleComboBoxInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setComboBoxQuery(e.target.value)
+    setDisplayLimit(ITEMS_PER_PAGE) // reset display limit when search query changes
+  }
+
+  const renderFilterOptions = () => {
+    const filtered = filterLabelValues[filterLabel]?.values
+      ?.filter(
+        (
+          value: any // filter out already active values for this label
+        ) => !activeFilters[filterLabel]?.includes(value)
+      )
+      .filter((value: any) => (comboBoxQuery ? value.toLowerCase().includes(comboBoxQuery.toLowerCase()) : true))
+
+    const hasMore = filtered && filtered.length > displayLimit
+    const items =
+      filtered?.slice(0, displayLimit).map((value: any) => <ComboBoxOption value={value} key={value} />) || []
+
+    if (hasMore) {
+      return [
+        ...items,
+        <a
+          key="load-more"
+          href="#"
+          role="button"
+          aria-label={`Load ${ITEMS_PER_PAGE} more items. ${filtered.length - displayLimit} items remaining`}
+          className="block px-4 py-2 text-center"
+          onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            setDisplayLimit((prev) => prev + ITEMS_PER_PAGE)
+          }}
+        >
+          Load {ITEMS_PER_PAGE} more items... ({filtered.length - displayLimit} remaining)
+        </a>,
+      ]
+    }
+
+    return items
+  }
+
   return (
     <Stack alignment="center" gap="8">
       <InputGroup>
@@ -102,47 +145,12 @@ const FilterSelect = () => {
           value={filterValue}
           name="filterValue"
           onChange={(value: string) => handleFilterValueChange(value)}
-          onInputChange={(e: React.ChangeEvent<HTMLInputElement>) => setComboBoxQuery(e.target.value)}
+          onInputChange={handleComboBoxInputChange}
           disabled={filterLabelValues[filterLabel] ? false : true}
           loading={filterLabelValues[filterLabel]?.isLoading}
           className="filter-value-select w-96 bg-theme-background-lvl-0"
         >
-          {(() => {
-            const filtered = filterLabelValues[filterLabel]?.values
-              ?.filter(
-                (
-                  value: any // filter out already active values for this label
-                ) => !activeFilters[filterLabel]?.includes(value)
-              )
-              .filter((value: any) =>
-                comboBoxQuery ? value.toLowerCase().includes(comboBoxQuery.toLowerCase()) : true
-              )
-            const hasMore = filtered && filtered.length > displayLimit
-            const items =
-              filtered?.slice(0, displayLimit).map((value: any) => <ComboBoxOption value={value} key={value} />) || []
-
-            if (hasMore) {
-              return [
-                ...items,
-                <a
-                  key="load-more"
-                  href="#"
-                  role="button"
-                  aria-label={`Load 100 more items. ${filtered.length - displayLimit} items remaining`}
-                  className="block px-4 py-2 text-center"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    e.stopPropagation()
-                    setDisplayLimit((prev) => prev + 100)
-                  }}
-                >
-                  Load 100 more items... ({filtered.length - displayLimit} remaining)
-                </a>,
-              ]
-            }
-
-            return items
-          })()}
+          {renderFilterOptions()}
         </ComboBox>
       </InputGroup>
       {renderClearButton()}
