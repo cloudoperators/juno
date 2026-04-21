@@ -6,8 +6,13 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
+import { createMemoryHistory, createRootRoute, createRoute, Outlet, RouterProvider } from "@tanstack/react-router"
+import { AuthProvider } from "@cloudoperators/greenhouse-auth-provider"
 import { RemediatedIssueDataRow } from "./index"
 import type { ImageVulnerability } from "../../../../../Services/utils"
+import { getTestRouter } from "../../../../../../mocks/getTestRouter"
+
+const mockAuth = { getSnapshot: () => ({ status: "anonymous" as const }) }
 
 const mockIssue: ImageVulnerability = {
   id: "vul-1",
@@ -18,30 +23,69 @@ const mockIssue: ImageVulnerability = {
   sourceUrl: "https://nvd.nist.gov/vuln/detail/CVE-2024-1234",
 }
 
+function renderWithRouter(props: Partial<React.ComponentProps<typeof RemediatedIssueDataRow>> = {}) {
+  const rootRoute = createRootRoute({ component: () => <Outlet /> })
+  const testRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: "/services/$service",
+    component: () => (
+      <RemediatedIssueDataRow issue={mockIssue} service="my-service" image="my-image" onSelect={() => {}} {...props} />
+    ),
+  })
+  const routeTree = rootRoute.addChildren([testRoute])
+  const router = getTestRouter({
+    routeTree,
+    history: createMemoryHistory({ initialEntries: ["/services/my-service"] }),
+  })
+  return render(
+    <AuthProvider embedded auth={mockAuth}>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  )
+}
+
 describe("RemediatedIssueDataRow", () => {
-  it("renders issue name and description", () => {
-    render(<RemediatedIssueDataRow issue={mockIssue} service="my-service" image="my-image" onSelect={() => {}} />)
-    expect(screen.getByText("CVE-2024-1234")).toBeInTheDocument()
+  it("renders issue name and description", async () => {
+    renderWithRouter()
+    expect(await screen.findByText("CVE-2024-1234")).toBeInTheDocument()
     expect(screen.getByText("A test vulnerability description.")).toBeInTheDocument()
   })
 
   it("calls onSelect when row is clicked", async () => {
     const onSelect = vi.fn()
     const user = userEvent.setup()
-    render(<RemediatedIssueDataRow issue={mockIssue} service="my-service" image="my-image" onSelect={onSelect} />)
-    await user.click(screen.getByText("CVE-2024-1234"))
+    renderWithRouter({ onSelect })
+    await user.click(await screen.findByText("CVE-2024-1234"))
     expect(onSelect).toHaveBeenCalledTimes(1)
   })
 
-  it("returns null when issue has no name", () => {
+  it("returns null when issue has no name", async () => {
+    const rootRoute = createRootRoute({ component: () => <Outlet /> })
+    const testRoute = createRoute({
+      getParentRoute: () => rootRoute,
+      path: "/services/$service",
+      component: () => (
+        <RemediatedIssueDataRow
+          issue={{ ...mockIssue, name: "" }}
+          service="my-service"
+          image="my-image"
+          onSelect={() => {}}
+        />
+      ),
+    })
+    const routeTree = rootRoute.addChildren([testRoute])
+    const router = getTestRouter({
+      routeTree,
+      history: createMemoryHistory({ initialEntries: ["/services/my-service"] }),
+    })
     const { container } = render(
-      <RemediatedIssueDataRow
-        issue={{ ...mockIssue, name: "" }}
-        service="my-service"
-        image="my-image"
-        onSelect={() => {}}
-      />
+      <AuthProvider embedded auth={mockAuth}>
+        <RouterProvider router={router} />
+      </AuthProvider>
     )
-    expect(container.firstChild).toBeNull()
+    // Wait for router to settle, then confirm nothing rendered for the issue
+    await screen.findByRole("main").catch(() => {})
+    expect(container.querySelector("[data-testid]")).toBeNull()
+    expect(screen.queryByText("CVE-2024-1234")).not.toBeInTheDocument()
   })
 })
