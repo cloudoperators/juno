@@ -32,6 +32,7 @@ const FilterSelect = () => {
   const [filterLabel, setFilterLabel] = useState("")
   const [filterValue, setFilterValue] = useState("")
   const [comboBoxQuery, setComboBoxQuery] = useState("")
+  const [displayLimit, setDisplayLimit] = useState(100)
   const { addActiveFilter, loadFilterLabelValues, clearFilters, setSearchTerm } = useFilterActions()
   const filterLabels = useFilterLabels()
   const filterLabelValues = useFilterLabelValues()
@@ -41,6 +42,7 @@ const FilterSelect = () => {
   const handleFilterLabelChange = (value: any) => {
     setFilterLabel(value)
     setComboBoxQuery("")
+    setDisplayLimit(100) // reset display limit when changing filter label
     // lazy loading of all possible values for this label (only load them if we haven't already)
     if (!filterLabelValues[value]?.values) {
       loadFilterLabelValues(value)
@@ -105,17 +107,42 @@ const FilterSelect = () => {
           loading={filterLabelValues[filterLabel]?.isLoading}
           className="filter-value-select w-96 bg-theme-background-lvl-0"
         >
-          {filterLabelValues[filterLabel]?.values
-            ?.filter(
-              (
-                value: any // filter out already active values for this label
-              ) => !activeFilters[filterLabel]?.includes(value)
-            )
-            .filter((value: any) => (comboBoxQuery ? value.toLowerCase().includes(comboBoxQuery.toLowerCase()) : true))
-            .slice(0, 100)
-            .map((value: any) => (
-              <ComboBoxOption value={value} key={value} />
-            ))}
+          {(() => {
+            const filtered = filterLabelValues[filterLabel]?.values
+              ?.filter(
+                (
+                  value: any // filter out already active values for this label
+                ) => !activeFilters[filterLabel]?.includes(value)
+              )
+              .filter((value: any) =>
+                comboBoxQuery ? value.toLowerCase().includes(comboBoxQuery.toLowerCase()) : true
+              )
+            const hasMore = filtered && filtered.length > displayLimit
+            const items =
+              filtered?.slice(0, displayLimit).map((value: any) => <ComboBoxOption value={value} key={value} />) || []
+
+            if (hasMore) {
+              return [
+                ...items,
+                <a
+                  key="load-more"
+                  href="#"
+                  role="button"
+                  aria-label={`Load 100 more items. ${filtered.length - displayLimit} items remaining`}
+                  className="block px-4 py-2 text-center"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    setDisplayLimit((prev) => prev + 100)
+                  }}
+                >
+                  Load 100 more items... ({filtered.length - displayLimit} remaining)
+                </a>,
+              ]
+            }
+
+            return items
+          })()}
         </ComboBox>
       </InputGroup>
       {renderClearButton()}
