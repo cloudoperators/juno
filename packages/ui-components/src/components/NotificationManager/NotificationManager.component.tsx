@@ -6,6 +6,7 @@
 import React from "react"
 import { Toaster, toast as sonnerToast } from "sonner"
 import { NotificationOptions, ToastHandler, ToastId, ToastMessage, ToastVariants } from "./NotificationManager.types"
+import { Toast } from "../Toast"
 
 /**
  * NotificationManager wraps the Sonner toast library and supports rendering
@@ -132,8 +133,42 @@ type NotificationToast = ((_message: ToastMessage, _data?: NotificationOptions) 
     danger: ToastHandler
   }
 
+/**
+ * Builds a semantic toast handler that renders Juno's `Toast` component through
+ * Sonner's `custom` API.
+ *
+ * Why this exists:
+ * - Keeps Sonner in charge of queueing, timing, and dismissal lifecycle.
+ * - Allows Juno-specific markup and visual semantics per variant.
+ * - Preserves id-based dismiss/update capabilities from Sonner.
+ *
+ * The incoming message/description can be values or lazy functions; both are
+ * normalized before rendering into the custom toast body.
+ */
 const createSemanticToast = (_variant: ToastVariants): ToastHandler => {
-  return (message, data) => sonnerToast(message, data)
+  return (message, data) => {
+    const title = typeof message === "function" ? message() : message
+    const description = typeof data?.description === "function" ? data.description() : data?.description
+
+    // Use Sonner's custom renderer but keep dismissal bound to Sonner toast id.
+    return sonnerToast.custom(
+      (id) => (
+        <Toast
+          variant={_variant}
+          className={data?.className}
+          onDismiss={() => {
+            sonnerToast.dismiss(id)
+          }}
+        >
+          <div className="jn:flex jn:flex-col jn:gap-1">
+            <div>{title}</div>
+            {description ? <div className="jn:text-theme-medium">{description}</div> : null}
+          </div>
+        </Toast>
+      ),
+      data
+    )
+  }
 }
 
 /**
