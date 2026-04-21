@@ -16,15 +16,21 @@ const COLUMN_SPAN = 4
 type RemediatedIssuesDataRowsProps = {
   issuesPromise: Promise<ObservableQuery.Result<GetImagesQuery>>
   remediationsPromise: Promise<ObservableQuery.Result<GetRemediationsQuery>>
+  service: string
+  image: string
   selectedVulnerabilityName: string | null
   onSelectVulnerability: (vulnerabilityName: string | null) => void
+  onRemediationSuccess?: (cveNumber: string) => void | Promise<void>
 }
 
 export const RemediatedIssuesDataRows = ({
   issuesPromise,
   remediationsPromise,
+  service,
+  image,
   selectedVulnerabilityName,
   onSelectVulnerability,
+  onRemediationSuccess,
 }: RemediatedIssuesDataRowsProps) => {
   const issuesResult = use(issuesPromise)
   const remediationsResult = use(remediationsPromise)
@@ -72,8 +78,11 @@ export const RemediatedIssuesDataRows = ({
         <RemediatedIssueDataRow
           key={issue.id}
           issue={issue}
+          service={service}
+          image={image}
           selected={selectedVulnerabilityName === issue.name}
           onSelect={() => onSelectVulnerability(issue.name)}
+          onRemediationSuccess={onRemediationSuccess}
         />
       ))}
     </>

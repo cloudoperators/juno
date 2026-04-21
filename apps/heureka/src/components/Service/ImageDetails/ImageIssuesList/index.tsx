@@ -132,6 +132,8 @@ const RemediatedVulnerabilitiesTabContent = ({
   remediationsPromise,
   setPageCursor,
   onDataRefresh,
+  onRemediationSuccess,
+  successMessage,
   selectedVulnerability,
   onSelectVulnerability,
   refreshKey,
@@ -143,12 +145,19 @@ const RemediatedVulnerabilitiesTabContent = ({
   remediationsPromise: ReturnType<typeof fetchRemediations>
   setPageCursor: (cursor: string | null | undefined) => void
   onDataRefresh?: () => void | Promise<void>
+  onRemediationSuccess?: (cveNumber: string) => void | Promise<void>
+  successMessage: string | null
   selectedVulnerability: string | null
   onSelectVulnerability: (cve: string | null) => void
   refreshKey: number
 }) => {
   return (
     <>
+      {successMessage && (
+        <div className="mb-4 mt-4">
+          <Message text={successMessage} variant="success" />
+        </div>
+      )}
       <Stack gap="2" className="mb-4 mt-4">
         <SearchInput
           placeholder="Search for CVE number"
@@ -158,7 +167,7 @@ const RemediatedVulnerabilitiesTabContent = ({
         />
       </Stack>
       <div className="mt-4">
-        <DataGrid columns={4} minContentColumns={[0, 1, 2]} cellVerticalAlignment="top">
+        <DataGrid columns={5} minContentColumns={[0, 1, 2, 4]} cellVerticalAlignment="top">
           <DataGridRow>
             <DataGridHeadCell>
               <Icon icon="monitorHeart" />
@@ -166,20 +175,24 @@ const RemediatedVulnerabilitiesTabContent = ({
             <DataGridHeadCell>Vulnerability</DataGridHeadCell>
             <DataGridHeadCell>Target Date</DataGridHeadCell>
             <DataGridHeadCell>Description</DataGridHeadCell>
+            <DataGridHeadCell />
           </DataGridRow>
 
           {issuesPromise && (
             <ErrorBoundary
               displayErrorMessage
-              fallbackRender={getErrorDataRowComponent({ colspan: 4 })}
+              fallbackRender={getErrorDataRowComponent({ colspan: 5 })}
               resetKeys={[issuesPromise, remediationsPromise]}
             >
-              <Suspense fallback={<LoadingDataRow colSpan={4} />}>
+              <Suspense fallback={<LoadingDataRow colSpan={5} />}>
                 <RemediatedIssuesDataRows
                   issuesPromise={issuesPromise}
                   remediationsPromise={remediationsPromise}
+                  service={service}
+                  image={image}
                   selectedVulnerabilityName={selectedVulnerability}
                   onSelectVulnerability={onSelectVulnerability}
+                  onRemediationSuccess={onRemediationSuccess}
                 />
               </Suspense>
             </ErrorBoundary>
@@ -246,6 +259,7 @@ export const ImageIssuesList = ({
     [navigate, service, image.repository]
   )
   const [vulnerabilitiesSuccessMessage, setVulnerabilitiesSuccessMessage] = useTimedState<string>(10000)
+  const [remediatedSuccessMessage, setRemediatedSuccessMessage] = useTimedState<string>(10000)
   const [refreshKey, setRefreshKey] = useState(0)
 
   const refreshIssuesData = useCallback(async () => {
@@ -352,6 +366,15 @@ export const ImageIssuesList = ({
     [refreshIssuesData]
   )
 
+  const handleRemediatedTabRemediationSuccess = useCallback(
+    async (cveNumber: string) => {
+      const text = `A new remediation has been added for vulnerability ${cveNumber}.`
+      setRemediatedSuccessMessage(text)
+      await refreshIssuesData()
+    },
+    [refreshIssuesData]
+  )
+
   return (
     <>
       <Tabs selectedIndex={selectedTabIndex} onSelect={handleTabSelect} variant="content">
@@ -381,6 +404,8 @@ export const ImageIssuesList = ({
             remediationsPromise={remediationsPromise}
             setPageCursor={setRemediatedPageCursor}
             onDataRefresh={refreshIssuesData}
+            onRemediationSuccess={handleRemediatedTabRemediationSuccess}
+            successMessage={remediatedSuccessMessage}
             selectedVulnerability={vulRemediations ?? null}
             onSelectVulnerability={handleRemediationPanelVulnerabilityChange}
             refreshKey={refreshKey}
