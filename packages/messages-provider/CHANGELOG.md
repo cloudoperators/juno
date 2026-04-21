@@ -1,5 +1,11 @@
 # @cloudoperators/juno-messages-provider
 
+## 0.2.36
+
+### Patch Changes
+
+- 98a250f: Updates message provider using npm trusted publishing
+
 ## 0.2.35
 
 ### Patch Changes
