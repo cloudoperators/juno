@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 export type ToastMessage = (() => React.ReactNode) | React.ReactNode
 export type ToastId = string | number
 export type ToastHandler = (_message: ToastMessage, _data?: NotificationOptions) => ToastId
@@ -11,6 +16,7 @@ type ToastAction = {
 }
 export type NotificationOptions = {
   id?: ToastId
+  toasterId?: string
   duration?: number
   closeButton?: boolean
   dismissible?: boolean

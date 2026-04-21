@@ -21,6 +21,12 @@ import { Toast } from "../Toast"
  */
 export interface NotificationManagerProps {
   /**
+   * Optional Sonner toaster id. Use this to scope notifications to a specific
+   * NotificationManager instance.
+   */
+  id?: string
+
+  /**
    * Controls whether notifications can be dismissed manually.
    *
    * Set to `false` to render non-dismissible notifications that disappear only
@@ -145,28 +151,23 @@ type NotificationToast = ((_message: ToastMessage, _data?: NotificationOptions) 
  * The incoming message/description can be values or lazy functions; both are
  * normalized before rendering into the custom toast body.
  */
-const createSemanticToast = (_variant: ToastVariants): ToastHandler => {
+const createSemanticToast = (variant: ToastVariants): ToastHandler => {
   return (message, data) => {
     const title = typeof message === "function" ? message() : message
     const description = typeof data?.description === "function" ? data.description() : data?.description
+    const { description: _description, ...customOptions } = data || {}
 
     // Use Sonner's custom renderer but keep dismissal bound to Sonner toast id.
     return sonnerToast.custom(
       (id) => (
-        <Toast
-          variant={_variant}
-          className={data?.className}
-          onDismiss={() => {
-            sonnerToast.dismiss(id)
-          }}
-        >
+        <Toast variant={variant} className={data?.className} onDismiss={() => sonnerToast.dismiss(id)}>
           <div className="jn:flex jn:flex-col jn:gap-1">
             <div>{title}</div>
             {description ? <div className="jn:text-theme-medium">{description}</div> : null}
           </div>
         </Toast>
       ),
-      data
+      customOptions
     )
   }
 }
