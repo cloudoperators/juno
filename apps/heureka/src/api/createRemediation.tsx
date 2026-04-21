@@ -32,12 +32,16 @@ export const createRemediation = async ({
 
     return result.data.createRemediation
   } catch (error) {
+    const messages: string[] = []
     if (error && typeof error === "object" && "graphQLErrors" in error) {
       const gqlErrors = (error as { graphQLErrors: Array<{ message: string }> }).graphQLErrors
       if (gqlErrors?.length) {
-        throw Object.assign(new Error(gqlErrors.map((e) => e.message).join("; ")), { cause: error })
+        messages.push(...gqlErrors.map((e) => e.message))
       }
     }
-    throw error
+    if (!messages.length) {
+      messages.push(error instanceof Error ? error.message : "Failed to create remediation")
+    }
+    throw Object.assign(new Error(messages.join("; ")), { cause: error })
   }
 }
