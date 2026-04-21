@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -52,7 +52,7 @@ const headerstyles = `
 	jn:px-8
 	jn:border-b
 	jn:border-theme-background-lvl-4
-	jn:h-[2.8125rem]
+	jn:h-11.25
 `
 
 const titlestyles = `
@@ -61,7 +61,7 @@ const titlestyles = `
 `
 
 const contentstyles = `
-	jn:min-h-[5rem]
+	jn:min-h-20
 `
 
 const contentpaddingstyles = `
