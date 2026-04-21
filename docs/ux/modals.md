@@ -54,9 +54,37 @@ However, there may be situations where they don't: The Cancel button will actual
 
 Both should close the Modal without changing the state of the application, effectively cancelling any pending actions.
 
+When the user has to make a decision and the action can't be just cancelled or the modal closed, both the closing "X"-button and any "Cancel"/"Close"-buttons should be disabled, provided they represent the exact same action.
+
+### General Confirmation Modals
+
+General Confirmation Modals that only confrim acknowledgement of a fact or state shpuld only have one button labelled "Close", "OK", or some similar generic wording.
+
+The title should represent the action or fact that is to be cofirmed, ideally and if possible with refrence to the name or other idientifying property of the affected entity.
+
+Confirmation Modals should not carry an addiotnal Message element in the body.
+
+When the action affects mutliple items or entities, the number and type of the items should be reflected.
+
 ### Destructive Actions and Confirmation of Destructive Actions
 
-Modals may be used for destructive tasks, such as deleting an entity, or for confirming such tasks when triggered inline. In this case, the primary button should be styled as `primary-danger` (red).
+Modals may be used for destructive tasks, such as deleting an entity, or for confirming such tasks when triggered inline. In this case, the primary button must be styled as `primary-danger` (red).
+
+As in modals confirming non-destructive actions, the Modal title should reflect the action and identify the affected item to re-assure users they are not going to destroy or delete items they didn't mean to delete. If multiple items are affected, the action, number, and type of items should be stated in the Modal header.
+
+Modals confirming destructive Actions should NOT have a Danger Message in the Modal body.
+
+For confirming destructive actions there are several levels of severity that require increasing user input in order to confirm potentially destructive and dangerous actions.
+Very low risk actions don't require a Confirmation Modal at all.
+
+| Severity | Means of Confirmation                             | Notes                                                                      |
+| -------- | ------------------------------------------------- | -------------------------------------------------------------------------- |
+| Very Low | none, no Modfal needed                            | see below as to whether to show a toast notification                       |
+| Low      | Modal Button                                      | Confirming Modal Button is always enabled                                  |
+| Mid      | Checkbox, then Confirmation Button                | Confirming Modal Button is enabled once user has checked the checkbox      |
+| High     | Type a specified phrase, then Confirmation Button | Confirming Modal Button is enabled once user has entered a matching phrase |
+
+For all destructive actions there should be a Toast Notification confirming the respective entitiy was actually deleted, unless the action is very low risk, it is obvious from the context, or many identical actions are expected resultingin a flood of notifications that are more annoying than reassuring.
 
 ### No Sign-In Modals
 
