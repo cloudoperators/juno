@@ -5,7 +5,7 @@
 
 import React from "react"
 import { Toaster, toast as sonnerToast } from "sonner"
-import type { ExternalToast } from "sonner"
+import { NotificationOptions, ToastHandler, ToastId, ToastMessage, ToastVariants } from "./NotificationManager.types"
 
 /**
  * NotificationManager wraps the Sonner toast library and supports rendering
@@ -123,11 +123,7 @@ export const NotificationManager = ({
   />
 )
 
-// Reuse Sonner's message input type for the public notification API.
-type ToastMessage = Parameters<typeof sonnerToast>[0]
-type ToastHandler = (_message: ToastMessage, _data?: ExternalToast) => string | number
-
-type NotificationToast = ((_message: ToastMessage, _data?: ExternalToast) => string | number) &
+type NotificationToast = ((_message: ToastMessage, _data?: NotificationOptions) => ToastId) &
   Omit<typeof sonnerToast, "info" | "success" | "warning" | "error"> & {
     info: ToastHandler
     success: ToastHandler
@@ -136,7 +132,7 @@ type NotificationToast = ((_message: ToastMessage, _data?: ExternalToast) => str
     danger: ToastHandler
   }
 
-const createSemanticToast = (_variant: "info" | "success" | "warning" | "error" | "danger"): ToastHandler => {
+const createSemanticToast = (_variant: ToastVariants): ToastHandler => {
   return (message, data) => sonnerToast(message, data)
 }
 
@@ -158,7 +154,7 @@ const createSemanticToast = (_variant: "info" | "success" | "warning" | "error" 
  * changing the public API.
  */
 export const toast: NotificationToast = Object.assign(
-  ((message: ToastMessage, data?: ExternalToast) => sonnerToast(message, data)) as NotificationToast,
+  ((message: ToastMessage, data?: NotificationOptions) => sonnerToast(message, data)) as NotificationToast,
   sonnerToast,
   {
     info: createSemanticToast("info"),
