@@ -107,6 +107,8 @@ describe("RemediatedIssuesDataRows", () => {
           <RemediatedIssuesDataRows
             issuesPromise={emptyImagesPromise}
             remediationsPromise={emptyRemediationsPromise}
+            service="my-service"
+            image="my-image"
             selectedVulnerabilityName={null}
             onSelectVulnerability={() => {}}
           />
@@ -126,6 +128,8 @@ describe("RemediatedIssuesDataRows", () => {
           <RemediatedIssuesDataRows
             issuesPromise={issuesPromise}
             remediationsPromise={remediationsPromise}
+            service="my-service"
+            image="my-image"
             selectedVulnerabilityName={null}
             onSelectVulnerability={() => {}}
           />
@@ -147,6 +151,8 @@ describe("RemediatedIssuesDataRows", () => {
           <RemediatedIssuesDataRows
             issuesPromise={issuesPromise}
             remediationsPromise={remediationsPromise}
+            service="my-service"
+            image="my-image"
             selectedVulnerabilityName={null}
             onSelectVulnerability={() => {}}
           />
@@ -168,6 +174,8 @@ describe("RemediatedIssuesDataRows", () => {
           <RemediatedIssuesDataRows
             issuesPromise={issuesPromise}
             remediationsPromise={remediationsPromise}
+            service="my-service"
+            image="my-image"
             selectedVulnerabilityName={null}
             onSelectVulnerability={() => {}}
           />
@@ -193,6 +201,8 @@ describe("RemediatedIssuesDataRows — risk acceptance revert", () => {
           <RemediatedIssuesDataRows
             issuesPromise={issuesPromise}
             remediationsPromise={remediationsPromise}
+            service="my-service"
+            image="my-image"
             selectedVulnerabilityName={null}
             onSelectVulnerability={() => {}}
           />
@@ -214,6 +224,8 @@ describe("RemediatedIssuesDataRows — risk acceptance revert", () => {
           <RemediatedIssuesDataRows
             issuesPromise={issuesPromise}
             remediationsPromise={remediationsPromise}
+            service="my-service"
+            image="my-image"
             selectedVulnerabilityName={null}
             onSelectVulnerability={() => {}}
           />
@@ -236,6 +248,8 @@ describe("RemediatedIssuesDataRows — risk acceptance revert", () => {
           <RemediatedIssuesDataRows
             issuesPromise={issuesPromise}
             remediationsPromise={remediationsPromise}
+            service="my-service"
+            image="my-image"
             selectedVulnerabilityName={null}
             onSelectVulnerability={() => {}}
           />

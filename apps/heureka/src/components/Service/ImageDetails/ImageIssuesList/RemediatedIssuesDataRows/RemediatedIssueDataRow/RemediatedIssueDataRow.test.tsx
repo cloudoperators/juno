@@ -20,7 +20,7 @@ const mockIssue: ImageVulnerability = {
 
 describe("RemediatedIssueDataRow", () => {
   it("renders issue name and description", () => {
-    render(<RemediatedIssueDataRow issue={mockIssue} onSelect={() => {}} />)
+    render(<RemediatedIssueDataRow issue={mockIssue} service="my-service" image="my-image" onSelect={() => {}} />)
     expect(screen.getByText("CVE-2024-1234")).toBeInTheDocument()
     expect(screen.getByText("A test vulnerability description.")).toBeInTheDocument()
   })
@@ -28,13 +28,20 @@ describe("RemediatedIssueDataRow", () => {
   it("calls onSelect when row is clicked", async () => {
     const onSelect = vi.fn()
     const user = userEvent.setup()
-    render(<RemediatedIssueDataRow issue={mockIssue} onSelect={onSelect} />)
+    render(<RemediatedIssueDataRow issue={mockIssue} service="my-service" image="my-image" onSelect={onSelect} />)
     await user.click(screen.getByText("CVE-2024-1234"))
     expect(onSelect).toHaveBeenCalledTimes(1)
   })
 
   it("returns null when issue has no name", () => {
-    const { container } = render(<RemediatedIssueDataRow issue={{ ...mockIssue, name: "" }} onSelect={() => {}} />)
+    const { container } = render(
+      <RemediatedIssueDataRow
+        issue={{ ...mockIssue, name: "" }}
+        service="my-service"
+        image="my-image"
+        onSelect={() => {}}
+      />
+    )
     expect(container.firstChild).toBeNull()
   })
 })
