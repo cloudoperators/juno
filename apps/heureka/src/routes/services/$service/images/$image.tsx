@@ -23,13 +23,15 @@ export const Route = createFileRoute("/services/$service/images/$image")({
   shouldReload: false,
   loader: ({ context, params: { service, image } }) => {
     const { queryClient, apiClient } = context
+    const decodedService = decodeURIComponent(service)
+    const decodedImage = decodeURIComponent(image)
     // create a promise to fetch the images for this service
     const imagesPromise = fetchImages({
       queryClient,
       apiClient,
       filter: {
-        service: [service],
-        repository: [image],
+        service: [decodedService],
+        repository: [decodedImage],
       },
       firstVersions: 100, // Fetch versions for the image
     })
@@ -37,16 +39,17 @@ export const Route = createFileRoute("/services/$service/images/$image")({
     return {
       imagesPromise,
       crumb: {
-        label: image,
+        label: decodedImage,
       },
+      decodedParams: { service: decodedService, image: decodedImage },
     }
   },
   component: ImageDetailsPage,
 })
 
 function ImageDetailsPage() {
-  const { imagesPromise } = Route.useLoaderData()
-  const { service, image } = Route.useParams()
+  const { imagesPromise, decodedParams } = Route.useLoaderData()
+  const { service, image } = decodedParams
   const search = Route.useSearch()
   const matchRoute = useMatchRoute()
   const isOnVersionDetailsPage = matchRoute({ to: "/services/$service/images/$image/versions/$version" })
