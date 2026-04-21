@@ -41,6 +41,7 @@ type IssuesDataRowProps = {
   image: string
   showFalsePositiveAction?: boolean
   onFalsePositiveSuccess?: (cveNumber: string) => void | Promise<void>
+  onRiskAcceptanceSuccess?: (cveNumber: string) => void | Promise<void>
 }
 
 export const IssuesDataRow = ({
@@ -49,6 +50,7 @@ export const IssuesDataRow = ({
   image,
   showFalsePositiveAction = true,
   onFalsePositiveSuccess,
+  onRiskAcceptanceSuccess,
 }: IssuesDataRowProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -105,7 +107,7 @@ export const IssuesDataRow = ({
     try {
       await createRemediation({ apiClient, input })
       const cveNumber = issue?.name || "unknown"
-      Promise.resolve(onFalsePositiveSuccess?.(cveNumber)).catch(() => {})
+      Promise.resolve(onRiskAcceptanceSuccess?.(cveNumber)).catch(() => {})
     } catch (error) {
       setIsRiskAcceptanceModalOpen(true)
       return { error: error instanceof Error ? error.message : "Failed to create remediation" }
@@ -167,7 +169,7 @@ export const IssuesDataRow = ({
               <PopupMenu icon="moreVert" className="whitespace-nowrap ml-auto">
                 <PopupMenuOptions>
                   <PopupMenuItem label="Mark False Positive" onClick={handleFalsePositiveClick} />
-                  <PopupMenuItem label="Mark Risk Accepted" onClick={handleRiskAcceptanceClick} />
+                  <PopupMenuItem label="Accept Risk" onClick={handleRiskAcceptanceClick} />
                 </PopupMenuOptions>
               </PopupMenu>
             )}

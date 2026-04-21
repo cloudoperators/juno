@@ -181,3 +181,69 @@ describe("RemediatedIssuesDataRows", () => {
     expect(screen.queryByText("CVE-2024-5678")).not.toBeInTheDocument()
   })
 })
+
+describe("RemediatedIssuesDataRows — risk acceptance revert", () => {
+  it("shows a risk-accepted vulnerability in the remediated tab", async () => {
+    const issuesPromise = makeImagesPromise(["CVE-2024-9999"])
+    const remediationsPromise = makeRemediationsPromise(["CVE-2024-9999"])
+
+    await act(async () => {
+      render(
+        <Suspense fallback={<div>Loading...</div>}>
+          <RemediatedIssuesDataRows
+            issuesPromise={issuesPromise}
+            remediationsPromise={remediationsPromise}
+            selectedVulnerabilityName={null}
+            onSelectVulnerability={() => {}}
+          />
+        </Suspense>
+      )
+    })
+
+    expect(await screen.findByText("CVE-2024-9999")).toBeInTheDocument()
+  })
+
+  it("removes vulnerability from remediated tab when risk acceptance is reverted", async () => {
+    const issuesPromise = makeImagesPromise(["CVE-2024-9999"])
+    // Remediation removed — risk acceptance was reverted
+    const remediationsPromise = makeRemediationsPromise([])
+
+    await act(async () => {
+      render(
+        <Suspense fallback={<div>Loading...</div>}>
+          <RemediatedIssuesDataRows
+            issuesPromise={issuesPromise}
+            remediationsPromise={remediationsPromise}
+            selectedVulnerabilityName={null}
+            onSelectVulnerability={() => {}}
+          />
+        </Suspense>
+      )
+    })
+
+    expect(screen.queryByText("CVE-2024-9999")).not.toBeInTheDocument()
+    expect(await screen.findByText("No remediated vulnerabilities found!")).toBeInTheDocument()
+  })
+
+  it("only removes the reverted CVE — other risk-accepted ones remain in remediated tab", async () => {
+    const issuesPromise = makeImagesPromise(["CVE-2024-9999", "CVE-2024-8888"])
+    // CVE-2024-9999 reverted (no remediation), CVE-2024-8888 still risk accepted
+    const remediationsPromise = makeRemediationsPromise(["CVE-2024-8888"])
+
+    await act(async () => {
+      render(
+        <Suspense fallback={<div>Loading...</div>}>
+          <RemediatedIssuesDataRows
+            issuesPromise={issuesPromise}
+            remediationsPromise={remediationsPromise}
+            selectedVulnerabilityName={null}
+            onSelectVulnerability={() => {}}
+          />
+        </Suspense>
+      )
+    })
+
+    expect(screen.queryByText("CVE-2024-9999")).not.toBeInTheDocument()
+    expect(await screen.findByText("CVE-2024-8888")).toBeInTheDocument()
+  })
+})

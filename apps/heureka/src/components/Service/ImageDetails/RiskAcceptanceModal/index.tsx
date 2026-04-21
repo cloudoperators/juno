@@ -31,7 +31,7 @@ type RiskAcceptanceModalProps = {
   onSetError?: (message: string | null) => void
 }
 
-const CONFIRM_LABEL = "Mark as Risk Accepted"
+const CONFIRM_LABEL = "Accept Risk"
 const CANCEL_LABEL = "Cancel"
 
 const toSeverityValue = (severity: string): SeverityValues | undefined => {
@@ -158,7 +158,7 @@ export const RiskAcceptanceModal: React.FC<RiskAcceptanceModalProps> = ({
 
   return (
     <Modal
-      title="Mark as Risk Accepted"
+      title="Accept Risk"
       open={open}
       onCancel={handleClose}
       modalFooter={

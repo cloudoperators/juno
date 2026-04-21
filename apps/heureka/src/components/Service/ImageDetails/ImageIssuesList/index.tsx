@@ -27,6 +27,7 @@ import { IssuesDataRows } from "./IssuesDataRows"
 import { RemediatedIssuesDataRows } from "./RemediatedIssuesDataRows"
 import { RemediationHistoryPanel } from "./RemediationHistoryPanel"
 import { CursorPagination } from "../../../common/CursorPagination"
+import { RemediatedCursorPagination } from "./RemediatedCursorPagination"
 import { ErrorBoundary } from "../../../common/ErrorBoundary"
 import { getErrorDataRowComponent } from "../../../common/getErrorDataRow"
 import { LoadingDataRow } from "../../../common/LoadingDataRow"
@@ -49,6 +50,7 @@ const VulnerabilitiesTabContent = ({
   remediationsPromise,
   successMessage,
   onFalsePositiveSuccess,
+  onRiskAcceptanceSuccess,
 }: {
   service: string
   image: ServiceImage
@@ -58,6 +60,7 @@ const VulnerabilitiesTabContent = ({
   remediationsPromise: ReturnType<typeof fetchRemediations>
   successMessage: string | null
   onFalsePositiveSuccess: (cveNumber: string) => void | Promise<void>
+  onRiskAcceptanceSuccess: (cveNumber: string) => void | Promise<void>
 }) => {
   return (
     <>
@@ -100,6 +103,7 @@ const VulnerabilitiesTabContent = ({
                 service={service}
                 image={image.repository}
                 onFalsePositiveSuccess={onFalsePositiveSuccess}
+                onRiskAcceptanceSuccess={onRiskAcceptanceSuccess}
               />
             </Suspense>
           </ErrorBoundary>
@@ -182,11 +186,11 @@ const RemediatedVulnerabilitiesTabContent = ({
           )}
         </DataGrid>
         {issuesPromise && (
-          <ErrorBoundary resetKeys={[issuesPromise]}>
+          <ErrorBoundary resetKeys={[issuesPromise, remediationsPromise]}>
             <Suspense>
-              <CursorPagination
-                dataPromise={issuesPromise}
-                dataNormalizationMethod={getNormalizedImageVulnerabilitiesResponse}
+              <RemediatedCursorPagination
+                issuesPromise={issuesPromise}
+                remediationsPromise={remediationsPromise}
                 goToPage={setPageCursor}
               />
             </Suspense>
@@ -339,6 +343,15 @@ export const ImageIssuesList = ({
     [refreshIssuesData]
   )
 
+  const handleRiskAcceptanceSuccess = useCallback(
+    async (cveNumber: string) => {
+      const text = `Vulnerability ${cveNumber} has been accepted as a risk and moved to the Remediated list.`
+      setVulnerabilitiesSuccessMessage(text)
+      await refreshIssuesData()
+    },
+    [refreshIssuesData]
+  )
+
   return (
     <>
       <Tabs selectedIndex={selectedTabIndex} onSelect={handleTabSelect} variant="content">
@@ -356,6 +369,7 @@ export const ImageIssuesList = ({
             remediationsPromise={remediationsPromise}
             successMessage={vulnerabilitiesSuccessMessage}
             onFalsePositiveSuccess={handleFalsePositiveSuccess}
+            onRiskAcceptanceSuccess={handleRiskAcceptanceSuccess}
           />
         </TabPanel>
         <TabPanel>
