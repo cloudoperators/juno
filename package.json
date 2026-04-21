@@ -19,7 +19,7 @@
     "check-format": "prettier --config ./.prettierrc --check \"**/*.{js,jsx,ts,tsx,md}\" ",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "pnpm run build && changeset publish",
+    "release": "pnpm run build && changeset publish -r --no-git-checks",
     "prepare": "husky",
     "pkg:run": "turbo run dev --filter",
     "pkg": "pnpm run pkg:run --",
