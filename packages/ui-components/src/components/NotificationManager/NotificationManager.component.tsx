@@ -5,7 +5,14 @@
 
 import React from "react"
 import { Toaster, toast as sonnerToast } from "sonner"
-import { NotificationOptions, ToastHandler, ToastId, ToastMessage, ToastVariants } from "./NotificationManager.types"
+import {
+  NotificationOptions,
+  ToastHandler,
+  ToastId,
+  ToastMessage,
+  ToastPosition,
+  ToastVariants,
+} from "./NotificationManager.types"
 import { Toast } from "../Toast"
 
 /**
@@ -68,6 +75,13 @@ export interface NotificationManagerProps {
    * @default 3
    */
   visibleToasts?: number
+
+  /**
+   * Position of the notification stack on screen.
+   *
+   * @default "bottom-right"
+   */
+  position?: ToastPosition
 }
 
 /**
@@ -118,6 +132,7 @@ export const NotificationManager = ({
   dismissible = true,
   duration = 4000,
   visibleToasts = 3,
+  position = "bottom-right",
   ...props
 }: NotificationManagerProps) => (
   <Toaster
@@ -126,6 +141,7 @@ export const NotificationManager = ({
     closeButton={dismissible}
     duration={duration}
     visibleToasts={visibleToasts}
+    position={position}
     toastOptions={{
       classNames: { toast: "juno-toast" },
     }}
@@ -163,7 +179,7 @@ const createSemanticToast = (variant: ToastVariants): ToastHandler => {
     // Use Sonner's custom renderer but keep dismissal bound to Sonner toast id.
     return sonnerToast.custom(
       (id) => (
-        <Toast variant={variant} className={data?.className} onDismiss={() => sonnerToast.dismiss(id)}>
+        <Toast variant={variant} onDismiss={() => sonnerToast.dismiss(id)}>
           <div className="jn:flex jn:flex-col jn:gap-1">
             <div>{title}</div>
             {description ? <div className="jn:text-theme-medium">{description}</div> : null}

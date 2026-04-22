@@ -8,6 +8,7 @@ export type ToastId = string | number
 export type ToastHandler = (_message: ToastMessage, _data?: NotificationOptions) => ToastId
 
 export type ToastVariants = "info" | "success" | "warning" | "error" | "danger"
+export type ToastPosition = "top-left" | "top-right" | "bottom-left" | "bottom-right" | "top-center" | "bottom-center"
 
 type ToastAction = {
   label: React.ReactNode
@@ -21,9 +22,6 @@ export type NotificationOptions = {
   closeButton?: boolean
   dismissible?: boolean
   description?: (() => React.ReactNode) | React.ReactNode
-  icon?: React.ReactNode
-  richColors?: boolean
-  invert?: boolean
   action?: ToastAction | React.ReactNode
   cancel?: ToastAction | React.ReactNode
   onDismiss?: () => void
@@ -32,5 +30,5 @@ export type NotificationOptions = {
   style?: React.CSSProperties
   className?: string
   descriptionClassName?: string
-  position?: "top-left" | "top-right" | "bottom-left" | "bottom-right" | "top-center" | "bottom-center"
+  position?: ToastPosition
 }
