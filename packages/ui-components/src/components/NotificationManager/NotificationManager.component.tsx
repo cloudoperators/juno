@@ -122,10 +122,13 @@ export const NotificationManager = ({
 }: NotificationManagerProps) => (
   <Toaster
     expand={true}
-    className={`juno-notification-manager`}
+    className="juno-notification-manager"
     closeButton={dismissible}
     duration={duration}
     visibleToasts={visibleToasts}
+    toastOptions={{
+      classNames: { toast: "juno-toast" },
+    }}
     {...props}
   />
 )
@@ -179,21 +182,18 @@ const createSemanticToast = (variant: ToastVariants): ToastHandler => {
  * Juno notification API overrides the semantic variant helpers to:
  * `info | success | warning | error | danger`.
  *
- * Calling `toast()` without a variant should be treated as the default `info`
- * semantic variant.
+ * Calling `toast()` without a variant renders as the `info` semantic variant.
  *
  * All other Sonner methods, such as `dismiss`, `getHistory`, `getToasts`,
  * `loading`, `promise`, and `custom`, remain available on the exported API.
- *
- * For now, all semantic variants intentionally use Sonner's default toast
- * rendering. Variant-specific rendering can be introduced later without
- * changing the public API.
  */
+const infoToast = createSemanticToast("info")
+
 export const toast: NotificationToast = Object.assign(
-  ((message: ToastMessage, data?: NotificationOptions) => sonnerToast(message, data)) as NotificationToast,
+  ((message: ToastMessage, data?: NotificationOptions) => infoToast(message, data)) as NotificationToast,
   sonnerToast,
   {
-    info: createSemanticToast("info"),
+    info: infoToast,
     success: createSemanticToast("success"),
     warning: createSemanticToast("warning"),
     error: createSemanticToast("error"),

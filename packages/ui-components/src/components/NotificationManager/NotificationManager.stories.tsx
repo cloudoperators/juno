@@ -182,12 +182,12 @@ export const ShadowRootFalseWorks: Story = {
   ),
 }
 
-export const ShadowRootTrueNeedsFix: Story = {
+export const ShadowRootTrue: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          "Rendering with ShadowRoot currently needs an additional fix/workaround. This story uses AppShellProvider with shadowRoot={true} and mounts NotificationManager, mounting NotificationManager inside PortalProvider.Portal doesn't fix behavior. See: https://github.com/emilkowalski/sonner/issues/361",
+          "Rendering with ShadowRoot currently needs an additional workaround. This story uses AppShellProvider with shadowRoot={true} and mounts NotificationManager, mounting NotificationManager inside PortalProvider.Portal doesn't fix behavior. See: https://github.com/emilkowalski/sonner/issues/361",
       },
     },
   },
@@ -198,7 +198,7 @@ export const ShadowRootTrueNeedsFix: Story = {
           label="Show toast (shadowRoot=true)"
           onClick={() => {
             toast.warning("Rendered inside ShadowRoot", {
-              description: "Known caveat: this setup may need a fix/workaround for Sonner.",
+              description: "Known caveat: this setup may need a workaround for Sonner.",
               toasterId: STORY_TOASTER_IDS.shadowRootOn,
             })
           }}
