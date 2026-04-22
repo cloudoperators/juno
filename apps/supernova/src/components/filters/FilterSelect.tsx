@@ -112,7 +112,6 @@ const FilterSelect = () => {
               ) => !activeFilters[filterLabel]?.includes(value)
             )
             .filter((value: any) => (comboBoxQuery ? value.toLowerCase().includes(comboBoxQuery.toLowerCase()) : true))
-            .slice(0, 100)
             .map((value: any) => (
               <ComboBoxOption value={value} key={value} />
             ))}
