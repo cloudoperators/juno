@@ -2,4 +2,4 @@
 "@cloudoperators/juno-app-supernova": patch
 ---
 
-Fixed an issue where the filter ComboBox dropdown was limiting results to 100 items even after filtering, preventing users from accessing all matching values.
+Improved the filter ComboBox dropdown behavior for large option sets by addressing how results are shown within the existing paginated list.
