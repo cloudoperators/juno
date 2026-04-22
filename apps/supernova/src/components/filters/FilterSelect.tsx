@@ -35,6 +35,7 @@ const FilterSelect = () => {
   const [filterValue, setFilterValue] = useState("")
   const [comboBoxQuery, setComboBoxQuery] = useState("")
   const [displayLimit, setDisplayLimit] = useState(ITEMS_PER_PAGE)
+  const [comboBoxKey, setComboBoxKey] = useState(0) // Key to force ComboBox re-render
   const { addActiveFilter, loadFilterLabelValues, clearFilters, setSearchTerm } = useFilterActions()
   const filterLabels = useFilterLabels()
   const filterLabelValues = useFilterLabelValues()
@@ -62,6 +63,9 @@ const FilterSelect = () => {
         search: (prev) => addFilter({ ...prev }, `${ACTIVE_FILTERS_PREFIX}${filterLabel}`, value),
       })
     }
+    // Clear the search query after selection and force ComboBox re-render
+    setComboBoxQuery("")
+    setComboBoxKey((prev) => prev + 1) // Force ComboBox to remount and clear internal state
     // TODO: remove this after ComboBox supports resetting its value after onChange
     // set timeout to allow ComboBox to update its value after onChange
     setTimeout(() => {
@@ -105,22 +109,20 @@ const FilterSelect = () => {
       filtered?.slice(0, displayLimit).map((value: any) => <ComboBoxOption value={value} key={value} />) || []
 
     if (hasMore) {
+      // Build informational text that includes the query for filtering
+      const infoText = comboBoxQuery
+        ? `"${comboBoxQuery}" - Showing ${displayLimit} of ${filtered.length}. Refine search for more.`
+        : `Showing ${displayLimit} of ${filtered.length}. Search to filter.`
+
       return [
         ...items,
-        <a
-          key="load-more"
-          href="#"
-          role="button"
-          aria-label={`Load ${ITEMS_PER_PAGE} more items. ${filtered.length - displayLimit} items remaining`}
-          className="block px-4 py-2 text-center"
-          onClick={(e) => {
-            e.preventDefault()
-            e.stopPropagation()
-            setDisplayLimit((prev) => prev + ITEMS_PER_PAGE)
-          }}
-        >
-          Load {ITEMS_PER_PAGE} more items... ({filtered.length - displayLimit} remaining)
-        </a>,
+        <ComboBoxOption
+          key="info-more"
+          disabled={true}
+          value={`__info_more_${comboBoxQuery}__`}
+          label={infoText}
+          className="jn:text-center jn:text-theme-text-secondary jn:italic"
+        />,
       ]
     }
 
@@ -142,6 +144,7 @@ const FilterSelect = () => {
           ))}
         </Select>
         <ComboBox
+          key={comboBoxKey}
           value={filterValue}
           name="filterValue"
           onChange={(value: string) => handleFilterValueChange(value)}
