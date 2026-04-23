@@ -1,5 +1,11 @@
 # @cloudoperators/juno-messages-provider
 
+## 0.2.37
+
+### Patch Changes
+
+- 9bf3fcb: Test upload message provider with trusted publishing
+
 ## 0.2.36
 
 ### Patch Changes
