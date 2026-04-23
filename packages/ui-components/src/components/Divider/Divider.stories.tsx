@@ -67,6 +67,6 @@ export const CustomColourAndSpacing: Story = {
   },
   args: {
     color: "jn:border-[rgb(220,0,150)]",
-    spacing: "jn:py-4",
+    spacing: "4",
   },
 }

@@ -41,12 +41,12 @@ describe("Divider", () => {
     })
 
     test("applies custom spacing class when spacing prop is passed", () => {
-      render(<Divider data-testid="divider" spacing="jn:py-4" />)
+      render(<Divider data-testid="divider" spacing="4" />)
       expect(screen.getByTestId("divider")).toHaveClass("jn:py-4")
     })
 
     test("does not apply default spacing when custom spacing is passed", () => {
-      render(<Divider data-testid="divider" spacing="jn:py-4" />)
+      render(<Divider data-testid="divider" spacing="4" />)
       expect(screen.getByTestId("divider")).not.toHaveClass("jn:py-1")
     })
   })
@@ -76,6 +76,12 @@ describe("Divider", () => {
     test("forwards additional props to the wrapper element", () => {
       render(<Divider data-testid="divider" data-custom="test-value" />)
       expect(screen.getByTestId("divider")).toHaveAttribute("data-custom", "test-value")
+    })
+
+    test("forwards ref to the wrapper element", () => {
+      const ref = React.createRef<HTMLDivElement>()
+      render(<Divider data-testid="divider" ref={ref} />)
+      expect(ref.current).toBe(screen.getByTestId("divider"))
     })
   })
 })
