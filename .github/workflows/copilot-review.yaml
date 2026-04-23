@@ -30,6 +30,12 @@ jobs:
               pull_number: context.payload.pull_request.number
             });
 
+            // Log all reviewers
+            console.log('📋 All reviewers for this PR:');
+            reviews.forEach(review => {
+              console.log(`  - ${review.user.login} (${review.state})`);
+            });
+
             const copilotReviewed = reviews.some(review =>
               review.user.login.toLowerCase() === 'copilot'
             );
