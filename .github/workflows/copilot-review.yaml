@@ -39,7 +39,6 @@ jobs:
 
             if (copilotReviewed) {
               console.log('✅ Copilot has reviewed this PR');
-              core.setOutput('conclusion', 'success');
             } else {
               console.log('❌ Copilot has not reviewed this PR yet');
               console.log('Please request a review from Copilot manually');
