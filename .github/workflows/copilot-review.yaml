@@ -37,7 +37,7 @@ jobs:
             });
 
             const copilotReviewed = reviews.some(review =>
-              review.user.login.toLowerCase() === 'copilot'
+              review.user.login.toLowerCase().includes('copilot')
             );
 
             if (copilotReviewed) {
