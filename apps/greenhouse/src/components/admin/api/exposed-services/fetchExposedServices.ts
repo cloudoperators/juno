@@ -4,61 +4,80 @@
  */
 
 import { FilterSettings } from "../../common/types"
-import { ExposedServices } from "../../types/k8sTypes"
-import { CLUSTER_LABEL, FILTER_IDS, SUPPORT_GROUP_LABEL, EXPOSED_SERVICES_LABEL } from "../../constants"
+import { PluginsWithExposedServices } from "../../types/k8sTypes"
+import { NO_VALUE_DEFAULT, FILTER_IDS, SUPPORT_GROUP_LABEL, EXPOSED_SERVICES_LABEL } from "../../constants"
 
 export const FETCH_EXPOSED_SERVICES_CACHE_KEY = "exposedServices"
 
-const applyFilterSettings = (
-  exposedServices: ExposedServices[],
+export interface FlattenedExposedServices {
+  serviceUrl: string // URL of the exposed service
+  serviceName: string
+  clusterName: string
+  pluginName: string
+  supportGroup: string
+}
+
+// Function to flatten plugins and extract exposed services
+const flattenExposedServices = (plugins: PluginsWithExposedServices[]): FlattenedExposedServices[] => {
+  const flattenedServices: FlattenedExposedServices[] = []
+
+  plugins.forEach((plugin) => {
+    const clusterName = plugin.spec?.clusterName || NO_VALUE_DEFAULT
+    const pluginName = plugin.metadata?.name || NO_VALUE_DEFAULT
+    const supportGroup = plugin.metadata?.labels?.[SUPPORT_GROUP_LABEL] || NO_VALUE_DEFAULT
+    const exposedServices = plugin.status?.exposedServices || {}
+
+    Object.entries(exposedServices).forEach(([url, service]) => {
+      flattenedServices.push({
+        serviceUrl: url,
+        serviceName: service.name || NO_VALUE_DEFAULT,
+        clusterName: clusterName,
+        pluginName: pluginName,
+        supportGroup: supportGroup,
+      })
+    })
+  })
+
+  return flattenedServices
+}
+
+// Apply filter settings and sort services
+const applyFilterAndSortSettings = (
+  flattenedServices: FlattenedExposedServices[],
   filterSettings?: FilterSettings
-): ExposedServices[] => {
+): FlattenedExposedServices[] => {
   if (filterSettings?.selectedFilters) {
     // Filter by cluster
     const clusterValues = filterSettings.selectedFilters.filter((f) => f.id === FILTER_IDS.CLUSTER).map((f) => f.value)
-
     if (clusterValues.length > 0) {
-      exposedServices = exposedServices.filter((preset) => {
-        const def = preset.metadata?.labels?.[CLUSTER_LABEL]
-        return def && clusterValues.includes(def)
-      })
+      flattenedServices = flattenedServices.filter((service) => clusterValues.includes(service.clusterName))
+    }
+
+    // Filter by plugin name
+    const pluginValues = filterSettings.selectedFilters.filter((f) => f.id === FILTER_IDS.PLUGIN).map((f) => f.value)
+    if (pluginValues.length > 0) {
+      flattenedServices = flattenedServices.filter((service) => pluginValues.includes(service.pluginName))
     }
 
     // Filter by support group
     const supportGroupValues = filterSettings.selectedFilters
       .filter((f) => f.id === FILTER_IDS.SUPPORT_GROUP)
       .map((f) => f.value)
-
     if (supportGroupValues.length > 0) {
-      exposedServices = exposedServices.filter((preset) => {
-        const supportGroup = preset.metadata?.labels?.[SUPPORT_GROUP_LABEL]
-        return supportGroup && supportGroupValues.includes(supportGroup)
-      })
+      flattenedServices = flattenedServices.filter((service) => supportGroupValues.includes(service.supportGroup))
     }
   }
 
   // Filter by search term
   if (filterSettings?.searchTerm) {
     const searchTerm = filterSettings.searchTerm.toLowerCase()
-    return exposedServices.filter((preset) => {
-      const presetName = preset.metadata?.name?.toLowerCase() || ""
-      return presetName.includes(searchTerm)
-    })
+    flattenedServices = flattenedServices.filter((service) => service.serviceName.toLowerCase().includes(searchTerm))
   }
 
-  return exposedServices
-}
+  // Sort services alphabetically by service name
+  flattenedServices.sort((a, b) => a.serviceName.localeCompare(b.serviceName))
 
-const applySorting = (exposedServices: ExposedServices[]): ExposedServices[] => {
-  return exposedServices.sort((a, b) => {
-    // Sort alphabetically by name
-    const aName = a.metadata?.name?.toLowerCase() || ""
-    const bName = b.metadata?.name?.toLowerCase() || ""
-
-    if (aName < bName) return -1
-    if (aName > bName) return 1
-    return 0
-  })
+  return flattenedServices
 }
 
 export const fetchExposedServices = async ({
@@ -69,12 +88,14 @@ export const fetchExposedServices = async ({
   apiClient: any
   namespace: string
   filterSettings?: FilterSettings
-}): Promise<ExposedServices[]> => {
-  // Filter only by plugins that have exposed services
+}): Promise<FlattenedExposedServices[]> => {
   const response = await apiClient.get(`/apis/greenhouse.sap/v1alpha1/namespaces/${namespace}/plugins`, {
     params: {
       labelSelector: EXPOSED_SERVICES_LABEL,
     },
   })
-  return Array.isArray(response?.items) ? applySorting(applyFilterSettings(response.items, filterSettings)) : []
+
+  const flattenedServices = flattenExposedServices(response?.items || [])
+
+  return applyFilterAndSortSettings(flattenedServices, filterSettings)
 }

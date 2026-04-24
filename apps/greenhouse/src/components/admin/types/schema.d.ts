@@ -1546,10 +1546,10 @@ export interface components {
       }
     }
     /**
-     * ExposedServices
-     * @description ExposedServices is the Schema for plugins filtered by those that have exposed services
+     * PluginsWithExposedServices
+     * @description PluginsWithExposedServices is the Schema for plugins filtered by those that have exposed services
      */
-    ExposedServices: {
+    PluginsWithExposedServices: {
       /**
        * @description APIVersion defines the versioned schema of this representation of an object.
        * Servers should convert recognized schemas to the latest internal value, and
@@ -1607,7 +1607,7 @@ export interface components {
       spec?: {
         clusterName?: string
         /**
-         * @description DeletionPolicy defines how Plugins owned by an ExposedServices are handled on deletion.
+         * @description DeletionPolicy defines how Plugins owned by an PluginsWithExposedServices are handled on deletion.
          * Supported values are "Delete" and "Retain". If not set, defaults to "Delete".
          * @default Delete
          * @enum {string}
@@ -1699,7 +1699,7 @@ export interface components {
             type: string
           }[]
         }
-        /** @description Observed version of the ExposedServices */
+        /** @description Observed version of the PluginsWithExposedServices */
         version?: string
       }
     }

@@ -23,7 +23,8 @@ interface DetailsProps {
 
 export const Details: React.FC<DetailsProps> = ({ plugin }) => {
   const exposedServices = plugin.status?.exposedServices || {}
-  const exposedServicesLinks = Object.entries(exposedServices).map(([url, service], index) => (
+  const exposedServicesEntries = Object.entries(exposedServices)
+  const exposedServicesLinks = exposedServicesEntries.map(([url, service], index) => (
     <span key={`${url}-${service.name}-${index}`}>
       {url ? (
         <a
@@ -39,7 +40,7 @@ export const Details: React.FC<DetailsProps> = ({ plugin }) => {
       ) : (
         service.name
       )}
-      {index < Object.entries(exposedServices).length - 1 && " "}
+      {index < exposedServicesEntries.length - 1 && " "}
     </span>
   ))
   return (

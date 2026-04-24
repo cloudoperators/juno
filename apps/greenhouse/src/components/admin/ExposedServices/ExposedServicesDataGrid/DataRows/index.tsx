@@ -4,11 +4,11 @@
  */
 
 import React from "react"
-import { useQuery } from "@tanstack/react-query"
+import { useSuspenseQuery } from "@tanstack/react-query"
 import { useRouteContext, useSearch } from "@tanstack/react-router"
-import { DataGridRow, DataGridCell, Icon, Stack } from "@cloudoperators/juno-ui-components"
+import { DataGridRow, DataGridCell, Icon } from "@cloudoperators/juno-ui-components"
 
-import { SUPPORT_GROUP_LABEL } from "../../../constants"
+import { NO_VALUE_DEFAULT } from "../../../constants"
 import {
   fetchExposedServices,
   FETCH_EXPOSED_SERVICES_CACHE_KEY,
@@ -25,7 +25,7 @@ export const DataRows = ({ colSpan }: DataRowsProps) => {
   const search = useSearch({ from: "/admin/exposed-services" })
   const filterSettings = extractFilterSettingsFromSearchParams(search)
 
-  const { data: serviceData } = useQuery({
+  const { data: flattenedExposedServices } = useSuspenseQuery({
     queryKey: [FETCH_EXPOSED_SERVICES_CACHE_KEY, user.organization, filterSettings],
     queryFn: () =>
       fetchExposedServices({
@@ -35,49 +35,44 @@ export const DataRows = ({ colSpan }: DataRowsProps) => {
       }),
   })
 
-  if (!serviceData || serviceData.length === 0) {
+  if (!flattenedExposedServices || flattenedExposedServices.length === 0) {
     return <EmptyDataGridRow colSpan={colSpan}>No exposed services found.</EmptyDataGridRow>
   }
 
-  const NO_VALUE_DEFAULT = "--"
-
   return (
     <>
-      {serviceData.map((service) => {
-        const clusterName = service.spec?.clusterName || NO_VALUE_DEFAULT
-        const pluginName = service.metadata?.name || NO_VALUE_DEFAULT
-        const supportGroup = service.metadata?.labels?.[SUPPORT_GROUP_LABEL] || NO_VALUE_DEFAULT
-        const exposedServices = service.status?.exposedServices || {}
+      {flattenedExposedServices.map((service, index) => {
+        const serviceUrl = service.serviceUrl || NO_VALUE_DEFAULT
+        const serviceName = service.serviceName || NO_VALUE_DEFAULT
+        const clusterName = service.clusterName || NO_VALUE_DEFAULT
+        const pluginName = service.pluginName || NO_VALUE_DEFAULT
+        const supportGroup = service.supportGroup || NO_VALUE_DEFAULT
 
         return (
-          <DataGridRow key={`${pluginName}`}>
-            {Object.entries(exposedServices).map(([url, serviceData]) => (
-              <React.Fragment key={url}>
-                {/* Name */}
-                <DataGridCell className="inline-block">
-                  {url ? (
-                    <a
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Open ${serviceData.name} in a new tab`}
-                      className="cursor-pointer"
-                    >
-                      <div className="inline-block mr-2">{serviceData.name || ""}</div>
-                      <Icon size="18" icon="openInNew" className="inline-block" />
-                    </a>
-                  ) : (
-                    serviceData.name
-                  )}
-                </DataGridCell>
-                {/* Cluster */}
-                <DataGridCell>{clusterName}</DataGridCell>
-                {/* Plugin */}
-                <DataGridCell>{pluginName}</DataGridCell>
-                {/* Support Group */}
-                <DataGridCell>{supportGroup}</DataGridCell>
-              </React.Fragment>
-            ))}
+          <DataGridRow key={`${serviceName}-${index}`}>
+            {/* Name */}
+            <DataGridCell className="inline-block">
+              {serviceUrl !== NO_VALUE_DEFAULT ? (
+                <a
+                  href={serviceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Open ${serviceName} in a new tab`}
+                  className="cursor-pointer"
+                >
+                  <div className="inline-block mr-2">{serviceName}</div>
+                  <Icon size="18" icon="openInNew" className="inline-block" />
+                </a>
+              ) : (
+                serviceName
+              )}
+            </DataGridCell>
+            {/* Cluster */}
+            <DataGridCell>{clusterName}</DataGridCell>
+            {/* Plugin */}
+            <DataGridCell>{pluginName}</DataGridCell>
+            {/* Support Group */}
+            <DataGridCell>{supportGroup}</DataGridCell>
           </DataGridRow>
         )
       })}

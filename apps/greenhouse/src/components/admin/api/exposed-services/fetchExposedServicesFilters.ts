@@ -4,38 +4,52 @@
  */
 
 import { Filter } from "../../common/types"
-import { PluginPreset } from "../../types/k8sTypes"
-import { FILTER_IDS, SUPPORT_GROUP_LABEL, CLUSTER_LABEL, EXPOSED_SERVICES_LABEL } from "../../constants"
+import { PluginsWithExposedServices } from "../../types/k8sTypes"
+import { FILTER_IDS, SUPPORT_GROUP_LABEL, EXPOSED_SERVICES_LABEL } from "../../constants"
 
-const getClusterValues = (services: PluginPreset[]) =>
+const getClusterValues = (pluginWithExposedServices: PluginsWithExposedServices[]) =>
   Array.from(
     new Set(
-      services.map((service) => {
-        return service.metadata?.labels?.[CLUSTER_LABEL]
+      pluginWithExposedServices.map((plugin) => {
+        return plugin.spec?.clusterName
       })
     )
   ).filter((value): value is string => !!value)
 
-const getSupportGroupValues = (services: PluginPreset[]) =>
+const getPluginValues = (pluginWithExposedServices: PluginsWithExposedServices[]) =>
   Array.from(
     new Set(
-      services.map((service) => {
-        return service.metadata?.labels?.[SUPPORT_GROUP_LABEL]
+      pluginWithExposedServices.map((plugin) => {
+        return plugin.metadata?.name
       })
     )
   ).filter((value): value is string => !!value)
 
-const extractFilters = (exposedServices: PluginPreset[]) => {
+const getSupportGroupValues = (pluginWithExposedServices: PluginsWithExposedServices[]) =>
+  Array.from(
+    new Set(
+      pluginWithExposedServices.map((plugin) => {
+        return plugin.metadata?.labels?.[SUPPORT_GROUP_LABEL]
+      })
+    )
+  ).filter((value): value is string => !!value)
+
+const extractFilters = (pluginsWithExposedServices: PluginsWithExposedServices[]) => {
   return [
     {
       id: FILTER_IDS.CLUSTER,
       label: "Cluster",
-      values: getClusterValues(exposedServices),
+      values: getClusterValues(pluginsWithExposedServices),
+    },
+    {
+      id: FILTER_IDS.PLUGIN,
+      label: "Plugin",
+      values: getPluginValues(pluginsWithExposedServices),
     },
     {
       id: FILTER_IDS.SUPPORT_GROUP,
       label: "Support Group",
-      values: getSupportGroupValues(exposedServices),
+      values: getSupportGroupValues(pluginsWithExposedServices),
     },
   ]
 }
@@ -49,7 +63,7 @@ export const fetchExposedServicesFilters = async ({
   apiClient: any
   namespace: string
 }): Promise<Filter[]> => {
-  // Filter only by plugins that have exposed services
+  // Filter only by plugins that have exposed pluginWithExposedServices
   const response = await apiClient.get(`/apis/greenhouse.sap/v1alpha1/namespaces/${namespace}/plugins`, {
     params: {
       labelSelector: EXPOSED_SERVICES_LABEL,
