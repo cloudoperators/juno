@@ -80,7 +80,7 @@ describe("ExposedServicesDataGrid", () => {
     expect(screen.getByText("Plugin")).toBeInTheDocument()
     expect(screen.getByText("Support Group")).toBeInTheDocument()
 
-    // Verify service texts are in the document
+    // Verify service names are in the document
     expect(screen.getByText("service1")).toBeInTheDocument()
     expect(screen.getByText("service2")).toBeInTheDocument()
     expect(screen.getByText("service3")).toBeInTheDocument()
@@ -89,8 +89,8 @@ describe("ExposedServicesDataGrid", () => {
     const service1Link = screen.getByRole("link", { name: /service1/i })
     const service2Link = screen.getByRole("link", { name: /service2/i })
 
-    expect(service1Link).toHaveAttribute("href", "https://demo-service1.sci.greenhouse-qa.eu-nl-1.cloud.sap")
-    expect(service2Link).toHaveAttribute("href", "https://demo-service2.sci.greenhouse-qa.eu-nl-1.cloud.sap")
+    expect(service1Link).toHaveAttribute("href", "https://demo-service1.sci.greenhouse-qa.eu-nl-1.cloud.sap/")
+    expect(service2Link).toHaveAttribute("href", "https://demo-service2.sci.greenhouse-qa.eu-nl-1.cloud.sap/")
 
     // Ensure no link rendered without URL
     const service3Link = screen.queryByRole("link", { name: /service3/i })
