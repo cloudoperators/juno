@@ -14,10 +14,29 @@ import {
   FETCH_EXPOSED_SERVICES_CACHE_KEY,
 } from "../../../api/exposed-services/fetchExposedServices"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow"
-import { extractFilterSettingsFromSearchParams } from "../../../utils"
+import { extractFilterSettingsFromSearchParams, getSafeExternalUrl } from "../../../utils"
 
 interface DataRowsProps {
   colSpan: number
+}
+
+const createLinkElement = (url: string, serviceName: string) => {
+  const safeUrl = getSafeExternalUrl(url)
+  if (safeUrl) {
+    return (
+      <a
+        href={safeUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Open ${serviceName} in a new tab`}
+        className="cursor-pointer"
+      >
+        <div className="inline-block mr-2">{serviceName || ""}</div>
+        <Icon size="18" icon="openInNew" className="inline-block" />
+      </a>
+    )
+  }
+  return <span>{serviceName}</span>
 }
 
 export const DataRows = ({ colSpan }: DataRowsProps) => {
@@ -41,41 +60,16 @@ export const DataRows = ({ colSpan }: DataRowsProps) => {
 
   return (
     <>
-      {flattenedExposedServices.map((service, index) => {
-        const serviceUrl = service.serviceUrl || NO_VALUE_DEFAULT
-        const serviceName = service.serviceName || NO_VALUE_DEFAULT
-        const clusterName = service.clusterName || NO_VALUE_DEFAULT
-        const pluginName = service.pluginName || NO_VALUE_DEFAULT
-        const supportGroup = service.supportGroup || NO_VALUE_DEFAULT
-
-        return (
-          <DataGridRow key={`${serviceName}-${index}`}>
-            {/* Name */}
-            <DataGridCell className="inline-block">
-              {serviceUrl !== NO_VALUE_DEFAULT ? (
-                <a
-                  href={serviceUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Open ${serviceName} in a new tab`}
-                  className="cursor-pointer"
-                >
-                  <div className="inline-block mr-2">{serviceName}</div>
-                  <Icon size="18" icon="openInNew" className="inline-block" />
-                </a>
-              ) : (
-                serviceName
-              )}
-            </DataGridCell>
-            {/* Cluster */}
-            <DataGridCell>{clusterName}</DataGridCell>
-            {/* Plugin */}
-            <DataGridCell>{pluginName}</DataGridCell>
-            {/* Support Group */}
-            <DataGridCell>{supportGroup}</DataGridCell>
-          </DataGridRow>
-        )
-      })}
+      {flattenedExposedServices.map((service, index) => (
+        <DataGridRow key={`${service.serviceName}-${index}`}>
+          <DataGridCell className="inline-block">
+            {createLinkElement(service.serviceUrl, service.serviceName)}
+          </DataGridCell>
+          <DataGridCell>{service.clusterName || NO_VALUE_DEFAULT}</DataGridCell>
+          <DataGridCell>{service.pluginName || NO_VALUE_DEFAULT}</DataGridCell>
+          <DataGridCell>{service.supportGroup || NO_VALUE_DEFAULT}</DataGridCell>
+        </DataGridRow>
+      ))}
     </>
   )
 }

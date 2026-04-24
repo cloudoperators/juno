@@ -63,7 +63,7 @@ export const fetchExposedServicesFilters = async ({
   apiClient: any
   namespace: string
 }): Promise<Filter[]> => {
-  // Filter only by plugins that have exposed pluginWithExposedServices
+  // Filter only by plugins that have exposed services
   const response = await apiClient.get(`/apis/greenhouse.sap/v1alpha1/namespaces/${namespace}/plugins`, {
     params: {
       labelSelector: EXPOSED_SERVICES_LABEL,

@@ -28,7 +28,7 @@ export const ExposedServicesDataGrid = () => {
       <ErrorBoundary
         displayErrorMessage
         fallbackRender={getErrorDataRowComponent({ colspan: COLUMN_SPAN })}
-        resetKeys={[filterSettings]}
+        resetKeys={[filterSettings]} // Reset on filter changes
       >
         <Suspense fallback={<LoadingDataRow colSpan={COLUMN_SPAN} />}>
           <DataRows colSpan={COLUMN_SPAN} />
