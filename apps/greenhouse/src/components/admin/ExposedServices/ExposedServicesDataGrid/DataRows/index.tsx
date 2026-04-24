@@ -6,7 +6,7 @@
 import React from "react"
 import { useSuspenseQuery } from "@tanstack/react-query"
 import { useRouteContext, useSearch } from "@tanstack/react-router"
-import { DataGridRow, DataGridCell, Icon } from "@cloudoperators/juno-ui-components"
+import { DataGridRow, DataGridCell } from "@cloudoperators/juno-ui-components"
 
 import { NO_VALUE_DEFAULT } from "../../../constants"
 import {
