@@ -5,7 +5,7 @@
 
 import { Filter } from "../../common/types"
 import { PluginsWithExposedServices } from "../../types/k8sTypes"
-import { FILTER_IDS, SUPPORT_GROUP_LABEL, EXPOSED_SERVICES_LABEL } from "../../constants"
+import { FILTER_IDS, SUPPORT_GROUP_LABEL, EXPOSED_SERVICES_LABEL_SELECTOR } from "../../constants"
 
 const getClusterValues = (pluginWithExposedServices: PluginsWithExposedServices[]) =>
   Array.from(
@@ -66,7 +66,7 @@ export const fetchExposedServicesFilters = async ({
   // Filter only by plugins that have exposed services
   const response = await apiClient.get(`/apis/greenhouse.sap/v1alpha1/namespaces/${namespace}/plugins`, {
     params: {
-      labelSelector: EXPOSED_SERVICES_LABEL,
+      labelSelector: EXPOSED_SERVICES_LABEL_SELECTOR,
     },
   })
   return Array.isArray(response?.items) ? extractFilters(response.items) : []

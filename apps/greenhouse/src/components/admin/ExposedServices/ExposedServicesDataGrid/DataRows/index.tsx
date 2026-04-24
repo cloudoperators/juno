@@ -14,29 +14,11 @@ import {
   FETCH_EXPOSED_SERVICES_CACHE_KEY,
 } from "../../../api/exposed-services/fetchExposedServices"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow"
-import { extractFilterSettingsFromSearchParams, getSafeExternalUrl } from "../../../utils"
+import { extractFilterSettingsFromSearchParams } from "../../../utils"
+import { ExternalLink } from "../../../common/ExternalLink"
 
 interface DataRowsProps {
   colSpan: number
-}
-
-const createLinkElement = (url: string, serviceName: string) => {
-  const safeUrl = getSafeExternalUrl(url)
-  if (safeUrl) {
-    return (
-      <a
-        href={safeUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`Open ${serviceName} in a new tab`}
-        className="cursor-pointer"
-      >
-        <div className="inline-block mr-2">{serviceName || ""}</div>
-        <Icon size="18" icon="openInNew" className="inline-block" />
-      </a>
-    )
-  }
-  return <span>{serviceName}</span>
 }
 
 export const DataRows = ({ colSpan }: DataRowsProps) => {
@@ -63,7 +45,7 @@ export const DataRows = ({ colSpan }: DataRowsProps) => {
       {flattenedExposedServices.map((service, index) => (
         <DataGridRow key={`${service.serviceName}-${index}`}>
           <DataGridCell className="inline-block">
-            {createLinkElement(service.serviceUrl, service.serviceName)}
+            {<ExternalLink url={service.serviceUrl} label={service.serviceName} />}
           </DataGridCell>
           <DataGridCell>{service.clusterName || NO_VALUE_DEFAULT}</DataGridCell>
           <DataGridCell>{service.pluginName || NO_VALUE_DEFAULT}</DataGridCell>

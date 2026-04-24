@@ -16,30 +16,10 @@ import {
 } from "@cloudoperators/juno-ui-components"
 import { Plugin } from "../../types/k8sTypes"
 import { SUPPORT_GROUP_LABEL } from "../../constants"
-import { getSafeExternalUrl } from "../../utils"
+import { ExternalLink } from "../../common/ExternalLink"
 
 interface DetailsProps {
   plugin: Plugin
-}
-
-// Utility function to validate URL and create a clickable link element
-const createLinkElement = (url: string, serviceName: string) => {
-  const safeUrl = getSafeExternalUrl(url)
-  if (safeUrl) {
-    return (
-      <a
-        href={safeUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`Open ${serviceName} in a new tab`}
-        className="cursor-pointer"
-      >
-        <div className="inline-block mr-2">{serviceName || ""}</div>
-        <Icon size="18" icon="openInNew" className="inline-block" />
-      </a>
-    )
-  }
-  return serviceName
 }
 
 export const Details: React.FC<DetailsProps> = ({ plugin }) => {
@@ -47,7 +27,7 @@ export const Details: React.FC<DetailsProps> = ({ plugin }) => {
   const exposedServicesEntries = Object.entries(exposedServices)
   const exposedServicesLinks = exposedServicesEntries.map(([url, service], index) => (
     <span key={`${url}-${service.name}-${index}`}>
-      {createLinkElement(url, service.name)}
+      {<ExternalLink url={url} label={service.name} />}
       {index < exposedServicesEntries.length - 1 && " "}
     </span>
   ))

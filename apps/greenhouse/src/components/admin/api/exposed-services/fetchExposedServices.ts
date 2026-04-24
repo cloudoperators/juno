@@ -5,7 +5,7 @@
 
 import { FilterSettings } from "../../common/types"
 import { PluginsWithExposedServices } from "../../types/k8sTypes"
-import { NO_VALUE_DEFAULT, FILTER_IDS, SUPPORT_GROUP_LABEL, EXPOSED_SERVICES_LABEL } from "../../constants"
+import { NO_VALUE_DEFAULT, FILTER_IDS, SUPPORT_GROUP_LABEL, EXPOSED_SERVICES_LABEL_SELECTOR } from "../../constants"
 
 export const FETCH_EXPOSED_SERVICES_CACHE_KEY = "exposedServices"
 
@@ -91,11 +91,11 @@ export const fetchExposedServices = async ({
 }): Promise<FlattenedExposedServices[]> => {
   const response = await apiClient.get(`/apis/greenhouse.sap/v1alpha1/namespaces/${namespace}/plugins`, {
     params: {
-      labelSelector: EXPOSED_SERVICES_LABEL,
+      labelSelector: EXPOSED_SERVICES_LABEL_SELECTOR,
     },
   })
 
-  const flattenedServices = flattenExposedServices(response?.items || [])
+  const flattenedServices = flattenExposedServices(Array.isArray(response?.items) ? response.items : [])
 
   return applyFilterAndSortSettings(flattenedServices, filterSettings)
 }
