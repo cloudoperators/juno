@@ -70,7 +70,7 @@ jobs:
   notify-on-success:
     if: needs.release.outputs.published == 'true'
     needs: [release] # List the jobs that should complete successfully
-    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@main
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@e69fd9982d52aa1e1623ceda55875724843516b6 # main
     with:
       title: "JUNO Packages Released Successfully! 🚀"
       body: ${{ needs.release.outputs.publishedPackages }}
@@ -81,7 +81,7 @@ jobs:
   notify-on-failure:
     if: failure()
     needs: [release]
-    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@main
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@e69fd9982d52aa1e1623ceda55875724843516b6 # main
     with:
       title: "🚨 JUNO Packages Release Failed 🚨"
       body: "An error occurred while releasing JUNO Packages for the branch ${{ github.head_ref || github.ref_name }}. Please check the logs for more information. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>"
