@@ -60,7 +60,10 @@ export const Route = createFileRoute("/admin/exposed-services")({
       // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({
         to: "/admin/exposed-services",
-        search: getFiltersForUrl({ selectedFilters: defaultFilters }),
+        search: {
+          ...search,
+          ...getFiltersForUrl({ selectedFilters: defaultFilters }),
+        },
         replace: true,
       })
     }
