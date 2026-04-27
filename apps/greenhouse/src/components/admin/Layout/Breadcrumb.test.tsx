@@ -78,7 +78,7 @@ describe("Breadcrumb", () => {
     const router = createRouter({
       routeTree,
       history: createMemoryHistory({
-        initialEntries: ["/admin/clusters"],
+        initialEntries: ["/admin/oldclusters"],
       }),
     })
 

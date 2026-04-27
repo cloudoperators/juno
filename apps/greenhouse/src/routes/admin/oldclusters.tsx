@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2025 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -11,7 +11,7 @@ import { useGlobalsApiEndpoint } from "../../components/StoreProvider"
 import { ClustersAppWithoutShadowDOM } from "../../components/core-apps/org-admin/components/clusters/App"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 
-export const Route = createFileRoute("/admin/clusters")({
+export const Route = createFileRoute("/admin/oldclusters")({
   component: RouteComponent,
   loader: () => ({
     crumb: {
@@ -25,7 +25,7 @@ function RouteComponent() {
   const { data: authData } = useAuth()
   const { addMessage, removeMessage } = useActions()
   const apiEndpoint = useGlobalsApiEndpoint()
-  const { user } = useRouteContext({ from: "/admin/clusters" })
+  const { user } = useRouteContext({ from: "/admin/oldclusters" })
   const token = authData?.JWT
   const namespace = user.organization
 
