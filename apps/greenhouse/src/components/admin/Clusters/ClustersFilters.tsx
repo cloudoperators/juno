@@ -96,7 +96,7 @@ export const PluginPresetsFilters = () => {
           variant="subdued"
         />
         <SearchInput
-          placeholder={`search term for clusters name`}
+          placeholder={`search term for cluster name`}
           className="w-96 ml-auto"
           data-testid="searchbar"
           value={filterSettings.searchTerm}
