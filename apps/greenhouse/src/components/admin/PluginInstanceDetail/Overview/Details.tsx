@@ -12,7 +12,6 @@ import {
   Pill,
   Stack,
   ContentHeading,
-  Icon,
 } from "@cloudoperators/juno-ui-components"
 import { Plugin } from "../../types/k8sTypes"
 import { SUPPORT_GROUP_LABEL } from "../../constants"
