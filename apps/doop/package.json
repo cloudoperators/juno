@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-doop",
-  "version": "2.6.25",
+  "version": "2.6.26",
   "author": "UI-Team",
   "type": "module",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/doop",
