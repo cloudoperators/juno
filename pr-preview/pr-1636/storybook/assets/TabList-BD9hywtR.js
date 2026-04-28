@@ -1,0 +1,1 @@
+import"./TabList.component-DQslbSvH.js";

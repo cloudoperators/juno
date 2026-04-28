@@ -1,0 +1,2 @@
+import{g as e}from"./iframe-DaLLswkI.js";import{t}from"./esm-Bq3kh5zf.js";import"react";var n=e(),r=({children:e,className:r=``,...i})=>(0,n.jsx)(t,{className:`juno-tabpanel ${r}`,selectedClassName:`juno-tabpanel-selected`,...i,children:e});r.tabsRole=`TabPanel`;try{r.displayName=`TabPanel`,r.__docgenInfo={description:`The TabPanel holds content related to a Tab in a TabList in a wrapping Tab component. Not to be used standalone / outside a Tabs wrapper.
+ *`,displayName:`TabPanel`,props:{}}}catch{}export{r as t};

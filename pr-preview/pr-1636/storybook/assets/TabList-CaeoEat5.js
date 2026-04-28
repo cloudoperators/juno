@@ -1,1 +1,0 @@
-import"./TabList.component-CgDaLRcO.js";

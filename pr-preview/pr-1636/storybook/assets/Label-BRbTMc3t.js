@@ -1,0 +1,1 @@
+import"./Label.component-CaYvNWRj.js";

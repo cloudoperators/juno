@@ -1,0 +1,7 @@
+import{g as e}from"./iframe-DaLLswkI.js";import{t}from"./PortalProvider.component-CY2B953U.js";import"./PortalProvider-DMzxyAqb.js";import{n,t as r}from"./SelectOption.component-IH298z0m.js";import"./SelectOption-BuR0L-jU.js";import{forwardRef as i}from"react";var a=e(),o=`
+  jn:h-px 
+  jn:w-full
+  jn:bg-theme-background-lvl-3
+`,s=i(({className:e=``,...t},n)=>(0,a.jsx)(`div`,{className:`juno-select-divider ${o} ${e}`,ref:n,...t}));s.displayName=`SelectDivider`;try{s.displayName=`SelectDivider`,s.__docgenInfo={description:`A visual border/divider between SelectOptions or SelectGroups`,displayName:`SelectDivider`,props:{className:{defaultValue:{value:``},description:`add a custom className`,name:`className`,required:!1,type:{name:`string`}}}}}catch{}var c={title:`Forms/Select/SelectDivider`,component:s,argTypes:{},decorators:[e=>(0,a.jsx)(t,{children:(0,a.jsx)(e,{})})],render:()=>(0,a.jsxs)(n,{open:!0,children:[(0,a.jsx)(r,{value:`1`,children:`1`}),(0,a.jsx)(s,{}),(0,a.jsx)(r,{value:`3`,children:`3`})]})},l={args:{}};l.parameters={...l.parameters,docs:{...l.parameters?.docs,source:{originalSource:`{
+  args: {}
+}`,...l.parameters?.docs?.source}}};var u=[`Default`];export{l as Default,u as __namedExportsOrder,c as default};
