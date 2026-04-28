@@ -5,10 +5,10 @@
   "description": "JavaScript client for Kubernetes API",
   "main": "build/index.cjs.js",
   "module": "build/index.es.js",
-  "types": "build/index.d.ts",
+  "types": "build/src/index.d.ts",
   "exports": {
     ".": {
-      "types": "./build/index.d.ts",
+      "types": "./build/src/index.d.ts",
       "import": "./build/index.es.js",
       "require": "./build/index.cjs.js"
     }
@@ -36,7 +36,7 @@
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
     "vite": "8.0.10",
-    "vite-plugin-dts": "4.5.4",
+    "vite-plugin-dts": "5.0.0-beta.6",
     "vitest": "3.2.4"
   }
 }

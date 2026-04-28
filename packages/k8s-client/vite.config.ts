@@ -29,6 +29,8 @@ export default {
       exclude: ["./test/**/*.test.ts", "vitest.setup.ts"],
       insertTypesEntry: true, // Ensure types are properly exported
       outDir: "build", // Specify where to output the types
+      root: ".", // Set root to project root
+      entryRoot: "src", // Set entry root to src directory
     }),
   ],
 }
