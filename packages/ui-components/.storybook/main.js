@@ -27,6 +27,11 @@ const config = {
   staticDirs: ["../public"],
 
   viteFinal: async (config) => {
+    // Ensure React is not externalized in Storybook builds
+    if (config.build?.rollupOptions?.external) {
+      config.build.rollupOptions.external = []
+    }
+
     config = merge(config, {
       assetsInclude: ["**/*.png", "**/*.jpg"],
       plugins: [
