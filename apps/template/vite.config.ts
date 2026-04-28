@@ -3,11 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { defineConfig, UserConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import tailwindcss from "@tailwindcss/vite"
 import tsconfigPaths from "vite-tsconfig-paths"
 
-export default ({ mode }) => {
+export default defineConfig(({ mode }: { mode: string }): UserConfig => {
   const sharedConfig = {
     root: "./",
 
@@ -23,9 +24,7 @@ export default ({ mode }) => {
     },
   }
 
-  // with vite it is possible to have different configurations based on the mode
-  // we can use this to create a static build for previewing the app in github pages
-  // and also to create a docker image for the standalone app
+  // Static build mode (full standalone app)
   if (mode === "static") {
     return {
       ...sharedConfig,
@@ -35,7 +34,7 @@ export default ({ mode }) => {
     }
   }
 
-  // Default is a library
+  // Production library build
   return {
     ...sharedConfig,
     build: {
@@ -48,4 +47,4 @@ export default ({ mode }) => {
       },
     },
   }
-}
+})

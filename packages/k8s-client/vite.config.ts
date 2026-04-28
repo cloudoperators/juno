@@ -3,34 +3,28 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { defineConfig, esmExternalRequirePlugin } from "vite"
 import dts from "vite-plugin-dts"
 
-export default {
+export default defineConfig({
   build: {
     lib: {
-      entry: "src/index.ts", // or 'src/main.ts' if TypeScript
-      name: "k8s-client", // Replace with your library's global name
-      formats: ["es", "cjs"], // Output formats: ESM and CommonJS
-      fileName: (format) => `index.${format}.js`, // Output file names
+      entry: "src/index.ts",
+      name: "k8s-client",
+      formats: ["es", "cjs"],
+      fileName: (format) => `index.${format}.js`,
     },
     outDir: "build",
-    rollupOptions: {
-      // Treat these as externals - they won't be bundled
-      external: ["https"],
-      output: {
-        globals: {
-          https: "https",
-        },
-      },
-    },
   },
   plugins: [
+    // Vite 8: externalize node built-ins and convert require() to import
+    esmExternalRequirePlugin({
+      external: ["https"], // https is a Node.js built-in module, not from package.json
+    }),
     dts({
       exclude: ["./test/**/*.test.ts", "vitest.setup.ts"],
-      insertTypesEntry: true, // Ensure types are properly exported
-      outDir: "build", // Specify where to output the types
-      root: ".", // Set root to project root
-      entryRoot: "src", // Set entry root to src directory
+      insertTypesEntry: true,
+      outDir: "build",
     }),
   ],
-}
+})

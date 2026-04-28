@@ -3,34 +3,35 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { defineConfig, esmExternalRequirePlugin } from "vite"
 import dts from "vite-plugin-dts"
 import { peerDependencies } from "./package.json"
 
-export default {
+export default defineConfig({
   build: {
     lib: {
-      entry: "src/index.ts", // or 'src/main.ts' if TypeScript
-      name: "greenhouse-auth-provider", // Replace with your library's global name
-      formats: ["es"], // Output formats: ESM and CommonJS
-      fileName: () => `index.js`, // Output file names
-    },
-    rollupOptions: {
-      external: Object.keys(peerDependencies), // Prevent peer deps from being bundled
+      entry: "src/index.ts",
+      name: "greenhouse-auth-provider",
+      formats: ["es"],
+      fileName: () => `index.js`,
     },
     outDir: "build",
   },
   plugins: [
+    // Vite 8: externalize peer dependencies and convert require() to import
+    esmExternalRequirePlugin({
+      external: Object.keys(peerDependencies),
+    }),
     dts({
-      exclude: ["**/*.test.ts", "vitest.setup.ts"], // Exclude test files from type generation
-      include: ["src/**/*.ts", "types/**/*.ts"], // Include your source and global types
-      insertTypesEntry: true, // Ensure types are properly exported
-      outDir: "build", // Specify where to output the types
+      exclude: ["**/*.test.ts", "vitest.setup.ts"],
+      include: ["src/**/*.ts", "types/**/*.ts"],
+      insertTypesEntry: true,
+      outDir: "build",
       tsconfigPath: "./tsconfig.json",
       copyDtsFiles: true,
       compilerOptions: {
-        // Exclude test files from the type generation
         exclude: ["**/*.test.ts", "vitest.setup.ts"],
       },
     }),
   ],
-}
+})
