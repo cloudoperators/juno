@@ -1,0 +1,160 @@
+import{g as e}from"./iframe-Cx-zHds2.js";import{t}from"./Stack.component-VgKXhu8w.js";import"react";var n=e(),r=({label:e})=>(0,n.jsx)(`div`,{className:`
+        jn:flex
+        jn:bg-juno-blue
+        jn:rounded
+        jn:text-white
+        jn:px-8
+        jn:py-3
+        jn:border
+        jn:border-juno-blue-7`,children:(0,n.jsx)(`div`,{className:`jn:m-auto`,children:e})});try{r.displayName=`DummyComponent`,r.__docgenInfo={description:``,displayName:`DummyComponent`,props:{label:{defaultValue:null,description:``,name:`label`,required:!0,type:{name:`string`}}}}}catch{}var i={title:`Layout/Stack`,component:t,argTypes:{children:{control:!1,table:{type:{summary:`ReactNode`}}},gap:{options:`0,px,0.5,1,1.5,2,2.5,3,3.5,4,5,6,7,8,9,10,11,12,14,16,20,24,28,32,36,40,44,48,52,56,60,64,72,80,96`.split(`,`)}},parameters:{docs:{source:{transform:e=>e.replace(/jn:/g,``)}}}},a=e=>`
+    bg-theme-background-lvl-3
+    ${e===`vertical`?`jn:w-full jn:h-80`:`jn:h-24`}
+    `,o=e=>(0,n.jsx)(t,{className:a(e.direction),...e,children:[...[,,,,,]].map((e,t)=>(0,n.jsx)(r,{label:`${t}`},t))}),s=e=>(0,n.jsx)(t,{...e,className:`jn:bg-theme-background-lvl-3`,children:[...Array(15)].map((e,t)=>(0,n.jsx)(r,{label:`${t}`},t))}),c={render:o,parameters:{docs:{description:{story:`Default stack direction.`}}},args:{}},l={render:o,parameters:{docs:{description:{story:`Children can also be stacked vertically.`}}},args:{direction:`vertical`}},u={render:o,parameters:{docs:{description:{story:`By specifying a gap, the child elements will have the specified margin from one another. It is the same for horizontal and vertical stacks.`}}},args:{gap:`4`}},d={render:o,parameters:{docs:{description:{story:`By specifying a gap, the child elements will have the specified margin from one another. It is the same for horizontal and vertical stacks.`}}},args:{direction:`vertical`,gap:`3`}},f={render:o,parameters:{docs:{description:{story:`By specifying an alignment you can control how items are aligned vertically in a horizontal Stack. By default they will stretch to take up the full height. Another very useful alignmen ist 'center', this will not stretch the children but make sure they are all aligned around the center axis. This is particularly useful when it doesn't make sense to stretch the items to the full height.`}}},args:{alignment:`center`}},p={render:o,parameters:{docs:{description:{story:`The same as above is true for vertical Stacks. But in this case the alignment property controls the alignment along the horizontal axis. By default items are stretched to the full width. Using 'center' alignment causes the items to be aligned around the central axis.`}}},args:{direction:`vertical`,alignment:`center`}},m={render:o,parameters:{docs:{description:{story:`Setting the alignment to 'start' will cause the items to be aligned to the top in a horizontal Stack.`}}},args:{alignment:`start`}},h={render:o,parameters:{docs:{description:{story:`Setting the alignment to 'start' will cause the items to be aligned to the left in a vertical Stack.`}}},args:{direction:`vertical`,alignment:`start`}},g={render:o,parameters:{docs:{description:{story:`The distribution along the horizontal axis in a horizontal Stack can be controlled via the 'distribution' property. Setting it to 'center' will cause the items to be aligned to the center of the horizontal axis.`}}},args:{distribution:`center`}},_={render:o,parameters:{docs:{description:{story:`Setting the distribution to 'center' in a vertical Stack will cause the items to be aligned to the center of the vertical axis.`}}},args:{direction:`vertical`,distribution:`center`}},v={render:o,parameters:{docs:{description:{story:`To center a Stack's children both horizontally and vertically at the same time simple set both the alignment and distribution props to 'center'. This works for horizontal and vertical Stacks.`}}},args:{alignment:`center`,distribution:`center`}},y={render:s,parameters:{docs:{description:{story:`If there are too many children to fit in the available horizontal space, set the 'wrap' property to true to allow children to wrap to the next row (also works for vertical Stacks with restricted height).`}}},args:{wrap:!0,gap:`4`}};c.parameters={...c.parameters,docs:{...c.parameters?.docs,source:{originalSource:`{
+  render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story: "Default stack direction."
+      }
+    }
+  },
+  args: {}
+}`,...c.parameters?.docs?.source}}},l.parameters={...l.parameters,docs:{...l.parameters?.docs,source:{originalSource:`{
+  render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story: "Children can also be stacked vertically."
+      }
+    }
+  },
+  args: {
+    direction: "vertical"
+  }
+}`,...l.parameters?.docs?.source}}},u.parameters={...u.parameters,docs:{...u.parameters?.docs,source:{originalSource:`{
+  render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story: "By specifying a gap, the child elements will have the specified margin from one another. It is the same for horizontal and vertical stacks."
+      }
+    }
+  },
+  args: {
+    gap: "4"
+  }
+}`,...u.parameters?.docs?.source}}},d.parameters={...d.parameters,docs:{...d.parameters?.docs,source:{originalSource:`{
+  render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story: "By specifying a gap, the child elements will have the specified margin from one another. It is the same for horizontal and vertical stacks."
+      }
+    }
+  },
+  args: {
+    direction: "vertical",
+    gap: "3"
+  }
+}`,...d.parameters?.docs?.source}}},f.parameters={...f.parameters,docs:{...f.parameters?.docs,source:{originalSource:`{
+  render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story: "By specifying an alignment you can control how items are aligned vertically in a horizontal Stack. By default they will stretch to take up the full height. Another very useful alignmen ist 'center', this will not stretch the children but make sure they are all aligned around the center axis. This is particularly useful when it doesn't make sense to stretch the items to the full height."
+      }
+    }
+  },
+  args: {
+    alignment: "center"
+  }
+}`,...f.parameters?.docs?.source}}},p.parameters={...p.parameters,docs:{...p.parameters?.docs,source:{originalSource:`{
+  render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story: "The same as above is true for vertical Stacks. But in this case the alignment property controls the alignment along the horizontal axis. By default items are stretched to the full width. Using 'center' alignment causes the items to be aligned around the central axis."
+      }
+    }
+  },
+  args: {
+    direction: "vertical",
+    alignment: "center"
+  }
+}`,...p.parameters?.docs?.source}}},m.parameters={...m.parameters,docs:{...m.parameters?.docs,source:{originalSource:`{
+  render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story: "Setting the alignment to 'start' will cause the items to be aligned to the top in a horizontal Stack."
+      }
+    }
+  },
+  args: {
+    alignment: "start"
+  }
+}`,...m.parameters?.docs?.source}}},h.parameters={...h.parameters,docs:{...h.parameters?.docs,source:{originalSource:`{
+  render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story: "Setting the alignment to 'start' will cause the items to be aligned to the left in a vertical Stack."
+      }
+    }
+  },
+  args: {
+    direction: "vertical",
+    alignment: "start"
+  }
+}`,...h.parameters?.docs?.source}}},g.parameters={...g.parameters,docs:{...g.parameters?.docs,source:{originalSource:`{
+  render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story: "The distribution along the horizontal axis in a horizontal Stack can be controlled via the 'distribution' property. Setting it to 'center' will cause the items to be aligned to the center of the horizontal axis."
+      }
+    }
+  },
+  args: {
+    distribution: "center"
+  }
+}`,...g.parameters?.docs?.source}}},_.parameters={..._.parameters,docs:{..._.parameters?.docs,source:{originalSource:`{
+  render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story: "Setting the distribution to 'center' in a vertical Stack will cause the items to be aligned to the center of the vertical axis."
+      }
+    }
+  },
+  args: {
+    direction: "vertical",
+    distribution: "center"
+  }
+}`,..._.parameters?.docs?.source}}},v.parameters={...v.parameters,docs:{...v.parameters?.docs,source:{originalSource:`{
+  render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story: "To center a Stack's children both horizontally and vertically at the same time simple set both the alignment and distribution props to 'center'. This works for horizontal and vertical Stacks."
+      }
+    }
+  },
+  args: {
+    alignment: "center",
+    distribution: "center"
+  }
+}`,...v.parameters?.docs?.source}}},y.parameters={...y.parameters,docs:{...y.parameters?.docs,source:{originalSource:`{
+  render: TemplateManyChildren,
+  parameters: {
+    docs: {
+      description: {
+        story: "If there are too many children to fit in the available horizontal space, set the 'wrap' property to true to allow children to wrap to the next row (also works for vertical Stacks with restricted height)."
+      }
+    }
+  },
+  args: {
+    wrap: true,
+    gap: "4"
+  }
+}`,...y.parameters?.docs?.source}}};var b=[`Horizontal`,`Vertical`,`GapHorizontal`,`GapVertical`,`HorizontalAlignmentCenter`,`VerticalAlignmentCenter`,`HorizontalAlignmentStart`,`VerticalAlignmentStart`,`HorizontalDistributionCenter`,`VerticalDistributionCenter`,`Centered`,`Wrap`];export{v as Centered,u as GapHorizontal,d as GapVertical,c as Horizontal,f as HorizontalAlignmentCenter,m as HorizontalAlignmentStart,g as HorizontalDistributionCenter,l as Vertical,p as VerticalAlignmentCenter,h as VerticalAlignmentStart,_ as VerticalDistributionCenter,y as Wrap,b as __namedExportsOrder,i as default};

@@ -1,0 +1,1 @@
+import"./Tab.component-B3U00jpS.js";

@@ -1,0 +1,45 @@
+import{g as e}from"./iframe-Cx-zHds2.js";import{t}from"./Icon.component-hvX4Q9Gp.js";import"./Icon-DLrP9JFG.js";import{t as n}from"./JsonViewer-D2M3YFXS.js";import{useCallback as r,useEffect as i,useRef as a,useState as o}from"react";var s=e(),c=`
+  jn:bg-theme-code-block
+  jn:rounded
+`,l=e=>`
+    jn:p-6
+    ${e?`jn:break-words jn:break-all jn:whitespace-pre-wrap`:`jn:overflow-x-auto`}
+  `,u=e=>{switch(e){case`small`:return`
+        juno-codeblock-pre-small
+        jn:max-h-64
+        jn:overflow-y-auto
+      `;case`medium`:return`
+        juno-codeblock-pre-medium
+        jn:max-h-[32rem]
+        jn:overflow-y-auto
+      `;case`large`:return`
+        juno-codeblock-pre-large
+        jn:max-h-[56rem]
+        jn:overflow-y-auto
+      `;default:return``}},d=`
+  jn:bg-theme-code-block
+  jn:text-sm
+`,f=`
+  jn:text-sm
+  jn:border-b-[1px]
+  jn:border-theme-codeblock-bar 
+  jn:h-[3.4375rem]
+  jn:flex
+`,p=`
+  jn:flex
+  jn:font-bold
+  jn:px-[1.5625rem]
+  jn:items-center
+`,m=`
+  jn:flex 
+  jn:justify-end 
+  jn:px-3
+  jn:py-2 
+  jn:border-t-[1px]
+  jn:border-theme-codeblock-bar
+`,h=`
+  jn:font-bold 
+  jn:text-sm 
+  jn:mr-4 
+  jn:mt-1
+`,g={fontFamily:`IBM Plex Mono`,fontSize:`0.875rem`,padding:`1.5rem`},_={base00:`var(--color-syntax-highlight-base00)`,base01:`var(--color-syntax-highlight-base01)`,base02:`var(--color-syntax-highlight-base02)`,base03:`var(--color-syntax-highlight-base03)`,base04:`var(--color-syntax-highlight-base04)`,base05:`var(--color-syntax-highlight-base05)`,base06:`var(--color-syntax-highlight-base06)`,base07:`var(--color-syntax-highlight-base07)`,base08:`var(--color-syntax-highlight-base08)`,base09:`var(--color-syntax-highlight-base09)`,base0A:`var(--color-syntax-highlight-base0A)`,base0B:`var(--color-syntax-highlight-base0B)`,base0C:`var(--color-syntax-highlight-base0C)`,base0D:`var(--color-syntax-highlight-base0D)`,base0E:`var(--color-syntax-highlight-base0E)`,base0F:`var(--color-syntax-highlight-base0F)`},v=({content:e=``,children:v,wrap:y=!0,size:b=`auto`,copy:x=!0,lang:S=``,className:C=``,...w})=>{let[T,E]=o(!1),D=a(null),{heading:O}=w;i(()=>()=>{D.current&&clearTimeout(D.current)},[]);let k=a(null),A=r(()=>{let t=S===`json`?JSON.stringify(e||v):k.current?.textContent;t&&navigator.clipboard.writeText(t).catch(()=>{console.warn(`Cannot copy text to clipboard`)}),E(!0),D.current&&clearTimeout(D.current),D.current=window.setTimeout(()=>E(!1),1e3)},[e,v,S]);return(0,s.jsxs)(`div`,{className:`juno-code-block ${c} ${S?`juno-code-block-lang-${S}`:``} ${C}`,"data-lang":S||null,...w,children:[O&&O.length?(0,s.jsx)(`div`,{className:`juno-codeblock-heading ${f}`,children:(0,s.jsx)(`span`,{className:`${p}`,children:O})}):``,S===`json`?(0,s.jsx)(n,{data:e,expanded:3,theme:_,style:g}):(0,s.jsx)(`pre`,{className:`juno-code-block-pre ${l(y)} ${u(b)}`,children:(0,s.jsx)(`code`,{className:`${d}`,ref:k,children:v??(typeof e==`string`?e:null)})}),x?(0,s.jsxs)(`div`,{className:`juno-codeblock-bottombar ${m}`,children:[(0,s.jsx)(`span`,{className:`${h}`,children:T?`Copied!`:``}),(0,s.jsx)(t,{icon:`contentCopy`,onClick:A})]}):``]})};try{v.displayName=`CodeBlock`,v.__docgenInfo={description:"The `CodeBlock` component renders a block of preformatted code or content. It offers features such\nas optional wrapping, copying to clipboard, and syntax highlighting for JSON content via a custom viewer.",displayName:`CodeBlock`,props:{content:{defaultValue:{value:``},description:'The content to render. Used when `lang` is "json". Overrides children if not specified.\nDefaults to an empty string or object.',name:`content`,required:!1,type:{name:`string | object`}},children:{defaultValue:null,description:'Elements or text to render inside the code block. Used when `lang` is not "json", overriding `content`.',name:`children`,required:!1,type:{name:`ReactNode`}},heading:{defaultValue:null,description:`Optional caption or title to render, styled like a tab.`,name:`heading`,required:!1,type:{name:`string`}},wrap:{defaultValue:{value:`true`},description:`Determines whether the code should wrap.`,name:`wrap`,required:!1,type:{name:`boolean`}},size:{defaultValue:{value:`auto`},description:`Specifies the size of the CodeBlock.`,name:`size`,required:!1,type:{name:`enum`,value:[{value:`"auto"`},{value:`"small"`},{value:`"large"`},{value:`"medium"`}]}},copy:{defaultValue:{value:`true`},description:`Enables or disables the copy-to-clipboard option.`,name:`copy`,required:!1,type:{name:`boolean`}},lang:{defaultValue:{value:``},description:`Language for the content. "json" will render a structured JsonView. Adds a data-lang attribute.`,name:`lang`,required:!1,type:{name:`string`}},className:{defaultValue:{value:``},description:`Additional CSS classes for customizing the CodeBlock styling.`,name:`className`,required:!1,type:{name:`string`}}}}}catch{}export{v as t};

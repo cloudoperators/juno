@@ -1,1 +1,0 @@
-import"./Spinner.component-D165Ltmg.js";

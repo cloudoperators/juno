@@ -1,3 +1,0 @@
-import{f as e,g as t}from"./iframe-DaLLswkI.js";import"react";var n=t(),r={title:`Internal/ContentContainer`,component:e,argTypes:{children:{control:!1,table:{type:{summary:`ReactNode`}}}}},i={render:t=>(0,n.jsx)(e,{...t,children:`content`})};i.parameters={...i.parameters,docs:{...i.parameters?.docs,source:{originalSource:`{
-  render: args => <ContentContainer {...args}>content</ContentContainer>
-}`,...i.parameters?.docs?.source}}};var a=[`Centered`];export{i as Centered,a as __namedExportsOrder,r as default};

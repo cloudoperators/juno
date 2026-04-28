@@ -1,1 +1,0 @@
-import"./Tab.component-Xd1IWqOn.js";

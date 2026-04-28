@@ -1,0 +1,1 @@
+import"./Label.component-mAazW_um.js";
