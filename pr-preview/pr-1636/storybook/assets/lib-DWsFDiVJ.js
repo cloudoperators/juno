@@ -1,0 +1,1 @@
+import e from"react";var t={},n=e.createContext(t);function r(t){let r=e.useContext(n);return e.useMemo(function(){return typeof t==`function`?t(r):{...r,...t}},[r,t])}function i(i){let a;return a=i.disableParentContext?typeof i.components==`function`?i.components(t):i.components||t:r(i.components),e.createElement(n.Provider,{value:a},i.children)}export{r as n,i as t};

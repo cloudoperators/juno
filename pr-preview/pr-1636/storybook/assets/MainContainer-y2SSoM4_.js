@@ -1,0 +1,5 @@
+import{g as e}from"./iframe-DmqlBy6I.js";import"react";var t=e(),n=`
+  jn:flex
+  jn:grow
+  jn:bg-theme-global-bg
+`,r=({className:e=``,children:r,...i})=>(0,t.jsx)(`main`,{className:`juno-main ${n} ${e}`,...i,children:r});try{r.displayName=`MainContainer`,r.__docgenInfo={description:"The `MainContainer` is the core container for application content, ideal for manual scaffold setups.\nIn most instances, `AppShell` offers a comprehensive layout alternative.",displayName:`MainContainer`,props:{className:{defaultValue:{value:``},description:`Custom CSS class names for styling the main container.`,name:`className`,required:!1,type:{name:`string`}},children:{defaultValue:null,description:`Components or content to render within the main container.`,name:`children`,required:!1,type:{name:`ReactNode`}}}}}catch{}export{r as t};

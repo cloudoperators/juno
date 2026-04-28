@@ -1,0 +1,1 @@
+import"./Label.component-Db6EWwaM.js";

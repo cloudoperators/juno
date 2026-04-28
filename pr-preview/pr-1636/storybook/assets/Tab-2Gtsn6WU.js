@@ -1,0 +1,1 @@
+import"./Tab.component-D8BKAEtN.js";

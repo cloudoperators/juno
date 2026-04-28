@@ -1,4 +1,0 @@
-import"./rolldown-runtime-BM3Ffeng.js";import{t as e}from"./react-DC78jhTx.js";import{g as t}from"./iframe-qPHz0liX.js";import{n,r,t as i}from"./TooltipTrigger-BW3VrEx-.js";e();var a=t(),o={title:`Components/Tooltip/TooltipContent`,component:n,argTypes:{},decorators:[e=>(0,a.jsx)(`div`,{className:`jn:my-6 jn:flex jn:justify-center`,children:(0,a.jsxs)(r,{initialOpen:!0,children:[(0,a.jsx)(i,{children:`clickMe`}),(0,a.jsx)(e,{})]})})]},s={args:{},render:e=>(0,a.jsx)(n,{...e,children:`This is a tooltip`})};s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
-  args: {},
-  render: DefaultTemplate
-}`,...s.parameters?.docs?.source}}};var c=[`Default`];export{s as Default,c as __namedExportsOrder,o as default};

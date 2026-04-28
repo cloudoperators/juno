@@ -1,4 +1,0 @@
-import"./rolldown-runtime-BM3Ffeng.js";import{t as e}from"./react-DC78jhTx.js";import{g as t}from"./iframe-qPHz0liX.js";e();var n=t(),r=`
-  jn:mb-2
-`,i=({children:e,className:t=``,...i})=>(0,n.jsx)(`div`,{className:`juno-form-row ${r} ${t}`,...i,children:e});try{i.displayName=`FormRow`,i.__docgenInfo={description:"The `FormRow` component structures individual form elements within a row layout.\nIt serves as a container for inputs like `TextInput`, `Textarea`, and others,\nsupporting custom styling with class names.",displayName:`FormRow`,props:{children:{defaultValue:null,description:`Content to render inside FormRow.
-Typically, these will be form elements such as TextInput, Textarea, Select, Radio, CheckboxGroups, etc.`,name:`children`,required:!1,type:{name:`ReactNode`}},className:{defaultValue:{value:``},description:`Additional CSS classes to apply to the FormRow for custom styling.`,name:`className`,required:!1,type:{name:`string`}}}}}catch{}export{i as t};

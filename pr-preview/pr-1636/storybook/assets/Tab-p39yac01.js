@@ -1,1 +1,0 @@
-import"./Tab.component-A0BDtoAP.js";
