@@ -26,9 +26,9 @@
     "clean:cache": "rm -rf .turbo"
   },
   "dependencies": {
+    "@cloudoperators/juno-ui-components": "workspace:*",
     "react": "19.2.5",
-    "react-dom": "19.2.5",
-    "@cloudoperators/juno-ui-components": "workspace:*"
+    "react-dom": "19.2.5"
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
@@ -40,8 +40,8 @@
     "@types/react-dom": "19.2.3",
     "@typescript-eslint/eslint-plugin": "6.21.0",
     "@typescript-eslint/parser": "6.21.0",
-    "@vitejs/plugin-react-swc": "3.11.0",
-    "@vitejs/plugin-react": "4.7.0",
+    "@vitejs/plugin-react": "6.0.1",
+    "@vitejs/plugin-react-swc": "4.3.0",
     "@vitest/ui": "4.1.4",
     "eslint": "10.1.0",
     "eslint-config-prettier": "9.1.2",
@@ -53,7 +53,7 @@
     "prettier": "3.8.3",
     "tailwindcss": "4.2.2",
     "typescript": "5.9.3",
-    "vite": "7.3.2",
+    "vite": "8.0.10",
     "vite-tsconfig-paths": "6.1.1",
     "vitest": "3.2.4"
   }
