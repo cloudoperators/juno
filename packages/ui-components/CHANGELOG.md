@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 6.3.0
+
+### Minor Changes
+
+- 9ea760e: feat(ui): add Divider component
+
 ## 6.2.1
 
 ### Patch Changes
