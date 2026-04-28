@@ -1,0 +1,6 @@
+import"./rolldown-runtime-BM3Ffeng.js";import{t as e}from"./react-DC78jhTx.js";import{g as t}from"./iframe-qPHz0liX.js";import{t as n}from"./Stack.component-O2Jjm6dw.js";e();var r=t(),i=({children:e,className:t=``,...i})=>(0,r.jsx)(n,{gap:`2`,distribution:`end`,className:`juno-button-row ${t}`,...i,children:e});try{i.displayName=`ButtonRow`,i.__docgenInfo={description:`The \`ButtonRow\` component is designed to contain one or several buttons,
+providing them with structured spacing and alignment. It uses the \`Stack\`
+component for consistent gap management and alignment, ensuring that
+button elements are neatly organized within a row. This is particularly
+useful in dialogs, forms, or any interface requiring a uniform presentation
+for multiple actions.`,displayName:`ButtonRow`,props:{className:{defaultValue:{value:``},description:`Add a class to the ButtonRow for additional styling.`,name:`className`,required:!1,type:{name:`string`}},children:{defaultValue:null,description:`Children to render within the ButtonRow.`,name:`children`,required:!1,type:{name:`ReactNode`}}}}}catch{}export{i as t};

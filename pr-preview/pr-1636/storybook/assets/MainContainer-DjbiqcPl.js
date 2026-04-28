@@ -1,0 +1,5 @@
+import"./rolldown-runtime-BM3Ffeng.js";import{t as e}from"./react-DC78jhTx.js";import{g as t}from"./iframe-qPHz0liX.js";e();var n=t(),r=`
+  jn:flex
+  jn:grow
+  jn:bg-theme-global-bg
+`,i=({className:e=``,children:t,...i})=>(0,n.jsx)(`main`,{className:`juno-main ${r} ${e}`,...i,children:t});try{i.displayName=`MainContainer`,i.__docgenInfo={description:"The `MainContainer` is the core container for application content, ideal for manual scaffold setups.\nIn most instances, `AppShell` offers a comprehensive layout alternative.",displayName:`MainContainer`,props:{className:{defaultValue:{value:``},description:`Custom CSS class names for styling the main container.`,name:`className`,required:!1,type:{name:`string`}},children:{defaultValue:null,description:`Components or content to render within the main container.`,name:`children`,required:!1,type:{name:`ReactNode`}}}}}catch{}export{i as t};

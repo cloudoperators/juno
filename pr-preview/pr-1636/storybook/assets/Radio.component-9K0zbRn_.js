@@ -1,0 +1,100 @@
+import{o as e}from"./rolldown-runtime-BM3Ffeng.js";import{t}from"./react-DC78jhTx.js";import{g as n}from"./iframe-qPHz0liX.js";import{t as r}from"./Icon.component-BYUQ4r57.js";import"./Icon-Dmh8fJaS.js";import{t as i}from"./Label.component-3mysfpZZ.js";import"./Label-BqZqxTuH.js";import{t as a}from"./FormHint.component-DOXQVwyU.js";import"./FormHint-CKFGCT8Z.js";var o=e(t()),s=n(),c=`
+	jn:mb-4
+	jn:last:mb-0
+`,l=`
+	jn:relative
+	jn:rounded
+	jn:border
+	jn:py-1
+`,u=`
+	jn:border-transparent
+`,d=`
+	jn:border-theme-success
+	jn:px-2
+`,f=`
+	jn:border-theme-error
+	jn:px-2
+`,p=`
+	jn:absolute
+	jn:right-2
+	jn:top-1.5
+`,m=(0,o.createContext)({}),h=({children:e,className:t=``,disabled:n=!1,errortext:h=``,helptext:g=``,id:_=``,invalid:v=!1,label:y=``,name:b,onChange:x,required:S=!1,selected:C,successtext:w=``,valid:T=!1,...E})=>{let D=e=>!(typeof e==`string`&&e.trim().length===0),O=()=>`juno-radiogroup-`+(0,o.useId)(),k=b||O(),A=_||O(),[j,M]=(0,o.useState)(C),[N,P]=(0,o.useState)(!1),[F,I]=(0,o.useState)(!1),L=(0,o.useMemo)(()=>T||!!(w&&D(w)),[T,w]),R=(0,o.useMemo)(()=>v||!!(h&&D(h)),[v,h]);return(0,o.useEffect)(()=>{P(L)},[L]),(0,o.useEffect)(()=>{I(R)},[R]),(0,o.useEffect)(()=>{C&&M(C)},[C]),(0,s.jsx)(m.Provider,{value:{selectedValue:j,name:k,onChange:e=>{M(e),x&&x(e)},updateSelectedValue:e=>{M(e)},disabled:n},children:(0,s.jsxs)(`div`,{className:`
+          juno-radiogroup 
+          ${c} 
+          ${N?`juno-radiogroup-valid`:``} 
+          ${F?`juno-radiogroup-invalid`:``} 
+          ${t}
+        `,id:A,role:`radiogroup`,...E,children:[y&&D(y)?(0,s.jsx)(i,{text:y,htmlFor:A,disabled:n,required:S}):``,(0,s.jsxs)(`div`,{className:`
+            juno-checkbox-group-options 
+            ${l} 
+            ${N?d:``} 
+            ${F?f:``} 
+            ${N||F?``:u}
+          `,children:[F?(0,s.jsx)(r,{icon:`dangerous`,color:`jn:text-theme-error`,className:`${p}`}):``,N?(0,s.jsx)(r,{icon:`checkCircle`,color:`jn:text-theme-success`,className:`${p}`}):``,e]}),h&&D(h)?(0,s.jsx)(a,{text:h,variant:`error`}):``,w&&D(w)?(0,s.jsx)(a,{text:w,variant:`success`}):``,g&&D(g)?(0,s.jsx)(a,{text:g}):``]})})};try{m.displayName=`RadioGroupContext`,m.__docgenInfo={description:``,displayName:`RadioGroupContext`,props:{}}}catch{}try{h.displayName=`RadioGroup`,h.__docgenInfo={description:"A component to wrap and group individual Radio components: All contained child Radio elements will share the same `name`-attribute passed as a prop to the group, and thus make the Radios work with each other as expected.",displayName:`RadioGroup`,props:{children:{defaultValue:null,description:"The children of the RadioGroup. Typically, these will be `Radio` components.",name:`children`,required:!1,type:{name:`ReactNode`}},className:{defaultValue:{value:``},description:`Pass a custom className`,name:`className`,required:!1,type:{name:`string`}},disabled:{defaultValue:{value:`false`},description:`Whether all Radios in the group are disabled`,name:`disabled`,required:!1,type:{name:`boolean`}},errortext:{defaultValue:{value:``},description:`Text to display in case validation failed or there is an error. Will set the whole group to invalid when passed.`,name:`errortext`,required:!1,type:{name:`ReactNode`}},helptext:{defaultValue:{value:``},description:`A text to render to further explain meaning and significance of the group`,name:`helptext`,required:!1,type:{name:`ReactNode`}},id:{defaultValue:{value:``},description:`The id of the group. If not passed, RadioGroup will create and use a unique id for the group`,name:`id`,required:!1,type:{name:`string`}},invalid:{defaultValue:{value:`false`},description:`Whether the group not be validated.`,name:`invalid`,required:!1,type:{name:`boolean`}},label:{defaultValue:{value:``},description:"Label for the group of radios as a whole. Passing a label is mandatory in order to denote a selection in the set is required by passing the `required` prop.",name:`label`,required:!1,type:{name:`string`}},name:{defaultValue:null,description:`The name of all radios in a group. If not passed, RadioGroup will create and use a unique name identifier for its child Radios`,name:`name`,required:!1,type:{name:`string`}},onChange:{defaultValue:null,description:`An onChange handler to execute when the selected option changes`,name:`onChange`,required:!1,type:{name:`EventUpdateHandler`}},required:{defaultValue:{value:`false`},description:`Whether a selection on the RadioGroup is required`,name:`required`,required:!1,type:{name:`boolean`}},selected:{defaultValue:null,description:`The value of the initially selected radio. This will override 'checked' set on any of the child radio elements.`,name:`selected`,required:!1,type:{name:`string`}},successtext:{defaultValue:{value:``},description:`Text to display in case validation is successful. When passed, will set the whole group to valid.`,name:`successtext`,required:!1,type:{name:`ReactNode`}},valid:{defaultValue:{value:`false`},description:`Whether the RadioGroup was successfully validated`,name:`valid`,required:!1,type:{name:`boolean`}}}}}catch{}var g=`
+  jn:inline-flex
+  jn:items-center
+`,_=e=>`
+    jn:w-4
+    jn:h-4
+    jn:opacity-0
+    jn:z-50
+    ${e?`jn:cursor-not-allowed`:`jn:cursor-pointer`}
+  `,v=`
+  jn:relative
+  jn:w-4
+  jn:h-4
+  jn:rounded-full
+  jn:bg-theme-radio
+`,y=`
+  jn:absolute
+  jn:block
+  jn:bg-theme-radio-checked
+  jn:rounded-full
+  jn:w-3
+  jn:h-3
+  jn:top-[1px]
+  jn:left-[1px]
+`,b=`
+  jn:outline-hidden
+  jn:ring-2
+  jn:ring-theme-focus
+`,x=`
+  jn:opacity-50
+  jn:cursor-not-allowed
+`,S=`
+  jn:border
+  jn:border-transparent
+`,C=`
+  jn:border
+  jn:border-theme-error
+`,w=`
+  jn:border
+  jn:border-theme-success
+`,T=`
+  jn:leading-0
+  jn:ml-2
+`,E=`
+  jn:ml-1
+`,D=`
+  jn:mt-0
+  jn:ml-6
+`,O=({checked:e=!1,className:t=``,disabled:n=!1,errortext:c=``,helptext:l=``,id:u,invalid:d=!1,label:f,name:p,onChange:h,onClick:O,required:k=!1,successtext:A=``,valid:j=!1,value:M=``,...N})=>{let P=e=>!(typeof e==`string`&&e.trim().length===0),F=()=>`juno-radio-`+(0,o.useId)(),I=(0,o.useContext)(m),{selectedValue:L,onChange:R,name:z,updateSelectedValue:B,disabled:V}=I||{},H=()=>I?L===M:!!e,[U,W]=(0,o.useState)(()=>H()),[G,K]=(0,o.useState)(!1),[q,J]=(0,o.useState)(!1),[Y,ee]=(0,o.useState)(!1),X=(0,o.useMemo)(()=>d||!!(c&&P(c)),[d,c]),Z=(0,o.useMemo)(()=>j||!!(A&&P(A)),[j,A]);(0,o.useEffect)(()=>{J(X)},[X]),(0,o.useEffect)(()=>{ee(Z)},[Z]),(0,o.useEffect)(()=>{e&&I&&L===void 0&&B&&B(M)},[]),(0,o.useEffect)(()=>{L||W(e)},[e]);let te=()=>{W(!U),R&&typeof R==`function`&&L!==M&&R(M),h&&h(M)},Q=()=>L?L===M:U,ne=e=>{O&&O(e)},re=()=>{K(!0)},ie=()=>{K(!1)},$=u||F();return(0,s.jsxs)(`div`,{className:`jn-radio-outer`,children:[(0,s.jsxs)(`div`,{className:`juno-radio-wrapper ${g}`,children:[(0,s.jsxs)(`div`,{className:`
+             juno-radio 
+             ${v} 
+             ${G?b:``} 
+             ${n?x:``} 
+             ${q?C:``} 
+             ${Y?w:``} 
+             ${q||Y?``:S}
+             ${t}
+           `,...N,children:[(0,s.jsx)(`input`,{checked:Q(),className:`
+              ${_(V||n)} 
+              ${q?`juno-radio-invalid`:``} 
+              ${Y?`juno-radio-valid`:``}
+            `,disabled:V||n,id:$,onBlur:ie,onChange:te,onClick:ne,onFocus:re,name:z||p,type:`radio`,value:M}),Q()?(0,s.jsx)(`span`,{className:`${y}`}):``]}),f&&P(f)?(0,s.jsxs)(s.Fragment,{children:[(0,s.jsx)(i,{className:`${T}`,disabled:V||n,htmlFor:$,required:k,text:f}),q?(0,s.jsx)(r,{icon:`dangerous`,color:`jn:text-theme-error`,size:`1.125rem`,className:`
+                    ${E}
+                    ${n?`jn:opacity-50`:``}
+                  `}):``,Y?(0,s.jsx)(r,{icon:`checkCircle`,color:`jn:text-theme-success`,size:`1.125rem`,className:`
+                    ${E}
+                    ${n?`jn:opacity-50`:``}
+                  `}):``]}):``]}),c&&P(c)?(0,s.jsx)(a,{text:c,variant:`error`,className:`${D}`}):``,A&&P(A)?(0,s.jsx)(a,{text:A,variant:`success`,className:`${D}`}):``,l&&P(l)?(0,s.jsx)(a,{text:l,className:`${D}`}):``]})};try{O.displayName=`Radio`,O.__docgenInfo={description:`A controlled Radio component.`,displayName:`Radio`,props:{checked:{defaultValue:{value:`false`},description:`Whether the Radio is checked`,name:`checked`,required:!1,type:{name:`boolean`}},className:{defaultValue:{value:``},description:`Pass a custom className`,name:`className`,required:!1,type:{name:`string`}},disabled:{defaultValue:{value:`false`},description:`Whether the Radio is disabled`,name:`disabled`,required:!1,type:{name:`boolean`}},errortext:{defaultValue:{value:``},description:`A text to render when the Radio has an error or could not be validated`,name:`errortext`,required:!1,type:{name:`ReactNode`}},helptext:{defaultValue:{value:``},description:`A helptext to render to explain meaning and significance of the Radio`,name:`helptext`,required:!1,type:{name:`ReactNode`}},id:{defaultValue:null,description:`The id of the Radio. An id will be automatically generated if not passed.`,name:`id`,required:!1,type:{name:`string`}},invalid:{defaultValue:{value:`false`},description:`Whether the Radio was validated unsuccessfully`,name:`invalid`,required:!1,type:{name:`boolean`}},label:{defaultValue:null,description:`The label of the Radio`,name:`label`,required:!1,type:{name:`string`}},name:{defaultValue:null,description:`The name attribute of the Radio. Only Radios sharing the same name attribute will work together as expected.`,name:`name`,required:!1,type:{name:`string`}},onChange:{defaultValue:null,description:`Handler to execute when the Radio changes`,name:`onChange`,required:!1,type:{name:`((value: string) => void)`}},onClick:{defaultValue:null,description:`Handler to execute when the Radio is clicked`,name:`onClick`,required:!1,type:{name:`MouseEventHandler<HTMLElement>`}},required:{defaultValue:{value:`false`},description:`Whether the Radio is required`,name:`required`,required:!1,type:{name:`boolean`}},successtext:{defaultValue:{value:``},description:`A text to render when the Radio was successfully validated`,name:`successtext`,required:!1,type:{name:`ReactNode`}},valid:{defaultValue:{value:`false`},description:`Whether the Radio was successfully validated`,name:`valid`,required:!1,type:{name:`boolean`}},value:{defaultValue:{value:``},description:`The value of the Radio`,name:`value`,required:!1,type:{name:`string`}}}}}catch{}export{h as n,O as t};

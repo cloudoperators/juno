@@ -1,0 +1,5 @@
+import"./rolldown-runtime-BM3Ffeng.js";import{t as e}from"./react-DC78jhTx.js";import{g as t}from"./iframe-qPHz0liX.js";import{t as n}from"./Button.component-J1fJR8AZ.js";import"./Button-DFKvvwdO.js";import{t as r}from"./ButtonRow.component-D4LFaHbK.js";import"./ButtonRow-DZhlvLNZ.js";e();var i=t(),a={title:`Forms/ButtonRow`,component:r,argTypes:{children:{control:!1}}},o={args:{children:[(0,i.jsx)(n,{label:`Cancel`,title:`Cancel`},`1`),(0,i.jsx)(n,{label:`Save`,title:`Save`,variant:`primary`},`2`)]}};o.parameters={...o.parameters,docs:{...o.parameters?.docs,source:{originalSource:`{
+  args: {
+    children: [<Button key="1" label="Cancel" title="Cancel" />, <Button key="2" label="Save" title="Save" variant="primary" />]
+  }
+}`,...o.parameters?.docs?.source}}};var s=[`Default`];export{o as Default,s as __namedExportsOrder,a as default};

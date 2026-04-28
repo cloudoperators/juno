@@ -1,0 +1,3 @@
+import"./rolldown-runtime-BM3Ffeng.js";import{t as e}from"./react-DC78jhTx.js";import{f as t,g as n}from"./iframe-qPHz0liX.js";e();var r=n(),i={title:`Internal/ContentContainer`,component:t,argTypes:{children:{control:!1,table:{type:{summary:`ReactNode`}}}}},a={render:e=>(0,r.jsx)(t,{...e,children:`content`})};a.parameters={...a.parameters,docs:{...a.parameters?.docs,source:{originalSource:`{
+  render: args => <ContentContainer {...args}>content</ContentContainer>
+}`,...a.parameters?.docs?.source}}};var o=[`Centered`];export{a as Centered,o as __namedExportsOrder,i as default};

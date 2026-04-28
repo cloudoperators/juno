@@ -1,0 +1,1 @@
+import"./Label.component-3mysfpZZ.js";
