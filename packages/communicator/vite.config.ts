@@ -19,14 +19,13 @@ export default defineConfig({
   plugins: [
     dts({
       exclude: ["**/*.test.ts", "vitest.setup.ts"],
-      include: ["src/**/*.ts", "types/**/*.ts"],
+      include: ["src/**/*.ts"],
       insertTypesEntry: true,
       outDir: "build",
       tsconfigPath: "./tsconfig.json",
       copyDtsFiles: true,
       compilerOptions: {
         rootDir: "src",
-        exclude: ["**/*.test.ts", "vitest.setup.ts"],
       },
     }),
   ],
