@@ -30,6 +30,7 @@ export default defineConfig({
       tsconfigPath: "./tsconfig.json",
       copyDtsFiles: true,
       compilerOptions: {
+        rootDir: "src",
         exclude: ["**/*.test.ts", "vitest.setup.ts"],
       },
     }),

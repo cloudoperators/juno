@@ -30,8 +30,14 @@ export default defineConfig({
     tailwindcss(),
     dts({
       exclude: ["./__tests__/**/*.test.ts", "vitest.setup.ts"],
+      include: ["src/**/*.ts", "src/**/*.tsx"],
       insertTypesEntry: true,
       outDir: "build",
+      tsconfigPath: "./tsconfig.json",
+      copyDtsFiles: true,
+      compilerOptions: {
+        rootDir: "src",
+      },
     }) as PluginOption,
     react() as PluginOption,
     svgr({
