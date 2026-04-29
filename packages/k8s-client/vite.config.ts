@@ -23,11 +23,8 @@ export default defineConfig({
     }),
     dts({
       exclude: ["./test/**/*.test.ts", "vitest.setup.ts"],
-      insertTypesEntry: true,
+      insertTypesEntry: false,
       outDir: "build",
-      tsconfigPath: "./tsconfig.json",
-      // make the entry declaration be build/index.d.ts
-      entryRoot: "src",
     }),
   ],
 })
