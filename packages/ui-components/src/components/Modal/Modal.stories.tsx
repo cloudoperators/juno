@@ -11,7 +11,6 @@ import { ButtonRow } from "../ButtonRow/index"
 import { Form } from "../Form/index"
 import { FormRow } from "../FormRow/index"
 import { TextInput } from "../TextInput/index"
-import { Checkbox } from "../Checkbox/index"
 import { Icon } from "../Icon/index"
 import { PortalProvider } from "../PortalProvider/index"
 import { Select } from "../Select/index"
@@ -83,33 +82,54 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story: "A modal dialog for simple acknowledgement.",
+      },
+    },
+  },
   args: {
-    children: <p>A default modal.</p>,
-    disableConfirmButton: false,
-    disableCancelButton: false,
+    title: "Maintenance Mode Enabled for 'cluster-eu-1'",
+    children:
+      "Automated alerts and health checks for this cluster have been suspended. Turn off maintenance mode to resume normal monitoring.",
   },
 }
 
-export const SimpleConfirmDialog: Story = {
+export const SimpleConfirmNonDestructiveAction: Story = {
   render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story: "A modal dialog for confirming or canceling a non-destructive action.",
+      },
+    },
+  },
   args: {
-    children: <p>Are you sure you want to proceed?</p>,
+    title: "Assign Role to user@example.com",
+    children:
+      "Assign the role Operator to user@example.com? This will grant access to all resources in the selected project.",
     cancelButtonLabel: "Cancel",
-    confirmButtonLabel: "Yes, Proceed",
+    confirmButtonLabel: "Assign Role",
   },
 }
 
 export const SimpleConfirmDialogWithDisabledButtons: Story = {
   render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "In order to disable all buttons on a Modal, both `disableConfirmButton` and `disableCancelButton` need to be set to `true`.",
+      },
+    },
+  },
   args: {
-    children: (
-      <p>
-        This modal has a disabled Confirm and Cancel button. Note that disableCancelButton also disables the top-right
-        Close button.
-      </p>
-    ),
+    title: "Assign Role to user@example.com",
+    children:
+      "Assign the role Operator to user@example.com? This will grant access to all resources in the selected project.",
     cancelButtonLabel: "Cancel",
-    confirmButtonLabel: "Yes, Proceed",
+    confirmButtonLabel: "Assign Role",
     disableConfirmButton: true,
     disableCancelButton: true,
   },
@@ -117,7 +137,16 @@ export const SimpleConfirmDialogWithDisabledButtons: Story = {
 
 export const AutoFocusDialog: Story = {
   render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "In order to auto-focus an interactive element in the modal, assign an `id` and pass this `id` to the `initialFocus` prop.",
+      },
+    },
+  },
   args: {
+    title: "Enter a Phrase",
     children: <TextInput id="focusOnMe" />,
     initialFocus: "#focusOnMe",
   },
@@ -164,6 +193,13 @@ const ReusableForm = () => (
 
 export const DefaultWithForm: Story = {
   render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story: "A default size Modal with a form.",
+      },
+    },
+  },
   args: {
     title: "Default Modal Form",
     initialFocus: "#firstname",
@@ -175,6 +211,13 @@ export const DefaultWithForm: Story = {
 
 export const LargeWithForm: Story = {
   render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story: "A `large` size Modal with a form.",
+      },
+    },
+  },
   args: {
     size: "large",
     title: "Large Modal Form",
@@ -187,6 +230,13 @@ export const LargeWithForm: Story = {
 
 export const XLWithForm: Story = {
   render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story: "An `xl` size Modal with a form.",
+      },
+    },
+  },
   args: {
     size: "xl",
     title: "XL With Form",
@@ -199,6 +249,13 @@ export const XLWithForm: Story = {
 
 export const XXLWithForm: Story = {
   render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story: "An `2xl` size Modal with a form.",
+      },
+    },
+  },
   args: {
     size: "2xl",
     title: "2XL With Form",
@@ -211,6 +268,14 @@ export const XXLWithForm: Story = {
 
 export const NonCloseable: Story = {
   render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "A modal that can not be closed. Generally considered an antipattern, there may be cases where this is needed. Set `closeable` to `false`.",
+      },
+    },
+  },
   args: {
     title: "Non-Closeable Modal",
     children:
@@ -221,6 +286,14 @@ export const NonCloseable: Story = {
 
 export const CloseOnBackdropClick: Story = {
   render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Modals can feel more lightweight and less intrusive when the user can click outside the Modal to close it. Set `closeOnBackdropClick` to `true` to enable this behaviour.",
+      },
+    },
+  },
   args: {
     title: "Close on Backdrop Click",
     children: <p>This Modal closes when clicking the backdrop.</p>,
@@ -230,40 +303,31 @@ export const CloseOnBackdropClick: Story = {
 
 export const DisabledCloseButton: Story = {
   render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story: "In order to specifically disable the X-Close button, set `disableCloseButton`to `true`.",
+      },
+    },
+  },
   args: {
-    title: "Disabled Close Button Modal",
+    title: "Disabled X-Close Button Modal",
     children: <p>This Modal has a disabled top-right close button.</p>,
     disableCloseButton: true,
     cancelButtonLabel: "Cancel",
   },
 }
 
-export const Login: Story = {
-  render: Template,
-  args: {
-    title: "Log In",
-    initialFocus: "#username",
-    children: (
-      <>
-        <FormRow>
-          <TextInput label="Username" name="username" id="username" autoComplete="on" />
-        </FormRow>
-        <FormRow>
-          <TextInput type="password" label="Password" name="password" id="password" />
-        </FormRow>
-        <FormRow>
-          <Checkbox label="Remember Me" id="remember-me" />
-        </FormRow>
-      </>
-    ),
-    modalFooter: (
-      <ModalFooter confirmButtonLabel="Log In" confirmButtonIcon="accountCircle" cancelButtonLabel="Never Mind" />
-    ),
-  },
-}
-
 export const CustomModalFooter: Story = {
   render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "For complex use cases that require more than a Confirm and a Cancel button, a custom `ModalFooter` with buttons and additional elements can be passed to `Modal`.",
+      },
+    },
+  },
   args: {
     title: "Modal with Custom ModalFooter",
     size: "large",
@@ -275,9 +339,9 @@ export const CustomModalFooter: Story = {
           Have some custom content
         </span>
         <ButtonRow>
-          <Button variant="primary-danger">Button 1</Button>
-          <Button variant="primary">Button 2</Button>
-          <Button>Button 3</Button>
+          <Button variant="subdued">Cancel</Button>
+          <Button variant="primary-danger">Destroy</Button>
+          <Button variant="primary">Proceed</Button>
         </ButtonRow>
       </ModalFooter>
     ),
