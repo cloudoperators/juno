@@ -8,6 +8,7 @@ import { Modal, ModalProps } from "./Modal.component"
 import { ModalFooter } from "../ModalFooter/index"
 import { Button } from "../Button/index"
 import { ButtonRow } from "../ButtonRow/index"
+import { Checkbox } from "../Checkbox/index"
 import { Form } from "../Form/index"
 import { FormRow } from "../FormRow/index"
 import { TextInput } from "../TextInput/index"
@@ -111,6 +112,77 @@ export const SimpleConfirmNonDestructiveAction: Story = {
       "Assign the role Operator to user@example.com? This will grant access to all resources in the selected project.",
     cancelButtonLabel: "Cancel",
     confirmButtonLabel: "Assign Role",
+  },
+}
+
+export const ConfirmDesctructiveActionLowRisk: Story = {
+  render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story: "A user-initiated low risk destructive action. Note the Confirm button is always enabled.",
+      },
+    },
+  },
+  args: {
+    title: "Delete Snapshot 'snap-20240115'",
+    children: "Snapshot 'snap-20240115' will be permanently deleted and cannot be recovered.",
+    confirmButtonVariant: "primary-danger",
+    confirmButtonLabel: "Delete Snapshot",
+  },
+}
+
+export const ConfirmDesctructiveActionMediumRisk: Story = {
+  render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "A user-initiated medium risk destructive action. Note the Confirm button is initially disabled, will be enabled once user checks the checkbox.",
+      },
+    },
+  },
+  args: {
+    title: "Remove User 'jsmith'",
+    children: (
+      <div>
+        <p className="jn:mb-4">
+          Removing user &apos;jsmith&apos; will immediately revoke all their access to project resources.
+        </p>
+
+        <Checkbox label="Check the box to confirm removing user" />
+      </div>
+    ),
+    confirmButtonVariant: "primary-danger",
+    confirmButtonLabel: "Remove User",
+  },
+}
+
+export const ConfirmDesctructiveActionHighRisk: Story = {
+  render: Template,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "A user-initiated high risk destructive action. Note the Confirm button is initially disabled, and will be enabled once the user re-types a given phrase.",
+      },
+    },
+  },
+  args: {
+    title: "Delete Project 'production-eu'",
+    children: (
+      <div>
+        <p className="jn:mb-4">
+          This will permanently delete the projectand all associated resources, including clusters, configurations, and
+          stored data.
+        </p>
+        <p className="jn:mb-4">This action cannot be undone.</p>
+
+        <TextInput placeholder="Type 'DELETE' to confirm deletion" />
+      </div>
+    ),
+    confirmButtonVariant: "primary-danger",
+    confirmButtonLabel: "Delete Project",
   },
 }
 
