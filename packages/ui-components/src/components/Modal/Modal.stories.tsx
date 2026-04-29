@@ -212,7 +212,7 @@ const HighRiskTemplate = (args: ModalProps) => {
   )
 }
 
-export const ConfirmDesctructiveActionHighRisk: Story = {
+export const ConfirmDestructiveActionHighRisk: Story = {
   render: HighRiskTemplate,
   parameters: {
     docs: {
