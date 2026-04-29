@@ -1,0 +1,18 @@
+import{n as e}from"./chunk-jRWAZmH_.js";import{E as t,z as n}from"./iframe-C_LqtXsR.js";var r,i,a,o,s,c,l,u,d=e((()=>{n(),r=t(),i=`
+  jn:animate-spin 
+  jn:mr-3 
+  jn:h-5 
+  jn:w-5 
+`,a=`
+  jn:text-theme-accent
+`,o=`
+  jn:text-theme-danger 
+`,s=`
+  jn:text-theme-success
+`,c=`
+  jn:text-theme-warning  
+`,l=`
+  jn:text-theme-on-default
+`,u=({variant:e=`default`,size:t,className:n=``,color:u=``,...d})=>{let f=()=>{switch(e){case`primary`:return a;case`danger`:return o;case`success`:return s;case`warning`:return c;default:return l}},p=e=>{switch(e){case`small`:return`1rem`;case`large`:return`3rem`;default:return e}},m=t?{width:p(t),height:p(t)}:{};return(0,r.jsxs)(`svg`,{className:`juno-spinner ${i} ${u||f()} ${n}`,xmlns:`http://www.w3.org/2000/svg`,fill:`none`,viewBox:`0 0 24 24`,style:m,role:`progressbar`,...d,children:[(0,r.jsx)(`circle`,{className:`jn:opacity-25`,cx:`12`,cy:`12`,r:`10`,stroke:`currentColor`,strokeWidth:`4`}),(0,r.jsx)(`path`,{className:`jn:opacity-75`,fill:`currentColor`,d:`M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z`})]})};try{u.displayName=`Spinner`,u.__docgenInfo={description:`A generic Spinner component to indicate an individual component or portion of the UI is busy processing or awaiting data.
+To indicate full views, panels, or other larger parts of an interface are busy or waiting for data, use LoadingIndicator instead.`,displayName:`Spinner`,filePath:`/home/runner/work/juno/juno/packages/ui-components/src/components/Spinner/Spinner.component.tsx`,methods:[],props:{variant:{defaultValue:{value:`default`},declarations:[{fileName:`ui-components/src/components/Spinner/Spinner.component.tsx`,name:`SpinnerProps`}],description:`The semantic color variant of the Spinner`,name:`variant`,parent:{fileName:`ui-components/src/components/Spinner/Spinner.component.tsx`,name:`SpinnerProps`},required:!1,tags:{},type:{name:`enum`,raw:`SpinnerVariant`,value:[{value:`"warning"`},{value:`"danger"`},{value:`"success"`},{value:`"default"`},{value:`"primary"`}]}},size:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/Spinner/Spinner.component.tsx`,name:`SpinnerProps`}],description:"The size of the spinner: `small`, `large`, or any valid CSS length like `1.5rem`",name:`size`,parent:{fileName:`ui-components/src/components/Spinner/Spinner.component.tsx`,name:`SpinnerProps`},required:!1,tags:{},type:{name:`string`}},className:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/Spinner/Spinner.component.tsx`,name:`SpinnerProps`}],description:`Add custom classNames`,name:`className`,parent:{fileName:`ui-components/src/components/Spinner/Spinner.component.tsx`,name:`SpinnerProps`},required:!1,tags:{},type:{name:`string`}},color:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/Spinner/Spinner.component.tsx`,name:`SpinnerProps`}],description:'Pass a text-color class in order to apply any color to a spinner (These classes typically begin with "text-".). If passed, `color` will overwrite the semantic color as defined by `variant`.',name:`color`,parent:{fileName:`ui-components/src/components/Spinner/Spinner.component.tsx`,name:`SpinnerProps`},required:!1,tags:{},type:{name:`string`}}},tags:{see:`https://cloudoperators.github.io/juno/?path=/docs/components-spinner--docs
+{@link SpinnerProps }`}}}catch{}}));export{d as n,u as t};
