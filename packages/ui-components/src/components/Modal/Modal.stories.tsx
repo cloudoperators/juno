@@ -132,8 +132,38 @@ export const ConfirmDesctructiveActionLowRisk: Story = {
   },
 }
 
+const MediumRiskTemplate = (args: ModalProps) => {
+  const [isOpen, setOpen] = useState(false)
+  const [confirmed, setConfirmed] = useState(false)
+  return (
+    <>
+      <Button label="Open Modal" variant="primary" onClick={() => setOpen(true)} />
+      <Modal
+        open={isOpen}
+        onCancel={() => {
+          setOpen(false)
+          setConfirmed(false)
+        }}
+        disableConfirmButton={!confirmed}
+        {...args}
+      >
+        <div>
+          <p className="jn:mb-4">
+            Removing user &apos;jsmith&apos; will immediately revoke all their access to project resources.
+          </p>
+          <Checkbox
+            label="Check the box to confirm removing user 'jsmith'"
+            checked={confirmed}
+            onChange={(e) => setConfirmed(e.target.checked)}
+          />
+        </div>
+      </Modal>
+    </>
+  )
+}
+
 export const ConfirmDesctructiveActionMediumRisk: Story = {
-  render: Template,
+  render: MediumRiskTemplate,
   parameters: {
     docs: {
       description: {
@@ -144,22 +174,46 @@ export const ConfirmDesctructiveActionMediumRisk: Story = {
   },
   args: {
     title: "Remove User 'jsmith'",
-    children: (
-      <div>
-        <p className="jn:mb-4">
-          Removing user &apos;jsmith&apos; will immediately revoke all their access to project resources.
-        </p>
-
-        <Checkbox label="Check the box to confirm removing user" />
-      </div>
-    ),
     confirmButtonVariant: "primary-danger",
     confirmButtonLabel: "Remove User",
   },
 }
 
+const HighRiskTemplate = (args: ModalProps) => {
+  const [isOpen, setOpen] = useState(false)
+  const [inputValue, setInputValue] = useState("")
+  return (
+    <>
+      <Button label="Open Modal" variant="primary" onClick={() => setOpen(true)} />
+      <Modal
+        open={isOpen}
+        onCancel={() => {
+          setOpen(false)
+          setInputValue("")
+        }}
+        disableConfirmButton={inputValue !== "DELETE"}
+        {...args}
+      >
+        <div>
+          <p className="jn:mb-4">
+            This will permanently delete the project &apos;production-eu&apos; and all associated resources, including
+            clusters, configurations, and stored data.
+          </p>
+          <p className="jn:mb-4">This action cannot be undone.</p>
+          <p className="jn:mb-4">Type &apos;DELETE&apos; (all caps, no quotes) in the field below to confirm:</p>
+          <TextInput
+            placeholder="Type 'DELETE' to confirm deletion"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+          />
+        </div>
+      </Modal>
+    </>
+  )
+}
+
 export const ConfirmDesctructiveActionHighRisk: Story = {
-  render: Template,
+  render: HighRiskTemplate,
   parameters: {
     docs: {
       description: {
@@ -170,17 +224,6 @@ export const ConfirmDesctructiveActionHighRisk: Story = {
   },
   args: {
     title: "Delete Project 'production-eu'",
-    children: (
-      <div>
-        <p className="jn:mb-4">
-          This will permanently delete the projectand all associated resources, including clusters, configurations, and
-          stored data.
-        </p>
-        <p className="jn:mb-4">This action cannot be undone.</p>
-
-        <TextInput placeholder="Type 'DELETE' to confirm deletion" />
-      </div>
-    ),
     confirmButtonVariant: "primary-danger",
     confirmButtonLabel: "Delete Project",
   },
