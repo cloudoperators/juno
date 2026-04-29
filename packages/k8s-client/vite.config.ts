@@ -25,6 +25,7 @@ export default defineConfig({
       exclude: ["./test/**/*.test.ts", "vitest.setup.ts"],
       insertTypesEntry: true,
       outDir: "build",
+      rollupTypes: true,
     }),
   ],
 })
