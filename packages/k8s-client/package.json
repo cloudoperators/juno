@@ -5,10 +5,10 @@
   "description": "JavaScript client for Kubernetes API",
   "main": "build/index.cjs.js",
   "module": "build/index.es.js",
-  "types": "build/src/index.d.ts",
+  "types": "build/index.d.ts",
   "exports": {
     ".": {
-      "types": "./build/src/index.d.ts",
+      "types": "./build/index.d.ts",
       "import": "./build/index.es.js",
       "require": "./build/index.cjs.js"
     }
