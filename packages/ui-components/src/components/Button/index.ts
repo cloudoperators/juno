@@ -3,4 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { Button, type ButtonProps } from "./Button.component"
+export { Button, type ButtonProps, type ButtonVariant } from "./Button.component"

@@ -181,6 +181,11 @@ describe("Modal", () => {
     expect(screen.queryByRole("button", { name: "Click here to Proceed" })).toHaveClass("juno-button-primary")
   })
 
+  test("forwards confirmButtonVariant to the confirm button", () => {
+    render(<Modal open confirmButtonLabel="Confirm" confirmButtonVariant="primary-danger" />)
+    expect(screen.getByRole("button", { name: "Confirm" })).toHaveClass("juno-button-primary-danger")
+  })
+
   test("closes the modal when clicking the close button in the title bar", async () => {
     await waitFor(() =>
       render(

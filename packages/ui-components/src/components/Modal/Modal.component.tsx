@@ -18,6 +18,7 @@ import { createPortal } from "react-dom"
 import { FocusTrap } from "focus-trap-react"
 import { ModalFooter } from "../ModalFooter/index"
 import { Icon, KnownIcons } from "../Icon/Icon.component"
+import { ButtonVariant } from "../Button/index"
 import { usePortalRef } from "../PortalProvider/PortalProvider.component"
 
 /*
@@ -106,6 +107,7 @@ export const Modal = ({
   confirmButtonLabel = "",
   cancelButtonLabel = "",
   confirmButtonIcon,
+  confirmButtonVariant,
   cancelButtonIcon,
   disableConfirmButton = false,
   disableCancelButton = false,
@@ -237,6 +239,7 @@ export const Modal = ({
                       confirmButtonLabel={confirmButtonLabel}
                       cancelButtonLabel={cancelButtonLabel}
                       confirmButtonIcon={confirmButtonIcon}
+                      confirmButtonVariant={confirmButtonVariant}
                       cancelButtonIcon={cancelButtonIcon}
                       disableConfirmButton={disableConfirmButton}
                       disableCancelButton={disableCancelButton}
@@ -351,6 +354,12 @@ export interface ModalProps extends Omit<HTMLProps<HTMLDivElement>, "size" | "ti
    * Pass an Icon name to show on the confirming action button.
    */
   confirmButtonIcon?: KnownIcons
+
+  /**
+   * The variant of the confirm button.
+   * @default "primary"
+   */
+  confirmButtonVariant?: ButtonVariant
 
   /**
    * Pass an icon name to show on the cancelling button.

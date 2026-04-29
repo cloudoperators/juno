@@ -264,7 +264,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
 
 Button.displayName = "Button"
 
-type ButtonVariant = "primary" | "primary-danger" | "default" | "subdued"
+export type ButtonVariant = "primary" | "primary-danger" | "default" | "subdued"
 type ButtonSize = "small" | "default"
 
 export interface ButtonProps extends Omit<HTMLProps<HTMLAnchorElement> | HTMLProps<HTMLButtonElement>, "size"> {
