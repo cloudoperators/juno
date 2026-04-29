@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { PluginOption, defineConfig, esmExternalRequirePlugin } from "vite"
 import react from "@vitejs/plugin-react"
 
@@ -7,9 +12,7 @@ import svgr from "vite-plugin-svgr"
 import { peerDependencies } from "./package.json"
 
 // Detect if running under Storybook by checking process.argv
-const isStorybookBuild = process.argv.some(arg =>
-  arg.includes('storybook') || arg.includes('.storybook')
-)
+const isStorybookBuild = process.argv.some((arg) => arg.includes("storybook") || arg.includes(".storybook"))
 
 export default defineConfig({
   build: {
@@ -24,9 +27,11 @@ export default defineConfig({
   plugins: [
     // Vite 8: externalize peer dependencies and convert require() to import
     // Skip during Storybook builds to allow React bundling in static builds
-    !isStorybookBuild ? esmExternalRequirePlugin({
-      external: Object.keys(peerDependencies),
-    }) : null,
+    !isStorybookBuild
+      ? esmExternalRequirePlugin({
+          external: Object.keys(peerDependencies),
+        })
+      : null,
     tailwindcss(),
     dts({
       exclude: ["./__tests__/**/*.test.ts", "vitest.setup.ts"],
