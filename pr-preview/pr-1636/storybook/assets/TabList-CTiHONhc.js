@@ -1,1 +1,0 @@
-import"./TabList.component-B5iBmVbT.js";

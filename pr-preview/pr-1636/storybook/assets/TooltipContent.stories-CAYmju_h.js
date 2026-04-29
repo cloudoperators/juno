@@ -1,4 +1,0 @@
-import{g as e}from"./iframe-Cx-zHds2.js";import{n as t,r as n,t as r}from"./TooltipTrigger-DopIDt-H.js";import"react";var i=e(),a={title:`Components/Tooltip/TooltipContent`,component:t,argTypes:{},decorators:[e=>(0,i.jsx)(`div`,{className:`jn:my-6 jn:flex jn:justify-center`,children:(0,i.jsxs)(n,{initialOpen:!0,children:[(0,i.jsx)(r,{children:`clickMe`}),(0,i.jsx)(e,{})]})})]},o={args:{},render:e=>(0,i.jsx)(t,{...e,children:`This is a tooltip`})};o.parameters={...o.parameters,docs:{...o.parameters?.docs,source:{originalSource:`{
-  args: {},
-  render: DefaultTemplate
-}`,...o.parameters?.docs?.source}}};var s=[`Default`];export{o as Default,s as __namedExportsOrder,a as default};
