@@ -15,6 +15,9 @@ export default defineConfig({
       fileName: () => `index.js`,
     },
     outDir: "build",
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
   },
   plugins: [
     dts({
