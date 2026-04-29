@@ -23,6 +23,10 @@ const meta: Meta<ModalFooterProps> = {
     children: {
       control: false,
     },
+    confirmButtonVariant: {
+      options: ["primary", "primary-danger", "default", "subdued"],
+      control: { type: "select" },
+    },
   },
   parameters: {
     actions: { argTypesRegex: null },

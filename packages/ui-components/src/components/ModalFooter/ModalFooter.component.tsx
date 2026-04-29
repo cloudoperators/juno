@@ -4,7 +4,7 @@
  */
 
 import React, { ReactNode, MouseEvent, MouseEventHandler, HTMLProps } from "react"
-import { Button } from "../Button/index"
+import { Button, ButtonVariant } from "../Button/index"
 import { ButtonRow } from "../ButtonRow/index"
 import { KnownIcons } from "../Icon/Icon.component"
 
@@ -35,6 +35,7 @@ export const ModalFooter = ({
   confirmButtonLabel = "",
   cancelButtonLabel = "",
   confirmButtonIcon,
+  confirmButtonVariant,
   cancelButtonIcon,
   disableConfirmButton = false,
   disableCancelButton = false,
@@ -67,7 +68,7 @@ export const ModalFooter = ({
             onClick={handleCancelClick}
           />
           <Button
-            variant="primary"
+            variant={confirmButtonVariant || "primary"}
             label={confirmButtonLabel || "Confirm"}
             icon={confirmButtonIcon || undefined}
             disabled={disableConfirmButton}
@@ -77,7 +78,7 @@ export const ModalFooter = ({
       ) : (
         <ButtonRow>
           <Button
-            variant="subdued"
+            variant={confirmButtonVariant || "primary"}
             label={cancelButtonLabel || "Close"}
             disabled={disableCancelButton}
             icon={cancelButtonIcon || undefined}
@@ -117,6 +118,12 @@ export interface ModalFooterProps extends HTMLProps<HTMLDivElement> {
    * Pass an Icon name to show on the confirming action button.
    */
   confirmButtonIcon?: KnownIcons
+
+  /**
+   * The variant of the confirm button.
+   * @default "primary"
+   */
+  confirmButtonVariant?: ButtonVariant
 
   /**
    * Pass an icon name to show on the cancelling button.
