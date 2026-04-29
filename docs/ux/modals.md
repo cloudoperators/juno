@@ -45,7 +45,7 @@ Do not show Modals without user interaction. A Modal must be triggered by a prio
 
 ### One Primary Action
 
-A Modal should have only one primary action. This is the action triggered when the user presses the **Enter** key while the Modal is open. The button that triggers the primary action is always the rightmost button.
+A Modal should have only one primary action. This is the action triggered when the user presses the **Enter** key while the Modal is open. The button that triggers the primary action is always the rightmost button, and it is a button of the `primary` variant, regardless of whether the Mmodal has only this one button or multiple buttons.
 
 ### Redundant Cancel/Close
 
