@@ -27,9 +27,9 @@ const config = {
   staticDirs: ["../public"],
 
   viteFinal: async (config) => {
-    // Ensure React is not externalized in Storybook builds
-    if (config.build?.rollupOptions?.external) {
-      config.build.rollupOptions.external = []
+    // Remove esmExternalRequirePlugin to allow React bundling in static builds
+    if (config.plugins) {
+      config.plugins = config.plugins.filter(p => p?.name !== 'vite:esmExternalRequire')
     }
 
     config = merge(config, {
