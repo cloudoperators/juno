@@ -334,7 +334,7 @@ export const DefaultButtonInProgressWithProgressLabel: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Default Button with an action in onprogress and an alternate label while in progress",
+        story: "Default Button with an action in progress and an alternate label while in progress",
       },
     },
   },
