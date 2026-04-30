@@ -10,14 +10,14 @@
   },
   "private": true,
   "engines": {
-    "node": ">=20.0.0",
+    "node": ">=20.12.0",
     "pnpm": ">=8.0.0"
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
     "@svgr/core": "7.0.0",
     "@svgr/plugin-jsx": "7.0.0",
-    "@tailwindcss/vite": "4.2.2",
+    "@tailwindcss/vite": "4.2.4",
     "@tanstack/react-query": "5.95.2",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
@@ -27,7 +27,7 @@
     "jsdom": "26.1.0",
     "postcss": "8.5.10",
     "shadow-dom-testing-library": "1.13.1",
-    "tailwindcss": "4.2.2",
+    "tailwindcss": "4.2.4",
     "vite": "8.0.10",
     "vitest": "3.2.4"
   },
@@ -35,7 +35,7 @@
     "@cloudoperators/juno-messages-provider": "workspace:*",
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
-    "@tailwindcss/vite": "4.2.2",
+    "@tailwindcss/vite": "4.2.4",
     "msw": "2.12.14",
     "react": "19.2.5",
     "react-dom": "19.2.5",
