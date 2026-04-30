@@ -85,8 +85,10 @@ export type SelectContextProps = {
 }
 export const SelectContext = createContext<SelectContextProps | undefined>(undefined)
 
-export interface SelectProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "value" | "defaultValue" | "onChange"> {
+export interface SelectProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  "value" | "defaultValue" | "onChange"
+> {
   /** Pass an aria-label to the Select toggle button */
   ariaLabel?: string
   /** The children to render as options. Use the SelectOption component, and SelectDivider if needed. */
