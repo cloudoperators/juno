@@ -20,10 +20,10 @@
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
     "@types/node": "24.12.2",
-    "typescript": "5.9.3",
-    "vitest": "3.2.4",
-    "vite": "7.3.2",
-    "vite-plugin-dts": "4.5.4"
+    "typescript": "6.0.2",
+    "vite": "8.0.10",
+    "vite-plugin-dts": "4.5.4",
+    "vitest": "3.2.4"
   },
   "dependencies": {
     "oauth-pkce": "0.0.7"
