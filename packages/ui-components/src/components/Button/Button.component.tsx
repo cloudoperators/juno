@@ -230,7 +230,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
 
     const buttonIcon = progress ? (
       <span className={`${label || children ? iconClasses(size) : ""}`}>
-        <Spinner size={`${iconSize(size)}`} color={spinnerColorClass(variant)} className={`jn:mr-0!`} />
+        <Spinner size={`${iconSize(size)}`} color={spinnerColorClass(variant)} className={`jn:!mr-0`} />
       </span>
     ) : icon ? (
       <Icon
