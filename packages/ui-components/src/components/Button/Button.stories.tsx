@@ -111,6 +111,13 @@ export const Small: Story = {
   },
 }
 
+export const ExtraSmall: Story = {
+  args: {
+    size: "extra-small",
+    label: "Extra Small",
+  },
+}
+
 export const Disabled: Story = {
   parameters: {
     docs: {
@@ -215,6 +222,21 @@ export const SmallWithIcon: Story = {
   },
 }
 
+export const ExtraSmallWithIcon: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: "Extra Small Button with Icon",
+      },
+    },
+  },
+
+  args: {
+    ...ExtraSmall.args,
+    icon: "warning",
+  },
+}
+
 export const IconOnlyButton: Story = {
   parameters: {
     docs: {
@@ -312,7 +334,7 @@ export const DefaultButtonInProgressWithProgressLabel: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Default Button with an action in oprogress and an alternate label while in progress",
+        story: "Default Button with an action in onprogress and an alternate label while in progress",
       },
     },
   },
@@ -426,7 +448,7 @@ export const PrimaryDisabledInProgress: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Disabled Primnary Button with action in progress",
+        story: "Disabled Primary Button with action in progress",
       },
     },
   },
@@ -467,5 +489,21 @@ export const SmallInProgress: Story = {
     ...Small.args,
     progress: true,
     progressLabel: "Small in Progress…",
+  },
+}
+
+export const ExtraSmallInProgress: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: "Extra Small Button in Progress",
+      },
+    },
+  },
+
+  args: {
+    ...ExtraSmall.args,
+    progress: true,
+    progressLabel: "Extra Small in Progress…",
   },
 }
