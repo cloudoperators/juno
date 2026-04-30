@@ -97,23 +97,15 @@ const invalidStyles = `
 
 const buttonStyles = `
   jn:absolute
-  jn:top-0
-  jn:right-0
-  jn:h-textinput
+  jn:top-[1px]
+  jn:right-2
+  jn:h-[calc(100%-2px)]
   jn:w-6
-  jn:h-4
-  jn:border-l-0
-  jn:border-y-[1px]
-  jn:border-r-[1px]
   jn:rounded-tr
   jn:rounded-br
   jn:appearance-none
   jn:bg-theme-textinput
   jn:text-theme-textinput
-`
-
-const defaultButtonStyles = `
-  jn:border-theme-textinput-default
 `
 
 const invalidButtonStyles = `
@@ -141,7 +133,7 @@ const menuStyles = `
 const iconContainerStyles = `
   jn:absolute
   jn:top-[.4rem]
-  jn:right-6
+  jn:right-8
 `
 
 const centeredIconStyles = `
@@ -489,12 +481,11 @@ export const ComboBox = ({
                   {!hasError && !isLoading ? (
                     <ComboboxButton
                       className={`
-                        juno-combobox-toggle 
+                        juno-combobox-toggle
                         ${buttonStyles}
                         ${disabled ? disabledButtonStyles : ""}
                         ${isInvalid ? "juno-combobox-toggle-invalid " + invalidButtonStyles : ""} 
                         ${isValid ? "juno-combobox-toggle-valid " + validButtonStyles : ""}  
-                        ${isValid || isInvalid ? "" : defaultButtonStyles} 
                       `}
                     >
                       <Icon icon={isOpen ? "expandLess" : "expandMore"} />

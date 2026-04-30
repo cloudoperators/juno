@@ -15,6 +15,7 @@ import { Button } from "../Button"
 import { NativeSelectOption } from "../NativeSelectOption"
 import { NativeSelect } from "../NativeSelect"
 import { InputGroup } from "../InputGroup"
+import { PortalProvider } from "../PortalProvider"
 
 const meta: Meta<typeof DataGridToolbar> = {
   title: "Components/DataGrid/DataGridToolbar",
@@ -49,6 +50,13 @@ export const Default: Story = {
 }
 
 export const ComplexCustomLayout: Story = {
+  decorators: [
+    (Story) => (
+      <PortalProvider>
+        <Story />
+      </PortalProvider>
+    ),
+  ],
   render: (args: DataGridToolbarProps) => (
     <DataGridToolbar {...args}>
       <Stack direction="horizontal" distribution="between">
