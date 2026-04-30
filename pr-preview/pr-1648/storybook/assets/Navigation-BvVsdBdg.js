@@ -1,1 +1,0 @@
-import{n as e}from"./chunk-jRWAZmH_.js";import{r as t}from"./Navigation.component-Dsw5A0SC.js";var n=e((()=>{t()}));export{n as t};
