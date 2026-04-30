@@ -1,0 +1,1 @@
+import{n as e}from"./chunk-jRWAZmH_.js";import{r as t}from"./Icon.component-C9etzYi5.js";var n=e((()=>{t()}));export{n as t};
