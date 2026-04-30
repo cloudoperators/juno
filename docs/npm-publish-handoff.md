@@ -35,13 +35,13 @@ Do this for **each package** you want to publish via GitHub Actions:
 3. Under **Trusted Publishers**, click **Add a Trusted Publisher**.
 4. Fill in:
 
-   | Field                  | Value              |
-   | ---------------------- | ------------------ |
-   | Provider               | GitHub Actions     |
-   | Repository owner       | `cloudoperators`   |
-   | Repository name        | `juno`             |
-   | Workflow filename      | `release.yaml`     |
-   | Environment (optional) | leave blank        |
+   | Field                  | Value            |
+   | ---------------------- | ---------------- |
+   | Provider               | GitHub Actions   |
+   | Repository owner       | `cloudoperators` |
+   | Repository name        | `juno`           |
+   | Workflow filename      | `release.yaml`   |
+   | Environment (optional) | leave blank      |
 
 5. Save.
 
