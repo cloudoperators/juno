@@ -4,7 +4,11 @@
  */
 
 import { encodeBase64Json, decodeBase64Json, randomString } from "./utils"
-import getPkce from "oauth-pkce"
+// @ts-ignore - oauth-pkce is a CommonJS module
+import getPkceImport from "oauth-pkce"
+
+// Handle both ESM and CJS imports - Vite 8 changed CommonJS interop
+const getPkce = typeof getPkceImport === "function" ? getPkceImport : (getPkceImport as any)?.default || getPkceImport
 
 type OidcState = {
   key: string
@@ -57,10 +61,10 @@ export const createState = async (props: any = {}, options: any): Promise<any> =
   }
 
   if (options?.pkce) {
-    const { verifier, challenge }: any = await new Promise((resolve) => {
-      getPkce(43, (error, { verifier, challenge }) => {
-        if (error) throw error
-        resolve({ verifier, challenge })
+    const { verifier, challenge }: any = await new Promise((resolve, reject) => {
+      getPkce(43, (error: any, { verifier, challenge }: { verifier: any; challenge: any }) => {
+        if (error) reject(error instanceof Error ? error : new Error(String(error)))
+        else resolve({ verifier, challenge })
       })
     })
 
