@@ -83,7 +83,7 @@ export const ComplexCustomLayout: Story = {
     docs: {
       description: {
         story:
-          "Demonstrates a complex toolbar layout with custom styling - children aligned left and search aligned right. The extra-small 'Remove filters' button sits inline with the filter pills.",
+          "Demonstrates a complex toolbar layout with custom styling - children aligned left and search aligned right. The extra-small 'Clear Filters' button sits inline with the filter pills.",
       },
     },
   },
