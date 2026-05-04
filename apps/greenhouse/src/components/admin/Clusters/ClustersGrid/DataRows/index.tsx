@@ -19,7 +19,13 @@ import { extractFilterSettingsFromSearchParams } from "../../../utils"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow"
 import { PluginPreset, Cluster } from "../../../types/k8sTypes"
 import { getReadyCondition, isReady } from "../../../utils"
-import { CONNECTIVITY_GROUP_LABEL, NO_VALUE_DEFAULT, SUPPORT_GROUP_LABEL } from "../../../constants"
+import {
+  CLUSTER_TYPE_LABEL,
+  CONNECTIVITY_LABEL,
+  NO_VALUE_DEFAULT,
+  REGION_LABEL,
+  SUPPORT_GROUP_LABEL,
+} from "../../../constants"
 
 interface DataRowsProps {
   colSpan: number
@@ -67,10 +73,14 @@ export const DataRows = ({ colSpan }: DataRowsProps) => {
           <DataGridCell>{preset.metadata?.name || NO_VALUE_DEFAULT}</DataGridCell>
           {/* Version */}
           <DataGridCell>{preset.status?.kubernetesVersion || NO_VALUE_DEFAULT}</DataGridCell>
+          {/* Cluster Type */}
+          <DataGridCell>{preset.metadata?.labels?.[CLUSTER_TYPE_LABEL] || NO_VALUE_DEFAULT}</DataGridCell>
+          {/* Region */}
+          <DataGridCell>{preset.metadata?.labels?.[REGION_LABEL] || NO_VALUE_DEFAULT}</DataGridCell>
+          {/* Connectivity */}
+          <DataGridCell>{preset.metadata?.annotations?.[CONNECTIVITY_LABEL] || NO_VALUE_DEFAULT}</DataGridCell>
           {/* Message */}
           <DataGridCell>{getReadyCondition(preset)?.message || NO_VALUE_DEFAULT}</DataGridCell>
-          {/* Connectivity */}
-          <DataGridCell>{preset.metadata?.annotations?.[CONNECTIVITY_GROUP_LABEL] || NO_VALUE_DEFAULT}</DataGridCell>
           {/* Support Group */}
           <DataGridCell>{preset.metadata?.labels?.[SUPPORT_GROUP_LABEL] || NO_VALUE_DEFAULT}</DataGridCell>
           {/* Actions */}

@@ -12,10 +12,12 @@ import {
   Pill,
   Stack,
   ContentHeading,
+  JsonViewer,
 } from "@cloudoperators/juno-ui-components"
 import { PluginPreset } from "../../types/k8sTypes"
-import { CONNECTIVITY_GROUP_LABEL, NO_VALUE_DEFAULT } from "../../constants"
+import { CONNECTIVITY_LABEL, NO_VALUE_DEFAULT } from "../../constants"
 import { formatAge } from "../../utils"
+import YamlViewer from "../../common/YamlViewer"
 
 interface DetailsProps {
   pluginPreset: PluginPreset
@@ -24,13 +26,14 @@ interface DetailsProps {
 const NodeStatus = ({ nodes }) => {
   const ready = nodes?.ready || 0
   const total = nodes?.total || 0
+  const notReady = total - ready
 
-  // Determine the color class based on readiness
-  const statusColor = ready === total ? "text-theme-success" : "text-theme-warning"
+  // Determine the color class for the 'not ready' text based on the number of not ready nodes
+  const notReadyColor = notReady > 1 ? "text-theme-danger" : ""
 
   return (
-    <div className={`inline-block ${statusColor}`}>
-      {ready}/{total} nodes ready
+    <div className="inline-block">
+      {total} nodes ({ready} ready, <span className={notReadyColor}>{notReady} not ready</span>)
     </div>
   )
 }
@@ -53,7 +56,7 @@ export const Details: React.FC<DetailsProps> = ({ pluginPreset }) => (
       </DataGridRow>
       <DataGridRow>
         <DataGridHeadCell nowrap>Connectivity</DataGridHeadCell>
-        <DataGridCell>{pluginPreset.metadata?.annotations?.[CONNECTIVITY_GROUP_LABEL]}</DataGridCell>
+        <DataGridCell>{pluginPreset.metadata?.annotations?.[CONNECTIVITY_LABEL]}</DataGridCell>
       </DataGridRow>
       <DataGridRow>
         <DataGridHeadCell nowrap>Support Group</DataGridHeadCell>
@@ -75,18 +78,14 @@ export const Details: React.FC<DetailsProps> = ({ pluginPreset }) => (
         <DataGridHeadCell nowrap>Annotations</DataGridHeadCell>
         <DataGridCell>
           {pluginPreset.metadata?.annotations && Object.keys(pluginPreset.metadata.annotations).length > 0 ? (
-            <Stack gap="2" wrap={true}>
-              {Object.entries(pluginPreset.metadata.annotations).map(([key, value]) => (
-                <Pill key={key} pillKey={key} pillValue={value} />
-              ))}
-            </Stack>
+            <YamlViewer value={pluginPreset.metadata?.annotations} />
           ) : (
             "No Annotations"
           )}
         </DataGridCell>
       </DataGridRow>
       <DataGridRow>
-        <DataGridHeadCell nowrap>Node Status</DataGridHeadCell>
+        <DataGridHeadCell nowrap>Nodes</DataGridHeadCell>
         <DataGridCell>
           <NodeStatus nodes={pluginPreset?.status?.nodes || {}} />
         </DataGridCell>

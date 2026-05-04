@@ -4,8 +4,26 @@
  */
 
 import { Filter } from "../../common/types"
-import { FILTER_IDS, SUPPORT_GROUP_LABEL } from "../../constants"
+import { CLUSTER_TYPE_LABEL, FILTER_IDS, REGION_LABEL, SUPPORT_GROUP_LABEL } from "../../constants"
 import { PluginPreset } from "../../types/k8sTypes"
+
+const getClusterTypeValues = (presets: PluginPreset[]) =>
+  Array.from(
+    new Set(
+      presets.map((preset) => {
+        return preset.metadata?.labels?.[CLUSTER_TYPE_LABEL]
+      })
+    )
+  ).filter((value): value is string => !!value)
+
+const getRegionValues = (presets: PluginPreset[]) =>
+  Array.from(
+    new Set(
+      presets.map((preset) => {
+        return preset.metadata?.labels?.[REGION_LABEL]
+      })
+    )
+  ).filter((value): value is string => !!value)
 
 const getSupportGroupValues = (presets: PluginPreset[]) =>
   Array.from(
@@ -18,6 +36,16 @@ const getSupportGroupValues = (presets: PluginPreset[]) =>
 
 const extractPluginPresetFilters = (pluginPresets: PluginPreset[]) => {
   return [
+    {
+      id: FILTER_IDS.CLUSTER_TYPE,
+      label: "Cluster",
+      values: getClusterTypeValues(pluginPresets),
+    },
+    {
+      id: FILTER_IDS.REGION,
+      label: "Region",
+      values: getRegionValues(pluginPresets),
+    },
     {
       id: FILTER_IDS.SUPPORT_GROUP,
       label: "Support Group",

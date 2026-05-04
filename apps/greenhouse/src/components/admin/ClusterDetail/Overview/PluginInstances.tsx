@@ -23,12 +23,13 @@ import { ErrorBoundary } from "../../common/ErrorBoundary"
 import { getErrorDataRowComponent } from "../../common/getErrorDataRow"
 import { Plugin } from "../../types/k8sTypes"
 import { FETCH_PLUGINS_BY_CLUSTER_CACHE_KEY, fetchPluginsByCluster } from "../../api/plugins/fetchPluginsByCluster"
+import { NO_VALUE_DEFAULT } from "../../constants"
 
 const isPluginReady = (plugin: Plugin) => {
   return plugin.status?.statusConditions?.conditions?.some((c) => c.type === "Ready" && c.status === "True") ?? false
 }
 
-const COLUMN_SPAN = 4
+const COLUMN_SPAN = 5
 
 const DataRows = ({ colSpan, plugins }: { colSpan: number; plugins: Plugin[] }) => {
   const navigate = useNavigate({ from: "/admin/clusters/$clusterName" })
@@ -60,7 +61,8 @@ const DataRows = ({ colSpan, plugins }: { colSpan: number; plugins: Plugin[] }) 
             <DataGridCell>
               <Icon icon={ready ? "checkCircle" : "error"} color={ready ? "text-theme-success" : "text-theme-danger"} />
             </DataGridCell>
-            <DataGridCell>{plugin.metadata?.name}</DataGridCell>
+            <DataGridCell>{plugin.metadata?.name || NO_VALUE_DEFAULT}</DataGridCell>
+            <DataGridCell>{plugin.metadata?.ownerReferences?.[0].name || NO_VALUE_DEFAULT}</DataGridCell>
             <DataGridCell>{ready ? "Ready" : "Not Ready"}</DataGridCell>
             <DataGridCell nowrap>
               <PopupMenu onClick={(e) => e.stopPropagation()}>
@@ -104,12 +106,10 @@ export const PluginInstances = () => {
         <DataGrid columns={COLUMN_SPAN} minContentColumns={[4]}>
           <DataGridRow>
             <DataGridHeadCell>
-              <Stack gap="2">
-                <Icon icon="monitorHeart" />
-                Status
-              </Stack>
+              <Icon icon="monitorHeart" />
             </DataGridHeadCell>
             <DataGridHeadCell>Plugin Name</DataGridHeadCell>
+            <DataGridHeadCell>Plugin Preset</DataGridHeadCell>
             <DataGridHeadCell>Status</DataGridHeadCell>
             <DataGridHeadCell></DataGridHeadCell>
           </DataGridRow>

@@ -4,21 +4,30 @@
  */
 
 import { FilterSettings } from "../../common/types"
-import { FILTER_IDS, SUPPORT_GROUP_LABEL } from "../../constants"
+import { CLUSTER_TYPE_LABEL, FILTER_IDS, REGION_LABEL, SUPPORT_GROUP_LABEL } from "../../constants"
 import { PluginPreset } from "../../types/k8sTypes"
 import { isReady } from "../../utils"
 
 const applyFilterSettings = (pluginPresets: PluginPreset[], filterSettings?: FilterSettings): PluginPreset[] => {
   if (filterSettings?.selectedFilters) {
     // filter by plugin preset definition
-    const pluginPresetDefinitionValues = filterSettings.selectedFilters
-      .filter((f) => f.id === FILTER_IDS.PLUGIN_PRESET_DEFINITION)
+    const clusterTypeValues = filterSettings.selectedFilters
+      .filter((f) => f.id === FILTER_IDS.CLUSTER_TYPE)
       .map((f) => f.value)
 
-    if (pluginPresetDefinitionValues.length > 0) {
+    if (clusterTypeValues.length > 0) {
       pluginPresets = pluginPresets.filter((preset) => {
-        const def = preset.spec?.plugin?.pluginDefinitionRef?.name || preset.spec?.plugin?.pluginDefinition
-        return def && pluginPresetDefinitionValues.includes(def)
+        const clusterType = preset.metadata?.labels?.[CLUSTER_TYPE_LABEL]
+        return clusterType && clusterTypeValues.includes(clusterType)
+      })
+    }
+
+    const regionValues = filterSettings.selectedFilters.filter((f) => f.id === FILTER_IDS.REGION).map((f) => f.value)
+
+    if (regionValues.length > 0) {
+      pluginPresets = pluginPresets.filter((preset) => {
+        const region = preset.metadata?.labels?.[REGION_LABEL]
+        return region && regionValues.includes(region)
       })
     }
 

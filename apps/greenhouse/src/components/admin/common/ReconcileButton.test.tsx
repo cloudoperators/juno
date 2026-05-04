@@ -40,15 +40,7 @@ const renderComponent = async (onReconcile?: () => void, mockPatch?: any, onErro
               },
             })
           }
-        >
-          <ReconcileButton
-            resourceType="plugins"
-            resourceName="test-plugin"
-            namespace="test-namespace"
-            onReconcile={onReconcile}
-            onError={onError}
-          />
-        </QueryClientProvider>
+        ></QueryClientProvider>
       </MessagesProvider>
     ),
   })

@@ -59,12 +59,6 @@ export const ClusterDetail = () => {
         <Stack gap="2" alignment="center">
           <ContentHeading className="pb-0">{clusterName}</ContentHeading>
         </Stack>
-        <ReconcileButton
-          resourceType="clusters"
-          resourceName={clusterName}
-          namespace={user.organization}
-          onReconcile={handleReconcile}
-        />
       </Stack>
       <p>Cluster configuration and instance status</p>
       {isLoading && <p>Loading...</p>}
