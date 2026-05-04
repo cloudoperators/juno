@@ -1,0 +1,145 @@
+import{n as e,o as t}from"./chunk-jRWAZmH_.js";import{D as n,E as r,z as i}from"./iframe-DzdVDoEB.js";import{r as a,t as o}from"./Icon.component-BG8Ilm2l.js";import{t as s}from"./Icon-DfNappZb.js";import{r as ee}from"./PortalProvider.component-CUSG7ss4.js";import{t as c}from"./PortalProvider-Bf4nGyyh.js";import{t as l}from"./Spinner.component-CsKNNw4Q.js";import{t as u}from"./Spinner-Bh74lH1t.js";import{t as te}from"./Label.component-DcZU5cLq.js";import{t as d}from"./Label-Bk4hTlbj.js";import{t as f}from"./FormHint.component-Q5-bsole.js";import{t as p}from"./FormHint-CApnIo9k.js";import{d as m,f as ne,m as re,p as ie,t as h,u as ae}from"./headlessui.esm-BnasQmwz.js";import{_ as oe,d as se,h as ce,i as le,m as ue,n as de,p as fe,r as pe,s as me,t as g}from"./floating-ui.react-BfGh3cKI.js";var _,v,y,b,x,he,ge,S,_e,C,w,ve,ye,be,T,E,D,O,k,A,j,M=e((()=>{_=t(i()),h(),g(),d(),p(),s(),u(),c(),v=t(n()),y=r(),b=`
+  jn:relative
+`,x=`
+  jn:pointer-events-none
+  jn:top-2
+  jn:left-[0.9375rem]
+`,he=`
+  jn:rounded-3px
+  jn:bg-theme-textinput
+  jn:text-theme-textinput
+  jn:border
+  jn:text-base
+  jn:leading-4
+  jn:w-full
+  jn:px-4
+  jn:h-textinput
+  jn:text-left
+  jn:overflow-hidden
+  jn:text-ellipsis
+  jn:whitespace-nowrap
+  jn:focus:outline-hidden
+  jn:focus:ring-2
+  jn:focus:ring-theme-focus
+`,ge=`
+  jn:pt-[1.125rem] 
+  jn:pb-1
+`,S=`
+  jn:py-4
+`,_e=`
+  jn:cursor-not-allowed
+  jn:pointer-events-none
+  jn:opacity-50
+`,C=`
+  jn:border-theme-textinput-default
+`,w=`
+  jn:border-theme-success
+`,ve=`
+  jn:border-theme-error
+`,ye=`
+  jn:absolute
+  jn:top-[1px]
+  jn:right-2
+  jn:h-[calc(100%-2px)]
+  jn:w-6
+  jn:rounded-tr
+  jn:rounded-br
+  jn:appearance-none
+  jn:bg-theme-textinput
+  jn:text-theme-textinput
+`,be=`
+  jn:border-theme-error
+`,T=`
+  jn:border-theme-success
+`,E=`
+  jn:cursor-not-allowed
+  jn:pointer-events-none
+  jn:bg-transparent
+  jn:opacity-50
+`,D=`
+  jn:rounded
+  jn:bg-theme-background-lvl-1
+  jn:w-full
+  jn:overflow-y-auto
+`,O=`
+  jn:absolute
+  jn:top-[.4rem]
+  jn:right-8
+`,k=`
+  jn:absolute
+  jn:top-1/2
+  jn:left-1/2
+  jn:translate-y-[-50%]
+  jn:translate-x-[-0.75rem]
+`,A=(0,_.createContext)(void 0),j=({ariaLabel:e,children:t,className:n=``,defaultValue:r=``,disabled:i=!1,error:a=!1,errortext:s=``,helptext:c=``,id:u=``,invalid:d=!1,loading:p=!1,label:m,name:h=``,onBlur:g,onChange:j,onFocus:M,onInputChange:N,placeholder:P=`Select…`,required:F=!1,successtext:I=``,truncateOptions:L=!1,valid:R=!1,value:z=``,valueLabel:B,width:V=`full`,wrapperClassName:H=``,...xe})=>{let U=e=>!(typeof e==`string`&&e.trim().length===0),W=u||`juno-combobox-`+(0,_.useId)(),G=`juno-combobox-helptext-`+(0,_.useId)(),[K,q]=(0,_.useState)(!1),[Se,Ce]=(0,_.useState)(new Map),[J,we]=(0,_.useState)(``),[Y,Te]=(0,_.useState)(z),[X,Ee]=(0,_.useState)(!1),[Z,De]=(0,_.useState)(!1),[Oe,ke]=(0,_.useState)(!1),[Q,Ae]=(0,_.useState)(!1),[$,je]=(0,_.useState)(!1),{x:Me,y:Ne,strategy:Pe,refs:Fe,context:Ie}=le({open:K,onOpenChange:q,placement:`bottom-start`,middleware:[fe(4),ue(),se(),ce({apply({availableWidth:e,availableHeight:t,elements:n,rects:r}){Object.assign(n.floating.style,{maxWidth:`${e}px`,maxHeight:`${t}px`,minWidth:`${r.reference.width}px`,overflowY:`auto`})}})],whileElementsMounted:oe}),{getReferenceProps:Le,getFloatingProps:Re}=me([de(Ie),pe(Ie)]),ze=(e,t,n)=>{Ce(r=>new Map([...Array.from(r),[e??n,{val:e,label:t,children:n}]]))},Be=(0,_.useMemo)(()=>d||!!(s&&U(s)),[d,s]),Ve=(0,_.useMemo)(()=>R||!!(I&&U(I)),[R,I]);(0,_.useEffect)(()=>{Te(z)},[z]),(0,_.useEffect)(()=>{De(a)},[a]),(0,_.useEffect)(()=>{Ee(p)},[p]),(0,_.useEffect)(()=>{Ae(Be)},[Be]),(0,_.useEffect)(()=>{je(Ve)},[Ve]);let He=e=>{let t=e||``;Te(t),t&&q(!1),j&&j(t)},Ue=e=>{we(e?.target?.value),N&&N(e)},We=e=>{ke(!0),K||q(!0),M&&M(e)},Ge=e=>{ke(!1),q(!1),g&&g(e)},Ke=ee(),qe=J===``?_.Children.toArray(t):_.Children.toArray(t).filter(e=>(0,_.isValidElement)(e)?(e.props.children?.toString()||e.props.label||e.props.value)?.toLowerCase().includes(J.toLowerCase()):!1),Je=e=>{let t=e=>e==null||typeof e==`object`&&String(e)===`[object Object]`?``:String(e),n=Se.get(e);return n?.children&&t(n.children)||n?.label||B||t(e)||``};return(0,y.jsx)(A.Provider,{value:{selectedValue:Y,truncateOptions:L,addOptionValueAndLabel:ze},children:(0,y.jsxs)(`div`,{className:`
+          juno-combobox-wrapper
+          jn:relative
+          ${V==`auto`?`jn:inline-block`:`jn:block`}
+          ${V==`auto`?`jn:w-auto`:`jn:w-full`}
+          ${H}
+        `,children:[(0,y.jsx)(ne,{defaultValue:r,disabled:i||X||Z,name:h,onChange:He,value:Y||r,as:`div`,...xe,children:({open:t})=>((0,_.useEffect)(()=>{t!==K&&q(t)},[t]),(0,y.jsxs)(y.Fragment,{children:[(0,y.jsxs)(`div`,{ref:Fe.setReference,className:`
+                juno-combobox-input-wrapper
+                ${b}
+                ${i?`jn:cursor-not-allowed`:``}
+              `,children:[m&&U(m)&&!X&&!Z?(0,y.jsx)(te,{text:m,disabled:i,required:F,htmlFor:W,className:`${x}`,floating:!0,minimized:!!(P||Oe||J&&U(J)||Y&&U(Y)),...Le()}):``,(0,y.jsx)(re,{autoComplete:`off`,"aria-label":e||m,"aria-describedby":c?G:``,id:W,onBlur:Ge,onChange:Ue,onFocus:We,placeholder:!X&&!Z?P:``,displayValue:e=>Je(e),className:`
+                  juno-combobox-input 
+                  ${he} 
+                  ${m&&U(m)?ge:S}
+                  ${i?_e:``}
+                  ${Q?`juno-combobox-invalid `+ve:``} 
+                  ${$?`juno-combobox-valid `+w:``}  
+                  ${$||Q?``:C} 
+                  ${X?`juno-combobox-loading jn:cursor-not-allowed`:``}
+                  ${Z?`juno-combobox-error jn:cursor-not-allowed`:``}
+                  ${n}
+                `}),X||Z?(0,y.jsx)(`span`,{className:`${k}`,children:X?(0,y.jsx)(l,{className:`jn:cursor-not-allowed`}):(0,y.jsx)(o,{icon:`errorOutline`,color:`jn:text-theme-error`,className:`jn:cursor-not-allowed`})}):$||Q?(0,y.jsx)(`span`,{className:`
+                        juno-combobox-icon-container 
+                        ${O} 
+                        ${i?`jn:opacity-50`:``}
+                      `,children:(0,y.jsx)(o,{icon:$?`checkCircle`:`dangerous`,color:$?`jn:text-theme-success`:`jn:text-theme-error`})}):``,!Z&&!X?(0,y.jsx)(ae,{className:`
+                        juno-combobox-toggle
+                        ${ye}
+                        ${i?E:``}
+                        ${Q?`juno-combobox-toggle-invalid `+be:``} 
+                        ${$?`juno-combobox-toggle-valid `+T:``}  
+                      `,children:(0,y.jsx)(o,{icon:K?`expandLess`:`expandMore`})}):null]}),K&&(0,v.createPortal)((0,y.jsx)(`div`,{ref:Fe.setFloating,className:`juno-combobox-options ${D}`,style:{position:Pe,top:Ne??0,left:Me??0},...Re(),children:(0,y.jsx)(ie,{static:!0,className:`jn:w-full`,children:qe})}),Ke??document.body)]}))}),s&&U(s)?(0,y.jsx)(f,{text:s,variant:`error`}):``,I&&U(I)?(0,y.jsx)(f,{text:I,variant:`success`}):``,c&&U(c)?(0,y.jsx)(f,{text:c,id:G}):``]})})};try{A.displayName=`ComboBoxContext`,A.__docgenInfo={description:``,displayName:`ComboBoxContext`,filePath:`/home/runner/work/juno/juno/packages/ui-components/src/components/ComboBox/ComboBox.component.tsx`,methods:[],props:{},tags:{}}}catch{}try{j.displayName=`ComboBox`,j.__docgenInfo={description:"The `ComboBox` component is a customizable, accessible, and interactive dropdown component, allowing users to select from a list of options.\nIt features dynamic filtering and optional asynchronous loading for extended functionality.",displayName:`ComboBox`,filePath:`/home/runner/work/juno/juno/packages/ui-components/src/components/ComboBox/ComboBox.component.tsx`,methods:[],props:{ariaLabel:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`ARIA label for accessibility. Defaults to label if provided.`,name:`ariaLabel`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{},type:{name:`string`}},children:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:"Children to render, typically using `ComboBox.Option`.",name:`children`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{},type:{name:`ReactNode`}},className:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`Additional class names for styling.`,name:`className`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{default:`""`},type:{name:`string`}},defaultValue:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`Default value for ComboBox, applicable in uncontrolled mode.`,name:`defaultValue`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{},type:{name:`string`}},disabled:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`Indicates if ComboBox is disabled.`,name:`disabled`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{default:`false`},type:{name:`boolean`}},error:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:"Indicates internal ComboBox error. Use `invalid` for validation failures.",name:`error`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{default:`false`},type:{name:`boolean`}},errortext:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`Text displayed for validation errors or internal issues.`,name:`errortext`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{},type:{name:`ReactNode`}},helptext:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`Additional context or instructions displayed below the ComboBox.`,name:`helptext`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{},type:{name:`ReactNode`}},id:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`ID for ComboBox. If unspecified, auto-generated.`,name:`id`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{},type:{name:`string`}},invalid:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`Identifies invalid ComboBox state.`,name:`invalid`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{default:`false`},type:{name:`boolean`}},label:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`ComboBox label text.`,name:`label`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{},type:{name:`string`}},loading:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`Loading state for asynchronous actions.`,name:`loading`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{default:`false`},type:{name:`boolean`}},name:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`Name attribute when used within a form.`,name:`name`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{},type:{name:`string`}},onBlur:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`Handler for when the ComboBox loses focus.`,name:`onBlur`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{},type:{name:`FocusEventHandler<HTMLInputElement>`}},onChange:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`Handler for changes in the ComboBox selection.`,name:`onChange`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{},type:{name:`((_value: string) => void)`}},onFocus:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`Handler for when the ComboBox input gains focus.`,name:`onFocus`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{},type:{name:`FocusEventHandler<HTMLInputElement>`}},onInputChange:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`Handler for changes in the ComboBox's text input value.`,name:`onInputChange`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{},type:{name:`ChangeEventHandler<HTMLInputElement>`}},placeholder:{defaultValue:{value:`Select…`},declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`Placeholder text for ComboBox input.`,name:`placeholder`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{default:`"Select…"`},type:{name:`string`}},required:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`Flags the ComboBox as a required field.`,name:`required`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{default:`false`},type:{name:`boolean`}},successtext:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`Text shown upon successful validation of the ComboBox.`,name:`successtext`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{},type:{name:`ReactNode`}},truncateOptions:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`Controls option text truncation in the dropdown.`,name:`truncateOptions`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{default:`false`},type:{name:`boolean`}},valid:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`Specifies successful validation state.`,name:`valid`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{default:`false`},type:{name:`boolean`}},value:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`Controlled value for ComboBox in managed state.`,name:`value`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{},type:{name:`string`}},valueLabel:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`Label corresponding to the selected or default value for display.`,name:`valueLabel`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{},type:{name:`string`}},width:{defaultValue:{value:`full`},declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`Width determination for input: "full" or "auto".`,name:`width`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{default:`"full"`},type:{name:`enum`,raw:`ComboBoxWidth`,value:[{value:`"auto"`},{value:`"full"`}]}},wrapperClassName:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`}],description:`Custom styling classes for the ComboBox's wrapper.`,name:`wrapperClassName`,parent:{fileName:`ui-components/src/components/ComboBox/ComboBox.component.tsx`,name:`ComboBoxProps`},required:!1,tags:{default:`""`},type:{name:`string`}}},tags:{see:`https://cloudoperators.github.io/juno/?path=/docs/forms-combobox-combobox--docs
+{@link ComboBoxProps }`}}}catch{}})),N,P,F,I,L,R,z,B,V,H=e((()=>{N=t(i()),h(),M(),a(),P=r(),F=`
+  jn:flex
+  jn:pt-[0.6875rem]
+  jn:pb-[0.5rem]
+  jn:pr-[0.875rem]
+  jn:select-none
+  jn:hover:outline-hidden
+  jn:hover:ring-2
+  jn:hover:ring-inset
+  jn:hover:ring-theme-focus
+  jn:hover:bg-theme-background-lvl-3
+`,I=`
+  jn:text-theme-default
+  jn:pl-[2.375rem]
+`,L=`
+  jn:text-theme-accent
+  jn:pl-3.5
+`,R=`
+  jn:inline-block
+  jn:mr-1.5
+`,z=`
+  jn:opacity-50
+  jn:cursor-not-allowed
+`,B=`
+  jn:block
+  jn:h-6
+  jn:overflow-hidden
+  jn:text-ellipsis
+  jn:whitespace-nowrap
+`,V=({children:e,disabled:t=!1,value:n=``,label:r=``,className:i=``,...a})=>{let{selectedValue:s,truncateOptions:ee,addOptionValueAndLabel:c}=(0,N.useContext)(A)||{};(0,N.useEffect)(()=>{c&&c(n,r,e)},[n,r,e]);let l=n||e;return(0,P.jsx)(m,{value:l,disabled:t,as:N.Fragment,children:(0,P.jsxs)(`li`,{className:`
+          juno-combobox-option 
+          ${F}
+          ${s===n?L:I}
+          ${t?`jn:cursor-not-allowed`:``}
+          ${i}
+        `,...a,children:[s===l?(0,P.jsx)(o,{icon:`check`,size:`18`,className:`${R}`}):``,(0,P.jsx)(`span`,{className:`
+            ${t?z:``}
+            ${ee?B:``}
+          `,children:e||r||n})]})})};try{V.displayName=`ComboBoxOption`,V.__docgenInfo={description:"`ComboBoxOption` is a component used within a `ComboBox` to represent each selectable option.\nIt displays the option's label and value, and indicates the selected state with styles or an icon.",displayName:`ComboBoxOption`,filePath:`/home/runner/work/juno/juno/packages/ui-components/src/components/ComboBoxOption/ComboBoxOption.component.tsx`,methods:[],props:{children:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/ComboBoxOption/ComboBoxOption.component.tsx`,name:`ComboBoxOptionProps`}],description:`Content to render inside the ComboBoxOption. Should be specified as a string.`,name:`children`,parent:{fileName:`ui-components/src/components/ComboBoxOption/ComboBoxOption.component.tsx`,name:`ComboBoxOptionProps`},required:!1,tags:{},type:{name:`string`}},disabled:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/ComboBoxOption/ComboBoxOption.component.tsx`,name:`ComboBoxOptionProps`}],description:`If true, the option is disabled and not selectable.`,name:`disabled`,parent:{fileName:`ui-components/src/components/ComboBoxOption/ComboBoxOption.component.tsx`,name:`ComboBoxOptionProps`},required:!1,tags:{default:`false`},type:{name:`boolean`}},value:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/ComboBoxOption/ComboBoxOption.component.tsx`,name:`ComboBoxOptionProps`}],description:`The value to be submitted if this option is selected.`,name:`value`,parent:{fileName:`ui-components/src/components/ComboBoxOption/ComboBoxOption.component.tsx`,name:`ComboBoxOptionProps`},required:!1,tags:{},type:{name:`string`}},label:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/ComboBoxOption/ComboBoxOption.component.tsx`,name:`ComboBoxOptionProps`}],description:"The label text for the option, displayed when `children` is not provided.",name:`label`,parent:{fileName:`ui-components/src/components/ComboBoxOption/ComboBoxOption.component.tsx`,name:`ComboBoxOptionProps`},required:!1,tags:{},type:{name:`string`}},className:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/ComboBoxOption/ComboBoxOption.component.tsx`,name:`ComboBoxOptionProps`}],description:`CSS class names for custom styling.`,name:`className`,parent:{fileName:`ui-components/src/components/ComboBoxOption/ComboBoxOption.component.tsx`,name:`ComboBoxOptionProps`},required:!1,tags:{default:`""`},type:{name:`string`}}},tags:{see:`https://cloudoperators.github.io/juno/?path=/docs/forms-combobox-comboboxoption--docs
+{@link ComboBoxOptionProps }`}}}catch{}}));export{M as i,H as n,j as r,V as t};
