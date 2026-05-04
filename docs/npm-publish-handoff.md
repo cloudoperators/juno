@@ -20,7 +20,7 @@ No `NPM_TOKEN` secret is needed anywhere.
 
 ## What was added in this repo
 
-- `.github/workflows/publish-npm.yaml` — triggers on push to `main`, uses OIDC with `--provenance` flag (attaches a signed provenance attestation to each published package).
+- `.github/workflows/release.yaml` — triggers on push to `main`, uses changesets to manage releases with OIDC authentication (automatically attaches signed provenance attestations to each published package).
 
 ---
 
@@ -35,13 +35,13 @@ Do this for **each package** you want to publish via GitHub Actions:
 3. Under **Trusted Publishers**, click **Add a Trusted Publisher**.
 4. Fill in:
 
-   | Field                  | Value              |
-   | ---------------------- | ------------------ |
-   | Provider               | GitHub Actions     |
-   | Repository owner       | `cloudoperators`   |
-   | Repository name        | `juno`             |
-   | Workflow filename      | `publish-npm.yaml` |
-   | Environment (optional) | leave blank        |
+   | Field                  | Value            |
+   | ---------------------- | ---------------- |
+   | Provider               | GitHub Actions   |
+   | Repository owner       | `cloudoperators` |
+   | Repository name        | `juno`           |
+   | Workflow filename      | `release.yaml`   |
+   | Environment (optional) | leave blank      |
 
 5. Save.
 
@@ -53,7 +53,7 @@ Once this is done, **remove the `NPM_TOKEN` secret** from the repository (Settin
 
 ## Test & verify
 
-1. Merge a change to `main` and watch the `Publish Package` workflow in the Actions tab.
+1. Merge a change to `main` and watch the `Release` workflow in the Actions tab.
 2. The job should succeed without any `NPM_TOKEN` secret configured.
 3. On the package page on npmjs.com, confirm the new version appears and shows a **provenance** badge.
 
