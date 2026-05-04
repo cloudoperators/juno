@@ -6,11 +6,11 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import { Conditions } from "./Conditions"
-import { PluginPreset } from "../../types/k8sTypes"
+import { Cluster } from "../../types/k8sTypes"
 
 describe("Conditions", () => {
   it("should render conditions heading and readiness badges", () => {
-    const mockPluginPreset: PluginPreset = {
+    const mockPluginPreset: Cluster = {
       metadata: { name: "test-preset" },
       spec: {
         deletionPolicy: "Delete",

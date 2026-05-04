@@ -14,10 +14,10 @@ import {
 } from "@tanstack/react-router"
 import { render, screen } from "@testing-library/react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { PluginPresetsDataGrid } from "./index"
-import { mockPluginPresets, MockPluginPresetsResponse } from "../../__mocks__/pluginPresets"
+import { ClustersDataGrid } from "./index"
+import { mockClusters, MockClusterResponse } from "../../__mocks__/pluginPresets"
 
-const renderComponent = async (mockPromise: Promise<MockPluginPresetsResponse | unknown>) => {
+const renderComponent = async (mockPromise: Promise<MockClusterResponse | unknown>) => {
   const rootRoute = createRootRoute({
     component: () => <Outlet />,
   })
@@ -36,7 +36,7 @@ const renderComponent = async (mockPromise: Promise<MockPluginPresetsResponse | 
           })
         }
       >
-        <PluginPresetsDataGrid />
+        <ClustersDataGrid />
       </QueryClientProvider>
     ),
     loader: () => ({
@@ -70,27 +70,21 @@ const renderComponent = async (mockPromise: Promise<MockPluginPresetsResponse | 
 
 describe("PluginPresetsDataGrid", () => {
   it("should render plugin presets", async () => {
-    await renderComponent(new Promise<MockPluginPresetsResponse>((resolve) => resolve(mockPluginPresets)))
+    await renderComponent(new Promise<MockClusterResponse>((resolve) => resolve(mockClusters)))
 
     // Check for column headers
-    expect(screen.getByText("Instances")).toBeInTheDocument()
     expect(screen.getByText("Name")).toBeInTheDocument()
-    expect(screen.getByText("Plugin Definition")).toBeInTheDocument()
+    expect(screen.getByText("Version")).toBeInTheDocument()
+    expect(screen.getByText("Cluster Type")).toBeInTheDocument()
+    expect(screen.getByText("Region")).toBeInTheDocument()
+    expect(screen.getByText("Connectivity")).toBeInTheDocument()
     expect(screen.getByText("Message")).toBeInTheDocument()
+    expect(screen.getByText("Support Group")).toBeInTheDocument()
 
     // Check for data - verify all 5 presets are rendered
-    expect(screen.getByText("preset-1")).toBeInTheDocument()
-    expect(screen.getByText("preset-2")).toBeInTheDocument()
-    expect(screen.getByText("preset-3")).toBeInTheDocument()
-    expect(screen.getByText("preset-4")).toBeInTheDocument()
-    expect(screen.getByText("preset-5")).toBeInTheDocument()
-
-    // Check some instance counts
-    expect(screen.getByText("2/3")).toBeInTheDocument()
-    expect(screen.getByText("0/2")).toBeInTheDocument()
-    expect(screen.getByText("1/1")).toBeInTheDocument()
-    expect(screen.getByText("3/5")).toBeInTheDocument()
-    expect(screen.getByText("0/1")).toBeInTheDocument()
+    expect(screen.getByText("demo-1")).toBeInTheDocument()
+    expect(screen.getByText("demo-2")).toBeInTheDocument()
+    expect(screen.getByText("demo-3")).toBeInTheDocument()
   })
 
   it("should render the error message while fetching data", async () => {

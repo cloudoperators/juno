@@ -14,7 +14,7 @@ import { DataGrid, DataGridRow, DataGridHeadCell, Icon } from "@cloudoperators/j
 
 const COLUMN_SPAN = 9
 
-export const PluginPresetsDataGrid = () => {
+export const ClustersDataGrid = () => {
   const { filterSettings } = useLoaderData({ from: "/admin/clusters/" })
   return (
     <DataGrid minContentColumns={[0, 9]} columns={COLUMN_SPAN}>

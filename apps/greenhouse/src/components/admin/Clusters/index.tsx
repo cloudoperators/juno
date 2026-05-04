@@ -8,7 +8,7 @@ import { useRouteContext, useSearch } from "@tanstack/react-router"
 import { useIsFetching, useQuery, useQueryClient } from "@tanstack/react-query"
 import { Container, ContentHeading, Button, Stack } from "@cloudoperators/juno-ui-components"
 
-import { PluginPresetsDataGrid } from "./ClustersGrid"
+import { ClustersDataGrid } from "./ClustersGrid"
 import { PluginPresetsFilters } from "./ClustersFilters"
 import { extractFilterSettingsFromSearchParams, isReady } from "../utils"
 import { fetchClusters, FETCH_CLUSTERS_CACHE_KEY } from "../api/clusters/fetchClusters"
@@ -62,7 +62,7 @@ export const Clusters = () => {
             />
           </Stack>
         </Stack>
-        <PluginPresetsDataGrid />
+        <ClustersDataGrid />
       </Container>
     </>
   )

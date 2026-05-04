@@ -6,11 +6,11 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import { Details } from "./Details"
-import { PluginPreset } from "../../types/k8sTypes"
+import { Cluster } from "../../types/k8sTypes"
 
 describe("Details", () => {
   it("should render plugin preset details", () => {
-    const mockPluginPreset: PluginPreset = {
+    const mockPluginPreset: Cluster = {
       metadata: {
         name: "test-preset",
         labels: {
