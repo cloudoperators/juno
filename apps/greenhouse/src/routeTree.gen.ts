@@ -13,7 +13,6 @@ import { Route as OrgAdminRouteImport } from './routes/org-admin'
 import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
-import { Route as AdminOldclustersRouteImport } from './routes/admin/oldclusters'
 import { Route as ExtensionIdSplatRouteImport } from './routes/$extensionId.$'
 import { Route as AdminPluginPresetsRouteRouteImport } from './routes/admin/plugin-presets/route'
 import { Route as AdminClustersRouteRouteImport } from './routes/admin/clusters/route'
@@ -44,11 +43,6 @@ const IndexRoute = IndexRouteImport.update({
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AdminRouteRoute,
-} as any)
-const AdminOldclustersRoute = AdminOldclustersRouteImport.update({
-  id: '/oldclusters',
-  path: '/oldclusters',
   getParentRoute: () => AdminRouteRoute,
 } as any)
 const ExtensionIdSplatRoute = ExtensionIdSplatRouteImport.update({
@@ -123,7 +117,6 @@ export interface FileRoutesByFullPath {
   '/admin/clusters': typeof AdminClustersRouteRouteWithChildren
   '/admin/plugin-presets': typeof AdminPluginPresetsRouteRouteWithChildren
   '/$extensionId/$': typeof ExtensionIdSplatRoute
-  '/admin/oldclusters': typeof AdminOldclustersRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/clusters/$clusterName': typeof AdminClustersClusterNameRouteRouteWithChildren
   '/admin/plugin-presets/$pluginPresetName': typeof AdminPluginPresetsPluginPresetNameRouteRouteWithChildren
@@ -138,7 +131,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/org-admin': typeof OrgAdminRoute
   '/$extensionId/$': typeof ExtensionIdSplatRoute
-  '/admin/oldclusters': typeof AdminOldclustersRoute
   '/admin': typeof AdminIndexRoute
   '/admin/clusters': typeof AdminClustersIndexRoute
   '/admin/plugin-presets': typeof AdminPluginPresetsIndexRoute
@@ -155,7 +147,6 @@ export interface FileRoutesById {
   '/admin/clusters': typeof AdminClustersRouteRouteWithChildren
   '/admin/plugin-presets': typeof AdminPluginPresetsRouteRouteWithChildren
   '/$extensionId/$': typeof ExtensionIdSplatRoute
-  '/admin/oldclusters': typeof AdminOldclustersRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/clusters/$clusterName': typeof AdminClustersClusterNameRouteRouteWithChildren
   '/admin/plugin-presets/$pluginPresetName': typeof AdminPluginPresetsPluginPresetNameRouteRouteWithChildren
@@ -175,7 +166,6 @@ export interface FileRouteTypes {
     | '/admin/clusters'
     | '/admin/plugin-presets'
     | '/$extensionId/$'
-    | '/admin/oldclusters'
     | '/admin/'
     | '/admin/clusters/$clusterName'
     | '/admin/plugin-presets/$pluginPresetName'
@@ -190,7 +180,6 @@ export interface FileRouteTypes {
     | '/'
     | '/org-admin'
     | '/$extensionId/$'
-    | '/admin/oldclusters'
     | '/admin'
     | '/admin/clusters'
     | '/admin/plugin-presets'
@@ -206,7 +195,6 @@ export interface FileRouteTypes {
     | '/admin/clusters'
     | '/admin/plugin-presets'
     | '/$extensionId/$'
-    | '/admin/oldclusters'
     | '/admin/'
     | '/admin/clusters/$clusterName'
     | '/admin/plugin-presets/$pluginPresetName'
@@ -253,13 +241,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
-      parentRoute: typeof AdminRouteRoute
-    }
-    '/admin/oldclusters': {
-      id: '/admin/oldclusters'
-      path: '/oldclusters'
-      fullPath: '/admin/oldclusters'
-      preLoaderRoute: typeof AdminOldclustersRouteImport
       parentRoute: typeof AdminRouteRoute
     }
     '/$extensionId/$': {
@@ -423,14 +404,12 @@ const AdminPluginPresetsRouteRouteWithChildren =
 interface AdminRouteRouteChildren {
   AdminClustersRouteRoute: typeof AdminClustersRouteRouteWithChildren
   AdminPluginPresetsRouteRoute: typeof AdminPluginPresetsRouteRouteWithChildren
-  AdminOldclustersRoute: typeof AdminOldclustersRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminClustersRouteRoute: AdminClustersRouteRouteWithChildren,
   AdminPluginPresetsRouteRoute: AdminPluginPresetsRouteRouteWithChildren,
-  AdminOldclustersRoute: AdminOldclustersRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 

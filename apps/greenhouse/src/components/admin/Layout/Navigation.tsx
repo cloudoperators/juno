@@ -13,10 +13,6 @@ export const navigationItems = [
     value: "/admin/plugin-presets",
   },
   {
-    label: "OLDClusters",
-    value: "/admin/oldclusters",
-  },
-  {
     label: "Clusters",
     value: "/admin/clusters",
   },

@@ -4,13 +4,14 @@
  */
 
 import React, { useState } from "react"
-import { Container, ContentHeading, Button, Stack } from "@cloudoperators/juno-ui-components"
-import { useIsFetching, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useRouteContext, useSearch } from "@tanstack/react-router"
-import { fetchClusters, FETCH_CLUSTERS_CACHE_KEY } from "../api/clusters/fetchClusters"
-import { extractFilterSettingsFromSearchParams, isReady } from "../utils"
+import { useIsFetching, useQuery, useQueryClient } from "@tanstack/react-query"
+import { Container, ContentHeading, Button, Stack } from "@cloudoperators/juno-ui-components"
+
 import { PluginPresetsDataGrid } from "./ClustersGrid"
 import { PluginPresetsFilters } from "./ClustersFilters"
+import { extractFilterSettingsFromSearchParams, isReady } from "../utils"
+import { fetchClusters, FETCH_CLUSTERS_CACHE_KEY } from "../api/clusters/fetchClusters"
 
 export const Clusters = () => {
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(Date.now())

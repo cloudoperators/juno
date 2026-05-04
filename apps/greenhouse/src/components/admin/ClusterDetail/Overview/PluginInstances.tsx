@@ -4,8 +4,8 @@
  */
 
 import React, { Suspense } from "react"
-import { useParams, useRouteContext, useNavigate } from "@tanstack/react-router"
 import { useSuspenseQuery } from "@tanstack/react-query"
+import { useParams, useRouteContext, useNavigate } from "@tanstack/react-router"
 import {
   DataGrid,
   DataGridRow,
@@ -18,12 +18,13 @@ import {
   PopupMenuOptions,
   PopupMenuItem,
 } from "@cloudoperators/juno-ui-components"
-import { LoadingDataRow } from "../../common/LoadingDataRow"
-import { ErrorBoundary } from "../../common/ErrorBoundary"
-import { getErrorDataRowComponent } from "../../common/getErrorDataRow"
+
 import { Plugin } from "../../types/k8sTypes"
-import { FETCH_PLUGINS_BY_CLUSTER_CACHE_KEY, fetchPluginsByCluster } from "../../api/plugins/fetchPluginsByCluster"
 import { NO_VALUE_DEFAULT } from "../../constants"
+import { ErrorBoundary } from "../../common/ErrorBoundary"
+import { LoadingDataRow } from "../../common/LoadingDataRow"
+import { getErrorDataRowComponent } from "../../common/getErrorDataRow"
+import { FETCH_PLUGINS_BY_CLUSTER_CACHE_KEY, fetchPluginsByCluster } from "../../api/plugins/fetchPluginsByCluster"
 
 const isPluginReady = (plugin: Plugin) => {
   return plugin.status?.statusConditions?.conditions?.some((c) => c.type === "Ready" && c.status === "True") ?? false

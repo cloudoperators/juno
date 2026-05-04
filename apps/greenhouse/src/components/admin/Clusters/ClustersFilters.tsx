@@ -4,14 +4,15 @@
  */
 
 import React, { useCallback } from "react"
+import { useQuery } from "@tanstack/react-query"
 import { useLoaderData, useNavigate, useRouteContext } from "@tanstack/react-router"
-import { FilterSettings, SelectedFilter } from "../common/types"
+import { Stack, InputGroup, Button, SearchInput } from "@cloudoperators/juno-ui-components/index"
+
 import { getFiltersForUrl } from "../utils"
 import { SELECTED_FILTER_PREFIX } from "../constants"
-import { Stack, InputGroup, Button, SearchInput } from "@cloudoperators/juno-ui-components/index"
-import { SelectedFilters } from "../common/SelectedFilters"
-import { useQuery } from "@tanstack/react-query"
 import { FilterSelect } from "../common/FilterSelect"
+import { SelectedFilters } from "../common/SelectedFilters"
+import { FilterSettings, SelectedFilter } from "../common/types"
 import { FETCH_CLUSTERS_FILTERS_CACHE_KEY, fetchClustersFilters } from "../api/clusters/fetchClustersFilters"
 
 export const PluginPresetsFilters = () => {
@@ -74,7 +75,7 @@ export const PluginPresetsFilters = () => {
               const filterExists = filterSettings.selectedFilters?.some(
                 (filter) => filter.id === selectedFilter.id && filter.value === selectedFilter.value
               )
-              //only add the filter if it does not already exist
+              //only add the filter if it doesn't exist
               if (!filterExists) {
                 updateFilters({
                   ...filterSettings,

@@ -4,8 +4,8 @@
  */
 
 import { Filter } from "../../common/types"
-import { CLUSTER_TYPE_LABEL, FILTER_IDS, REGION_LABEL, SUPPORT_GROUP_LABEL } from "../../constants"
 import { PluginPreset } from "../../types/k8sTypes"
+import { CLUSTER_TYPE_LABEL, FILTER_IDS, REGION_LABEL, SUPPORT_GROUP_LABEL } from "../../constants"
 
 const getClusterTypeValues = (presets: PluginPreset[]) =>
   Array.from(

@@ -5,11 +5,12 @@
 
 import React, { Suspense } from "react"
 import { useLoaderData } from "@tanstack/react-router"
-import { DataGrid, DataGridRow, DataGridHeadCell, Icon, Stack } from "@cloudoperators/juno-ui-components"
+
 import { DataRows } from "./DataRows"
-import { LoadingDataRow } from "../../common/LoadingDataRow"
 import { ErrorBoundary } from "../../common/ErrorBoundary"
+import { LoadingDataRow } from "../../common/LoadingDataRow"
 import { getErrorDataRowComponent } from "../../common/getErrorDataRow"
+import { DataGrid, DataGridRow, DataGridHeadCell, Icon } from "@cloudoperators/juno-ui-components"
 
 const COLUMN_SPAN = 9
 
@@ -34,7 +35,7 @@ export const PluginPresetsDataGrid = () => {
       <ErrorBoundary
         displayErrorMessage
         fallbackRender={getErrorDataRowComponent({ colspan: COLUMN_SPAN })}
-        resetKeys={[filterSettings]} // Reset on filter changes
+        resetKeys={[filterSettings]} // Reset on filter change
       >
         <Suspense fallback={<LoadingDataRow colSpan={COLUMN_SPAN} />}>
           <DataRows colSpan={COLUMN_SPAN} />

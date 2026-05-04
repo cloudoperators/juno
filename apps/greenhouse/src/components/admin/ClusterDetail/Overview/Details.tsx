@@ -12,23 +12,27 @@ import {
   Pill,
   Stack,
   ContentHeading,
-  JsonViewer,
 } from "@cloudoperators/juno-ui-components"
-import { PluginPreset } from "../../types/k8sTypes"
-import { CONNECTIVITY_LABEL, NO_VALUE_DEFAULT } from "../../constants"
+
 import { formatAge } from "../../utils"
 import YamlViewer from "../../common/YamlViewer"
+import { Cluster } from "../../types/k8sTypes"
+import { CONNECTIVITY_LABEL, NO_VALUE_DEFAULT, SUPPORT_GROUP_LABEL } from "../../constants"
 
 interface DetailsProps {
-  pluginPreset: PluginPreset
+  pluginPreset: Cluster
 }
 
-const NodeStatus = ({ nodes }) => {
-  const ready = nodes?.ready || 0
-  const total = nodes?.total || 0
+interface NodesStatus {
+  ready: number
+  total: number
+}
+
+const NodeStatus: React.FC<{ nodes: NodesStatus }> = ({ nodes }) => {
+  const { ready, total } = nodes
   const notReady = total - ready
 
-  // Determine the color class for the 'not ready' text based on the number of not ready nodes
+  // If not ready nodes exist, make the text red
   const notReadyColor = notReady > 1 ? "text-theme-danger" : ""
 
   return (
@@ -60,7 +64,7 @@ export const Details: React.FC<DetailsProps> = ({ pluginPreset }) => (
       </DataGridRow>
       <DataGridRow>
         <DataGridHeadCell nowrap>Support Group</DataGridHeadCell>
-        <DataGridCell>{pluginPreset.metadata?.labels?.["greenhouse.sap/owned-by"] ?? NO_VALUE_DEFAULT}</DataGridCell>
+        <DataGridCell>{pluginPreset.metadata?.labels?.[SUPPORT_GROUP_LABEL] ?? NO_VALUE_DEFAULT}</DataGridCell>
       </DataGridRow>
       {pluginPreset.metadata?.labels && Object.keys(pluginPreset.metadata.labels).length > 0 && (
         <DataGridRow>
@@ -87,7 +91,12 @@ export const Details: React.FC<DetailsProps> = ({ pluginPreset }) => (
       <DataGridRow>
         <DataGridHeadCell nowrap>Nodes</DataGridHeadCell>
         <DataGridCell>
-          <NodeStatus nodes={pluginPreset?.status?.nodes || {}} />
+          <NodeStatus
+            nodes={{
+              ready: pluginPreset?.status?.nodes?.ready ?? 0,
+              total: pluginPreset?.status?.nodes?.total ?? 0,
+            }}
+          />
         </DataGridCell>
       </DataGridRow>
     </DataGrid>

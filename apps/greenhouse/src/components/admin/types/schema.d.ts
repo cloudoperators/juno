@@ -378,7 +378,7 @@ export interface components {
        *     may reject unrecognized values.
        *     More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
-      apiVersion?: string
+      apiVersion: string
       /**
        * @description Kind is a string value representing the REST resource this object represents.
        *     Servers may infer this from the endpoint the client submits requests to.
@@ -386,15 +386,15 @@ export interface components {
        *     In CamelCase.
        *     More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
-      kind?: string
-      metadata?: {
-        name?: string
+      kind: string
+      metadata: {
+        name: string
         namespace?: string
         /** Format: uuid */
         uid?: string
         resourceVersion?: string
         /** Format: date-time */
-        creationTimestamp?: string
+        creationTimestamp: string
         /** Format: date-time */
         deletionTimestamp?: string
         labels?: {
@@ -403,6 +403,17 @@ export interface components {
         annotations?: {
           [key: string]: string
         }
+        finalizers?: string[]
+        managedFields?: {
+          apiVersion: string
+          fieldsType: string
+          fieldsV1?: object
+          manager: string
+          operation: string
+          time?: string
+          subresource?: string
+        }[]
+        generation?: number
       }
       /** @description ClusterSpec defines the desired state of the Cluster. */
       spec?: {
@@ -763,7 +774,7 @@ export interface components {
        *     may reject unrecognized values.
        *     More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
-      apiVersion?: string
+      apiVersion: string
       /**
        * @description Kind is a string value representing the REST resource this object represents.
        *     Servers may infer this from the endpoint the client submits requests to.

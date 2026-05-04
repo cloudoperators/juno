@@ -4,16 +4,16 @@
  */
 
 import React, { useCallback } from "react"
-import { useParams, useRouteContext } from "@tanstack/react-router"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { useParams, useRouteContext } from "@tanstack/react-router"
 import { Container, Tabs, TabList, Tab, TabPanel, Stack, ContentHeading } from "@cloudoperators/juno-ui-components"
-import { fetchCluster, FETCH_CLUSTER_CACHE_KEY } from "../api/clusters/fetchCluster"
+
 import { Overview } from "./Overview"
+import YamlViewer from "../common/YamlViewer"
 import { PluginPreset } from "../types/k8sTypes"
 import { ErrorMessage } from "../common/ErrorBoundary/ErrorMessage"
-import YamlViewer from "../common/YamlViewer"
-import { ReconcileButton } from "../common/ReconcileButton"
 import { FETCH_CLUSTERS_CACHE_KEY } from "../api/clusters/fetchClusters"
+import { fetchCluster, FETCH_CLUSTER_CACHE_KEY } from "../api/clusters/fetchCluster"
 
 const PluginPresetDetailContent = ({ cluster }: { cluster: PluginPreset }) => (
   <Tabs>

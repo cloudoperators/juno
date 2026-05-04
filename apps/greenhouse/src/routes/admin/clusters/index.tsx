@@ -3,13 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { createFileRoute, redirect } from "@tanstack/react-router"
 import { z } from "zod"
+import { createFileRoute, redirect } from "@tanstack/react-router"
+
+import { User } from "../../__root"
 import { Clusters } from "../../../components/admin/Clusters"
+import { filterSearchParamsByPrefix } from "../../../lib/helpers"
 import { FILTER_IDS, SELECTED_FILTER_PREFIX } from "../../../components/admin/constants"
 import { extractFilterSettingsFromSearchParams, getFiltersForUrl } from "../../../components/admin/utils"
-import { filterSearchParamsByPrefix } from "../../../lib/helpers"
-import { User } from "../../__root"
 
 // A module level flag that resets on page refresh but persists during SPA navigation
 let defaultFiltersApplied = false

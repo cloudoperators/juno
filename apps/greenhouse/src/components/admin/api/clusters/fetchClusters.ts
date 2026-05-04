@@ -3,18 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { FilterSettings } from "../../common/types"
-import { CLUSTER_TYPE_LABEL, FILTER_IDS, REGION_LABEL, SUPPORT_GROUP_LABEL } from "../../constants"
-import { PluginPreset } from "../../types/k8sTypes"
 import { isReady } from "../../utils"
+import { FilterSettings } from "../../common/types"
+import { PluginPreset } from "../../types/k8sTypes"
+import { CLUSTER_TYPE_LABEL, FILTER_IDS, REGION_LABEL, SUPPORT_GROUP_LABEL } from "../../constants"
 
 const applyFilterSettings = (pluginPresets: PluginPreset[], filterSettings?: FilterSettings): PluginPreset[] => {
   if (filterSettings?.selectedFilters) {
-    // filter by plugin preset definition
+    // filter by cluster type
     const clusterTypeValues = filterSettings.selectedFilters
       .filter((f) => f.id === FILTER_IDS.CLUSTER_TYPE)
       .map((f) => f.value)
-
     if (clusterTypeValues.length > 0) {
       pluginPresets = pluginPresets.filter((preset) => {
         const clusterType = preset.metadata?.labels?.[CLUSTER_TYPE_LABEL]
@@ -22,8 +21,8 @@ const applyFilterSettings = (pluginPresets: PluginPreset[], filterSettings?: Fil
       })
     }
 
+    // filter by region
     const regionValues = filterSettings.selectedFilters.filter((f) => f.id === FILTER_IDS.REGION).map((f) => f.value)
-
     if (regionValues.length > 0) {
       pluginPresets = pluginPresets.filter((preset) => {
         const region = preset.metadata?.labels?.[REGION_LABEL]
@@ -35,7 +34,6 @@ const applyFilterSettings = (pluginPresets: PluginPreset[], filterSettings?: Fil
     const supportGroupValues = filterSettings.selectedFilters
       .filter((f) => f.id === FILTER_IDS.SUPPORT_GROUP)
       .map((f) => f.value)
-
     if (supportGroupValues.length > 0) {
       pluginPresets = pluginPresets.filter((preset) => {
         const supportGroup = preset.metadata?.labels?.[SUPPORT_GROUP_LABEL]
@@ -58,7 +56,7 @@ const applyFilterSettings = (pluginPresets: PluginPreset[], filterSettings?: Fil
 
 const applySorting = (pluginPresets: PluginPreset[]): PluginPreset[] => {
   return pluginPresets.sort((a, b) => {
-    // First, sort by ready status (non-ready presets first)
+    // First, sort by ready status (non-ready clusters first)
     const aReady = isReady(a)
     const bReady = isReady(b)
 
