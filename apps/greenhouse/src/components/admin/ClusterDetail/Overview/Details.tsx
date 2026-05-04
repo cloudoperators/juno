@@ -72,7 +72,7 @@ export const Details: React.FC<DetailsProps> = ({ clusters }) => (
           <DataGridCell>
             <Stack gap="2" wrap={true}>
               {Object.entries(clusters.metadata.labels).map(([key, value], index) => (
-                <Pill key={`${key}-${index}`} pillKey={key} pillValue={value} />
+                <Pill key={key} pillKey={key} pillValue={value} />
               ))}
             </Stack>
           </DataGridCell>
