@@ -83,6 +83,22 @@ describe("Spinner", () => {
     expect(spinnerstyles.width).toBe("8rem")
   })
 
+  test("renders with default right margin when no marginRight is passed", () => {
+    render(<Spinner />)
+    expect(screen.getByRole("progressbar")).toHaveClass("jn:mr-3")
+  })
+
+  test("renders with custom right margin when marginRight is passed", () => {
+    render(<Spinner marginRight="jn:mr-0" />)
+    expect(screen.getByRole("progressbar")).toHaveClass("jn:mr-0")
+    expect(screen.getByRole("progressbar")).not.toHaveClass("jn:mr-3")
+  })
+
+  test("renders with custom right margin class", () => {
+    render(<Spinner marginRight="jn:mr-6" />)
+    expect(screen.getByRole("progressbar")).toHaveClass("jn:mr-6")
+  })
+
   test("renders a custom className", () => {
     render(<Spinner className="my-custom-class" />)
     expect(screen.getByRole("progressbar")).toBeInTheDocument()

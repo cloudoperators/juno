@@ -61,7 +61,7 @@ const btnSmallSubduedPadding = `
 
 const btnExtraSmallDefaultPadding = `
   jn:py-1
-  jn:px-1
+  jn:px-1.5
 `
 
 // default size padding
@@ -229,9 +229,11 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
     const titleValue = title || label || ""
 
     const buttonIcon = progress ? (
-      <span className={`${label || children ? iconClasses(size) : ""}`}>
-        <Spinner size={`${iconSize(size)}`} color={spinnerColorClass(variant)} className={`jn:!mr-0`} />
-      </span>
+      <Spinner
+        size={`${iconSize(size)}`}
+        color={spinnerColorClass(variant)}
+        marginRight={`${label || children ? iconClasses(size) : ""}`}
+      />
     ) : icon ? (
       <Icon
         icon={icon}
