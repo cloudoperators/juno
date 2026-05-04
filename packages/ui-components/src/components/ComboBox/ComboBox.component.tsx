@@ -57,7 +57,7 @@ const inputStyles = `
   jn:text-base
   jn:leading-4
   jn:w-full
-  jn:px-4
+  jn:pl-4
   jn:h-textinput
   jn:text-left
   jn:overflow-hidden
@@ -446,7 +446,8 @@ export const ComboBox = ({
                   ${disabled ? disabledInputStyles : ""}
                   ${isInvalid ? "juno-combobox-invalid " + invalidStyles : ""} 
                   ${isValid ? "juno-combobox-valid " + validStyles : ""}  
-                  ${isValid || isInvalid ? "" : defaultBorderStyles} 
+                  ${isValid || isInvalid ? "" : defaultBorderStyles}   
+                  ${isValid || isInvalid ? "jn:pr-16" : "jn:pr-8"}
                   ${isLoading ? "juno-combobox-loading jn:cursor-not-allowed" : ""}
                   ${hasError ? "juno-combobox-error jn:cursor-not-allowed" : ""}
                   ${className}
