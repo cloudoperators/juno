@@ -6,7 +6,7 @@
 import React from "react"
 import { Container } from "@cloudoperators/juno-ui-components"
 import { Details } from "./Details"
-import { PluginPreset } from "../../types/k8sTypes"
+import { Cluster } from "../../types/k8sTypes"
 import { PluginInstances } from "./PluginInstances"
 import { Conditions } from "./Conditions"
 
@@ -16,13 +16,13 @@ const Section = ({ children, ...rest }: React.HTMLAttributes<HTMLDivElement>) =>
   </Container>
 )
 
-export const Overview = ({ pluginPreset }: { pluginPreset: PluginPreset }) => (
+export const Overview = ({ cluster }: { cluster: Cluster }) => (
   <>
     <Section className="pt-0">
-      <Conditions pluginPreset={pluginPreset} />
+      <Conditions clusters={cluster} />
     </Section>
     <Section className="flex gap-4">
-      <Details pluginPreset={pluginPreset} />
+      <Details clusters={cluster} />
     </Section>
     <Section className="pb-0">
       <PluginInstances />

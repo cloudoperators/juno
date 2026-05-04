@@ -17,7 +17,7 @@ import { useRouteContext, useSearch, useNavigate } from "@tanstack/react-router"
 import { fetchClusters, FETCH_CLUSTERS_CACHE_KEY } from "../../../api/clusters/fetchClusters"
 import { extractFilterSettingsFromSearchParams } from "../../../utils"
 import { EmptyDataGridRow } from "../../../common/EmptyDataGridRow"
-import { PluginPreset, Cluster } from "../../../types/k8sTypes"
+import { Cluster } from "../../../types/k8sTypes"
 import { getReadyCondition, isReady } from "../../../utils"
 import {
   CLUSTER_TYPE_LABEL,
@@ -59,8 +59,11 @@ export const DataRows = ({ colSpan }: DataRowsProps) => {
 
   return (
     <>
-      {clusters.map((preset: PluginPreset) => (
-        <DataGridRow key={preset.metadata?.name} onClick={() => handleRowClick(preset.metadata?.name || "")}>
+      {clusters.map((preset: Cluster, index) => (
+        <DataGridRow
+          key={`${preset.metadata?.name}-${index}`}
+          onClick={() => handleRowClick(preset.metadata?.name || "")}
+        >
           {/* Status */}
           <DataGridCell>
             <Icon

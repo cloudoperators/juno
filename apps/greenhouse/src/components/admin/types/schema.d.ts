@@ -378,7 +378,7 @@ export interface components {
        *     may reject unrecognized values.
        *     More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
-      apiVersion: string
+      apiVersion?: string
       /**
        * @description Kind is a string value representing the REST resource this object represents.
        *     Servers may infer this from the endpoint the client submits requests to.

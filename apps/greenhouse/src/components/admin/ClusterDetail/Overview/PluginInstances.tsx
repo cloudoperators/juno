@@ -45,7 +45,7 @@ const DataRows = ({ colSpan, plugins }: { colSpan: number; plugins: Plugin[] }) 
 
   return (
     <>
-      {plugins.map((plugin) => {
+      {plugins.map((plugin, index) => {
         const ready = isPluginReady(plugin)
         const navigateToDetails = () => {
           navigate({
@@ -58,7 +58,7 @@ const DataRows = ({ colSpan, plugins }: { colSpan: number; plugins: Plugin[] }) 
         }
 
         return (
-          <DataGridRow key={plugin.metadata?.name} onClick={navigateToDetails}>
+          <DataGridRow key={`${plugin.metadata?.name}-${index}`} onClick={navigateToDetails}>
             <DataGridCell>
               <Icon icon={ready ? "checkCircle" : "error"} color={ready ? "text-theme-success" : "text-theme-danger"} />
             </DataGridCell>

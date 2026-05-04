@@ -20,7 +20,7 @@ import { Cluster } from "../../types/k8sTypes"
 import { CONNECTIVITY_LABEL, NO_VALUE_DEFAULT, SUPPORT_GROUP_LABEL } from "../../constants"
 
 interface DetailsProps {
-  pluginPreset: Cluster
+  clusters: Cluster
 }
 
 interface NodesStatus {
@@ -42,37 +42,37 @@ const NodeStatus: React.FC<{ nodes: NodesStatus }> = ({ nodes }) => {
   )
 }
 
-export const Details: React.FC<DetailsProps> = ({ pluginPreset }) => (
+export const Details: React.FC<DetailsProps> = ({ clusters }) => (
   <Stack gap="4" direction="vertical" className="flex-1">
     <ContentHeading>Details</ContentHeading>
     <DataGrid columns={2} minContentColumns={[0]}>
       <DataGridRow>
         <DataGridHeadCell nowrap>Name</DataGridHeadCell>
-        <DataGridCell>{pluginPreset.metadata?.name ?? NO_VALUE_DEFAULT}</DataGridCell>
+        <DataGridCell>{clusters.metadata?.name ?? NO_VALUE_DEFAULT}</DataGridCell>
       </DataGridRow>
       <DataGridRow>
         <DataGridHeadCell nowrap>Age</DataGridHeadCell>
-        <DataGridCell>{formatAge(pluginPreset.metadata?.creationTimestamp || 0) ?? NO_VALUE_DEFAULT}</DataGridCell>
+        <DataGridCell>{formatAge(clusters.metadata?.creationTimestamp || 0) ?? NO_VALUE_DEFAULT}</DataGridCell>
       </DataGridRow>
       <DataGridRow>
         <DataGridHeadCell nowrap>Version</DataGridHeadCell>
-        <DataGridCell>{pluginPreset.status?.kubernetesVersion ?? NO_VALUE_DEFAULT}</DataGridCell>
+        <DataGridCell>{clusters.status?.kubernetesVersion ?? NO_VALUE_DEFAULT}</DataGridCell>
       </DataGridRow>
       <DataGridRow>
         <DataGridHeadCell nowrap>Connectivity</DataGridHeadCell>
-        <DataGridCell>{pluginPreset.metadata?.annotations?.[CONNECTIVITY_LABEL]}</DataGridCell>
+        <DataGridCell>{clusters.metadata?.annotations?.[CONNECTIVITY_LABEL]}</DataGridCell>
       </DataGridRow>
       <DataGridRow>
         <DataGridHeadCell nowrap>Support Group</DataGridHeadCell>
-        <DataGridCell>{pluginPreset.metadata?.labels?.[SUPPORT_GROUP_LABEL] ?? NO_VALUE_DEFAULT}</DataGridCell>
+        <DataGridCell>{clusters.metadata?.labels?.[SUPPORT_GROUP_LABEL] ?? NO_VALUE_DEFAULT}</DataGridCell>
       </DataGridRow>
-      {pluginPreset.metadata?.labels && Object.keys(pluginPreset.metadata.labels).length > 0 && (
+      {clusters.metadata?.labels && Object.keys(clusters.metadata.labels).length > 0 && (
         <DataGridRow>
           <DataGridHeadCell nowrap>Labels</DataGridHeadCell>
           <DataGridCell>
             <Stack gap="2" wrap={true}>
-              {Object.entries(pluginPreset.metadata.labels).map(([key, value]) => (
-                <Pill key={key} pillKey={key} pillValue={value} />
+              {Object.entries(clusters.metadata.labels).map(([key, value], index) => (
+                <Pill key={`${key}-${index}`} pillKey={key} pillValue={value} />
               ))}
             </Stack>
           </DataGridCell>
@@ -81,8 +81,8 @@ export const Details: React.FC<DetailsProps> = ({ pluginPreset }) => (
       <DataGridRow>
         <DataGridHeadCell nowrap>Annotations</DataGridHeadCell>
         <DataGridCell>
-          {pluginPreset.metadata?.annotations && Object.keys(pluginPreset.metadata.annotations).length > 0 ? (
-            <YamlViewer value={pluginPreset.metadata?.annotations} />
+          {clusters.metadata?.annotations && Object.keys(clusters.metadata.annotations).length > 0 ? (
+            <YamlViewer value={clusters.metadata?.annotations} />
           ) : (
             "No Annotations"
           )}
@@ -93,8 +93,8 @@ export const Details: React.FC<DetailsProps> = ({ pluginPreset }) => (
         <DataGridCell>
           <NodeStatus
             nodes={{
-              ready: pluginPreset?.status?.nodes?.ready ?? 0,
-              total: pluginPreset?.status?.nodes?.total ?? 0,
+              ready: clusters?.status?.nodes?.ready ?? 0,
+              total: clusters?.status?.nodes?.total ?? 0,
             }}
           />
         </DataGridCell>

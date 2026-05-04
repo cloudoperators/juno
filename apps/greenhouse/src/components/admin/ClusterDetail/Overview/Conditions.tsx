@@ -6,16 +6,16 @@
 import React from "react"
 import { Stack, ContentHeading } from "@cloudoperators/juno-ui-components"
 
-import { PluginPreset } from "../../types/k8sTypes"
+import { Cluster } from "../../types/k8sTypes"
 import ReadinessConditions from "../../common/ReadinessConditions"
 
 type ConditionsProps = {
-  pluginPreset: PluginPreset
+  clusters: Cluster
 }
 
-export const Conditions: React.FC<ConditionsProps> = ({ pluginPreset }) => (
+export const Conditions: React.FC<ConditionsProps> = ({ clusters }) => (
   <Stack direction="vertical" gap="4">
     <ContentHeading>Conditions</ContentHeading>
-    <ReadinessConditions conditions={pluginPreset.status?.statusConditions?.conditions || []} enableDetailsView />
+    <ReadinessConditions conditions={clusters.status?.statusConditions?.conditions || []} enableDetailsView />
   </Stack>
 )

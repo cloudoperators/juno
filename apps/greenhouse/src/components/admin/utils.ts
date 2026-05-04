@@ -6,15 +6,15 @@
 import { PluginPresetSearchParams } from "../../routes/admin/plugin-presets"
 import { FilterSettings } from "./common/types"
 import { SELECTED_FILTER_PREFIX } from "./constants"
-import { PluginPreset } from "./types/k8sTypes"
+import { Cluster, PluginPreset } from "./types/k8sTypes"
 
 // Get the "Ready" condition from a PluginPreset
-export const getReadyCondition = (preset: PluginPreset) => {
+export const getReadyCondition = (preset: PluginPreset | Cluster) => {
   return preset.status?.statusConditions?.conditions?.find((condition) => condition.type === "Ready")
 }
 
 // Check if a PluginPreset is ready
-export const isReady = (preset: PluginPreset) => {
+export const isReady = (preset: PluginPreset | Cluster) => {
   const readyCondition = getReadyCondition(preset)
   return readyCondition?.type === "Ready" && readyCondition?.status === "True"
 }

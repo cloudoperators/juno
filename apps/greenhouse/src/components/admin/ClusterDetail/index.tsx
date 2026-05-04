@@ -10,12 +10,12 @@ import { Container, Tabs, TabList, Tab, TabPanel, Stack, ContentHeading } from "
 
 import { Overview } from "./Overview"
 import YamlViewer from "../common/YamlViewer"
-import { PluginPreset } from "../types/k8sTypes"
+import { Cluster } from "../types/k8sTypes"
 import { ErrorMessage } from "../common/ErrorBoundary/ErrorMessage"
 import { FETCH_CLUSTERS_CACHE_KEY } from "../api/clusters/fetchClusters"
 import { fetchCluster, FETCH_CLUSTER_CACHE_KEY } from "../api/clusters/fetchCluster"
 
-const PluginPresetDetailContent = ({ cluster }: { cluster: PluginPreset }) => (
+const PluginPresetDetailContent = ({ cluster }: { cluster: Cluster }) => (
   <Tabs>
     <TabList>
       <Tab label="Overview" />
@@ -23,7 +23,7 @@ const PluginPresetDetailContent = ({ cluster }: { cluster: PluginPreset }) => (
     </TabList>
     <TabPanel>
       <Container px={false} py>
-        <Overview pluginPreset={cluster} />
+        <Overview cluster={cluster} />
       </Container>
     </TabPanel>
     <TabPanel>
