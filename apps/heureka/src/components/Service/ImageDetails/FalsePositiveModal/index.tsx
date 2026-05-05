@@ -47,7 +47,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
   image,
 }) => {
   const auth = useAuth()
-  const authUserId = auth.status === "authenticated" ? auth.userId : null
+  const authUserId = auth.status === "authenticated" ? (auth.userId || auth.userName) : null
   const [description, setDescription] = useState<string>("")
   const [manualUserId, setManualUserId] = useState<string>("")
   const [expirationDate, setExpirationDate] = useState<Date | null>(null)
