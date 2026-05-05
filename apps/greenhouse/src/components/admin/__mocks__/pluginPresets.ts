@@ -3,137 +3,159 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Cluster } from "../types/k8sTypes"
+import { PluginPreset } from "../types/k8sTypes"
 
-export type MockClusterResponse = {
-  items: Cluster[]
+export type MockPluginPresetsResponse = {
+  items: PluginPreset[]
 }
 
-export const mockClusters: MockClusterResponse = {
+export const mockPluginPresets: MockPluginPresetsResponse = {
   items: [
     {
-      apiVersion: "greenhouse.sap/v1alpha1",
-      kind: "Cluster",
       metadata: {
-        name: "demo",
-        namespace: "sci",
-        annotations: {
-          "greenhouse.sap/cluster-connectivity": "oidc",
-          "greenhouse.sap/last-applied-propagator":
-            '{"labelKeys":["cluster-type","shoot-grafter.cloudoperators.dev/careinstruction"]}',
-        },
-        creationTimestamp: "2026-02-23T13:14:14Z",
-        labels: {
-          "cluster-type": "demo",
-          "greenhouse.sap/cluster": "demo",
-          "shoot-grafter.cloudoperators.dev/careinstruction": "garden-greenhouse",
-        },
+        name: "preset-1",
       },
       spec: {
-        accessMode: "direct",
-        kubeConfig: {
-          maxTokenValidity: 72,
+        clusterSelector: {},
+        deletionPolicy: "Delete",
+        plugin: {
+          pluginDefinitionRef: {
+            name: "plugin-def-1",
+          },
+          deletionPolicy: "Delete",
+          pluginDefinition: "plugin-def-1",
         },
       },
       status: {
-        bearerTokenExpirationTimestamp: "2026-04-29T08:53:18Z",
-        kubernetesVersion: "v1.32.13",
-        nodes: {
-          ready: 2,
-          total: 2,
-        },
+        readyPlugins: 2,
+        totalPlugins: 3,
         statusConditions: {
           conditions: [
             {
-              lastTransitionTime: "2026-04-22T17:04:33Z",
+              lastTransitionTime: "2024-10-01T12:00:00Z",
               type: "Ready",
               status: "True",
+              message: "",
             },
           ],
         },
       },
     },
     {
-      apiVersion: "greenhouse.sap/v1alpha1",
-      kind: "Cluster",
       metadata: {
-        name: "demo-2",
-        namespace: "sci",
-        annotations: {
-          "greenhouse.sap/cluster-connectivity": "oidc",
-          "greenhouse.sap/last-applied-propagator":
-            '{"labelKeys":["shoot-grafter.cloudoperators.dev/careinstruction"]}',
-        },
-        creationTimestamp: "2026-02-23T13:14:15Z",
-        labels: {
-          "greenhouse.sap/cluster": "demo-2",
-          "shoot-grafter.cloudoperators.dev/careinstruction": "garden-greenhouse",
-        },
+        name: "preset-2",
       },
       spec: {
-        accessMode: "direct",
-        kubeConfig: {
-          maxTokenValidity: 72,
+        clusterSelector: {},
+        deletionPolicy: "Delete",
+        plugin: {
+          pluginDefinitionRef: {
+            name: "plugin-def-1",
+          },
+          deletionPolicy: "Delete",
+          pluginDefinition: "plugin-def-1",
         },
       },
       status: {
-        bearerTokenExpirationTimestamp: "2026-04-29T08:43:18Z",
-        kubernetesVersion: "v1.33.10",
-        nodes: {
-          ready: 2,
-          total: 2,
-        },
+        readyPlugins: 0,
+        totalPlugins: 2,
         statusConditions: {
           conditions: [
             {
-              lastTransitionTime: "2026-04-26T17:33:33Z",
+              lastTransitionTime: "2024-10-01T12:00:00Z",
               type: "Ready",
-              status: "True",
+              status: "False",
+              message: "Some error occurred",
             },
           ],
         },
       },
     },
     {
-      apiVersion: "greenhouse.sap/v1alpha1",
-      kind: "Cluster",
       metadata: {
-        name: "demo-3",
-        namespace: "sci",
-        annotations: {
-          "greenhouse.sap/cluster-connectivity": "oidc",
-          "greenhouse.sap/last-applied-propagator":
-            '{"labelKeys":["greenhouse.sap/owned-by","metadata.greenhouse.sap/cluster-type","metadata.greenhouse.sap/region"]}',
-        },
-        creationTimestamp: "2025-11-25T09:11:53Z",
-        labels: {
-          "greenhouse.sap/cluster": "obs-eu-de-1",
-          "greenhouse.sap/owned-by": "observability",
-          "greenhouse.sap/pluginpreset": "true",
-          "metadata.greenhouse.sap/cluster-type": "sci-k8s-obs",
-          "metadata.greenhouse.sap/region": "eu-de-1",
-          "migration-pending": "true",
-        },
+        name: "preset-3",
       },
       spec: {
-        accessMode: "direct",
-        kubeConfig: {
-          maxTokenValidity: 72,
+        clusterSelector: {},
+        deletionPolicy: "Delete",
+        plugin: {
+          pluginDefinitionRef: {
+            name: "plugin-def-1",
+          },
+          deletionPolicy: "Delete",
+          pluginDefinition: "plugin-def-1",
         },
       },
       status: {
-        bearerTokenExpirationTimestamp: "2026-04-29T08:43:18Z",
-        kubernetesVersion: "v1.34.5",
-        nodes: {
-          ready: 4,
-          total: 4,
-        },
+        readyPlugins: 1,
+        totalPlugins: 1,
         statusConditions: {
           conditions: [
             {
-              lastTransitionTime: "2026-04-26T04:49:19Z",
+              lastTransitionTime: "2024-10-01T12:00:00Z",
               type: "Ready",
               status: "True",
+              message: "",
+            },
+          ],
+        },
+      },
+    },
+    {
+      metadata: {
+        name: "preset-4",
+      },
+      spec: {
+        clusterSelector: {},
+        deletionPolicy: "Delete",
+        plugin: {
+          pluginDefinitionRef: {
+            name: "plugin-def-1",
+          },
+          deletionPolicy: "Delete",
+          pluginDefinition: "plugin-def-1",
+        },
+      },
+      status: {
+        readyPlugins: 3,
+        totalPlugins: 5,
+        statusConditions: {
+          conditions: [
+            {
+              lastTransitionTime: "2024-10-01T12:00:00Z",
+              type: "Ready",
+              status: "True",
+              message: "",
+            },
+          ],
+        },
+      },
+    },
+    {
+      metadata: {
+        name: "preset-5",
+      },
+      spec: {
+        clusterSelector: {},
+        deletionPolicy: "Delete",
+        plugin: {
+          pluginDefinitionRef: {
+            name: "plugin-def-1",
+          },
+          deletionPolicy: "Delete",
+          pluginDefinition: "plugin-def-1",
+        },
+      },
+      status: {
+        readyPlugins: 0,
+        totalPlugins: 1,
+        statusConditions: {
+          conditions: [
+            {
+              lastTransitionTime: "2024-10-01T12:00:00Z",
+              type: "Ready",
+              status: "False",
+              message: "Deployment failed",
             },
           ],
         },
