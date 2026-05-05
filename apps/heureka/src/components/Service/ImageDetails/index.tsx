@@ -108,8 +108,8 @@ export const ImageDetails = ({
                 {displayedVersions.map((version) => (
                   <Pill
                     key={version.id}
-                    pillValue={version.version}
-                    pillValueLabel={getShortSha256(version.version)}
+                    pillValue={version.version || "_"}
+                    pillValueLabel={version.version ? getShortSha256(version.version) : "_"}
                     title={version.version}
                     onClick={() => handleVersionClick(version.version)}
                   />

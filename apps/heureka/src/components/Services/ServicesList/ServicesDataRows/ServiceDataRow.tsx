@@ -19,9 +19,10 @@ const serviceDetailsLabels: ServiceDetailsLabel = {
 }
 
 const ServiceDetails = ({ serviceDetails }: { serviceDetails: ServiceType["serviceDetails"] }) => {
-  const getPill = (key: string, value: string) => (
-    <Pill key={value} pillKey={key} pillKeyLabel={key} pillValue={value} pillValueLabel={value} />
-  )
+  const getPill = (key: string, value: string) => {
+    const displayValue = value || "_"
+    return <Pill key={value || key} pillKey={key} pillKeyLabel={key} pillValue={displayValue} pillValueLabel={displayValue} />
+  }
 
   return (
     <Stack gap="2" alignment="start" wrap={true}>
