@@ -1,5 +1,12 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.12.9
+
+### Patch Changes
+
+- Updated dependencies [88b24ac]
+  - @cloudoperators/juno-k8s-client@1.1.5
+
 ## 0.12.8
 
 ### Patch Changes
