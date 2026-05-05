@@ -15,7 +15,7 @@ import {
 import { render, screen } from "@testing-library/react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ClustersDataGrid } from "./index"
-import { mockClusters, MockClusterResponse } from "../../__mocks__/pluginPresets"
+import { mockClusters, MockClusterResponse } from "../../__mocks__/clusters"
 
 const renderComponent = async (mockPromise: Promise<MockClusterResponse | unknown>) => {
   const rootRoute = createRootRoute({
@@ -68,7 +68,7 @@ const renderComponent = async (mockPromise: Promise<MockClusterResponse | unknow
   return await act(async () => render(<RouterProvider router={router} />))
 }
 
-describe("PluginPresetsDataGrid", () => {
+describe("ClustersDataGrid", () => {
   it("should render plugin presets", async () => {
     await renderComponent(new Promise<MockClusterResponse>((resolve) => resolve(mockClusters)))
 
@@ -82,7 +82,7 @@ describe("PluginPresetsDataGrid", () => {
     expect(screen.getByText("Support Group")).toBeInTheDocument()
 
     // Check for data - verify all 5 presets are rendered
-    expect(screen.getByText("demo-1")).toBeInTheDocument()
+    expect(screen.getByText("demo")).toBeInTheDocument()
     expect(screen.getByText("demo-2")).toBeInTheDocument()
     expect(screen.getByText("demo-3")).toBeInTheDocument()
   })

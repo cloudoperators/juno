@@ -1047,6 +1047,12 @@ export interface components {
         annotations?: {
           [key: string]: string
         }
+        ownerReferences?: Array<{
+          name: string
+          uid?: string
+          apiVersion?: string
+          kind?: string
+        }>
       }
       /** @description PluginSpec defines the desired state of Plugin */
       spec?: {

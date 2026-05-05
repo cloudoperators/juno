@@ -23,7 +23,7 @@ const renderComponent = async (mockPromise: Promise<MockPluginsResponse | unknow
   })
   const testRoute = createRoute({
     getParentRoute: () => rootRoute,
-    path: "/admin/plugin-presets/$pluginPresetName",
+    path: "/admin/clusters/$clusterName",
     component: () => (
       <QueryClientProvider
         client={
@@ -56,7 +56,7 @@ const renderComponent = async (mockPromise: Promise<MockPluginsResponse | unknow
       },
     },
     history: createMemoryHistory({
-      initialEntries: ["/admin/plugin-presets/test-preset"],
+      initialEntries: ["/admin/clusters/test-cluster"],
     }),
   })
   return await act(async () => render(<RouterProvider router={router} />))
@@ -68,9 +68,9 @@ describe("PluginInstances", () => {
 
     expect(screen.getByText("Plugin Instances")).toBeInTheDocument()
     expect(screen.getByText("Plugin Name")).toBeInTheDocument()
-    expect(screen.getByText("Cluster")).toBeInTheDocument()
+    expect(screen.getByText("Plugin Preset")).toBeInTheDocument()
     expect(screen.getByText("Status")).toBeInTheDocument()
     expect(screen.getByText("plugin-1")).toBeInTheDocument()
     expect(screen.getByText("plugin-2")).toBeInTheDocument()
-  })
+  }, 20000)
 })

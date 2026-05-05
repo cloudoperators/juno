@@ -14,7 +14,7 @@ import { Cluster } from "../types/k8sTypes"
 import { ErrorMessage } from "../common/ErrorBoundary/ErrorMessage"
 import { fetchCluster, FETCH_CLUSTER_CACHE_KEY } from "../api/clusters/fetchCluster"
 
-const PluginPresetDetailContent = ({ cluster }: { cluster: Cluster }) => (
+const ClusterDetailContent = ({ cluster }: { cluster: Cluster }) => (
   <Tabs>
     <TabList>
       <Tab label="Overview" />
@@ -56,7 +56,7 @@ export const ClusterDetail = () => {
       <p>Cluster configuration and instance status</p>
       {isLoading && <p>Loading...</p>}
       {!isLoading && error && <ErrorMessage error={error} />}
-      {!isLoading && !error && cluster && <PluginPresetDetailContent cluster={cluster} />}
+      {!isLoading && !error && cluster && <ClusterDetailContent cluster={cluster} />}
     </Stack>
   )
 }

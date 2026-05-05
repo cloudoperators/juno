@@ -34,11 +34,11 @@ const getSupportGroupValues = (presets: Cluster[]) =>
     )
   ).filter((value): value is string => !!value)
 
-const extractPluginPresetFilters = (clusters: Cluster[]) => {
+const extractClusterFilters = (clusters: Cluster[]) => {
   return [
     {
       id: FILTER_IDS.CLUSTER_TYPE,
-      label: "Cluster",
+      label: "Cluster Type",
       values: getClusterTypeValues(clusters),
     },
     {
@@ -64,5 +64,5 @@ export const fetchClustersFilters = async ({
   namespace: string
 }): Promise<Filter[]> => {
   const response = await apiClient.get(`/apis/greenhouse.sap/v1alpha1/namespaces/${namespace}/clusters`)
-  return Array.isArray(response?.items) ? extractPluginPresetFilters(response.items) : []
+  return Array.isArray(response?.items) ? extractClusterFilters(response.items) : []
 }

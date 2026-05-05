@@ -31,10 +31,6 @@ interface DataRowsProps {
   colSpan: number
 }
 
-interface ClusterListItemProps {
-  cluster: Cluster
-}
-
 export const DataRows = ({ colSpan }: DataRowsProps) => {
   const { apiClient, user } = useRouteContext({ from: "/admin/clusters/" })
   const search = useSearch({ from: "/admin/clusters/" })

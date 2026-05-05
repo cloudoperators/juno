@@ -15,7 +15,7 @@ import { SelectedFilters } from "../common/SelectedFilters"
 import { FilterSettings, SelectedFilter } from "../common/types"
 import { FETCH_CLUSTERS_FILTERS_CACHE_KEY, fetchClustersFilters } from "../api/clusters/fetchClustersFilters"
 
-export const PluginPresetsFilters = () => {
+export const ClustersFilters = () => {
   const navigate = useNavigate()
   const { apiClient, user } = useRouteContext({ from: "/admin/clusters" })
   const { filterSettings } = useLoaderData({ from: "/admin/clusters/" })

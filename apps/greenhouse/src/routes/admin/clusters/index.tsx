@@ -23,9 +23,9 @@ const searchParamsSchema = z
   })
   .catchall(filterValueSchema)
 
-export type PluginPresetSearchParams = z.infer<typeof searchParamsSchema>
+export type ClusterSearchParams = z.infer<typeof searchParamsSchema>
 
-function validatePluginPresetsSearch(search: Record<string, unknown>): PluginPresetSearchParams {
+function validateClustersSearch(search: Record<string, unknown>): ClusterSearchParams {
   const filtered = filterSearchParamsByPrefix(search, Object.keys(searchParamsSchema.shape), [SELECTED_FILTER_PREFIX])
   return searchParamsSchema.parse(filtered)
 }
@@ -40,7 +40,7 @@ const getDefaultFilters = (user: User) => {
 
 export const Route = createFileRoute("/admin/clusters/")({
   component: Clusters,
-  validateSearch: validatePluginPresetsSearch,
+  validateSearch: validateClustersSearch,
   beforeLoad: ({ context, search }) => {
     // Skip if defaults were already applied this session
     if (defaultFiltersApplied) {

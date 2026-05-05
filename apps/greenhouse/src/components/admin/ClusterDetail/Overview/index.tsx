@@ -25,7 +25,9 @@ export const Overview = ({ cluster }: { cluster: Cluster }) => (
       <Details clusters={cluster} />
     </Section>
     <Section className="pb-0">
-      <PluginInstances />
+      <React.Suspense fallback={null}>
+        <PluginInstances />
+      </React.Suspense>
     </Section>
   </>
 )

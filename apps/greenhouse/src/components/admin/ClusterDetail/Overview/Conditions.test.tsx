@@ -10,14 +10,14 @@ import { Cluster } from "../../types/k8sTypes"
 
 describe("Conditions", () => {
   it("should render conditions heading and readiness badges", () => {
-    const mockPluginPreset: Cluster = {
-      metadata: { name: "test-preset" },
+    const mockCluster: Cluster = {
+      apiVersion: "v1",
+      kind: "Cluster",
+      metadata: { name: "test-cluster", creationTimestamp: "" },
       spec: {
-        deletionPolicy: "Delete",
-        plugin: {
-          pluginDefinitionRef: { name: "test-plugin" },
-          deletionPolicy: "Delete",
-          pluginDefinition: "test-plugin",
+        accessMode: "direct",
+        kubeConfig: {
+          maxTokenValidity: 72,
         },
       },
       status: {
@@ -33,7 +33,7 @@ describe("Conditions", () => {
       },
     }
 
-    render(<Conditions pluginPreset={mockPluginPreset} />)
+    render(<Conditions clusters={mockCluster} />)
 
     expect(screen.getByText("Conditions")).toBeInTheDocument()
     expect(screen.getByText("Ready")).toBeInTheDocument()

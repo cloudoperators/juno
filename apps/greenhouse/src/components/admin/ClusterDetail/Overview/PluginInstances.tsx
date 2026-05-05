@@ -38,7 +38,7 @@ const DataRows = ({ colSpan, plugins }: { colSpan: number; plugins: Plugin[] }) 
   if (plugins.length === 0) {
     return (
       <DataGridRow>
-        <DataGridCell colSpan={colSpan}>No plugin instances found for this plugin preset.</DataGridCell>
+        <DataGridCell colSpan={colSpan}>No plugin instances found for this cluster.</DataGridCell>
       </DataGridRow>
     )
   }
@@ -47,28 +47,34 @@ const DataRows = ({ colSpan, plugins }: { colSpan: number; plugins: Plugin[] }) 
     <>
       {plugins.map((plugin, index) => {
         const ready = isPluginReady(plugin)
+        const pluginPresetName = plugin.metadata?.ownerReferences?.[0]?.name
+        const canNavigateToDetails = Boolean(pluginPresetName)
         const navigateToDetails = () => {
+          if (!pluginPresetName) return
           navigate({
             to: "/admin/plugin-presets/$pluginPresetName/plugin-instances/$pluginInstance",
             params: {
-              pluginPresetName: plugin.metadata?.ownerReferences?.[0].name,
+              pluginPresetName,
               pluginInstance: plugin.metadata?.name || "",
             },
           })
         }
 
         return (
-          <DataGridRow key={`${plugin.metadata?.name}-${index}`} onClick={navigateToDetails}>
+          <DataGridRow
+            key={`${plugin.metadata?.name}-${index}`}
+            onClick={canNavigateToDetails ? navigateToDetails : undefined}
+          >
             <DataGridCell>
               <Icon icon={ready ? "checkCircle" : "error"} color={ready ? "text-theme-success" : "text-theme-danger"} />
             </DataGridCell>
             <DataGridCell>{plugin.metadata?.name || NO_VALUE_DEFAULT}</DataGridCell>
-            <DataGridCell>{plugin.metadata?.ownerReferences?.[0].name || NO_VALUE_DEFAULT}</DataGridCell>
+            <DataGridCell>{pluginPresetName || NO_VALUE_DEFAULT}</DataGridCell>
             <DataGridCell>{ready ? "Ready" : "Not Ready"}</DataGridCell>
             <DataGridCell nowrap>
               <PopupMenu onClick={(e) => e.stopPropagation()}>
                 <PopupMenuOptions>
-                  <PopupMenuItem label="View Details" onClick={navigateToDetails} />
+                  <PopupMenuItem label="View Details" onClick={canNavigateToDetails ? navigateToDetails : undefined} />
                 </PopupMenuOptions>
               </PopupMenu>
             </DataGridCell>

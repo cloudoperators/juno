@@ -16,7 +16,7 @@ import { render, screen } from "@testing-library/react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import { ClusterDetail } from "./index"
-import { mockPluginPresets } from "../__mocks__/pluginPresets"
+import { mockClusters } from "../__mocks__/clusters"
 
 const renderComponent = async (mockPromise: Promise<unknown>) => {
   const rootRoute = createRootRoute({
@@ -24,7 +24,7 @@ const renderComponent = async (mockPromise: Promise<unknown>) => {
   })
   const testRoute = createRoute({
     getParentRoute: () => rootRoute,
-    path: "/admin/plugin-presets/$pluginPresetName",
+    path: "/admin/clusters/$clusterName",
     component: () => (
       <MessagesProvider>
         <QueryClientProvider
@@ -59,18 +59,18 @@ const renderComponent = async (mockPromise: Promise<unknown>) => {
       },
     },
     history: createMemoryHistory({
-      initialEntries: ["/admin/plugin-presets/preset-1"],
+      initialEntries: ["/admin/clusters/cluster-1"],
     }),
   })
   return await act(async () => render(<RouterProvider router={router} />))
 }
 
-describe("PluginPresetDetail", () => {
-  it("should render plugin preset detail with tabs", async () => {
-    const mockPreset = mockPluginPresets.items[0]
+describe("ClusterDetail", () => {
+  it("should render clusters detail with tabs", async () => {
+    const mockPreset = mockClusters.items[0]
     await renderComponent(new Promise((resolve) => resolve(mockPreset)))
 
-    expect(screen.getByRole("heading", { name: "preset-1" })).toBeInTheDocument()
+    expect(screen.getByRole("heading", { name: "cluster-1" })).toBeInTheDocument()
     expect(await screen.findByText("Overview")).toBeInTheDocument()
     expect(screen.getByText("YAML")).toBeInTheDocument()
   })

@@ -33,7 +33,7 @@ const NodeStatus: React.FC<{ nodes: NodesStatus }> = ({ nodes }) => {
   const notReady = total - ready
 
   // If not ready nodes exist, make the text red
-  const notReadyColor = notReady > 1 ? "text-theme-danger" : ""
+  const notReadyColor = notReady > 0 ? "text-theme-danger" : ""
 
   return (
     <div className="inline-block">
@@ -60,7 +60,7 @@ export const Details: React.FC<DetailsProps> = ({ clusters }) => (
       </DataGridRow>
       <DataGridRow>
         <DataGridHeadCell nowrap>Connectivity</DataGridHeadCell>
-        <DataGridCell>{clusters.metadata?.annotations?.[CONNECTIVITY_LABEL]}</DataGridCell>
+        <DataGridCell>{clusters.metadata?.annotations?.[CONNECTIVITY_LABEL] ?? NO_VALUE_DEFAULT}</DataGridCell>
       </DataGridRow>
       <DataGridRow>
         <DataGridHeadCell nowrap>Support Group</DataGridHeadCell>
