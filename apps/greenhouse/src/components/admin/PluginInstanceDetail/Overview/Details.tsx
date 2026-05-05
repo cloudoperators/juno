@@ -71,9 +71,7 @@ export const Details: React.FC<DetailsProps> = ({ plugin }) => {
           )}
           <DataGridRow>
             <DataGridHeadCell>Exposed Services</DataGridHeadCell>
-            <DataGridCell className="inline-block">
-              {exposedServicesLinks.length > 0 ? exposedServicesLinks : "--"}
-            </DataGridCell>
+            <DataGridCell>{exposedServicesLinks.length > 0 ? exposedServicesLinks : "--"}</DataGridCell>
           </DataGridRow>
         </DataGrid>
       </Stack>

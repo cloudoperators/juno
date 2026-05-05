@@ -26,7 +26,7 @@ export const ExternalLink: React.FC<LinkElementProps> = ({ url, label }) => {
       className="cursor-pointer"
     >
       <Stack gap="2" alignment="center">
-        <div className="mr-2">{displayName}</div>
+        <div>{displayName}</div>
         <Icon size="18" icon="openInNew" />
       </Stack>
     </a>

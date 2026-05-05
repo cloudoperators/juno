@@ -44,9 +44,7 @@ export const DataRows = ({ colSpan }: DataRowsProps) => {
     <>
       {flattenedExposedServices.map((service, index) => (
         <DataGridRow key={`${service.serviceName}-${index}`}>
-          <DataGridCell className="inline-block">
-            {<ExternalLink url={service.serviceUrl} label={service.serviceName} />}
-          </DataGridCell>
+          <DataGridCell>{<ExternalLink url={service.serviceUrl} label={service.serviceName} />}</DataGridCell>
           <DataGridCell>{service.clusterName || NO_VALUE_DEFAULT}</DataGridCell>
           <DataGridCell>{service.pluginName || NO_VALUE_DEFAULT}</DataGridCell>
           <DataGridCell>{service.supportGroup || NO_VALUE_DEFAULT}</DataGridCell>
