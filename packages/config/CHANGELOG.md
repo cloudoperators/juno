@@ -1,5 +1,11 @@
 # @cloudoperators/juno-config
 
+## 0.0.7
+
+### Patch Changes
+
+- f0e8ddc: Upgraded Vite from 7.x to 8.0.10 and TypeScript from 5.x to 6.0.2 across all packages and apps.
+
 ## 0.0.6
 
 ### Patch Changes
