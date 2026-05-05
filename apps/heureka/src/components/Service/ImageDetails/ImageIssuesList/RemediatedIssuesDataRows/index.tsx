@@ -9,7 +9,7 @@ import { Message, Stack } from "@cloudoperators/juno-ui-components"
 import { EmptyDataGridRow } from "../../../../common/EmptyDataGridRow"
 import { RemediatedIssueDataRow } from "./RemediatedIssueDataRow"
 import { getNormalizedImageVulnerabilitiesResponse } from "../../../../Services/utils"
-import { GetRemediationsQuery, GetImagesQuery } from "../../../../../generated/graphql"
+import { GetRemediationsQuery, GetImagesQuery, RemediationTypeValues } from "../../../../../generated/graphql"
 
 const COLUMN_SPAN = 5
 
@@ -20,7 +20,7 @@ type RemediatedIssuesDataRowsProps = {
   image: string
   selectedVulnerabilityName: string | null
   onSelectVulnerability: (vulnerabilityName: string | null) => void
-  onRemediationSuccess?: (cveNumber: string) => void | Promise<void>
+  onRemediationSuccess?: (cveNumber: string, remediationType: RemediationTypeValues) => void | Promise<void>
 }
 
 export const RemediatedIssuesDataRows = ({

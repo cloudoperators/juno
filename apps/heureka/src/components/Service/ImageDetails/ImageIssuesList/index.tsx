@@ -21,6 +21,7 @@ import {
 import { getNormalizedImageVulnerabilitiesResponse, ServiceImage } from "../../../Services/utils"
 import { useTimedState } from "../../../../utils"
 import type { VulnerabilityFilter } from "../../../../generated/graphql"
+import { RemediationTypeValues } from "../../../../generated/graphql"
 import { fetchImages } from "../../../../api/fetchImages"
 import { fetchRemediations } from "../../../../api/fetchRemediations"
 import { IssuesDataRows } from "./IssuesDataRows"
@@ -32,6 +33,8 @@ import { ErrorBoundary } from "../../../common/ErrorBoundary"
 import { getErrorDataRowComponent } from "../../../common/getErrorDataRow"
 import { LoadingDataRow } from "../../../common/LoadingDataRow"
 import type { VulnerabilitiesTabValue } from "../index"
+
+const COLUMN_SPAN = 5
 
 type ImageIssuesListProps = {
   service: string
@@ -145,7 +148,7 @@ const RemediatedVulnerabilitiesTabContent = ({
   remediationsPromise: ReturnType<typeof fetchRemediations>
   setPageCursor: (cursor: string | null | undefined) => void
   onDataRefresh?: () => void | Promise<void>
-  onRemediationSuccess?: (cveNumber: string) => void | Promise<void>
+  onRemediationSuccess?: (cveNumber: string, remediationType: RemediationTypeValues) => void | Promise<void>
   successMessage: string | null
   selectedVulnerability: string | null
   onSelectVulnerability: (cve: string | null) => void
@@ -167,7 +170,7 @@ const RemediatedVulnerabilitiesTabContent = ({
         />
       </Stack>
       <div className="mt-4">
-        <DataGrid columns={5} minContentColumns={[0, 1, 2, 4]} cellVerticalAlignment="top">
+        <DataGrid columns={COLUMN_SPAN} minContentColumns={[0, 1, 2, 4]} cellVerticalAlignment="top">
           <DataGridRow>
             <DataGridHeadCell>
               <Icon icon="monitorHeart" />
@@ -181,10 +184,10 @@ const RemediatedVulnerabilitiesTabContent = ({
           {issuesPromise && (
             <ErrorBoundary
               displayErrorMessage
-              fallbackRender={getErrorDataRowComponent({ colspan: 5 })}
+              fallbackRender={getErrorDataRowComponent({ colspan: COLUMN_SPAN })}
               resetKeys={[issuesPromise, remediationsPromise]}
             >
-              <Suspense fallback={<LoadingDataRow colSpan={5} />}>
+              <Suspense fallback={<LoadingDataRow colSpan={COLUMN_SPAN} />}>
                 <RemediatedIssuesDataRows
                   issuesPromise={issuesPromise}
                   remediationsPromise={remediationsPromise}
@@ -367,8 +370,10 @@ export const ImageIssuesList = ({
   )
 
   const handleRemediatedTabRemediationSuccess = useCallback(
-    async (cveNumber: string) => {
-      const text = `A new remediation has been added for vulnerability ${cveNumber}.`
+    async (cveNumber: string, remediationType: RemediationTypeValues) => {
+      const remediationTypeLabel =
+        remediationType === RemediationTypeValues.FalsePositive ? "a false positive" : "a risk acceptance"
+      const text = `Vulnerability ${cveNumber} has been marked as ${remediationTypeLabel}.`
       setRemediatedSuccessMessage(text)
       await refreshIssuesData()
     },

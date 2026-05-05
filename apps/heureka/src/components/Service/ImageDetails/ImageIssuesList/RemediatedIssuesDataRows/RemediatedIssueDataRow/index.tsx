@@ -22,7 +22,7 @@ import { FalsePositiveModal } from "../../../FalsePositiveModal"
 import { RiskAcceptanceModal } from "../../../RiskAcceptanceModal"
 import { useRouteContext } from "@tanstack/react-router"
 import { createRemediation } from "../../../../../../api/createRemediation"
-import { RemediationInput } from "../../../../../../generated/graphql"
+import { RemediationInput, RemediationTypeValues } from "../../../../../../generated/graphql"
 
 const cellSeverityClasses = (severity: string) => {
   const borderColor = getSeverityColor(severity.toLowerCase())
@@ -40,7 +40,7 @@ type RemediatedIssueDataRowProps = {
   image: string
   selected?: boolean
   onSelect: () => void
-  onRemediationSuccess?: (cveNumber: string) => void | Promise<void>
+  onRemediationSuccess?: (cveNumber: string, remediationType: RemediationTypeValues) => void | Promise<void>
 }
 
 export const RemediatedIssueDataRow = ({
@@ -68,7 +68,7 @@ export const RemediatedIssueDataRow = ({
     try {
       await createRemediation({ apiClient, input })
       const cveNumber = issue?.name || "unknown"
-      Promise.resolve(onRemediationSuccess?.(cveNumber)).catch(() => {})
+      Promise.resolve(onRemediationSuccess?.(cveNumber, input.type!)).catch(() => {})
     } catch (error) {
       return { error: error instanceof Error ? error.message : "Failed to create remediation" }
     } finally {
