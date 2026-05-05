@@ -1,5 +1,15 @@
 # @cloudoperators/juno-app-template
 
+## 2.0.37
+
+### Patch Changes
+
+- f0e8ddc: Upgraded Vite from 7.x to 8.0.10 and TypeScript from 5.x to 6.0.2 across all packages and apps.
+- Updated dependencies [031af0b]
+- Updated dependencies [f0e8ddc]
+- Updated dependencies [377981a]
+  - @cloudoperators/juno-ui-components@6.3.1
+
 ## 2.0.36
 
 ### Patch Changes
