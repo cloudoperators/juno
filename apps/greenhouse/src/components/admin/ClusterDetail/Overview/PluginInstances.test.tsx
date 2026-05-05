@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { act } from "react"
+import React, { act, Suspense } from "react"
 import {
   createMemoryHistory,
   createRootRoute,
@@ -36,7 +36,9 @@ const renderComponent = async (mockPromise: Promise<MockPluginsResponse | unknow
           })
         }
       >
-        <PluginInstances />
+        <Suspense fallback={<div>Loading...</div>}>
+          <PluginInstances />
+        </Suspense>
       </QueryClientProvider>
     ),
   })
