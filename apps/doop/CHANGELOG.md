@@ -1,5 +1,17 @@
 # @cloudoperators/juno-app-doop
 
+## 2.6.27
+
+### Patch Changes
+
+- f0e8ddc: Upgraded Vite from 7.x to 8.0.10 and TypeScript from 5.x to 6.0.2 across all packages and apps.
+- Updated dependencies [031af0b]
+- Updated dependencies [f0e8ddc]
+- Updated dependencies [377981a]
+  - @cloudoperators/juno-ui-components@6.3.1
+  - @cloudoperators/juno-url-state-provider@3.0.9
+  - @cloudoperators/juno-messages-provider@0.2.39
+
 ## 2.6.26
 
 ### Patch Changes
