@@ -1,5 +1,17 @@
 # @cloudoperators/juno-template
 
+## 1.1.11
+
+### Patch Changes
+
+- 88b24ac: Fixes npm publish failures caused by missing repository fields in package.json files during provenance verification with OIDC trusted publishing.
+
+## 1.1.10
+
+### Patch Changes
+
+- f0e8ddc: Upgraded Vite from 7.x to 8.0.10 and TypeScript from 5.x to 6.0.2 across all packages and apps.
+
 ## 1.1.9
 
 ### Patch Changes
