@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-messages-provider",
-  "version": "0.2.38",
+  "version": "0.2.39",
   "description": "Messages provider",
   "author": "UI-Team",
   "repository": "https://github.com/cloudoperators/juno/tree/main/packages/messages-provider",

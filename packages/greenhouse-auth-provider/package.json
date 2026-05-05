@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/greenhouse-auth-provider",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Package provides authentication for Greenhouse and plugins",
   "author": "UI-Team",
   "private": true,
