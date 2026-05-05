@@ -47,7 +47,7 @@ export const RiskAcceptanceModal: React.FC<RiskAcceptanceModalProps> = ({
   image,
 }) => {
   const auth = useAuth()
-  const authUserId = auth.status === "authenticated" ? (auth.userId || auth.userName) : null
+  const authUserId = auth.status === "authenticated" ? auth.userId || auth.userName : null
   const [description, setDescription] = useState<string>("")
   const [manualUserId, setManualUserId] = useState<string>("")
   const [sourceTicket, setSourceTicket] = useState<string>("")
