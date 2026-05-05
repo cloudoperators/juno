@@ -1,5 +1,11 @@
 # @cloudoperators/juno-template
 
+## 1.1.11
+
+### Patch Changes
+
+- 88b24ac: Fixes npm publish failures caused by missing repository fields in package.json files during provenance verification with OIDC trusted publishing.
+
 ## 1.1.10
 
 ### Patch Changes
