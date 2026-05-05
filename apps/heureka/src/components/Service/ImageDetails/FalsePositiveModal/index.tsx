@@ -101,6 +101,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
     setExpirationDateError("")
     setIsSubmitting(true)
     try {
+      const severityValue = severity ? toSeverityValue(severity) : undefined
       const input: RemediationInput = {
         type: RemediationTypeValues.FalsePositive,
         vulnerability,
@@ -108,7 +109,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
         image,
         description: descriptionTrimmed,
         ...(remediatedBy && { remediatedBy }),
-        ...(severity && { severity: toSeverityValue(severity) }),
+        ...(severityValue !== undefined && { severity: severityValue }),
         expirationDate: expirationDate.toISOString(),
       }
       const result = await onConfirm(input)

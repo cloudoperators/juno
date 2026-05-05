@@ -38,8 +38,10 @@ export const RemediatedCursorPagination = ({
   )
 
   // Total remediated vulnerabilities across all pages (remediations are not paginated).
-  const totalRemediated =
-    remediationsResult.data?.Remediations?.edges?.filter((e) => e?.node?.vulnerability).length ?? 0
+  // Count unique CVEs — a single vulnerability can have multiple remediations.
+  const totalRemediated = new Set(
+    remediationsResult.data?.Remediations?.edges?.map((e) => e?.node?.vulnerability).filter(Boolean) ?? []
+  ).size
 
   const handlePageChange = useCallback(
     (page?: number) => {

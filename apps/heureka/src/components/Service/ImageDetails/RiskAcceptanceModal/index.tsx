@@ -111,6 +111,7 @@ export const RiskAcceptanceModal: React.FC<RiskAcceptanceModalProps> = ({
     setExpirationDateError("")
     setIsSubmitting(true)
     try {
+      const severityValue = severity ? toSeverityValue(severity) : undefined
       const input: RemediationInput = {
         type: RemediationTypeValues.RiskAccepted,
         vulnerability,
@@ -118,7 +119,7 @@ export const RiskAcceptanceModal: React.FC<RiskAcceptanceModalProps> = ({
         image,
         description: buildDescription(),
         ...(remediatedBy && { remediatedBy }),
-        ...(severity && { severity: toSeverityValue(severity) }),
+        ...(severityValue !== undefined && { severity: severityValue }),
         expirationDate: expirationDate.toISOString(),
       }
       const result = await onConfirm(input)

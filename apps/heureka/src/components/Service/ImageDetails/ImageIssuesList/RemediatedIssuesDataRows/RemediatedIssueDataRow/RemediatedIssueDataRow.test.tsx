@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { render, screen } from "@testing-library/react"
+import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { createMemoryHistory, createRootRoute, createRoute, Outlet, RouterProvider } from "@tanstack/react-router"
 import { AuthProvider } from "@cloudoperators/greenhouse-auth-provider"
@@ -83,9 +83,11 @@ describe("RemediatedIssueDataRow", () => {
         <RouterProvider router={router} />
       </AuthProvider>
     )
-    // Wait for router to settle, then confirm nothing rendered for the issue
-    await screen.findByRole("main").catch(() => {})
+    // The component returns null when issue.name is empty; wait for the router
+    // to finish initialising before asserting the absence of rendered content.
+    await waitFor(() => {
+      expect(screen.queryByText("CVE-2024-1234")).not.toBeInTheDocument()
+    })
     expect(container.querySelector("[data-testid]")).toBeNull()
-    expect(screen.queryByText("CVE-2024-1234")).not.toBeInTheDocument()
   })
 })

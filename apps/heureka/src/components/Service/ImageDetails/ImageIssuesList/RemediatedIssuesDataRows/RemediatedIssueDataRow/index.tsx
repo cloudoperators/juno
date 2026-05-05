@@ -63,20 +63,7 @@ export const RemediatedIssueDataRow = ({
     setIsExpanded((prev) => !prev)
   }
 
-  const handleFalsePositiveConfirm = async (input: RemediationInput): Promise<{ error: string } | void> => {
-    setIsSubmitting(true)
-    try {
-      await createRemediation({ apiClient, input })
-      const cveNumber = issue?.name || "unknown"
-      Promise.resolve(onRemediationSuccess?.(cveNumber)).catch(() => {})
-    } catch (error) {
-      return { error: error instanceof Error ? error.message : "Failed to create remediation" }
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  const handleRiskAcceptanceConfirm = async (input: RemediationInput): Promise<{ error: string } | void> => {
+  const handleRemediationConfirm = async (input: RemediationInput): Promise<{ error: string } | void> => {
     setIsSubmitting(true)
     try {
       await createRemediation({ apiClient, input })
@@ -168,7 +155,7 @@ export const RemediatedIssueDataRow = ({
       <FalsePositiveModal
         open={isFalsePositiveModalOpen}
         onClose={() => setIsFalsePositiveModalOpen(false)}
-        onConfirm={handleFalsePositiveConfirm}
+        onConfirm={handleRemediationConfirm}
         vulnerability={issue.name}
         severity={issue.severity}
         service={service}
@@ -177,7 +164,7 @@ export const RemediatedIssueDataRow = ({
       <RiskAcceptanceModal
         open={isRiskAcceptanceModalOpen}
         onClose={() => setIsRiskAcceptanceModalOpen(false)}
-        onConfirm={handleRiskAcceptanceConfirm}
+        onConfirm={handleRemediationConfirm}
         vulnerability={issue.name}
         severity={issue.severity}
         service={service}
