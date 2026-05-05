@@ -64,6 +64,7 @@ export const RiskAcceptanceModal: React.FC<RiskAcceptanceModalProps> = ({
   const isUserIdValid = !!remediatedBy
 
   useEffect(() => {
+    isMountedRef.current = true
     return () => {
       isMountedRef.current = false
     }

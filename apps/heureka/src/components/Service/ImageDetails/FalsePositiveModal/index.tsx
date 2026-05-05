@@ -63,6 +63,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
   const isUserIdValid = !!remediatedBy
 
   useEffect(() => {
+    isMountedRef.current = true
     return () => {
       isMountedRef.current = false
     }
