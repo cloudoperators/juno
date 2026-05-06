@@ -148,13 +148,13 @@ describe("Button", () => {
     expect(screen.getByRole("img")).toContainHTML("<title>customTitle</title>")
   })
 
-  test("renders an extra-small button", () => {
+  test("renders an xs button", () => {
     render(<Button size="xs">Click me</Button>)
     expect(screen.getByRole("button")).toBeInTheDocument()
     expect(screen.getByRole("button")).toHaveClass("juno-button-xs-size")
   })
 
-  test("renders an extra-small in progress button as passed", () => {
+  test("renders an xs in progress button as passed", () => {
     render(
       <Button size="xs" progress={true}>
         Click me
