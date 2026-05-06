@@ -114,7 +114,7 @@ export const Small: Story = {
 export const XS: Story = {
   args: {
     size: "xs",
-    label: "Extra Small",
+    label: "XS",
   },
 }
 
@@ -226,7 +226,7 @@ export const XSWithIcon: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Extra Small Button with Icon",
+        story: "XS Button with Icon",
       },
     },
   },
@@ -496,7 +496,7 @@ export const XSInProgress: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Extra Small Button in Progress",
+        story: "XS Button in Progress",
       },
     },
   },
@@ -504,6 +504,6 @@ export const XSInProgress: Story = {
   args: {
     ...XS.args,
     progress: true,
-    progressLabel: "Extra Small in Progress…",
+    progressLabel: "XS in Progress…",
   },
 }
