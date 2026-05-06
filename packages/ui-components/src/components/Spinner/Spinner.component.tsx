@@ -7,6 +7,7 @@ import React, { HTMLProps, ReactNode } from "react"
 
 const spinnerBaseStyles = `
   jn:animate-spin 
+  jn:mr-3 
   jn:h-5 
   jn:w-5 
 `
@@ -42,7 +43,6 @@ export const Spinner = ({
   size,
   className = "",
   color = "",
-  marginRight = "",
   ...props
 }: SpinnerProps): ReactNode => {
   const mode = () => {
@@ -75,7 +75,7 @@ export const Spinner = ({
 
   return (
     <svg
-      className={`juno-spinner ${spinnerBaseStyles} ${color ? color : mode()} ${className} ${marginRight ? marginRight : "jn:mr-3"}`}
+      className={`juno-spinner ${spinnerBaseStyles} ${color ? color : mode()} ${className}`}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
@@ -104,6 +104,4 @@ export interface SpinnerProps extends Omit<HTMLProps<SVGSVGElement>, "size"> {
   className?: string
   /** Pass a text-color class in order to apply any color to a spinner (These classes typically begin with "text-".). If passed, `color` will overwrite the semantic color as defined by `variant`. */
   color?: string
-  /** Pass a custom right margin class (e.g. "mr-2") to control spacing to the right of the spinner. */
-  marginRight?: string
 }

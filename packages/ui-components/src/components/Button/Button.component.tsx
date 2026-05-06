@@ -39,7 +39,7 @@ const btnSmallBase = `
   jn:leading-5
 `
 
-const btnExtraSmallBase = `
+const btnXSBase = `
   jn:text-xs
 `
 
@@ -59,7 +59,7 @@ const btnSmallSubduedPadding = `
   jn:px-1.75
 `
 
-const btnExtraSmallDefaultPadding = `
+const btnXSDefaultPadding = `
   jn:py-1
   jn:px-1.5
 `
@@ -115,8 +115,8 @@ const getButtonPadding = (size: ButtonSize, variant: ButtonVariant | undefined) 
   switch (size) {
     case "small":
       return variant === "subdued" ? `${btnSmallSubduedPadding}` : `${btnSmallDefaultPadding}`
-    case "extra-small":
-      return `${btnExtraSmallDefaultPadding}`
+    case "xs":
+      return `${btnXSDefaultPadding}`
     default:
       return variant === "subdued" ? `${btnDefaultSubduedPadding}` : `${btnDefaultPadding}`
   }
@@ -141,7 +141,7 @@ const btnIconSmall = `
   jn:mr-2
 `
 
-const btnIconExtraSmall = `
+const btnIconXS = `
   jn:mr-1
 `
 
@@ -153,8 +153,8 @@ const getButtonBase = (size: ButtonSize) => {
   switch (size) {
     case "small":
       return btnSmallBase
-    case "extra-small":
-      return btnExtraSmallBase
+    case "xs":
+      return btnXSBase
     default:
       return btnDefaultBase
   }
@@ -164,8 +164,8 @@ const iconClasses = (size: ButtonSize) => {
   switch (size) {
     case "small":
       return `${btnIconSmall}`
-    case "extra-small":
-      return `${btnIconExtraSmall}`
+    case "xs":
+      return `${btnIconXS}`
     default:
       return `${btnIconDefault}`
   }
@@ -175,7 +175,7 @@ const iconSize = (size: ButtonSize) => {
   switch (size) {
     case "small":
       return "1.125rem"
-    case "extra-small":
+    case "xs":
       return "1rem"
     default:
       return "1.5rem"
@@ -232,7 +232,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
       <Spinner
         size={`${iconSize(size)}`}
         color={spinnerColorClass(variant)}
-        marginRight={`${label || children ? iconClasses(size) : ""}`}
+        className={`${label || children ? iconClasses(size) : ""}`}
       />
     ) : icon ? (
       <Icon
@@ -306,7 +306,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
 Button.displayName = "Button"
 
 export type ButtonVariant = "primary" | "primary-danger" | "default" | "subdued"
-type ButtonSize = "small" | "extra-small" | "default"
+type ButtonSize = "small" | "xs" | "default"
 
 export interface ButtonProps extends Omit<HTMLProps<HTMLAnchorElement> | HTMLProps<HTMLButtonElement>, "size"> {
   /**

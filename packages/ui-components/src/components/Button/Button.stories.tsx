@@ -111,9 +111,9 @@ export const Small: Story = {
   },
 }
 
-export const ExtraSmall: Story = {
+export const XS: Story = {
   args: {
-    size: "extra-small",
+    size: "xs",
     label: "Extra Small",
   },
 }
@@ -222,7 +222,7 @@ export const SmallWithIcon: Story = {
   },
 }
 
-export const ExtraSmallWithIcon: Story = {
+export const XSWithIcon: Story = {
   parameters: {
     docs: {
       description: {
@@ -232,7 +232,7 @@ export const ExtraSmallWithIcon: Story = {
   },
 
   args: {
-    ...ExtraSmall.args,
+    ...XS.args,
     icon: "warning",
   },
 }
@@ -492,7 +492,7 @@ export const SmallInProgress: Story = {
   },
 }
 
-export const ExtraSmallInProgress: Story = {
+export const XSInProgress: Story = {
   parameters: {
     docs: {
       description: {
@@ -502,7 +502,7 @@ export const ExtraSmallInProgress: Story = {
   },
 
   args: {
-    ...ExtraSmall.args,
+    ...XS.args,
     progress: true,
     progressLabel: "Extra Small in Progress…",
   },

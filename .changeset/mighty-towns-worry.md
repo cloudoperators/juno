@@ -2,4 +2,4 @@
 "@cloudoperators/juno-ui-components": minor
 ---
 
-Add extra-small size to Button component. Add configurable marginRight prop to Spinner component.
+Add extra-small (`xs`) size to Button component. Spinner margin adjustment will be addressed in a separate PR.

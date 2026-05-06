@@ -149,14 +149,14 @@ describe("Button", () => {
   })
 
   test("renders an extra-small button", () => {
-    render(<Button size="extra-small">Click me</Button>)
+    render(<Button size="xs">Click me</Button>)
     expect(screen.getByRole("button")).toBeInTheDocument()
-    expect(screen.getByRole("button")).toHaveClass("juno-button-extra-small-size")
+    expect(screen.getByRole("button")).toHaveClass("juno-button-xs-size")
   })
 
   test("renders an extra-small in progress button as passed", () => {
     render(
-      <Button size="extra-small" progress={true}>
+      <Button size="xs" progress={true}>
         Click me
       </Button>
     )
