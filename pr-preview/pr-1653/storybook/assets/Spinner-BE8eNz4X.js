@@ -1,1 +1,0 @@
-import{n as e}from"./chunk-jRWAZmH_.js";import{n as t}from"./Spinner.component-CD6v_8Vs.js";var n=e((()=>{t()}));export{n as t};
