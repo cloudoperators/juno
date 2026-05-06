@@ -69,7 +69,7 @@ export const ComplexCustomLayout: Story = {
             <Pill pillKey="category" pillValue="electronics" closeable />
             <Pill pillKey="status" pillValue="active" closeable />
             <Pill pillKey="priority" pillValue="high" closeable />
-            <Button label="Clear Filters" variant="subdued" size="extra-small" />
+            <Button label="Clear Filters" variant="subdued" size="xs" />
           </Stack>
         </Stack>
         <SearchInput placeholder="Search items..." />
