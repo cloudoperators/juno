@@ -342,9 +342,8 @@ export const ImageIssuesList = ({
       setVulnerabilitiesSuccessMessage(
         `Vulnerability ${cveNumber} has been marked as a false positive and moved to the Remediated list.`
       )
-      refreshIssuesData().catch(() => {})
     },
-    [refreshIssuesData]
+    []
   )
 
   const handleRiskAcceptanceSuccess = useCallback(
@@ -352,20 +351,18 @@ export const ImageIssuesList = ({
       setVulnerabilitiesSuccessMessage(
         `Vulnerability ${cveNumber} has been accepted as a risk and moved to the Remediated list.`
       )
-      refreshIssuesData().catch(() => {})
     },
-    [refreshIssuesData]
+    []
   )
 
   const handleRemediatedTabRemediationSuccess = useCallback(
-    async (cveNumber: string, remediationType: RemediationTypeValues) => {
+    (cveNumber: string, remediationType: RemediationTypeValues) => {
       const remediationTypeLabel =
         remediationType === RemediationTypeValues.FalsePositive ? "a false positive" : "a risk acceptance"
       const text = `Vulnerability ${cveNumber} has been marked as ${remediationTypeLabel}.`
       setRemediatedSuccessMessage(text)
-      await refreshIssuesData()
     },
-    [refreshIssuesData]
+    []
   )
 
   return (
