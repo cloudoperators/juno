@@ -56,7 +56,7 @@ export const RemediatedIssueDataRow = ({
   const [isRiskAcceptanceModalOpen, setIsRiskAcceptanceModalOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { needsExpansion, textRef } = useTextOverflow(issue?.description || "")
-  const { apiClient } = useRouteContext({ from: "/services/$service" })
+  const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
 
   const toggleDescription = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -66,9 +66,43 @@ export const RemediatedIssueDataRow = ({
   const handleRemediationConfirm = async (input: RemediationInput): Promise<{ error: string } | void> => {
     setIsSubmitting(true)
     try {
-      await createRemediation({ apiClient, input })
+      const remediation = await createRemediation({ apiClient, input })
       const cveNumber = issue?.name || "unknown"
-      Promise.resolve(onRemediationSuccess?.(cveNumber, input.type!)).catch(() => {})
+      if (remediation) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        queryClient.setQueriesData(
+          {
+            predicate: (query) => {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              const [key, filter] = query.queryKey as [string, any]
+              if (key !== "remediations") return false
+              if (filter?.service && !filter.service.includes(service)) return false
+              if (filter?.image && !filter.image.includes(image)) return false
+              if (filter?.vulnerability && !filter.vulnerability.includes(cveNumber)) return false
+              return true
+            },
+          },
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (old: any) => {
+            if (!old?.data?.Remediations) return old
+            const edges = old.data.Remediations.edges ?? []
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            if (edges.some((e: any) => e?.node?.id === remediation.id)) return old
+            return {
+              ...old,
+              data: {
+                ...old.data,
+                Remediations: {
+                  ...old.data.Remediations,
+                  edges: [...edges, { node: remediation }],
+                  totalCount: (old.data.Remediations.totalCount ?? 0) + 1,
+                },
+              },
+            }
+          }
+        )
+      }
+      await onRemediationSuccess?.(cveNumber, input.type!)
     } catch (error) {
       return { error: error instanceof Error ? error.message : "Failed to create remediation" }
     } finally {

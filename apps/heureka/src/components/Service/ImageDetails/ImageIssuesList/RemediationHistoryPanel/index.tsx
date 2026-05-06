@@ -36,7 +36,7 @@ type RemediationHistoryPanelProps = {
   vulnerability: string | null
   onClose: () => void
   /** Called after a successful revert so the parent can refetch remediations and images. */
-  onRevertSuccess?: () => void | Promise<void>
+  onRevertSuccess?: (cveNumber: string) => void | Promise<void>
   /** Increment to force a fresh fetch of remediations (e.g. after createRemediation or deleteRemediation). */
   refreshKey?: number
 }
@@ -142,6 +142,40 @@ export const RemediationHistoryPanel = ({
     setRevertMessage(null)
     try {
       await deleteRemediation({ apiClient, remediationId: remediation.remediationId })
+      // Remove the deleted remediation from all matching cache entries so both the
+      // Remediated tab and this panel reflect the change before the BE cache expires.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      queryClient.setQueriesData(
+        {
+          predicate: (query) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const [key, filter] = query.queryKey as [string, any]
+            if (key !== "remediations") return false
+            if (filter?.service && !filter.service.includes(service)) return false
+            if (filter?.image && !filter.image.includes(image)) return false
+            return true
+          },
+        },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (old: any) => {
+          const edges = old?.data?.Remediations?.edges
+          if (!edges) return old
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const newEdges = edges.filter((e: any) => e?.node?.id !== remediation.remediationId)
+          if (newEdges.length === edges.length) return old
+          return {
+            ...old,
+            data: {
+              ...old.data,
+              Remediations: {
+                ...old.data.Remediations,
+                edges: newEdges,
+                totalCount: Math.max(0, (old.data.Remediations.totalCount ?? 1) - 1),
+              },
+            },
+          }
+        }
+      )
       const typeLabel = remediation.type ?? "remediation"
       const dateLabel = remediation.remediationDate ? ` from ${formatDateTime(remediation.remediationDate)}` : ""
       const text = `The ${typeLabel}${dateLabel} for ${vulnerability ?? "unknown"} has been reverted.`
@@ -150,7 +184,7 @@ export const RemediationHistoryPanel = ({
       // Refresh panel/list data in the background — do not await so the
       // spinner clears at the same time as the success message appears.
       if (vulnerability) {
-        Promise.resolve(onRevertSuccess?.()).catch((refreshError) => {
+        Promise.resolve(onRevertSuccess?.(vulnerability)).catch((refreshError) => {
           const refreshMsg =
             refreshError instanceof Error ? refreshError.message : "Failed to refresh data after revert"
           setRevertMessage({

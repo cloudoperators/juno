@@ -274,24 +274,10 @@ export const ImageIssuesList = ({
       ((Array.isArray(filter?.image) && filter.image.includes(image.repository)) ||
         (Array.isArray(filter?.repository) && filter.repository.includes(image.repository)))
 
-    // Refetch all remediations for the current service+image.
-    // This covers both the broad split query (service+image) and the per-CVE panel query.
-    // The remediations data is the source of truth for which tab a vulnerability appears in:
-    // after mark FP the new record is fetched here and the CVE moves to the Remediated tab immediately,
-    // after revert the deleted record is gone and the CVE moves back to Active immediately —
-    // without waiting for the backend to update the vulnerability status.
-    await queryClient.refetchQueries({
-      type: "all",
-      predicate: (query) => {
-        const [key, filter] = query.queryKey as [
-          string,
-          { service?: string[]; image?: string[]; repository?: string[]; vulnerability?: string[] } | undefined,
-        ]
-        return key === "remediations" && matchesCurrentServiceAndImage(filter)
-      },
-    })
-
-    // Refetch images to keep counts and pagination in sync.
+    // Remediations are updated directly in the React Query cache from mutation responses
+    // (createRemediation / deleteRemediation), so we do NOT refetch them here — a refetch
+    // would overwrite the fresh cache with stale BE-cached data (BE cache TTL: 5-8 min).
+    // We only refetch images to keep counts and pagination in sync.
     await queryClient.refetchQueries({
       type: "all",
       predicate: (query) => {
@@ -352,21 +338,21 @@ export const ImageIssuesList = ({
   })
 
   const handleFalsePositiveSuccess = useCallback(
-    async (cveNumber: string) => {
-      await refreshIssuesData()
+    (cveNumber: string) => {
       setVulnerabilitiesSuccessMessage(
         `Vulnerability ${cveNumber} has been marked as a false positive and moved to the Remediated list.`
       )
+      refreshIssuesData().catch(() => {})
     },
     [refreshIssuesData]
   )
 
   const handleRiskAcceptanceSuccess = useCallback(
-    async (cveNumber: string) => {
-      await refreshIssuesData()
+    (cveNumber: string) => {
       setVulnerabilitiesSuccessMessage(
         `Vulnerability ${cveNumber} has been accepted as a risk and moved to the Remediated list.`
       )
+      refreshIssuesData().catch(() => {})
     },
     [refreshIssuesData]
   )
