@@ -590,10 +590,8 @@ export const DateTimePicker = ({
 // Internal type that includes flatpickr instance for internal use
 type InternalDateChangeHandler = (_selectedDate: Date[], _dateStr: string, _instance: flatpickr.Instance) => void
 
-export interface DateTimePickerProps extends Omit<
-  HTMLAttributes<HTMLInputElement>,
-  "defaultValue" | "onFocus" | "onBlur" | "onChange"
-> {
+export interface DateTimePickerProps
+  extends Omit<HTMLAttributes<HTMLInputElement>, "defaultValue" | "onFocus" | "onBlur" | "onChange"> {
   /** Whether the DateTimePicker input element allows direct user keyboard input. Default is `false`.
    */
   allowInput?: boolean
