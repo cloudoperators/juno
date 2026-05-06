@@ -73,8 +73,7 @@ export const IssuesDataRow = ({
     try {
       await createRemediation({ apiClient, input })
       const cveNumber = issue?.name || "unknown"
-      // Fire refresh in the background so the spinner clears immediately after createRemediation.
-      Promise.resolve(onFalsePositiveSuccess?.(cveNumber)).catch(() => {})
+      await onFalsePositiveSuccess?.(cveNumber)
     } catch (error) {
       return { error: error instanceof Error ? error.message : "Failed to create remediation" }
     } finally {
@@ -87,7 +86,7 @@ export const IssuesDataRow = ({
     try {
       await createRemediation({ apiClient, input })
       const cveNumber = issue?.name || "unknown"
-      Promise.resolve(onRiskAcceptanceSuccess?.(cveNumber)).catch(() => {})
+      await onRiskAcceptanceSuccess?.(cveNumber)
     } catch (error) {
       return { error: error instanceof Error ? error.message : "Failed to create remediation" }
     } finally {

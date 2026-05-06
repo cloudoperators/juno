@@ -261,8 +261,8 @@ export const ImageIssuesList = ({
     },
     [navigate, service, image.repository]
   )
-  const [vulnerabilitiesSuccessMessage, setVulnerabilitiesSuccessMessage] = useTimedState<string>(10000)
   const [remediatedSuccessMessage, setRemediatedSuccessMessage] = useTimedState<string>(10000)
+  const [vulnerabilitiesSuccessMessage, setVulnerabilitiesSuccessMessage] = useTimedState<string>(10000)
   const [refreshKey, setRefreshKey] = useState(0)
 
   const refreshIssuesData = useCallback(async () => {
@@ -353,18 +353,20 @@ export const ImageIssuesList = ({
 
   const handleFalsePositiveSuccess = useCallback(
     async (cveNumber: string) => {
-      const text = `Vulnerability ${cveNumber} has been marked as a false positive and moved to the Remediated list.`
-      setVulnerabilitiesSuccessMessage(text)
       await refreshIssuesData()
+      setVulnerabilitiesSuccessMessage(
+        `Vulnerability ${cveNumber} has been marked as a false positive and moved to the Remediated list.`
+      )
     },
     [refreshIssuesData]
   )
 
   const handleRiskAcceptanceSuccess = useCallback(
     async (cveNumber: string) => {
-      const text = `Vulnerability ${cveNumber} has been accepted as a risk and moved to the Remediated list.`
-      setVulnerabilitiesSuccessMessage(text)
       await refreshIssuesData()
+      setVulnerabilitiesSuccessMessage(
+        `Vulnerability ${cveNumber} has been accepted as a risk and moved to the Remediated list.`
+      )
     },
     [refreshIssuesData]
   )
