@@ -17,7 +17,7 @@ import {
 import { RemediationInput, RemediationTypeValues, SeverityValues } from "../../../../generated/graphql"
 import { useAuth } from "@cloudoperators/greenhouse-auth-provider"
 
-type FalsePositiveModalProps = {
+type RiskAcceptanceModalProps = {
   open: boolean
   onClose: () => void
   onConfirm: (input: RemediationInput) => Promise<{ error: string } | void>
@@ -27,7 +27,7 @@ type FalsePositiveModalProps = {
   image: string
 }
 
-const CONFIRM_LABEL = "Mark as False Positive"
+const CONFIRM_LABEL = "Accept Risk"
 const CANCEL_LABEL = "Cancel"
 
 const toSeverityValue = (severity: string): SeverityValues | undefined => {
@@ -37,7 +37,7 @@ const toSeverityValue = (severity: string): SeverityValues | undefined => {
   return Object.values(SeverityValues).includes(value) ? value : undefined
 }
 
-export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
+export const RiskAcceptanceModal: React.FC<RiskAcceptanceModalProps> = ({
   open,
   onClose,
   onConfirm,
@@ -50,6 +50,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
   const authUserId = auth.status === "authenticated" ? auth.userId || auth.userName : null
   const [description, setDescription] = useState<string>("")
   const [manualUserId, setManualUserId] = useState<string>("")
+  const [sourceTicket, setSourceTicket] = useState<string>("")
   const [expirationDate, setExpirationDate] = useState<Date | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [descriptionError, setDescriptionError] = useState<string>("")
@@ -73,6 +74,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
     if (!open) {
       setDescription("")
       setManualUserId("")
+      setSourceTicket("")
       setExpirationDate(null)
       setDescriptionError("")
       setUserIdError("")
@@ -82,6 +84,14 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
   }, [open])
 
   const descriptionTrimmed = description.trim()
+  const sourceTicketTrimmed = sourceTicket.trim()
+
+  const buildDescription = () => {
+    if (sourceTicketTrimmed) {
+      return `Source Ticket: ${sourceTicketTrimmed}\n\n${descriptionTrimmed}`
+    }
+    return descriptionTrimmed
+  }
 
   const handleConfirm = async () => {
     if (!descriptionTrimmed) {
@@ -104,11 +114,11 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
     try {
       const severityValue = severity ? toSeverityValue(severity) : undefined
       const input: RemediationInput = {
-        type: RemediationTypeValues.FalsePositive,
+        type: RemediationTypeValues.RiskAccepted,
         vulnerability,
         service,
         image,
-        description: descriptionTrimmed,
+        description: buildDescription(),
         ...(remediatedBy && { remediatedBy }),
         ...(severityValue !== undefined && { severity: severityValue }),
         expirationDate: expirationDate.toISOString(),
@@ -119,6 +129,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
       } else if (isMountedRef.current) {
         setDescription("")
         setManualUserId("")
+        setSourceTicket("")
         setExpirationDate(null)
         onClose()
       }
@@ -133,6 +144,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
   const handleClose = () => {
     setDescription("")
     setManualUserId("")
+    setSourceTicket("")
     setExpirationDate(null)
     setDescriptionError("")
     setUserIdError("")
@@ -143,7 +155,6 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
 
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(e.target.value)
-    // Clear error when user starts typing
     if (descriptionError) {
       setDescriptionError("")
     }
@@ -151,7 +162,7 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
 
   return (
     <Modal
-      title="Mark as False Positive"
+      title="Accept Risk"
       open={open}
       onCancel={handleClose}
       modalFooter={
@@ -196,6 +207,15 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
           />
         </div>
         <div>
+          <TextInput
+            label="Jira Ticket / Risk Acceptance Source Ticket"
+            value={sourceTicket}
+            onChange={(e) => setSourceTicket(e.target.value)}
+            placeholder="e.g. JIRA-1234"
+            helptext="Optional. Reference ticket for this risk acceptance decision."
+          />
+        </div>
+        <div>
           <DateTimePicker
             label="Expiration Date"
             value={expirationDate ?? undefined}
@@ -207,13 +227,13 @@ export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = ({
             required
             invalid={!!expirationDateError}
             errortext={expirationDateError}
-            helptext="When this false positive should no longer be considered valid."
+            helptext="When this risk acceptance should no longer be considered valid."
           />
         </div>
         <div>
           <Textarea
             label="Description"
-            placeholder="Add a description explaining why this is a false positive..."
+            placeholder="Add a description explaining the reason for accepting this risk..."
             value={description}
             onChange={handleDescriptionChange}
             rows={14}
