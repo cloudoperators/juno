@@ -54,9 +54,9 @@ export const ImageDetails = ({
     navigate({
       to: "/services/$service/images/$image/versions/$version",
       params: {
-        service: encodeURIComponent(service),
-        image: encodeURIComponent(imageRepository),
-        version: encodeURIComponent(version),
+        service,
+        image: imageRepository,
+        version,
       },
       search: {},
     })
@@ -108,8 +108,8 @@ export const ImageDetails = ({
                 {displayedVersions.map((version) => (
                   <Pill
                     key={version.id}
-                    pillValue={version.version}
-                    pillValueLabel={getShortSha256(version.version)}
+                    pillValue={version.version || "_"}
+                    pillValueLabel={version.version ? getShortSha256(version.version) : "_"}
                     title={version.version}
                     onClick={() => handleVersionClick(version.version)}
                   />

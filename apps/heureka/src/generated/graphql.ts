@@ -17,66 +17,6 @@ export type Scalars = {
   Json: { input: any; output: any }
 }
 
-export type Activity = Node & {
-  __typename?: "Activity"
-  evidences?: Maybe<EvidenceConnection>
-  id: Scalars["ID"]["output"]
-  issues?: Maybe<IssueConnection>
-  metadata?: Maybe<Metadata>
-  services?: Maybe<ServiceConnection>
-  status?: Maybe<ActivityStatusValues>
-}
-
-export type ActivityEvidencesArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>
-  filter?: InputMaybe<EvidenceFilter>
-  first?: InputMaybe<Scalars["Int"]["input"]>
-}
-
-export type ActivityIssuesArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>
-  filter?: InputMaybe<IssueFilter>
-  first?: InputMaybe<Scalars["Int"]["input"]>
-  orderBy?: InputMaybe<Array<InputMaybe<IssueOrderBy>>>
-}
-
-export type ActivityServicesArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>
-  filter?: InputMaybe<ServiceFilter>
-  first?: InputMaybe<Scalars["Int"]["input"]>
-  orderBy?: InputMaybe<Array<InputMaybe<ServiceOrderBy>>>
-}
-
-export type ActivityConnection = Connection & {
-  __typename?: "ActivityConnection"
-  edges?: Maybe<Array<Maybe<ActivityEdge>>>
-  pageInfo?: Maybe<PageInfo>
-  totalCount: Scalars["Int"]["output"]
-}
-
-export type ActivityEdge = Edge & {
-  __typename?: "ActivityEdge"
-  cursor?: Maybe<Scalars["String"]["output"]>
-  metadata?: Maybe<Metadata>
-  node: Activity
-}
-
-export type ActivityFilter = {
-  serviceCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
-  state?: InputMaybe<Array<StateFilter>>
-  status?: InputMaybe<Array<InputMaybe<ActivityStatusValues>>>
-}
-
-export type ActivityInput = {
-  status?: InputMaybe<ActivityStatusValues>
-}
-
-export enum ActivityStatusValues {
-  Closed = "closed",
-  InProgress = "in_progress",
-  Open = "open",
-}
-
 export type Cvss = {
   __typename?: "CVSS"
   base?: Maybe<CvssBase>
@@ -373,6 +313,7 @@ export type ComponentVersion = Node & {
   component?: Maybe<Component>
   componentId?: Maybe<Scalars["String"]["output"]>
   componentInstances?: Maybe<ComponentInstanceConnection>
+  endOfLife?: Maybe<Scalars["Boolean"]["output"]>
   id: Scalars["ID"]["output"]
   issueCounts?: Maybe<SeverityCounts>
   issues?: Maybe<IssueConnection>
@@ -417,6 +358,7 @@ export type ComponentVersionEdge = Edge & {
 export type ComponentVersionFilter = {
   componentCcrn?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   componentId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  endOfLife?: InputMaybe<Array<InputMaybe<Scalars["Boolean"]["input"]>>>
   issueId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   issueRepositoryId?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   organization?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
@@ -430,6 +372,7 @@ export type ComponentVersionFilter = {
 
 export type ComponentVersionInput = {
   componentId?: InputMaybe<Scalars["String"]["input"]>
+  endOfLife?: InputMaybe<Scalars["Boolean"]["input"]>
   organization?: InputMaybe<Scalars["String"]["input"]>
   repository?: InputMaybe<Scalars["String"]["input"]>
   tag?: InputMaybe<Scalars["String"]["input"]>
@@ -459,54 +402,6 @@ export type DateTimeFilter = {
 export type Edge = {
   cursor?: Maybe<Scalars["String"]["output"]>
   node: Node
-}
-
-export type Evidence = Node & {
-  __typename?: "Evidence"
-  activity?: Maybe<Activity>
-  activityId?: Maybe<Scalars["String"]["output"]>
-  author?: Maybe<User>
-  authorId?: Maybe<Scalars["String"]["output"]>
-  description?: Maybe<Scalars["String"]["output"]>
-  id: Scalars["ID"]["output"]
-  issueMatches?: Maybe<IssueMatchConnection>
-  metadata?: Maybe<Metadata>
-  raaEnd?: Maybe<Scalars["DateTime"]["output"]>
-  type?: Maybe<Scalars["String"]["output"]>
-  vector?: Maybe<Scalars["String"]["output"]>
-}
-
-export type EvidenceIssueMatchesArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>
-  filter?: InputMaybe<IssueMatchFilter>
-  first?: InputMaybe<Scalars["Int"]["input"]>
-}
-
-export type EvidenceConnection = Connection & {
-  __typename?: "EvidenceConnection"
-  edges?: Maybe<Array<Maybe<EvidenceEdge>>>
-  pageInfo?: Maybe<PageInfo>
-  totalCount: Scalars["Int"]["output"]
-}
-
-export type EvidenceEdge = Edge & {
-  __typename?: "EvidenceEdge"
-  cursor?: Maybe<Scalars["String"]["output"]>
-  node: Evidence
-}
-
-export type EvidenceFilter = {
-  placeholder?: InputMaybe<Array<InputMaybe<Scalars["Boolean"]["input"]>>>
-  state?: InputMaybe<Array<StateFilter>>
-}
-
-export type EvidenceInput = {
-  activityId?: InputMaybe<Scalars["String"]["input"]>
-  authorId?: InputMaybe<Scalars["String"]["input"]>
-  description?: InputMaybe<Scalars["String"]["input"]>
-  raaEnd?: InputMaybe<Scalars["DateTime"]["input"]>
-  severity?: InputMaybe<SeverityInput>
-  type?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export type FilterItem = {
@@ -573,6 +468,7 @@ export type ImageFilter = {
 
 export type ImageVersion = Node & {
   __typename?: "ImageVersion"
+  endOfLife?: Maybe<Scalars["Boolean"]["output"]>
   id: Scalars["ID"]["output"]
   metadata?: Maybe<Metadata>
   occurences?: Maybe<ComponentInstanceConnection>
@@ -609,6 +505,7 @@ export type ImageVersionEdge = Edge & {
 }
 
 export type ImageVersionFilter = {
+  endOfLife?: InputMaybe<Array<InputMaybe<Scalars["Boolean"]["input"]>>>
   image?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   repository?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   service?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
@@ -619,7 +516,6 @@ export type ImageVersionFilter = {
 
 export type Issue = Node & {
   __typename?: "Issue"
-  activities?: Maybe<ActivityConnection>
   componentVersions?: Maybe<ComponentVersionConnection>
   description?: Maybe<Scalars["String"]["output"]>
   id: Scalars["ID"]["output"]
@@ -630,12 +526,6 @@ export type Issue = Node & {
   objectMetadata?: Maybe<IssueMetadata>
   primaryName?: Maybe<Scalars["String"]["output"]>
   type?: Maybe<IssueTypes>
-}
-
-export type IssueActivitiesArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>
-  filter?: InputMaybe<ActivityFilter>
-  first?: InputMaybe<Scalars["Int"]["input"]>
 }
 
 export type IssueComponentVersionsArgs = {
@@ -700,7 +590,6 @@ export type IssueMatch = Node & {
   componentInstanceId?: Maybe<Scalars["String"]["output"]>
   discoveryDate?: Maybe<Scalars["DateTime"]["output"]>
   effectiveIssueVariants?: Maybe<IssueVariantConnection>
-  evidences?: Maybe<EvidenceConnection>
   id: Scalars["ID"]["output"]
   issue: Issue
   issueId?: Maybe<Scalars["String"]["output"]>
@@ -716,12 +605,6 @@ export type IssueMatch = Node & {
 export type IssueMatchEffectiveIssueVariantsArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<IssueVariantFilter>
-  first?: InputMaybe<Scalars["Int"]["input"]>
-}
-
-export type IssueMatchEvidencesArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>
-  filter?: InputMaybe<EvidenceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
 }
 
@@ -812,7 +695,6 @@ export enum IssueMatchStatusValues {
 
 export type IssueMetadata = {
   __typename?: "IssueMetadata"
-  activityCount: Scalars["Int"]["output"]
   componentInstanceCount: Scalars["Int"]["output"]
   componentVersionCount: Scalars["Int"]["output"]
   earliestDiscoveryDate: Scalars["DateTime"]["output"]
@@ -948,33 +830,27 @@ export type Metadata = {
 export type Mutation = {
   __typename?: "Mutation"
   addComponentVersionToIssue: Issue
-  addEvidenceToIssueMatch: IssueMatch
   addIssueRepositoryToService: Service
-  addIssueToActivity: Activity
   addOwnerToService: Service
-  addServiceToActivity: Activity
   addServiceToSupportGroup: SupportGroup
   addUserToSupportGroup: SupportGroup
   completeScannerRun: Scalars["Boolean"]["output"]
-  createActivity: Activity
   createComponent: Component
   createComponentInstance: ComponentInstance
   createComponentVersion: ComponentVersion
-  createEvidence: Evidence
   createIssue: Issue
   createIssueMatch: IssueMatch
   createIssueRepository: IssueRepository
   createIssueVariant: IssueVariant
   createRemediation: Remediation
+  createSIEMAlert: SiemAlert
   createScannerRun: Scalars["Boolean"]["output"]
   createService: Service
   createSupportGroup: SupportGroup
   createUser: User
-  deleteActivity: Scalars["String"]["output"]
   deleteComponent: Scalars["String"]["output"]
   deleteComponentInstance: Scalars["String"]["output"]
   deleteComponentVersion: Scalars["String"]["output"]
-  deleteEvidence: Scalars["String"]["output"]
   deleteIssue: Scalars["String"]["output"]
   deleteIssueMatch: Scalars["String"]["output"]
   deleteIssueRepository: Scalars["String"]["output"]
@@ -985,18 +861,13 @@ export type Mutation = {
   deleteUser: Scalars["String"]["output"]
   failScannerRun: Scalars["Boolean"]["output"]
   removeComponentVersionFromIssue: Issue
-  removeEvidenceFromIssueMatch: IssueMatch
-  removeIssueFromActivity: Activity
   removeIssueRepositoryFromService: Service
   removeOwnerFromService: Service
-  removeServiceFromActivity: Activity
   removeServiceFromSupportGroup: SupportGroup
   removeUserFromSupportGroup: SupportGroup
-  updateActivity: Activity
   updateComponent: Component
   updateComponentInstance: ComponentInstance
   updateComponentVersion: ComponentVersion
-  updateEvidence: Evidence
   updateIssue: Issue
   updateIssueMatch: IssueMatch
   updateIssueRepository: IssueRepository
@@ -1012,30 +883,15 @@ export type MutationAddComponentVersionToIssueArgs = {
   issueId: Scalars["ID"]["input"]
 }
 
-export type MutationAddEvidenceToIssueMatchArgs = {
-  evidenceId: Scalars["ID"]["input"]
-  issueMatchId: Scalars["ID"]["input"]
-}
-
 export type MutationAddIssueRepositoryToServiceArgs = {
   issueRepositoryId: Scalars["ID"]["input"]
   priority: Scalars["Int"]["input"]
   serviceId: Scalars["ID"]["input"]
 }
 
-export type MutationAddIssueToActivityArgs = {
-  activityId: Scalars["ID"]["input"]
-  issueId: Scalars["ID"]["input"]
-}
-
 export type MutationAddOwnerToServiceArgs = {
   serviceId: Scalars["ID"]["input"]
   userId: Scalars["ID"]["input"]
-}
-
-export type MutationAddServiceToActivityArgs = {
-  activityId: Scalars["ID"]["input"]
-  serviceId: Scalars["ID"]["input"]
 }
 
 export type MutationAddServiceToSupportGroupArgs = {
@@ -1052,10 +908,6 @@ export type MutationCompleteScannerRunArgs = {
   uuid: Scalars["String"]["input"]
 }
 
-export type MutationCreateActivityArgs = {
-  input: ActivityInput
-}
-
 export type MutationCreateComponentArgs = {
   input: ComponentInput
 }
@@ -1066,10 +918,6 @@ export type MutationCreateComponentInstanceArgs = {
 
 export type MutationCreateComponentVersionArgs = {
   input: ComponentVersionInput
-}
-
-export type MutationCreateEvidenceArgs = {
-  input: EvidenceInput
 }
 
 export type MutationCreateIssueArgs = {
@@ -1092,6 +940,10 @@ export type MutationCreateRemediationArgs = {
   input: RemediationInput
 }
 
+export type MutationCreateSiemAlertArgs = {
+  input: SiemAlertInput
+}
+
 export type MutationCreateScannerRunArgs = {
   input: ScannerRunInput
 }
@@ -1108,10 +960,6 @@ export type MutationCreateUserArgs = {
   input: UserInput
 }
 
-export type MutationDeleteActivityArgs = {
-  id: Scalars["ID"]["input"]
-}
-
 export type MutationDeleteComponentArgs = {
   id: Scalars["ID"]["input"]
 }
@@ -1121,10 +969,6 @@ export type MutationDeleteComponentInstanceArgs = {
 }
 
 export type MutationDeleteComponentVersionArgs = {
-  id: Scalars["ID"]["input"]
-}
-
-export type MutationDeleteEvidenceArgs = {
   id: Scalars["ID"]["input"]
 }
 
@@ -1170,16 +1014,6 @@ export type MutationRemoveComponentVersionFromIssueArgs = {
   issueId: Scalars["ID"]["input"]
 }
 
-export type MutationRemoveEvidenceFromIssueMatchArgs = {
-  evidenceId: Scalars["ID"]["input"]
-  issueMatchId: Scalars["ID"]["input"]
-}
-
-export type MutationRemoveIssueFromActivityArgs = {
-  activityId: Scalars["ID"]["input"]
-  issueId: Scalars["ID"]["input"]
-}
-
 export type MutationRemoveIssueRepositoryFromServiceArgs = {
   issueRepositoryId: Scalars["ID"]["input"]
   serviceId: Scalars["ID"]["input"]
@@ -1190,11 +1024,6 @@ export type MutationRemoveOwnerFromServiceArgs = {
   userId: Scalars["ID"]["input"]
 }
 
-export type MutationRemoveServiceFromActivityArgs = {
-  activityId: Scalars["ID"]["input"]
-  serviceId: Scalars["ID"]["input"]
-}
-
 export type MutationRemoveServiceFromSupportGroupArgs = {
   serviceId: Scalars["ID"]["input"]
   supportGroupId: Scalars["ID"]["input"]
@@ -1203,11 +1032,6 @@ export type MutationRemoveServiceFromSupportGroupArgs = {
 export type MutationRemoveUserFromSupportGroupArgs = {
   supportGroupId: Scalars["ID"]["input"]
   userId: Scalars["ID"]["input"]
-}
-
-export type MutationUpdateActivityArgs = {
-  id: Scalars["ID"]["input"]
-  input: ActivityInput
 }
 
 export type MutationUpdateComponentArgs = {
@@ -1223,11 +1047,6 @@ export type MutationUpdateComponentInstanceArgs = {
 export type MutationUpdateComponentVersionArgs = {
   id: Scalars["ID"]["input"]
   input: ComponentVersionInput
-}
-
-export type MutationUpdateEvidenceArgs = {
-  id: Scalars["ID"]["input"]
-  input: EvidenceInput
 }
 
 export type MutationUpdateIssueArgs = {
@@ -1331,13 +1150,11 @@ export type PatchFilter = {
 
 export type Query = {
   __typename?: "Query"
-  Activities?: Maybe<ActivityConnection>
   ComponentFilterValues?: Maybe<ComponentFilterValue>
   ComponentInstanceFilterValues?: Maybe<ComponentInstanceFilterValue>
   ComponentInstances?: Maybe<ComponentInstanceConnection>
   ComponentVersions?: Maybe<ComponentVersionConnection>
   Components?: Maybe<ComponentConnection>
-  Evidences?: Maybe<EvidenceConnection>
   ImageVersions?: Maybe<ImageVersionConnection>
   Images?: Maybe<ImageConnection>
   IssueCounts?: Maybe<SeverityCounts>
@@ -1358,12 +1175,6 @@ export type Query = {
   VulnerabilityFilterValues?: Maybe<VulnerabilityFilterValue>
 }
 
-export type QueryActivitiesArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>
-  filter?: InputMaybe<ActivityFilter>
-  first?: InputMaybe<Scalars["Int"]["input"]>
-}
-
 export type QueryComponentInstancesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<ComponentInstanceFilter>
@@ -1381,12 +1192,6 @@ export type QueryComponentVersionsArgs = {
 export type QueryComponentsArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>
   filter?: InputMaybe<ComponentFilter>
-  first?: InputMaybe<Scalars["Int"]["input"]>
-}
-
-export type QueryEvidencesArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>
-  filter?: InputMaybe<EvidenceFilter>
   first?: InputMaybe<Scalars["Int"]["input"]>
 }
 
@@ -1536,6 +1341,7 @@ export type RemediationOrderBy = {
 }
 
 export enum RemediationOrderByField {
+  ExpirationDate = "expirationDate",
   Severity = "severity",
   Vulnerability = "vulnerability",
 }
@@ -1545,6 +1351,37 @@ export enum RemediationTypeValues {
   Mitigation = "mitigation",
   Rescore = "rescore",
   RiskAccepted = "risk_accepted",
+}
+
+export type SiemAlert = {
+  __typename?: "SIEMAlert"
+  cluster?: Maybe<Scalars["String"]["output"]>
+  container?: Maybe<Scalars["String"]["output"]>
+  description?: Maybe<Scalars["String"]["output"]>
+  name?: Maybe<Scalars["String"]["output"]>
+  namespace?: Maybe<Scalars["String"]["output"]>
+  pod?: Maybe<Scalars["String"]["output"]>
+  region?: Maybe<Scalars["String"]["output"]>
+  service?: Maybe<Scalars["String"]["output"]>
+  severity?: Maybe<SeverityValues>
+  source?: Maybe<Scalars["String"]["output"]>
+  supportGroup?: Maybe<Scalars["String"]["output"]>
+  url?: Maybe<Scalars["String"]["output"]>
+}
+
+export type SiemAlertInput = {
+  cluster?: InputMaybe<Scalars["String"]["input"]>
+  container?: InputMaybe<Scalars["String"]["input"]>
+  description?: InputMaybe<Scalars["String"]["input"]>
+  name?: InputMaybe<Scalars["String"]["input"]>
+  namespace?: InputMaybe<Scalars["String"]["input"]>
+  pod?: InputMaybe<Scalars["String"]["input"]>
+  region?: InputMaybe<Scalars["String"]["input"]>
+  service?: InputMaybe<Scalars["String"]["input"]>
+  severity?: InputMaybe<SeverityValues>
+  source?: InputMaybe<Scalars["String"]["input"]>
+  supportGroup?: InputMaybe<Scalars["String"]["input"]>
+  url?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export type ScannerRun = Node & {
@@ -1583,7 +1420,6 @@ export type ScannerRunInput = {
 
 export type Service = Node & {
   __typename?: "Service"
-  activities?: Maybe<ActivityConnection>
   ccrn?: Maybe<Scalars["String"]["output"]>
   componentInstances?: Maybe<ComponentInstanceConnection>
   domain?: Maybe<Scalars["String"]["output"]>
@@ -1597,12 +1433,6 @@ export type Service = Node & {
   region?: Maybe<Scalars["String"]["output"]>
   remediations?: Maybe<RemediationConnection>
   supportGroups?: Maybe<SupportGroupConnection>
-}
-
-export type ServiceActivitiesArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>
-  filter?: InputMaybe<ActivityFilter>
-  first?: InputMaybe<Scalars["Int"]["input"]>
 }
 
 export type ServiceComponentInstancesArgs = {
@@ -1924,6 +1754,7 @@ export type VulnerabilityEdge = Edge & {
 
 export type VulnerabilityFilter = {
   name?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  region?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   search?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   service?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   severity?: InputMaybe<Array<InputMaybe<SeverityValues>>>
@@ -1933,6 +1764,7 @@ export type VulnerabilityFilter = {
 
 export type VulnerabilityFilterValue = {
   __typename?: "VulnerabilityFilterValue"
+  region?: Maybe<FilterItem>
   service?: Maybe<FilterItem>
   severity?: Maybe<FilterItem>
   supportGroup?: Maybe<FilterItem>

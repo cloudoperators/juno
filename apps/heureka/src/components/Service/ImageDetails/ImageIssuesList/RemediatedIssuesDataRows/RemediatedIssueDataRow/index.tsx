@@ -4,11 +4,25 @@
  */
 
 import React, { useState } from "react"
-import { DataGridRow, DataGridCell, Stack, Icon } from "@cloudoperators/juno-ui-components"
+import {
+  DataGridRow,
+  DataGridCell,
+  Stack,
+  PopupMenu,
+  PopupMenuOptions,
+  PopupMenuItem,
+  Spinner,
+  Icon,
+} from "@cloudoperators/juno-ui-components"
 import { IssueIcon } from "../../../../../common/IssueIcon"
 import { IssueTimestamp } from "../../../../../common/IssueTimestamp"
 import { ImageVulnerability } from "../../../../../Services/utils"
 import { getSeverityColor, useTextOverflow } from "../../../../../../utils"
+import { FalsePositiveModal } from "../../../FalsePositiveModal"
+import { RiskAcceptanceModal } from "../../../RiskAcceptanceModal"
+import { useRouteContext } from "@tanstack/react-router"
+import { createRemediation } from "../../../../../../api/createRemediation"
+import { RemediationInput, RemediationTypeValues } from "../../../../../../generated/graphql"
 
 const cellSeverityClasses = (severity: string) => {
   const borderColor = getSeverityColor(severity.toLowerCase())
@@ -22,17 +36,78 @@ const cellSeverityClasses = (severity: string) => {
 
 type RemediatedIssueDataRowProps = {
   issue: ImageVulnerability
+  service: string
+  image: string
   selected?: boolean
   onSelect: () => void
+  onRemediationSuccess?: (cveNumber: string, remediationType: RemediationTypeValues) => void | Promise<void>
 }
 
-export const RemediatedIssueDataRow = ({ issue, selected, onSelect }: RemediatedIssueDataRowProps) => {
+export const RemediatedIssueDataRow = ({
+  issue,
+  service,
+  image,
+  selected,
+  onSelect,
+  onRemediationSuccess,
+}: RemediatedIssueDataRowProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
+  const [isFalsePositiveModalOpen, setIsFalsePositiveModalOpen] = useState(false)
+  const [isRiskAcceptanceModalOpen, setIsRiskAcceptanceModalOpen] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const { needsExpansion, textRef } = useTextOverflow(issue?.description || "")
+  const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
 
   const toggleDescription = (e: React.MouseEvent) => {
     e.preventDefault()
     setIsExpanded((prev) => !prev)
+  }
+
+  const handleRemediationConfirm = async (input: RemediationInput): Promise<{ error: string } | void> => {
+    setIsSubmitting(true)
+    try {
+      const remediation = await createRemediation({ apiClient, input })
+      const cveNumber = issue?.name || "unknown"
+      if (remediation) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        queryClient.setQueriesData(
+          {
+            predicate: (query) => {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              const [key, filter] = query.queryKey as [string, any]
+              if (key !== "remediations") return false
+              if (filter?.service && !filter.service.includes(service)) return false
+              if (filter?.image && !filter.image.includes(image)) return false
+              if (filter?.vulnerability && !filter.vulnerability.includes(cveNumber)) return false
+              return true
+            },
+          },
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (old: any) => {
+            if (!old?.data?.Remediations) return old
+            const edges = old.data.Remediations.edges ?? []
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            if (edges.some((e: any) => e?.node?.id === remediation.id)) return old
+            return {
+              ...old,
+              data: {
+                ...old.data,
+                Remediations: {
+                  ...old.data.Remediations,
+                  edges: [...edges, { node: remediation }],
+                  totalCount: (old.data.Remediations.totalCount ?? 0) + 1,
+                },
+              },
+            }
+          }
+        )
+      }
+      await onRemediationSuccess?.(cveNumber, input.type!)
+    } catch (error) {
+      return { error: error instanceof Error ? error.message : "Failed to create remediation" }
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   if (!issue?.name) {
@@ -40,63 +115,95 @@ export const RemediatedIssueDataRow = ({ issue, selected, onSelect }: Remediated
   }
 
   return (
-    <DataGridRow
-      onClick={onSelect}
-      className={selected ? "bg-theme-background-selected cursor-pointer" : "cursor-pointer"}
-    >
-      <DataGridCell className="pl-0">
-        <div className={cellSeverityClasses(issue.severity)}>
-          <IssueIcon severity={issue.severity} />
-        </div>
-      </DataGridCell>
+    <>
+      <DataGridRow
+        onClick={onSelect}
+        className={selected ? "bg-theme-background-selected cursor-pointer" : "cursor-pointer"}
+      >
+        <DataGridCell className="pl-0">
+          <div className={cellSeverityClasses(issue.severity)}>
+            <IssueIcon severity={issue.severity} />
+          </div>
+        </DataGridCell>
 
-      <DataGridCell className="whitespace-nowrap">
-        <Stack gap="2" direction="vertical">
-          <span>{issue.name}</span>
-          {issue.sourceUrl && issue.sourceUrl !== "-" && (
-            <a
-              href={issue.sourceUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-hover"
-              onClick={(e) => e.stopPropagation()}
+        <DataGridCell className="whitespace-nowrap">
+          <Stack gap="2" direction="vertical">
+            <span>{issue.name}</span>
+            {issue.sourceUrl && issue.sourceUrl !== "-" && (
+              <a
+                href={issue.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-hover"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Stack gap="1.5" alignment="center">
+                  <Icon icon="openInNew" size="16" />
+                  <span>Vulnerability source</span>
+                </Stack>
+              </a>
+            )}
+          </Stack>
+        </DataGridCell>
+        <DataGridCell className="whitespace-nowrap">
+          <IssueTimestamp targetDate={issue.earliestTargetRemediationDate} />
+        </DataGridCell>
+        <DataGridCell className="min-w-0">
+          <Stack gap="2" direction="vertical">
+            <span
+              ref={textRef}
+              className={isExpanded ? "" : "whitespace-nowrap overflow-hidden text-ellipsis max-w-full"}
             >
-              <Stack gap="1.5" alignment="center">
-                <Icon icon="openInNew" size="16" />
-                <span>Vulnerability source</span>
-              </Stack>
-            </a>
+              {issue.description}
+            </span>
+            {issue.description && needsExpansion && (
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  toggleDescription(e)
+                }}
+                className="link-hover"
+              >
+                <Stack alignment="center">
+                  {isExpanded ? "Show less" : "Show more"}
+                  <Icon color="global-text" icon={isExpanded ? "expandLess" : "expandMore"} />
+                </Stack>
+              </a>
+            )}
+          </Stack>
+        </DataGridCell>
+        <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
+          {isSubmitting ? (
+            <Spinner variant="primary" size="small" className="ml-auto" />
+          ) : (
+            <PopupMenu icon="moreVert" className="whitespace-nowrap ml-auto">
+              <PopupMenuOptions>
+                <PopupMenuItem label="Mark False Positive" onClick={() => setIsFalsePositiveModalOpen(true)} />
+                <PopupMenuItem label="Accept Risk" onClick={() => setIsRiskAcceptanceModalOpen(true)} />
+              </PopupMenuOptions>
+            </PopupMenu>
           )}
-        </Stack>
-      </DataGridCell>
-      <DataGridCell className="whitespace-nowrap">
-        <IssueTimestamp targetDate={issue.earliestTargetRemediationDate} />
-      </DataGridCell>
-      <DataGridCell className="min-w-0">
-        <Stack gap="2" direction="vertical">
-          <span
-            ref={textRef}
-            className={isExpanded ? "" : "whitespace-nowrap overflow-hidden text-ellipsis max-w-full"}
-          >
-            {issue.description}
-          </span>
-          {issue.description && needsExpansion && (
-            <a
-              href="#"
-              onClick={(e) => {
-                e.stopPropagation()
-                toggleDescription(e)
-              }}
-              className="link-hover"
-            >
-              <Stack alignment="center">
-                {isExpanded ? "Show less" : "Show more"}
-                <Icon color="global-text" icon={isExpanded ? "expandLess" : "expandMore"} />
-              </Stack>
-            </a>
-          )}
-        </Stack>
-      </DataGridCell>
-    </DataGridRow>
+        </DataGridCell>
+      </DataGridRow>
+      <FalsePositiveModal
+        open={isFalsePositiveModalOpen}
+        onClose={() => setIsFalsePositiveModalOpen(false)}
+        onConfirm={handleRemediationConfirm}
+        vulnerability={issue.name}
+        severity={issue.severity}
+        service={service}
+        image={image}
+      />
+      <RiskAcceptanceModal
+        open={isRiskAcceptanceModalOpen}
+        onClose={() => setIsRiskAcceptanceModalOpen(false)}
+        onConfirm={handleRemediationConfirm}
+        vulnerability={issue.name}
+        severity={issue.severity}
+        service={service}
+        image={image}
+      />
+    </>
   )
 }

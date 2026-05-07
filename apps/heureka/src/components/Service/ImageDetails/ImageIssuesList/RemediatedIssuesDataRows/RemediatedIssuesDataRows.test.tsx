@@ -6,8 +6,13 @@
 import React, { Suspense } from "react"
 import { act, render, screen } from "@testing-library/react"
 import { ObservableQuery } from "@apollo/client"
+import { createMemoryHistory, createRootRoute, createRoute, Outlet, RouterProvider } from "@tanstack/react-router"
+import { AuthProvider } from "@cloudoperators/greenhouse-auth-provider"
 import { RemediatedIssuesDataRows } from "./index"
 import { GetImagesQuery, GetRemediationsQuery } from "../../../../../generated/graphql"
+import { getTestRouter } from "../../../../../mocks/getTestRouter"
+
+const mockAuth = { getSnapshot: () => ({ status: "anonymous" as const }) }
 
 // --------------------------------------------------------------------------
 // Helpers
@@ -95,6 +100,39 @@ function makeRemediationsPromise(remediatedCves: string[]): Promise<ObservableQu
 const emptyImagesPromise = makeImagesPromise([])
 const emptyRemediationsPromise = makeRemediationsPromise([])
 
+function renderWithRouter(
+  issuesPromise: Promise<ObservableQuery.Result<GetImagesQuery>>,
+  remediationsPromise: Promise<ObservableQuery.Result<GetRemediationsQuery>>
+) {
+  const rootRoute = createRootRoute({ component: () => <Outlet /> })
+  const testRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: "/services/$service",
+    component: () => (
+      <Suspense fallback={<div>Loading...</div>}>
+        <RemediatedIssuesDataRows
+          issuesPromise={issuesPromise}
+          remediationsPromise={remediationsPromise}
+          service="my-service"
+          image="my-image"
+          selectedVulnerabilityName={null}
+          onSelectVulnerability={() => {}}
+        />
+      </Suspense>
+    ),
+  })
+  const routeTree = rootRoute.addChildren([testRoute])
+  const router = getTestRouter({
+    routeTree,
+    history: createMemoryHistory({ initialEntries: ["/services/my-service"] }),
+  })
+  return render(
+    <AuthProvider embedded auth={mockAuth}>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  )
+}
+
 // --------------------------------------------------------------------------
 // Tests
 // --------------------------------------------------------------------------
@@ -102,16 +140,7 @@ const emptyRemediationsPromise = makeRemediationsPromise([])
 describe("RemediatedIssuesDataRows", () => {
   it("renders empty state when there are no remediated vulnerabilities", async () => {
     await act(async () => {
-      render(
-        <Suspense fallback={<div>Loading...</div>}>
-          <RemediatedIssuesDataRows
-            issuesPromise={emptyImagesPromise}
-            remediationsPromise={emptyRemediationsPromise}
-            selectedVulnerabilityName={null}
-            onSelectVulnerability={() => {}}
-          />
-        </Suspense>
-      )
+      renderWithRouter(emptyImagesPromise, emptyRemediationsPromise)
     })
     expect(await screen.findByText("No remediated vulnerabilities found!")).toBeInTheDocument()
   })
@@ -121,16 +150,7 @@ describe("RemediatedIssuesDataRows", () => {
     const remediationsPromise = makeRemediationsPromise(["CVE-2024-1234"])
 
     await act(async () => {
-      render(
-        <Suspense fallback={<div>Loading...</div>}>
-          <RemediatedIssuesDataRows
-            issuesPromise={issuesPromise}
-            remediationsPromise={remediationsPromise}
-            selectedVulnerabilityName={null}
-            onSelectVulnerability={() => {}}
-          />
-        </Suspense>
-      )
+      renderWithRouter(issuesPromise, remediationsPromise)
     })
 
     expect(await screen.findByText("CVE-2024-1234")).toBeInTheDocument()
@@ -142,16 +162,7 @@ describe("RemediatedIssuesDataRows", () => {
     const remediationsPromise = makeRemediationsPromise([]) // remediation was deleted
 
     await act(async () => {
-      render(
-        <Suspense fallback={<div>Loading...</div>}>
-          <RemediatedIssuesDataRows
-            issuesPromise={issuesPromise}
-            remediationsPromise={remediationsPromise}
-            selectedVulnerabilityName={null}
-            onSelectVulnerability={() => {}}
-          />
-        </Suspense>
-      )
+      renderWithRouter(issuesPromise, remediationsPromise)
     })
 
     expect(screen.queryByText("CVE-2024-1234")).not.toBeInTheDocument()
@@ -163,21 +174,51 @@ describe("RemediatedIssuesDataRows", () => {
     const remediationsPromise = makeRemediationsPromise(["CVE-2024-1234"]) // only the first is remediated
 
     await act(async () => {
-      render(
-        <Suspense fallback={<div>Loading...</div>}>
-          <RemediatedIssuesDataRows
-            issuesPromise={issuesPromise}
-            remediationsPromise={remediationsPromise}
-            selectedVulnerabilityName={null}
-            onSelectVulnerability={() => {}}
-          />
-        </Suspense>
-      )
+      renderWithRouter(issuesPromise, remediationsPromise)
     })
 
     // Remediated CVE must appear in the Remediated tab
     expect(await screen.findByText("CVE-2024-1234")).toBeInTheDocument()
     // Non-remediated CVE must NOT appear here
     expect(screen.queryByText("CVE-2024-5678")).not.toBeInTheDocument()
+  })
+})
+
+describe("RemediatedIssuesDataRows — risk acceptance revert", () => {
+  it("shows a risk-accepted vulnerability in the remediated tab", async () => {
+    const issuesPromise = makeImagesPromise(["CVE-2024-9999"])
+    const remediationsPromise = makeRemediationsPromise(["CVE-2024-9999"])
+
+    await act(async () => {
+      renderWithRouter(issuesPromise, remediationsPromise)
+    })
+
+    expect(await screen.findByText("CVE-2024-9999")).toBeInTheDocument()
+  })
+
+  it("removes vulnerability from remediated tab when risk acceptance is reverted", async () => {
+    const issuesPromise = makeImagesPromise(["CVE-2024-9999"])
+    // Remediation removed — risk acceptance was reverted
+    const remediationsPromise = makeRemediationsPromise([])
+
+    await act(async () => {
+      renderWithRouter(issuesPromise, remediationsPromise)
+    })
+
+    expect(screen.queryByText("CVE-2024-9999")).not.toBeInTheDocument()
+    expect(await screen.findByText("No remediated vulnerabilities found!")).toBeInTheDocument()
+  })
+
+  it("only removes the reverted CVE — other risk-accepted ones remain in remediated tab", async () => {
+    const issuesPromise = makeImagesPromise(["CVE-2024-9999", "CVE-2024-8888"])
+    // CVE-2024-9999 reverted (no remediation), CVE-2024-8888 still risk accepted
+    const remediationsPromise = makeRemediationsPromise(["CVE-2024-8888"])
+
+    await act(async () => {
+      renderWithRouter(issuesPromise, remediationsPromise)
+    })
+
+    expect(screen.queryByText("CVE-2024-9999")).not.toBeInTheDocument()
+    expect(await screen.findByText("CVE-2024-8888")).toBeInTheDocument()
   })
 })

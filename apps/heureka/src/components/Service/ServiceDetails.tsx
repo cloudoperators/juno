@@ -32,11 +32,11 @@ export const ServiceDetails = ({ servicePromise }: ServiceDetailsProps) => {
               <Pill pillKey="service" pillKeyLabel="service" pillValue={service.name} pillValueLabel={service.name} />
               {service.serviceDetails?.supportGroups?.map((group) => (
                 <Pill
-                  key={group}
+                  key={group || "empty"}
                   pillKey="support_group"
                   pillKeyLabel="support_group"
-                  pillValue={group}
-                  pillValueLabel={group}
+                  pillValue={group || "_"}
+                  pillValueLabel={group || "_"}
                 />
               ))}
             </Stack>
