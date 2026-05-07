@@ -55,7 +55,7 @@ export const Service = () => {
   return (
     <>
       <ErrorBoundary displayErrorMessage>
-        <Suspense fallback={<Spinner className="mt-4" />}>
+        <Suspense fallback={<Spinner className="mt-4 mr-3" />}>
           <ServiceDetails servicePromise={servicePromise} />
         </Suspense>
       </ErrorBoundary>
