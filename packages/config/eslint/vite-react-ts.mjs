@@ -15,7 +15,11 @@ export default [
     ignores: ["**/build/*", "**/dist/*", "**/vite.config.ts.timestamp-*", "**/storybook-static/*"],
   },
 
-  // TypeScript files only - no JavaScript files
+  // TypeScript and React configuration
+  // Note: Uses 'extends' (Vite 2026 pattern) instead of spreading configs at top level.
+  // This scopes all rules to TypeScript files only, preventing JS/TS rule conflicts.
+  // The 'files' key ensures configs apply only to .ts/.tsx files from the start,
+  // unlike spreading which applies configs globally then layers file-specific rules.
   {
     files: ["**/*.{ts,tsx}"],
     extends: [
