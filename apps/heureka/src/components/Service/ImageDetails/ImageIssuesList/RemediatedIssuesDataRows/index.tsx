@@ -9,22 +9,28 @@ import { Message, Stack } from "@cloudoperators/juno-ui-components"
 import { EmptyDataGridRow } from "../../../../common/EmptyDataGridRow"
 import { RemediatedIssueDataRow } from "./RemediatedIssueDataRow"
 import { getNormalizedImageVulnerabilitiesResponse } from "../../../../Services/utils"
-import { GetRemediationsQuery, GetImagesQuery } from "../../../../../generated/graphql"
+import { GetRemediationsQuery, GetImagesQuery, RemediationTypeValues } from "../../../../../generated/graphql"
 
-const COLUMN_SPAN = 4
+const COLUMN_SPAN = 5
 
 type RemediatedIssuesDataRowsProps = {
   issuesPromise: Promise<ObservableQuery.Result<GetImagesQuery>>
   remediationsPromise: Promise<ObservableQuery.Result<GetRemediationsQuery>>
+  service: string
+  image: string
   selectedVulnerabilityName: string | null
   onSelectVulnerability: (vulnerabilityName: string | null) => void
+  onRemediationSuccess?: (cveNumber: string, remediationType: RemediationTypeValues) => void | Promise<void>
 }
 
 export const RemediatedIssuesDataRows = ({
   issuesPromise,
   remediationsPromise,
+  service,
+  image,
   selectedVulnerabilityName,
   onSelectVulnerability,
+  onRemediationSuccess,
 }: RemediatedIssuesDataRowsProps) => {
   const issuesResult = use(issuesPromise)
   const remediationsResult = use(remediationsPromise)
@@ -72,8 +78,11 @@ export const RemediatedIssuesDataRows = ({
         <RemediatedIssueDataRow
           key={issue.id}
           issue={issue}
+          service={service}
+          image={image}
           selected={selectedVulnerabilityName === issue.name}
           onSelect={() => onSelectVulnerability(issue.name)}
+          onRemediationSuccess={onRemediationSuccess}
         />
       ))}
     </>
