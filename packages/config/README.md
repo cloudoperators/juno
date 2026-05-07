@@ -95,32 +95,6 @@ export default [
 - Browser environment globals
 - Custom unused vars pattern (allows underscore prefix)
 
-### Upgrading to stricter rules
-
-For more strict type checking, you can use the `strictTypeChecked` preset:
-
-```javascript
-import js from "@eslint/js"
-import globals from "globals"
-import tseslint from "typescript-eslint"
-import reactHooks from "eslint-plugin-react-hooks"
-import reactRefresh from "eslint-plugin-react-refresh"
-
-export default [
-  ...viteReactTsConfigs.slice(0, -1), // All configs except rules
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      js.configs.recommended,
-      ...tseslint.configs.strictTypeChecked, // Stricter than recommended
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
-    ],
-    // ... rest of config
-  },
-]
-```
-
 ### Differences from juno-typescript.mjs
 
 - **TypeScript-first**: Only targets `.ts` and `.tsx` files (no JavaScript files targeted)
