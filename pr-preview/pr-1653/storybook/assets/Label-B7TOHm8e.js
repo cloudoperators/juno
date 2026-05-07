@@ -1,0 +1,1 @@
+import{n as e}from"./chunk-jRWAZmH_.js";import{n as t}from"./Label.component-Ol3i9_tj.js";var n=e((()=>{t()}));export{n as t};
