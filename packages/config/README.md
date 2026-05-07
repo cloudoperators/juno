@@ -123,7 +123,7 @@ export default [
 
 ### Differences from juno-typescript.mjs
 
-- **TypeScript-first**: Only targets `.ts` and `.tsx` files (no JavaScript rules)
+- **TypeScript-first**: Only targets `.ts` and `.tsx` files (no JavaScript files targeted)
 - **Includes React plugins**: `react-hooks` and `react-refresh` are included by default
 - **Type-checked**: Uses `recommendedTypeChecked` for better type safety
 - **Vite-optimized**: Follows Vite's official React-TypeScript template structure
