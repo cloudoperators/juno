@@ -1,0 +1,102 @@
+import{n as e,o as t}from"./chunk-jRWAZmH_.js";import{E as n,z as r}from"./iframe-C5Ht7p2M.js";import{r as i,t as a}from"./Icon.component-BpGHQ1E_.js";import{t as o}from"./Icon-HjXZjEwa.js";import{t as s}from"./Label.component-Dayoq9sW.js";import{t as c}from"./Label-CIKffQfx.js";import{n as l,t as u}from"./FormHint.component-CnH7dsj2.js";import{t as d}from"./FormHint-CTFc_oox.js";var f,p,m,h,g,_,v,y,b,x,S=e((()=>{f=t(r()),c(),o(),d(),p=n(),m=`
+	jn:mb-4
+	jn:last:mb-0
+`,h=`
+	jn:relative
+	jn:rounded
+	jn:border
+	jn:py-1
+`,g=`
+	jn:border-transparent
+`,_=`
+	jn:border-theme-success
+	jn:px-2
+`,v=`
+	jn:border-theme-error
+	jn:px-2
+`,y=`
+	jn:absolute
+	jn:right-2
+	jn:top-1.5
+`,b=(0,f.createContext)({}),x=({children:e,className:t=``,disabled:n=!1,errortext:r=``,helptext:i=``,id:o=``,invalid:c=!1,label:l=``,name:d,onChange:x,required:S=!1,selected:C,successtext:w=``,valid:T=!1,...E})=>{let D=e=>!(typeof e==`string`&&e.trim().length===0),O=()=>`juno-radiogroup-`+(0,f.useId)(),k=d||O(),A=o||O(),[j,M]=(0,f.useState)(C),[N,P]=(0,f.useState)(!1),[F,I]=(0,f.useState)(!1),L=(0,f.useMemo)(()=>T||!!(w&&D(w)),[T,w]),R=(0,f.useMemo)(()=>c||!!(r&&D(r)),[c,r]);return(0,f.useEffect)(()=>{P(L)},[L]),(0,f.useEffect)(()=>{I(R)},[R]),(0,f.useEffect)(()=>{C&&M(C)},[C]),(0,p.jsx)(b.Provider,{value:{selectedValue:j,name:k,onChange:e=>{M(e),x&&x(e)},updateSelectedValue:e=>{M(e)},disabled:n},children:(0,p.jsxs)(`div`,{className:`
+          juno-radiogroup 
+          ${m} 
+          ${N?`juno-radiogroup-valid`:``} 
+          ${F?`juno-radiogroup-invalid`:``} 
+          ${t}
+        `,id:A,role:`radiogroup`,...E,children:[l&&D(l)?(0,p.jsx)(s,{text:l,htmlFor:A,disabled:n,required:S}):``,(0,p.jsxs)(`div`,{className:`
+            juno-checkbox-group-options 
+            ${h} 
+            ${N?_:``} 
+            ${F?v:``} 
+            ${N||F?``:g}
+          `,children:[F?(0,p.jsx)(a,{icon:`dangerous`,color:`jn:text-theme-error`,className:`${y}`}):``,N?(0,p.jsx)(a,{icon:`checkCircle`,color:`jn:text-theme-success`,className:`${y}`}):``,e]}),r&&D(r)?(0,p.jsx)(u,{text:r,variant:`error`}):``,w&&D(w)?(0,p.jsx)(u,{text:w,variant:`success`}):``,i&&D(i)?(0,p.jsx)(u,{text:i}):``]})})};try{b.displayName=`RadioGroupContext`,b.__docgenInfo={description:``,displayName:`RadioGroupContext`,filePath:`/home/runner/work/juno/juno/packages/ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,methods:[],props:{},tags:{}}}catch{}try{x.displayName=`RadioGroup`,x.__docgenInfo={description:"A component to wrap and group individual Radio components: All contained child Radio elements will share the same `name`-attribute passed as a prop to the group, and thus make the Radios work with each other as expected.",displayName:`RadioGroup`,filePath:`/home/runner/work/juno/juno/packages/ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,methods:[],props:{children:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`}],description:"The children of the RadioGroup. Typically, these will be `Radio` components.",name:`children`,parent:{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`},required:!1,tags:{},type:{name:`ReactNode`}},className:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`}],description:`Pass a custom className`,name:`className`,parent:{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`},required:!1,tags:{},type:{name:`string`}},disabled:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`}],description:`Whether all Radios in the group are disabled`,name:`disabled`,parent:{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`},required:!1,tags:{},type:{name:`boolean`}},errortext:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`}],description:`Text to display in case validation failed or there is an error. Will set the whole group to invalid when passed.`,name:`errortext`,parent:{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`},required:!1,tags:{},type:{name:`ReactNode`}},helptext:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`}],description:`A text to render to further explain meaning and significance of the group`,name:`helptext`,parent:{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`},required:!1,tags:{},type:{name:`ReactNode`}},id:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`}],description:`The id of the group. If not passed, RadioGroup will create and use a unique id for the group`,name:`id`,parent:{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`},required:!1,tags:{},type:{name:`string`}},invalid:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`}],description:`Whether the group not be validated.`,name:`invalid`,parent:{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`},required:!1,tags:{},type:{name:`boolean`}},label:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`}],description:"Label for the group of radios as a whole. Passing a label is mandatory in order to denote a selection in the set is required by passing the `required` prop.",name:`label`,parent:{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`},required:!1,tags:{},type:{name:`string`}},name:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`}],description:`The name of all radios in a group. If not passed, RadioGroup will create and use a unique name identifier for its child Radios`,name:`name`,parent:{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`},required:!1,tags:{},type:{name:`string`}},onChange:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`}],description:`An onChange handler to execute when the selected option changes`,name:`onChange`,parent:{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`},required:!1,tags:{},type:{name:`EventUpdateHandler`}},required:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`}],description:`Whether a selection on the RadioGroup is required`,name:`required`,parent:{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`},required:!1,tags:{},type:{name:`boolean`}},selected:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`}],description:`The value of the initially selected radio. This will override 'checked' set on any of the child radio elements.`,name:`selected`,parent:{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`},required:!1,tags:{},type:{name:`string`}},successtext:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`}],description:`Text to display in case validation is successful. When passed, will set the whole group to valid.`,name:`successtext`,parent:{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`},required:!1,tags:{},type:{name:`ReactNode`}},valid:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`}],description:`Whether the RadioGroup was successfully validated`,name:`valid`,parent:{fileName:`ui-components/src/components/RadioGroup/RadioGroup.component.tsx`,name:`RadioGroupProps`},required:!1,tags:{},type:{name:`boolean`}}},tags:{see:`https://cloudoperators.github.io/juno/?path=/docs/forms-radio-radiogroup--docs
+{@link RadioGroupProps }`}}}catch{}})),C,w,T,E,D,O,k,A,j,M,N,P,F,I,L,R=e((()=>{C=t(r()),S(),c(),i(),l(),w=n(),T=`
+  jn:inline-flex
+  jn:items-center
+`,E=e=>`
+    jn:w-4
+    jn:h-4
+    jn:opacity-0
+    jn:z-50
+    ${e?`jn:cursor-not-allowed`:`jn:cursor-pointer`}
+  `,D=`
+  jn:relative
+  jn:w-4
+  jn:h-4
+  jn:rounded-full
+  jn:bg-theme-radio
+`,O=`
+  jn:absolute
+  jn:block
+  jn:bg-theme-radio-checked
+  jn:rounded-full
+  jn:w-3
+  jn:h-3
+  jn:top-[1px]
+  jn:left-[1px]
+`,k=`
+  jn:outline-hidden
+  jn:ring-2
+  jn:ring-theme-focus
+`,A=`
+  jn:opacity-50
+  jn:cursor-not-allowed
+`,j=`
+  jn:border
+  jn:border-transparent
+`,M=`
+  jn:border
+  jn:border-theme-error
+`,N=`
+  jn:border
+  jn:border-theme-success
+`,P=`
+  jn:leading-0
+  jn:ml-2
+`,F=`
+  jn:ml-1
+`,I=`
+  jn:mt-0
+  jn:ml-6
+`,L=({checked:e=!1,className:t=``,disabled:n=!1,errortext:r=``,helptext:i=``,id:o,invalid:c=!1,label:l,name:d,onChange:f,onClick:p,required:m=!1,successtext:h=``,valid:g=!1,value:_=``,...v})=>{let y=e=>!(typeof e==`string`&&e.trim().length===0),x=()=>`juno-radio-`+(0,C.useId)(),S=(0,C.useContext)(b),{selectedValue:L,onChange:R,name:z,updateSelectedValue:B,disabled:V}=S||{},H=()=>S?L===_:!!e,[U,W]=(0,C.useState)(()=>H()),[G,K]=(0,C.useState)(!1),[q,J]=(0,C.useState)(!1),[Y,ee]=(0,C.useState)(!1),X=(0,C.useMemo)(()=>c||!!(r&&y(r)),[c,r]),Z=(0,C.useMemo)(()=>g||!!(h&&y(h)),[g,h]);(0,C.useEffect)(()=>{J(X)},[X]),(0,C.useEffect)(()=>{ee(Z)},[Z]),(0,C.useEffect)(()=>{e&&S&&L===void 0&&B&&B(_)},[]),(0,C.useEffect)(()=>{L||W(e)},[e]);let te=()=>{W(!U),R&&typeof R==`function`&&L!==_&&R(_),f&&f(_)},Q=()=>L?L===_:U,ne=e=>{p&&p(e)},re=()=>{K(!0)},ie=()=>{K(!1)},$=o||x();return(0,w.jsxs)(`div`,{className:`jn-radio-outer`,children:[(0,w.jsxs)(`div`,{className:`juno-radio-wrapper ${T}`,children:[(0,w.jsxs)(`div`,{className:`
+             juno-radio 
+             ${D} 
+             ${G?k:``} 
+             ${n?A:``} 
+             ${q?M:``} 
+             ${Y?N:``} 
+             ${q||Y?``:j}
+             ${t}
+           `,...v,children:[(0,w.jsx)(`input`,{checked:Q(),className:`
+              ${E(V||n)} 
+              ${q?`juno-radio-invalid`:``} 
+              ${Y?`juno-radio-valid`:``}
+            `,disabled:V||n,id:$,onBlur:ie,onChange:te,onClick:ne,onFocus:re,name:z||d,type:`radio`,value:_}),Q()?(0,w.jsx)(`span`,{className:`${O}`}):``]}),l&&y(l)?(0,w.jsxs)(w.Fragment,{children:[(0,w.jsx)(s,{className:`${P}`,disabled:V||n,htmlFor:$,required:m,text:l}),q?(0,w.jsx)(a,{icon:`dangerous`,color:`jn:text-theme-error`,size:`1.125rem`,className:`
+                    ${F}
+                    ${n?`jn:opacity-50`:``}
+                  `}):``,Y?(0,w.jsx)(a,{icon:`checkCircle`,color:`jn:text-theme-success`,size:`1.125rem`,className:`
+                    ${F}
+                    ${n?`jn:opacity-50`:``}
+                  `}):``]}):``]}),r&&y(r)?(0,w.jsx)(u,{text:r,variant:`error`,className:`${I}`}):``,h&&y(h)?(0,w.jsx)(u,{text:h,variant:`success`,className:`${I}`}):``,i&&y(i)?(0,w.jsx)(u,{text:i,className:`${I}`}):``]})};try{L.displayName=`Radio`,L.__docgenInfo={description:`A controlled Radio component.`,displayName:`Radio`,filePath:`/home/runner/work/juno/juno/packages/ui-components/src/components/Radio/Radio.component.tsx`,methods:[],props:{checked:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`}],description:`Whether the Radio is checked`,name:`checked`,parent:{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`},required:!1,tags:{},type:{name:`boolean`}},className:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`}],description:`Pass a custom className`,name:`className`,parent:{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`},required:!1,tags:{},type:{name:`string`}},disabled:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`}],description:`Whether the Radio is disabled`,name:`disabled`,parent:{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`},required:!1,tags:{},type:{name:`boolean`}},errortext:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`}],description:`A text to render when the Radio has an error or could not be validated`,name:`errortext`,parent:{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`},required:!1,tags:{},type:{name:`ReactNode`}},helptext:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`}],description:`A helptext to render to explain meaning and significance of the Radio`,name:`helptext`,parent:{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`},required:!1,tags:{},type:{name:`ReactNode`}},id:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`}],description:`The id of the Radio. An id will be automatically generated if not passed.`,name:`id`,parent:{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`},required:!1,tags:{},type:{name:`string`}},invalid:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`}],description:`Whether the Radio was validated unsuccessfully`,name:`invalid`,parent:{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`},required:!1,tags:{},type:{name:`boolean`}},label:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`}],description:`The label of the Radio`,name:`label`,parent:{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`},required:!1,tags:{},type:{name:`string`}},name:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`}],description:`The name attribute of the Radio. Only Radios sharing the same name attribute will work together as expected.`,name:`name`,parent:{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`},required:!1,tags:{},type:{name:`string`}},onChange:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`}],description:`Handler to execute when the Radio changes`,name:`onChange`,parent:{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`},required:!1,tags:{},type:{name:`((value: string) => void)`}},onClick:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`}],description:`Handler to execute when the Radio is clicked`,name:`onClick`,parent:{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`},required:!1,tags:{},type:{name:`MouseEventHandler<HTMLElement>`}},required:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`}],description:`Whether the Radio is required`,name:`required`,parent:{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`},required:!1,tags:{},type:{name:`boolean`}},successtext:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`}],description:`A text to render when the Radio was successfully validated`,name:`successtext`,parent:{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`},required:!1,tags:{},type:{name:`ReactNode`}},valid:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`}],description:`Whether the Radio was successfully validated`,name:`valid`,parent:{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`},required:!1,tags:{},type:{name:`boolean`}},value:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`}],description:`The value of the Radio`,name:`value`,parent:{fileName:`ui-components/src/components/Radio/Radio.component.tsx`,name:`RadioProps`},required:!1,tags:{},type:{name:`string`}}},tags:{see:`https://cloudoperators.github.io/juno/?path=/docs/forms-radio--docs
+{@link RadioProps }`}}}catch{}}));export{S as i,R as n,x as r,L as t};
