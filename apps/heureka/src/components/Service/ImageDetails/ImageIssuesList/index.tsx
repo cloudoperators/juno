@@ -337,23 +337,17 @@ export const ImageIssuesList = ({
     },
   })
 
-  const handleFalsePositiveSuccess = useCallback(
-    (cveNumber: string) => {
-      setVulnerabilitiesSuccessMessage(
-        `Vulnerability ${cveNumber} has been marked as a false positive and moved to the Remediated list.`
-      )
-    },
-    []
-  )
+  const handleFalsePositiveSuccess = useCallback((cveNumber: string) => {
+    setVulnerabilitiesSuccessMessage(
+      `Vulnerability ${cveNumber} has been marked as a false positive and moved to the Remediated list.`
+    )
+  }, [])
 
-  const handleRiskAcceptanceSuccess = useCallback(
-    (cveNumber: string) => {
-      setVulnerabilitiesSuccessMessage(
-        `Vulnerability ${cveNumber} has been accepted as a risk and moved to the Remediated list.`
-      )
-    },
-    []
-  )
+  const handleRiskAcceptanceSuccess = useCallback((cveNumber: string) => {
+    setVulnerabilitiesSuccessMessage(
+      `Vulnerability ${cveNumber} has been accepted as a risk and moved to the Remediated list.`
+    )
+  }, [])
 
   const handleRemediatedTabRemediationSuccess = useCallback(
     (cveNumber: string, remediationType: RemediationTypeValues) => {
