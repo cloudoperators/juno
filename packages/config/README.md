@@ -70,6 +70,64 @@ import junoConfigs from "@cloudoperators/juno-config/eslint/juno-typescript.mjs"
 export default [...junoConfigs]
 ```
 
+## ESLint for Vite + React + TypeScript
+
+This package provides a modern ESLint configuration specifically designed for Vite React applications using TypeScript, following Vite's official recommendations.
+
+### Usage
+
+Create an `eslint.config.mjs` in your Vite React app:
+
+```javascript
+import viteReactTsConfigs from "@cloudoperators/juno-config/eslint/vite-react-ts.mjs"
+
+export default [
+  ...viteReactTsConfigs,
+  // Add your custom rules here
+]
+```
+
+### What's included
+
+- TypeScript type-checked linting (`typescript-eslint` recommendedTypeChecked)
+- React Hooks rules (`eslint-plugin-react-hooks`)
+- React Refresh rules for Vite HMR (`eslint-plugin-react-refresh`)
+- Browser environment globals
+- Custom unused vars pattern (allows underscore prefix)
+
+### Upgrading to stricter rules
+
+For more strict type checking, you can use the `strictTypeChecked` preset:
+
+```javascript
+import js from "@eslint/js"
+import globals from "globals"
+import tseslint from "typescript-eslint"
+import reactHooks from "eslint-plugin-react-hooks"
+import reactRefresh from "eslint-plugin-react-refresh"
+
+export default [
+  ...viteReactTsConfigs.slice(0, -1), // All configs except rules
+  {
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      js.configs.recommended,
+      ...tseslint.configs.strictTypeChecked, // Stricter than recommended
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite,
+    ],
+    // ... rest of config
+  },
+]
+```
+
+### Differences from juno-typescript.mjs
+
+- **TypeScript-first**: Only targets `.ts` and `.tsx` files (no JavaScript rules)
+- **Includes React plugins**: `react-hooks` and `react-refresh` are included by default
+- **Type-checked**: Uses `recommendedTypeChecked` for better type safety
+- **Vite-optimized**: Follows Vite's official React-TypeScript template structure
+
 ## Contributing
 
 We welcome contributions from the community. Please follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md) to contribute to this project.
