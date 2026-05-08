@@ -36,7 +36,7 @@ export const AllServicesIssuesCount = () => {
   return (
     <ErrorBoundary>
       <Stack className="bg-theme-background-lvl-1 py-1.5 px-4 my-px text-theme-light" alignment="center">
-        <Suspense fallback={<Spinner size="small" className="mr-3" />}>
+        <Suspense fallback={<Spinner size="small" />}>
           <IssuesCount servicesPromise={servicesPromise} />
         </Suspense>
       </Stack>

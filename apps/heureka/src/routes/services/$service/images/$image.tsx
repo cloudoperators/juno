@@ -62,7 +62,7 @@ function ImageDetailsPage() {
   // Otherwise, render the image details
   return (
     <ErrorBoundary displayErrorMessage>
-      <Suspense fallback={<Spinner className="mt-4 mr-3" />}>
+      <Suspense fallback={<Spinner className="mt-4" />}>
         <ImageDetails
           imagesPromise={imagesPromise}
           imageRepository={image}
