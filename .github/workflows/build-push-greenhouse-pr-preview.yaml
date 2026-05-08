@@ -199,12 +199,22 @@ jobs:
           if [ -z "${MATCHING_TAGS}" ]; then
             echo "No preview images found for PR ${PR_NUMBER}"
           else
+            DELETE_FAILED=0
+
             while IFS= read -r tag; do
               echo "Deleting ${IMAGE_BASE}:${tag}"
-              crane delete "${IMAGE_BASE}:${tag}" || echo "Failed to delete ${IMAGE_BASE}:${tag}"
+              if ! crane delete "${IMAGE_BASE}:${tag}"; then
+                echo "Failed to delete ${IMAGE_BASE}:${tag}"
+                DELETE_FAILED=1
+              fi
             done <<EOF
           ${MATCHING_TAGS}
           EOF
+
+            if [ "${DELETE_FAILED}" -ne 0 ]; then
+              echo "Cleanup failed for PR ${PR_NUMBER}: one or more preview images could not be deleted"
+              exit 1
+            fi
           fi
 
           echo "Cleanup completed for PR ${PR_NUMBER}"
