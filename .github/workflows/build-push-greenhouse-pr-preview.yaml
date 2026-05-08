@@ -40,7 +40,11 @@ jobs:
   build-and-push:
     name: Build and Push PR Preview Image
     # Skip if PR is closed or from a forked repository
-    if: github.event.action != 'closed' && github.event.pull_request.head.repo.full_name == github.repository
+    # Also skip if the labeled event is for the preview label (avoid triggering ourselves)
+    if: |
+      github.event.action != 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      !(github.event.action == 'labeled' && github.event.label.name == 'greenhouse-pr-preview')
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -220,6 +224,7 @@ jobs:
           echo "Cleanup completed for PR ${PR_NUMBER}"
 
       - name: Remove PR Preview label
+        if: always()
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
