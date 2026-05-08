@@ -24,6 +24,11 @@ on:
     paths:
       - "apps/greenhouse/**"
 
+# Ensure only one workflow runs per PR at a time
+concurrency:
+  group: greenhouse-pr-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: "juno-app-greenhouse-pr-preview"
@@ -34,11 +39,13 @@ env:
 jobs:
   build-and-push:
     name: Build and Push PR Preview Image
+    # Skip if PR is closed or from a forked repository
+    if: github.event.action != 'closed' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-      pull-requests: write
+      issues: write
     steps:
       - name: Check for PR Build label
         id: check-label
@@ -147,12 +154,13 @@ jobs:
 
   cleanup:
     name: Cleanup PR Preview Image
-    if: github.event.action == 'closed'
+    # Skip if PR is not closed or from a forked repository
+    if: github.event.action == 'closed' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-      pull-requests: write
+      issues: write
     steps:
       - name: Log into registry ${{ env.REGISTRY }}
         uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
@@ -163,13 +171,12 @@ jobs:
 
       - name: Install crane
         run: |
-          VERSION="latest"
+          VERSION="v0.20.3"
           OS="Linux"
           ARCH="x86_64"
 
-          curl -sL "https://github.com/google/go-containerregistry/releases/${VERSION}/download/go-containerregistry_${OS}_${ARCH}.tar.gz" | tar -xz crane
-          chmod +x crane
-          sudo mv crane /usr/local/bin/crane
+          curl -fsSL "https://github.com/google/go-containerregistry/releases/download/${VERSION}/go-containerregistry_${OS}_${ARCH}.tar.gz" | tar -xzf - crane
+          sudo install -m 0755 crane /usr/local/bin/crane
 
           crane version
 
@@ -180,11 +187,21 @@ jobs:
 
           echo "Looking for images matching pr-${PR_NUMBER}-*"
 
-          # List all tags and delete matching ones
-          crane ls "${IMAGE_BASE}" | grep "^pr-${PR_NUMBER}-" | while read tag; do
-            echo "Deleting ${IMAGE_BASE}:${tag}"
-            crane delete "${IMAGE_BASE}:${tag}" || echo "Failed to delete ${IMAGE_BASE}:${tag}"
-          done
+          # List all tags and delete matching ones. Cleanup should be tolerant when
+          # no repository exists yet or when there are no matching PR tags.
+          TAGS="$(crane ls "${IMAGE_BASE}" 2>/dev/null || true)"
+          MATCHING_TAGS="$(printf '%s\n' "${TAGS}" | grep "^pr-${PR_NUMBER}-" || true)"
+
+          if [ -z "${MATCHING_TAGS}" ]; then
+            echo "No preview images found for PR ${PR_NUMBER}"
+          else
+            while IFS= read -r tag; do
+              echo "Deleting ${IMAGE_BASE}:${tag}"
+              crane delete "${IMAGE_BASE}:${tag}" || echo "Failed to delete ${IMAGE_BASE}:${tag}"
+            done <<EOF
+          ${MATCHING_TAGS}
+          EOF
+          fi
 
           echo "Cleanup completed for PR ${PR_NUMBER}"
 
