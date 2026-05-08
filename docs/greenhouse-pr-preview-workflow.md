@@ -199,11 +199,13 @@ The workflow triggers on the following pull request events:
 Builds and pushes the Docker image when the `greenhouse-pr-build` label is present.
 
 **Conditions:**
+
 - PR is not closed
 - PR is from the same repository (not a fork)
 - Event is not adding the `greenhouse-pr-preview` label (avoids self-triggering)
 
 **Steps:**
+
 1. Check for `greenhouse-pr-build` label
 2. Remove `greenhouse-pr-preview` label (if new commit and label exists)
 3. Checkout code at PR HEAD SHA
@@ -218,10 +220,12 @@ Builds and pushes the Docker image when the `greenhouse-pr-build` label is prese
 Deletes Docker images and removes labels when the PR is closed.
 
 **Conditions:**
+
 - PR action is `closed`
 - PR is from the same repository (not a fork)
 
 **Steps:**
+
 1. Login to GitHub Container Registry
 2. Install crane (with SHA256 checksum verification)
 3. List all tags and delete matching `pr-{number}-*` images
@@ -232,6 +236,7 @@ Deletes Docker images and removes labels when the PR is closed.
 ### Fork Protection
 
 The workflow skips execution for pull requests from forked repositories. This prevents:
+
 - Permission errors (forks don't have `packages:write` or `issues:write`)
 - Wasted CI minutes
 - Potential security issues
@@ -247,6 +252,7 @@ concurrency:
 ```
 
 This prevents:
+
 - Race conditions on label removal/addition
 - Multiple simultaneous builds for the same PR
 - Incorrect deployment states
@@ -317,6 +323,7 @@ The workflow only triggers when files under `apps/greenhouse/**` are modified.
 ### Stale Preview
 
 If the `greenhouse-pr-build` label is removed but the preview stays:
+
 - The preview will remain deployed (by design)
 - No new builds will occur on future commits
 - Close the PR to trigger cleanup
