@@ -40,11 +40,14 @@ jobs:
   build-and-push:
     name: Build and Push PR Preview Image
     # Skip if PR is closed or from a forked repository
-    # Also skip if the labeled event is for the preview label (avoid triggering ourselves)
+    # For labeled events, only build when the added label is the PR build label
     if: |
       github.event.action != 'closed' &&
       github.event.pull_request.head.repo.full_name == github.repository &&
-      !(github.event.action == 'labeled' && github.event.label.name == 'greenhouse-pr-preview')
+      (
+          github.event.action != 'labeled' ||
+          github.event.label.name == env.PR_BUILD_LABEL
+      )
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -211,9 +214,7 @@ jobs:
                 echo "Failed to delete ${IMAGE_BASE}:${tag}"
                 DELETE_FAILED=1
               fi
-            done <<EOF
-          ${MATCHING_TAGS}
-          EOF
+            done <<< "${MATCHING_TAGS}"
 
             if [ "${DELETE_FAILED}" -ne 0 ]; then
               echo "Cleanup failed for PR ${PR_NUMBER}: one or more preview images could not be deleted"
