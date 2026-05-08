@@ -171,12 +171,16 @@ jobs:
 
       - name: Install crane
         run: |
-          VERSION="v0.20.3"
+          VERSION="v0.21.5"
           OS="Linux"
           ARCH="x86_64"
+          EXPECTED_SHA256="9f823ae5ee25803161110f957b5fd4538f714d40cdf25dacb4914fefafd246bf"
 
-          curl -fsSL "https://github.com/google/go-containerregistry/releases/download/${VERSION}/go-containerregistry_${OS}_${ARCH}.tar.gz" | tar -xzf - crane
+          curl -fsSL "https://github.com/google/go-containerregistry/releases/download/${VERSION}/go-containerregistry_${OS}_${ARCH}.tar.gz" -o crane.tar.gz
+          echo "${EXPECTED_SHA256}  crane.tar.gz" | sha256sum -c -
+          tar -xzf crane.tar.gz crane
           sudo install -m 0755 crane /usr/local/bin/crane
+          rm crane.tar.gz
 
           crane version
 
@@ -222,5 +226,6 @@ jobs:
                 console.log('Label does not exist or already removed');
               } else {
                 console.error('Error removing label:', error);
+                throw error;
               }
             }
