@@ -41,7 +41,7 @@ const btnSmallBase = `
 
 const btnXSBase = `
   jn:text-xs
-  jn:leading-normal
+  jn:leading-4
 `
 
 // default size typography
