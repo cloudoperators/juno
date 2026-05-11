@@ -47,6 +47,28 @@ const AlertLinks = ({ alert, className }: any) => {
           Logs
         </a>
       )}
+      {alert?.labels?.persesDashboard && alert?.labels?.region && (
+        <a
+          className="underline"
+          href={`https://perses.${alert?.labels?.region}.cloud.sap/projects/${alert?.labels?.persesDashboard}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+        >
+          Perses
+        </a>
+      )}
+      {alert?.labels?.persesGlobalDashboard && (
+        <a
+          className="underline"
+          href={`https://perses.global.cloud.sap/projects/${alert?.labels?.persesGlobalDashboard}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+        >
+          PersesGlobal
+        </a>
+      )}
       {alert?.labels?.dashboard && (
         <a
           className="underline"
