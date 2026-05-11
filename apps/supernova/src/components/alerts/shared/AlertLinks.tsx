@@ -66,7 +66,7 @@ const AlertLinks = ({ alert, className }: any) => {
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
         >
-          PersesGlobal
+          Perses Global
         </a>
       )}
       {alert?.labels?.dashboard && (
