@@ -22,7 +22,7 @@ const HintLoading = ({ text, centered }: any) => {
   return (
     <Stack {...stackProps}>
       <Stack alignment="center">
-        <Spinner variant="primary" />
+        <Spinner variant="primary" className="mr-3" />
         {text ? <span>{text}</span> : <span>Loading...</span>}
       </Stack>
     </Stack>
