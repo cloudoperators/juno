@@ -141,13 +141,15 @@ Developer                Workflow                  ArgoCD
 
 ### Enabling PR Preview
 
-1. Create a pull request with changes to `apps/greenhouse/**`
+1. Create a pull request
 2. Add the `greenhouse-pr-build` label to the PR
 3. The workflow will automatically:
    - Build a Docker image tagged as `pr-{number}-{sha}`
    - Push the image to `ghcr.io/cloudoperators/juno-app-greenhouse-pr-preview`
    - Add the `greenhouse-pr-preview` label
    - ArgoCD will detect the label and deploy the preview
+
+**Note**: The workflow triggers on any PR regardless of which files are changed. The `greenhouse-pr-build` label is the only control for enabling preview builds. This allows you to create previews for changes to Greenhouse itself or its dependent plugins (heureka, doop, supernova) or shared packages.
 
 ### Updating PR Preview
 

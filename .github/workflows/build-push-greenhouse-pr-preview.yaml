@@ -21,8 +21,6 @@ name: Build Greenhouse PR Preview 🔬
 on:
   pull_request:
     types: [ labeled, synchronize, opened, reopened, closed ]
-    paths:
-      - "apps/greenhouse/**"
 
 # Ensure only one workflow runs per PR at a time
 concurrency:
