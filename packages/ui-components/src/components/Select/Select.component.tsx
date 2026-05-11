@@ -37,7 +37,8 @@ const toggleStyles = `
   jn:h-[2.375rem]
   jn:inline-flex
   jn:items-center
-  jn:px-4
+  jn:pl-4
+  jn:pr-2
   jn:rounded-3px
   jn:select-none
   jn:text-base
