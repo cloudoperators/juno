@@ -31,6 +31,8 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: "juno-app-greenhouse-pr-preview"
   PACKAGE_PATH: "apps/greenhouse"
+  # Note: PR_BUILD_LABEL is also hardcoded in the build-and-push job condition
+  # because env context is not available in job-level if expressions
   PR_BUILD_LABEL: "greenhouse-pr-build"
   PR_PREVIEW_LABEL: "greenhouse-pr-preview"
 
@@ -44,13 +46,15 @@ jobs:
       github.event.pull_request.head.repo.full_name == github.repository &&
       (
           github.event.action != 'labeled' ||
-          github.event.label.name == env.PR_BUILD_LABEL
+          github.event.label.name == 'greenhouse-pr-build'
       )
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
+      # Both issues and pull-requests write permissions are needed for label operations
       issues: write
+      pull-requests: write
     steps:
       - name: Check for PR Build label
         id: check-label
@@ -165,7 +169,9 @@ jobs:
     permissions:
       contents: read
       packages: write
+      # Both issues and pull-requests write permissions are needed for label operations
       issues: write
+      pull-requests: write
     steps:
       - name: Log into registry ${{ env.REGISTRY }}
         uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
