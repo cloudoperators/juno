@@ -52,7 +52,9 @@ jobs:
     permissions:
       contents: read
       packages: write
+      # Both issues and pull-requests write permissions are needed for label operations
       issues: write
+      pull-requests: write
     steps:
       - name: Check for PR Build label
         id: check-label
@@ -167,7 +169,9 @@ jobs:
     permissions:
       contents: read
       packages: write
+      # Both issues and pull-requests write permissions are needed for label operations
       issues: write
+      pull-requests: write
     steps:
       - name: Log into registry ${{ env.REGISTRY }}
         uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
