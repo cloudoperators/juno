@@ -10,7 +10,7 @@ import { Stack, Spinner } from "@cloudoperators/juno-ui-components"
 const HintLoading = ({ text }: any) => {
   return (
     <Stack alignment="center">
-      <Spinner variant="primary" />
+      <Spinner variant="primary" className="mr-3" />
       {text ? <span>{text}</span> : <span>Loading...</span>}
     </Stack>
   )
