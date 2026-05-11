@@ -173,60 +173,13 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - name: Log into registry ${{ env.REGISTRY }}
-        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install crane
-        run: |
-          VERSION="v0.21.5"
-          OS="Linux"
-          ARCH="x86_64"
-          EXPECTED_SHA256="9f823ae5ee25803161110f957b5fd4538f714d40cdf25dacb4914fefafd246bf"
-
-          curl -fsSL "https://github.com/google/go-containerregistry/releases/download/${VERSION}/go-containerregistry_${OS}_${ARCH}.tar.gz" -o crane.tar.gz
-          echo "${EXPECTED_SHA256}  crane.tar.gz" | sha256sum -c -
-          tar -xzf crane.tar.gz crane
-          sudo install -m 0755 crane /usr/local/bin/crane
-          rm crane.tar.gz
-
-          crane version
-
       - name: Delete PR preview images
-        run: |
-          PR_NUMBER=${{ github.event.pull_request.number }}
-          IMAGE_BASE="${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}"
-
-          echo "Looking for images matching pr-${PR_NUMBER}-*"
-
-          # List all tags and delete matching ones. Cleanup should be tolerant when
-          # no repository exists yet or when there are no matching PR tags.
-          TAGS="$(crane ls "${IMAGE_BASE}" 2>/dev/null || true)"
-          MATCHING_TAGS="$(printf '%s\n' "${TAGS}" | grep "^pr-${PR_NUMBER}-" || true)"
-
-          if [ -z "${MATCHING_TAGS}" ]; then
-            echo "No preview images found for PR ${PR_NUMBER}"
-          else
-            DELETE_FAILED=0
-
-            while IFS= read -r tag; do
-              echo "Deleting ${IMAGE_BASE}:${tag}"
-              if ! crane delete "${IMAGE_BASE}:${tag}"; then
-                echo "Failed to delete ${IMAGE_BASE}:${tag}"
-                DELETE_FAILED=1
-              fi
-            done <<< "${MATCHING_TAGS}"
-
-            if [ "${DELETE_FAILED}" -ne 0 ]; then
-              echo "Cleanup failed for PR ${PR_NUMBER}: one or more preview images could not be deleted"
-              exit 1
-            fi
-          fi
-
-          echo "Cleanup completed for PR ${PR_NUMBER}"
+        uses: dataaxiom/ghcr-cleanup-action@cd0cdb900b5dbf3a6f2cc869f0dbb0b8211f50c4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          package: ${{ env.IMAGE_NAME }}
+          delete-tags: pr-${{ github.event.pull_request.number }}-*
+          delete-partial-images: true
 
       - name: Remove PR Preview label
         if: always()
