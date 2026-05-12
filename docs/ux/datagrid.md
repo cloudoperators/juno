@@ -26,15 +26,15 @@ The DataGrid is the primary pattern for displaying collections of structured dat
 A DataGrid typically consists of:
 
 - **DataGrid Toolbar** (also referred to as **DataGrid Header**)  — sits above the grid items; holds filters, search, bulk actions, and other controls to modify the display of the data or interacting with multiple items
-- **Datagrid Header row** — labels for each column; always present unless the column purpose is self-evident from context, or the data displayed in on or multiple indivudal cells is synthesized but can not be meaningfully labelled with a single or a few terms
+- **DataGrid Header row** — labels for each column; always present unless the column purpose is self-evident from context, or the data displayed in one or multiple individual cells is synthesized but can not be meaningfully labelled with a single or a few terms
 - **DataGrid rows** (also referred to as **DataGrid Items**) — one row representing an item or entity of the set of data displayed
-- **Datagrid Footer** – optional. Can hold pagination or other, additional controls and/or metadata concering the set as a whole
+- **DataGrid Footer** – optional. Can hold pagination or other, additional controls and/or metadata concering the set as a whole
 
 ## DataGrid Header / Toolbar
 
 (TODO: Illustation of a fully featured header)
 
-The DataGrid Toolbar holds all the tools necessary for users to modify and customise their view on the dataset, and to interact with multiple items at once by runing bulk actions.
+The DataGrid Toolbar holds all the tools necessary for users to modify and customise their view on the dataset, and to interact with multiple items at once by running bulk actions.
 
 More specifically, these are any combination of the following elements. Each element has a designated space in the DataGrid header structure. If an element is not needed, its space remains empty/unused. If none of the elements of a given zone is needed, don't render the zone / empty area at all.
 
@@ -42,20 +42,20 @@ More specifically, these are any combination of the following elements. Each ele
 
 ### Zone 1: Bulk Actions, Sorting, Action(s)
 
-- Bulk Actions: Actions that can be run on multiple items in the DataGrid at once. Containsd a Checkbox to select/deselect all items, and requires a Checkbox on each individual item / row.
+- Bulk Actions: Actions that can be run on multiple items in the DataGrid at once. Contains a Checkbox to select/deselect all items, and requires a Checkbox on each individual item / row.
 - Sorting: Select to choose what to sort by, and a button to toggle sort direction
 - Other Actions Overflow Menu: Any actions global to the data set other than the primary action
-- Primary Action: The primary, i.e. most likely action for users. If you users can create new items in the DataGrid, this can be done using the primary action button
+- Primary Action: The primary, i.e. most likely action for users. If users can create new items in the DataGrid, this can be done using the primary action button
 
 ### Zone 2: Filters and Search
 
 - Filter: Input elements to select what to filter the data by. Depending on the data displayed, this can be a simple Select, or a Select or ComboBox with an additional element such as another Select, Combobox, or often a TextInput.
 - Search: A SearchBox to perform a string-based search on the data and display the matching items. Make sure to manage user expectations as to what exactly will be searched, i.e. if the string entered is only matched against a single or a subset of fields, the placeholder should indicate that (e.g. "Search Description" if only descriptions can be searched)
-- Filter Pills: Each filter that has been configured by the user using the Filter element(s) and that is currently active is dsiplayed here. As a last item, there is a button that allows for clearign all active filters at once.
+- Filter Pills: Each filter that has been configured by the user using the Filter element(s) and that is currently active is displayed here. As a last item, there is a button that allows for clearing all active filters at once.
 
 ### Zone 3: DataGrid View/State, Refresh
 
-- Item Count: The number of items of the set that is currently visible as a whole (not one the page). If filters or searches are active, the number of matching items and the ntotal number of titems in the data set is being displayed.
+- Item Count: The number of items of the set that is currently visible as a whole (not only on the current page). If filters or searches are active, the number of matching items and the total number of items in the data set is being displayed.
 - Last Update, Update/Refresh: The date and time of the last refresh of the data displayed, and a button to trigger a refresh.
 
 All of the above elements are optional in the sense that none of them will be required for any given DataGrid. However, if you find yourself in a situation where none of the above options is needed or desired, re-consider whether using a DataGrid is the right choice to display the given data. This case can occur, but it is rare. In most cases a simple list is then a more appropriate option to display the data.
@@ -81,7 +81,7 @@ When rows contain nested interactive elements (buttons, links, overflow menus), 
 
 ### Selecting Rows / Items
 
-Use row selection (via checkboxes) when users need to act on multiple items at once. Bulk action buttons shouldbe enabled once at least a single item is selected, otherwise disabled.
+Use row selection (via checkboxes) when users need to act on multiple items at once. Bulk action buttons should be enabled once at least a single item is selected, otherwise disabled.
 
 ## DataGrid Empty, Loading, and Error States
 
@@ -90,16 +90,16 @@ A DataGrid must handle the full range of data states gracefully. Do not render a
 - **Loading:** Show a loading indicator scoped to the DataGrid, not the page as a whole
 - **Empty (no data):** Communicate that there is nothing to show, and suggest a next step where possible (e.g. "No items yet. Create one to get started." or "No results match your current filters.")
 - **Empty (filtered):** Distinguish between "no data exists" and "no data matches your filters" — these suggest different user actions
-- **Error:** Show an error state scoped to the DataGrid with a clear explanation and a retry option where possible. If exists, refer to the Re-Load/re-Fresh button as per below.
+- **Error:** Show an error state scoped to the DataGrid with a clear explanation and a retry option where possible. If present, refer users to the Reload/Refresh button described below.
 
 ## Re-Loading Data
 
-A datagrid may have a Reload/Refresh-button in the Header / Toolbar in order to make sure the latest state of the data is displayed and interacted with.
+A DataGrid may have a Reload/Refresh-button in the Header / Toolbar in order to make sure the latest state of the data is displayed and interacted with.
 
-## Datagrid Content and Writing
+## DataGrid Content and Writing
 
 - Column header labels should be nouns or noun phrases, not verbs. Verbs belong in action buttons, not headers.
-  Status values should be consistent and drawn from a defined vocabulary — do not mix "Active / Inactive" in one grid and "Running / Stopped" in another for the same concept.
+- Status values should be consistent and drawn from a defined vocabulary — do not mix "Active / Inactive" in one grid and "Running / Stopped" in another for the same concept.
 - Identifiers, names, and values that uniquely identify a row item should always be present and clearly visible, even if the grid is heavily filtered or sorted.
 - Columns with content that is self-explanatory, either by itself or by sticking to the guidelines described, do not necessarily need a column header/title. A leftmost column that holds the checkboxes in order to select multiple items for bulk actions does not need a title.
-- See [UX Writing and Content Design](vscode-webview://1h330fn11n42erpl28v4kc3t7nu0oi7cfoj8lbcph6qa193vhcn0/ux-writing-content-design.md) for broader writing guidelines.
+- See [UX Writing and Content Design](ux-writing-content-design.md) for broader writing guidelines.
