@@ -28,7 +28,7 @@ A DataGrid typically consists of:
 - **DataGrid Toolbar** (also referred to as **DataGrid Header**)  — sits above the grid items; holds filters, search, bulk actions, and other controls to modify the display of the data or interacting with multiple items
 - **DataGrid Header row** — labels for each column; always present unless the column purpose is self-evident from context, or the data displayed in one or multiple individual cells is synthesized but can not be meaningfully labelled with a single or a few terms
 - **DataGrid rows** (also referred to as **DataGrid Items**) — one row representing an item or entity of the set of data displayed
-- **DataGrid Footer** – optional. Can hold pagination or other, additional controls and/or metadata concering the set as a whole
+- **DataGrid Footer** – optional. Can hold pagination or other, additional controls and/or metadata concerning the set as a whole
 
 ## DataGrid Header / Toolbar
 
