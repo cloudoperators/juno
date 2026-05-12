@@ -235,8 +235,9 @@ Deletes Docker images using the shared GHCR cleanup workflow when the PR is clos
 **Workflow:**
 
 Uses `cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml` with:
+
 - `package`: juno-app-greenhouse-pr-preview
-- `delete-tags`: pr-{number}-* (wildcard pattern)
+- `delete-tags`: pr-{number}-\* (wildcard pattern)
 - `delete-partial-images`: true
 
 ### remove-label
@@ -266,6 +267,7 @@ Sends Slack notifications when image cleanup fails.
 **Notification:**
 
 Sends alert to Slack with:
+
 - PR number
 - Link to workflow logs
 - Request for manual cleanup if needed
@@ -307,6 +309,7 @@ The label removal step runs with `if: always()` to ensure the preview is torn do
 ### Slack Notifications
 
 If image cleanup fails, a Slack notification is sent with:
+
 - PR number
 - Link to workflow logs
 - Alert emoji for visibility
