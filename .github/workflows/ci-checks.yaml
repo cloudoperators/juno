@@ -23,17 +23,17 @@ env:
 
 jobs:
   reuse-compliance:
-    uses: cloudoperators/common/.github/workflows/shared-reuse.yaml@17d3d6b80851574fcd8c7b6e5c4fe6aee2922359 # main
+    uses: cloudoperators/common/.github/workflows/shared-reuse.yaml@d138f9922c75ed1e1ad3ae3bfb68dd8ae3284dc6 # main
 
   license-headers:
     permissions:
       contents: write
-    uses: cloudoperators/common/.github/workflows/shared-license.yaml@17d3d6b80851574fcd8c7b6e5c4fe6aee2922359 # main
+    uses: cloudoperators/common/.github/workflows/shared-license.yaml@d138f9922c75ed1e1ad3ae3bfb68dd8ae3284dc6 # main
     with:
       apply_header: false
 
   cache-dependencies:
-    runs-on: [ubuntu-latest]
+    runs-on: [ ubuntu-latest ]
     steps:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
 
@@ -65,7 +65,7 @@ jobs:
 
   checks:
     needs: cache-dependencies
-    runs-on: [ubuntu-latest]
+    runs-on: [ ubuntu-latest ]
     strategy:
       matrix:
         include:
