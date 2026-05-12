@@ -333,7 +333,7 @@ Note: The `cleanup` job uses a shared reusable workflow, but that workflow canno
 
 ### remove-label job
 
-- `issues: write` - Remove labels from PRs  
+- `issues: write` - Remove labels from PRs
 - `pull-requests: write` - Required for PR label operations (even though Issues API is used)
 
 ## Configuration
