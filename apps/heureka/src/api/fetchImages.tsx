@@ -41,9 +41,11 @@ export const fetchImages = ({
       afterVersions,
       vulFilter,
     ],
+    staleTime: 2.5 * 60 * 1000,
     queryFn: () =>
       apiClient.query<GetImagesQuery>({
         query: GetImagesDocument,
+        fetchPolicy: "network-only",
         variables: {
           imgFilter: filter,
           vulFilter,

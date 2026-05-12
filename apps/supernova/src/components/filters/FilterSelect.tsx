@@ -31,6 +31,7 @@ const FilterSelect = () => {
   const navigate = useNavigate()
   const [filterLabel, setFilterLabel] = useState("")
   const [filterValue, setFilterValue] = useState("")
+  const [comboBoxQuery, setComboBoxQuery] = useState("")
   const { addActiveFilter, loadFilterLabelValues, clearFilters, setSearchTerm } = useFilterActions()
   const filterLabels = useFilterLabels()
   const filterLabelValues = useFilterLabelValues()
@@ -39,6 +40,7 @@ const FilterSelect = () => {
 
   const handleFilterLabelChange = (value: any) => {
     setFilterLabel(value)
+    setComboBoxQuery("")
     // lazy loading of all possible values for this label (only load them if we haven't already)
     if (!filterLabelValues[value]?.values) {
       loadFilterLabelValues(value)
@@ -98,6 +100,7 @@ const FilterSelect = () => {
           value={filterValue}
           name="filterValue"
           onChange={(value: string) => handleFilterValueChange(value)}
+          onInputChange={(e: React.ChangeEvent<HTMLInputElement>) => setComboBoxQuery(e.target.value)}
           disabled={filterLabelValues[filterLabel] ? false : true}
           loading={filterLabelValues[filterLabel]?.isLoading}
           className="filter-value-select w-96 bg-theme-background-lvl-0"
@@ -108,7 +111,8 @@ const FilterSelect = () => {
                 value: any // filter out already active values for this label
               ) => !activeFilters[filterLabel]?.includes(value)
             )
-            .slice(0, 100) // take only the first 100 values. This isn't a good solution TODO: fix this properly with combo box, typeahead search, lazy loading, etc.
+            .filter((value: any) => (comboBoxQuery ? value.toLowerCase().includes(comboBoxQuery.toLowerCase()) : true))
+            .slice(0, 100)
             .map((value: any) => (
               <ComboBoxOption value={value} key={value} />
             ))}

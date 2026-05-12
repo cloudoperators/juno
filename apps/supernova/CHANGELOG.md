@@ -1,5 +1,44 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.19.29
+
+### Patch Changes
+
+- Updated dependencies [9bf3fcb]
+  - @cloudoperators/juno-messages-provider@0.2.37
+
+## 0.19.28
+
+### Patch Changes
+
+- Updated dependencies [98a250f]
+  - @cloudoperators/juno-messages-provider@0.2.36
+
+## 0.19.27
+
+### Patch Changes
+
+- Updated dependencies [c4a3574]
+  - @cloudoperators/juno-messages-provider@0.2.35
+
+## 0.19.26
+
+### Patch Changes
+
+- f7682fd: fix(supernova): filter combobox no longer cuts off values beyond position 100
+
+## 0.19.25
+
+### Patch Changes
+
+- b4bc2c2: Fix high vulnerabilities related to transitive dependencies `picomatch` by upgrading root project dependencies and where not possible, locking `picomatch` at versions without vulnerabilities.
+- Updated dependencies [078d641]
+- Updated dependencies [b4bc2c2]
+- Updated dependencies [f69e63e]
+  - @cloudoperators/juno-ui-components@6.2.1
+  - @cloudoperators/juno-messages-provider@0.2.34
+  - @cloudoperators/juno-url-state-provider@3.0.8
+
 ## 0.19.24
 
 ### Patch Changes

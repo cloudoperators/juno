@@ -1,5 +1,33 @@
 # @cloudoperators/juno-messages-provider
 
+## 0.2.37
+
+### Patch Changes
+
+- 9bf3fcb: Test upload message provider with trusted publishing
+
+## 0.2.36
+
+### Patch Changes
+
+- 98a250f: Updates message provider using npm trusted publishing
+
+## 0.2.35
+
+### Patch Changes
+
+- c4a3574: Moved to trusted publishing
+
+## 0.2.34
+
+### Patch Changes
+
+- f69e63e: fix: address CVE-2026-39363 vulnerability in vite
+- Updated dependencies [078d641]
+- Updated dependencies [b4bc2c2]
+- Updated dependencies [f69e63e]
+  - @cloudoperators/juno-ui-components@6.2.1
+
 ## 0.2.33
 
 ### Patch Changes

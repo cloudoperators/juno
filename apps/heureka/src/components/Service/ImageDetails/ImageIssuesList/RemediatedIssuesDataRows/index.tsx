@@ -30,7 +30,20 @@ export const RemediatedIssuesDataRows = ({
   const remediationsResult = use(remediationsPromise)
   const { error: issuesError, data: issuesData } = issuesResult
   const { error: remediationsError } = remediationsResult
+
   const { vulnerabilities } = getNormalizedImageVulnerabilitiesResponse(issuesData as GetImagesQuery | undefined)
+
+  // Build a set of CVE names that currently have a remediation record.
+  // This is the source of truth for the split between Active and Remediated tabs:
+  // - status:remediated CVEs without a record were just reverted → hide immediately
+  // - status:open CVEs with a record were just marked as FP → show immediately
+  const remediatedCveNames = new Set(
+    remediationsResult.data?.Remediations?.edges?.map((e) => e?.node?.vulnerability).filter(Boolean) ?? []
+  )
+
+  // Show only vulnerabilities that have a remediation record, regardless of backend status.
+  const visibleVulnerabilities = vulnerabilities.filter((v) => v?.name && remediatedCveNames.has(v.name))
+
   if (issuesError) {
     return (
       <EmptyDataGridRow colSpan={COLUMN_SPAN}>
@@ -39,7 +52,7 @@ export const RemediatedIssuesDataRows = ({
     )
   }
 
-  if (vulnerabilities.length === 0) {
+  if (visibleVulnerabilities.length === 0) {
     return <EmptyDataGridRow colSpan={COLUMN_SPAN}>No remediated vulnerabilities found!</EmptyDataGridRow>
   }
 
@@ -55,7 +68,7 @@ export const RemediatedIssuesDataRows = ({
           </Stack>
         </EmptyDataGridRow>
       )}
-      {vulnerabilities.map((issue) => (
+      {visibleVulnerabilities.map((issue) => (
         <RemediatedIssueDataRow
           key={issue.id}
           issue={issue}

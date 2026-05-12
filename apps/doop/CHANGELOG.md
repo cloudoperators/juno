@@ -1,5 +1,38 @@
 # @cloudoperators/juno-app-doop
 
+## 2.6.25
+
+### Patch Changes
+
+- Updated dependencies [9bf3fcb]
+  - @cloudoperators/juno-messages-provider@0.2.37
+
+## 2.6.24
+
+### Patch Changes
+
+- Updated dependencies [98a250f]
+  - @cloudoperators/juno-messages-provider@0.2.36
+
+## 2.6.23
+
+### Patch Changes
+
+- Updated dependencies [c4a3574]
+  - @cloudoperators/juno-messages-provider@0.2.35
+
+## 2.6.22
+
+### Patch Changes
+
+- b4bc2c2: Fix high vulnerabilities related to transitive dependencies `picomatch` by upgrading root project dependencies and where not possible, locking `picomatch` at versions without vulnerabilities.
+- Updated dependencies [078d641]
+- Updated dependencies [b4bc2c2]
+- Updated dependencies [f69e63e]
+  - @cloudoperators/juno-ui-components@6.2.1
+  - @cloudoperators/juno-messages-provider@0.2.34
+  - @cloudoperators/juno-url-state-provider@3.0.8
+
 ## 2.6.21
 
 ### Patch Changes
