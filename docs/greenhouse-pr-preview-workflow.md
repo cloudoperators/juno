@@ -325,12 +325,16 @@ This ensures the team is aware of orphaned images that may need manual cleanup.
 - `issues: write` - Add/remove labels on PRs
 - `pull-requests: write` - Manage PR labels
 
+### cleanup job
+
+- `packages: write` - Delete container images
+
+Note: The `cleanup` job uses a shared reusable workflow, but that workflow cannot elevate `GITHUB_TOKEN` permissions beyond what the caller grants. The caller workflow must still declare the permissions required for cleanup to succeed, such as `packages: write` for deleting container images.
+
 ### remove-label job
 
 - `issues: write` - Remove labels from PRs
 - `pull-requests: write` - Manage PR labels
-
-Note: The `cleanup` job inherits permissions from the shared workflow it calls.
 
 ## Configuration
 
