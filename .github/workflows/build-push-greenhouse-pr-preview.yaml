@@ -164,26 +164,23 @@ jobs:
   cleanup:
     name: Cleanup PR Preview Image
     # Skip if PR is not closed or from a forked repository
-    if: github.event.action == 'closed' &&
-      github.event.pull_request.head.repo.full_name == github.repository
+    if: github.event.action == 'closed' && github.event.pull_request.head.repo.full_name == github.repository
+    uses: cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml@d1a776c4a34f7c85aa252bf52b7fa92afa9e547e # PR#59
+    with:
+      package: juno-app-greenhouse-pr-preview
+      delete-tags: pr-${{ github.event.pull_request.number }}-*
+      delete-partial-images: true
+
+  remove-label:
+    name: Remove PR Preview Label
+    needs: cleanup
+    if: always() && github.event.action == 'closed' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      packages: write
-      # Both issues and pull-requests write permissions are needed for label operations
       issues: write
       pull-requests: write
     steps:
-      - name: Delete PR preview images
-        uses: dataaxiom/ghcr-cleanup-action@cd0cdb900b5dbf3a6f2cc869f0dbb0b8211f50c4 # v1.0.16
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          package: ${{ env.IMAGE_NAME }}
-          delete-tags: pr-${{ github.event.pull_request.number }}-*
-          delete-partial-images: true
-
       - name: Remove PR Preview label
-        if: always()
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
