@@ -200,3 +200,13 @@ jobs:
                 throw error;
               }
             }
+
+  notify-on-failure:
+    if: failure()
+    needs: [cleanup, remove-label]
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@e69fd9982d52aa1e1623ceda55875724843516b6 # main
+    with:
+      title: "🚨 Greenhouse PR Preview Cleanup Failed 🚨"
+      body: "An error occurred while cleaning up PR #${{ github.event.pull_request.number }} preview images. Please check the logs for more information. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>"
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
