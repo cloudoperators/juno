@@ -178,6 +178,7 @@ jobs:
       packages: write
     uses: cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml@d138f9922c75ed1e1ad3ae3bfb68dd8ae3284dc6 # main
     with:
+      runs-on: ubuntu-latest
       package: juno-app-greenhouse-pr-preview
       delete-tags: pr-${{ github.event.pull_request.number }}-*
       delete-partial-images: true
@@ -190,6 +191,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       issues: write
+      pull-requests: write
     steps:
       - name: Remove PR Preview label
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0

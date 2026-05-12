@@ -30,8 +30,8 @@ INITIAL SETUP
 ─────────────
 Developer                Workflow                  ArgoCD
     │                        │                        │
-    ├──► Add "pr-build"      │                        │
-    │    label               │                        │
+    ├──► Add "greenhouse-    │                        │
+    │    pr-build" label     │                        │
     │                        │                        │
     │                    ┌───▼────────────────────┐   │
     │                    │ Build Docker image     │   │
@@ -43,8 +43,8 @@ Developer                Workflow                  ArgoCD
     │                    └───┬────────────────────┘   │
     │                        │                        │
     │                    ┌───▼────────────────────┐   │
-    │                    │ Add "pr-preview"       │   │
-    │                    │ label                  │   │
+    │                    │ Add "greenhouse-       │   │
+    │                    │ pr-preview" label      │   │
     │                    └───┬────────────────────┘   │
     │                        │                        │
     │                        ├──────────────────────► │
@@ -62,8 +62,8 @@ Developer                Workflow                  ArgoCD
     ├──► Push commit         │                        │
     │                        │                        │
     │                    ┌───▼────────────────────┐   │
-    │                    │ Check "pr-build"       │   │
-    │                    │ label exists?          │   │
+    │                    │ Check "greenhouse-     │   │
+    │                    │ pr-build" exists?      │   │
     │                    └───┬────────────────────┘   │
     │                        │                        │
     │                ┌───────┴────────┐               │
@@ -72,8 +72,8 @@ Developer                Workflow                  ArgoCD
     │                │                │               │
     │    ┌───────────▼───────┐   ┌────▼────────┐    │
     │    │ Remove            │   │ Skip build  │    │
-    │    │ "pr-preview"      │   │ Exit        │    │
-    │    │ label             │   └─────────────┘    │
+    │    │ "greenhouse-      │   │ Exit        │    │
+    │    │ pr-preview" label │   └─────────────┘    │
     │    └───────────┬───────┘        │             │
     │                │                 │             │
     │                ├─────────────────┼────────────► │
@@ -96,8 +96,8 @@ Developer                Workflow                  ArgoCD
     │    └──────────┬────────┘         │             │
     │               │                  │             │
     │    ┌──────────▼────────┐         │             │
-    │    │ Add "pr-preview" │         │             │
-    │    │ label back       │         │             │
+    │    │ Add "greenhouse-  │         │             │
+    │    │ pr-preview" back  │         │             │
     │    └──────────┬────────┘         │             │
     │               │                  │             │
     │               ├──────────────────┼────────────► │
@@ -125,8 +125,9 @@ Developer                Workflow                  ArgoCD
     │                    └───┬────────────────────┘   │
     │                        │                        │
     │                    ┌───▼────────────────────┐   │
-    │                    │ Remove "pr-preview"    │   │
-    │                    │ label (always runs)    │   │
+    │                    │ Remove "greenhouse-    │   │
+    │                    │ pr-preview" label      │   │
+    │                    │ (always runs)          │   │
     │                    └───┬────────────────────┘   │
     │                        │                        │
     │                    ┌───▼────────────────────┐   │
@@ -334,6 +335,7 @@ Note: The `cleanup` job uses a shared reusable workflow, but that workflow canno
 ### remove-label job
 
 - `issues: write` - Remove labels from PRs
+- `pull-requests: write` - Required for PR label operations (even though Issues API is used)
 
 ## Configuration
 
