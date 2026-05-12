@@ -176,7 +176,7 @@ jobs:
       github.event.pull_request.head.repo.full_name == github.repository
     permissions:
       packages: write
-    uses: cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml@4443dc4 # PR#59
+    uses: cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml@d138f9922c75ed1e1ad3ae3bfb68dd8ae3284dc6 # main
     with:
       package: juno-app-greenhouse-pr-preview
       delete-tags: pr-${{ github.event.pull_request.number }}-*
