@@ -3,23 +3,33 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { defineConfig } from "vite"
 import dts from "vite-plugin-dts"
 
-export default {
+export default defineConfig({
   build: {
     lib: {
-      entry: "src/index.ts", // or 'src/main.ts' if TypeScript
-      name: "oauth", // Replace with your library's global name
-      formats: ["es"], // Output formats: ESM and CommonJS
-      fileName: () => `index.js`, // Output file names
+      entry: "src/index.ts",
+      name: "oauth",
+      formats: ["es"],
+      fileName: () => `index.js`,
     },
     outDir: "build",
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
   },
   plugins: [
     dts({
       exclude: ["./__tests__/**/*.test.ts", "vitest.setup.ts"],
-      insertTypesEntry: true, // Ensure types are properly exported
-      outDir: "build", // Specify where to output the types
+      include: ["src/**/*.ts"],
+      insertTypesEntry: true,
+      outDir: "build",
+      tsconfigPath: "./tsconfig.json",
+      copyDtsFiles: true,
+      compilerOptions: {
+        rootDir: "src",
+      },
     }),
   ],
-}
+})

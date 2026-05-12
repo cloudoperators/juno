@@ -14,9 +14,9 @@
     "noEmit": null,
     "allowImportingTsExtensions": false,
     "allowSyntheticDefaultImports": true,
-    "types": ["@testing-library/jest-dom"]
+    "types": ["@testing-library/jest-dom", "vite/client"]
   },
-  "include": ["./src/**/*.ts", "./types/**/*.ts", "./src/**/*.tsx"],
+  "include": ["./src/**/*.ts", "./types/**/*.ts", "./types/**/*.d.ts", "./src/**/*.tsx"],
   "exclude": [
     "node_modules",
     "build",

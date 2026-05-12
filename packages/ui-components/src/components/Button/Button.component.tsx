@@ -39,6 +39,11 @@ const btnSmallBase = `
   jn:leading-5
 `
 
+const btnXSBase = `
+  jn:text-xs
+  jn:leading-4
+`
+
 // default size typography
 const btnDefaultBase = `
   jn:text-base
@@ -53,6 +58,11 @@ const btnSmallDefaultPadding = `
 const btnSmallSubduedPadding = `
   jn:py-[0.25rem]
   jn:px-1.75
+`
+
+const btnXSDefaultPadding = `
+  jn:py-1
+  jn:px-1.5
 `
 
 // default size padding
@@ -81,7 +91,7 @@ const primaryButtonColors = `
   jn:hover:bg-theme-button-primary-hover
   jn:hover:text-theme-button-primary-hover
   jn:active:bg-theme-button-primary-active
-  jn_active:text-theme-button-primary-active
+  jn:active:text-theme-button-primary-active
 `
 
 const primaryDangerButtonColors = `
@@ -101,16 +111,15 @@ const subduedButtonColors = `
   jn:active:bg-theme-button-subdued-active
   jn:active:text-theme-button-subdued-active
 `
-// jn:border
-// jn:border-theme-button-subdued
-// jn:hover:border-theme-button-subdued-hover
-// jn:active:border-theme-button-subdued-active
 
 const getButtonPadding = (size: ButtonSize, variant: ButtonVariant | undefined) => {
-  if (size === "small") {
-    return variant === "subdued" ? `${btnSmallSubduedPadding}` : `${btnSmallDefaultPadding}`
-  } else {
-    return variant === "subdued" ? `${btnDefaultSubduedPadding}` : `${btnDefaultPadding}`
+  switch (size) {
+    case "small":
+      return variant === "subdued" ? `${btnSmallSubduedPadding}` : `${btnSmallDefaultPadding}`
+    case "xs":
+      return `${btnXSDefaultPadding}`
+    default:
+      return variant === "subdued" ? `${btnDefaultSubduedPadding}` : `${btnDefaultPadding}`
   }
 }
 
@@ -133,15 +142,44 @@ const btnIconSmall = `
   jn:mr-2
 `
 
+const btnIconXS = `
+  jn:mr-1
+`
+
 const btnIconDefault = `
   jn:mr-2
 `
 
+const getButtonBase = (size: ButtonSize) => {
+  switch (size) {
+    case "small":
+      return btnSmallBase
+    case "xs":
+      return btnXSBase
+    default:
+      return btnDefaultBase
+  }
+}
+
 const iconClasses = (size: ButtonSize) => {
-  if (size === "small") {
-    return `${btnIconSmall}`
-  } else {
-    return `${btnIconDefault}`
+  switch (size) {
+    case "small":
+      return `${btnIconSmall}`
+    case "xs":
+      return `${btnIconXS}`
+    default:
+      return `${btnIconDefault}`
+  }
+}
+
+const iconSize = (size: ButtonSize) => {
+  switch (size) {
+    case "small":
+      return "1.125rem"
+    case "xs":
+      return "1rem"
+    default:
+      return "1.5rem"
   }
 }
 
@@ -192,13 +230,17 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
     const titleValue = title || label || ""
 
     const buttonIcon = progress ? (
-      <Spinner size={size === "small" ? "1.125rem" : "1.5rem"} color={spinnerColorClass(variant)} />
+      <Spinner
+        size={`${iconSize(size)}`}
+        color={spinnerColorClass(variant)}
+        className={`${label || children ? iconClasses(size) : ""}`}
+      />
     ) : icon ? (
       <Icon
         icon={icon}
         title={titleValue}
         className={`juno-button-icon ${label || children ? iconClasses(size) : ""} `}
-        size={size === "small" ? "1.125rem" : "1.5rem"}
+        size={`${iconSize(size)}`}
       />
     ) : null
 
@@ -215,7 +257,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
           juno-button-${variant} 
           juno-button-${size}-size 
           ${btnBase} 
-          ${size === "small" ? btnSmallBase : btnDefaultBase} 
+          ${getButtonBase(size)}
           ${getButtonPadding(size, variant)}
           ${getButtonColors(variant)}
           ${progressClass(progress)} 
@@ -241,7 +283,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
           juno-button-${variant} 
           juno-button-${size}-size 
           ${btnBase} 
-          ${size === "small" ? btnSmallBase : btnDefaultBase}
+          ${getButtonBase(size)}
           ${getButtonPadding(size, variant)}
           ${getButtonColors(variant)}
           ${progressClass(progress)} 
@@ -264,8 +306,8 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
 
 Button.displayName = "Button"
 
-type ButtonVariant = "primary" | "primary-danger" | "default" | "subdued"
-type ButtonSize = "small" | "default"
+export type ButtonVariant = "primary" | "primary-danger" | "default" | "subdued"
+type ButtonSize = "small" | "xs" | "default"
 
 export interface ButtonProps extends Omit<HTMLProps<HTMLAnchorElement> | HTMLProps<HTMLButtonElement>, "size"> {
   /**

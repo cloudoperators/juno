@@ -1,5 +1,19 @@
 # @cloudoperators/juno-ui-components
 
+## 6.3.1
+
+### Patch Changes
+
+- 031af0b: feat(ui): update Modal docs, stories
+- f0e8ddc: Upgraded Vite from 7.x to 8.0.10 and TypeScript from 5.x to 6.0.2 across all packages and apps.
+- 377981a: feat(ui): add confirmButtonVariant prop to ModalFooter, Modal, default to primary-danger
+
+## 6.3.0
+
+### Minor Changes
+
+- 9ea760e: feat(ui): add Divider component
+
 ## 6.2.1
 
 ### Patch Changes

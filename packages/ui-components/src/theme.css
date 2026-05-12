@@ -337,6 +337,7 @@
   --border-theme-button-subdued: 1px solid var(--color-button-subdued-border);
   --border-theme-button-subdued-hover: var(--color-button-subdued-hover-border);
   --border-theme-button-subdued-active: var(--color-button-subdued-active-border);
+  --border-color-theme-divider: var(--color-divider-border);
 
   --background-color-theme-card-default: var(--color-card-background-default);
 
@@ -469,7 +470,7 @@
   --width-grid-col-11: 91.666667%;
   --width-grid-col-12: 100%;
 
-  --breakpoint-3xl: "1856px";
+  --breakpoint-3xl: 1856px;
 
   --radius-3px: 3px;
 
@@ -518,7 +519,7 @@
 
   /* LT Global */
   --color-global-bg: var(--color-juno-grey-light-1);
-
+  --color-border-default: var(--color-juno-grey-light-7);
   --color-global-text: var(--color-juno-text-default);
   --color-content-area-bg: var(--color-background-lvl-0);
   /* LT FOCUS */
@@ -581,6 +582,9 @@
   /* |-- LT Primary Danger Button :active */
   --color-button-primary-danger-active-text: var(--color-white);
   --color-button-primary-danger-active-bg: var(--color-juno-primary-danger-5);
+
+  /* LT Divider */
+  --color-divider-border: var(--color-border-default);
 
   /* LT Icon */
   --color-severity-critical: rgb(165, 11, 11);
@@ -765,7 +769,7 @@
 
   /* DT Global */
   --color-global-bg: var(--color-juno-grey-blue-10);
-
+  --color-border-default: var(--color-juno-grey-blue-3);
   --color-global-text: var(--color-juno-text-default);
   --color-content-area-bg: var(--color-background-lvl-0);
 
@@ -831,6 +835,9 @@
   /* |-- DT Primary Danger Button :active */
   --color-button-primary-danger-active-text: var(--color-white);
   --color-button-primary-danger-active-bg: var(--color-juno-primary-danger-5);
+
+  /* DT Divider */
+  --color-divider-border: var(--color-border-default);
 
   /* DT Icon */
   --color-severity-critical: rgb(255, 18, 20);

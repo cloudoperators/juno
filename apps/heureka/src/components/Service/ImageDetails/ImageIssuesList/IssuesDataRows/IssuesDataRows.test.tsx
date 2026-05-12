@@ -122,6 +122,7 @@ function renderWithRouter(
           service="my-service"
           image="repo/image"
           onFalsePositiveSuccess={() => {}}
+          onRiskAcceptanceSuccess={() => {}}
         />
       </Suspense>
     ),
@@ -167,6 +168,7 @@ describe("IssuesDataRows — active/remediated split", () => {
             service="my-service"
             image="repo/image"
             onFalsePositiveSuccess={() => {}}
+            onRiskAcceptanceSuccess={() => {}}
           />
         </Suspense>
       )
@@ -206,11 +208,67 @@ describe("IssuesDataRows — active/remediated split", () => {
             service="my-service"
             image="repo/image"
             onFalsePositiveSuccess={() => {}}
+            onRiskAcceptanceSuccess={() => {}}
           />
         </Suspense>
       )
     })
 
     expect(await screen.findByText("No vulnerabilities found! 🚀")).toBeInTheDocument()
+  })
+})
+
+describe("IssuesDataRows — risk acceptance", () => {
+  it("shows vulnerability in active tab when no risk acceptance remediation exists", async () => {
+    const issuesPromise = makeImagesPromise(["CVE-2024-9999"])
+    const remediationsPromise = makeRemediationsPromise([])
+
+    await act(async () => {
+      renderWithRouter(issuesPromise, remediationsPromise)
+    })
+
+    expect(await screen.findByText("CVE-2024-9999")).toBeInTheDocument()
+  })
+
+  it("removes vulnerability from active tab after it is marked as risk accepted", async () => {
+    const issuesPromise = makeImagesPromise(["CVE-2024-9999"])
+    const remediationsPromise = makeRemediationsPromise(["CVE-2024-9999"])
+
+    await act(async () => {
+      renderWithRouter(issuesPromise, remediationsPromise)
+    })
+
+    expect(screen.queryByText("CVE-2024-9999")).not.toBeInTheDocument()
+    expect(await screen.findByText("No vulnerabilities found! 🚀")).toBeInTheDocument()
+  })
+
+  it("restores vulnerability to active tab when risk acceptance is reverted (remediation removed)", async () => {
+    // First render with remediation present (risk accepted)
+    const issuesPromise = makeImagesPromise(["CVE-2024-9999"])
+    const withRemediation = makeRemediationsPromise(["CVE-2024-9999"])
+
+    const { unmount } = await act(async () => renderWithRouter(issuesPromise, withRemediation))
+    expect(screen.queryByText("CVE-2024-9999")).not.toBeInTheDocument()
+    unmount()
+
+    // Re-render without remediation (reverted)
+    const withoutRemediation = makeRemediationsPromise([])
+    await act(async () => {
+      renderWithRouter(issuesPromise, withoutRemediation)
+    })
+
+    expect(await screen.findByText("CVE-2024-9999")).toBeInTheDocument()
+  })
+
+  it("only removes the risk-accepted CVE when multiple vulnerabilities are present", async () => {
+    const issuesPromise = makeImagesPromise(["CVE-2024-9999", "CVE-2024-8888"])
+    const remediationsPromise = makeRemediationsPromise(["CVE-2024-9999"])
+
+    await act(async () => {
+      renderWithRouter(issuesPromise, remediationsPromise)
+    })
+
+    expect(screen.queryByText("CVE-2024-9999")).not.toBeInTheDocument()
+    expect(await screen.findByText("CVE-2024-8888")).toBeInTheDocument()
   })
 })

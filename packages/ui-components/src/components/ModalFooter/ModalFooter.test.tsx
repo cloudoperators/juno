@@ -79,6 +79,28 @@ describe("ModalFooter", () => {
     expect(screen.getByTestId("my-modal-footer")).toHaveAttribute("name", "My little ModalFooter")
   })
 
+  describe("confirmButtonVariant", () => {
+    test("renders the Close button with 'primary' variant by default", () => {
+      render(<ModalFooter />)
+      expect(screen.getByRole("button", { name: "Close" })).toHaveClass("juno-button-primary")
+    })
+
+    test("renders the Confirm button with 'primary' variant by default", () => {
+      render(<ModalFooter confirmButtonLabel="Confirm" />)
+      expect(screen.getByRole("button", { name: "Confirm" })).toHaveClass("juno-button-primary")
+    })
+
+    test("renders the Confirm button with the variant as passed", () => {
+      render(<ModalFooter confirmButtonLabel="Confirm" confirmButtonVariant="primary-danger" />)
+      expect(screen.getByRole("button", { name: "Confirm" })).toHaveClass("juno-button-primary-danger")
+    })
+
+    test("renders the Close button with the variant as passed", () => {
+      render(<ModalFooter confirmButtonVariant="subdued" />)
+      expect(screen.getByRole("button", { name: "Close" })).toHaveClass("juno-button-subdued")
+    })
+  })
+
   describe("Disabled Button Tests", () => {
     test("renders a disabled confirm action button when disableConfirmButton is true and ensures onConfirm isn't triggered", () => {
       const onClickSpy = vi.fn()

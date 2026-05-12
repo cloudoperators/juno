@@ -57,7 +57,7 @@ const inputStyles = `
   jn:text-base
   jn:leading-4
   jn:w-full
-  jn:px-4
+  jn:pl-4
   jn:h-textinput
   jn:text-left
   jn:overflow-hidden
@@ -99,12 +99,12 @@ const buttonStyles = `
   jn:absolute
   jn:top-0
   jn:right-0
+  jn:pr-2
   jn:h-textinput
-  jn:w-6
-  jn:h-4
+  jn:w-8
   jn:border-l-0
-  jn:border-y-[1px]
-  jn:border-r-[1px]
+  jn:border-y
+  jn:border-r
   jn:rounded-tr
   jn:rounded-br
   jn:appearance-none
@@ -141,7 +141,7 @@ const menuStyles = `
 const iconContainerStyles = `
   jn:absolute
   jn:top-[.4rem]
-  jn:right-6
+  jn:right-8
 `
 
 const centeredIconStyles = `
@@ -454,7 +454,7 @@ export const ComboBox = ({
                   ${disabled ? disabledInputStyles : ""}
                   ${isInvalid ? "juno-combobox-invalid " + invalidStyles : ""} 
                   ${isValid ? "juno-combobox-valid " + validStyles : ""}  
-                  ${isValid || isInvalid ? "" : defaultBorderStyles} 
+                  ${isValid || isInvalid ? "jn:pr-16" : "jn:pr-8 " + defaultBorderStyles}
                   ${isLoading ? "juno-combobox-loading jn:cursor-not-allowed" : ""}
                   ${hasError ? "juno-combobox-error jn:cursor-not-allowed" : ""}
                   ${className}
@@ -489,12 +489,12 @@ export const ComboBox = ({
                   {!hasError && !isLoading ? (
                     <ComboboxButton
                       className={`
-                        juno-combobox-toggle 
+                        juno-combobox-toggle
                         ${buttonStyles}
                         ${disabled ? disabledButtonStyles : ""}
                         ${isInvalid ? "juno-combobox-toggle-invalid " + invalidButtonStyles : ""} 
                         ${isValid ? "juno-combobox-toggle-valid " + validButtonStyles : ""}  
-                        ${isValid || isInvalid ? "" : defaultButtonStyles} 
+                        ${isValid || isInvalid ? "" : defaultButtonStyles}
                       `}
                     >
                       <Icon icon={isOpen ? "expandLess" : "expandMore"} />

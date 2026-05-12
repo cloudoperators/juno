@@ -15,6 +15,7 @@ import { Button } from "../Button"
 import { NativeSelectOption } from "../NativeSelectOption"
 import { NativeSelect } from "../NativeSelect"
 import { InputGroup } from "../InputGroup"
+import { PortalProvider } from "../PortalProvider"
 
 const meta: Meta<typeof DataGridToolbar> = {
   title: "Components/DataGrid/DataGridToolbar",
@@ -49,29 +50,34 @@ export const Default: Story = {
 }
 
 export const ComplexCustomLayout: Story = {
+  decorators: [
+    (Story) => (
+      <PortalProvider>
+        <Story />
+      </PortalProvider>
+    ),
+  ],
   render: (args: DataGridToolbarProps) => (
     <DataGridToolbar {...args}>
       <Stack direction="horizontal" distribution="between">
         <Stack direction="vertical" gap="4">
-          <Stack alignment="center" gap="4">
-            <InputGroup>
-              <NativeSelect name="Filter" value="category" wrapperClassName="jn:w-full">
-                <NativeSelectOption value="category" label="Category" />
-                <NativeSelectOption value="status" label="Status" />
-                <NativeSelectOption value="priority" label="Priority" />
-              </NativeSelect>
-              <ComboBox>
-                <ComboBoxOption value="Electronics" />
-                <ComboBoxOption value="Clothing" />
-                <ComboBoxOption value="Furniture" />
-              </ComboBox>
-            </InputGroup>
-            <Button label="Clear all" variant="subdued" />
-          </Stack>
+          <InputGroup>
+            <NativeSelect name="Filter" value="category" wrapperClassName="jn:w-full">
+              <NativeSelectOption value="category" label="Category" />
+              <NativeSelectOption value="status" label="Status" />
+              <NativeSelectOption value="priority" label="Priority" />
+            </NativeSelect>
+            <ComboBox>
+              <ComboBoxOption value="Electronics" />
+              <ComboBoxOption value="Clothing" />
+              <ComboBoxOption value="Furniture" />
+            </ComboBox>
+          </InputGroup>
           <Stack gap="2" wrap>
             <Pill pillKey="category" pillValue="electronics" closeable />
             <Pill pillKey="status" pillValue="active" closeable />
             <Pill pillKey="priority" pillValue="high" closeable />
+            <Button label="Clear Filters" variant="subdued" size="xs" />
           </Stack>
         </Stack>
         <SearchInput placeholder="Search items..." />
@@ -85,7 +91,7 @@ export const ComplexCustomLayout: Story = {
     docs: {
       description: {
         story:
-          "Demonstrates a complex toolbar layout with custom styling - children aligned left and search aligned right.",
+          "Demonstrates a complex toolbar layout with custom styling - children aligned left and search aligned right. The xs 'Clear Filters' button sits inline with the filter pills.",
       },
     },
   },

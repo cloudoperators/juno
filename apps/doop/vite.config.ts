@@ -3,11 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { defineConfig, UserConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import tailwindcss from "@tailwindcss/vite"
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite"
 
-export default ({ mode }) => {
+export default defineConfig(({ mode }: { mode: string }): UserConfig => {
   const sharedConfig = {
     root: "./",
     define: {
@@ -47,4 +48,4 @@ export default ({ mode }) => {
       },
     },
   }
-}
+})

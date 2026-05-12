@@ -27,6 +27,11 @@ const config = {
   staticDirs: ["../public"],
 
   viteFinal: async (config) => {
+    // Remove esmExternalRequirePlugin to allow React bundling in static builds
+    if (config.plugins) {
+      config.plugins = config.plugins.filter((p) => p?.name !== "vite:esmExternalRequire")
+    }
+
     config = merge(config, {
       assetsInclude: ["**/*.png", "**/*.jpg"],
       plugins: [

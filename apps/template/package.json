@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-template",
-  "version": "2.0.35",
+  "version": "2.0.37",
   "author": "UI-Team",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/template",
   "license": "Apache-2.0",
@@ -11,7 +11,7 @@
   },
   "private": true,
   "engines": {
-    "node": ">=20.0.0",
+    "node": ">=20.12.0",
     "pnpm": ">=8.0.0"
   },
   "scripts": {
@@ -26,34 +26,34 @@
     "clean:cache": "rm -rf .turbo"
   },
   "dependencies": {
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "@cloudoperators/juno-ui-components": "workspace:*"
+    "@cloudoperators/juno-ui-components": "workspace:*",
+    "react": "19.2.5",
+    "react-dom": "19.2.5"
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
-    "@tailwindcss/vite": "4.2.1",
+    "@tailwindcss/vite": "4.2.4",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
-    "@types/node": "24.12.0",
+    "@types/node": "24.12.2",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
-    "@typescript-eslint/eslint-plugin": "6.21.0",
-    "@typescript-eslint/parser": "6.21.0",
-    "@vitejs/plugin-react-swc": "3.11.0",
-    "@vitejs/plugin-react": "4.7.0",
-    "@vitest/ui": "4.1.0",
-    "eslint": "10.1.0",
-    "eslint-config-prettier": "9.1.2",
+    "@typescript-eslint/eslint-plugin": "8.58.2",
+    "@typescript-eslint/parser": "8.58.2",
+    "@vitejs/plugin-react": "6.0.1",
+    "@vitejs/plugin-react-swc": "4.3.0",
+    "@vitest/ui": "4.1.5",
+    "eslint": "10.2.1",
+    "eslint-config-prettier": "10.1.8",
     "eslint-plugin-prettier": "5.5.5",
     "eslint-plugin-react": "7.37.5",
-    "eslint-plugin-react-hooks": "4.6.2",
-    "eslint-plugin-tailwindcss": "3.18.2",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "eslint-plugin-tailwindcss": "3.18.3",
     "jsdom": "26.1.0",
-    "prettier": "3.8.1",
-    "tailwindcss": "4.2.1",
-    "typescript": "5.9.3",
-    "vite": "7.3.2",
+    "prettier": "3.8.3",
+    "tailwindcss": "4.2.4",
+    "typescript": "6.0.3",
+    "vite": "8.0.10",
     "vite-tsconfig-paths": "6.1.1",
     "vitest": "3.2.4"
   }

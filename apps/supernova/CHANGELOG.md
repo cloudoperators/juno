@@ -1,5 +1,26 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.19.31
+
+### Patch Changes
+
+- f0e8ddc: Upgraded Vite from 7.x to 8.0.10 and TypeScript from 5.x to 6.0.2 across all packages and apps.
+- Updated dependencies [031af0b]
+- Updated dependencies [f0e8ddc]
+- Updated dependencies [377981a]
+  - @cloudoperators/juno-ui-components@6.3.1
+  - @cloudoperators/juno-url-state-provider@3.0.9
+  - @cloudoperators/juno-messages-provider@0.2.39
+
+## 0.19.30
+
+### Patch Changes
+
+- e69fd99: Improved the filter ComboBox dropdown behavior for large option sets by addressing how results are shown within the existing paginated list.
+- Updated dependencies [9ea760e]
+  - @cloudoperators/juno-ui-components@6.3.0
+  - @cloudoperators/juno-messages-provider@0.2.38
+
 ## 0.19.29
 
 ### Patch Changes

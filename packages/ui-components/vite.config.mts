@@ -3,33 +3,46 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { PluginOption } from "vite"
+import { PluginOption, defineConfig, esmExternalRequirePlugin } from "vite"
 import react from "@vitejs/plugin-react"
 
 import tailwindcss from "@tailwindcss/vite"
 import dts from "vite-plugin-dts"
 import svgr from "vite-plugin-svgr"
-import { defineConfig } from "vite"
+import { peerDependencies } from "./package.json"
+
+// Detect if running under Storybook by checking process.argv
+const isStorybookBuild = process.argv.some((arg) => arg.includes("storybook") || arg.includes(".storybook"))
 
 export default defineConfig({
   build: {
     lib: {
-      entry: "src/index.ts", // or 'src/main.ts' if TypeScript
-      name: "ui-components", // Replace with your library's global name
-      formats: ["es"], // Output formats: ESM and CommonJS
-      fileName: () => `index.js`, // Output file names
-    },
-    rollupOptions: {
-      external: ["react", "react-dom"],
+      entry: "src/index.ts",
+      name: "ui-components",
+      formats: ["es"],
+      fileName: () => `index.js`,
     },
     outDir: "build",
   },
   plugins: [
+    // Vite 8: externalize peer dependencies and convert require() to import
+    // Skip during Storybook builds to allow React bundling in static builds
+    !isStorybookBuild
+      ? esmExternalRequirePlugin({
+          external: Object.keys(peerDependencies),
+        })
+      : null,
     tailwindcss(),
     dts({
       exclude: ["./__tests__/**/*.test.ts", "vitest.setup.ts"],
-      insertTypesEntry: true, // Ensure types are properly exported
-      outDir: "build", // Specify where to output the types
+      include: ["src/**/*.ts", "src/**/*.tsx", "types/**/*.d.ts"],
+      insertTypesEntry: true,
+      outDir: "build",
+      tsconfigPath: "./tsconfig.json",
+      copyDtsFiles: true,
+      compilerOptions: {
+        rootDir: "src",
+      },
     }) as PluginOption,
     react() as PluginOption,
     svgr({
@@ -40,5 +53,5 @@ export default defineConfig({
       },
       include: "**/*.svg",
     }) as PluginOption,
-  ],
+  ].filter(Boolean),
 })

@@ -1,5 +1,42 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.12.9
+
+### Patch Changes
+
+- Updated dependencies [88b24ac]
+  - @cloudoperators/juno-k8s-client@1.1.5
+
+## 0.12.8
+
+### Patch Changes
+
+- f0e8ddc: Upgraded Vite from 7.x to 8.0.10 and TypeScript from 5.x to 6.0.2 across all packages and apps.
+- Updated dependencies [031af0b]
+- Updated dependencies [f0e8ddc]
+- Updated dependencies [377981a]
+  - @cloudoperators/juno-ui-components@6.3.1
+  - @cloudoperators/greenhouse-auth-provider@1.0.3
+  - @cloudoperators/juno-url-state-provider@3.0.9
+  - @cloudoperators/juno-messages-provider@0.2.39
+  - @cloudoperators/juno-k8s-client@1.1.4
+  - @cloudoperators/juno-app-supernova@0.19.31
+  - @cloudoperators/juno-oauth@1.4.11
+  - @cloudoperators/juno-app-heureka@1.1.2
+  - @cloudoperators/juno-app-doop@2.6.27
+
+## 0.12.7
+
+### Patch Changes
+
+- Updated dependencies [9ea760e]
+- Updated dependencies [e69fd99]
+  - @cloudoperators/juno-ui-components@6.3.0
+  - @cloudoperators/juno-app-supernova@0.19.30
+  - @cloudoperators/juno-app-doop@2.6.26
+  - @cloudoperators/juno-app-heureka@1.1.1
+  - @cloudoperators/juno-messages-provider@0.2.38
+
 ## 0.12.6
 
 ### Patch Changes

@@ -37,7 +37,8 @@ const toggleStyles = `
   jn:h-[2.375rem]
   jn:inline-flex
   jn:items-center
-  jn:px-4
+  jn:pl-4
+  jn:pr-2
   jn:rounded-3px
   jn:select-none
   jn:text-base
@@ -85,8 +86,10 @@ export type SelectContextProps = {
 }
 export const SelectContext = createContext<SelectContextProps | undefined>(undefined)
 
-export interface SelectProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "value" | "defaultValue" | "onChange"> {
+export interface SelectProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  "value" | "defaultValue" | "onChange"
+> {
   /** Pass an aria-label to the Select toggle button */
   ariaLabel?: string
   /** The children to render as options. Use the SelectOption component, and SelectDivider if needed. */

@@ -288,6 +288,9 @@
   --background-color-theme-badge-default: var(--color-badge-default-bg);
   --background-color-theme-box-default: var(--color-box-bg);
 
+  /* Divider (Border) Color */
+  --border-color-theme-divider: var(--color-divider-border);
+
   /* Side Navigation Background Colors */
   --background-color-theme-sidenav: var(--color-sidenav-background);
   --background-color-theme-sidenav-list: var(--color-sidenav-list-background);
@@ -479,7 +482,7 @@
   --width-grid-col-11: 91.666667%;
   --width-grid-col-12: 100%;
 
-  --breakpoint-3xl: "1856px";
+  --breakpoint-3xl: 1856px;
 
   --radius-3px: 3px;
 
@@ -527,7 +530,7 @@
 
   /* LT Global */
   --color-global-bg: var(--color-juno-grey-light-1);
-
+  --color-border-default: var(--color-juno-grey-light-7);
   --color-global-text: var(--color-juno-text-default);
   --color-content-area-bg: var(--color-background-lvl-0);
   /* LT FOCUS */
@@ -590,6 +593,9 @@
   /* |-- LT Primary Danger Button :active */
   --color-button-primary-danger-active-text: var(--color-white);
   --color-button-primary-danger-active-bg: var(--color-juno-primary-danger-5);
+
+  /* LT Divider */
+  --color-divider-border: var(--color-border-default);
 
   /* LT Icon */
   --color-severity-critical: rgb(165, 11, 11);
@@ -742,7 +748,6 @@
   --color-pagefooter-item-default: var(--color-text-light);
   --color-pagefooter-item-hover: var(--color-text-light);
   --color-pagefooter-item-active: var(--color-accent);
-  --color-border-default: var(--color-juno-grey-light-7);
 }
 
 /* JUNO THEME: DARK MODE */
@@ -774,7 +779,7 @@
 
   /* DT Global */
   --color-global-bg: var(--color-juno-grey-blue-10);
-
+  --color-border-default: var(--color-juno-grey-blue-3);
   --color-global-text: var(--color-juno-text-default);
   --color-content-area-bg: var(--color-background-lvl-0);
 
@@ -840,6 +845,9 @@
   /* |-- DT Primary Danger Button :active */
   --color-button-primary-danger-active-text: var(--color-white);
   --color-button-primary-danger-active-bg: var(--color-juno-primary-danger-5);
+
+  /* DT Divider */
+  --color-divider-border: var(--color-border-default);
 
   /* DT Icon */
   --color-severity-critical: rgb(255, 18, 20);
@@ -989,7 +997,6 @@
   --color-pagefooter-item-default: var(--color-text-light);
   --color-pagefooter-item-hover: var(--color-text-light);
   --color-pagefooter-item-active: var(--color-accent);
-  --color-border-default: var(--color-juno-grey-blue-3);
 }
 
 /*
