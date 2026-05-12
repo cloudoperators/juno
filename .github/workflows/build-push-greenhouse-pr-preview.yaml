@@ -172,7 +172,8 @@ jobs:
   cleanup:
     name: Cleanup PR Preview Image
     # Skip if PR is not closed or from a forked repository
-    if: github.event.action == 'closed' && github.event.pull_request.head.repo.full_name == github.repository
+    if: github.event.action == 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository
     permissions:
       packages: write
     uses: cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml@d1a776c4a34f7c85aa252bf52b7fa92afa9e547e # PR#59
@@ -184,7 +185,8 @@ jobs:
   remove-label:
     name: Remove PR Preview Label
     needs: cleanup
-    if: always() && github.event.action == 'closed' && github.event.pull_request.head.repo.full_name == github.repository
+    if: always() && github.event.action == 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     permissions:
       issues: write
@@ -212,11 +214,16 @@ jobs:
             }
 
   notify-on-failure:
-    if: failure()
-    needs: [cleanup]
+    if: github.event.action == 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      needs.cleanup.result == 'failure'
+    needs: [ cleanup ]
     uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@e69fd9982d52aa1e1623ceda55875724843516b6 # main
     with:
       title: "🚨 Greenhouse PR Preview Image Cleanup Failed 🚨"
-      body: "Failed to delete preview images for PR #${{ github.event.pull_request.number }}. Please check the logs and manually clean up if needed. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>"
+      body: "Failed to delete preview images for PR #${{
+        github.event.pull_request.number }}. Please check the logs and manually
+        clean up if needed. <${{ github.server_url }}/${{ github.repository
+        }}/actions/runs/${{ github.run_id }}|Check the logs>"
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
