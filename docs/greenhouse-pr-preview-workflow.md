@@ -115,8 +115,8 @@ Developer                Workflow                  ArgoCD
     ├──► Close/Merge PR      │                        │
     │                        │                        │
     │                    ┌───▼────────────────────┐   │
-    │                    │ Install crane          │   │
-    │                    │ (with SHA256 check)    │   │
+    │                    │ Call shared cleanup    │   │
+    │                    │ workflow (GHCR API)    │   │
     │                    └───┬────────────────────┘   │
     │                        │                        │
     │                    ┌───▼────────────────────┐   │
@@ -127,6 +127,11 @@ Developer                Workflow                  ArgoCD
     │                    ┌───▼────────────────────┐   │
     │                    │ Remove "pr-preview"    │   │
     │                    │ label (always runs)    │   │
+    │                    └───┬────────────────────┘   │
+    │                        │                        │
+    │                    ┌───▼────────────────────┐   │
+    │                    │ Notify on failure      │   │
+    │                    │ (Slack alert)          │   │
     │                    └───┬────────────────────┘   │
     │                        │                        │
     │                        ├──────────────────────► │
@@ -173,8 +178,9 @@ To stop building previews without closing the PR:
 When the PR is closed or merged:
 
 1. The workflow automatically:
-   - Deletes all Docker images matching `pr-{number}-*`
+   - Calls the shared GHCR cleanup workflow to delete all Docker images matching `pr-{number}-*`
    - Removes the `greenhouse-pr-preview` label (even if image deletion fails)
+   - Sends a Slack notification if image deletion fails
    - ArgoCD detects the label removal and deletes the preview deployment
 
 ## Docker Images
@@ -219,19 +225,50 @@ Builds and pushes the Docker image when the `greenhouse-pr-build` label is prese
 
 ### cleanup
 
-Deletes Docker images and removes labels when the PR is closed.
+Deletes Docker images using the shared GHCR cleanup workflow when the PR is closed.
 
 **Conditions:**
 
 - PR action is `closed`
 - PR is from the same repository (not a fork)
 
+**Workflow:**
+
+Uses `cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml` with:
+- `package`: juno-app-greenhouse-pr-preview
+- `delete-tags`: pr-{number}-* (wildcard pattern)
+- `delete-partial-images`: true
+
+### remove-label
+
+Removes the preview label after cleanup completes.
+
+**Conditions:**
+
+- Runs `always()` (even if cleanup fails)
+- PR action is `closed`
+- PR is from the same repository (not a fork)
+
 **Steps:**
 
-1. Login to GitHub Container Registry
-2. Install crane (with SHA256 checksum verification)
-3. List all tags and delete matching `pr-{number}-*` images
-4. Remove `greenhouse-pr-preview` label (runs even if deletion fails)
+1. Remove `greenhouse-pr-preview` label
+2. Handles 404 errors gracefully (label already removed)
+
+### notify-on-failure
+
+Sends Slack notifications when image cleanup fails.
+
+**Conditions:**
+
+- Runs only if `cleanup` job fails
+- PR action is `closed`
+
+**Notification:**
+
+Sends alert to Slack with:
+- PR number
+- Link to workflow logs
+- Request for manual cleanup if needed
 
 ## Safety Features
 
@@ -263,27 +300,34 @@ This prevents:
 
 The workflow skips execution when the `greenhouse-pr-preview` label is added to prevent triggering itself in a loop.
 
-### Supply Chain Security
-
-The crane binary is installed with SHA256 checksum verification:
-
-```bash
-EXPECTED_SHA256="9f823ae5ee25803161110f957b5fd4538f714d40cdf25dacb4914fefafd246bf"
-curl -fsSL "https://github.com/google/go-containerregistry/releases/download/v0.21.5/go-containerregistry_Linux_x86_64.tar.gz" -o crane.tar.gz
-echo "${EXPECTED_SHA256}  crane.tar.gz" | sha256sum -c -
-```
-
 ### Resilient Cleanup
 
 The label removal step runs with `if: always()` to ensure the preview is torn down even if image deletion fails. This prevents orphaned ArgoCD deployments.
 
+### Slack Notifications
+
+If image cleanup fails, a Slack notification is sent with:
+- PR number
+- Link to workflow logs
+- Alert emoji for visibility
+
+This ensures the team is aware of orphaned images that may need manual cleanup.
+
 ## Permissions
 
-Both jobs require the following permissions:
+### build-and-push job
 
 - `contents: read` - Read repository code
-- `packages: write` - Push/delete container images
+- `packages: write` - Push container images
 - `issues: write` - Add/remove labels on PRs
+- `pull-requests: write` - Manage PR labels
+
+### remove-label job
+
+- `issues: write` - Remove labels from PRs
+- `pull-requests: write` - Manage PR labels
+
+Note: The `cleanup` job inherits permissions from the shared workflow it calls.
 
 ## Configuration
 
@@ -299,7 +343,7 @@ PR_PREVIEW_LABEL: "greenhouse-pr-preview"
 
 ### Path Filters
 
-The workflow only triggers when files under `apps/greenhouse/**` are modified.
+**Note**: The workflow triggers on any PR file changes. The `greenhouse-pr-build` label is the only control for enabling preview builds. This allows you to create previews for changes to Greenhouse itself or its dependent plugins (heureka, doop, supernova) or shared packages.
 
 ## Troubleshooting
 
@@ -318,9 +362,10 @@ The workflow only triggers when files under `apps/greenhouse/**` are modified.
 ### Images Not Cleaning Up
 
 1. Check the cleanup job logs
-2. Verify the crane installation succeeded
-3. Check that the `greenhouse-pr-preview` label was removed
-4. The workflow will still remove the label even if image deletion fails
+2. Verify the shared workflow was called successfully
+3. Check for Slack notification about the failure
+4. Check that the `greenhouse-pr-preview` label was removed (this happens regardless of image cleanup success)
+5. If notified, manually clean up images via GitHub Packages UI or API
 
 ### Stale Preview
 
@@ -341,4 +386,5 @@ If the `greenhouse-pr-build` label is removed but the preview stays:
 
 - [ArgoCD Label-Based Deployment](https://argo-cd.readthedocs.io/)
 - [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
-- [Crane CLI](https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane.md)
+- [Shared GHCR Cleanup Workflow](https://github.com/cloudoperators/common/blob/main/.github/workflows/shared-ghcr-cleanup.yaml)
+- [dataaxiom/ghcr-cleanup-action](https://github.com/dataaxiom/ghcr-cleanup-action)

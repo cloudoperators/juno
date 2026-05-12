@@ -1,3 +1,10 @@
+# Greenhouse PR Preview Workflow
+#
+# Automatically builds Docker images for pull requests and manages their deployment
+# via ArgoCD label-based triggers.
+#
+# For detailed documentation, see: docs/greenhouse-pr-preview-workflow.md
+#
 # Workflow Flow:
 # Initial Setup:
 # 1. Developer sets 'greenhouse-pr-build' label on PR
@@ -15,6 +22,7 @@
 # 1. PR is closed or merged
 # 2. Action deletes all Docker images matching pr-{number}-*
 # 3. Action removes PR-Preview label
+# 4. Sends Slack notification on failure
 
 name: Build Greenhouse PR Preview 🔬
 
@@ -203,10 +211,10 @@ jobs:
 
   notify-on-failure:
     if: failure()
-    needs: [cleanup, remove-label]
+    needs: [cleanup]
     uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@e69fd9982d52aa1e1623ceda55875724843516b6 # main
     with:
-      title: "🚨 Greenhouse PR Preview Cleanup Failed 🚨"
-      body: "An error occurred while cleaning up PR #${{ github.event.pull_request.number }} preview images. Please check the logs for more information. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>"
+      title: "🚨 Greenhouse PR Preview Image Cleanup Failed 🚨"
+      body: "Failed to delete preview images for PR #${{ github.event.pull_request.number }}. Please check the logs and manually clean up if needed. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>"
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
