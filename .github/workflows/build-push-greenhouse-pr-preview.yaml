@@ -176,7 +176,7 @@ jobs:
       github.event.pull_request.head.repo.full_name == github.repository
     permissions:
       packages: write
-    uses: cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml@17d3d6b80851574fcd8c7b6e5c4fe6aee2922359 # main
+    uses: cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml@4443dc4 # PR#59
     with:
       package: juno-app-greenhouse-pr-preview
       delete-tags: pr-${{ github.event.pull_request.number }}-*
@@ -217,6 +217,7 @@ jobs:
       github.event.pull_request.head.repo.full_name == github.repository &&
       needs.cleanup.result == 'failure'
     needs: [ cleanup ]
+    permissions: {}
     uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@e69fd9982d52aa1e1623ceda55875724843516b6 # main
     with:
       title: "🚨 Greenhouse PR Preview Image Cleanup Failed 🚨"
