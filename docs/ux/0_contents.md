@@ -28,7 +28,7 @@
    2. Authentication And Access
       1. [Sign In](sign-in.md)
       2. [UI For Unauthorized Users](ui-for-unauthorized-users.md)
-   3. Displaying and Interacting With Data
+   3. [DataGrid](datagrid.md)
    4. Wizard Pattern
    5. Inline Adding And Deleting Items
    6. [Modals](modals.md)

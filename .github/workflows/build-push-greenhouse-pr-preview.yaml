@@ -1,3 +1,10 @@
+# Greenhouse PR Preview Workflow
+#
+# Automatically builds Docker images for pull requests and manages their deployment
+# via ArgoCD label-based triggers.
+#
+# For detailed documentation, see: docs/greenhouse-pr-preview-workflow.md
+#
 # Workflow Flow:
 # Initial Setup:
 # 1. Developer sets 'greenhouse-pr-build' label on PR
@@ -15,6 +22,7 @@
 # 1. PR is closed or merged
 # 2. Action deletes all Docker images matching pr-{number}-*
 # 3. Action removes PR-Preview label
+# 4. Sends Slack notification on failure
 
 name: Build Greenhouse PR Preview 🔬
 
@@ -164,72 +172,26 @@ jobs:
   cleanup:
     name: Cleanup PR Preview Image
     # Skip if PR is not closed or from a forked repository
-    if: github.event.action == 'closed' && github.event.pull_request.head.repo.full_name == github.repository
+    if: github.event.action == 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    permissions:
+      packages: write
+    uses: cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml@d138f9922c75ed1e1ad3ae3bfb68dd8ae3284dc6 # main
+    with:
+      package: juno-app-greenhouse-pr-preview
+      delete-tags: pr-${{ github.event.pull_request.number }}-*
+      delete-partial-images: true
+
+  remove-label:
+    name: Remove PR Preview Label
+    needs: cleanup
+    if: always() && github.event.action == 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      packages: write
-      # Both issues and pull-requests write permissions are needed for label operations
       issues: write
-      pull-requests: write
     steps:
-      - name: Log into registry ${{ env.REGISTRY }}
-        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install crane
-        run: |
-          VERSION="v0.21.5"
-          OS="Linux"
-          ARCH="x86_64"
-          EXPECTED_SHA256="9f823ae5ee25803161110f957b5fd4538f714d40cdf25dacb4914fefafd246bf"
-
-          curl -fsSL "https://github.com/google/go-containerregistry/releases/download/${VERSION}/go-containerregistry_${OS}_${ARCH}.tar.gz" -o crane.tar.gz
-          echo "${EXPECTED_SHA256}  crane.tar.gz" | sha256sum -c -
-          tar -xzf crane.tar.gz crane
-          sudo install -m 0755 crane /usr/local/bin/crane
-          rm crane.tar.gz
-
-          crane version
-
-      - name: Delete PR preview images
-        run: |
-          PR_NUMBER=${{ github.event.pull_request.number }}
-          IMAGE_BASE="${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}"
-
-          echo "Looking for images matching pr-${PR_NUMBER}-*"
-
-          # List all tags and delete matching ones. Cleanup should be tolerant when
-          # no repository exists yet or when there are no matching PR tags.
-          TAGS="$(crane ls "${IMAGE_BASE}" 2>/dev/null || true)"
-          MATCHING_TAGS="$(printf '%s\n' "${TAGS}" | grep "^pr-${PR_NUMBER}-" || true)"
-
-          if [ -z "${MATCHING_TAGS}" ]; then
-            echo "No preview images found for PR ${PR_NUMBER}"
-          else
-            DELETE_FAILED=0
-
-            while IFS= read -r tag; do
-              echo "Deleting ${IMAGE_BASE}:${tag}"
-              if ! crane delete "${IMAGE_BASE}:${tag}"; then
-                echo "Failed to delete ${IMAGE_BASE}:${tag}"
-                DELETE_FAILED=1
-              fi
-            done <<< "${MATCHING_TAGS}"
-
-            if [ "${DELETE_FAILED}" -ne 0 ]; then
-              echo "Cleanup failed for PR ${PR_NUMBER}: one or more preview images could not be deleted"
-              exit 1
-            fi
-          fi
-
-          echo "Cleanup completed for PR ${PR_NUMBER}"
-
       - name: Remove PR Preview label
-        if: always()
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
@@ -249,3 +211,19 @@ jobs:
                 throw error;
               }
             }
+
+  notify-on-failure:
+    if: github.event.action == 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      needs.cleanup.result == 'failure'
+    needs: [ cleanup ]
+    permissions: {}
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@e69fd9982d52aa1e1623ceda55875724843516b6 # main
+    with:
+      title: "🚨 Greenhouse PR Preview Image Cleanup Failed 🚨"
+      body: "Failed to delete preview images for PR #${{
+        github.event.pull_request.number }}. Please check the logs and manually
+        clean up if needed. <${{ github.server_url }}/${{ github.repository
+        }}/actions/runs/${{ github.run_id }}|Check the logs>"
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
