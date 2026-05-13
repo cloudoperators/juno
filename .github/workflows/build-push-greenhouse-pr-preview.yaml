@@ -16,11 +16,12 @@
 # 2. PR-Build label already exists
 # 3. Action removes PR-Preview label (ArgoCD deletes the app)
 # 4. Action builds new Docker image with new tag pr-{number}-{new-sha}
-# 5. Action sets PR-Preview label back (ArgoCD redeploys after 2-3 mins)
+# 5. Action deletes old Docker images for this PR (keeps only the latest)
+# 6. Action sets PR-Preview label back (ArgoCD redeploys after 2-3 mins)
 #
 # On PR close/merge:
 # 1. PR is closed or merged
-# 2. Action deletes all Docker images matching pr-{number}-*
+# 2. Action deletes all remaining Docker images matching pr-{number}-*
 # 3. Action removes PR-Preview label
 # 4. Sends Slack notification on failure
 
@@ -57,6 +58,9 @@ jobs:
           github.event.label.name == 'greenhouse-pr-build'
       )
     runs-on: ubuntu-latest
+    outputs:
+      image-built: ${{ steps.build-image.outcome == 'success' }}
+      pr-version: ${{ steps.pr-version.outputs.PR_VERSION }}
     permissions:
       contents: read
       packages: write
@@ -168,6 +172,20 @@ jobs:
               issue_number: context.payload.pull_request.number,
               labels: ['${{ env.PR_PREVIEW_LABEL }}']
             });
+
+  cleanup-old-images:
+    name: Cleanup Old PR Images
+    needs: build-and-push
+    if: needs.build-and-push.outputs.image-built == 'true'
+    permissions:
+      packages: write
+    uses: cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml@d138f9922c75ed1e1ad3ae3bfb68dd8ae3284dc6 # main
+    with:
+      runs-on: ubuntu-latest
+      package: juno-app-greenhouse-pr-preview
+      delete-tags: pr-${{ github.event.pull_request.number }}-*
+      exclude-tags: ${{ needs.build-and-push.outputs.pr-version }}
+      delete-partial-images: true
 
   cleanup:
     name: Cleanup PR Preview Image
