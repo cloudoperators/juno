@@ -1,3 +1,0 @@
-import{n as e}from"./chunk-jRWAZmH_.js";import{E as t,v as n,y as r,z as i}from"./iframe-DibVExlz.js";var a,o,s,c;e((()=>{i(),r(),a=t(),o={title:`Internal/ContentContainer`,component:n,argTypes:{children:{control:!1,table:{type:{summary:`ReactNode`}}}}},s={render:e=>(0,a.jsx)(n,{...e,children:`content`})},s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
-  render: args => <ContentContainer {...args}>content</ContentContainer>
-}`,...s.parameters?.docs?.source}}},c=[`Centered`]}))();export{s as Centered,c as __namedExportsOrder,o as default};
