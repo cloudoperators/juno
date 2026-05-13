@@ -96,12 +96,6 @@ Developer                Workflow                  ArgoCD
     │    └──────────┬────────┘         │             │
     │               │                  │             │
     │    ┌──────────▼────────┐         │             │
-    │    │ Delete old PR     │         │             │
-    │    │ images (keep      │         │             │
-    │    │ only latest)      │         │             │
-    │    └──────────┬────────┘         │             │
-    │               │                  │             │
-    │    ┌──────────▼────────┐         │             │
     │    │ Add "greenhouse-  │         │             │
     │    │ pr-preview" back  │         │             │
     │    └──────────┬────────┘         │             │
@@ -112,6 +106,12 @@ Developer                Workflow                  ArgoCD
     │               │   (2-3 mins)     │       │ Redeploy │
     │               │                  │       │ Preview  │
     │               │                  │       └──────────┘
+    │               │                  │             │
+    │    ┌──────────▼────────┐         │             │
+    │    │ Delete old PR     │         │             │
+    │    │ images (async,    │         │             │
+    │    │ keep latest)      │         │             │
+    │    └───────────────────┘         │             │
 
 
 PR CLOSE/MERGE
@@ -170,8 +170,8 @@ Developer                Workflow                  ArgoCD
    - Remove the `greenhouse-pr-preview` label (ArgoCD deletes the preview)
    - Build a new Docker image with the new commit SHA
    - Push the new image to the registry
-   - Delete all old Docker images for this PR (keeps only the latest image)
    - Re-add the `greenhouse-pr-preview` label (ArgoCD redeploys after 2-3 minutes)
+   - Delete all old Docker images for this PR in parallel (keeps only the latest image)
 
 ### Disabling PR Preview
 

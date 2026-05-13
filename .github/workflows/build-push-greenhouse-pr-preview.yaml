@@ -16,8 +16,10 @@
 # 2. PR-Build label already exists
 # 3. Action removes PR-Preview label (ArgoCD deletes the app)
 # 4. Action builds new Docker image with new tag pr-{number}-{new-sha}
-# 5. Action deletes old Docker images for this PR (keeps only the latest)
-# 6. Action sets PR-Preview label back (ArgoCD redeploys after 2-3 mins)
+# 5. Action sets PR-Preview label back during build-and-push
+#    (ArgoCD redeploys after 2-3 mins)
+# 6. Action deletes old Docker images for this PR afterward via cleanup-old-images
+#    (keeps only the latest)
 #
 # On PR close/merge:
 # 1. PR is closed or merged
