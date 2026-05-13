@@ -1,0 +1,95 @@
+import{n as e,o as t}from"./chunk-jRWAZmH_.js";import{E as n,z as r}from"./iframe-DibVExlz.js";import{t as i}from"./Icon.component-BtQtDm7k.js";import{t as a}from"./Icon-B_xLYmQs.js";import{t as o}from"./Spinner.component-YSv-VL-R.js";import{t as s}from"./Spinner-K0B7AI8X.js";var c,l,u,d,f,p,m,h,g,_,v,y,b,x,S,C,w,T,E,D,O,k,A,j,M,N,P=e((()=>{c=t(r()),a(),s(),l=n(),u=`
+  jn:font-bold
+  jn:inline-flex 
+  jn:justify-center 
+  jn:items-center
+  jn:rounded
+  jn:shadow-sm 
+  jn:w-auto
+  jn:focus:outline-hidden 
+  jn:focus-visible:ring-2
+  jn:focus-visible:ring-theme-focus
+  jn:focus-visible:ring-offset-1
+  jn:focus-visible:ring-offset-theme-focus
+  jn:disabled:opacity-50
+  jn:disabled:cursor-not-allowed
+  jn:disabled:pointer-events-none
+`,d=`
+  jn:text-sm
+  jn:leading-5
+`,f=`
+  jn:text-xs
+  jn:leading-4
+`,p=`
+  jn:text-base
+  jn:leading-6
+`,m=`
+  jn:py-1.25
+  jn:px-[0.5rem]
+`,h=`
+  jn:py-[0.25rem]
+  jn:px-1.75
+`,g=`
+  jn:py-1
+  jn:px-1.5
+`,_=`
+  jn:py-1.75
+  jn:px-2.5 
+`,v=`
+  jn:py-1.5
+  jn:px-2.25
+`,y=`
+  jn:bg-theme-button-default
+  jn:text-theme-button-default
+  jn:hover:bg-theme-button-default-hover
+  jn:hover:text-theme-button-default-hover
+  jn:active:bg-theme-button-default-active
+  jn:active:text-theme-button-default-active
+`,b=`
+  jn:bg-theme-button-primary
+  jn:text-theme-button-primary
+  jn:hover:bg-theme-button-primary-hover
+  jn:hover:text-theme-button-primary-hover
+  jn:active:bg-theme-button-primary-active
+  jn:active:text-theme-button-primary-active
+`,x=`
+  jn:bg-theme-button-primary-danger
+  jn:text-theme-button-primary-danger
+  jn:hover:bg-theme-button-primary-danger-hover
+  jn:hover:text-theme-button-primary-danger-hover
+  jn:active:bg-theme-button-primary-danger-active
+  jn:active:text-theme-button-primary-danger-active
+`,S=`
+  jn:bg-theme-button-subdued
+  jn:text-theme-button-subdued
+  jn:hover:bg-theme-button-subdued-hover
+  jn:hover:text-theme-button-subdued-hover
+  jn:active:bg-theme-button-subdued-active
+  jn:active:text-theme-button-subdued-active
+`,C=(e,t)=>{switch(e){case`small`:return t===`subdued`?`${h}`:`${m}`;case`xs`:return`${g}`;default:return t===`subdued`?`${v}`:`${_}`}},w=e=>{switch(e){case`default`:return y;case`primary`:return b;case`primary-danger`:return x;case`subdued`:return S;default:return y}},T=`
+  jn:mr-2
+`,E=`
+  jn:mr-1
+`,D=`
+  jn:mr-2
+`,O=e=>{switch(e){case`small`:return d;case`xs`:return f;default:return p}},k=e=>{switch(e){case`small`:return`${T}`;case`xs`:return`${E}`;default:return`${D}`}},A=e=>{switch(e){case`small`:return`1.125rem`;case`xs`:return`1rem`;default:return`1.5rem`}},j=e=>e?`in-progress`:``,M=e=>{switch(e){case`default`:return`jn:text-theme-accent`;case`primary`:return`jn:text-white`;case`primary-danger`:return`jn:text-white`;default:return``}},N=(0,c.forwardRef)(({label:e,title:t,type:n=`button`,variant:r=`default`,size:a=`default`,disabled:s,href:c,icon:d,className:f=``,onClick:p,children:m,progress:h=!1,progressLabel:g=``,..._},v)=>{let y=t||e||``,b=h?(0,l.jsx)(o,{size:`${A(a)}`,color:M(r),className:`${e||m?k(a):``}`}):d?(0,l.jsx)(i,{icon:d,title:y,className:`juno-button-icon ${e||m?k(a):``} `,size:`${A(a)}`}):null,x=h&&g?g:e||m,S=(0,l.jsxs)(`button`,{className:`
+          juno-button 
+          juno-button-${r} 
+          juno-button-${a}-size 
+          ${u} 
+          ${O(a)}
+          ${C(a,r)}
+          ${w(r)}
+          ${j(h)} 
+          ${f}`,disabled:s||void 0,onClick:e=>{p&&p(e)},ref:v,..._,type:n,title:y,children:[b,x]}),T=(0,l.jsxs)(`a`,{href:c||void 0,role:`button`,className:`
+          juno-button 
+          juno-button-${r} 
+          juno-button-${a}-size 
+          ${u} 
+          ${O(a)}
+          ${C(a,r)}
+          ${w(r)}
+          ${j(h)} 
+          ${f}
+        `,disabled:s,onClick:p,ref:v,..._,title:y,children:[b,x]});return c?T:S}),N.displayName=`Button`;try{N.displayName=`Button`,N.__docgenInfo={description:"The `Button` component provides an interactive element for user actions, supporting various sizes,\nstyles, and states such as disabled or in-progress.",displayName:`Button`,filePath:`/home/runner/work/juno/juno/packages/ui-components/src/components/Button/Button.component.tsx`,methods:[],props:{children:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`}],description:`Child elements or text to be rendered inside the button.`,name:`children`,parent:{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`},required:!1,tags:{},type:{name:`ReactNode`}},disabled:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`}],description:`Indicates if the button is disabled.`,name:`disabled`,parent:{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`},required:!1,tags:{},type:{name:`boolean`}},label:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`}],description:`Button label can be passed directly or as children.`,name:`label`,parent:{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`},required:!1,tags:{},type:{name:`string`}},className:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`}],description:`Additional class names for styling.`,name:`className`,parent:{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`},required:!1,tags:{default:`""`},type:{name:`string`}},href:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`}],description:"Optionally specify an href. This renders the Button as an `<a>` element.",name:`href`,parent:{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`},required:!1,tags:{},type:{name:`string`}},size:{defaultValue:{value:`default`},declarations:[{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`}],description:`Chooses the button size. Defaults to "default" if unspecified.`,name:`size`,parent:{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`},required:!1,tags:{default:`"default"`},type:{name:`enum`,raw:`ButtonSize`,value:[{value:`"default"`},{value:`"small"`},{value:`"xs"`}]}},type:{defaultValue:{value:`button`},declarations:[{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`}],description:`Button type.`,name:`type`,parent:{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`},required:!1,tags:{default:`"button"`},type:{name:`enum`,raw:`"button" | "submit" | "reset"`,value:[{value:`"button"`},{value:`"submit"`},{value:`"reset"`}]}},title:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`}],description:`Specify a title for accessibility purposes. Defaults to the label if not specified.`,name:`title`,parent:{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`},required:!1,tags:{},type:{name:`string`}},onClick:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`}],description:`Click event handler for the button.`,name:`onClick`,parent:{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`},required:!1,tags:{},type:{name:`MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>`}},variant:{defaultValue:{value:`default`},declarations:[{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`}],description:`Choose a variant for your button style. Defaults to "default" if unspecified.`,name:`variant`,parent:{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`},required:!1,tags:{default:`"default"`},type:{name:`enum`,raw:`ButtonVariant`,value:[{value:`"default"`},{value:`"primary"`},{value:`"primary-danger"`},{value:`"subdued"`}]}},icon:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`}],description:`Pass the name of an icon that the button should display. Can be any icon included with Juno.`,name:`icon`,parent:{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`},required:!1,tags:{},type:{name:`enum`,raw:`"default" | "download" | "search" | "accessTime" | "accountCircle" | "addCircle" | "autoAwesomeMosaic" | "autoAwesomeMotion" | "bolt" | "calendarToday" | "cancel" | "check" | ... 46 more ...`,value:[{value:`"default"`},{value:`"download"`},{value:`"search"`},{value:`"accessTime"`},{value:`"accountCircle"`},{value:`"addCircle"`},{value:`"autoAwesomeMosaic"`},{value:`"autoAwesomeMotion"`},{value:`"bolt"`},{value:`"calendarToday"`},{value:`"cancel"`},{value:`"check"`},{value:`"checkCircle"`},{value:`"chevronLeft"`},{value:`"chevronRight"`},{value:`"close"`},{value:`"comment"`},{value:`"contentCopy"`},{value:`"danger"`},{value:`"dangerous"`},{value:`"deleteForever"`},{value:`"description"`},{value:`"dns"`},{value:`"edit"`},{value:`"error"`},{value:`"errorOutline"`},{value:`"exitToApp"`},{value:`"expandLess"`},{value:`"expandMore"`},{value:`"filterAlt"`},{value:`"forum"`},{value:`"help"`},{value:`"home"`},{value:`"info"`},{value:`"language"`},{value:`"manageAccounts"`},{value:`"monitorHeart"`},{value:`"moreVert"`},{value:`"nightsStay"`},{value:`"notificationsOff"`},{value:`"openInBrowser"`},{value:`"openInNew"`},{value:`"place"`},{value:`"severityLow"`},{value:`"severityMedium"`},{value:`"severityHigh"`},{value:`"severityVeryHigh"`},{value:`"severityCritical"`},{value:`"severityUnknown"`},{value:`"sortShortWideArrowUp"`},{value:`"sortShortWideArrowDown"`},{value:`"sortWideShortArrowUp"`},{value:`"sortWideShortArrowDown"`},{value:`"success"`},{value:`"upload"`},{value:`"warning"`},{value:`"wbSunny"`},{value:`"widgets"`}]}},progress:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`}],description:`Indicates whether the button's action is in progress.`,name:`progress`,parent:{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`},required:!1,tags:{default:`false`},type:{name:`boolean`}},progressLabel:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`}],description:`Display an alternative label while the button's action is in progress.`,name:`progressLabel`,parent:{fileName:`ui-components/src/components/Button/Button.component.tsx`,name:`ButtonProps`},required:!1,tags:{},type:{name:`string`}}},tags:{see:`https://cloudoperators.github.io/juno/?path=/docs/components-button--docs
+{@link ButtonProps }`}}}catch{}}));export{P as n,N as t};
