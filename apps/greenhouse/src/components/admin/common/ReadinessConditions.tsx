@@ -67,48 +67,47 @@ const getVariantStyles = (variant: ConditionVariant) => {
   }
 }
 
+const gridColumnClasses =
+  "py-1 w-2/5 md:w-1/3 lg:w-1/5 xl:w-1/6 max-w-xs break-words whitespace-normal sm:whitespace-nowrap overflow-hidden"
+
 const ConditionCard: React.FC<{ condition: ReadinessCondition }> = ({ condition }) => {
   const variant = getReadinessConditionVariant(condition)
 
   return (
     <Box className={`p-4 border ${getVariantStyles(variant)}`}>
-      <Stack direction="vertical" gap="4">
-        <div>
-          <ConditionBadge condition={condition} />
-        </div>
-        <Grid>
-          <GridRow className="py-1">
-            <GridColumn>
-              <strong>{condition.type}</strong>
+      <ConditionBadge condition={condition} />
+      <Grid className="mt-4">
+        <GridRow>
+          <GridColumn className={gridColumnClasses}>
+            <strong>{condition.type}</strong>
+          </GridColumn>
+          <GridColumn auto>{condition.status}</GridColumn>
+        </GridRow>
+        <GridRow>
+          <GridColumn className={gridColumnClasses}>
+            <strong>Last status change</strong>
+          </GridColumn>
+          <GridColumn auto>
+            {condition.lastTransitionTime ? new Date(condition.lastTransitionTime).toLocaleString() : "N/A"}
+          </GridColumn>
+        </GridRow>
+        {condition.message && (
+          <GridRow>
+            <GridColumn className={gridColumnClasses}>
+              <strong>Last message</strong>
             </GridColumn>
-            <GridColumn auto>{condition.status}</GridColumn>
+            <GridColumn auto>{condition.message}</GridColumn>
           </GridRow>
-          <GridRow className="py-1">
-            <GridColumn>
-              <strong>Last status change</strong>
+        )}
+        {condition.reason && (
+          <GridRow>
+            <GridColumn className={gridColumnClasses}>
+              <strong>Reason</strong>
             </GridColumn>
-            <GridColumn auto>
-              {condition.lastTransitionTime ? new Date(condition.lastTransitionTime).toLocaleString() : "N/A"}
-            </GridColumn>
+            <GridColumn auto>{condition.reason}</GridColumn>
           </GridRow>
-          {condition.message && (
-            <GridRow className="py-1">
-              <GridColumn>
-                <strong>Last message</strong>
-              </GridColumn>
-              <GridColumn auto>{condition.message}</GridColumn>
-            </GridRow>
-          )}
-          {condition.reason && (
-            <GridRow className="py-1">
-              <GridColumn>
-                <strong>Reason</strong>
-              </GridColumn>
-              <GridColumn auto>{condition.reason}</GridColumn>
-            </GridRow>
-          )}
-        </Grid>
-      </Stack>
+        )}
+      </Grid>
     </Box>
   )
 }
