@@ -68,7 +68,9 @@ const getVariantStyles = (variant: ConditionVariant) => {
 }
 
 const gridColumnClasses =
-  "py-1 w-2/5 md:w-1/3 lg:w-1/5 xl:w-1/6 max-w-xs break-words whitespace-normal sm:whitespace-nowrap overflow-hidden"
+  "w-2/5 md:w-1/3 lg:w-1/5 xl:w-1/6 max-w-xs break-words whitespace-normal sm:whitespace-nowrap overflow-hidden"
+
+const gridRowClasses = "py-1 "
 
 const ConditionCard: React.FC<{ condition: ReadinessCondition }> = ({ condition }) => {
   const variant = getReadinessConditionVariant(condition)
@@ -77,13 +79,13 @@ const ConditionCard: React.FC<{ condition: ReadinessCondition }> = ({ condition 
     <Box className={`p-4 border ${getVariantStyles(variant)}`}>
       <ConditionBadge condition={condition} />
       <Grid className="mt-4">
-        <GridRow>
+        <GridRow className={gridRowClasses}>
           <GridColumn className={gridColumnClasses}>
             <strong>{condition.type}</strong>
           </GridColumn>
           <GridColumn auto>{condition.status}</GridColumn>
         </GridRow>
-        <GridRow>
+        <GridRow className={gridRowClasses}>
           <GridColumn className={gridColumnClasses}>
             <strong>Last status change</strong>
           </GridColumn>
@@ -92,7 +94,7 @@ const ConditionCard: React.FC<{ condition: ReadinessCondition }> = ({ condition 
           </GridColumn>
         </GridRow>
         {condition.message && (
-          <GridRow>
+          <GridRow className={gridRowClasses}>
             <GridColumn className={gridColumnClasses}>
               <strong>Last message</strong>
             </GridColumn>
@@ -100,7 +102,7 @@ const ConditionCard: React.FC<{ condition: ReadinessCondition }> = ({ condition 
           </GridRow>
         )}
         {condition.reason && (
-          <GridRow>
+          <GridRow className={gridRowClasses}>
             <GridColumn className={gridColumnClasses}>
               <strong>Reason</strong>
             </GridColumn>
