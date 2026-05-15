@@ -70,7 +70,7 @@ const getVariantStyles = (variant: ConditionVariant) => {
 const gridColumnClasses =
   "w-2/5 md:w-1/3 lg:w-1/5 xl:w-1/6 max-w-xs break-words whitespace-normal sm:whitespace-nowrap overflow-hidden"
 
-const gridRowClasses = "py-1 "
+const gridRowClasses = "py-1"
 
 const ConditionCard: React.FC<{ condition: ReadinessCondition }> = ({ condition }) => {
   const variant = getReadinessConditionVariant(condition)
