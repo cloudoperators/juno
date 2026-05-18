@@ -7,11 +7,16 @@ import request from "../src/request"
 
 import https from "https"
 
-// Mock https module with proper return value
-vi.mock("https", () => ({
-  Agent: vi.fn(),
-  default: { Agent: vi.fn() },
-}))
+// Mock https module with proper class-based Agent (required for Vitest 4)
+vi.mock("https", () => {
+  const AgentMock = vi.fn(class {
+    constructor(public _options?: any) {}
+  })
+  return {
+    Agent: AgentMock,
+    default: { Agent: AgentMock },
+  }
+})
 
 const testUrl = "https://apiEndpoint.com"
 const httpUrl = "http://apiEndpoint.com"
@@ -21,13 +26,18 @@ describe("request", () => {
   const mockedHttps = vi.mocked(https)
 
   beforeEach(() => {
+    vi.clearAllMocks()
     mockFetch = vi.fn()
     mockFetch.mockResolvedValue({ status: 200 })
     global.fetch = mockFetch
   })
 
   afterEach(() => {
-    vi.restoreAllMocks()
+    vi.clearAllMocks()
+    // Restore window if it was modified
+    if (typeof globalThis.window === 'undefined') {
+      globalThis.window = window
+    }
   })
 
   test("request should call fetch", async () => {

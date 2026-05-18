@@ -6,11 +6,14 @@
 import { render, queryByAttribute, renderHook } from "@testing-library/react"
 import { useEndlessScrollList } from "./useEndlessScrollList"
 
-const intersectionObserverMock = () => ({
-  observe: () => null,
-  disconnect: () => null,
+const IntersectionObserverMock = vi.fn(class {
+  disconnect = vi.fn()
+  observe = vi.fn()
+  takeRecords = vi.fn()
+  unobserve = vi.fn()
 })
-window.IntersectionObserver = vi.fn().mockImplementation(intersectionObserverMock)
+
+vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
 
 describe("useEndlessScrollList", () => {
   it("return no scroll items if items not all provided", () => {
