@@ -11,7 +11,8 @@ const mockResponse = {
   statusText: "OK",
   json: async () => {},
 } as Response
-global.fetch = vi.fn().mockResolvedValue(mockResponse)
+const mockFetch = vi.fn().mockResolvedValue(mockResponse)
+vi.stubGlobal('fetch', mockFetch)
 
 export function matchURL(expected: string) {
   return {
@@ -38,7 +39,7 @@ describe("getOidcConfig", () => {
   })
   it("should call fetch", async () => {
     await getOidcConfig("https://test.com")
-    expect(global.fetch).toHaveBeenCalled()
+    expect(mockFetch).toHaveBeenCalled()
   })
   it("should call fetch with the correct url", async () => {
     await getOidcConfig("https://test.com")
