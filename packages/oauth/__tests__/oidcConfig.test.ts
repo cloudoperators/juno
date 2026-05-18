@@ -12,7 +12,7 @@ const mockResponse = {
   json: async () => {},
 } as Response
 const mockFetch = vi.fn().mockResolvedValue(mockResponse)
-vi.stubGlobal('fetch', mockFetch)
+vi.stubGlobal("fetch", mockFetch)
 
 export function matchURL(expected: string) {
   return {
