@@ -6,6 +6,7 @@
 import junoConfigs from "@cloudoperators/juno-config/eslint/juno-typescript.mjs"
 
 export default [
+  { ignores: ["src/routeTree.gen.ts"] },
   ...junoConfigs,
   {
     files: ["**/*.ts", "**/*.tsx"],

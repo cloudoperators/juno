@@ -22,7 +22,7 @@ describe("request", () => {
 
   beforeEach(() => {
     mockFetch = vi.fn()
-    mockFetch.mockResolvedValue({ status: 200 } as Response)
+    mockFetch.mockResolvedValue({ status: 200 })
     global.fetch = mockFetch
   })
 

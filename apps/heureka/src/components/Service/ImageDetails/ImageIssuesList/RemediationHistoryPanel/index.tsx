@@ -144,11 +144,10 @@ export const RemediationHistoryPanel = ({
       await deleteRemediation({ apiClient, remediationId: remediation.remediationId })
       // Remove the deleted remediation from all matching cache entries so both the
       // Remediated tab and this panel reflect the change before the BE cache expires.
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       queryClient.setQueriesData(
         {
           predicate: (query) => {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const [key, filter] = query.queryKey as [string, any]
             if (key !== "remediations") return false
             if (filter?.service && !filter.service.includes(service)) return false
@@ -156,11 +155,11 @@ export const RemediationHistoryPanel = ({
             return true
           },
         },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
         (old: any) => {
           const edges = old?.data?.Remediations?.edges
           if (!edges) return old
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
           const newEdges = edges.filter((e: any) => e?.node?.id !== remediation.remediationId)
           if (newEdges.length === edges.length) return old
           return {
