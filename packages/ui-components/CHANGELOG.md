@@ -1,5 +1,19 @@
 # @cloudoperators/juno-ui-components
 
+## 6.4.0
+
+### Minor Changes
+
+- f1e2c7b: Add extra-small (`xs`) size to Button component. Spinner margin adjustment will be addressed in a separate PR.
+
+### Patch Changes
+
+- 6ce5352: Fix dropdown icon right-gap in ComboBox and Select components to match Figma design specs.
+  Fix input text overlapping toggle button and valid/invalid icons by adding dynamic right padding.
+- ed9353f: Update tanstack dependencies to latest version
+- 9eaed28: Remove hardcoded `jn:mr-3` margin from Spinner component. The margin was applied globally, causing layout issues when Spinner is used inside components like Button that manage their own spacing. Callers that relied on the built-in margin have been updated to add the margin explicitly.
+- 07a0bf8: fix: address CVE-2026-44728 vulnerability in @babel/plugin-transform-modules-systemjs
+
 ## 6.3.1
 
 ### Patch Changes
