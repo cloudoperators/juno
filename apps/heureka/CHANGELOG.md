@@ -1,5 +1,20 @@
 # heureka
 
+## 1.1.3
+
+### Patch Changes
+
+- 4ef8a72: Adds risk acceptance remediation action
+- ed9353f: Update tanstack dependencies to latest version
+- Updated dependencies [6ce5352]
+- Updated dependencies [ed9353f]
+- Updated dependencies [f1e2c7b]
+- Updated dependencies [9eaed28]
+- Updated dependencies [07a0bf8]
+  - @cloudoperators/juno-ui-components@6.4.0
+  - @cloudoperators/greenhouse-auth-provider@1.0.3
+  - @cloudoperators/juno-url-state-provider@3.0.9
+
 ## 1.1.2
 
 ### Patch Changes
