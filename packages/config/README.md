@@ -70,6 +70,38 @@ import junoConfigs from "@cloudoperators/juno-config/eslint/juno-typescript.mjs"
 export default [...junoConfigs]
 ```
 
+## ESLint for Vite + React + TypeScript
+
+This package provides a modern ESLint configuration specifically designed for Vite React applications using TypeScript, following Vite's official recommendations.
+
+### Usage
+
+Create an `eslint.config.mjs` in your Vite React app:
+
+```javascript
+import viteReactTsConfigs from "@cloudoperators/juno-config/eslint/vite-react-ts.mjs"
+
+export default [
+  ...viteReactTsConfigs,
+  // Add your custom rules here
+]
+```
+
+### What's included
+
+- TypeScript type-checked linting (`typescript-eslint` recommendedTypeChecked)
+- React Hooks rules (`eslint-plugin-react-hooks`)
+- React Refresh rules for Vite HMR (`eslint-plugin-react-refresh`)
+- Browser environment globals
+- Custom unused vars pattern (allows underscore prefix)
+
+### Differences from juno-typescript.mjs
+
+- **TypeScript-first**: Only targets `.ts` and `.tsx` files (no JavaScript files targeted)
+- **Includes React plugins**: `react-hooks` and `react-refresh` are included by default
+- **Type-checked**: Uses `recommendedTypeChecked` for better type safety
+- **Vite-optimized**: Follows Vite's official React-TypeScript template structure
+
 ## Contributing
 
 We welcome contributions from the community. Please follow our [contribution guidelines](https://github.com/cloudoperators/juno/blob/main/CONTRIBUTING.md) to contribute to this project.

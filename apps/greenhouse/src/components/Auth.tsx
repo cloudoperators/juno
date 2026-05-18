@@ -29,7 +29,7 @@ const Auth = ({ children }: any) => {
     <Stack alignment="center" distribution="center" direction="vertical" className="h-screen">
       {authIsProcessing ? (
         <>
-          <Spinner className="mx-6 mb-3" variant="primary" size="1.5rem"></Spinner>
+          <Spinner className="mx-6 mb-3 mr-3" variant="primary" size="1.5rem"></Spinner>
           Signing on...
         </>
       ) : (

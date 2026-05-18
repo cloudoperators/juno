@@ -41,14 +41,15 @@
   },
   "packageManager": "pnpm@10.32.1",
   "dependencies": {
-    "@tanstack/react-query": "5.89.0",
+    "@tanstack/react-query": "5.100.10",
     "zod": "4.3.6"
   },
   "pnpm": {
     "overrides": {
       "minimatch": ">=10.2.4",
       "flatted": ">=3.4.2",
-      "picomatch": ">=4.0.4"
+      "picomatch": ">=4.0.4",
+      "fast-uri": ">=3.1.2"
     }
   }
 }

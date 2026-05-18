@@ -1,5 +1,17 @@
 # @cloudoperators/juno-app-template
 
+## 2.0.38
+
+### Patch Changes
+
+- ed9353f: Update tanstack dependencies to latest version
+- Updated dependencies [6ce5352]
+- Updated dependencies [ed9353f]
+- Updated dependencies [f1e2c7b]
+- Updated dependencies [9eaed28]
+- Updated dependencies [07a0bf8]
+  - @cloudoperators/juno-ui-components@6.4.0
+
 ## 2.0.37
 
 ### Patch Changes

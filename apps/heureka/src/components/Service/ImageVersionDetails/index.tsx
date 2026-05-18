@@ -69,8 +69,8 @@ export const ImageVersionDetails = ({
               <Pill
                 pillKey="version"
                 pillKeyLabel="version"
-                pillValue={imageVersion.version}
-                pillValueLabel={imageVersion.version}
+                pillValue={imageVersion.version || "_"}
+                pillValueLabel={imageVersion.version || "_"}
               />
             </Stack>
           </DataGridCell>

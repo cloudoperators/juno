@@ -28,9 +28,9 @@ export const ImageVersionsList = ({ versions, service, imageRepository }: ImageV
     navigate({
       to: "/services/$service/images/$image/versions/$version",
       params: {
-        service: encodeURIComponent(service),
-        image: encodeURIComponent(imageRepository),
-        version: encodeURIComponent(version),
+        service,
+        image: imageRepository,
+        version,
       },
       search: {},
     })

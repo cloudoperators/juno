@@ -1,0 +1,251 @@
+# Greenhouse PR Preview Workflow
+#
+# Automatically builds Docker images for pull requests and manages their deployment
+# via ArgoCD label-based triggers.
+#
+# For detailed documentation, see: docs/greenhouse-pr-preview-workflow.md
+#
+# Workflow Flow:
+# Initial Setup:
+# 1. Developer sets 'greenhouse-pr-build' label on PR
+# 2. Action builds Docker image with tag pr-{number}-{sha}
+# 3. Action sets 'greenhouse-pr-preview' label (ArgoCD deploys)
+#
+# On subsequent commits:
+# 1. Developer pushes new commit
+# 2. PR-Build label already exists
+# 3. Action removes PR-Preview label (ArgoCD deletes the app)
+# 4. Action builds new Docker image with new tag pr-{number}-{new-sha}
+# 5. Action sets PR-Preview label back during build-and-push
+#    (ArgoCD redeploys after 2-3 mins)
+# 6. Action deletes old Docker images for this PR afterward via cleanup-old-images
+#    (keeps only the latest)
+#
+# On PR close/merge:
+# 1. PR is closed or merged
+# 2. Action deletes all remaining Docker images matching pr-{number}-*
+# 3. Action removes PR-Preview label
+# 4. Sends Slack notification on failure
+
+name: Build Greenhouse PR Preview 🔬
+
+on:
+  pull_request:
+    types: [ labeled, synchronize, opened, reopened, closed ]
+
+# Ensure only one workflow runs per PR at a time
+concurrency:
+  group: greenhouse-pr-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: "juno-app-greenhouse-pr-preview"
+  PACKAGE_PATH: "apps/greenhouse"
+  # Note: PR_BUILD_LABEL is also hardcoded in the build-and-push job condition
+  # because env context is not available in job-level if expressions
+  PR_BUILD_LABEL: "greenhouse-pr-build"
+  PR_PREVIEW_LABEL: "greenhouse-pr-preview"
+
+jobs:
+  build-and-push:
+    name: Build and Push PR Preview Image
+    # Skip if PR is closed or from a forked repository
+    # For labeled events, only build when the added label is the PR build label
+    if: |
+      github.event.action != 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      (
+          github.event.action != 'labeled' ||
+          github.event.label.name == 'greenhouse-pr-build'
+      )
+    runs-on: ubuntu-latest
+    outputs:
+      image-built: ${{ steps.build-image.outcome == 'success' }}
+      pr-version: ${{ steps.pr-version.outputs.PR_VERSION }}
+    permissions:
+      contents: read
+      packages: write
+      # Both issues and pull-requests write permissions are needed for label operations
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Check for PR Build label
+        id: check-label
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const labels = context.payload.pull_request.labels.map(l => l.name);
+            const hasPrBuildLabel = labels.includes('${{ env.PR_BUILD_LABEL }}');
+            const hasPrPreviewLabel = labels.includes('${{ env.PR_PREVIEW_LABEL }}');
+
+            console.log(`PR Build Label present: ${hasPrBuildLabel}`);
+            console.log(`PR Preview Label present: ${hasPrPreviewLabel}`);
+            console.log(`Event action: ${context.payload.action}`);
+
+            core.setOutput('should-build', hasPrBuildLabel.toString());
+            core.setOutput('has-preview-label', hasPrPreviewLabel.toString());
+
+      - name: Exit if PR Build label not present
+        if: steps.check-label.outputs.should-build != 'true'
+        run: |
+          echo "Skipping build - '${{ env.PR_BUILD_LABEL }}' label not present"
+          exit 0
+
+      - name: Remove PR Preview label on new commit
+        if: steps.check-label.outputs.should-build == 'true' &&
+          steps.check-label.outputs.has-preview-label == 'true' &&
+          github.event.action == 'synchronize'
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            console.log('Removing PR Preview label - new commit detected');
+            try {
+              await github.rest.issues.removeLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.pull_request.number,
+                name: '${{ env.PR_PREVIEW_LABEL }}'
+              });
+              console.log('PR Preview label removed successfully');
+            } catch (error) {
+              if (error.status === 404) {
+                console.log('Label already removed or does not exist');
+              } else {
+                throw error;
+              }
+            }
+
+      - name: Checkout repository
+        if: steps.check-label.outputs.should-build == 'true'
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Generate PR version tag
+        if: steps.check-label.outputs.should-build == 'true'
+        id: pr-version
+        run: |
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          SHORT_SHA=$(echo ${{ github.event.pull_request.head.sha }} | cut -c1-7)
+          PR_VERSION="pr-${PR_NUMBER}-${SHORT_SHA}"
+          echo "PR_VERSION=${PR_VERSION}" >> $GITHUB_OUTPUT
+          echo "Building version: ${PR_VERSION}"
+
+      - name: Log into registry ${{ env.REGISTRY }}
+        if: steps.check-label.outputs.should-build == 'true'
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate Docker metadata
+        if: steps.check-label.outputs.should-build == 'true'
+        id: meta
+        uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5.10.0
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=${{ steps.pr-version.outputs.PR_VERSION }}
+          labels: |
+            org.opencontainers.image.description=PR Preview for Greenhouse Dashboard
+            org.opencontainers.image.title=Greenhouse-UI-PR-${{ github.event.pull_request.number }}
+
+      - name: Build and push Docker image
+        if: steps.check-label.outputs.should-build == 'true'
+        id: build-image
+        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          file: ${{ env.PACKAGE_PATH }}/docker/Dockerfile
+
+      - name: Add PR Preview label
+        if: steps.check-label.outputs.should-build == 'true' && success()
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              labels: ['${{ env.PR_PREVIEW_LABEL }}']
+            });
+
+  cleanup-old-images:
+    name: Cleanup Old PR Images
+    needs: build-and-push
+    if: needs.build-and-push.outputs.image-built == 'true'
+    permissions:
+      packages: write
+    uses: cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml@d138f9922c75ed1e1ad3ae3bfb68dd8ae3284dc6 # main
+    with:
+      runs-on: ubuntu-latest
+      package: juno-app-greenhouse-pr-preview
+      delete-tags: pr-${{ github.event.pull_request.number }}-*
+      exclude-tags: ${{ needs.build-and-push.outputs.pr-version }}
+      delete-partial-images: true
+
+  cleanup:
+    name: Cleanup PR Preview Image
+    # Skip if PR is not closed or from a forked repository
+    if: github.event.action == 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    permissions:
+      packages: write
+    uses: cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml@d138f9922c75ed1e1ad3ae3bfb68dd8ae3284dc6 # main
+    with:
+      runs-on: ubuntu-latest
+      package: juno-app-greenhouse-pr-preview
+      delete-tags: pr-${{ github.event.pull_request.number }}-*
+      delete-partial-images: true
+
+  remove-label:
+    name: Remove PR Preview Label
+    needs: cleanup
+    if: always() && github.event.action == 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Remove PR Preview label
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            try {
+              await github.rest.issues.removeLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.pull_request.number,
+                name: '${{ env.PR_PREVIEW_LABEL }}'
+              });
+              console.log('PR Preview label removed successfully');
+            } catch (error) {
+              if (error.status === 404) {
+                console.log('Label does not exist or already removed');
+              } else {
+                console.error('Error removing label:', error);
+                throw error;
+              }
+            }
+
+  notify-on-failure:
+    if: github.event.action == 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      needs.cleanup.result == 'failure'
+    needs: [ cleanup ]
+    permissions: {}
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@e69fd9982d52aa1e1623ceda55875724843516b6 # main
+    with:
+      title: "🚨 Greenhouse PR Preview Image Cleanup Failed 🚨"
+      body: "Failed to delete preview images for PR #${{
+        github.event.pull_request.number }}. Please check the logs and manually
+        clean up if needed. <${{ github.server_url }}/${{ github.repository
+        }}/actions/runs/${{ github.run_id }}|Check the logs>"
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

@@ -1,5 +1,16 @@
 # @cloudoperators/juno-config
 
+## 0.1.0
+
+### Minor Changes
+
+- 7b3941e: Add vite-react-ts.mjs ESLint configuration for Vite React TypeScript projects following official Vite recommendations. Includes react-hooks and react-refresh plugins by default with TypeScript type-checked linting.
+
+### Patch Changes
+
+- ed9353f: Update tanstack dependencies to latest version
+- 5c86171: Remove the @types/eslint\_\_js package, as the @eslint/js package provides its own type definitions
+
 ## 0.0.7
 
 ### Patch Changes

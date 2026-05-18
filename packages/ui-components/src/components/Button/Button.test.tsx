@@ -147,4 +147,21 @@ describe("Button", () => {
     expect(screen.getByRole("img")).toBeInTheDocument()
     expect(screen.getByRole("img")).toContainHTML("<title>customTitle</title>")
   })
+
+  test("renders an xs button", () => {
+    render(<Button size="xs">Click me</Button>)
+    expect(screen.getByRole("button")).toBeInTheDocument()
+    expect(screen.getByRole("button")).toHaveClass("juno-button-xs-size")
+  })
+
+  test("renders an xs in progress button as passed", () => {
+    render(
+      <Button size="xs" progress={true}>
+        Click me
+      </Button>
+    )
+    expect(screen.getByRole("button")).toBeInTheDocument()
+    expect(screen.getByRole("button")).toHaveClass("in-progress")
+    expect(screen.getByRole("progressbar")).toHaveClass("juno-spinner")
+  })
 })

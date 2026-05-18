@@ -7,7 +7,6 @@ import React, { HTMLProps, ReactNode } from "react"
 
 const spinnerBaseStyles = `
   jn:animate-spin 
-  jn:mr-3 
   jn:h-5 
   jn:w-5 
 `

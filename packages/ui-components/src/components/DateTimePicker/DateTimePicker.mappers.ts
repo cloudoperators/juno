@@ -21,7 +21,7 @@ import type { DateOption, DateLimit, LocaleKey, CustomLocale } from "./DateTimeP
  * but TypeScript treats them as distinct types.
  */
 export function mapDateOption(date: DateOption): FlatpickrDateOption {
-  return date as unknown as FlatpickrDateOption
+  return date
 }
 
 /**
@@ -31,7 +31,7 @@ export function mapDateOption(date: DateOption): FlatpickrDateOption {
 export function mapDateLimit(limit: DateLimit): FlatpickrDateLimit<FlatpickrDateOption> {
   // If it's a function, map it directly
   if (typeof limit === "function") {
-    return limit as unknown as FlatpickrDateLimit<FlatpickrDateOption>
+    return limit
   }
 
   // If it's a date range object { from, to }
@@ -40,12 +40,12 @@ export function mapDateLimit(limit: DateLimit): FlatpickrDateLimit<FlatpickrDate
       return {
         from: mapDateOption(limit.from),
         to: mapDateOption(limit.to),
-      } as FlatpickrDateLimit<FlatpickrDateOption>
+      }
     }
   }
 
   // Otherwise it's a simple date option
-  return mapDateOption(limit as DateOption) as unknown as FlatpickrDateLimit<FlatpickrDateOption>
+  return mapDateOption(limit)
 }
 
 /**
@@ -64,10 +64,10 @@ export function mapLocale(
 ): FlatpickrLocaleKey | Partial<FlatpickrCustomLocale> {
   // If it's a string locale key, map directly
   if (typeof locale === "string") {
-    return locale as unknown as FlatpickrLocaleKey
+    return locale
   }
 
   // If it's a custom locale object, map it
   // Since both types are structurally compatible, we can safely cast
-  return locale as unknown as Partial<FlatpickrCustomLocale>
+  return locale
 }
