@@ -69,11 +69,9 @@ export const RemediatedIssueDataRow = ({
       const remediation = await createRemediation({ apiClient, input })
       const cveNumber = issue?.name || "unknown"
       if (remediation) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         queryClient.setQueriesData(
           {
             predicate: (query) => {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               const [key, filter] = query.queryKey as [string, any]
               if (key !== "remediations") return false
               if (filter?.service && !filter.service.includes(service)) return false
@@ -82,11 +80,11 @@ export const RemediatedIssueDataRow = ({
               return true
             },
           },
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
           (old: any) => {
             if (!old?.data?.Remediations) return old
             const edges = old.data.Remediations.edges ?? []
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
             if (edges.some((e: any) => e?.node?.id === remediation.id)) return old
             return {
               ...old,
