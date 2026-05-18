@@ -31,7 +31,7 @@ describe("request", () => {
     vi.clearAllMocks()
     mockFetch = vi.fn()
     mockFetch.mockResolvedValue({ status: 200 })
-    global.fetch = mockFetch
+    vi.stubGlobal("fetch", mockFetch)
   })
 
   afterEach(() => {

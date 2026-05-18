@@ -13,7 +13,7 @@ import { ThemeToggle } from "./ThemeToggle.component"
 const mockOnToggleTheme = vi.fn()
 
 describe("ThemeToggle", () => {
-  let consoleWarnSpy: ReturnType<typeof vi.spyOn<Console, "warn">>
+  let consoleWarnSpy: ReturnType<typeof vi.spyOn>
   // Set up console.warn spy
   beforeEach(() => {
     consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => {})

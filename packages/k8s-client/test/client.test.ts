@@ -58,7 +58,7 @@ describe("k8sClient", () => {
 
     // Set up default successful response
     mockFetch.mockResolvedValue(createMockResponse({ success: true }))
-    global.fetch = mockFetch
+    vi.stubGlobal("fetch", mockFetch)
   })
 
   afterEach(() => {
