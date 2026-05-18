@@ -16,6 +16,7 @@ type IssuesDataRowsProps = {
   service: string
   image: string
   onFalsePositiveSuccess: (cveNumber: string) => void | Promise<void>
+  onRiskAcceptanceSuccess: (cveNumber: string) => void | Promise<void>
 }
 
 export const IssuesDataRows = ({
@@ -24,6 +25,7 @@ export const IssuesDataRows = ({
   service,
   image,
   onFalsePositiveSuccess,
+  onRiskAcceptanceSuccess,
 }: IssuesDataRowsProps) => {
   const { error, data } = use(issuesPromise)
   const remediationsResult = use(remediationsPromise)
@@ -52,6 +54,7 @@ export const IssuesDataRows = ({
       service={service}
       image={image}
       onFalsePositiveSuccess={onFalsePositiveSuccess}
+      onRiskAcceptanceSuccess={onRiskAcceptanceSuccess}
     />
   ))
 }

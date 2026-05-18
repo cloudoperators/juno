@@ -36,7 +36,7 @@ type RemediationHistoryPanelProps = {
   vulnerability: string | null
   onClose: () => void
   /** Called after a successful revert so the parent can refetch remediations and images. */
-  onRevertSuccess?: () => void | Promise<void>
+  onRevertSuccess?: (cveNumber: string) => void | Promise<void>
   /** Increment to force a fresh fetch of remediations (e.g. after createRemediation or deleteRemediation). */
   refreshKey?: number
 }
@@ -60,7 +60,7 @@ const RemediationHistoryTable = ({
   onRevert,
 }: {
   remediationsPromise: ReturnType<typeof fetchRemediations>
-  onRevert: (remediationId: string) => Promise<void>
+  onRevert: (remediation: RemediatedVulnerability) => Promise<void>
 }) => {
   const [revertingId, setRevertingId] = useState<string | null>(null)
   const { error, data } = use(remediationsPromise)
@@ -69,7 +69,7 @@ const RemediationHistoryTable = ({
   const handleRevert = async (r: RemediatedVulnerability) => {
     setRevertingId(r.remediationId)
     try {
-      await onRevert(r.remediationId)
+      await onRevert(r)
     } finally {
       setRevertingId(null)
     }
@@ -137,18 +137,53 @@ export const RemediationHistoryPanel = ({
     return fetchRemediations({ apiClient, queryClient, filter, staleTime: 0 })
   }, [service, image, vulnerability, apiClient, queryClient, refreshKey])
 
-  const handleRevert = async (remediationId: string) => {
+  const handleRevert = async (remediation: RemediatedVulnerability) => {
     // Clear any existing feedback when starting a new revert operation.
     setRevertMessage(null)
     try {
-      await deleteRemediation({ apiClient, remediationId })
-      const text = `The false positive for ${vulnerability ?? "unknown"} has been reverted and moved back to the Active list.`
+      await deleteRemediation({ apiClient, remediationId: remediation.remediationId })
+      // Remove the deleted remediation from all matching cache entries so both the
+      // Remediated tab and this panel reflect the change before the BE cache expires.
+
+      queryClient.setQueriesData(
+        {
+          predicate: (query) => {
+            const [key, filter] = query.queryKey as [string, any]
+            if (key !== "remediations") return false
+            if (filter?.service && !filter.service.includes(service)) return false
+            if (filter?.image && !filter.image.includes(image)) return false
+            return true
+          },
+        },
+
+        (old: any) => {
+          const edges = old?.data?.Remediations?.edges
+          if (!edges) return old
+
+          const newEdges = edges.filter((e: any) => e?.node?.id !== remediation.remediationId)
+          if (newEdges.length === edges.length) return old
+          return {
+            ...old,
+            data: {
+              ...old.data,
+              Remediations: {
+                ...old.data.Remediations,
+                edges: newEdges,
+                totalCount: Math.max(0, (old.data.Remediations.totalCount ?? 1) - 1),
+              },
+            },
+          }
+        }
+      )
+      const typeLabel = remediation.type ?? "remediation"
+      const dateLabel = remediation.remediationDate ? ` from ${formatDateTime(remediation.remediationDate)}` : ""
+      const text = `The ${typeLabel}${dateLabel} for ${vulnerability ?? "unknown"} has been reverted.`
       setRevertMessage({ variant: "success", text })
 
       // Refresh panel/list data in the background — do not await so the
       // spinner clears at the same time as the success message appears.
       if (vulnerability) {
-        Promise.resolve(onRevertSuccess?.()).catch((refreshError) => {
+        Promise.resolve(onRevertSuccess?.(vulnerability)).catch((refreshError) => {
           const refreshMsg =
             refreshError instanceof Error ? refreshError.message : "Failed to refresh data after revert"
           setRevertMessage({

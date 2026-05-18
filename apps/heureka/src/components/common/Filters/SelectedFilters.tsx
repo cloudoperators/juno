@@ -19,7 +19,8 @@ export const SelectedFilters = ({ selectedFilters, onDelete }: SelectedFiltersPr
         key={`${filter.name}:${filter.value}`}
         closeable
         pillKey={filter.name}
-        pillValue={filter.value}
+        pillValue={filter.value || "_"}
+        pillValueLabel={filter.value || "_"}
         onClose={() => onDelete(filter)}
       />
     ))}

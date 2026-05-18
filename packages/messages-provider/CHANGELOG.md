@@ -1,5 +1,16 @@
 # @cloudoperators/juno-messages-provider
 
+## 0.2.40
+
+### Patch Changes
+
+- Updated dependencies [6ce5352]
+- Updated dependencies [ed9353f]
+- Updated dependencies [f1e2c7b]
+- Updated dependencies [9eaed28]
+- Updated dependencies [07a0bf8]
+  - @cloudoperators/juno-ui-components@6.4.0
+
 ## 0.2.39
 
 ### Patch Changes

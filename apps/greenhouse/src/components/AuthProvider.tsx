@@ -115,7 +115,7 @@ const initializeDemoAuth = (
       pluginAuth.setAuthState({
         status: "authenticated",
         token: data?.auth?.JWT,
-        userId: data?.auth?.parsed?.userId,
+        userId: data?.auth?.parsed?.loginName,
         userName: data?.auth?.parsed?.fullName,
       })
       // set the organization name in the URL
@@ -171,7 +171,7 @@ const initializeRealOidc = (
       pluginAuth.setAuthState({
         status: "authenticated",
         token: data?.auth?.JWT,
-        userId: data?.auth?.parsed?.userId,
+        userId: data?.auth?.parsed?.loginName,
         userName: data?.auth?.parsed?.fullName,
       })
       // set the organization name in the URL
