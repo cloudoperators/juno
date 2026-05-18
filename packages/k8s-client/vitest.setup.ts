@@ -13,5 +13,5 @@ beforeAll(() => {
       json: () => Promise.resolve({}),
     })
   )
-  vi.stubGlobal('fetch', mockFetch)
+  vi.stubGlobal("fetch", mockFetch)
 })

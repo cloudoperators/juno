@@ -8,9 +8,11 @@ import https from "https"
 
 // Mock https module with proper class-based Agent (required for Vitest 4)
 vi.mock("https", () => {
-  const AgentMock = vi.fn(class {
-    constructor(public _options?: any) {}
-  })
+  const AgentMock = vi.fn(
+    class {
+      constructor(public _options?: any) {}
+    }
+  )
   return {
     Agent: AgentMock,
     default: { Agent: AgentMock },

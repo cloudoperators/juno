@@ -16,5 +16,5 @@ beforeAll(() => {
         json: () => Promise.resolve({}), // Mocking the json method
       } as Response) // Cast to Response type to satisfy TypeScript
   )
-  vi.stubGlobal('fetch', mockFetch)
+  vi.stubGlobal("fetch", mockFetch)
 })
