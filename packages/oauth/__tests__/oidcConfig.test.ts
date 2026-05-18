@@ -68,8 +68,6 @@ describe("getOidcConfig", () => {
     vi.clearAllMocks()
     resetCache()
     await getOidcConfig("https://test.com/with/path")
-    expect(mockFetch).toHaveBeenLastCalledWith(
-      matchURL("https://test.com/with/path/.well-known/openid-configuration")
-    )
+    expect(mockFetch).toHaveBeenLastCalledWith(matchURL("https://test.com/with/path/.well-known/openid-configuration"))
   })
 })
