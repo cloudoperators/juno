@@ -9,6 +9,7 @@ import { createMemoryHistory, createRootRoute, createRoute, Outlet, RouterProvid
 import { PortalProvider } from "@cloudoperators/juno-ui-components"
 import { RemediationHistoryPanel } from "./index"
 import { getTestRouter } from "../../../../../mocks/getTestRouter"
+import { RemediationTypeValues } from "../../../../../generated/graphql"
 
 vi.mock("../../../../../api/fetchRemediations", () => ({
   fetchRemediations: vi.fn(),
@@ -19,14 +20,15 @@ import { fetchRemediations } from "../../../../../api/fetchRemediations"
 const makeMockRemediationsPromise = (
   edges: Array<{
     id: string
-    type: string | null
+    type: RemediationTypeValues | null
     description: string | null
     url: string | null
     remediatedBy: string | null
     remediationDate: string | null
     expirationDate: string | null
   }>
-) =>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Promise<any> =>
   Promise.resolve({
     data: {
       Remediations: {
@@ -43,7 +45,9 @@ const makeMockRemediationsPromise = (
     },
     loading: false,
     networkStatus: 7,
+    partial: false,
     error: undefined,
+    dataState: "complete" as const,
   })
 
 const renderPanel = (vulnerability: string | null = null) => {
@@ -86,7 +90,7 @@ describe("RemediationHistoryPanel", () => {
       makeMockRemediationsPromise([
         {
           id: "rem-0",
-          type: "risk_accepted",
+          type: RemediationTypeValues.RiskAccepted,
           description: "Some reason",
           url: "JIRA-1",
           remediatedBy: "user-1",
@@ -106,7 +110,7 @@ describe("RemediationHistoryPanel", () => {
       makeMockRemediationsPromise([
         {
           id: "rem-1",
-          type: "risk_accepted",
+          type: RemediationTypeValues.RiskAccepted,
           description: "Accepted for now",
           url: "JIRA-9999",
           remediatedBy: "user-123",
@@ -124,7 +128,7 @@ describe("RemediationHistoryPanel", () => {
       makeMockRemediationsPromise([
         {
           id: "rem-2",
-          type: "risk_accepted",
+          type: RemediationTypeValues.RiskAccepted,
           description: "No ticket",
           url: null,
           remediatedBy: "user-123",
@@ -143,7 +147,7 @@ describe("RemediationHistoryPanel", () => {
       makeMockRemediationsPromise([
         {
           id: "rem-3",
-          type: "mitigation",
+          type: RemediationTypeValues.Mitigation,
           description: "Applied patch",
           url: "JIRA-0000",
           remediatedBy: "user-456",
