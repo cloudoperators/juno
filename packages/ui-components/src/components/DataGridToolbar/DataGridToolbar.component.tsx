@@ -12,22 +12,15 @@ const baseToolbarStyles = `
 `
 
 /**
- * `DataGridToolbar` provides an action bar for a `DataGrid`, designed to hold controls like buttons and search inputs
- * for performing group operations and interfacing with the grid content.
+ * `DataGridToolbar` is a spacing wrapper for a `DataGrid` header row. It provides consistent padding and separation
+ * from the grid below. Use `Stack` inside to compose and position toolbar content.
  * @see https://cloudoperators.github.io/juno/?path=/docs/components-datagrid-datagridtoolbar--docs
  * @see {@link DataGridToolbarProps}
  */
-export const DataGridToolbar = ({
-  className = "",
-  children,
-  alignRight = true,
-  ...props
-}: DataGridToolbarProps): ReactNode => {
-  const childrenWrapperStyles = alignRight ? "jn:ml-auto" : ""
-  const alignmentToolbarStyles = alignRight ? "jn:flex jn:items-center" : ""
+export const DataGridToolbar = ({ className = "", children, ...props }: DataGridToolbarProps): ReactNode => {
   return (
-    <div className={`juno-datagrid-toolbar ${baseToolbarStyles} ${alignmentToolbarStyles} ${className}`} {...props}>
-      <div className={childrenWrapperStyles}>{children}</div>
+    <div className={`juno-datagrid-toolbar ${baseToolbarStyles} ${className}`} {...props}>
+      {children}
     </div>
   )
 }
@@ -43,12 +36,4 @@ export interface DataGridToolbarProps extends HTMLAttributes<HTMLDivElement> {
    * @default ""
    */
   className?: string
-
-  /**
-   * Determines whether the children are automatically aligned to the right side within the toolbar.
-   * When true, applies `ml-auto` to the children wrapper, pushing content right.
-   * When false, no automatic alignment is applied, allowing for custom layouts.
-   * @default true
-   */
-  alignRight?: boolean
 }
