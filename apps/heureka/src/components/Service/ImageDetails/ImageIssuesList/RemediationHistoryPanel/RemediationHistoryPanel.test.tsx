@@ -27,7 +27,6 @@ const makeMockRemediationsPromise = (
     remediationDate: string | null
     expirationDate: string | null
   }>
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> =>
   Promise.resolve({
     data: {
