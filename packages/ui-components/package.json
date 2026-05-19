@@ -18,7 +18,7 @@
   "repository": "https://github.com/cloudoperators/juno/tree/main/packages/juno-ui-components",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=20.12.0",
+    "node": ">=20.19.0",
     "pnpm": ">=8.0.0"
   },
   "devDependencies": {
@@ -41,7 +41,7 @@
     "eslint-plugin-storybook": "10.3.5",
     "flatpickr": "4.6.13",
     "focus-trap-react": "11.0.6",
-    "jsdom": "26.1.0",
+    "jsdom": "29.1.1",
     "node-sass-glob-importer": "3.0.2",
     "react": "19.2.5",
     "react-dom": "19.2.5",
