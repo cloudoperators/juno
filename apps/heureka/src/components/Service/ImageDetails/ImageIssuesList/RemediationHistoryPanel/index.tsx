@@ -22,7 +22,7 @@ import {
 import { fetchRemediations } from "../../../../../api/fetchRemediations"
 import { deleteRemediation } from "../../../../../api/deleteRemediation"
 import { getNormalizedRemediationsResponse } from "../../../../Services/utils"
-import { GetRemediationsQuery, RemediationTypeValues } from "../../../../../generated/graphql"
+import { GetRemediationsQuery } from "../../../../../generated/graphql"
 import { ErrorBoundary } from "../../../../common/ErrorBoundary"
 import { EmptyDataGridRow } from "../../../../common/EmptyDataGridRow"
 import { LoadingDataRow } from "../../../../common/LoadingDataRow"
@@ -87,14 +87,12 @@ const RemediationHistoryTable = ({
     <>
       {remediatedVulnerabilities.map((r: RemediatedVulnerability) => (
         <DataGridRow key={r.remediationId}>
-          <DataGridCell className="whitespace-nowrap">{r.type ?? "—"}</DataGridCell>
+          <DataGridCell className="whitespace-nowrap">{r.type}</DataGridCell>
           <DataGridCell className="whitespace-nowrap">{formatDateTime(r.expirationDate)}</DataGridCell>
           <DataGridCell className="whitespace-nowrap">{formatDateTime(r.remediationDate)}</DataGridCell>
-          <DataGridCell>{r.remediatedBy ?? "—"}</DataGridCell>
-          <DataGridCell>{r.description ?? "—"}</DataGridCell>
-          <DataGridCell>
-            {r.type === RemediationTypeValues.RiskAccepted ? (r.url ?? "—") : null}
-          </DataGridCell>
+          <DataGridCell>{r.remediatedBy ?? "--"}</DataGridCell>
+          <DataGridCell>{r.description ?? "--"}</DataGridCell>
+          <DataGridCell>{r.url ?? "--"}</DataGridCell>
           <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
             {revertingId === r.remediationId ? (
               <Spinner variant="primary" size="small" className="ml-auto" />
