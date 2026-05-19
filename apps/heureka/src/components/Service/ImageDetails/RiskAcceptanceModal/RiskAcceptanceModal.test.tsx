@@ -193,7 +193,7 @@ describe("RiskAcceptanceModal", () => {
       )
     })
 
-    it("includes source ticket prefix in description when source ticket is provided", async () => {
+    it("sends source ticket as url field (not embedded in description) when provided", async () => {
       const onConfirm = vi.fn().mockResolvedValue(undefined)
       const user = userEvent.setup()
       renderModal({ onConfirm })
@@ -207,12 +207,13 @@ describe("RiskAcceptanceModal", () => {
 
       expect(onConfirm).toHaveBeenCalledWith(
         expect.objectContaining({
-          description: "Source Ticket: JIRA-9999\n\nAccepted",
+          url: "JIRA-9999",
+          description: "Accepted",
         })
       )
     })
 
-    it("does not include source ticket prefix when source ticket field is empty", async () => {
+    it("omits url field when source ticket field is empty", async () => {
       const onConfirm = vi.fn().mockResolvedValue(undefined)
       const user = userEvent.setup()
       renderModal({ onConfirm })
@@ -223,11 +224,9 @@ describe("RiskAcceptanceModal", () => {
 
       await user.click(screen.getByRole("button", { name: "Accept Risk" }))
 
-      expect(onConfirm).toHaveBeenCalledWith(
-        expect.objectContaining({
-          description: "Accepted",
-        })
-      )
+      const call = onConfirm.mock.calls[0][0]
+      expect(call).not.toHaveProperty("url")
+      expect(call).toMatchObject({ description: "Accepted" })
     })
 
     it("clears error message when Cancel is clicked after a server error", async () => {

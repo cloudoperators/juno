@@ -44,7 +44,7 @@ type RemediationHistoryPanelProps = {
 const COLUMN_SPAN = 7
 
 function formatDateTime(value: string | null): string {
-  if (!value) return "—"
+  if (!value) return "--"
   try {
     const d = new Date(value)
     if (Number.isNaN(d.getTime())) return value
@@ -93,7 +93,7 @@ const RemediationHistoryTable = ({
           <DataGridCell className="whitespace-nowrap">{formatDateTime(r.remediationDate)}</DataGridCell>
           <DataGridCell>{r.remediatedBy ?? "--"}</DataGridCell>
           <DataGridCell className="min-w-0">{r.description ?? "--"}</DataGridCell>
-          <DataGridCell className="min-w-0">{r.url ?? "--"}</DataGridCell>
+          <DataGridCell className="min-w-0">{r.type === "risk_accepted" ? (r.url ?? "--") : ""}</DataGridCell>
           <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
             {revertingId === r.remediationId ? (
               <Spinner variant="primary" size="small" className="ml-auto" />
