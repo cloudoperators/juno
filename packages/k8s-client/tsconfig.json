@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "./build",
     "target": "ES6",
+    "lib": ["ES2017", "DOM"],
     "module": "ES2022",
     "strict": true,
     "esModuleInterop": true,
@@ -10,7 +11,7 @@
     "declaration": true, // Emit TypeScript declaration files (.d.ts)
     "declarationMap": true, // Emit a map file alongside the declaration
     "forceConsistentCasingInFileNames": true,
-    "types": ["vitest/globals"],
+    "types": ["vitest/globals", "node"],
     "resolveJsonModule": true
   },
   "include": ["./src/**/*.ts", "./test/**/*.test.ts", "./types/**/*.ts", "vitest.setup.ts"],

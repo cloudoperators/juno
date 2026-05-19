@@ -14,7 +14,7 @@
   },
   "private": true,
   "engines": {
-    "node": ">=20.12.0",
+    "node": ">=20.19.0",
     "pnpm": ">=8.0.0"
   },
   "scripts": {
@@ -57,7 +57,7 @@
     "@typescript-eslint/eslint-plugin": "8.59.2",
     "@typescript-eslint/parser": "8.59.2",
     "@vitejs/plugin-react": "6.0.1",
-    "@vitest/ui": "4.1.5",
+    "@vitest/ui": "4.1.6",
     "autoprefixer": "10.5.0",
     "dotenv": "17.4.2",
     "eslint": "10.3.0",
@@ -66,7 +66,7 @@
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "7.1.1",
     "eslint-plugin-tailwindcss": "3.18.3",
-    "jsdom": "26.1.0",
+    "jsdom": "29.1.1",
     "postcss": "8.5.10",
     "prettier": "3.8.3",
     "react-error-boundary": "6.1.1",
@@ -75,6 +75,6 @@
     "vite": "8.0.10",
     "vite-plugin-svgr": "4.5.0",
     "vite-tsconfig-paths": "6.1.1",
-    "vitest": "3.2.4"
+    "vitest": "4.1.6"
   }
 }
