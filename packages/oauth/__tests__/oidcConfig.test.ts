@@ -59,9 +59,10 @@ describe("getOidcConfig", () => {
     resetCache()
     await getOidcConfig("https://test.com")
     const now = Date.now() + 5 * 60 * 60 * 1000
-    vi.spyOn(Date, "now").mockImplementation(() => now)
+    const dateNowSpy = vi.spyOn(Date, "now").mockImplementation(() => now)
     await getOidcConfig("https://test.com")
     expect(mockFetch).toHaveBeenCalledTimes(2)
+    dateNowSpy.mockRestore()
   })
 
   it("should preserve the URL pathname", async () => {

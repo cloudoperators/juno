@@ -26,19 +26,22 @@ const httpUrl = "http://apiEndpoint.com"
 describe("request", () => {
   let mockFetch: ReturnType<typeof vi.fn>
   const mockedHttps = vi.mocked(https)
+  let originalWindow: typeof globalThis.window
 
   beforeEach(() => {
     vi.clearAllMocks()
     mockFetch = vi.fn()
     mockFetch.mockResolvedValue({ status: 200 })
     vi.stubGlobal("fetch", mockFetch)
+    // Capture original window value
+    originalWindow = globalThis.window
   })
 
   afterEach(() => {
     vi.clearAllMocks()
     // Restore window if it was modified
     if (typeof globalThis.window === "undefined") {
-      globalThis.window = window
+      globalThis.window = originalWindow
     }
   })
 
