@@ -22,7 +22,7 @@ import {
 import { fetchRemediations } from "../../../../../api/fetchRemediations"
 import { deleteRemediation } from "../../../../../api/deleteRemediation"
 import { getNormalizedRemediationsResponse } from "../../../../Services/utils"
-import { GetRemediationsQuery } from "../../../../../generated/graphql"
+import { GetRemediationsQuery, RemediationTypeValues } from "../../../../../generated/graphql"
 import { ErrorBoundary } from "../../../../common/ErrorBoundary"
 import { EmptyDataGridRow } from "../../../../common/EmptyDataGridRow"
 import { LoadingDataRow } from "../../../../common/LoadingDataRow"
@@ -41,7 +41,7 @@ type RemediationHistoryPanelProps = {
   refreshKey?: number
 }
 
-const COLUMN_SPAN = 6
+const COLUMN_SPAN = 7
 
 function formatDateTime(value: string | null): string {
   if (!value) return "—"
@@ -92,6 +92,9 @@ const RemediationHistoryTable = ({
           <DataGridCell className="whitespace-nowrap">{formatDateTime(r.remediationDate)}</DataGridCell>
           <DataGridCell>{r.remediatedBy ?? "—"}</DataGridCell>
           <DataGridCell>{r.description ?? "—"}</DataGridCell>
+          <DataGridCell>
+            {r.type === RemediationTypeValues.RiskAccepted ? (r.url ?? "—") : null}
+          </DataGridCell>
           <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
             {revertingId === r.remediationId ? (
               <Spinner variant="primary" size="small" className="ml-auto" />
@@ -225,13 +228,14 @@ export const RemediationHistoryPanel = ({
             fallbackRender={getErrorDataRowComponent({ colspan: COLUMN_SPAN })}
             resetKeys={[remediationsPromise]}
           >
-            <DataGrid columns={COLUMN_SPAN} minContentColumns={[0, 1, 2, 3, 5]} cellVerticalAlignment="top">
+            <DataGrid columns={COLUMN_SPAN} minContentColumns={[0, 1, 2, 3, 6]} cellVerticalAlignment="top">
               <DataGridRow>
                 <DataGridHeadCell>Type</DataGridHeadCell>
                 <DataGridHeadCell>Expiration Date</DataGridHeadCell>
                 <DataGridHeadCell>Remediation Date</DataGridHeadCell>
                 <DataGridHeadCell>Remediated By</DataGridHeadCell>
                 <DataGridHeadCell>Description</DataGridHeadCell>
+                <DataGridHeadCell>Source Ticket</DataGridHeadCell>
                 <DataGridHeadCell />
               </DataGridRow>
               <Suspense fallback={<LoadingDataRow colSpan={COLUMN_SPAN} />}>

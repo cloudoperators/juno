@@ -86,13 +86,6 @@ export const RiskAcceptanceModal: React.FC<RiskAcceptanceModalProps> = ({
   const descriptionTrimmed = description.trim()
   const sourceTicketTrimmed = sourceTicket.trim()
 
-  const buildDescription = () => {
-    if (sourceTicketTrimmed) {
-      return `Source Ticket: ${sourceTicketTrimmed}\n\n${descriptionTrimmed}`
-    }
-    return descriptionTrimmed
-  }
-
   const handleConfirm = async () => {
     if (!descriptionTrimmed) {
       setDescriptionError("Description is required")
@@ -118,10 +111,11 @@ export const RiskAcceptanceModal: React.FC<RiskAcceptanceModalProps> = ({
         vulnerability,
         service,
         image,
-        description: buildDescription(),
+        description: descriptionTrimmed,
         ...(remediatedBy && { remediatedBy }),
         ...(severityValue !== undefined && { severity: severityValue }),
         expirationDate: expirationDate.toISOString(),
+        ...(sourceTicketTrimmed && { url: sourceTicketTrimmed }),
       }
       const result = await onConfirm(input)
       if (result?.error) {

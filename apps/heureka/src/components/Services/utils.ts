@@ -278,6 +278,7 @@ export type RemediatedVulnerability = {
   remediationDate: string | null
   remediatedBy: string | null
   expirationDate: string | null
+  url: string | null
 }
 
 type NormalizedServiceImageVulnerabilities = {
@@ -624,6 +625,7 @@ export const getNormalizedRemediationsResponse = (
         remediationDate: node.remediationDate != null ? String(node.remediationDate) : null,
         remediatedBy: node.remediatedBy ?? null,
         expirationDate: node.expirationDate != null ? String(node.expirationDate) : null,
+        url: node.url ?? null,
       }
     })
 
