@@ -24,7 +24,7 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.1",
-    "jsdom": "26.1.0",
+    "jsdom": "29.1.1",
     "postcss": "8.5.10",
     "shadow-dom-testing-library": "1.13.1",
     "tailwindcss": "4.3.0",
