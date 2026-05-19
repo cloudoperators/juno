@@ -20,6 +20,7 @@ import { ImageVulnerability } from "../../../../../Services/utils"
 import { getSeverityColor, useTextOverflow } from "../../../../../../utils"
 import { FalsePositiveModal } from "../../../FalsePositiveModal"
 import { RiskAcceptanceModal } from "../../../RiskAcceptanceModal"
+import { MitigateManuallyModal } from "../../../MitigateManuallyModal"
 import { useRouteContext } from "@tanstack/react-router"
 import { createRemediation } from "../../../../../../api/createRemediation"
 import { RemediationInput } from "../../../../../../generated/graphql"
@@ -42,6 +43,7 @@ type IssuesDataRowProps = {
   showFalsePositiveAction?: boolean
   onFalsePositiveSuccess?: (cveNumber: string) => void | Promise<void>
   onRiskAcceptanceSuccess?: (cveNumber: string) => void | Promise<void>
+  onMitigateManuallySuccess?: (cveNumber: string) => void | Promise<void>
 }
 
 export const IssuesDataRow = ({
@@ -51,10 +53,12 @@ export const IssuesDataRow = ({
   showFalsePositiveAction = true,
   onFalsePositiveSuccess,
   onRiskAcceptanceSuccess,
+  onMitigateManuallySuccess,
 }: IssuesDataRowProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isRiskAcceptanceModalOpen, setIsRiskAcceptanceModalOpen] = useState(false)
+  const [isMitigateManuallyModalOpen, setIsMitigateManuallyModalOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { needsExpansion, textRef } = useTextOverflow(issue?.description || "")
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
@@ -158,6 +162,49 @@ export const IssuesDataRow = ({
     }
   }
 
+  const handleMitigateManuallyConfirm = async (input: RemediationInput): Promise<{ error: string } | void> => {
+    setIsSubmitting(true)
+    try {
+      const remediation = await createRemediation({ apiClient, input })
+      const cveNumber = issue?.name || "unknown"
+      if (remediation) {
+        queryClient.setQueriesData(
+          {
+            predicate: (query) => {
+              const [key, filter] = query.queryKey as [string, any]
+              if (key !== "remediations") return false
+              if (filter?.service && !filter.service.includes(service)) return false
+              if (filter?.image && !filter.image.includes(image)) return false
+              if (filter?.vulnerability && !filter.vulnerability.includes(cveNumber)) return false
+              return true
+            },
+          },
+          (old: any) => {
+            if (!old?.data?.Remediations) return old
+            const edges = old.data.Remediations.edges ?? []
+            if (edges.some((e: any) => e?.node?.id === remediation.id)) return old
+            return {
+              ...old,
+              data: {
+                ...old.data,
+                Remediations: {
+                  ...old.data.Remediations,
+                  edges: [...edges, { node: remediation }],
+                  totalCount: (old.data.Remediations.totalCount ?? 0) + 1,
+                },
+              },
+            }
+          }
+        )
+      }
+      await onMitigateManuallySuccess?.(cveNumber)
+    } catch (error) {
+      return { error: error instanceof Error ? error.message : "Failed to create remediation" }
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
     <>
       <DataGridRow>
@@ -207,6 +254,7 @@ export const IssuesDataRow = ({
                 <PopupMenuOptions>
                   <PopupMenuItem label="Mark False Positive" onClick={() => setIsModalOpen(true)} />
                   <PopupMenuItem label="Accept Risk" onClick={() => setIsRiskAcceptanceModalOpen(true)} />
+                  <PopupMenuItem label="Mitigate Manually" onClick={() => setIsMitigateManuallyModalOpen(true)} />
                 </PopupMenuOptions>
               </PopupMenu>
             )}
@@ -228,6 +276,15 @@ export const IssuesDataRow = ({
             open={isRiskAcceptanceModalOpen}
             onClose={() => setIsRiskAcceptanceModalOpen(false)}
             onConfirm={handleRiskAcceptanceConfirm}
+            vulnerability={issue.name}
+            severity={issue.severity}
+            service={service}
+            image={image}
+          />
+          <MitigateManuallyModal
+            open={isMitigateManuallyModalOpen}
+            onClose={() => setIsMitigateManuallyModalOpen(false)}
+            onConfirm={handleMitigateManuallyConfirm}
             vulnerability={issue.name}
             severity={issue.severity}
             service={service}
