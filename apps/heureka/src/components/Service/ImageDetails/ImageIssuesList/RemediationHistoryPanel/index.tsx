@@ -91,8 +91,8 @@ const RemediationHistoryTable = ({
           <DataGridCell className="whitespace-nowrap">{formatDateTime(r.expirationDate)}</DataGridCell>
           <DataGridCell className="whitespace-nowrap">{formatDateTime(r.remediationDate)}</DataGridCell>
           <DataGridCell>{r.remediatedBy ?? "--"}</DataGridCell>
-          <DataGridCell>{r.description ?? "--"}</DataGridCell>
-          <DataGridCell>{r.url ?? "--"}</DataGridCell>
+          <DataGridCell className="min-w-0">{r.description ?? "--"}</DataGridCell>
+          <DataGridCell className="min-w-0">{r.url ?? "--"}</DataGridCell>
           <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
             {revertingId === r.remediationId ? (
               <Spinner variant="primary" size="small" className="ml-auto" />

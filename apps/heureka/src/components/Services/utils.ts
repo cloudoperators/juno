@@ -623,9 +623,9 @@ export const getNormalizedRemediationsResponse = (
         vulnerability: node.vulnerability || null,
         vulnerabilityId: null,
         remediationDate: node.remediationDate != null ? String(node.remediationDate) : null,
-        remediatedBy: node.remediatedBy ?? null,
+        remediatedBy: node.remediatedBy?.trim() || null,
         expirationDate: node.expirationDate != null ? String(node.expirationDate) : null,
-        url: node.url ?? null,
+        url: node.url?.trim() || null,
       }
     })
 
