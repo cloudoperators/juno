@@ -47,9 +47,10 @@ function formatDateTime(value: string | null): string {
   if (!value) return "—"
   try {
     const d = new Date(value)
-    return Number.isNaN(d.getTime())
-      ? value
-      : d.toLocaleDateString("en-GB", { year: "numeric", month: "short", day: "numeric" })
+    if (Number.isNaN(d.getTime())) return value
+    const dayMonth = d.toLocaleDateString("en-GB", { month: "short", day: "2-digit" })
+    const year = String(d.getFullYear()).padStart(4, "0")
+    return `${dayMonth} ${year}`
   } catch {
     return value
   }
