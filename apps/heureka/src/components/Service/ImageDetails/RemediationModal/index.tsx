@@ -168,6 +168,7 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
     setExpirationDate(null)
     setDescriptionError("")
     setUserIdError("")
+    setSourceTicketError("")
     setExpirationDateError("")
     setApiError(null)
     onClose()
@@ -193,7 +194,13 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
               onClick={handleConfirm}
               label={confirmLabel}
               variant="primary"
-              disabled={isSubmitting || !descriptionTrimmed || !isUserIdValid || !expirationDate || (sourceTicketRequired && !sourceTicketTrimmed)}
+              disabled={
+                isSubmitting ||
+                !descriptionTrimmed ||
+                !isUserIdValid ||
+                !expirationDate ||
+                (sourceTicketRequired && !sourceTicketTrimmed)
+              }
             />
           </Stack>
         </ModalFooter>
