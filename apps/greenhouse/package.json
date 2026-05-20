@@ -22,7 +22,7 @@
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.1",
     "github-markdown-css": "5.9.0",
-    "immer": "10.2.0",
+    "immer": "11.1.8",
     "interweave": "13.1.1",
     "react": "19.2.5",
     "react-dom": "19.2.5",
