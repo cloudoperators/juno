@@ -31,6 +31,8 @@ type RemediationModalProps = {
   descriptionPlaceholder: string
   expirationHelptext: string
   showSourceTicket?: boolean
+  /** When true: source ticket field is shown as required, validated, and sent as the `url` field (not embedded in description). */
+  sourceTicketRequired?: boolean
 }
 
 const toSeverityValue = (severity: string): SeverityValues | undefined => {
@@ -54,6 +56,7 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
   descriptionPlaceholder,
   expirationHelptext,
   showSourceTicket = false,
+  sourceTicketRequired = false,
 }) => {
   const auth = useAuth()
   const authUserId = auth.status === "authenticated" ? auth.userId || auth.userName : null
@@ -64,6 +67,7 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [descriptionError, setDescriptionError] = useState<string>("")
   const [userIdError, setUserIdError] = useState<string>("")
+  const [sourceTicketError, setSourceTicketError] = useState<string>("")
   const [expirationDateError, setExpirationDateError] = useState<string>("")
   const [apiError, setApiError] = useState<string | null>(null)
   const isMountedRef = useRef(true)
@@ -87,6 +91,7 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
       setExpirationDate(null)
       setDescriptionError("")
       setUserIdError("")
+      setSourceTicketError("")
       setExpirationDateError("")
       setApiError(null)
     }
@@ -96,7 +101,7 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
   const sourceTicketTrimmed = sourceTicket.trim()
 
   const buildDescription = () => {
-    if (showSourceTicket && sourceTicketTrimmed) {
+    if (showSourceTicket && !sourceTicketRequired && sourceTicketTrimmed) {
       return `Source Ticket: ${sourceTicketTrimmed}\n\n${descriptionTrimmed}`
     }
     return descriptionTrimmed
@@ -111,6 +116,10 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
       setUserIdError("User ID is required")
       return
     }
+    if (sourceTicketRequired && !sourceTicketTrimmed) {
+      setSourceTicketError("Jira ticket is required")
+      return
+    }
     if (!expirationDate) {
       setExpirationDateError("Expiration date is required")
       return
@@ -118,6 +127,7 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
 
     setDescriptionError("")
     setUserIdError("")
+    setSourceTicketError("")
     setExpirationDateError("")
     setIsSubmitting(true)
     try {
@@ -131,6 +141,7 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
         ...(remediatedBy && { remediatedBy }),
         ...(severityValue !== undefined && { severity: severityValue }),
         expirationDate: expirationDate.toISOString(),
+        ...(sourceTicketRequired && sourceTicketTrimmed ? { url: sourceTicketTrimmed } : {}),
       }
       const result = await onConfirm(input)
       if (result?.error) {
@@ -182,7 +193,7 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
               onClick={handleConfirm}
               label={confirmLabel}
               variant="primary"
-              disabled={isSubmitting || !descriptionTrimmed || !isUserIdValid || !expirationDate}
+              disabled={isSubmitting || !descriptionTrimmed || !isUserIdValid || !expirationDate || (sourceTicketRequired && !sourceTicketTrimmed)}
             />
           </Stack>
         </ModalFooter>
@@ -215,14 +226,24 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
             helptext={authUserId ? "User ID from current session (read-only)." : "Enter your user ID."}
           />
         </div>
-        {showSourceTicket && (
+        {(showSourceTicket || sourceTicketRequired) && (
           <div>
             <TextInput
               label="Jira Ticket / Risk Acceptance Source Ticket"
               value={sourceTicket}
-              onChange={(e) => setSourceTicket(e.target.value)}
+              onChange={(e) => {
+                setSourceTicket(e.target.value)
+                if (sourceTicketError) setSourceTicketError("")
+              }}
               placeholder="e.g. JIRA-1234"
-              helptext="Optional. Reference ticket for this risk acceptance decision."
+              required={sourceTicketRequired}
+              invalid={!!sourceTicketError}
+              errortext={sourceTicketError}
+              helptext={
+                sourceTicketRequired
+                  ? "Reference ticket for this risk acceptance decision."
+                  : "Optional. Reference ticket for this risk acceptance decision."
+              }
             />
           </div>
         )}

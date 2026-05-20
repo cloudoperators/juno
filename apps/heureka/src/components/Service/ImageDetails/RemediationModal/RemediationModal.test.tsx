@@ -280,17 +280,24 @@ describe("RiskAcceptanceModal wrapper", () => {
     expect(screen.getByPlaceholderText("e.g. JIRA-1234")).toBeInTheDocument()
   })
 
-  it("submits with RiskAccepted remediation type", async () => {
+  it("submits with RiskAccepted remediation type, url field, and plain description", async () => {
     const onConfirm = vi.fn().mockResolvedValue(undefined)
     const user = userEvent.setup()
     renderWrapper(<RiskAcceptanceModal {...wrapperProps} onConfirm={onConfirm} />)
 
     await user.type(screen.getByPlaceholderText(/Enter your user ID/i), "user-123")
+    await user.type(screen.getByPlaceholderText("e.g. JIRA-1234"), "JIRA-9999")
     await user.type(screen.getByPlaceholderText(/accepting this risk/i), "Accepted")
     fireEvent.change(screen.getByLabelText("Expiration Date"), { target: { value: "2026-12-31" } })
     await user.click(screen.getByRole("button", { name: "Accept Risk" }))
 
-    expect(onConfirm).toHaveBeenCalledWith(expect.objectContaining({ type: RemediationTypeValues.RiskAccepted }))
+    expect(onConfirm).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: RemediationTypeValues.RiskAccepted,
+        url: "JIRA-9999",
+        description: "Accepted",
+      })
+    )
   })
 })
 

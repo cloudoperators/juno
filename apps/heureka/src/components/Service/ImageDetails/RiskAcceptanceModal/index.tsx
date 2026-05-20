@@ -25,6 +25,6 @@ export const RiskAcceptanceModal: React.FC<RiskAcceptanceModalProps> = (props) =
     remediationType={RemediationTypeValues.RiskAccepted}
     descriptionPlaceholder="Add a description explaining the reason for accepting this risk..."
     expirationHelptext="When this risk acceptance should no longer be considered valid."
-    showSourceTicket
+    sourceTicketRequired
   />
 )
