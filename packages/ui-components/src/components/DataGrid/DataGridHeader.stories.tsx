@@ -76,6 +76,7 @@ export const WithPrimaryAction: Story = {
         story:
           "The simplest DataGrid header: a single primary action. No `DataGridToolbar` needed — Zone 1 content sits directly in a `Stack`.",
       },
+      source: { type: "dynamic" },
     },
   },
 }
@@ -125,6 +126,7 @@ export const WithFiltersSearchAndState: Story = {
         story:
           "Zones 2 and 3: filter controls, active filter pills, search, item count, and a refresh button. `DataGridToolbar` provides the background and spacing. Zone 1 is not needed here — no bulk actions or primary action required for this view.",
       },
+      source: { type: "dynamic" },
     },
   },
 }
@@ -165,7 +167,7 @@ export const FullyFeatured: Story = {
           </Stack>
 
           {/* Zones 2+3 — DataGridToolbar provides background and spacing */}
-          <DataGridToolbar className="jn:bg-theme-background-lvl-1">
+          <DataGridToolbar>
             <Stack direction="vertical" gap="2">
               {/* Zone 2: Filters + Search */}
               <Stack distribution="between" alignment="center">
@@ -226,7 +228,96 @@ export const FullyFeatured: Story = {
     docs: {
       description: {
         story:
-          "Fully featured DataGrid header — the golden-path reference. Zone 1 (bulk actions, sort, primary action) is a bare `Stack` with no wrapper — no background, no `DataGridToolbar`. Zones 2+3 (filters, active filter pills, search, item count, refresh) are wrapped in `DataGridToolbar` which provides the background and spacing. Every zone and every element within it is optional.",
+          "Fully featured DataGrid header. Zone 1 (bulk actions, sort, primary action) is a bare `Stack` with no wrapper — no background, no `DataGridToolbar`. Zones 2+3 (filters, active filter pills, search, item count, refresh) are wrapped in `DataGridToolbar` which provides the background and spacing. Every zone and every element within it is optional.",
+      },
+      // Keep this source.code in sync with the render function above
+      source: {
+        code: `
+<Stack direction="vertical">
+  {/* Zone 1 — bare Stack, no wrapper, no background */}
+  <Stack distribution="between" alignment="center" className="jn:pb-2">
+    <Stack gap="2" alignment="center">
+      <Checkbox label="Select all" />
+      <PopupMenu>
+        <PopupMenuOptions>
+          <PopupMenuItem label="Download" />
+          <PopupMenuItem label="Delete" />
+        </PopupMenuOptions>
+      </PopupMenu>
+    </Stack>
+    <Stack gap="2" alignment="center">
+      <Select>
+        <SelectOption value="name" label="Name" />
+        <SelectOption value="status" label="Status" />
+        <SelectOption value="region" label="Region" />
+      </Select>
+      <SortButton order={sortOrder} onChange={setSortOrder} />
+      <PopupMenu>
+        <PopupMenuOptions>
+          <PopupMenuItem label="Export CSV" />
+          <PopupMenuItem label="Refresh all" />
+        </PopupMenuOptions>
+      </PopupMenu>
+      <Button label="Create Server" variant="primary" className="jn:whitespace-nowrap" />
+    </Stack>
+  </Stack>
+
+  {/* Zones 2+3 — DataGridToolbar provides background and spacing */}
+  <DataGridToolbar>
+    <Stack direction="vertical" gap="2">
+      {/* Zone 2: Filters + Search */}
+      <Stack distribution="between" alignment="center">
+        <InputGroup>
+          <Select>
+            <SelectOption value="region" label="Region" />
+            <SelectOption value="status" label="Status" />
+            <SelectOption value="az" label="Availability Zone" />
+          </Select>
+          <ComboBox>
+            <ComboBoxOption value="eu-west-1" label="eu-west-1" />
+            <ComboBoxOption value="us-east-1" label="us-east-1" />
+            <ComboBoxOption value="ap-south-1" label="ap-south-1" />
+          </ComboBox>
+        </InputGroup>
+        <SearchInput placeholder="Search servers…" />
+      </Stack>
+
+      {/* Zone 2 cont: Active filter pills */}
+      <Stack gap="2" wrap>
+        <Pill pillKey="Region" pillValue="eu-west-1" closeable />
+        <Pill pillKey="Status" pillValue="Running" closeable />
+        <Button label="Clear filters" variant="subdued" size="xs" />
+      </Stack>
+
+      {/* Zone 3: Item count + Refresh */}
+      <Stack distribution="between" alignment="center">
+        <span>Showing 2 of 4 servers</span>
+        <Stack gap="2" alignment="center">
+          <span>Last update: 20.05.2026 @09:41</span>
+          <Button label="Update" size="small" />
+        </Stack>
+      </Stack>
+    </Stack>
+  </DataGridToolbar>
+</Stack>
+
+<DataGrid columns={4}>
+  <DataGridRow>
+    <DataGridHeadCell>Name</DataGridHeadCell>
+    <DataGridHeadCell>Region</DataGridHeadCell>
+    <DataGridHeadCell>Status</DataGridHeadCell>
+    <DataGridHeadCell>Availability Zone</DataGridHeadCell>
+  </DataGridRow>
+  {servers.map((s) => (
+    <DataGridRow key={s.id}>
+      <DataGridCell>{s.name}</DataGridCell>
+      <DataGridCell>{s.region}</DataGridCell>
+      <DataGridCell>{s.status}</DataGridCell>
+      <DataGridCell>{s.az}</DataGridCell>
+    </DataGridRow>
+  ))}
+</DataGrid>
+        `.trim(),
       },
     },
   },
