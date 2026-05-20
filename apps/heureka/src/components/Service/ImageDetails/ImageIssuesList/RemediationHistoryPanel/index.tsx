@@ -41,15 +41,16 @@ type RemediationHistoryPanelProps = {
   refreshKey?: number
 }
 
-const COLUMN_SPAN = 6
+const COLUMN_SPAN = 7
 
 function formatDateTime(value: string | null): string {
-  if (!value) return "—"
+  if (!value) return "--"
   try {
     const d = new Date(value)
-    return Number.isNaN(d.getTime())
-      ? value
-      : d.toLocaleDateString("en-GB", { year: "numeric", month: "short", day: "numeric" })
+    if (Number.isNaN(d.getTime())) return value
+    const dayMonth = d.toLocaleDateString("en-GB", { month: "short", day: "2-digit" })
+    const year = String(d.getFullYear()).padStart(4, "0")
+    return `${dayMonth} ${year}`
   } catch {
     return value
   }
@@ -87,11 +88,12 @@ const RemediationHistoryTable = ({
     <>
       {remediatedVulnerabilities.map((r: RemediatedVulnerability) => (
         <DataGridRow key={r.remediationId}>
-          <DataGridCell className="whitespace-nowrap">{r.type ?? "—"}</DataGridCell>
+          <DataGridCell className="whitespace-nowrap">{r.type ?? "--"}</DataGridCell>
           <DataGridCell className="whitespace-nowrap">{formatDateTime(r.expirationDate)}</DataGridCell>
           <DataGridCell className="whitespace-nowrap">{formatDateTime(r.remediationDate)}</DataGridCell>
-          <DataGridCell>{r.remediatedBy ?? "—"}</DataGridCell>
-          <DataGridCell>{r.description ?? "—"}</DataGridCell>
+          <DataGridCell>{r.remediatedBy ?? "--"}</DataGridCell>
+          <DataGridCell className="min-w-0">{r.description ?? "--"}</DataGridCell>
+          <DataGridCell className="min-w-0">{r.type === "risk_accepted" ? (r.url ?? "--") : ""}</DataGridCell>
           <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
             {revertingId === r.remediationId ? (
               <Spinner variant="primary" size="small" className="ml-auto" />
@@ -225,13 +227,14 @@ export const RemediationHistoryPanel = ({
             fallbackRender={getErrorDataRowComponent({ colspan: COLUMN_SPAN })}
             resetKeys={[remediationsPromise]}
           >
-            <DataGrid columns={COLUMN_SPAN} minContentColumns={[0, 1, 2, 3, 5]} cellVerticalAlignment="top">
+            <DataGrid columns={COLUMN_SPAN} minContentColumns={[0, 1, 2, 3, 6]} cellVerticalAlignment="top">
               <DataGridRow>
                 <DataGridHeadCell>Type</DataGridHeadCell>
                 <DataGridHeadCell>Expiration Date</DataGridHeadCell>
                 <DataGridHeadCell>Remediation Date</DataGridHeadCell>
                 <DataGridHeadCell>Remediated By</DataGridHeadCell>
                 <DataGridHeadCell>Description</DataGridHeadCell>
+                <DataGridHeadCell>Source Ticket</DataGridHeadCell>
                 <DataGridHeadCell />
               </DataGridRow>
               <Suspense fallback={<LoadingDataRow colSpan={COLUMN_SPAN} />}>
