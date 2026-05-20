@@ -174,7 +174,9 @@ export const RiskAcceptanceModal: React.FC<RiskAcceptanceModalProps> = ({
               onClick={handleConfirm}
               label={CONFIRM_LABEL}
               variant="primary"
-              disabled={isSubmitting || !descriptionTrimmed || !isUserIdValid || !sourceTicketTrimmed || !expirationDate}
+              disabled={
+                isSubmitting || !descriptionTrimmed || !isUserIdValid || !sourceTicketTrimmed || !expirationDate
+              }
             />
           </Stack>
         </ModalFooter>
