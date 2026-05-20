@@ -131,6 +131,25 @@ export const WithFiltersSearchAndState: Story = {
   },
 }
 
+export const WithSearchOnly: Story = {
+  render: () => (
+    <DataGridToolbar>
+      <Stack distribution="end" alignment="center">
+        <SearchInput placeholder="Search servers…" />
+      </Stack>
+    </DataGridToolbar>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Zone 2 with search only — no filter controls needed. Use this when the dataset doesn't require structured filtering.",
+      },
+      source: { type: "dynamic" },
+    },
+  },
+}
+
 export const FullyFeatured: Story = {
   render: () => {
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc")
