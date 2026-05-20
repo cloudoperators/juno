@@ -112,6 +112,7 @@ describe("RiskAcceptanceModal", () => {
       renderModal({ onConfirm })
 
       await user.type(screen.getByPlaceholderText(/Enter your user ID/i), "user-123")
+      await user.type(screen.getByPlaceholderText("e.g. JIRA-1234"), "JIRA-9999")
       await user.type(screen.getByPlaceholderText(/Add a description explaining the reason/i), "Some reason")
       fireEvent.change(screen.getByLabelText("Expiration Date"), { target: { value: "2026-12-31" } })
       await user.click(screen.getByRole("button", { name: "Accept Risk" }))
@@ -142,8 +143,12 @@ describe("RiskAcceptanceModal", () => {
       await user.type(screen.getByPlaceholderText(/Enter your user ID/i), "user-123")
       expect(confirmButton).toBeDisabled()
 
-      // All three required fields → button enabled
+      // Description + user ID + expiration (still missing Jira ticket)
       fireEvent.change(screen.getByLabelText("Expiration Date"), { target: { value: "2026-12-31" } })
+      expect(confirmButton).toBeDisabled()
+
+      // All four required fields → button enabled
+      await user.type(screen.getByPlaceholderText("e.g. JIRA-1234"), "JIRA-9999")
       expect(confirmButton).not.toBeDisabled()
     })
 
@@ -176,6 +181,7 @@ describe("RiskAcceptanceModal", () => {
       renderModal({ onConfirm })
 
       await user.type(screen.getByPlaceholderText(/Enter your user ID/i), "user-123")
+      await user.type(screen.getByPlaceholderText("e.g. JIRA-1234"), "JIRA-9999")
       await user.type(screen.getByPlaceholderText(/Add a description explaining the reason/i), "Low exposure, accepted")
       fireEvent.change(screen.getByLabelText("Expiration Date"), { target: { value: "2026-12-31" } })
 
@@ -188,6 +194,7 @@ describe("RiskAcceptanceModal", () => {
           service: "my-service",
           image: "my-image",
           remediatedBy: "user-123",
+          url: "JIRA-9999",
           description: "Low exposure, accepted",
         })
       )
@@ -213,22 +220,6 @@ describe("RiskAcceptanceModal", () => {
       )
     })
 
-    it("omits url field when source ticket field is empty", async () => {
-      const onConfirm = vi.fn().mockResolvedValue(undefined)
-      const user = userEvent.setup()
-      renderModal({ onConfirm })
-
-      await user.type(screen.getByPlaceholderText(/Enter your user ID/i), "user-123")
-      await user.type(screen.getByPlaceholderText(/Add a description explaining the reason/i), "Accepted")
-      fireEvent.change(screen.getByLabelText("Expiration Date"), { target: { value: "2026-12-31" } })
-
-      await user.click(screen.getByRole("button", { name: "Accept Risk" }))
-
-      const call = onConfirm.mock.calls[0][0]
-      expect(call).not.toHaveProperty("url")
-      expect(call).toMatchObject({ description: "Accepted" })
-    })
-
     it("clears error message when Cancel is clicked after a server error", async () => {
       const onConfirm = vi.fn().mockResolvedValue({ error: "Server error occurred" })
       const onClose = vi.fn()
@@ -236,6 +227,7 @@ describe("RiskAcceptanceModal", () => {
       renderModal({ onConfirm, onClose })
 
       await user.type(screen.getByPlaceholderText(/Enter your user ID/i), "user-123")
+      await user.type(screen.getByPlaceholderText("e.g. JIRA-1234"), "JIRA-9999")
       await user.type(screen.getByPlaceholderText(/Add a description explaining the reason/i), "Some reason")
       fireEvent.change(screen.getByLabelText("Expiration Date"), { target: { value: "2026-12-31" } })
       await user.click(screen.getByRole("button", { name: "Accept Risk" }))

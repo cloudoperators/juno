@@ -55,6 +55,7 @@ export const RiskAcceptanceModal: React.FC<RiskAcceptanceModalProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [descriptionError, setDescriptionError] = useState<string>("")
   const [userIdError, setUserIdError] = useState<string>("")
+  const [sourceTicketError, setSourceTicketError] = useState<string>("")
   const [expirationDateError, setExpirationDateError] = useState<string>("")
   const [apiError, setApiError] = useState<string | null>(null)
   const isMountedRef = useRef(true)
@@ -78,6 +79,7 @@ export const RiskAcceptanceModal: React.FC<RiskAcceptanceModalProps> = ({
       setExpirationDate(null)
       setDescriptionError("")
       setUserIdError("")
+      setSourceTicketError("")
       setExpirationDateError("")
       setApiError(null)
     }
@@ -95,6 +97,10 @@ export const RiskAcceptanceModal: React.FC<RiskAcceptanceModalProps> = ({
       setUserIdError("User ID is required")
       return
     }
+    if (!sourceTicketTrimmed) {
+      setSourceTicketError("Jira ticket is required")
+      return
+    }
     if (!expirationDate) {
       setExpirationDateError("Expiration date is required")
       return
@@ -102,6 +108,7 @@ export const RiskAcceptanceModal: React.FC<RiskAcceptanceModalProps> = ({
 
     setDescriptionError("")
     setUserIdError("")
+    setSourceTicketError("")
     setExpirationDateError("")
     setIsSubmitting(true)
     try {
@@ -167,7 +174,7 @@ export const RiskAcceptanceModal: React.FC<RiskAcceptanceModalProps> = ({
               onClick={handleConfirm}
               label={CONFIRM_LABEL}
               variant="primary"
-              disabled={isSubmitting || !descriptionTrimmed || !isUserIdValid || !expirationDate}
+              disabled={isSubmitting || !descriptionTrimmed || !isUserIdValid || !sourceTicketTrimmed || !expirationDate}
             />
           </Stack>
         </ModalFooter>
@@ -204,9 +211,15 @@ export const RiskAcceptanceModal: React.FC<RiskAcceptanceModalProps> = ({
           <TextInput
             label="Jira Ticket / Risk Acceptance Source Ticket"
             value={sourceTicket}
-            onChange={(e) => setSourceTicket(e.target.value)}
+            onChange={(e) => {
+              setSourceTicket(e.target.value)
+              if (sourceTicketError) setSourceTicketError("")
+            }}
             placeholder="e.g. JIRA-1234"
-            helptext="Optional. Reference ticket for this risk acceptance decision."
+            required
+            invalid={!!sourceTicketError}
+            errortext={sourceTicketError}
+            helptext="Reference ticket for this risk acceptance decision."
           />
         </div>
         <div>
