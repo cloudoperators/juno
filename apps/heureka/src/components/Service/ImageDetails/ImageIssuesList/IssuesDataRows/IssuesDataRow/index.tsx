@@ -72,138 +72,50 @@ export const IssuesDataRow = ({
     setIsExpanded(!isExpanded)
   }
 
-  const handleModalConfirm = async (input: RemediationInput): Promise<{ error: string } | void> => {
-    setIsSubmitting(true)
-    try {
-      const remediation = await createRemediation({ apiClient, input })
-      const cveNumber = issue?.name || "unknown"
-      if (remediation) {
-        queryClient.setQueriesData(
-          {
-            predicate: (query) => {
-              const [key, filter] = query.queryKey as [string, any]
-              if (key !== "remediations") return false
-              if (filter?.service && !filter.service.includes(service)) return false
-              if (filter?.image && !filter.image.includes(image)) return false
-              if (filter?.vulnerability && !filter.vulnerability.includes(cveNumber)) return false
-              return true
-            },
-          },
-
-          (old: any) => {
-            if (!old?.data?.Remediations) return old
-            const edges = old.data.Remediations.edges ?? []
-
-            if (edges.some((e: any) => e?.node?.id === remediation.id)) return old
-            return {
-              ...old,
-              data: {
-                ...old.data,
-                Remediations: {
-                  ...old.data.Remediations,
-                  edges: [...edges, { node: remediation }],
-                  totalCount: (old.data.Remediations.totalCount ?? 0) + 1,
-                },
+  const makeRemediationHandler =
+    (onSuccess?: (cveNumber: string) => void | Promise<void>) =>
+    async (input: RemediationInput): Promise<{ error: string } | void> => {
+      setIsSubmitting(true)
+      try {
+        const remediation = await createRemediation({ apiClient, input })
+        const cveNumber = issue?.name || "unknown"
+        if (remediation) {
+          queryClient.setQueriesData(
+            {
+              predicate: (query) => {
+                const [key, filter] = query.queryKey as [string, any]
+                if (key !== "remediations") return false
+                if (filter?.service && !filter.service.includes(service)) return false
+                if (filter?.image && !filter.image.includes(image)) return false
+                if (filter?.vulnerability && !filter.vulnerability.includes(cveNumber)) return false
+                return true
               },
-            }
-          }
-        )
-      }
-      await onFalsePositiveSuccess?.(cveNumber)
-    } catch (error) {
-      return { error: error instanceof Error ? error.message : "Failed to create remediation" }
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  const handleRiskAcceptanceConfirm = async (input: RemediationInput): Promise<{ error: string } | void> => {
-    setIsSubmitting(true)
-    try {
-      const remediation = await createRemediation({ apiClient, input })
-      const cveNumber = issue?.name || "unknown"
-      if (remediation) {
-        queryClient.setQueriesData(
-          {
-            predicate: (query) => {
-              const [key, filter] = query.queryKey as [string, any]
-              if (key !== "remediations") return false
-              if (filter?.service && !filter.service.includes(service)) return false
-              if (filter?.image && !filter.image.includes(image)) return false
-              if (filter?.vulnerability && !filter.vulnerability.includes(cveNumber)) return false
-              return true
             },
-          },
-
-          (old: any) => {
-            if (!old?.data?.Remediations) return old
-            const edges = old.data.Remediations.edges ?? []
-
-            if (edges.some((e: any) => e?.node?.id === remediation.id)) return old
-            return {
-              ...old,
-              data: {
-                ...old.data,
-                Remediations: {
-                  ...old.data.Remediations,
-                  edges: [...edges, { node: remediation }],
-                  totalCount: (old.data.Remediations.totalCount ?? 0) + 1,
+            (old: any) => {
+              if (!old?.data?.Remediations) return old
+              const edges = old.data.Remediations.edges ?? []
+              if (edges.some((e: any) => e?.node?.id === remediation.id)) return old
+              return {
+                ...old,
+                data: {
+                  ...old.data,
+                  Remediations: {
+                    ...old.data.Remediations,
+                    edges: [...edges, { node: remediation }],
+                    totalCount: (old.data.Remediations.totalCount ?? 0) + 1,
+                  },
                 },
-              },
+              }
             }
-          }
-        )
+          )
+        }
+        await onSuccess?.(cveNumber)
+      } catch (error) {
+        return { error: error instanceof Error ? error.message : "Failed to create remediation" }
+      } finally {
+        setIsSubmitting(false)
       }
-      await onRiskAcceptanceSuccess?.(cveNumber)
-    } catch (error) {
-      return { error: error instanceof Error ? error.message : "Failed to create remediation" }
-    } finally {
-      setIsSubmitting(false)
     }
-  }
-
-  const handleMitigateManuallyConfirm = async (input: RemediationInput): Promise<{ error: string } | void> => {
-    setIsSubmitting(true)
-    try {
-      const remediation = await createRemediation({ apiClient, input })
-      const cveNumber = issue?.name || "unknown"
-      if (remediation) {
-        queryClient.setQueriesData(
-          {
-            predicate: (query) => {
-              const [key, filter] = query.queryKey as [string, any]
-              if (key !== "remediations") return false
-              if (filter?.service && !filter.service.includes(service)) return false
-              if (filter?.image && !filter.image.includes(image)) return false
-              if (filter?.vulnerability && !filter.vulnerability.includes(cveNumber)) return false
-              return true
-            },
-          },
-          (old: any) => {
-            if (!old?.data?.Remediations) return old
-            const edges = old.data.Remediations.edges ?? []
-            if (edges.some((e: any) => e?.node?.id === remediation.id)) return old
-            return {
-              ...old,
-              data: {
-                ...old.data,
-                Remediations: {
-                  ...old.data.Remediations,
-                  edges: [...edges, { node: remediation }],
-                  totalCount: (old.data.Remediations.totalCount ?? 0) + 1,
-                },
-              },
-            }
-          }
-        )
-      }
-      await onMitigateManuallySuccess?.(cveNumber)
-    } catch (error) {
-      return { error: error instanceof Error ? error.message : "Failed to create remediation" }
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
 
   return (
     <>
@@ -266,7 +178,7 @@ export const IssuesDataRow = ({
           <FalsePositiveModal
             open={isModalOpen}
             onClose={() => setIsModalOpen(false)}
-            onConfirm={handleModalConfirm}
+            onConfirm={makeRemediationHandler(onFalsePositiveSuccess)}
             vulnerability={issue.name}
             severity={issue.severity}
             service={service}
@@ -275,7 +187,7 @@ export const IssuesDataRow = ({
           <RiskAcceptanceModal
             open={isRiskAcceptanceModalOpen}
             onClose={() => setIsRiskAcceptanceModalOpen(false)}
-            onConfirm={handleRiskAcceptanceConfirm}
+            onConfirm={makeRemediationHandler(onRiskAcceptanceSuccess)}
             vulnerability={issue.name}
             severity={issue.severity}
             service={service}
@@ -284,7 +196,7 @@ export const IssuesDataRow = ({
           <MitigateManuallyModal
             open={isMitigateManuallyModalOpen}
             onClose={() => setIsMitigateManuallyModalOpen(false)}
-            onConfirm={handleMitigateManuallyConfirm}
+            onConfirm={makeRemediationHandler(onMitigateManuallySuccess)}
             vulnerability={issue.name}
             severity={issue.severity}
             service={service}
