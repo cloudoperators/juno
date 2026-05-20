@@ -226,9 +226,7 @@ describe("RemediationModal", () => {
       fireEvent.change(screen.getByLabelText("Expiration Date"), { target: { value: "2026-12-31" } })
       await user.click(screen.getByRole("button", { name: "Confirm Test" }))
 
-      expect(onConfirm).toHaveBeenCalledWith(
-        expect.objectContaining({ description: "Low risk" })
-      )
+      expect(onConfirm).toHaveBeenCalledWith(expect.objectContaining({ description: "Low risk" }))
     })
   })
 })
