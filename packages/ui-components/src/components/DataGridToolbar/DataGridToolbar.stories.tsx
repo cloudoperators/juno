@@ -32,6 +32,9 @@ const meta: Meta<typeof DataGridToolbar> = {
       control: false,
       table: { type: { summary: "ReactNode" } },
     },
+    className: {
+      control: "text",
+    },
   },
 }
 
@@ -46,12 +49,17 @@ const servers = [
 ]
 
 export const MinimalToolbar: Story = {
+    decorators: [
+    (Story) => (
+      <PortalProvider>
+        <Story />
+      </PortalProvider>
+    ),
+  ],
   render: () => (
-    <DataGridToolbar>
-      <Stack distribution="end">
+      <Stack distribution="end" className="jn:pb-2">
         <Button label="Create Server" variant="primary" />
       </Stack>
-    </DataGridToolbar>
   ),
   parameters: {
     docs: {
@@ -72,6 +80,11 @@ export const WithFiltersSearchAndState: Story = {
     ),
   ],
   render: () => (
+    <Stack direction="vertical">
+    {/* Zone 1: Actions — no background */}
+    <Stack distribution="end" className="jn:pb-2">
+      <Button label="Create Server" variant="primary" />
+    </Stack>
     <DataGridToolbar className="jn:bg-theme-background-lvl-1">
       <Stack direction="vertical" gap="2">
         {/* Zone 2: Filters + Search */}
@@ -108,6 +121,7 @@ export const WithFiltersSearchAndState: Story = {
         </Stack>
       </Stack>
     </DataGridToolbar>
+    </Stack>
   ),
   parameters: {
     docs: {
@@ -134,8 +148,7 @@ export const FullToolbar: Story = {
       <>
         <Stack direction="vertical">
           {/* Zone 1: Actions — no background */}
-          <DataGridToolbar>
-            <Stack distribution="between" alignment="center">
+          <Stack distribution="between" alignment="center" className="jn:pb-2">
               <Stack gap="2" alignment="center">
                 <Checkbox label="Select all" />
                 <PopupMenu>
@@ -158,10 +171,9 @@ export const FullToolbar: Story = {
                     <PopupMenuItem label="Refresh all" />
                   </PopupMenuOptions>
                 </PopupMenu>
-                <Button label="Create Server" variant="primary" />
+                <Button label="Create Server" variant="primary" className="jn:whitespace-nowrap" />
               </Stack>
             </Stack>
-          </DataGridToolbar>
 
           {/* Zones 2+3: View config — background via className */}
           <DataGridToolbar className="jn:bg-theme-background-lvl-1">
