@@ -88,7 +88,7 @@ const RemediationHistoryTable = ({
     <>
       {remediatedVulnerabilities.map((r: RemediatedVulnerability) => (
         <DataGridRow key={r.remediationId}>
-          <DataGridCell className="whitespace-nowrap">{r.type}</DataGridCell>
+          <DataGridCell className="whitespace-nowrap">{r.type ?? "--"}</DataGridCell>
           <DataGridCell className="whitespace-nowrap">{formatDateTime(r.expirationDate)}</DataGridCell>
           <DataGridCell className="whitespace-nowrap">{formatDateTime(r.remediationDate)}</DataGridCell>
           <DataGridCell>{r.remediatedBy ?? "--"}</DataGridCell>
