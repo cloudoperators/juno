@@ -1,0 +1,9 @@
+import{n as e}from"./chunk-jRWAZmH_.js";import{t}from"./react-CMXXrKHu.js";import{t as n}from"./jsx-runtime-D_578c1K.js";var r,i,a,o=e((()=>{t(),r=n(),i=`
+  jn:flex-col
+  jn:grow
+  jn:bg-[right_top_1rem]
+  jn:bg-no-repeat
+  jn:bg-theme-content-area-bg
+  jn:relative
+`,a=({className:e=``,children:t,...n})=>(0,r.jsx)(`div`,{className:`juno-content-container ${i} ${e}`,...n,children:t});try{a.displayName=`ContentContainer`,a.__docgenInfo={description:"The `ContentContainer` serves as a wrapper for application content, designed for manual layout creation.\nIt can center content when the browser window is wider than the max breakpoint.",displayName:`ContentContainer`,filePath:`/home/runner/work/juno/juno/packages/ui-components/src/components/ContentContainer/ContentContainer.component.tsx`,methods:[],props:{className:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/ContentContainer/ContentContainer.component.tsx`,name:`ContentContainerProps`}],description:`Additional CSS class names for styling the content container.`,name:`className`,parent:{fileName:`ui-components/src/components/ContentContainer/ContentContainer.component.tsx`,name:`ContentContainerProps`},required:!1,tags:{default:`""`},type:{name:`string`}},children:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/ContentContainer/ContentContainer.component.tsx`,name:`ContentContainerProps`}],description:`Components or elements to render inside the content container.`,name:`children`,parent:{fileName:`ui-components/src/components/ContentContainer/ContentContainer.component.tsx`,name:`ContentContainerProps`},required:!1,tags:{},type:{name:`ReactNode`}}},tags:{see:`https://cloudoperators.github.io/juno/?path=/docs/internal-contentcontainer--docs
+{@link ContentContainerProps }`}}}catch{}}));export{o as n,a as t};
