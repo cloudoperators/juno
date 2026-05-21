@@ -60,18 +60,26 @@ export const ImageVersionDetails = ({
               {imageVersion.tag && (
                 <Pill pillKey="tag" pillKeyLabel="tag" pillValue={imageVersion.tag} pillValueLabel={imageVersion.tag} />
               )}
-              <Pill
-                pillKey="repository"
-                pillKeyLabel="repository"
-                pillValue={imageVersion.repository || imageRepository}
-                pillValueLabel={imageVersion.repository || imageRepository}
-              />
-              <Pill
-                pillKey="version"
-                pillKeyLabel="version"
-                pillValue={imageVersion.version || "_"}
-                pillValueLabel={imageVersion.version || "_"}
-              />
+              {imageVersion.repository || imageRepository ? (
+                <Pill
+                  pillKey="repository"
+                  pillKeyLabel="repository"
+                  pillValue={imageVersion.repository || imageRepository}
+                  pillValueLabel={imageVersion.repository || imageRepository}
+                />
+              ) : (
+                "—"
+              )}
+              {imageVersion.version ? (
+                <Pill
+                  pillKey="version"
+                  pillKeyLabel="version"
+                  pillValue={imageVersion.version}
+                  pillValueLabel={imageVersion.version}
+                />
+              ) : (
+                "—"
+              )}
             </Stack>
           </DataGridCell>
         </DataGridRow>

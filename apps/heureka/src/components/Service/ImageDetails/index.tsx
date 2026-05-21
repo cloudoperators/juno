@@ -105,15 +105,19 @@ export const ImageDetails = ({
             <DataGridHeadCell>Versions ({versions.length})</DataGridHeadCell>
             <DataGridCell>
               <Stack gap="1" direction="horizontal" wrap>
-                {displayedVersions.map((version) => (
-                  <Pill
-                    key={version.id}
-                    pillValue={version.version || "_"}
-                    pillValueLabel={version.version ? getShortSha256(version.version) : "_"}
-                    title={version.version}
-                    onClick={() => handleVersionClick(version.version)}
-                  />
-                ))}
+                {displayedVersions.map((version) =>
+                  version.version ? (
+                    <Pill
+                      key={version.id}
+                      pillValue={version.version}
+                      pillValueLabel={getShortSha256(version.version)}
+                      title={version.version}
+                      onClick={() => handleVersionClick(version.version)}
+                    />
+                  ) : (
+                    <React.Fragment key={version.id}>—</React.Fragment>
+                  )
+                )}
               </Stack>
               {hasMoreVersions && (
                 <a

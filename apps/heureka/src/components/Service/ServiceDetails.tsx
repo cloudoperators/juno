@@ -18,6 +18,7 @@ type ServiceDetailsProps = {
 export const ServiceDetails = ({ servicePromise }: ServiceDetailsProps) => {
   const { data } = use(servicePromise)
   const service = getNormalizedServicesResponse(data).services[0]
+  const supportGroups = service.serviceDetails?.supportGroups?.filter(Boolean) ?? []
 
   return (
     <>
@@ -29,9 +30,7 @@ export const ServiceDetails = ({ servicePromise }: ServiceDetailsProps) => {
           <DataGridHeadCell>Support Group</DataGridHeadCell>
           <DataGridCell>
             <Stack gap="1" direction="horizontal" wrap>
-              {service.serviceDetails?.supportGroups?.map((group) => (
-                <Badge key={group || "empty"} text={group || "—"} />
-              ))}
+              {supportGroups.length ? supportGroups.map((group) => <Badge key={group} text={group} />) : "—"}
             </Stack>
           </DataGridCell>
         </DataGridRow>

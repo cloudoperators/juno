@@ -8,13 +8,14 @@ import { DataGridRow, DataGridCell, Badge, Stack } from "@cloudoperators/juno-ui
 import { SeverityCount } from "../../../common/SeverityCount"
 import { ServiceType } from "../../../types"
 
-const ServiceDetails = ({ serviceDetails }: { serviceDetails: ServiceType["serviceDetails"] }) => (
-  <Stack gap="2" alignment="start" wrap={true}>
-    {serviceDetails.supportGroups.map((group) => (
-      <Badge key={group} text={group || "—"} />
-    ))}
-  </Stack>
-)
+const ServiceDetails = ({ serviceDetails }: { serviceDetails: ServiceType["serviceDetails"] }) => {
+  const groups = serviceDetails.supportGroups.filter(Boolean)
+  return (
+    <Stack gap="2" alignment="start" wrap={true}>
+      {groups.length ? groups.map((group) => <Badge key={group} text={group} />) : "—"}
+    </Stack>
+  )
+}
 
 type ServiceDataRowProps = {
   item: ServiceType
