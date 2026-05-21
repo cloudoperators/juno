@@ -7,9 +7,8 @@ import React, { HTMLAttributes, ReactNode } from "react"
 
 const baseToolbarStyles = `
 	jn:bg-theme-background-lvl-1
-	jn:py-3
-	jn:px-6
-	jn:mb-px
+	jn:py-2
+	jn:px-3
 `
 
 /**

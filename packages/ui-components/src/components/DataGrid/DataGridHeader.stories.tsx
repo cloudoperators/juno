@@ -41,9 +41,9 @@ The DataGrid header is a composition pattern, not a single component. It sits ab
 
 The header is structured in up to three zones:
 
-- **Zone 1 — Actions:** Bulk actions (select-all checkbox + action menu), sorting controls, an optional overflow menu for global actions, and the primary action (e.g. "Create"). This zone has no background — it is a plain \`Stack\` with no wrapper component.
+- **Zone 1 — Actions:** Sorting controls, an optional overflow menu for global actions, and the primary action (e.g. "Create"). This zone has no background — it is a plain \`Stack\` with no wrapper component.
 - **Zone 2 — Filters and Search:** One or more filter inputs (typically a \`Select\` + \`ComboBox\` in an \`InputGroup\`), a \`SearchInput\`, and active filter pills with a "Clear filters" button.
-- **Zone 3 — DataGrid State:** Item count (total, or "X of Y" when filters are active), last update timestamp, and a refresh button.
+- **Zone 3 — DataGrid State:** Bulk actions (select-all checkbox + action menu) on the left, item count in the middle (total, or "X of Y" when filters are active), and last update timestamp with a refresh button on the right.
 
 Zones 2 and 3 share a background and are wrapped together in a single \`DataGridToolbar\`, which provides the background color, padding, and separation from the grid below.
 
@@ -88,7 +88,7 @@ export const WithFiltersSearchAndState: Story = {
         {/* Zone 2: Filters + Search */}
         <Stack distribution="between" alignment="center">
           <InputGroup>
-            <Select>
+            <Select width="auto" className="jn:min-w-44">
               <SelectOption value="region" label="Region" />
               <SelectOption value="status" label="Status" />
               <SelectOption value="az" label="Availability Zone" />
@@ -114,7 +114,7 @@ export const WithFiltersSearchAndState: Story = {
           <span>Showing 2 of 4 servers</span>
           <Stack gap="2" alignment="center">
             <span>Last update: 20.05.2026 @09:41</span>
-            <Button label="Update" size="small" />
+            <Button label="Update" size="xs" />
           </Stack>
         </Stack>
       </Stack>
@@ -157,32 +157,21 @@ export const FullyFeatured: Story = {
     return (
       <>
         <Stack direction="vertical">
-          {/* Zone 1: Actions — no DataGridToolbar needed, no background */}
-          <Stack distribution="between" alignment="center" className="jn:pb-2">
-            <Stack gap="2" alignment="center">
-              <Checkbox label="Select all" />
-              <PopupMenu>
-                <PopupMenuOptions>
-                  <PopupMenuItem label="Download" />
-                  <PopupMenuItem label="Delete" />
-                </PopupMenuOptions>
-              </PopupMenu>
-            </Stack>
-            <Stack gap="2" alignment="center">
-              <Select>
-                <SelectOption value="name" label="Name" />
-                <SelectOption value="status" label="Status" />
-                <SelectOption value="region" label="Region" />
-              </Select>
-              <SortButton order={sortOrder} onChange={setSortOrder} />
-              <PopupMenu>
-                <PopupMenuOptions>
-                  <PopupMenuItem label="Export CSV" />
-                  <PopupMenuItem label="Refresh all" />
-                </PopupMenuOptions>
-              </PopupMenu>
-              <Button label="Create Server" variant="primary" className="jn:whitespace-nowrap" />
-            </Stack>
+          {/* Zone 1: Sorting + primary action — bare Stack, no background */}
+          <Stack distribution="end" alignment="center" gap="2" className="jn:pb-2">
+            <Select width="auto" className="jn:min-w-40">
+              <SelectOption value="name" label="Name" />
+              <SelectOption value="status" label="Status" />
+              <SelectOption value="region" label="Region" />
+            </Select>
+            <SortButton order={sortOrder} onChange={setSortOrder} />
+            <PopupMenu>
+              <PopupMenuOptions>
+                <PopupMenuItem label="Export CSV" />
+                <PopupMenuItem label="Refresh all" />
+              </PopupMenuOptions>
+            </PopupMenu>
+            <Button label="Create Server" variant="primary" className="jn:whitespace-nowrap" />
           </Stack>
 
           {/* Zones 2+3 — DataGridToolbar provides background and spacing */}
@@ -191,7 +180,7 @@ export const FullyFeatured: Story = {
               {/* Zone 2: Filters + Search */}
               <Stack distribution="between" alignment="center">
                 <InputGroup>
-                  <Select>
+                  <Select width="auto" className="jn:min-w-44">
                     <SelectOption value="region" label="Region" />
                     <SelectOption value="status" label="Status" />
                     <SelectOption value="az" label="Availability Zone" />
@@ -212,12 +201,21 @@ export const FullyFeatured: Story = {
                 <Button label="Clear filters" variant="subdued" size="xs" />
               </Stack>
 
-              {/* Zone 3: Item count + Refresh */}
-              <Stack distribution="between" alignment="center">
+              {/* Zone 3: Bulk actions + item count + refresh */}
+              <Stack distribution="between" alignment="center" className="jn:text-sm">
+                <Stack gap="2" alignment="center">
+                  <Checkbox label="Select all" />
+                  <PopupMenu>
+                    <PopupMenuOptions>
+                      <PopupMenuItem label="Download" />
+                      <PopupMenuItem label="Delete" />
+                    </PopupMenuOptions>
+                  </PopupMenu>
+                </Stack>
                 <span>Showing 2 of 4 servers</span>
                 <Stack gap="2" alignment="center">
                   <span>Last update: 20.05.2026 @09:41</span>
-                  <Button label="Update" size="small" />
+                  <Button label="Update" size="xs" />
                 </Stack>
               </Stack>
             </Stack>
@@ -247,38 +245,27 @@ export const FullyFeatured: Story = {
     docs: {
       description: {
         story:
-          "Fully featured DataGrid header. Zone 1 (bulk actions, sort, primary action) is a bare `Stack` with no wrapper — no background, no `DataGridToolbar`. Zones 2+3 (filters, active filter pills, search, item count, refresh) are wrapped in `DataGridToolbar` which provides the background and spacing. Every zone and every element within it is optional.",
+          "Fully featured DataGrid header. Zone 1 (sort, overflow menu, primary action) is a bare `Stack` — no background, no `DataGridToolbar`. Zones 2+3 are wrapped in `DataGridToolbar`. Zone 3 carries bulk actions (checkbox + action menu) on the left, item count in the middle, and last update + refresh on the right. Every zone and every element within it is optional.",
       },
       // Keep this source.code in sync with the render function above
       source: {
         code: `
 <Stack direction="vertical">
-  {/* Zone 1 — bare Stack, no wrapper, no background */}
-  <Stack distribution="between" alignment="center" className="jn:pb-2">
-    <Stack gap="2" alignment="center">
-      <Checkbox label="Select all" />
-      <PopupMenu>
-        <PopupMenuOptions>
-          <PopupMenuItem label="Download" />
-          <PopupMenuItem label="Delete" />
-        </PopupMenuOptions>
-      </PopupMenu>
-    </Stack>
-    <Stack gap="2" alignment="center">
-      <Select>
-        <SelectOption value="name" label="Name" />
-        <SelectOption value="status" label="Status" />
-        <SelectOption value="region" label="Region" />
-      </Select>
-      <SortButton order={sortOrder} onChange={setSortOrder} />
-      <PopupMenu>
-        <PopupMenuOptions>
-          <PopupMenuItem label="Export CSV" />
-          <PopupMenuItem label="Refresh all" />
-        </PopupMenuOptions>
-      </PopupMenu>
-      <Button label="Create Server" variant="primary" className="jn:whitespace-nowrap" />
-    </Stack>
+  {/* Zone 1 — bare Stack, no background */}
+  <Stack distribution="end" alignment="center" gap="2" className="jn:pb-2">
+    <Select width="auto" className="jn:min-w-40">
+      <SelectOption value="name" label="Name" />
+      <SelectOption value="status" label="Status" />
+      <SelectOption value="region" label="Region" />
+    </Select>
+    <SortButton order={sortOrder} onChange={setSortOrder} />
+    <PopupMenu>
+      <PopupMenuOptions>
+        <PopupMenuItem label="Export CSV" />
+        <PopupMenuItem label="Refresh all" />
+      </PopupMenuOptions>
+    </PopupMenu>
+    <Button label="Create Server" variant="primary" className="jn:whitespace-nowrap" />
   </Stack>
 
   {/* Zones 2+3 — DataGridToolbar provides background and spacing */}
@@ -287,7 +274,7 @@ export const FullyFeatured: Story = {
       {/* Zone 2: Filters + Search */}
       <Stack distribution="between" alignment="center">
         <InputGroup>
-          <Select>
+          <Select width="auto" className="jn:min-w-44">
             <SelectOption value="region" label="Region" />
             <SelectOption value="status" label="Status" />
             <SelectOption value="az" label="Availability Zone" />
@@ -308,12 +295,21 @@ export const FullyFeatured: Story = {
         <Button label="Clear filters" variant="subdued" size="xs" />
       </Stack>
 
-      {/* Zone 3: Item count + Refresh */}
+      {/* Zone 3: Bulk actions + item count + refresh */}
       <Stack distribution="between" alignment="center">
+        <Stack gap="2" alignment="center">
+          <Checkbox label="Select all" />
+          <PopupMenu>
+            <PopupMenuOptions>
+              <PopupMenuItem label="Download" />
+              <PopupMenuItem label="Delete" />
+            </PopupMenuOptions>
+          </PopupMenu>
+        </Stack>
         <span>Showing 2 of 4 servers</span>
         <Stack gap="2" alignment="center">
           <span>Last update: 20.05.2026 @09:41</span>
-          <Button label="Update" size="small" />
+          <Button label="Update" size="xs" />
         </Stack>
       </Stack>
     </Stack>

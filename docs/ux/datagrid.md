@@ -40,9 +40,8 @@ More specifically, these are any combination of the following elements. Each ele
 
 (TODO: Illustration of the fully featured header with overlayed/indicated zones)
 
-### Zone 1: Bulk Actions, Sorting, Action(s)
+### Zone 1: Sorting, Action(s)
 
-- Bulk Actions: Actions that can be run on multiple items in the DataGrid at once. Contains a Checkbox to select/deselect all items, and requires a Checkbox on each individual item / row.
 - Sorting: Select to choose what to sort by, and a button to toggle sort direction
 - Other Actions Overflow Menu: Any actions global to the data set other than the primary action
 - Primary Action: The primary, i.e. most likely action for users. If users can create new items in the DataGrid, this can be done using the primary action button
@@ -53,10 +52,11 @@ More specifically, these are any combination of the following elements. Each ele
 - Search: A SearchBox to perform a string-based search on the data and display the matching items. Make sure to manage user expectations as to what exactly will be searched, i.e. if the string entered is only matched against a single or a subset of fields, the placeholder should indicate that (e.g. "Search Description" if only descriptions can be searched)
 - Filter Pills: Each filter that has been configured by the user using the Filter element(s) and that is currently active is displayed here. As a last item, there is a button that allows for clearing all active filters at once.
 
-### Zone 3: DataGrid View/State, Refresh
+### Zone 3: DataGrid View/State, Bulk Actions, Refresh
 
-- Item Count: The number of items of the set that is currently visible as a whole (not only on the current page). If filters or searches are active, the number of matching items and the total number of items in the data set is being displayed.
-- Last Update, Update/Refresh: The date and time of the last refresh of the data displayed, and a button to trigger a refresh.
+- Bulk Actions: Actions that can be run on multiple items in the DataGrid at once. Positioned on the left side of Zone 3. Contains a Checkbox to select/deselect all items, and a menu of available bulk actions. Requires a Checkbox on each individual item / row.
+- Item Count: The number of items of the set that is currently visible as a whole (not only on the current page), displayed in the center. If filters or searches are active, the number of matching items and the total number of items in the data set is being displayed.
+- Last Update, Update/Refresh: The date and time of the last refresh of the data displayed, and a button to trigger a refresh. Positioned on the right side of Zone 3.
 
 All of the above elements are optional in the sense that none of them will be required for any given DataGrid. However, if you find yourself in a situation where none of the above options is needed or desired, reconsider whether using a DataGrid is the right choice to display the given data. This case can occur, but it is rare. In most cases a simple list is then a more appropriate option to display the data.
 
