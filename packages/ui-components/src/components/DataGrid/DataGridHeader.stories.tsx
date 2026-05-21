@@ -107,7 +107,7 @@ export const WithFiltersSearchAndState: Story = {
         <Stack gap="2" wrap>
           <Pill pillKey="Region" pillValue="eu-west-1" closeable />
           <Pill pillKey="Status" pillValue="Running" closeable />
-          <Button label="Clear filters" variant="subdued" size="xs" />
+          <Button label="Clear filters" size="xs" />
         </Stack>
 
         {/* Zone 3: Item count + Refresh */}
@@ -199,7 +199,7 @@ export const FullyFeatured: Story = {
               <Stack gap="2" wrap>
                 <Pill pillKey="Region" pillValue="eu-west-1" closeable />
                 <Pill pillKey="Status" pillValue="Running" closeable />
-                <Button label="Clear filters" variant="subdued" size="xs" />
+                <Button label="Clear filters" size="xs" />
               </Stack>
 
               {/* Zone 3: Bulk actions + item count + refresh */}
