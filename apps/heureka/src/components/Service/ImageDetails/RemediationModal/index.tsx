@@ -35,6 +35,9 @@ type RemediationModalProps = {
   sourceTicketRequired?: boolean
 }
 
+const EMPTY_FORM = { description: "", manualUserId: "", sourceTicket: "", expirationDate: null as Date | null }
+const EMPTY_ERRORS = { description: "", userId: "", sourceTicket: "", expirationDate: "" }
+
 const toSeverityValue = (severity: string): SeverityValues | undefined => {
   if (!severity) return undefined
   const normalized = severity.charAt(0).toUpperCase() + severity.slice(1).toLowerCase()
@@ -60,19 +63,13 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
 }) => {
   const auth = useAuth()
   const authUserId = auth.status === "authenticated" ? auth.userId || auth.userName : null
-  const [description, setDescription] = useState<string>("")
-  const [manualUserId, setManualUserId] = useState<string>("")
-  const [sourceTicket, setSourceTicket] = useState<string>("")
-  const [expirationDate, setExpirationDate] = useState<Date | null>(null)
+  const [form, setForm] = useState(EMPTY_FORM)
+  const [errors, setErrors] = useState(EMPTY_ERRORS)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [descriptionError, setDescriptionError] = useState<string>("")
-  const [userIdError, setUserIdError] = useState<string>("")
-  const [sourceTicketError, setSourceTicketError] = useState<string>("")
-  const [expirationDateError, setExpirationDateError] = useState<string>("")
   const [apiError, setApiError] = useState<string | null>(null)
   const isMountedRef = useRef(true)
 
-  const manualUserIdTrimmed = manualUserId.trim()
+  const manualUserIdTrimmed = form.manualUserId.trim()
   const remediatedBy = authUserId ?? (manualUserIdTrimmed || undefined)
   const isUserIdValid = !!remediatedBy
 
@@ -85,20 +82,14 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
 
   useEffect(() => {
     if (!open) {
-      setDescription("")
-      setManualUserId("")
-      setSourceTicket("")
-      setExpirationDate(null)
-      setDescriptionError("")
-      setUserIdError("")
-      setSourceTicketError("")
-      setExpirationDateError("")
+      setForm(EMPTY_FORM)
+      setErrors(EMPTY_ERRORS)
       setApiError(null)
     }
   }, [open])
 
-  const descriptionTrimmed = description.trim()
-  const sourceTicketTrimmed = sourceTicket.trim()
+  const descriptionTrimmed = form.description.trim()
+  const sourceTicketTrimmed = form.sourceTicket.trim()
 
   const buildDescription = () => {
     if (showSourceTicket && !sourceTicketRequired && sourceTicketTrimmed) {
@@ -109,26 +100,23 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
 
   const handleConfirm = async () => {
     if (!descriptionTrimmed) {
-      setDescriptionError("Description is required")
+      setErrors((prev) => ({ ...prev, description: "Description is required" }))
       return
     }
     if (!remediatedBy) {
-      setUserIdError("User ID is required")
+      setErrors((prev) => ({ ...prev, userId: "User ID is required" }))
       return
     }
     if (sourceTicketRequired && !sourceTicketTrimmed) {
-      setSourceTicketError("Jira ticket is required")
+      setErrors((prev) => ({ ...prev, sourceTicket: "Jira ticket is required" }))
       return
     }
-    if (!expirationDate) {
-      setExpirationDateError("Expiration date is required")
+    if (!form.expirationDate) {
+      setErrors((prev) => ({ ...prev, expirationDate: "Expiration date is required" }))
       return
     }
 
-    setDescriptionError("")
-    setUserIdError("")
-    setSourceTicketError("")
-    setExpirationDateError("")
+    setErrors(EMPTY_ERRORS)
     setIsSubmitting(true)
     try {
       const severityValue = severity ? toSeverityValue(severity) : undefined
@@ -140,17 +128,14 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
         description: buildDescription(),
         ...(remediatedBy && { remediatedBy }),
         ...(severityValue !== undefined && { severity: severityValue }),
-        expirationDate: expirationDate.toISOString(),
+        expirationDate: form.expirationDate.toISOString(),
         ...(sourceTicketRequired && sourceTicketTrimmed ? { url: sourceTicketTrimmed } : {}),
       }
       const result = await onConfirm(input)
       if (result?.error) {
         setApiError(result.error)
       } else if (isMountedRef.current) {
-        setDescription("")
-        setManualUserId("")
-        setSourceTicket("")
-        setExpirationDate(null)
+        setForm(EMPTY_FORM)
         onClose()
       }
     } catch (error) {
@@ -162,23 +147,10 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
   }
 
   const handleClose = () => {
-    setDescription("")
-    setManualUserId("")
-    setSourceTicket("")
-    setExpirationDate(null)
-    setDescriptionError("")
-    setUserIdError("")
-    setSourceTicketError("")
-    setExpirationDateError("")
+    setForm(EMPTY_FORM)
+    setErrors(EMPTY_ERRORS)
     setApiError(null)
     onClose()
-  }
-
-  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setDescription(e.target.value)
-    if (descriptionError) {
-      setDescriptionError("")
-    }
   }
 
   return (
@@ -198,7 +170,7 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
                 isSubmitting ||
                 !descriptionTrimmed ||
                 !isUserIdValid ||
-                !expirationDate ||
+                !form.expirationDate ||
                 (sourceTicketRequired && !sourceTicketTrimmed)
               }
             />
@@ -220,15 +192,15 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
         <div>
           <TextInput
             label="User ID"
-            value={authUserId ?? manualUserId}
+            value={authUserId ?? form.manualUserId}
             onChange={(e) => {
-              setManualUserId(e.target.value)
-              if (userIdError) setUserIdError("")
+              setForm((prev) => ({ ...prev, manualUserId: e.target.value }))
+              if (errors.userId) setErrors((prev) => ({ ...prev, userId: "" }))
             }}
             disabled={!!authUserId}
             required
-            invalid={!!userIdError}
-            errortext={userIdError}
+            invalid={!!errors.userId}
+            errortext={errors.userId}
             placeholder={authUserId ? undefined : "Enter your user ID"}
             helptext={authUserId ? "User ID from current session (read-only)." : "Enter your user ID."}
           />
@@ -237,15 +209,15 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
           <div>
             <TextInput
               label="Jira Ticket / Risk Acceptance Source Ticket"
-              value={sourceTicket}
+              value={form.sourceTicket}
               onChange={(e) => {
-                setSourceTicket(e.target.value)
-                if (sourceTicketError) setSourceTicketError("")
+                setForm((prev) => ({ ...prev, sourceTicket: e.target.value }))
+                if (errors.sourceTicket) setErrors((prev) => ({ ...prev, sourceTicket: "" }))
               }}
               placeholder="e.g. JIRA-1234"
               required={sourceTicketRequired}
-              invalid={!!sourceTicketError}
-              errortext={sourceTicketError}
+              invalid={!!errors.sourceTicket}
+              errortext={errors.sourceTicket}
               helptext={
                 sourceTicketRequired
                   ? "Reference ticket for this risk acceptance decision."
@@ -257,15 +229,15 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
         <div>
           <DateTimePicker
             label="Expiration Date"
-            value={expirationDate ?? undefined}
+            value={form.expirationDate ?? undefined}
             onChange={(dates) => {
-              setExpirationDate(dates?.[0] ?? null)
-              if (expirationDateError) setExpirationDateError("")
+              setForm((prev) => ({ ...prev, expirationDate: dates?.[0] ?? null }))
+              if (errors.expirationDate) setErrors((prev) => ({ ...prev, expirationDate: "" }))
             }}
             minDate="today"
             required
-            invalid={!!expirationDateError}
-            errortext={expirationDateError}
+            invalid={!!errors.expirationDate}
+            errortext={errors.expirationDate}
             helptext={expirationHelptext}
           />
         </div>
@@ -273,12 +245,15 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
           <Textarea
             label="Description"
             placeholder={descriptionPlaceholder}
-            value={description}
-            onChange={handleDescriptionChange}
+            value={form.description}
+            onChange={(e) => {
+              setForm((prev) => ({ ...prev, description: e.target.value }))
+              if (errors.description) setErrors((prev) => ({ ...prev, description: "" }))
+            }}
             rows={14}
             required
-            invalid={!!descriptionError}
-            errortext={descriptionError || ""}
+            invalid={!!errors.description}
+            errortext={errors.description || ""}
           />
         </div>
       </Stack>
