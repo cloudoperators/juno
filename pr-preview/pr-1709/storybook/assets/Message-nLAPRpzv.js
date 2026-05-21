@@ -1,0 +1,1 @@
+import{i as e}from"./preload-helper-DbRxMUml.js";import{n as t}from"./Message.component-BFyw92vp.js";var n=e((()=>{t()}));export{n as t};
