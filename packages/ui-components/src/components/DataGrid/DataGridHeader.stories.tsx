@@ -111,7 +111,7 @@ export const WithFiltersSearchAndState: Story = {
         </Stack>
 
         {/* Zone 3: Item count + Refresh */}
-        <Stack distribution="between" alignment="center">
+        <Stack distribution="between" alignment="center" className="jn:text-sm">
           <span>Showing 2 of 4 servers</span>
           <Stack gap="2" alignment="center">
             <span>Last update: 20.05.2026 @09:41</span>
@@ -160,19 +160,26 @@ export const FullyFeatured: Story = {
         <Stack direction="vertical">
           {/* Zone 1: Sorting + primary action — bare Stack, no background */}
           <Stack distribution="end" alignment="center" gap="2" className="jn:pb-2">
-            <Select width="auto" className="jn:min-w-40">
-              <SelectOption value="name" label="Name" />
-              <SelectOption value="status" label="Status" />
-              <SelectOption value="region" label="Region" />
-            </Select>
-            <SortButton order={sortOrder} onChange={setSortOrder} />
-            <PopupMenu>
-              <PopupMenuOptions>
-                <PopupMenuItem label="Export CSV" />
-                <PopupMenuItem label="Refresh all" />
-              </PopupMenuOptions>
-            </PopupMenu>
-            <Button label="Create Server" variant="primary" className="jn:whitespace-nowrap" />
+            <Stack gap="2">
+              <Stack gap="0.5">
+                <Select width="auto" className="jn:min-w-40">
+                  <SelectOption value="name" label="Name" />
+                  <SelectOption value="status" label="Status" />
+                  <SelectOption value="region" label="Region" />
+                </Select>
+                <SortButton order={sortOrder} onChange={setSortOrder} />
+              </Stack>
+              <Stack gap="0.5">
+                <PopupMenu>
+                  <PopupMenuToggle {...({ as: Button, icon: "moreVert" } as any)} />
+                  <PopupMenuOptions>
+                    <PopupMenuItem label="Export CSV" />
+                    <PopupMenuItem label="Refresh all" />
+                  </PopupMenuOptions>
+                </PopupMenu>
+                <Button label="Create Server" variant="primary" className="jn:whitespace-nowrap" />
+              </Stack>
+            </Stack>
           </Stack>
 
           {/* Zones 2+3 — DataGridToolbar provides background and spacing */}
@@ -269,19 +276,25 @@ export const FullyFeatured: Story = {
 <Stack direction="vertical">
   {/* Zone 1 — bare Stack, no background */}
   <Stack distribution="end" alignment="center" gap="2" className="jn:pb-2">
-    <Select width="auto" className="jn:min-w-40">
-      <SelectOption value="name" label="Name" />
-      <SelectOption value="status" label="Status" />
-      <SelectOption value="region" label="Region" />
-    </Select>
-    <SortButton order={sortOrder} onChange={setSortOrder} />
-    <PopupMenu>
-      <PopupMenuOptions>
-        <PopupMenuItem label="Export CSV" />
-        <PopupMenuItem label="Refresh all" />
-      </PopupMenuOptions>
-    </PopupMenu>
-    <Button label="Create Server" variant="primary" className="jn:whitespace-nowrap" />
+    <Stack gap="2">
+      <Stack gap="0.5">
+        <Select width="auto" className="jn:min-w-40">
+          <SelectOption value="name" label="Name" />
+          <SelectOption value="status" label="Status" />
+          <SelectOption value="region" label="Region" />
+        </Select>
+        <SortButton order={sortOrder} onChange={setSortOrder} />
+      </Stack>
+      <Stack gap="0.5">
+        <PopupMenu>
+          <PopupMenuOptions>
+            <PopupMenuItem label="Export CSV" />
+            <PopupMenuItem label="Refresh all" />
+          </PopupMenuOptions>
+        </PopupMenu>
+        <Button label="Create Server" variant="primary" className="jn:whitespace-nowrap" />
+      </Stack>
+    </Stack>
   </Stack>
 
   {/* Zones 2+3 — DataGridToolbar provides background and spacing */}
