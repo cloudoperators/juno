@@ -9,6 +9,7 @@ import { DataGrid } from "./DataGrid.component"
 import { DataGridRow } from "../DataGridRow"
 import { DataGridCell } from "../DataGridCell"
 import { DataGridHeadCell } from "../DataGridHeadCell"
+import { DataGridCheckboxCell } from "../DataGridCheckboxCell"
 import { DataGridToolbar } from "../DataGridToolbar"
 import { Stack } from "../Stack"
 import { Button } from "../Button"
@@ -16,7 +17,7 @@ import { Checkbox } from "../Checkbox"
 import { Select } from "../Select"
 import { SelectOption } from "../SelectOption"
 import { SortButton } from "../SortButton"
-import { PopupMenu, PopupMenuOptions, PopupMenuItem } from "../PopupMenu"
+import { PopupMenu, PopupMenuOptions, PopupMenuItem, PopupMenuToggle } from "../PopupMenu"
 import { InputGroup } from "../InputGroup"
 import { ComboBox } from "../ComboBox"
 import { ComboBoxOption } from "../ComboBoxOption"
@@ -204,8 +205,11 @@ export const FullyFeatured: Story = {
               {/* Zone 3: Bulk actions + item count + refresh */}
               <Stack distribution="between" alignment="center" className="jn:text-sm">
                 <Stack gap="2" alignment="center">
-                  <Checkbox label="Select all" />
-                  <PopupMenu>
+                  <Checkbox />
+                  <PopupMenu className="jn:flex jn:items-center">
+                    <PopupMenuToggle
+                      {...({ as: Button, size: "xs", icon: "moreVert", label: "Show Actions" } as any)}
+                    />
                     <PopupMenuOptions>
                       <PopupMenuItem label="Download" />
                       <PopupMenuItem label="Delete" />
@@ -222,19 +226,31 @@ export const FullyFeatured: Story = {
           </DataGridToolbar>
         </Stack>
 
-        <DataGrid columns={4}>
+        <DataGrid columns={6} minContentColumns={[0, 5]}>
           <DataGridRow>
+            <DataGridHeadCell />
             <DataGridHeadCell>Name</DataGridHeadCell>
             <DataGridHeadCell>Region</DataGridHeadCell>
             <DataGridHeadCell>Status</DataGridHeadCell>
             <DataGridHeadCell>Availability Zone</DataGridHeadCell>
+            <DataGridHeadCell />
           </DataGridRow>
           {servers.map((s) => (
             <DataGridRow key={s.id}>
+              <DataGridCheckboxCell />
               <DataGridCell>{s.name}</DataGridCell>
               <DataGridCell>{s.region}</DataGridCell>
               <DataGridCell>{s.status}</DataGridCell>
               <DataGridCell>{s.az}</DataGridCell>
+              <DataGridCell>
+                <PopupMenu>
+                  <PopupMenuOptions>
+                    <PopupMenuItem label="Edit" />
+                    <PopupMenuItem label="Download" />
+                    <PopupMenuItem label="Delete" />
+                  </PopupMenuOptions>
+                </PopupMenu>
+              </DataGridCell>
             </DataGridRow>
           ))}
         </DataGrid>
@@ -298,8 +314,9 @@ export const FullyFeatured: Story = {
       {/* Zone 3: Bulk actions + item count + refresh */}
       <Stack distribution="between" alignment="center">
         <Stack gap="2" alignment="center">
-          <Checkbox label="Select all" />
-          <PopupMenu>
+          <Checkbox />
+          <PopupMenu className="jn:flex jn:items-center">
+            <PopupMenuToggle {...({ as: Button, size: "xs", icon: "moreVert", label: "Show Actions" } as any)} />
             <PopupMenuOptions>
               <PopupMenuItem label="Download" />
               <PopupMenuItem label="Delete" />
@@ -316,19 +333,31 @@ export const FullyFeatured: Story = {
   </DataGridToolbar>
 </Stack>
 
-<DataGrid columns={4}>
+<DataGrid columns={6} minContentColumns={[0, 5]}>
   <DataGridRow>
+    <DataGridHeadCell />
     <DataGridHeadCell>Name</DataGridHeadCell>
     <DataGridHeadCell>Region</DataGridHeadCell>
     <DataGridHeadCell>Status</DataGridHeadCell>
     <DataGridHeadCell>Availability Zone</DataGridHeadCell>
+    <DataGridHeadCell />
   </DataGridRow>
   {servers.map((s) => (
     <DataGridRow key={s.id}>
+      <DataGridCheckboxCell />
       <DataGridCell>{s.name}</DataGridCell>
       <DataGridCell>{s.region}</DataGridCell>
       <DataGridCell>{s.status}</DataGridCell>
       <DataGridCell>{s.az}</DataGridCell>
+      <DataGridCell>
+        <PopupMenu>
+          <PopupMenuOptions>
+            <PopupMenuItem label="Edit" />
+            <PopupMenuItem label="Download" />
+            <PopupMenuItem label="Delete" />
+          </PopupMenuOptions>
+        </PopupMenu>
+      </DataGridCell>
     </DataGridRow>
   ))}
 </DataGrid>
