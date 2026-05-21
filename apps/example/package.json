@@ -27,6 +27,7 @@
     "shadow-dom-testing-library": "1.13.1",
     "tailwindcss": "4.3.0",
     "vite": "8.0.10",
+    "vite-plugin-svgr": "5.2.0",
     "vitest": "4.1.6"
   },
   "dependencies": {
@@ -37,7 +38,6 @@
     "msw": "2.14.5",
     "react": "19.2.5",
     "react-dom": "19.2.5",
-    "vite-plugin-svgr": "4.5.0",
     "zustand": "5.0.12"
   },
   "scripts": {
