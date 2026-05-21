@@ -37,7 +37,7 @@
     "msw": "2.14.5",
     "react": "19.2.5",
     "react-dom": "19.2.5",
-    "vite-plugin-svgr": "4.5.0",
+    "vite-plugin-svgr": "5.2.0",
     "zustand": "5.0.12"
   },
   "scripts": {
