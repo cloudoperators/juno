@@ -251,9 +251,6 @@ importers:
       react-dom:
         specifier: 19.2.5
         version: 19.2.5(react@19.2.5)
-      vite-plugin-svgr:
-        specifier: 5.2.0
-        version: 5.2.0(rollup@4.60.2)(typescript@6.0.3)(vite@8.0.10(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.8.4))
       zustand:
         specifier: 5.0.12
         version: 5.0.12(@types/react@19.2.14)(immer@11.1.8)(react@19.2.5)(use-sync-external-store@1.6.0(react@19.2.5))
@@ -294,6 +291,9 @@ importers:
       vite:
         specifier: 8.0.10
         version: 8.0.10(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.8.4)
+      vite-plugin-svgr:
+        specifier: 5.2.0
+        version: 5.2.0(rollup@4.60.2)(typescript@6.0.3)(vite@8.0.10(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.8.4))
       vitest:
         specifier: 4.1.6
         version: 4.1.6(@types/node@24.12.2)(@vitest/ui@4.1.6)(jsdom@29.1.1)(msw@2.14.5(@types/node@24.12.2)(typescript@6.0.3))(vite@8.0.10(@types/node@24.12.2)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.8.4))
