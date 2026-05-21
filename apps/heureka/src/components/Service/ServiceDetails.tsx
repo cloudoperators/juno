@@ -5,7 +5,7 @@
 
 import React, { use } from "react"
 import { ApolloQueryResult } from "@apollo/client"
-import { Stack, Pill, DataGrid, DataGridRow, DataGridHeadCell, DataGridCell } from "@cloudoperators/juno-ui-components"
+import { Badge, Stack, DataGrid, DataGridRow, DataGridHeadCell, DataGridCell } from "@cloudoperators/juno-ui-components"
 import { getNormalizedServicesResponse } from "../Services/utils"
 import { IssueCountsPerSeverityLevel } from "../common/IssueCountsPerSeverityLevel"
 import SectionContentHeading from "../common/SectionContentHeading"
@@ -26,18 +26,11 @@ export const ServiceDetails = ({ servicePromise }: ServiceDetailsProps) => {
       {/* Service Information Section */}
       <DataGrid columns={2} gridColumnTemplate="20% auto" className="mb-6">
         <DataGridRow>
-          <DataGridHeadCell>Details</DataGridHeadCell>
+          <DataGridHeadCell>Support Group</DataGridHeadCell>
           <DataGridCell>
             <Stack gap="1" direction="horizontal" wrap>
-              <Pill pillKey="service" pillKeyLabel="service" pillValue={service.name} pillValueLabel={service.name} />
               {service.serviceDetails?.supportGroups?.map((group) => (
-                <Pill
-                  key={group || "empty"}
-                  pillKey="support_group"
-                  pillKeyLabel="support_group"
-                  pillValue={group || "_"}
-                  pillValueLabel={group || "_"}
-                />
+                <Badge key={group || "empty"} text={group || "—"} />
               ))}
             </Stack>
           </DataGridCell>
