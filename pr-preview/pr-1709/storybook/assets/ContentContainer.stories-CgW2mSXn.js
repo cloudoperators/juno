@@ -1,3 +1,0 @@
-import{n as e}from"./chunk-jRWAZmH_.js";import{t}from"./react-CMXXrKHu.js";import{t as n}from"./jsx-runtime-D_578c1K.js";import{n as r,t as i}from"./ContentContainer.component-B3aJyB-X.js";var a,o,s,c;e((()=>{t(),r(),a=n(),o={title:`Internal/ContentContainer`,component:i,argTypes:{children:{control:!1,table:{type:{summary:`ReactNode`}}}}},s={render:e=>(0,a.jsx)(i,{...e,children:`content`})},s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
-  render: args => <ContentContainer {...args}>content</ContentContainer>
-}`,...s.parameters?.docs?.source}}},c=[`Centered`]}))();export{s as Centered,c as __namedExportsOrder,o as default};
