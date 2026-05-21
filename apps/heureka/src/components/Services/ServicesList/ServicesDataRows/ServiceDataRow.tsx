@@ -4,44 +4,17 @@
  */
 
 import React from "react"
-import { DataGridRow, DataGridCell, Pill, Stack } from "@cloudoperators/juno-ui-components"
+import { DataGridRow, DataGridCell, Badge, Stack } from "@cloudoperators/juno-ui-components"
 import { SeverityCount } from "../../../common/SeverityCount"
 import { ServiceType } from "../../../types"
 
-type ServiceDetailsLabel = {
-  [key: string]: string
-}
-
-const serviceDetailsLabels: ServiceDetailsLabel = {
-  supportGroups: "support_group",
-  region: "region",
-  integrity: "integrity",
-}
-
-const ServiceDetails = ({ serviceDetails }: { serviceDetails: ServiceType["serviceDetails"] }) => {
-  const getPill = (key: string, value: string) => {
-    const displayValue = value || "_"
-    return (
-      <Pill
-        key={value || key}
-        pillKey={key}
-        pillKeyLabel={key}
-        pillValue={displayValue}
-        pillValueLabel={displayValue}
-      />
-    )
-  }
-
-  return (
-    <Stack gap="2" alignment="start" wrap={true}>
-      {Object.entries(serviceDetails).map(([key, value]) =>
-        Array.isArray(value)
-          ? value.map((item) => getPill(serviceDetailsLabels[key], item))
-          : getPill(serviceDetailsLabels[key], value)
-      )}
-    </Stack>
-  )
-}
+const ServiceDetails = ({ serviceDetails }: { serviceDetails: ServiceType["serviceDetails"] }) => (
+  <Stack gap="2" alignment="start" wrap={true}>
+    {serviceDetails.supportGroups.map((group) => (
+      <Badge key={group} text={group || "—"} />
+    ))}
+  </Stack>
+)
 
 type ServiceDataRowProps = {
   item: ServiceType
