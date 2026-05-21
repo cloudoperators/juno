@@ -177,6 +177,54 @@ export const RemediationHistoryPanel = ({
           }
         }
       )
+
+      // The panel fetched its data fresh when it opened (staleTime: 0). Read that
+      // cache synchronously — no network request needed — to patch the broad cache
+      // with any remediations that were created in other sessions and are therefore
+      // missing from it. Without this, a CVE could wrongly move to Active even
+      // though other remediations still exist.
+      if (vulnerability) {
+        const panelFilter = { service: [service], image: [image], vulnerability: [vulnerability] }
+        const panelCache = queryClient.getQueryData<any>(["remediations", panelFilter])
+        const remainingEdges = (panelCache?.data?.Remediations?.edges ?? []).filter(
+          (e: any) => e?.node?.id !== remediation.remediationId
+        )
+
+        if (remainingEdges.length > 0) {
+          queryClient.setQueriesData(
+            {
+              predicate: (query) => {
+                const [key, filter] = query.queryKey as [string, any]
+                if (key !== "remediations") return false
+                if (filter?.service && !filter.service.includes(service)) return false
+                if (filter?.image && !filter.image.includes(image)) return false
+                if (filter?.vulnerability) return false // broad cache only
+                return true
+              },
+            },
+            (old: any) => {
+              if (!old?.data?.Remediations) return old
+              const edges: any[] = old.data.Remediations.edges ?? []
+              const existingIds = new Set(edges.map((e: any) => e?.node?.id).filter(Boolean))
+              const missingEdges = remainingEdges.filter((e: any) => e?.node?.id && !existingIds.has(e.node.id))
+              if (missingEdges.length === 0) return old
+              const newEdges = [...edges, ...missingEdges]
+              return {
+                ...old,
+                data: {
+                  ...old.data,
+                  Remediations: {
+                    ...old.data.Remediations,
+                    edges: newEdges,
+                    totalCount: (old.data.Remediations.totalCount ?? 0) + missingEdges.length,
+                  },
+                },
+              }
+            }
+          )
+        }
+      }
+
       const typeLabel = remediation.type ?? "remediation"
       const dateLabel = remediation.remediationDate ? ` from ${formatDateTime(remediation.remediationDate)}` : ""
       const text = `The ${typeLabel}${dateLabel} for ${vulnerability ?? "unknown"} has been reverted.`

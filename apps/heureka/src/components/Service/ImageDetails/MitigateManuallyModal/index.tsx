@@ -7,7 +7,7 @@ import React from "react"
 import { RemediationInput, RemediationTypeValues } from "../../../../generated/graphql"
 import { RemediationModal } from "../RemediationModal"
 
-type FalsePositiveModalProps = {
+type MitigateManuallyModalProps = {
   open: boolean
   onClose: () => void
   onConfirm: (input: RemediationInput) => Promise<{ error: string } | void>
@@ -17,13 +17,13 @@ type FalsePositiveModalProps = {
   image: string
 }
 
-export const FalsePositiveModal: React.FC<FalsePositiveModalProps> = (props) => (
+export const MitigateManuallyModal: React.FC<MitigateManuallyModalProps> = (props) => (
   <RemediationModal
     {...props}
-    title="Mark as False Positive"
-    confirmLabel="Mark as False Positive"
-    remediationType={RemediationTypeValues.FalsePositive}
-    descriptionPlaceholder="Add a description explaining why this is a false positive..."
-    expirationHelptext="When this false positive should no longer be considered valid."
+    title="Mitigate Manually"
+    confirmLabel="Mitigate Manually"
+    remediationType={RemediationTypeValues.Mitigation}
+    descriptionPlaceholder="Add a description explaining the manual mitigation applied..."
+    expirationHelptext="When this mitigation should no longer be considered valid."
   />
 )
