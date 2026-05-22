@@ -112,7 +112,6 @@ describe("RiskAcceptanceModal", () => {
       renderModal({ onConfirm })
 
       await user.type(screen.getByPlaceholderText(/Enter your user ID/i), "user-123")
-      await user.type(screen.getByPlaceholderText("e.g. JIRA-1234"), "JIRA-9999")
       await user.type(screen.getByPlaceholderText(/Add a description explaining the reason/i), "Some reason")
       fireEvent.change(screen.getByLabelText("Expiration Date"), { target: { value: "2026-12-31" } })
       await user.click(screen.getByRole("button", { name: "Accept Risk" }))
@@ -143,12 +142,8 @@ describe("RiskAcceptanceModal", () => {
       await user.type(screen.getByPlaceholderText(/Enter your user ID/i), "user-123")
       expect(confirmButton).toBeDisabled()
 
-      // Description + user ID + expiration (still missing Jira ticket)
+      // All three required fields → button enabled
       fireEvent.change(screen.getByLabelText("Expiration Date"), { target: { value: "2026-12-31" } })
-      expect(confirmButton).toBeDisabled()
-
-      // All four required fields → button enabled
-      await user.type(screen.getByPlaceholderText("e.g. JIRA-1234"), "JIRA-9999")
       expect(confirmButton).not.toBeDisabled()
     })
 
@@ -181,7 +176,6 @@ describe("RiskAcceptanceModal", () => {
       renderModal({ onConfirm })
 
       await user.type(screen.getByPlaceholderText(/Enter your user ID/i), "user-123")
-      await user.type(screen.getByPlaceholderText("e.g. JIRA-1234"), "JIRA-9999")
       await user.type(screen.getByPlaceholderText(/Add a description explaining the reason/i), "Low exposure, accepted")
       fireEvent.change(screen.getByLabelText("Expiration Date"), { target: { value: "2026-12-31" } })
 
@@ -194,13 +188,12 @@ describe("RiskAcceptanceModal", () => {
           service: "my-service",
           image: "my-image",
           remediatedBy: "user-123",
-          url: "JIRA-9999",
           description: "Low exposure, accepted",
         })
       )
     })
 
-    it("sends source ticket as url field (not embedded in description) when provided", async () => {
+    it("includes source ticket prefix in description when source ticket is provided", async () => {
       const onConfirm = vi.fn().mockResolvedValue(undefined)
       const user = userEvent.setup()
       renderModal({ onConfirm })
@@ -214,7 +207,24 @@ describe("RiskAcceptanceModal", () => {
 
       expect(onConfirm).toHaveBeenCalledWith(
         expect.objectContaining({
-          url: "JIRA-9999",
+          description: "Source Ticket: JIRA-9999\n\nAccepted",
+        })
+      )
+    })
+
+    it("does not include source ticket prefix when source ticket field is empty", async () => {
+      const onConfirm = vi.fn().mockResolvedValue(undefined)
+      const user = userEvent.setup()
+      renderModal({ onConfirm })
+
+      await user.type(screen.getByPlaceholderText(/Enter your user ID/i), "user-123")
+      await user.type(screen.getByPlaceholderText(/Add a description explaining the reason/i), "Accepted")
+      fireEvent.change(screen.getByLabelText("Expiration Date"), { target: { value: "2026-12-31" } })
+
+      await user.click(screen.getByRole("button", { name: "Accept Risk" }))
+
+      expect(onConfirm).toHaveBeenCalledWith(
+        expect.objectContaining({
           description: "Accepted",
         })
       )
@@ -227,7 +237,6 @@ describe("RiskAcceptanceModal", () => {
       renderModal({ onConfirm, onClose })
 
       await user.type(screen.getByPlaceholderText(/Enter your user ID/i), "user-123")
-      await user.type(screen.getByPlaceholderText("e.g. JIRA-1234"), "JIRA-9999")
       await user.type(screen.getByPlaceholderText(/Add a description explaining the reason/i), "Some reason")
       fireEvent.change(screen.getByLabelText("Expiration Date"), { target: { value: "2026-12-31" } })
       await user.click(screen.getByRole("button", { name: "Accept Risk" }))

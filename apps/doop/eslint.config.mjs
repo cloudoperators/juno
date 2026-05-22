@@ -27,6 +27,6 @@ export default [
     },
   },
   {
-    ignores: ["setupTests.js", "appProps.template.ts", "**/routeTree.gen.ts"],
+    ignores: ["setupTests.js", "appProps.template.ts"],
   },
 ]

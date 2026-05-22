@@ -8,8 +8,8 @@ import { render } from "@testing-library/react"
 // support shadow dom queries
 // https://reactjsexample.com/an-extension-of-dom-testing-library-to-provide-hooks-into-the-shadow-dom/
 import { screen } from "shadow-dom-testing-library"
-import { describe, it, expect, vi } from "vitest"
 import App from "./App"
+import { describe } from "node:test"
 
 // Mock the styles
 vi.mock("./styles.module.css", () => ({

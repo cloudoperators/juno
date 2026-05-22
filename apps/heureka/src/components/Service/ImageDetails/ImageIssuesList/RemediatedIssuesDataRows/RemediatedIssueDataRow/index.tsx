@@ -20,7 +20,6 @@ import { ImageVulnerability } from "../../../../../Services/utils"
 import { getSeverityColor, useTextOverflow } from "../../../../../../utils"
 import { FalsePositiveModal } from "../../../FalsePositiveModal"
 import { RiskAcceptanceModal } from "../../../RiskAcceptanceModal"
-import { MitigateManuallyModal } from "../../../MitigateManuallyModal"
 import { useRouteContext } from "@tanstack/react-router"
 import { createRemediation } from "../../../../../../api/createRemediation"
 import { RemediationInput, RemediationTypeValues } from "../../../../../../generated/graphql"
@@ -55,7 +54,6 @@ export const RemediatedIssueDataRow = ({
   const [isExpanded, setIsExpanded] = useState(false)
   const [isFalsePositiveModalOpen, setIsFalsePositiveModalOpen] = useState(false)
   const [isRiskAcceptanceModalOpen, setIsRiskAcceptanceModalOpen] = useState(false)
-  const [isMitigateManuallyModalOpen, setIsMitigateManuallyModalOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { needsExpansion, textRef } = useTextOverflow(issue?.description || "")
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
@@ -181,7 +179,6 @@ export const RemediatedIssueDataRow = ({
               <PopupMenuOptions>
                 <PopupMenuItem label="Mark False Positive" onClick={() => setIsFalsePositiveModalOpen(true)} />
                 <PopupMenuItem label="Accept Risk" onClick={() => setIsRiskAcceptanceModalOpen(true)} />
-                <PopupMenuItem label="Mitigate Manually" onClick={() => setIsMitigateManuallyModalOpen(true)} />
               </PopupMenuOptions>
             </PopupMenu>
           )}
@@ -199,15 +196,6 @@ export const RemediatedIssueDataRow = ({
       <RiskAcceptanceModal
         open={isRiskAcceptanceModalOpen}
         onClose={() => setIsRiskAcceptanceModalOpen(false)}
-        onConfirm={handleRemediationConfirm}
-        vulnerability={issue.name}
-        severity={issue.severity}
-        service={service}
-        image={image}
-      />
-      <MitigateManuallyModal
-        open={isMitigateManuallyModalOpen}
-        onClose={() => setIsMitigateManuallyModalOpen(false)}
         onConfirm={handleRemediationConfirm}
         vulnerability={issue.name}
         severity={issue.severity}

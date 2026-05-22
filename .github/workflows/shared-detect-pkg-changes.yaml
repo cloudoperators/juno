@@ -48,7 +48,7 @@ jobs:
           echo "===="
 
       - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
 
       - name: Generate filters
         id: generate-filters
@@ -73,7 +73,7 @@ jobs:
           fi
 
       - name: Set specific filters for the packages wihtin the paths
-        uses: dorny/paths-filter@fbd0ab8f3e69293af611ebaee6363fc25e6d187d # v4.0.1
+        uses: dorny/paths-filter@d1c1ffe0248fe513906c8e24db8ea791d46f8590 # v3.0.3
         id: package-filters
         with:
           list-files: json

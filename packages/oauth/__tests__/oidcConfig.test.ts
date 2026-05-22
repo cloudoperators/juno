@@ -11,8 +11,7 @@ const mockResponse = {
   statusText: "OK",
   json: async () => {},
 } as Response
-const mockFetch = vi.fn().mockResolvedValue(mockResponse)
-vi.stubGlobal("fetch", mockFetch)
+global.fetch = vi.fn().mockResolvedValue(mockResponse)
 
 export function matchURL(expected: string) {
   return {
@@ -39,11 +38,11 @@ describe("getOidcConfig", () => {
   })
   it("should call fetch", async () => {
     await getOidcConfig("https://test.com")
-    expect(mockFetch).toHaveBeenCalled()
+    expect(global.fetch).toHaveBeenCalled()
   })
   it("should call fetch with the correct url", async () => {
     await getOidcConfig("https://test.com")
-    expect(mockFetch).toHaveBeenLastCalledWith(matchURL("https://test.com/.well-known/openid-configuration"))
+    expect(global.fetch).toHaveBeenLastCalledWith(matchURL("https://test.com/.well-known/openid-configuration"))
   })
 
   it("should cache the result", async () => {
@@ -51,7 +50,7 @@ describe("getOidcConfig", () => {
     resetCache()
     await getOidcConfig("https://test.com")
     await getOidcConfig("https://test.com")
-    expect(mockFetch).toHaveBeenCalledTimes(1)
+    expect(global.fetch).toHaveBeenCalledTimes(1)
   })
 
   it("should cache the result for 5 minutes", async () => {
@@ -59,16 +58,17 @@ describe("getOidcConfig", () => {
     resetCache()
     await getOidcConfig("https://test.com")
     const now = Date.now() + 5 * 60 * 60 * 1000
-    const dateNowSpy = vi.spyOn(Date, "now").mockImplementation(() => now)
+    vi.spyOn(Date, "now").mockImplementation(() => now)
     await getOidcConfig("https://test.com")
-    expect(mockFetch).toHaveBeenCalledTimes(2)
-    dateNowSpy.mockRestore()
+    expect(global.fetch).toHaveBeenCalledTimes(2)
   })
 
   it("should preserve the URL pathname", async () => {
     vi.clearAllMocks()
     resetCache()
     await getOidcConfig("https://test.com/with/path")
-    expect(mockFetch).toHaveBeenLastCalledWith(matchURL("https://test.com/with/path/.well-known/openid-configuration"))
+    expect(global.fetch).toHaveBeenLastCalledWith(
+      matchURL("https://test.com/with/path/.well-known/openid-configuration")
+    )
   })
 })

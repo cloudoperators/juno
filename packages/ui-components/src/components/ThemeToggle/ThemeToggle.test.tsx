@@ -6,14 +6,14 @@
 import React from "react"
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { describe, expect, test, beforeEach, afterEach, vi, type MockInstance } from "vitest"
+import { describe, expect, test, beforeEach, afterEach, vi } from "vitest"
 
 import { ThemeToggle } from "./ThemeToggle.component"
 
 const mockOnToggleTheme = vi.fn()
 
 describe("ThemeToggle", () => {
-  let consoleWarnSpy: MockInstance
+  let consoleWarnSpy: ReturnType<typeof vi.spyOn>
   // Set up console.warn spy
   beforeEach(() => {
     consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => {})

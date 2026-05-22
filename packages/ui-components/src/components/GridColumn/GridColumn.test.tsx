@@ -77,9 +77,12 @@ describe("GridColumn", () => {
     test("renders no additional styles when neither 'width' nor 'auto' props are provided", () => {
       render(<GridColumn data-testid="my-default-styles-grid-column" />)
       const defaultColumn = screen.getByTestId("my-default-styles-grid-column")
+      const styles = window.getComputedStyle(defaultColumn)
 
-      // Check that no inline style attribute is set
-      expect(defaultColumn).not.toHaveAttribute("style")
+      expect(styles.flexGrow).toBe("")
+      expect(styles.flexShrink).toBe("")
+      expect(styles.flexBasis).toBe("")
+      expect(styles.width).toBe("")
     })
   })
 })

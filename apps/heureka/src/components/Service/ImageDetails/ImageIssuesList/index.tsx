@@ -54,7 +54,6 @@ const VulnerabilitiesTabContent = ({
   successMessage,
   onFalsePositiveSuccess,
   onRiskAcceptanceSuccess,
-  onMitigateManuallySuccess,
 }: {
   service: string
   image: ServiceImage
@@ -65,7 +64,6 @@ const VulnerabilitiesTabContent = ({
   successMessage: string | null
   onFalsePositiveSuccess: (cveNumber: string) => void | Promise<void>
   onRiskAcceptanceSuccess: (cveNumber: string) => void | Promise<void>
-  onMitigateManuallySuccess: (cveNumber: string) => void | Promise<void>
 }) => {
   return (
     <>
@@ -109,7 +107,6 @@ const VulnerabilitiesTabContent = ({
                 image={image.repository}
                 onFalsePositiveSuccess={onFalsePositiveSuccess}
                 onRiskAcceptanceSuccess={onRiskAcceptanceSuccess}
-                onMitigateManuallySuccess={onMitigateManuallySuccess}
               />
             </Suspense>
           </ErrorBoundary>
@@ -352,20 +349,10 @@ export const ImageIssuesList = ({
     )
   }, [])
 
-  const handleMitigateManuallySuccess = useCallback((cveNumber: string) => {
-    setVulnerabilitiesSuccessMessage(
-      `Vulnerability ${cveNumber} has been manually mitigated and moved to the Remediated list.`
-    )
-  }, [])
-
   const handleRemediatedTabRemediationSuccess = useCallback(
     (cveNumber: string, remediationType: RemediationTypeValues) => {
       const remediationTypeLabel =
-        remediationType === RemediationTypeValues.FalsePositive
-          ? "a false positive"
-          : remediationType === RemediationTypeValues.Mitigation
-            ? "manually mitigated"
-            : "a risk acceptance"
+        remediationType === RemediationTypeValues.FalsePositive ? "a false positive" : "a risk acceptance"
       const text = `Vulnerability ${cveNumber} has been marked as ${remediationTypeLabel}.`
       setRemediatedSuccessMessage(text)
     },
@@ -390,7 +377,6 @@ export const ImageIssuesList = ({
             successMessage={vulnerabilitiesSuccessMessage}
             onFalsePositiveSuccess={handleFalsePositiveSuccess}
             onRiskAcceptanceSuccess={handleRiskAcceptanceSuccess}
-            onMitigateManuallySuccess={handleMitigateManuallySuccess}
           />
         </TabPanel>
         <TabPanel>

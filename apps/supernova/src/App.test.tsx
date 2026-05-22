@@ -6,7 +6,7 @@
 import React, { act } from "react"
 import { render } from "@testing-library/react"
 import { screen } from "shadow-dom-testing-library"
-import { describe, it, expect, vi } from "vitest"
+import { describe } from "node:test"
 
 import App from "./App"
 

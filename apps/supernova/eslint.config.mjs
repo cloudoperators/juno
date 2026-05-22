@@ -29,6 +29,6 @@ export default [
       "react/prop-types": "off",
       "react/jsx-no-comment-textnodes": "off",
     },
-    ignores: ["vitest.config.ts", "vite.config.ts", "tailwind.config.ts", "**/routeTree.gen.ts"],
+    ignores: ["vitest.config.ts", "vite.config.ts", "tailwind.config.ts"],
   },
 ]
