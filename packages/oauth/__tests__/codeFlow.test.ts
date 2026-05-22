@@ -25,7 +25,7 @@ const mockIdTokenResponse = {
     return { id_token: testIdToken }
   },
 }
-global.fetch = vi.fn().mockResolvedValue(mockIdTokenResponse)
+vi.stubGlobal("fetch", vi.fn().mockResolvedValue(mockIdTokenResponse))
 
 describe("buildRequestUrl", () => {
   test("should be a function", () => {

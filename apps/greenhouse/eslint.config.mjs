@@ -44,6 +44,6 @@ export default [
       "prefer-const": "off",
       "react/jsx-no-comment-textnodes": "off",
     },
-    ignores: ["vitest.config.ts", "vite.config.ts", "tailwind.config.ts"],
+    ignores: ["vitest.config.ts", "vite.config.ts", "tailwind.config.ts", "**/routeTree.gen.ts"],
   },
 ]
