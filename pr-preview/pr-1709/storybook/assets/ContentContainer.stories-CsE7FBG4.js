@@ -1,3 +1,0 @@
-import{i as e}from"./preload-helper-DbRxMUml.js";import{M as t,Z as n,j as r,z as i}from"./iframe-B4Ug3Iw_.js";var a,o,s,c;e((()=>{n(),t(),a=i(),o={title:`Internal/ContentContainer`,component:r,argTypes:{children:{control:!1,table:{type:{summary:`ReactNode`}}}}},s={render:e=>(0,a.jsx)(r,{...e,children:`content`})},s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
-  render: args => <ContentContainer {...args}>content</ContentContainer>
-}`,...s.parameters?.docs?.source}}},c=[`Centered`]}))();export{s as Centered,c as __namedExportsOrder,o as default};
