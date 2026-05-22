@@ -6,8 +6,18 @@ import { beforeEach, describe, expect, test, vi, afterEach } from "vitest"
 import { createClient } from "../src/client"
 import https from "https"
 
-// Mock only external dependencies
-vi.mock("https")
+// Mock https module with proper class-based Agent (required for Vitest 4)
+vi.mock("https", () => {
+  const AgentMock = vi.fn(
+    class {
+      constructor(public _options?: any) {}
+    }
+  )
+  return {
+    Agent: AgentMock,
+    default: { Agent: AgentMock },
+  }
+})
 
 // Helper function to create proper Response mock
 const createMockResponse = (
@@ -48,14 +58,7 @@ describe("k8sClient", () => {
 
     // Set up default successful response
     mockFetch.mockResolvedValue(createMockResponse({ success: true }))
-    global.fetch = mockFetch
-
-    // Mock https.Agent for SSL tests
-    const mockAgent = {} as https.Agent
-    Object.defineProperty(https, "Agent", {
-      value: vi.fn().mockImplementation(() => mockAgent),
-      writable: true,
-    })
+    vi.stubGlobal("fetch", mockFetch)
   })
 
   afterEach(() => {

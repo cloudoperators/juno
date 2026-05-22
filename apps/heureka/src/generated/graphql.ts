@@ -1296,6 +1296,7 @@ export type Remediation = Node & {
   serviceId?: Maybe<Scalars["ID"]["output"]>
   severity?: Maybe<SeverityValues>
   type?: Maybe<RemediationTypeValues>
+  url?: Maybe<Scalars["String"]["output"]>
   vulnerability?: Maybe<Scalars["String"]["output"]>
   vulnerabilityId?: Maybe<Scalars["ID"]["output"]>
 }
@@ -1320,6 +1321,7 @@ export type RemediationFilter = {
   severity?: InputMaybe<Array<InputMaybe<SeverityValues>>>
   state?: InputMaybe<Array<StateFilter>>
   type?: InputMaybe<Array<InputMaybe<RemediationTypeValues>>>
+  url?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   vulnerability?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
 }
 
@@ -1332,6 +1334,7 @@ export type RemediationInput = {
   service?: InputMaybe<Scalars["String"]["input"]>
   severity?: InputMaybe<SeverityValues>
   type?: InputMaybe<RemediationTypeValues>
+  url?: InputMaybe<Scalars["String"]["input"]>
   vulnerability?: InputMaybe<Scalars["String"]["input"]>
 }
 
@@ -1795,6 +1798,7 @@ export type CreateRemediationMutation = {
     serviceId?: string | null
     severity?: SeverityValues | null
     type?: RemediationTypeValues | null
+    url?: string | null
     vulnerability?: string | null
     vulnerabilityId?: string | null
   }
@@ -1828,6 +1832,7 @@ export type GetRemediationsQuery = {
         expirationDate?: any | null
         remediationDate?: any | null
         remediatedBy?: string | null
+        url?: string | null
       }
     } | null> | null
   } | null
@@ -2189,6 +2194,7 @@ export const CreateRemediationDocument = gql`
       serviceId
       severity
       type
+      url
       vulnerability
       vulnerabilityId
     }
@@ -2213,6 +2219,7 @@ export const GetRemediationsDocument = gql`
           expirationDate
           remediationDate
           remediatedBy
+          url
         }
       }
       totalCount

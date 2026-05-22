@@ -7,7 +7,8 @@ import { useRef } from "react"
 
 export const useDebounce = (callback: (..._args: any[]) => void, delay: number) => {
   // Create a ref to store the timeout ID which will persist across renders
-  const timerRef = useRef<NodeJS.Timeout | null>(null)
+  // Use ReturnType<typeof setTimeout> to get the correct type for the environment
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // Return new function that wraps the given callback with debounce logic
   return (...args: any[]) => {

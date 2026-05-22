@@ -31,4 +31,4 @@ const mockResponse = {
   statusText: "OK",
   json: async () => {},
 } as Response
-global.fetch = vi.fn().mockResolvedValue(mockResponse)
+vi.stubGlobal("fetch", vi.fn().mockResolvedValue(mockResponse))
