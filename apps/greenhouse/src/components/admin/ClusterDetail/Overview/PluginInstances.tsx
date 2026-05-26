@@ -68,9 +68,9 @@ const DataRows = ({ colSpan, plugins }: { colSpan: number; plugins: Plugin[] }) 
             <DataGridCell>
               <Icon icon={ready ? "checkCircle" : "error"} color={ready ? "text-theme-success" : "text-theme-danger"} />
             </DataGridCell>
+            <DataGridCell>{ready ? "Ready" : "Not Ready"}</DataGridCell>
             <DataGridCell>{plugin.metadata?.name || NO_VALUE_DEFAULT}</DataGridCell>
             <DataGridCell>{pluginPresetName || NO_VALUE_DEFAULT}</DataGridCell>
-            <DataGridCell>{ready ? "Ready" : "Not Ready"}</DataGridCell>
             <DataGridCell nowrap>
               {canNavigateToDetails && (
                 <PopupMenu onClick={(e) => e.stopPropagation()}>
@@ -101,35 +101,37 @@ export const PluginInstances = () => {
   const notReady = total - ready
 
   return (
-    <Stack direction="vertical" gap="4">
-      <Stack>
-        <ContentHeading>Plugin Instances</ContentHeading>
-      </Stack>
-      <Stack direction="vertical">
-        <Stack alignment="center" className="bg-theme-background-lvl-1 py-1.5 px-4 my-px">
-          <div>
-            <span className="pr-2">{`${total} plugin instances`}</span>
-            <span>{`(${ready} ready, ${notReady} not ready)`}</span>
-          </div>
+    <ErrorBoundary displayErrorMessage>
+      <Stack direction="vertical" gap="4">
+        <Stack>
+          <ContentHeading>Plugin Instances</ContentHeading>
         </Stack>
-        <DataGrid columns={COLUMN_SPAN} minContentColumns={[4]}>
-          <DataGridRow>
-            <DataGridHeadCell>
-              <Icon icon="monitorHeart" />
-            </DataGridHeadCell>
-            <DataGridHeadCell>Plugin Name</DataGridHeadCell>
-            <DataGridHeadCell>Plugin Preset</DataGridHeadCell>
-            <DataGridHeadCell>Status</DataGridHeadCell>
-            <DataGridHeadCell></DataGridHeadCell>
-          </DataGridRow>
+        <Stack direction="vertical">
+          <Stack alignment="center" className="bg-theme-background-lvl-1 py-1.5 px-4 my-px">
+            <div>
+              <span className="pr-2">{`${total} plugin instances`}</span>
+              <span>{`(${ready} ready, ${notReady} not ready)`}</span>
+            </div>
+          </Stack>
+          <DataGrid columns={COLUMN_SPAN} minContentColumns={[4]}>
+            <DataGridRow>
+              <DataGridHeadCell>
+                <Icon icon="monitorHeart" />
+              </DataGridHeadCell>
+              <DataGridHeadCell>Status</DataGridHeadCell>
+              <DataGridHeadCell>Plugin Name</DataGridHeadCell>
+              <DataGridHeadCell>Plugin Preset</DataGridHeadCell>
+              <DataGridHeadCell></DataGridHeadCell>
+            </DataGridRow>
 
-          <ErrorBoundary displayErrorMessage fallbackRender={getErrorDataRowComponent({ colspan: COLUMN_SPAN })}>
-            <Suspense fallback={<LoadingDataRow colSpan={COLUMN_SPAN} />}>
-              <DataRows plugins={plugins} colSpan={COLUMN_SPAN} />
-            </Suspense>
-          </ErrorBoundary>
-        </DataGrid>
+            <ErrorBoundary displayErrorMessage fallbackRender={getErrorDataRowComponent({ colspan: COLUMN_SPAN })}>
+              <Suspense fallback={<LoadingDataRow colSpan={COLUMN_SPAN} />}>
+                <DataRows plugins={plugins} colSpan={COLUMN_SPAN} />
+              </Suspense>
+            </ErrorBoundary>
+          </DataGrid>
+        </Stack>
       </Stack>
-    </Stack>
+    </ErrorBoundary>
   )
 }
