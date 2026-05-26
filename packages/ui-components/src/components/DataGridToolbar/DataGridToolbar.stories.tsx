@@ -29,9 +29,9 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: (args) => (
     <DataGridToolbar {...args}>
-      <Stack distribution="between" alignment="center">
-        <span>Showing 4 of 10 servers</span>
-        <Button label="Update" size="small" />
+      <Stack distribution="between" alignment="center" className="jn:text-sm">
+        <span className="jn:theme-color-text-light">Showing 4 of 10 servers</span>
+        <Button label="Update" size="xs" />
       </Stack>
     </DataGridToolbar>
   ),
