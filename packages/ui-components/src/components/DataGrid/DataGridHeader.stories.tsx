@@ -46,7 +46,7 @@ The header is structured in up to three zones:
 - **Zone 2 — Filters and Search:** One or more filter inputs (typically a \`Select\` + \`ComboBox\` in an \`InputGroup\`), a \`SearchInput\`, and active filter pills with a "Clear filters" button.
 - **Zone 3 — DataGrid State:** Bulk actions (select-all checkbox + action menu) on the left, item count in the middle (total, or "X of Y" when filters are active), and last update timestamp with a refresh button on the right.
 
-Zones 2 and 3 share a background and are wrapped together in a single \`DataGridToolbar\`, which provides the background color, padding, and separation from the grid below.
+Zones 2 and 3 each use their own \`DataGridToolbar\`, which provides the background, padding, and separation from the grid.
 
 Every zone and every element within a zone is optional. Only include what the specific DataGrid needs. If none of the above is needed, reconsider whether a DataGrid is the right pattern at all.
         `,
@@ -219,7 +219,7 @@ export const FullyFeatured: Story = {
               <Stack gap="2" alignment="center">
                 <Checkbox />
                 <PopupMenu className="jn:flex jn:items-center">
-                  <PopupMenuToggle {...({ as: Button, size: "xs", icon: "moreVert", label: "Show Actions" } as any)} />
+                  <PopupMenuToggle {...({ as: Button, size: "xs", icon: "moreVert", label: "Actions" } as any)} />
                   <PopupMenuOptions>
                     <PopupMenuItem label="Download" />
                     <PopupMenuItem label="Delete" />
@@ -270,7 +270,7 @@ export const FullyFeatured: Story = {
     docs: {
       description: {
         story:
-          "Fully featured DataGrid header. Zone 1 (sort, overflow menu, primary action) is a bare `Stack` — no background, no `DataGridToolbar`. Zones 2+3 are wrapped in `DataGridToolbar`. Zone 3 carries bulk actions (checkbox + action menu) on the left, item count in the middle, and last update + refresh on the right. Every zone and every element within it is optional.",
+          "Fully featured DataGrid header. Zone 1 (sort, overflow menu, primary action) is a bare `Stack` — no background, no `DataGridToolbar`. Zones 2 and 3 each get their own `DataGridToolbar`. Zone 3 carries bulk actions (checkbox + action menu) on the left, item count in the middle, and last update + refresh on the right. Every zone and every element within it is optional.",
       },
       // Keep this source.code in sync with the render function above
       source: {

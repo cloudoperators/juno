@@ -54,7 +54,7 @@ More specifically, these are any combination of the following elements. Each ele
 
 ### Zone 3: DataGrid View/State, Bulk Actions, Refresh
 
-- Bulk Actions: Actions that can be run on multiple items in the DataGrid at once. Positioned on the left side of Zone 3. Contains a Checkbox to select/deselect all items, and a menu of available bulk actions. Requires a Checkbox on each individual item / row.
+- Bulk Actions: Actions that can be run on multiple items in the DataGrid at once. Positioned on the left side of Zone 3. Contains a Checkbox to select/deselect all items, and a menu of available bulk actions. Requires a Checkbox on each individual item / row. Bulk action controls should be disabled until at least one item is selected. The select-all checkbox follows a tri-state model: unchecked when no items are selected, indeterminate when some are, and checked when all are. Clicking the checkbox in the unchecked or indeterminate state selects all items; clicking it in the checked state deselects all.
 - Item Count: The number of items of the set that is currently visible as a whole (not only on the current page), displayed in the center. If filters or searches are active, the number of matching items and the total number of items in the data set is being displayed.
 - Last Update, Update/Refresh: The date and time of the last refresh of the data displayed, and a button to trigger a refresh. Positioned on the right side of Zone 3.
 
