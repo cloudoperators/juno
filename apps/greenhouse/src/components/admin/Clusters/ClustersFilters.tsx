@@ -6,7 +6,7 @@
 import React, { useCallback } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { useLoaderData, useNavigate, useRouteContext } from "@tanstack/react-router"
-import { Stack, InputGroup, Button, SearchInput } from "@cloudoperators/juno-ui-components/index"
+import { Stack, Button, SearchInput } from "@cloudoperators/juno-ui-components/index"
 
 import { getFiltersForUrl } from "../utils"
 import { SELECTED_FILTER_PREFIX } from "../constants"
