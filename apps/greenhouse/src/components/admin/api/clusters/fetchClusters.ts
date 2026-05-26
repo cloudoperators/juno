@@ -86,5 +86,6 @@ export const fetchClusters = async ({
   filterSettings?: FilterSettings
 }): Promise<Cluster[]> => {
   const response = await apiClient.get(`/apis/greenhouse.sap/v1alpha1/namespaces/${namespace}/clusters`)
-  return Array.isArray(response?.items) ? applySorting(applyFilterSettings(response.items, filterSettings)) : []
+  const clusters = Array.isArray(response?.items) ? response.items.slice() : []
+  return applySorting(applyFilterSettings(clusters, filterSettings))
 }

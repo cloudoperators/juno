@@ -72,11 +72,13 @@ const DataRows = ({ colSpan, plugins }: { colSpan: number; plugins: Plugin[] }) 
             <DataGridCell>{pluginPresetName || NO_VALUE_DEFAULT}</DataGridCell>
             <DataGridCell>{ready ? "Ready" : "Not Ready"}</DataGridCell>
             <DataGridCell nowrap>
-              <PopupMenu onClick={(e) => e.stopPropagation()}>
-                <PopupMenuOptions>
-                  <PopupMenuItem label="View Details" onClick={canNavigateToDetails ? navigateToDetails : undefined} />
-                </PopupMenuOptions>
-              </PopupMenu>
+              {canNavigateToDetails && (
+                <PopupMenu onClick={(e) => e.stopPropagation()}>
+                  <PopupMenuOptions>
+                    <PopupMenuItem label="View Details" onClick={navigateToDetails} />
+                  </PopupMenuOptions>
+                </PopupMenu>
+              )}
             </DataGridCell>
           </DataGridRow>
         )

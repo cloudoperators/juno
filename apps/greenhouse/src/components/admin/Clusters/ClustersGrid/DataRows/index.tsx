@@ -70,18 +70,18 @@ export const DataRows = ({ colSpan }: DataRowsProps) => {
           </DataGridCell>
           {/* Name */}
           <DataGridCell>{preset.metadata?.name || NO_VALUE_DEFAULT}</DataGridCell>
-          {/* Version */}
-          <DataGridCell>{preset.status?.kubernetesVersion || NO_VALUE_DEFAULT}</DataGridCell>
-          {/* Cluster Type */}
-          <DataGridCell>{preset.metadata?.labels?.[CLUSTER_TYPE_LABEL] || NO_VALUE_DEFAULT}</DataGridCell>
           {/* Region */}
           <DataGridCell>{preset.metadata?.labels?.[REGION_LABEL] || NO_VALUE_DEFAULT}</DataGridCell>
-          {/* Connectivity */}
-          <DataGridCell>{preset.metadata?.annotations?.[CONNECTIVITY_LABEL] || NO_VALUE_DEFAULT}</DataGridCell>
-          {/* Message */}
-          <DataGridCell>{getReadyCondition(preset)?.message || NO_VALUE_DEFAULT}</DataGridCell>
+          {/* Cluster Type */}
+          <DataGridCell>{preset.metadata?.labels?.[CLUSTER_TYPE_LABEL] || NO_VALUE_DEFAULT}</DataGridCell>
           {/* Support Group */}
           <DataGridCell>{preset.metadata?.labels?.[SUPPORT_GROUP_LABEL] || NO_VALUE_DEFAULT}</DataGridCell>
+          {/* Connectivity */}
+          <DataGridCell>{preset.metadata?.annotations?.[CONNECTIVITY_LABEL] || NO_VALUE_DEFAULT}</DataGridCell>
+          {/* Version */}
+          <DataGridCell>{preset.status?.kubernetesVersion || NO_VALUE_DEFAULT}</DataGridCell>
+          {/* Message */}
+          <DataGridCell>{getReadyCondition(preset)?.message || NO_VALUE_DEFAULT}</DataGridCell>
           {/* Actions */}
           <DataGridCell nowrap>
             <PopupMenu onClick={(e) => e.stopPropagation()}>

@@ -66,35 +66,22 @@ export const ClustersFilters = () => {
   return (
     <Stack direction="vertical" gap="4" className="bg-theme-background-lvl-1 py-2 px-4 mb-px">
       <Stack alignment="start" gap="4">
-        <InputGroup>
-          <FilterSelect
-            filters={filters}
-            isLoading={isLoading}
-            error={error}
-            onChange={(selectedFilter: SelectedFilter) => {
-              const filterExists = filterSettings.selectedFilters?.some(
-                (filter) => filter.id === selectedFilter.id && filter.value === selectedFilter.value
-              )
-              //only add the filter if it doesn't exist
-              if (!filterExists) {
-                updateFilters({
-                  ...filterSettings,
-                  selectedFilters: [...(filterSettings.selectedFilters || []), selectedFilter],
-                })
-              }
-            }}
-          />
-        </InputGroup>
-        <Button
-          label="Clear all"
-          className="ml-4"
-          onClick={() =>
-            updateFilters({
-              ...filterSettings,
-              selectedFilters: [],
-            })
-          }
-          variant="subdued"
+        <FilterSelect
+          filters={filters}
+          isLoading={isLoading}
+          error={error}
+          onChange={(selectedFilter: SelectedFilter) => {
+            const filterExists = filterSettings.selectedFilters?.some(
+              (filter) => filter.id === selectedFilter.id && filter.value === selectedFilter.value
+            )
+            //only add the filter if it doesn't exist
+            if (!filterExists) {
+              updateFilters({
+                ...filterSettings,
+                selectedFilters: [...(filterSettings.selectedFilters || []), selectedFilter],
+              })
+            }
+          }}
         />
         <SearchInput
           placeholder={`search term for cluster name`}
@@ -116,7 +103,21 @@ export const ClustersFilters = () => {
         />
       </Stack>
       {filterSettings.selectedFilters && filterSettings.selectedFilters.length > 0 && (
-        <SelectedFilters selectedFilters={filterSettings.selectedFilters} onDelete={handleFilterDelete} />
+        <Stack>
+          <SelectedFilters selectedFilters={filterSettings.selectedFilters} onDelete={handleFilterDelete} />
+          <Button
+            size="xs"
+            label="Clear all"
+            className="ml-4"
+            onClick={() =>
+              updateFilters({
+                ...filterSettings,
+                selectedFilters: [],
+              })
+            }
+            variant="subdued"
+          />
+        </Stack>
       )}
     </Stack>
   )
