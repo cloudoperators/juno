@@ -4,29 +4,22 @@
  */
 
 import { describe, test, expect } from "vitest"
-import {
-  createConditionAbbreviation,
-  extractFilterSettingsFromSearchParams,
-  formatAge,
-  getReadyCondition,
-  getFiltersForUrl,
-  isEmpty,
-  isReady,
-} from "./utils"
+import { createConditionAbbreviation, formatAge, getReadyCondition, isEmpty, isReady } from "./utils"
+import { PluginPreset } from "./types/k8sTypes"
 
 /** Define mock data **/
-const mockPreset = {
+const mockPreset: PluginPreset = {
   status: {
     statusConditions: {
-      conditions: [{ type: "Ready", status: "True" }],
+      conditions: [{ type: "Ready", status: "True", lastTransitionTime: "" }],
     },
   },
 }
 
-const mockPresetNotReady = {
+const mockPresetNotReady: PluginPreset = {
   status: {
     statusConditions: {
-      conditions: [{ type: "Ready", status: "False" }],
+      conditions: [{ type: "Ready", status: "False", lastTransitionTime: "" }],
     },
   },
 }
@@ -92,7 +85,7 @@ describe("Utility Functions", () => {
   describe("formatAge", () => {
     test("formats time correctly as age", () => {
       const now = new Date()
-      const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000) // one hour ago
+      const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000)
 
       const result = formatAge(oneHourAgo)
       expect(result).toBe("1 hour")
