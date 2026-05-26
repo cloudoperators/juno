@@ -74,17 +74,17 @@ export const Card = forwardRef<HTMLElement, CardProps>(
     if (href) {
       // Render as <a> - takes precedence over button
       return (
-        <div className={combinedClassName}>
-          <a
-            ref={ref as Ref<HTMLAnchorElement>}
-            href={disabled ? undefined : href}
-            aria-disabled={disabled ? true : undefined}
-            onClick={handleClick}
-            {...props}
-          >
-            {children}
-          </a>
-        </div>
+        // adding div wrapper and applying styling to it ensures that in small screen the card container remains and link isn't broken up into lines - need to find styling solution without wrapper
+        <a
+          ref={ref as Ref<HTMLAnchorElement>}
+          href={disabled ? undefined : href}
+          aria-disabled={disabled ? true : undefined}
+          className={combinedClassName}
+          onClick={handleClick}
+          {...props}
+        >
+          {children}
+        </a>
       )
     }
 

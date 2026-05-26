@@ -104,7 +104,7 @@ describe("Card Component", () => {
     test("renders as disabled", () => {
       const handleClick = vi.fn()
       render(
-        <Card data-testid="card" href="https://example.com" disabled>
+        <Card data-testid="card" href="https://example.com" onClick={handleClick} disabled>
           Disabled Test
         </Card>
       )

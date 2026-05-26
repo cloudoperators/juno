@@ -2,4 +2,4 @@
 "@cloudoperators/juno-ui-components": minor
 ---
 
-Add `href` and `onClick` props to Card
+Add `href`, `onClick` and `disabled` props to Card
