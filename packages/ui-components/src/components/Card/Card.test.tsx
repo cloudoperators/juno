@@ -65,6 +65,7 @@ describe("Card Component", () => {
       const element = screen.getByTestId("card")
       expect(element).toBeInTheDocument()
       expect(element.tagName).toBe("BUTTON")
+      expect(element).toHaveAttribute("type", "button")
       expect(element).toHaveTextContent("Button Test")
 
       fireEvent.click(element)

@@ -45,7 +45,7 @@ export const WithHrefAndClickEvent: Story = {
   args: {
     children: "Card rendered as <a> when href and onClick are passed (with padding).",
     padding: true,
-    onClick: undefined,
+    onClick: () => alert("You clicked a card with an onClick event."),
     href: "https://cloudoperators.github.io/juno/?path=/docs/components-card--docs",
   },
 }
@@ -54,7 +54,7 @@ export const Disabled: Story = {
   args: {
     children: "Disabled card (with href and padding).",
     padding: true,
-    onClick: () => undefined,
+    onClick: () => alert("You clicked a card with an onClick event."),
     href: "https://cloudoperators.github.io/juno/?path=/docs/components-card--docs",
     disabled: true,
   },
