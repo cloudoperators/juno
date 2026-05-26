@@ -30,7 +30,7 @@ describe("Utility Functions", () => {
   describe("getReadyCondition", () => {
     test("returns ready condition from preset", () => {
       const condition = getReadyCondition(mockPreset)
-      expect(condition).toEqual({ type: "Ready", status: "True" })
+      expect(condition).toEqual({ type: "Ready", status: "True", lastTransitionTime: "" })
     })
 
     test("returns undefined when no ready condition is present", () => {
