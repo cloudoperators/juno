@@ -78,10 +78,7 @@ export const Card = forwardRef<HTMLElement, CardProps>(
           ref={ref as Ref<HTMLAnchorElement>}
           href={disabled ? undefined : href}
           aria-disabled={disabled ? true : undefined}
-          className={
-            combinedClassName +
-            "jn:block jn:w-full jn:overflow-hidden jn:whitespace-nowrap jn:text-ellipsis jn:truncate"
-          }
+          className={`${combinedClassName} jn:block jn:w-full jn:overflow-hidden jn:whitespace-nowrap jn:text-ellipsis jn:truncate jn:text-inherit`}
           onClick={handleClick}
           {...props}
         >
@@ -96,7 +93,7 @@ export const Card = forwardRef<HTMLElement, CardProps>(
         <button
           ref={ref as Ref<HTMLButtonElement>}
           type="button"
-          className={combinedClassName}
+          className={`${combinedClassName} jn:text-left`}
           onClick={handleClick}
           disabled={disabled}
           {...props}
