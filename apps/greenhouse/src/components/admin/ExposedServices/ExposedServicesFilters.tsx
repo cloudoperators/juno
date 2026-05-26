@@ -5,7 +5,7 @@
 
 import React, { useCallback } from "react"
 import { useLoaderData, useNavigate, useRouteContext } from "@tanstack/react-router"
-import { Stack, InputGroup, Button, SearchInput } from "@cloudoperators/juno-ui-components/index"
+import { Stack, Button, SearchInput } from "@cloudoperators/juno-ui-components/index"
 
 import { getFiltersForUrl } from "../utils"
 import { useQuery } from "@tanstack/react-query"
@@ -70,23 +70,23 @@ export const ExposedServicesFilters = () => {
   return (
     <Stack direction="vertical" gap="4" className="bg-theme-background-lvl-1 py-2 px-4 mb-px">
       <Stack alignment="start" gap="4">
-          <FilterSelect
-            filters={filters}
-            isLoading={isLoading}
-            error={error}
-            onChange={(selectedFilter: SelectedFilter) => {
-              const filterExists = filterSettings.selectedFilters?.some(
-                (filter) => filter.id === selectedFilter.id && filter.value === selectedFilter.value
-              )
-              // Only add filter if it does not already exist
-              if (!filterExists) {
-                updateFilters({
-                  ...filterSettings,
-                  selectedFilters: [...(filterSettings.selectedFilters || []), selectedFilter],
-                })
-              }
-            }}
-          />
+        <FilterSelect
+          filters={filters}
+          isLoading={isLoading}
+          error={error}
+          onChange={(selectedFilter: SelectedFilter) => {
+            const filterExists = filterSettings.selectedFilters?.some(
+              (filter) => filter.id === selectedFilter.id && filter.value === selectedFilter.value
+            )
+            // Only add filter if it does not already exist
+            if (!filterExists) {
+              updateFilters({
+                ...filterSettings,
+                selectedFilters: [...(filterSettings.selectedFilters || []), selectedFilter],
+              })
+            }
+          }}
+        />
         <SearchInput
           placeholder={`search term for exposed service name`}
           className="w-96 ml-auto"
@@ -110,18 +110,18 @@ export const ExposedServicesFilters = () => {
         <Stack>
           <SelectedFilters selectedFilters={filterSettings.selectedFilters} onDelete={handleFilterDelete} />
           <Button
-          size="xs"
-          label="Clear all"
-          className="ml-4"
-          onClick={() =>
-            updateFilters({
-              ...filterSettings,
-              selectedFilters: [],
-            })
-          }
-          variant="subdued"
-        />
-      </Stack>
+            size="xs"
+            label="Clear all"
+            className="ml-4"
+            onClick={() =>
+              updateFilters({
+                ...filterSettings,
+                selectedFilters: [],
+              })
+            }
+            variant="subdued"
+          />
+        </Stack>
       )}
     </Stack>
   )
