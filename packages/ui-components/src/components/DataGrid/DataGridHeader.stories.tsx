@@ -84,32 +84,35 @@ export const WithPrimaryAction: Story = {
 
 export const WithFiltersSearchAndState: Story = {
   render: () => (
-    <DataGridToolbar>
-      <Stack direction="vertical" gap="2">
-        {/* Zone 2: Filters + Search */}
-        <Stack distribution="between" alignment="center">
-          <InputGroup>
-            <Select width="auto" className="jn:min-w-44">
-              <SelectOption value="region" label="Region" />
-              <SelectOption value="status" label="Status" />
-              <SelectOption value="az" label="Availability Zone" />
-            </Select>
-            <ComboBox>
-              <ComboBoxOption value="eu-west-1" label="eu-west-1" />
-              <ComboBoxOption value="us-east-1" label="us-east-1" />
-              <ComboBoxOption value="ap-south-1" label="ap-south-1" />
-            </ComboBox>
-          </InputGroup>
-          <SearchInput placeholder="Search servers…" />
-        </Stack>
+    <>
+      <DataGridToolbar>
+        <Stack direction="vertical" gap="2">
+          {/* Zone 2: Filters + Search */}
+          <Stack distribution="between" alignment="center">
+            <InputGroup>
+              <Select width="auto" className="jn:min-w-44">
+                <SelectOption value="region" label="Region" />
+                <SelectOption value="status" label="Status" />
+                <SelectOption value="az" label="Availability Zone" />
+              </Select>
+              <ComboBox>
+                <ComboBoxOption value="eu-west-1" label="eu-west-1" />
+                <ComboBoxOption value="us-east-1" label="us-east-1" />
+                <ComboBoxOption value="ap-south-1" label="ap-south-1" />
+              </ComboBox>
+            </InputGroup>
+            <SearchInput placeholder="Search servers…" />
+          </Stack>
 
-        {/* Zone 2 cont: Active filter pills */}
-        <Stack gap="2" wrap>
-          <Pill pillKey="Region" pillValue="eu-west-1" closeable />
-          <Pill pillKey="Status" pillValue="Running" closeable />
-          <Button label="Clear filters" size="xs" />
+          {/* Zone 2 cont: Active filter pills */}
+          <Stack gap="2" wrap>
+            <Pill pillKey="Region" pillValue="eu-west-1" closeable />
+            <Pill pillKey="Status" pillValue="Running" closeable />
+            <Button label="Clear filters" size="xs" />
+          </Stack>
         </Stack>
-
+      </DataGridToolbar>
+      <DataGridToolbar>
         {/* Zone 3: Item count + Refresh */}
         <Stack distribution="between" alignment="center" className="jn:text-sm">
           <span>Showing 2 of 4 servers</span>
@@ -118,8 +121,8 @@ export const WithFiltersSearchAndState: Story = {
             <Button label="Update" size="xs" />
           </Stack>
         </Stack>
-      </Stack>
-    </DataGridToolbar>
+      </DataGridToolbar>
+    </>
   ),
   parameters: {
     docs: {
@@ -208,26 +211,25 @@ export const FullyFeatured: Story = {
                 <Pill pillKey="Status" pillValue="Running" closeable />
                 <Button label="Clear filters" size="xs" />
               </Stack>
-
-              {/* Zone 3: Bulk actions + item count + refresh */}
-              <Stack distribution="between" alignment="center" className="jn:text-sm">
-                <Stack gap="2" alignment="center">
-                  <Checkbox />
-                  <PopupMenu className="jn:flex jn:items-center">
-                    <PopupMenuToggle
-                      {...({ as: Button, size: "xs", icon: "moreVert", label: "Show Actions" } as any)}
-                    />
-                    <PopupMenuOptions>
-                      <PopupMenuItem label="Download" />
-                      <PopupMenuItem label="Delete" />
-                    </PopupMenuOptions>
-                  </PopupMenu>
-                </Stack>
-                <span className="jn:theme-color-text-light">Showing 2 of 4 servers</span>
-                <Stack gap="2" alignment="center">
-                  <span>Last update: 20.05.2026 @09:41</span>
-                  <Button label="Update" size="xs" />
-                </Stack>
+            </Stack>
+          </DataGridToolbar>
+          <DataGridToolbar>
+            {/* Zone 3: Bulk actions + item count + refresh */}
+            <Stack distribution="between" alignment="center" className="jn:text-sm">
+              <Stack gap="2" alignment="center">
+                <Checkbox />
+                <PopupMenu className="jn:flex jn:items-center">
+                  <PopupMenuToggle {...({ as: Button, size: "xs", icon: "moreVert", label: "Show Actions" } as any)} />
+                  <PopupMenuOptions>
+                    <PopupMenuItem label="Download" />
+                    <PopupMenuItem label="Delete" />
+                  </PopupMenuOptions>
+                </PopupMenu>
+              </Stack>
+              <span className="jn:theme-color-text-light">Showing 2 of 4 servers</span>
+              <Stack gap="2" alignment="center">
+                <span>Last update: 20.05.2026 @09:41</span>
+                <Button label="Update" size="xs" />
               </Stack>
             </Stack>
           </DataGridToolbar>
@@ -287,6 +289,7 @@ export const FullyFeatured: Story = {
       </Stack>
       <Stack gap="0.5">
         <PopupMenu>
+          <PopupMenuToggle {...({ as: Button, icon: "moreVert" } as any)} />
           <PopupMenuOptions>
             <PopupMenuItem label="Export CSV" />
             <PopupMenuItem label="Refresh all" />
@@ -297,10 +300,9 @@ export const FullyFeatured: Story = {
     </Stack>
   </Stack>
 
-  {/* Zones 2+3 — DataGridToolbar provides background and spacing */}
+  {/* Zone 2 — DataGridToolbar provides background and spacing */}
   <DataGridToolbar>
     <Stack direction="vertical" gap="2">
-      {/* Zone 2: Filters + Search */}
       <Stack distribution="between" alignment="center">
         <InputGroup>
           <Select width="auto" className="jn:min-w-44">
@@ -316,31 +318,31 @@ export const FullyFeatured: Story = {
         </InputGroup>
         <SearchInput placeholder="Search servers…" />
       </Stack>
-
-      {/* Zone 2 cont: Active filter pills */}
       <Stack gap="2" wrap>
         <Pill pillKey="Region" pillValue="eu-west-1" closeable />
         <Pill pillKey="Status" pillValue="Running" closeable />
-        <Button label="Clear filters" variant="subdued" size="xs" />
+        <Button label="Clear filters" size="xs" />
       </Stack>
+    </Stack>
+  </DataGridToolbar>
 
-      {/* Zone 3: Bulk actions + item count + refresh */}
-      <Stack distribution="between" alignment="center">
-        <Stack gap="2" alignment="center">
-          <Checkbox />
-          <PopupMenu className="jn:flex jn:items-center">
-            <PopupMenuToggle {...({ as: Button, size: "xs", icon: "moreVert", label: "Show Actions" } as any)} />
-            <PopupMenuOptions>
-              <PopupMenuItem label="Download" />
-              <PopupMenuItem label="Delete" />
-            </PopupMenuOptions>
-          </PopupMenu>
-        </Stack>
-        <span>Showing 2 of 4 servers</span>
-        <Stack gap="2" alignment="center">
-          <span>Last update: 20.05.2026 @09:41</span>
-          <Button label="Update" size="xs" />
-        </Stack>
+  {/* Zone 3 — separate DataGridToolbar */}
+  <DataGridToolbar>
+    <Stack distribution="between" alignment="center" className="jn:text-sm">
+      <Stack gap="2" alignment="center">
+        <Checkbox />
+        <PopupMenu className="jn:flex jn:items-center">
+          <PopupMenuToggle {...({ as: Button, size: "xs", icon: "moreVert", label: "Show Actions" } as any)} />
+          <PopupMenuOptions>
+            <PopupMenuItem label="Download" />
+            <PopupMenuItem label="Delete" />
+          </PopupMenuOptions>
+        </PopupMenu>
+      </Stack>
+      <span className="jn:theme-color-text-light">Showing 2 of 4 servers</span>
+      <Stack gap="2" alignment="center">
+        <span>Last update: 20.05.2026 @09:41</span>
+        <Button label="Update" size="xs" />
       </Stack>
     </Stack>
   </DataGridToolbar>
