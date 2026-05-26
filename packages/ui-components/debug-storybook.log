@@ -1,0 +1,37 @@
+[09:11:17.503] [INFO] storybook v10.3.6
+[09:11:27.612] [PROMPT] Port NaN is not available. 
+Would you like to run Storybook on port 58066 instead? {"choice":true}
+[09:11:29.844] [DEBUG] Getting package.json info for /Users/I531348/Documents/GitHub/juno/packages/ui-components/package.json...
+[09:11:30.456] [WARN] Using CommonJS in your main configuration file is deprecated with Vite.
+- Refer to the migration guide at https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#commonjs-with-vite-is-deprecated
+[09:11:32.911] [DEBUG] Serving static files from [36mpackages/ui-components/public[39m at [36m/[39m
+[09:11:32.913] [INFO] Starting...
+[09:11:33.475] [DEBUG] Starting preview..
+[09:11:38.464] [DEBUG] Using tsconfig paths for react-docgen
+[09:11:38.635] [WARN] 🚨 Unable to index ./src/components/Card/Card.stories.tsx:
+  SyntaxError: Identifier 'Disabled' has already been declared. (53:13)
+    at constructor (file:///Users/I531348/Documents/GitHub/juno/node_modules/.pnpm/storybook@10.3.6_@testing-library+dom@10.4.1_prettier@3.8.3_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/storybook/dist/_node-chunks/chunk-MKXM7JNE.js:12171:21)
+    at Parser.raise (file:///Users/I531348/Documents/GitHub/juno/node_modules/.pnpm/storybook@10.3.6_@testing-library+dom@10.4.1_prettier@3.8.3_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/storybook/dist/_node-chunks/chunk-MKXM7JNE.js:16356:71)
+    at TypeScriptScopeHandler.checkRedeclarationInScope (file:///Users/I531348/Documents/GitHub/juno/node_modules/.pnpm/storybook@10.3.6_@testing-library+dom@10.4.1_prettier@3.8.3_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/storybook/dist/_node-chunks/chunk-MKXM7JNE.js:13137:75)
+    at TypeScriptScopeHandler.declareName (file:///Users/I531348/Documents/GitHub/juno/node_modules/.pnpm/storybook@10.3.6_@testing-library+dom@10.4.1_prettier@3.8.3_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/storybook/dist/_node-chunks/chunk-MKXM7JNE.js:13125:16)
+    at TypeScriptScopeHandler.declareName (file:///Users/I531348/Documents/GitHub/juno/node_modules/.pnpm/storybook@10.3.6_@testing-library+dom@10.4.1_prettier@3.8.3_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/storybook/dist/_node-chunks/chunk-MKXM7JNE.js:15179:15)
+    at Parser.declareNameFromIdentifier (file:///Users/I531348/Documents/GitHub/juno/node_modules/.pnpm/storybook@10.3.6_@testing-library+dom@10.4.1_prettier@3.8.3_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/storybook/dist/_node-chunks/chunk-MKXM7JNE.js:17010:20)
+    at Parser.checkIdentifier (file:///Users/I531348/Documents/GitHub/juno/node_modules/.pnpm/storybook@10.3.6_@testing-library+dom@10.4.1_prettier@3.8.3_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/storybook/dist/_node-chunks/chunk-MKXM7JNE.js:17007:126)
+    at Parser.checkLVal (file:///Users/I531348/Documents/GitHub/juno/node_modules/.pnpm/storybook@10.3.6_@testing-library+dom@10.4.1_prettier@3.8.3_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/storybook/dist/_node-chunks/chunk-MKXM7JNE.js:16974:16)
+    at Parser.parseVarId (file:///Users/I531348/Documents/GitHub/juno/node_modules/.pnpm/storybook@10.3.6_@testing-library+dom@10.4.1_prettier@3.8.3_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/storybook/dist/_node-chunks/chunk-MKXM7JNE.js:20509:276)
+    at Parser.parseVarId (file:///Users/I531348/Documents/GitHub/juno/node_modules/.pnpm/storybook@10.3.6_@testing-library+dom@10.4.1_prettier@3.8.3_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/storybook/dist/_node-chunks/chunk-MKXM7JNE.js:18323:15)
+[09:11:38.642] [ERROR] Failed to build the preview
+[09:11:38.644] [ERROR] Error: Unable to index ./src/components/Card/Card.stories.tsx
+    at _StoryIndexGenerator.getIndexAndStats (file:///Users/I531348/Documents/GitHub/juno/node_modules/.pnpm/storybook@10.3.6_@testing-library+dom@10.4.1_prettier@3.8.3_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/storybook/dist/core-server/index.js:6282:15)
+    at async _StoryIndexGenerator.getIndex (file:///Users/I531348/Documents/GitHub/juno/node_modules/.pnpm/storybook@10.3.6_@testing-library+dom@10.4.1_prettier@3.8.3_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/storybook/dist/core-server/index.js:6271:13)
+    at async BasicMinimalPluginContext.config (file:///Users/I531348/Documents/GitHub/juno/node_modules/.pnpm/@storybook+builder-vite@10.3.6_esbuild@0.27.7_rollup@4.60.2_storybook@10.3.6_@testing-l_8af32d603a279f5449056ba3e17380f2/node_modules/@storybook/builder-vite/dist/_node-chunks/chunk-BNXOZ5T4.js:184:19)
+    at async runConfigHook (file:///Users/I531348/Documents/GitHub/juno/node_modules/.pnpm/vite@8.0.14_@types+node@24.12.4_esbuild@0.27.7_jiti@2.7.0_tsx@4.21.0_yaml@2.8.4/node_modules/vite/dist/node/chunks/node.js:34922:15)
+    at async resolveConfig (file:///Users/I531348/Documents/GitHub/juno/node_modules/.pnpm/vite@8.0.14_@types+node@24.12.4_esbuild@0.27.7_jiti@2.7.0_tsx@4.21.0_yaml@2.8.4/node_modules/vite/dist/node/chunks/node.js:34374:11)
+    at async _createServer (file:///Users/I531348/Documents/GitHub/juno/node_modules/.pnpm/vite@8.0.14_@types+node@24.12.4_esbuild@0.27.7_jiti@2.7.0_tsx@4.21.0_yaml@2.8.4/node_modules/vite/dist/node/chunks/node.js:26083:65)
+    at async Module.start (file:///Users/I531348/Documents/GitHub/juno/node_modules/.pnpm/@storybook+builder-vite@10.3.6_esbuild@0.27.7_rollup@4.60.2_storybook@10.3.6_@testing-l_8af32d603a279f5449056ba3e17380f2/node_modules/@storybook/builder-vite/dist/index.js:1557:17)
+    at async storybookDevServer (file:///Users/I531348/Documents/GitHub/juno/node_modules/.pnpm/storybook@10.3.6_@testing-library+dom@10.4.1_prettier@3.8.3_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/storybook/dist/core-server/index.js:7503:83)
+    at async buildOrThrow (file:///Users/I531348/Documents/GitHub/juno/node_modules/.pnpm/storybook@10.3.6_@testing-library+dom@10.4.1_prettier@3.8.3_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/storybook/dist/core-server/index.js:4508:12)
+    at async buildDevStandalone (file:///Users/I531348/Documents/GitHub/juno/node_modules/.pnpm/storybook@10.3.6_@testing-library+dom@10.4.1_prettier@3.8.3_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/storybook/dist/core-server/index.js:8033:41)
+[09:11:38.648] [WARN] Broken build, fix the error above.
+You may need to refresh the browser.
+[09:11:53.044] [PROMPT] Would you like to send anonymous crash reports to improve Storybook and fix bugs faster? {"choice":true}
