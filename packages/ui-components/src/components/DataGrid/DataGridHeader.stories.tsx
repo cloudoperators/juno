@@ -223,7 +223,7 @@ export const FullyFeatured: Story = {
                     </PopupMenuOptions>
                   </PopupMenu>
                 </Stack>
-                <span>Showing 2 of 4 servers</span>
+                <span className="jn:theme-color-text-light">Showing 2 of 4 servers</span>
                 <Stack gap="2" alignment="center">
                   <span>Last update: 20.05.2026 @09:41</span>
                   <Button label="Update" size="xs" />
