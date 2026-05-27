@@ -4,8 +4,8 @@
  */
 
 import * as React from "react"
-import { render, screen } from "@testing-library/react"
-import { describe, expect, test } from "vitest"
+import { render, screen, fireEvent } from "@testing-library/react"
+import { describe, expect, test, vi } from "vitest"
 
 import { Card } from "./Card.component"
 
@@ -43,6 +43,79 @@ describe("Card Component", () => {
       render(<Card data-testid="card" data-custom={true} />)
       expect(screen.getByTestId("card")).toBeInTheDocument()
       expect(screen.getByTestId("card")).toHaveAttribute("data-custom")
+    })
+  })
+
+  describe("Dynamic Element Rendering", () => {
+    test("renders as a <div> when neither href nor onClick are provided", () => {
+      render(<Card data-testid="card">Default Div</Card>)
+      const element = screen.getByTestId("card")
+      expect(element).toBeInTheDocument()
+      expect(element.tagName).toBe("DIV")
+      expect(element).toHaveTextContent("Default Div")
+    })
+
+    test("renders as a <button> when onClick is provided", () => {
+      const handleClick = vi.fn()
+      render(
+        <Card data-testid="card" onClick={handleClick}>
+          Button Test
+        </Card>
+      )
+      const element = screen.getByTestId("card")
+      expect(element).toBeInTheDocument()
+      expect(element.tagName).toBe("BUTTON")
+      expect(element).toHaveAttribute("type", "button")
+      expect(element).toHaveTextContent("Button Test")
+
+      fireEvent.click(element)
+      expect(handleClick).toHaveBeenCalled()
+    })
+
+    test("renders as an <a> when href is provided", () => {
+      render(
+        <Card data-testid="card" href="https://example.com">
+          Link Test
+        </Card>
+      )
+      const element = screen.getByTestId("card")
+      expect(element).toBeInTheDocument()
+      expect(element.tagName).toBe("A")
+      expect(element).toHaveTextContent("Link Test")
+      expect(element).toHaveAttribute("href", "https://example.com")
+    })
+
+    test("renders as an <a> and fires onClick when both href and onClick are provided", () => {
+      const handleClick = vi.fn()
+      render(
+        <Card data-testid="card" href="https://example.com" onClick={handleClick}>
+          Link Button Test
+        </Card>
+      )
+      const element = screen.getByTestId("card")
+      expect(element).toBeInTheDocument()
+      expect(element.tagName).toBe("A")
+      expect(element).toHaveTextContent("Link Button Test")
+
+      fireEvent.click(element)
+      expect(element).toHaveAttribute("href", "https://example.com")
+      expect(handleClick).toHaveBeenCalled()
+    })
+
+    test("renders as disabled", () => {
+      const handleClick = vi.fn()
+      render(
+        <Card data-testid="card" href="https://example.com" onClick={handleClick} disabled>
+          Disabled Test
+        </Card>
+      )
+      const element = screen.getByTestId("card")
+      expect(element).toBeInTheDocument()
+      expect(element).toHaveAttribute("aria-disabled", "true")
+      expect(element).not.toHaveAttribute("href")
+
+      fireEvent.click(element)
+      expect(handleClick).not.toHaveBeenCalled()
     })
   })
 })

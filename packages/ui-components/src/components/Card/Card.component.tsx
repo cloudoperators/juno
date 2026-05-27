@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { HTMLAttributes, ReactNode } from "react"
+import React, { forwardRef, HTMLAttributes, MouseEventHandler, ReactNode, Ref } from "react"
 
 const cardStyles = `
   jn:text-sm
@@ -16,7 +16,7 @@ const cardStyles = `
 
 const cardPadding = "jn:p-4"
 
-export interface CardProps extends HTMLAttributes<HTMLDivElement> {
+export interface CardProps extends HTMLAttributes<HTMLElement> {
   /**
    * Components or elements to be rendered as content.
    */
@@ -33,6 +33,22 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
    * @default ""
    */
   className?: string
+
+  /**
+   * When set, renders the card as an <a> element.
+   */
+  href?: string
+
+  /**
+   * When set (without href), renders the card as a <button> element.
+   */
+  onClick?: MouseEventHandler<HTMLElement>
+
+  /**
+   * Disables interaction; native disabled on <button>, aria-disabled + stripped href on <a>, renders "not-allowed"-cursor.
+   * @default false
+   */
+  disabled?: boolean
 }
 
 /**
@@ -42,11 +58,59 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
  * @see https://cloudoperators.github.io/juno/?path=/docs/components-card--docs
  * @see {@link CardProps}
  */
-export const Card = ({ children, padding = false, className = "", ...props }: CardProps): ReactNode => {
-  const combinedClassName = `juno-card ${cardStyles} ${padding ? cardPadding : ""} ${className}`
-  return (
-    <div className={combinedClassName} {...props}>
-      {children}
-    </div>
-  )
-}
+export const Card = forwardRef<HTMLElement, CardProps>(
+  ({ children, padding = false, className = "", href, onClick, disabled = false, ...props }, ref) => {
+    const combinedClassName = `juno-card ${cardStyles} ${padding ? cardPadding : ""} ${className} ${disabled ? "jn:cursor-not-allowed" : ""}`
+
+    // Handle click event when disabled
+    const handleClick: MouseEventHandler<HTMLElement> = (event) => {
+      if (disabled) {
+        event.preventDefault()
+        return
+      }
+      onClick?.(event)
+    }
+
+    if (href) {
+      // Render as <a> - takes precedence over button
+      return (
+        <a
+          ref={ref as Ref<HTMLAnchorElement>}
+          href={disabled ? undefined : href}
+          className={`${combinedClassName} jn:block jn:text-inherit`}
+          onClick={handleClick}
+          aria-disabled={disabled ? true : undefined}
+          tabIndex={disabled ? -1 : undefined}
+          {...props}
+        >
+          {children}
+        </a>
+      )
+    }
+
+    if (onClick) {
+      // Render as <button>
+      return (
+        <button
+          ref={ref as Ref<HTMLButtonElement>}
+          type="button"
+          className={`${combinedClassName} jn:text-left`}
+          onClick={handleClick}
+          disabled={disabled}
+          {...props}
+        >
+          {children}
+        </button>
+      )
+    }
+
+    // Default to <div> rendering
+    return (
+      <div ref={ref as Ref<HTMLDivElement>} className={combinedClassName} {...props}>
+        {children}
+      </div>
+    )
+  }
+)
+
+Card.displayName = "Card"
