@@ -1,5 +1,18 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.19.33
+
+### Patch Changes
+
+- 0e11c6e: Updated jsdom from 26.1.0 to 29.1.1 and updated Node.js engine requirement to >=20.19.0 to match jsdom's requirements.
+- Updated dependencies [0e11c6e]
+- Updated dependencies [374c671]
+- Updated dependencies [44f2140]
+- Updated dependencies [c29127f]
+  - @cloudoperators/juno-url-state-provider@3.0.10
+  - @cloudoperators/juno-messages-provider@0.2.41
+  - @cloudoperators/juno-ui-components@6.5.0
+
 ## 0.19.32
 
 ### Patch Changes
