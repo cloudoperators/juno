@@ -14,6 +14,7 @@ import {
   ContentHeading,
 } from "@cloudoperators/juno-ui-components"
 import { PluginPreset } from "../../types/k8sTypes"
+import { SUPPORT_GROUP_LABEL } from "../../constants"
 
 interface DetailsProps {
   pluginPreset: PluginPreset
@@ -41,7 +42,7 @@ export const Details: React.FC<DetailsProps> = ({ pluginPreset }) => (
       </DataGridRow>
       <DataGridRow>
         <DataGridHeadCell nowrap>Owning Team</DataGridHeadCell>
-        <DataGridCell>{pluginPreset.metadata?.labels?.["greenhouse.sap/owned-by"] ?? "--"}</DataGridCell>
+        <DataGridCell>{pluginPreset.metadata?.labels?.[SUPPORT_GROUP_LABEL] ?? "--"}</DataGridCell>
       </DataGridRow>
       {pluginPreset.metadata?.labels && Object.keys(pluginPreset.metadata.labels).length > 0 && (
         <DataGridRow>

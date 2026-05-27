@@ -11,10 +11,13 @@ export const SUPPORT_GROUP_LABEL = "greenhouse.sap/owned-by"
 export const REGION_LABEL = "metadata.greenhouse.sap/region"
 export const CONNECTIVITY_LABEL = "greenhouse.sap/cluster-connectivity"
 export const CLUSTER_TYPE_LABEL = "metadata.greenhouse.sap/cluster-type"
+export const EXPOSED_SERVICES_LABEL_SELECTOR = "greenhouse.sap/plugin-exposed-services=true"
 
 export const FILTER_IDS = {
   CLUSTER_TYPE: "clusterType",
   PLUGIN_PRESET_DEFINITION: "pluginPresetDefinition",
   REGION: "region",
+  PLUGIN: "plugin",
+  CLUSTER: "cluster",
   SUPPORT_GROUP: "supportGroup",
 } as const

@@ -114,3 +114,16 @@ export const formatAge = (jsDateAllowedInput: string | number | Date): string =>
 
   return parts.length > 0 ? parts.join(", ") : "0 minutes"
 }
+
+// Check if a URL is safe
+export const getSafeExternalUrl = (url: string) => {
+  try {
+    const parsedUrl = new URL(url)
+    if (parsedUrl.protocol === "http:" || parsedUrl.protocol === "https:") {
+      return parsedUrl.toString()
+    }
+  } catch {
+    return null
+  }
+  return null
+}

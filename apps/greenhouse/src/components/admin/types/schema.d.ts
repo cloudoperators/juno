@@ -1562,6 +1562,164 @@ export interface components {
         }
       }
     }
+    /**
+     * PluginsWithExposedServices
+     * @description PluginsWithExposedServices is the Schema for plugins filtered by those that have exposed services
+     */
+    PluginsWithExposedServices: {
+      /**
+       * @description APIVersion defines the versioned schema of this representation of an object.
+       * Servers should convert recognized schemas to the latest internal value, and
+       * may reject unrecognized values.
+       * More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+       */
+      apiVersion?: string
+
+      /**
+       * @description Kind is a string value representing the REST resource this object represents.
+       * Servers may infer this from the endpoint the client submits requests to.
+       * Cannot be updated.
+       * In CamelCase.
+       * More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+       */
+      kind?: string
+
+      metadata?: {
+        name?: string
+        namespace?: string
+        /** Format: uuid */
+        uid?: string
+        resourceVersion?: string
+        /** Format: date-time */
+        creationTimestamp?: string
+        /** Format: date-time */
+        deletionTimestamp?: string
+        labels?: {
+          [key: string]: string
+        }
+        annotations?: {
+          [key: string]: string
+        }
+        finalizers?: string[]
+        managedFields?: {
+          apiVersion?: string
+          fieldsType?: string
+          fieldsV1?: Record<string, unknown>
+          manager?: string
+          operation?: string
+          time?: string
+          subresource?: string
+        }[]
+        ownerReferences?: {
+          apiVersion?: string
+          blockOwnerDeletion?: boolean
+          controller?: boolean
+          kind?: string
+          name?: string
+          /** Format: uuid */
+          uid?: string
+        }[]
+      }
+
+      spec?: {
+        clusterName?: string
+        /**
+         * @description DeletionPolicy defines how Plugins owned by an PluginsWithExposedServices are handled on deletion.
+         * Supported values are "Delete" and "Retain". If not set, defaults to "Delete".
+         * @default Delete
+         * @enum {string}
+         */
+        deletionPolicy: "Delete" | "Retain"
+        displayName?: string
+        optionValues?: {
+          name: string
+          value?: unknown
+          valueFrom?: {
+            secret?: {
+              /** @description Key in the secret to select the value from. */
+              key: string
+              /** @description Name of the secret in the same namespace. */
+              name: string
+            }
+          }
+        }[]
+        pluginDefinitionRef?: {
+          /**
+           * @description Kind of the referent. Supported values: PluginDefinition, ClusterPluginDefinition.
+           * @enum {string}
+           */
+          kind?: "PluginDefinition" | "ClusterPluginDefinition"
+          name?: string
+        }
+        /**
+         * @description ReleaseName is the name of the helm release in the remote cluster where the backend is deployed.
+         * If the Plugin was already deployed, the Plugin's name is used as the release name.
+         * If newly created, the releaseName defaults to the PluginDefinitions HelmChart name.
+         */
+        releaseName?: string
+        /**
+         * @description ReleaseNamespace is the namespace in the remote cluster where the backend is deployed.
+         * Defaults to the Greenhouse managed namespace if not set.
+         */
+        releaseNamespace?: string
+      }
+
+      status?: {
+        description?: string
+        exposedServices?: {
+          [url: string]: {
+            /** @description The name of the service */
+            name: string
+            /** @description The namespace of the service */
+            namespace: string
+            /** @description The port where the service is exposed */
+            port: number
+            /** @description The type of service, typically "service" */
+            type: string
+          }
+        }
+        helmChart?: {
+          name: string
+          repository: string
+          version: string
+        }
+        helmReleaseStatus?: {
+          /**
+           * Format: date-time
+           * @description The first time the release was deployed
+           */
+          firstDeployed: string
+          /**
+           * Format: date-time
+           * @description The last time the release was deployed
+           */
+          lastDeployed: string
+          /** @description Checksum of plugin options */
+          pluginOptionChecksum: string
+          /** @description Current status of the Helm release */
+          status: string
+        }
+        statusConditions?: {
+          conditions: {
+            /**
+             * Format: date-time
+             * @description Last time the condition transitioned from one status to another
+             */
+            lastTransitionTime: string
+            /** @description Optional message with details about the last transition */
+            message?: string
+            /** @description One-word, CamelCase reason for the condition's last transition */
+            reason?: string
+            /** @description Status of the condition */
+            status: string
+            /** @description Type of the condition */
+            type: string
+          }[]
+        }
+        /** @description Observed version of the PluginsWithExposedServices */
+        version?: string
+      }
+    }
   }
   responses: never
   parameters: never
