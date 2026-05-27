@@ -667,6 +667,7 @@
   /* LT bool + collapsed icon */
   --color-syntax-highlight-base0F: var(--color-juno-blue-4); /*  integer value */
   /* LT DataGrid */
+  --color-datagridtoolbar-bg: var(--color-background-lvl-1);
   --color-datagridrow-selected: var(--color-accent);
   /* LT DataList */
   --color-datalist-row-border: var(--color-background-lvl-1);
@@ -918,7 +919,8 @@
   --color-syntax-highlight-base0D: var(--color-sap-gold); /* DT expanded icon */
   --color-syntax-highlight-base0E: var(--color-juno-blue-4); /* DT bool + collapsed icon */
   --color-syntax-highlight-base0F: var(--color-juno-blue-4); /* integer value */
-  /* DT DataGrid */
+   /* DT DataGrid */
+  --color-datagridtoolbar-bg: var(--color-background-lvl-1);
   --color-datagridrow-selected: var(--color-accent);
   /* DT DataList */
   --color-datalist-row-border: var(--color-background-lvl-1);

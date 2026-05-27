@@ -6,7 +6,7 @@
 import React, { HTMLAttributes, ReactNode } from "react"
 
 const baseToolbarStyles = `
-	jn:bg-theme-background-lvl-1
+	jn:bg-theme-datagridtoolbar
   jn:border-b
   jn:border-theme-default
 	jn:py-2
