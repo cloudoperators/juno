@@ -33,7 +33,7 @@ jobs:
       apply_header: false
 
   cache-dependencies:
-    runs-on: [ ubuntu-latest ]
+    runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
@@ -65,7 +65,7 @@ jobs:
 
   checks:
     needs: cache-dependencies
-    runs-on: [ ubuntu-latest ]
+    runs-on: [ubuntu-latest]
     strategy:
       matrix:
         include:
@@ -114,3 +114,16 @@ jobs:
 
       - name: Run "${{ matrix.command }}" command
         run: ${{ matrix.command }}
+
+  notify-on-success:
+    if: success()
+    needs: [reuse-compliance, license-headers, checks]
+    permissions:
+      contents: read
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@f0c9d08e2c9d7c348dd3f24e7ea72ac3db3a6993 # main
+    with:
+      title: "HeiHo! just testing the new Slack notification with environment! 🎉"
+      body: |
+        Webhook now is in a environment.
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
