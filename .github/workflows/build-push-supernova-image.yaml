@@ -201,7 +201,7 @@ jobs:
     permissions:
       contents: read
     needs: [build-and-push, vulnerability-scan]
-    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@e69fd9982d52aa1e1623ceda55875724843516b6 # main
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@f0c9d08e2c9d7c348dd3f24e7ea72ac3db3a6993 # main
     with:
       title: "🚨 JUNO Supernova Image Failed 🚨"
       body: |

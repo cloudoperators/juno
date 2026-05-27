@@ -240,7 +240,7 @@ jobs:
       needs.cleanup.result == 'failure'
     needs: [ cleanup ]
     permissions: {}
-    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@e69fd9982d52aa1e1623ceda55875724843516b6 # main
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@f0c9d08e2c9d7c348dd3f24e7ea72ac3db3a6993 # main
     with:
       title: "🚨 Greenhouse PR Preview Image Cleanup Failed 🚨"
       body: "Failed to delete preview images for PR #${{
