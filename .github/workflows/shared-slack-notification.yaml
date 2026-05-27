@@ -13,6 +13,11 @@ on:
         required: false
         type: boolean
         default: false
+      environment:
+        required: false
+        type: string
+        default: notifications
+        description: GitHub Environment name containing SLACK_WEBHOOK_URL secret
     secrets:
       SLACK_WEBHOOK_URL:
         required: true
@@ -20,6 +25,7 @@ on:
 jobs:
   notify:
     runs-on: [ ubuntu-latest ]
+    environment: ${{ inputs.environment }}
     steps:
       - name: Set Slack Payload
         env:
