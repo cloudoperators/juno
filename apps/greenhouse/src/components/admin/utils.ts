@@ -94,3 +94,16 @@ export const getFiltersForUrl = (filterSettings: FilterSettings) => {
 
   return result
 }
+
+// Check if a URL is safe
+export const getSafeExternalUrl = (url: string) => {
+  try {
+    const parsedUrl = new URL(url)
+    if (parsedUrl.protocol === "http:" || parsedUrl.protocol === "https:") {
+      return parsedUrl.toString()
+    }
+  } catch {
+    return null
+  }
+  return null
+}

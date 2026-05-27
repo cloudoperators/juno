@@ -7,7 +7,6 @@ import React from "react"
 import { Container } from "@cloudoperators/juno-ui-components"
 import { Details } from "./Details"
 import { Conditions } from "./Conditions"
-import { ExposedServices } from "./ExposedServices"
 import { Plugin } from "../../types/k8sTypes"
 
 const Section = ({ children, ...rest }: React.HTMLAttributes<HTMLDivElement>) => (
@@ -23,9 +22,6 @@ export const Overview = ({ plugin }: { plugin: Plugin }) => (
     </Section>
     <Section className="flex">
       <Details plugin={plugin} />
-    </Section>
-    <Section>
-      <ExposedServices plugin={plugin} />
     </Section>
   </>
 )
