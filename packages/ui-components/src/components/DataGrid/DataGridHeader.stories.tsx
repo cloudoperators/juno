@@ -217,7 +217,7 @@ export const FullyFeatured: Story = {
             {/* Zone 3: Bulk actions + item count + refresh */}
             <Stack distribution="between" alignment="center" className="jn:text-sm">
               <Stack gap="2" alignment="center">
-                <Checkbox />
+                <Checkbox aria-label="Select all items" />
                 <PopupMenu className="jn:flex jn:items-center">
                   <PopupMenuToggle {...({ as: Button, size: "xs", icon: "moreVert", label: "Actions" } as any)} />
                   <PopupMenuOptions>
