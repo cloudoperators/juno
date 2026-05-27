@@ -19,11 +19,12 @@ const cellBaseStyles = (nowrap: boolean, cellVerticalAlignment: CellVerticalAlig
 			`
         : ""
     }
-		jn:px-5
-		jn:py-3
+		jn:px-3
+		jn:py-2
 		jn:border-b
 		jn:border-theme-background-lvl-2
 		jn:h-full
+    jn:text-sm
 	`
 }
 
