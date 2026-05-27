@@ -39,7 +39,7 @@ export const Default: Story = {
     docs: {
       description: {
         story:
-          "A spacing wrapper for Zone 2+3 content — filter controls, DataGrid state, and refresh. Use `className` to apply the background and `Stack` inside to position content. Zone 1 (primary actions, bulk actions, sorting) does not use `DataGridToolbar` — it is a plain `Stack`. See DataGrid Header stories for full composition examples.",
+          "A spacing wrapper for Zone 2+3 content — filter controls, DataGrid state, and refresh. Use `Stack` inside to position content. Zone 1 (sorting and primary actions) does not use `DataGridToolbar` — it is a plain `Stack`. See DataGrid Header stories for full composition examples.",
       },
     },
   },

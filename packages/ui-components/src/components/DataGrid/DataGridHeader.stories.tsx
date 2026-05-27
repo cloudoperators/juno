@@ -185,7 +185,7 @@ export const FullyFeatured: Story = {
             </Stack>
           </Stack>
 
-          {/* Zones 2+3 — DataGridToolbar provides background and spacing */}
+          {/* Zone 2 — DataGridToolbar provides background and spacing */}
           <DataGridToolbar>
             <Stack direction="vertical" gap="2">
               {/* Zone 2: Filters + Search */}
@@ -332,7 +332,7 @@ export const FullyFeatured: Story = {
       <Stack gap="2" alignment="center">
         <Checkbox />
         <PopupMenu className="jn:flex jn:items-center">
-          <PopupMenuToggle {...({ as: Button, size: "xs", icon: "moreVert", label: "Show Actions" } as any)} />
+          <PopupMenuToggle {...({ as: Button, size: "xs", icon: "moreVert", label: "Actions" } as any)} />
           <PopupMenuOptions>
             <PopupMenuItem label="Download" />
             <PopupMenuItem label="Delete" />
