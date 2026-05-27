@@ -13,10 +13,6 @@ on:
         required: false
         type: boolean
         default: false
-      environment:
-        required: false
-        type: string
-        default: notifications
     secrets:
       SLACK_WEBHOOK_URL:
         required: true
@@ -24,7 +20,7 @@ on:
 jobs:
   notify:
     runs-on: [ ubuntu-latest ]
-    environment: ${{ inputs.environment }}
+    environment: notifications
     steps:
       - name: Set Slack Payload
         env:
