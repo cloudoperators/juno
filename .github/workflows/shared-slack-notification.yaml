@@ -14,8 +14,9 @@ on:
         type: boolean
         default: false
       environment:
-        required: true
+        required: false
         type: string
+        default: notifications
         description: GitHub Environment name containing SLACK_WEBHOOK_URL secret
     secrets:
       SLACK_WEBHOOK_URL:
