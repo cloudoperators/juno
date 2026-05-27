@@ -59,7 +59,7 @@ export interface CardProps extends HTMLAttributes<HTMLElement> {
  * @see {@link CardProps}
  */
 export const Card = forwardRef<HTMLElement, CardProps>(
-  ({ children, padding = false, className, href, onClick, disabled = false, ...props }, ref) => {
+  ({ children, padding = false, className = "", href, onClick, disabled = false, ...props }, ref) => {
     const combinedClassName = `juno-card ${cardStyles} ${padding ? cardPadding : ""} ${className} ${disabled ? "jn:cursor-not-allowed" : ""}`
 
     // Handle click event when disabled
