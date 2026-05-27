@@ -26,8 +26,8 @@ export const ClustersDataGrid = () => {
         <DataGridHeadCell>Region</DataGridHeadCell>
         <DataGridHeadCell>Cluster Type</DataGridHeadCell>
         <DataGridHeadCell>Support Group</DataGridHeadCell>
-        <DataGridHeadCell>Connectivity</DataGridHeadCell>
         <DataGridHeadCell>Version</DataGridHeadCell>
+        <DataGridHeadCell>Connectivity</DataGridHeadCell>
         <DataGridHeadCell>Message</DataGridHeadCell>
         <DataGridHeadCell></DataGridHeadCell>
       </DataGridRow>
