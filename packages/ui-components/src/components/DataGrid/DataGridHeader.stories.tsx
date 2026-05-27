@@ -174,7 +174,9 @@ export const FullyFeatured: Story = {
               </Stack>
               <Stack gap="0.5">
                 <PopupMenu>
-                  <PopupMenuToggle {...({ as: Button, icon: "moreVert" } as any)} />
+                  <PopupMenuToggle as={React.Fragment}>
+                    <Button icon="moreVert" title="More actions" />
+                  </PopupMenuToggle>
                   <PopupMenuOptions>
                     <PopupMenuItem label="Export CSV" />
                     <PopupMenuItem label="Refresh all" />
@@ -219,7 +221,9 @@ export const FullyFeatured: Story = {
               <Stack gap="2" alignment="center">
                 <Checkbox aria-label="Select all items" />
                 <PopupMenu className="jn:flex jn:items-center">
-                  <PopupMenuToggle {...({ as: Button, size: "xs", icon: "moreVert", label: "Actions" } as any)} />
+                  <PopupMenuToggle as={React.Fragment}>
+                    <Button size="xs" icon="moreVert" label="Actions" />
+                  </PopupMenuToggle>
                   <PopupMenuOptions>
                     <PopupMenuItem label="Download" />
                     <PopupMenuItem label="Delete" />
