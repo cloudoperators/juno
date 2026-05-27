@@ -16,7 +16,7 @@ const baseToolbarStyles = `
 /**
  * `DataGridToolbar` is a styled wrapper for the filter, search, and state zone (Zones 2+3) of a DataGrid header.
  * It provides a background, consistent padding, and separation from the grid below. Use `Stack` inside to compose and position content.
- * Zone 1 content (primary actions, bulk actions, sorting) does not use this component — use a plain `Stack` there instead.
+ * Zone 1 content (primary actions and sorting) does not use this component — use a plain `Stack` there instead.
  * @see https://cloudoperators.github.io/juno/?path=/docs/components-datagrid-datagridtoolbar--docs
  * @see {@link DataGridToolbarProps}
  */
