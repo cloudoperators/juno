@@ -347,6 +347,7 @@
 
   --background-color-theme-content-area-bg: var(--color-content-area-bg);
 
+  --background-color-theme-datagridtoolbar: var(--color-datagridtoolbar-bg);
   --background-color-theme-datagridrow-selected: var(--color-datagridrow-selected);
   --background-color-theme-datalistrow-selected: var(--color-datalistrow-selected);
 
@@ -919,7 +920,7 @@
   --color-syntax-highlight-base0D: var(--color-sap-gold); /* DT expanded icon */
   --color-syntax-highlight-base0E: var(--color-juno-blue-4); /* DT bool + collapsed icon */
   --color-syntax-highlight-base0F: var(--color-juno-blue-4); /* integer value */
-   /* DT DataGrid */
+  /* DT DataGrid */
   --color-datagridtoolbar-bg: var(--color-background-lvl-1);
   --color-datagridrow-selected: var(--color-accent);
   /* DT DataList */
