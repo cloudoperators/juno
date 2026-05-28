@@ -6,7 +6,7 @@
 
 The DataGrid is the primary pattern for displaying collections of structured data — a list of resources, entities, or items that share a common set of attributes or properties.
 
-![Juno DataGrid](images/Datagrid-fully-featured.png)
+![Juno DataGrid](images/DataGrid-fully-featured.png)
 
 ## When to Use a DataGrid
 
@@ -27,7 +27,7 @@ The DataGrid is the primary pattern for displaying collections of structured dat
 
 A DataGrid typically consists of:
 
-- **DataGrid Header**  — sits above the grid items; holds filters, search, bulk actions, and other controls to modify the display of the data or interacting with multiple items. This is a composable pattern, not a single comoponent in itself.
+- **DataGrid Header**  — sits above the grid items; holds filters, search, bulk actions, and other controls to modify the display of the data or interacting with multiple items. This is a composable pattern, not a single component in itself.
 - **DataGrid Head row** — labels for each column; always present unless the column purpose is self-evident from context, or the data displayed in one or multiple individual cells is synthesized but can not be meaningfully labelled with a single or a few terms
 - **DataGrid rows** (also referred to as **DataGrid Items** or **Elements**) — one row representing an item or entity of the set of data displayed
 - **DataGrid Footer** – optional. Can hold pagination or other, additional controls and/or metadata concerning the set as a whole
@@ -36,7 +36,7 @@ A DataGrid typically consists of:
 
 The DataGrid Toolbar holds all the tools necessary for users to modify and customize their view on the dataset, and to interact with multiple items at once by running bulk actions.
 
-![Fully featured Juno DataGrid Header](images/Datagrid-fully-featured-header.png)
+![Fully featured Juno DataGrid Header](images/DataGrid-fully-featured-header.png)
 
 More specifically, these are any combination of the following elements. Each element has a designated space in the DataGrid header structure. If an element is not needed, its space remains empty/unused. If none of the elements of a given zone is needed, don't render the zone / empty area at all.
 
