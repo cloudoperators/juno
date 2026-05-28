@@ -40,7 +40,7 @@ The DataGrid Toolbar holds all the tools necessary for users to modify and custo
 
 More specifically, these are any combination of the following elements. Each element has a designated space in the DataGrid header structure. If an element is not needed, its space remains empty/unused. If none of the elements of a given zone is needed, don't render the zone / empty area at all.
 
-![Juno DataGrid Header zones](images/Datagrid-header-zones.png)
+![Juno DataGrid Header zones](images/DataGrid-header-zones.png)
 
 ### Zone 1: Sorting, Action(s)
 
@@ -100,7 +100,7 @@ A DataGrid may have a Reload/Refresh-button in the Header in order to make sure 
 
 When rendering elements in the DataGrid, keep permissions of the user in mind:
 For users that are not allowed to perform any of the available bulk actions for the elements of a given DataGrid, do not render Bulk action elements at all.
-The same goes for the checkboxes on the individual items: If a user has no permission to perform any of the avilable bulk actions, do not render any checkboxes (and the surrounding cells) for the items.
+The same goes for the checkboxes on the individual items: If a user has no permission to perform any of the available bulk actions, do not render any checkboxes (and the surrounding cells) for the items.
 If a user is not allowed to create any new items, do not render a "Create […]" button.
 
 ## DataGrid Content and Writing
