@@ -281,10 +281,10 @@ export const FullyFeatured: Story = {
         code: `
 <Stack direction="vertical">
   {/* Zone 1 — bare Stack, no background */}
-  <Stack distribution="end" alignment="center" gap="2" className="jn:pb-2">
+  <Stack distribution="end" alignment="center" gap="2" className="pb-2">
     <Stack gap="2">
       <Stack gap="0.5">
-        <Select width="auto" className="jn:min-w-40">
+        <Select width="auto" className="min-w-40">
           <SelectOption value="name" label="Name" />
           <SelectOption value="status" label="Status" />
           <SelectOption value="region" label="Region" />
@@ -299,7 +299,7 @@ export const FullyFeatured: Story = {
             <PopupMenuItem label="Refresh all" />
           </PopupMenuOptions>
         </PopupMenu>
-        <Button label="Create Server" variant="primary" className="jn:whitespace-nowrap" />
+        <Button label="Create Server" variant="primary" className="whitespace-nowrap" />
       </Stack>
     </Stack>
   </Stack>
@@ -309,7 +309,7 @@ export const FullyFeatured: Story = {
     <Stack direction="vertical" gap="2">
       <Stack distribution="between" alignment="center">
         <InputGroup>
-          <Select width="auto" className="jn:min-w-44">
+          <Select width="auto" className="min-w-44">
             <SelectOption value="region" label="Region" />
             <SelectOption value="status" label="Status" />
             <SelectOption value="az" label="Availability Zone" />
@@ -332,10 +332,10 @@ export const FullyFeatured: Story = {
 
   {/* Zone 3 — separate DataGridToolbar */}
   <DataGridToolbar>
-    <Stack distribution="between" alignment="center" className="jn:text-sm">
+    <Stack distribution="between" alignment="center" className="text-sm">
       <Stack gap="2" alignment="center">
         <Checkbox />
-        <PopupMenu className="jn:flex jn:items-center">
+        <PopupMenu className="flex items-center">
           <PopupMenuToggle {...({ as: Button, size: "xs", icon: "moreVert", label: "Actions" } as any)} />
           <PopupMenuOptions>
             <PopupMenuItem label="Download" />
@@ -343,7 +343,7 @@ export const FullyFeatured: Story = {
           </PopupMenuOptions>
         </PopupMenu>
       </Stack>
-      <span className="jn:theme-color-text-light">Showing 2 of 4 servers</span>
+      <span className="theme-color-text-light">Showing 2 of 4 servers</span>
       <Stack gap="2" alignment="center">
         <span>Last update: 20.05.2026 @09:41</span>
         <Button label="Update" size="xs" />
