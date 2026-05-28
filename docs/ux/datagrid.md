@@ -25,9 +25,9 @@ The DataGrid is the primary pattern for displaying collections of structured dat
 
 A DataGrid typically consists of:
 
-- **DataGrid Toolbar** (also referred to as **DataGrid Header**)  — sits above the grid items; holds filters, search, bulk actions, and other controls to modify the display of the data or interacting with multiple items
-- **DataGrid Header row** — labels for each column; always present unless the column purpose is self-evident from context, or the data displayed in one or multiple individual cells is synthesized but can not be meaningfully labelled with a single or a few terms
-- **DataGrid rows** (also referred to as **DataGrid Items**) — one row representing an item or entity of the set of data displayed
+- **DataGrid Header**  — sits above the grid items; holds filters, search, bulk actions, and other controls to modify the display of the data or interacting with multiple items. This is a composable pattern, not a single comoponent in itself.
+- **DataGrid Head row** — labels for each column; always present unless the column purpose is self-evident from context, or the data displayed in one or multiple individual cells is synthesized but can not be meaningfully labelled with a single or a few terms
+- **DataGrid rows** (also referred to as **DataGrid Items** or **Elements**) — one row representing an item or entity of the set of data displayed
 - **DataGrid Footer** – optional. Can hold pagination or other, additional controls and/or metadata concerning the set as a whole
 
 ## DataGrid Header / Toolbar
@@ -94,7 +94,14 @@ A DataGrid must handle the full range of data states gracefully. Do not render a
 
 ## Re-Loading Data
 
-A DataGrid may have a Reload/Refresh-button in the Header / Toolbar in order to make sure the latest state of the data is displayed and interacted with.
+A DataGrid may have a Reload/Refresh-button in the Header in order to make sure the latest state of the data is displayed and interacted with.
+
+## Render Elements Based on User Permissions
+
+When rendering elements in the DataGrid, keep permissions of the user in mind:
+For users that are not allowed to perform any of the available bulk actions for the elements of a given DataGrid, do not render Bulk action elements at all.
+The same goes for the checkboxes on the individual items: If a user has no permission to perform any of the avilable bulk actions, do not render any checkboxes (and the surrounding cells) for the items.
+If a user is not allowed to create any new items, do not render a "Create […]" button.
 
 ## DataGrid Content and Writing
 
