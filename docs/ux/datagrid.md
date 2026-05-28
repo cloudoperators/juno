@@ -6,6 +6,8 @@
 
 The DataGrid is the primary pattern for displaying collections of structured data — a list of resources, entities, or items that share a common set of attributes or properties.
 
+![Juno DataGrid](images/Datagrid-fully-featured.png)
+
 ## When to Use a DataGrid
 
 ### Use a DataGrid When:
@@ -32,13 +34,13 @@ A DataGrid typically consists of:
 
 ## DataGrid Header / Toolbar
 
-(TODO: Illustration of a fully featured header)
-
 The DataGrid Toolbar holds all the tools necessary for users to modify and customize their view on the dataset, and to interact with multiple items at once by running bulk actions.
+
+![Fully featured Juno DataGrid Header](images/Datagrid-fully-featured-header.png)
 
 More specifically, these are any combination of the following elements. Each element has a designated space in the DataGrid header structure. If an element is not needed, its space remains empty/unused. If none of the elements of a given zone is needed, don't render the zone / empty area at all.
 
-(TODO: Illustration of the fully featured header with overlayed/indicated zones)
+![Juno DataGrid Header zones](images/Datagrid-header-zones.png)
 
 ### Zone 1: Sorting, Action(s)
 
@@ -59,8 +61,6 @@ More specifically, these are any combination of the following elements. Each ele
 - Last Update, Update/Refresh: The date and time of the last refresh of the data displayed, and a button to trigger a refresh. Positioned on the right side of Zone 3.
 
 All of the above elements are optional in the sense that none of them will be required for any given DataGrid. However, if you find yourself in a situation where none of the above options is needed or desired, reconsider whether using a DataGrid is the right choice to display the given data. This case can occur, but it is rare. In most cases a simple list is then a more appropriate option to display the data.
-
-(TODO: illustration of one or two non-fully featured headers that reflect typical, real-world use cases)
 
 ## Column Order, Structure, and Layout
 
