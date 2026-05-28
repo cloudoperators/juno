@@ -113,7 +113,7 @@ export const PluginInstances = () => {
               <span>{`(${ready} ready, ${notReady} not ready)`}</span>
             </div>
           </Stack>
-          <DataGrid columns={COLUMN_SPAN} minContentColumns={[4]}>
+          <DataGrid columns={COLUMN_SPAN} minContentColumns={[0, 4]}>
             <DataGridRow>
               <DataGridHeadCell>
                 <Icon icon="monitorHeart" />
