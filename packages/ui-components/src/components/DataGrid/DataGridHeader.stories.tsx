@@ -84,7 +84,7 @@ export const WithPrimaryAction: Story = {
 
 export const WithFiltersSearchAndState: Story = {
   render: () => (
-    <>
+    <Stack direction="vertical">
       <DataGridToolbar>
         <Stack direction="vertical" gap="2">
           {/* Zone 2: Filters + Search */}
@@ -122,7 +122,7 @@ export const WithFiltersSearchAndState: Story = {
           </Stack>
         </Stack>
       </DataGridToolbar>
-    </>
+    </Stack>
   ),
   parameters: {
     docs: {
