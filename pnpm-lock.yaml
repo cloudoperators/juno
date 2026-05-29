@@ -279,9 +279,6 @@ importers:
       jsdom:
         specifier: 29.1.1
         version: 29.1.1
-      postcss:
-        specifier: 8.5.14
-        version: 8.5.14
       shadow-dom-testing-library:
         specifier: 1.13.1
         version: 1.13.1(@testing-library/dom@10.4.1)
@@ -514,7 +511,7 @@ importers:
         version: 4.1.6(vitest@4.1.6)
       autoprefixer:
         specifier: 10.5.0
-        version: 10.5.0(postcss@8.5.14)
+        version: 10.5.0(postcss@8.5.15)
       dotenv:
         specifier: 17.4.2
         version: 17.4.2
@@ -539,9 +536,6 @@ importers:
       jsdom:
         specifier: 29.1.1
         version: 29.1.1
-      postcss:
-        specifier: 8.5.14
-        version: 8.5.14
       prettier:
         specifier: 3.8.3
         version: 3.8.3
@@ -10400,15 +10394,6 @@ snapshots:
   async-function@1.0.0: {}
 
   auto-bind@4.0.0: {}
-
-  autoprefixer@10.5.0(postcss@8.5.14):
-    dependencies:
-      browserslist: 4.28.2
-      caniuse-lite: 1.0.30001791
-      fraction.js: 5.3.4
-      picocolors: 1.1.1
-      postcss: 8.5.14
-      postcss-value-parser: 4.2.0
 
   autoprefixer@10.5.0(postcss@8.5.15):
     dependencies:
