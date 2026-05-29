@@ -1,0 +1,1 @@
+import{i as e}from"./preload-helper-usAeo7Bx.js";import{n as t}from"./Tab.component-Ck0G3p4u.js";var n=e((()=>{t()}));export{n as t};
