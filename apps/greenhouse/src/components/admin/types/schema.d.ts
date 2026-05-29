@@ -386,15 +386,15 @@ export interface components {
        *     In CamelCase.
        *     More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
-      kind?: string
-      metadata?: {
-        name?: string
+      kind: string
+      metadata: {
+        name: string
         namespace?: string
         /** Format: uuid */
         uid?: string
         resourceVersion?: string
         /** Format: date-time */
-        creationTimestamp?: string
+        creationTimestamp: string
         /** Format: date-time */
         deletionTimestamp?: string
         labels?: {
@@ -403,6 +403,17 @@ export interface components {
         annotations?: {
           [key: string]: string
         }
+        finalizers?: string[]
+        managedFields?: {
+          apiVersion: string
+          fieldsType: string
+          fieldsV1?: object
+          manager: string
+          operation: string
+          time?: string
+          subresource?: string
+        }[]
+        generation?: number
       }
       /** @description ClusterSpec defines the desired state of the Cluster. */
       spec?: {
@@ -1036,6 +1047,12 @@ export interface components {
         annotations?: {
           [key: string]: string
         }
+        ownerReferences?: Array<{
+          name: string
+          uid?: string
+          apiVersion?: string
+          kind?: string
+        }>
       }
       /** @description PluginSpec defines the desired state of Plugin */
       spec?: {
