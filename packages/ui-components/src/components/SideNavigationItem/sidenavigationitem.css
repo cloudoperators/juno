@@ -23,7 +23,7 @@
   cursor: not-allowed;
 }
 
-.juno-sidenavigation-item.selected {
+.juno-sidenavigation-item-selected {
   background-color: var(--color-sidenav-item-background-selected);
   border-left: 0.25rem solid var(--color-accent);
 }

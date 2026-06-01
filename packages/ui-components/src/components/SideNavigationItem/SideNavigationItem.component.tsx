@@ -22,7 +22,7 @@ const LevelContext = createContext<number>(0)
 
 const sideNavItemStyles = `
   jn:flex
-  jn:justify-between
+  jn:items-center
   jn:px-[0.5rem]
   jn:py-[0.1875rem]
   jn:w-full
@@ -33,7 +33,7 @@ const sideNavItemStyles = `
 const leftStyles = `
   jn:flex
   jn:items-center
-  jn:w-full 
+  jn:flex-grow
 `
 
 const disabledStyles = `
@@ -100,6 +100,7 @@ export const SideNavigationItem = ({
   }, [open])
 
   const handleToggleOpen = (e: MouseEvent<HTMLElement>) => {
+    if (disabled) return
     e.stopPropagation()
     setIsOpen(!isOpen)
   }
@@ -113,12 +114,12 @@ export const SideNavigationItem = ({
   }
 
   const renderExpandButton = () =>
-    typeof children !== "string" && Children.count(children) > 0 ? (
+    children && typeof children !== "string" && Children.count(children) ? (
       <button
         onClick={handleToggleOpen}
-        className="expand-icon"
         aria-label={isOpen ? "Collapse section" : "Expand section"}
         disabled={disabled}
+        className="expand-icon"
       >
         <Icon size="24" icon={isOpen ? "expandMore" : "chevronRight"} />
       </button>
@@ -132,10 +133,10 @@ export const SideNavigationItem = ({
   )
 
   const renderItem = () => (
-    <>
+    <div className="jn:flex jn:w-full jn:items-center jn:justify-between">
       {renderLeft()}
-      {renderExpandButton()}
-    </>
+      {renderExpandButton()} {/* Aligning to the right end */}
+    </div>
   )
 
   const combinedClassNames = `
