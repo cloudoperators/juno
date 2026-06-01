@@ -14,7 +14,7 @@ import {
   ContentHeading,
 } from "@cloudoperators/juno-ui-components"
 import { Plugin } from "../../types/k8sTypes"
-import { SUPPORT_GROUP_LABEL } from "../../constants"
+import { SUPPORT_GROUP_LABEL, NO_VALUE_DEFAULT } from "../../constants"
 import { ExternalLink } from "../../common/ExternalLink"
 
 interface DetailsProps {
@@ -41,21 +41,25 @@ export const Details: React.FC<DetailsProps> = ({ plugin }) => {
           </DataGridRow>
           <DataGridRow>
             <DataGridHeadCell nowrap>PluginPreset</DataGridHeadCell>
-            <DataGridCell>{plugin.metadata?.labels?.["greenhouse.sap/pluginpreset"]}</DataGridCell>
+            <DataGridCell>{plugin.metadata?.labels?.["greenhouse.sap/pluginpreset"] ?? NO_VALUE_DEFAULT}</DataGridCell>
           </DataGridRow>
           <DataGridRow>
             <DataGridHeadCell nowrap>PluginDefinition</DataGridHeadCell>
-            <DataGridCell>{plugin.spec?.pluginDefinitionRef?.name}</DataGridCell>
+            <DataGridCell>{plugin.spec?.pluginDefinitionRef?.name ?? NO_VALUE_DEFAULT}</DataGridCell>
+          </DataGridRow>
+          <DataGridRow>
+            <DataGridHeadCell nowrap>Release Name</DataGridHeadCell>
+            <DataGridCell>{plugin.spec?.releaseName ?? NO_VALUE_DEFAULT}</DataGridCell>
           </DataGridRow>
           <DataGridRow>
             <DataGridHeadCell nowrap>Owning Team</DataGridHeadCell>
-            <DataGridCell>{plugin.metadata?.labels?.[SUPPORT_GROUP_LABEL]}</DataGridCell>
+            <DataGridCell>{plugin.metadata?.labels?.[SUPPORT_GROUP_LABEL] ?? NO_VALUE_DEFAULT}</DataGridCell>
           </DataGridRow>
         </DataGrid>
         <DataGrid columns={2} minContentColumns={[0]} className="flex-1">
           <DataGridRow>
             <DataGridHeadCell nowrap>Cluster</DataGridHeadCell>
-            <DataGridCell>{plugin.spec?.clusterName}</DataGridCell>
+            <DataGridCell>{plugin.spec?.clusterName ?? NO_VALUE_DEFAULT}</DataGridCell>
           </DataGridRow>
           {plugin.metadata?.labels && Object.keys(plugin.metadata.labels).length > 0 && (
             <DataGridRow>
@@ -71,7 +75,7 @@ export const Details: React.FC<DetailsProps> = ({ plugin }) => {
           )}
           <DataGridRow>
             <DataGridHeadCell>Exposed Services</DataGridHeadCell>
-            <DataGridCell>{exposedServicesLinks.length > 0 ? exposedServicesLinks : "--"}</DataGridCell>
+            <DataGridCell>{exposedServicesLinks.length > 0 ? exposedServicesLinks : NO_VALUE_DEFAULT}</DataGridCell>
           </DataGridRow>
         </DataGrid>
       </Stack>
