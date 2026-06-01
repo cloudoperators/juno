@@ -120,7 +120,7 @@ export const PluginInstances = () => {
               </DataGridHeadCell>
               <DataGridHeadCell>Status</DataGridHeadCell>
               <DataGridHeadCell>Plugin Name</DataGridHeadCell>
-              <DataGridHeadCell>Plugin Preset</DataGridHeadCell>
+              <DataGridHeadCell>PluginPreset</DataGridHeadCell>
               <DataGridHeadCell></DataGridHeadCell>
             </DataGridRow>
 

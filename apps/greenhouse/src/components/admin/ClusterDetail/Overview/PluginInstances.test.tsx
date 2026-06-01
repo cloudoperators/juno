@@ -70,7 +70,7 @@ describe("PluginInstances", () => {
 
     expect(screen.getByText("Plugin Instances")).toBeInTheDocument()
     expect(screen.getByText("Plugin Name")).toBeInTheDocument()
-    expect(screen.getByText("Plugin Preset")).toBeInTheDocument()
+    expect(screen.getByText("PluginPreset")).toBeInTheDocument()
     expect(screen.getByText("Status")).toBeInTheDocument()
     expect(screen.getByText("plugin-1")).toBeInTheDocument()
     expect(screen.getByText("plugin-2")).toBeInTheDocument()

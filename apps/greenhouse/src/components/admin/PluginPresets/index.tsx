@@ -45,7 +45,7 @@ export const PluginPresets = () => {
         <DataGridToolbar>
           <Stack>
             <div>
-              <span className="text-theme-default pr-2">{`${total} pluginpresets`}</span>
+              <span className="text-theme-default pr-2">{`${total} PluginPresets`}</span>
               <span>{`(${ready} ready, ${notReady} not ready)`}</span>
             </div>
             <Stack alignment="center" className="ml-auto">

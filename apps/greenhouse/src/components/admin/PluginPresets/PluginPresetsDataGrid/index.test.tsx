@@ -69,13 +69,13 @@ const renderComponent = async (mockPromise: Promise<MockPluginPresetsResponse | 
 }
 
 describe("PluginPresetsDataGrid", () => {
-  it("should render plugin presets", async () => {
+  it("should render PluginPresets", async () => {
     await renderComponent(new Promise<MockPluginPresetsResponse>((resolve) => resolve(mockPluginPresets)))
 
     // Check for column headers
     expect(screen.getByText("Instances")).toBeInTheDocument()
     expect(screen.getByText("Name")).toBeInTheDocument()
-    expect(screen.getByText("Plugin Definition")).toBeInTheDocument()
+    expect(screen.getByText("PluginDefinition")).toBeInTheDocument()
     expect(screen.getByText("Message")).toBeInTheDocument()
 
     // Check for data - verify all 5 presets are rendered

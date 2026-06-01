@@ -29,7 +29,7 @@ export const Details: React.FC<DetailsProps> = ({ pluginPreset }) => (
         <DataGridCell>{pluginPreset.metadata?.name}</DataGridCell>
       </DataGridRow>
       <DataGridRow>
-        <DataGridHeadCell nowrap>Plugin Definition</DataGridHeadCell>
+        <DataGridHeadCell nowrap>PluginDefinition</DataGridHeadCell>
         <DataGridCell>{pluginPreset.spec?.plugin?.pluginDefinitionRef?.name}</DataGridCell>
       </DataGridRow>
       <DataGridRow>

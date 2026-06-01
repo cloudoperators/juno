@@ -44,7 +44,7 @@ export const Details: React.FC<DetailsProps> = ({ plugin }) => {
             <DataGridCell>{plugin.metadata?.labels?.["greenhouse.sap/pluginpreset"] ?? NO_VALUE_DEFAULT}</DataGridCell>
           </DataGridRow>
           <DataGridRow>
-            <DataGridHeadCell nowrap>Plugin Definition</DataGridHeadCell>
+            <DataGridHeadCell nowrap>PluginDefinition</DataGridHeadCell>
             <DataGridCell>{plugin.spec?.pluginDefinitionRef?.name ?? NO_VALUE_DEFAULT}</DataGridCell>
           </DataGridRow>
           <DataGridRow>
