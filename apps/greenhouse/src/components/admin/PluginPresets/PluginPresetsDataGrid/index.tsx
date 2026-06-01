@@ -23,7 +23,7 @@ export const PluginPresetsDataGrid = () => {
         </DataGridHeadCell>
         <DataGridHeadCell>Instances</DataGridHeadCell>
         <DataGridHeadCell>Name</DataGridHeadCell>
-        <DataGridHeadCell>Plugin Definition</DataGridHeadCell>
+        <DataGridHeadCell>PluginDefinition</DataGridHeadCell>
         <DataGridHeadCell>Message</DataGridHeadCell>
         <DataGridHeadCell>Support Group</DataGridHeadCell>
         <DataGridHeadCell></DataGridHeadCell>
