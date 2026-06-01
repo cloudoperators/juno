@@ -9,7 +9,7 @@ import { SideNavigationItemProps } from "../SideNavigationItem"
 
 const sideNavGroupStyles = `
   jn:flex
-  jn:justify-between 
+  jn:justify-between
   jn:px-[0.5rem]
   jn:py-[0.1875rem]
   jn:text-theme-default
@@ -19,16 +19,9 @@ const sideNavGroupStyles = `
   jn:border-transparent
 `
 
-const disabledStyles = `
-  jn:opacity-50
-  jn:cursor-not-allowed
-`
-
 export interface SideNavigationGroupProps {
   /** Represents the nested components within the navigation group. */
   children?: ReactElement<SideNavigationItemProps> | ReactElement<SideNavigationItemProps>[]
-  /** Indicates if the navigation group is non-interactive when set to true. */
-  disabled?: boolean
   /** Label displayed for the navigation group. */
   label: ReactNode
   /** Controls whether the navigation group is expanded by default. */
@@ -45,12 +38,8 @@ export interface SideNavigationGroupProps {
  * @see https://cloudoperators.github.io/juno/?path=/docs/navigation-sidenavigation-sidenavigationgroup--docs
  * @see {@link SideNavigationGroupProps}
  **/
-export const SideNavigationGroup = ({
-  children,
-  disabled = false,
-  label = "",
-  open = false,
-}: SideNavigationGroupProps): ReactNode => {
+
+export const SideNavigationGroup = ({ children, label = "", open = false }: SideNavigationGroupProps): ReactNode => {
   const [isOpen, setIsOpen] = useState(open)
 
   // Sync internal state with external prop changes
@@ -59,28 +48,27 @@ export const SideNavigationGroup = ({
   }, [open])
 
   const handleToggleOpen = (e: MouseEvent<HTMLElement>) => {
-    if (disabled) return
     e.stopPropagation() //Prevent event bubbling when expanding/collapsing
     setIsOpen(!isOpen)
   }
 
-  const renderExpandIcon = () =>
+  const renderExpandButton = () =>
     children && Children.count(children) > 0 ? (
-      <span onClick={handleToggleOpen} role="button" tabIndex={0}>
-        <Icon
-          size="24"
-          className={`
-            juno-sidenavigation-item
-            `}
-          icon={isOpen ? "expandMore" : "chevronRight"}
-        />
-      </span>
+      <button
+        onClick={handleToggleOpen}
+        className="expand-icon"
+        aria-label={isOpen ? "Collapse section" : "Expand section"}
+      >
+        <Icon size="24" icon={isOpen ? "expandMore" : "chevronRight"} />
+      </button>
     ) : null
 
   const renderGroup = () => (
-    <div className={`${disabled ? disabledStyles : ""} juno-sidenavigation-group ${sideNavGroupStyles}`}>
+    <div
+      className={`juno-sidenavigation-group ${sideNavGroupStyles} ${isOpen ? "juno-sidenavigation-group-open" : ""}`}
+    >
       <span className="font-bold text-sm">{label}</span>
-      {renderExpandIcon()}
+      {renderExpandButton()}
     </div>
   )
 

@@ -42,7 +42,7 @@ describe("SideNavigationGroup", () => {
     expect(screen.queryByText("Child Item 2")).not.toBeInTheDocument()
   })
 
-  test("toggles open state when expand icon is clicked", () => {
+  test("toggles open state when expand button is clicked", () => {
     render(
       <SideNavigationGroup label="Toggle Group">
         <SideNavigationItem label="Child Item 1" />
@@ -50,41 +50,15 @@ describe("SideNavigationGroup", () => {
       </SideNavigationGroup>
     )
 
-    const expandIcon = screen.getByRole("button")
-    fireEvent.click(expandIcon)
+    const expandButton = screen.getByRole("button")
+    fireEvent.click(expandButton)
 
     expect(screen.getByText("Child Item 1")).toBeInTheDocument()
     expect(screen.getByText("Child Item 2")).toBeInTheDocument()
 
-    fireEvent.click(expandIcon)
+    fireEvent.click(expandButton)
 
     expect(screen.queryByText("Child Item 1")).not.toBeInTheDocument()
     expect(screen.queryByText("Child Item 2")).not.toBeInTheDocument()
-  })
-
-  test("does not toggle open state when disabled", () => {
-    render(
-      <SideNavigationGroup label="Disabled Group" disabled>
-        <SideNavigationItem label="Child Item 1" />
-      </SideNavigationGroup>
-    )
-
-    const expandIcon = screen.getByRole("button")
-    fireEvent.click(expandIcon)
-
-    expect(screen.queryByText("Child Item 1")).not.toBeInTheDocument()
-  })
-
-  test("disables interaction and applies disabled styles", () => {
-    render(
-      <SideNavigationGroup label="Disabled Group" disabled>
-        <SideNavigationItem label="Child Item" />
-      </SideNavigationGroup>
-    )
-
-    const groupContainer = screen.getByText("Disabled Group").closest("div")
-
-    expect(groupContainer).toBeInTheDocument()
-    expect(groupContainer).toHaveClass("jn:opacity-50 jn:cursor-not-allowed")
   })
 })

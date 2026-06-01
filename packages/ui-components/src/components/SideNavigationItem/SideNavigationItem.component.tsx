@@ -8,12 +8,12 @@ import React, {
   useEffect,
   useContext,
   createContext,
-  ReactElement,
   ReactNode,
   HTMLAttributes,
   MouseEventHandler,
-  Children,
+  ReactElement,
   MouseEvent,
+  Children,
 } from "react"
 import { Icon, KnownIcons } from "../Icon/Icon.component"
 import "./sidenavigationitem.css"
@@ -27,7 +27,7 @@ const sideNavItemStyles = `
   jn:py-[0.1875rem]
   jn:w-full
   jn:text-theme-sidenav
-  jn:h-[30px]
+  jn:min-h-[1.875rem]
 `
 
 const leftStyles = `
@@ -44,29 +44,20 @@ const disabledStyles = `
 export interface SideNavigationItemProps extends HTMLAttributes<HTMLElement> {
   /** Provides an accessibility label for the navigation item. */
   ariaLabel?: string
-
   /** Represents nested components. If a string is passed, it will be treated as a label.*/
   children?: ReactElement<SideNavigationItemProps> | ReactElement<SideNavigationItemProps>[] | string
-
   /** Marks the item as non-interactive if set to true. */
-  /* Required? Design doc suggests so, requirements don't? Can also be managed by useContext hook */
   disabled?: boolean
-
   /** URL for navigation; transforms the item into a link. */
   href?: string
-
   /** Defines the icon to display alongside the label. */
   icon?: KnownIcons
-
   /** Text label displayed for the navigation item. Takes precedence over a label passed as children. */
   label?: ReactNode
-
   /** Function handler triggered upon item click. */
   onClick?: MouseEventHandler<HTMLElement>
-
   /** Controls whether the item is expanded by default. */
   open?: boolean
-
   /** Indicates if the item is currently selected or active. */
   selected?: boolean
 }
@@ -90,10 +81,10 @@ export interface SideNavigationItemProps extends HTMLAttributes<HTMLElement> {
  */
 
 export const SideNavigationItem = ({
-  ariaLabel = "",
+  ariaLabel,
   children,
   disabled = false,
-  href = "",
+  href,
   icon,
   label = "",
   onClick,
@@ -104,20 +95,16 @@ export const SideNavigationItem = ({
   const [isOpen, setIsOpen] = useState(open)
   const level = useContext(LevelContext)
 
-  // Sync internal state with external prop changes
   useEffect(() => {
     setIsOpen(open)
   }, [open])
 
   const handleToggleOpen = (e: MouseEvent<HTMLElement>) => {
-    if (disabled) return
-    e.stopPropagation() //Prevent event bubbling when expanding/collapsing
+    e.stopPropagation()
     setIsOpen(!isOpen)
   }
 
   const handleMainClick = (e: MouseEvent<HTMLElement>) => {
-    if (disabled) return
-    if (!isOpen) setIsOpen(!isOpen)
     if (href) {
       window.location.href = href
     } else if (onClick) {
@@ -125,22 +112,21 @@ export const SideNavigationItem = ({
     }
   }
 
-  const renderExpandIcon = () =>
+  const renderExpandButton = () =>
     typeof children !== "string" && Children.count(children) > 0 ? (
-      <span onClick={handleToggleOpen} role="button" tabIndex={0}>
-        <Icon
-          size="24"
-          className={`
-          ${disabled ? disabledStyles : ""}`}
-          icon={isOpen ? "expandMore" : "chevronRight"}
-        />
-      </span>
+      <button
+        onClick={handleToggleOpen}
+        className="expand-icon"
+        aria-label={isOpen ? "Collapse section" : "Expand section"}
+        disabled={disabled}
+      >
+        <Icon size="24" icon={isOpen ? "expandMore" : "chevronRight"} />
+      </button>
     ) : null
 
   const renderLeft = () => (
     <span className={leftStyles}>
       {icon && level === 0 ? <Icon className={"jn:mr-[0.25rem]"} icon={icon} size="24" /> : null}
-      {/* Add spacing before label which expands by level */}
       <div className={`level-${level + 1}`}>{label || children}</div>
     </span>
   )
@@ -148,16 +134,17 @@ export const SideNavigationItem = ({
   const renderItem = () => (
     <>
       {renderLeft()}
-      {renderExpandIcon()}
+      {renderExpandButton()}
     </>
   )
 
   const combinedClassNames = `
     juno-sidenavigation-item
     ${sideNavItemStyles}
+    ${selected ? "juno-sidenavigation-item-selected" : ""}
+    ${isOpen ? "juno-sidenavigation-item-open" : ""}
+    ${disabled ? "jn:cursor-not-allowed" : "jn:cursor-pointer"}
     ${disabled ? disabledStyles : ""}
-    ${selected ? "selected" : ""}
-    ${onClick || href || children ? "jn:cursor-pointer" : "jn:cursor-default"}
   `
 
   return (
@@ -165,10 +152,12 @@ export const SideNavigationItem = ({
       {href ? (
         <a
           aria-current={selected ? "page" : undefined}
-          aria-label={ariaLabel}
+          aria-label={ariaLabel ? ariaLabel : undefined}
           className={combinedClassNames}
           href={!disabled ? href : undefined}
-          onClick={handleMainClick}
+          onClick={!disabled ? handleMainClick : undefined}
+          aria-disabled={disabled}
+          tabIndex={disabled ? -1 : undefined}
           {...props}
         >
           {renderItem()}
@@ -176,9 +165,10 @@ export const SideNavigationItem = ({
       ) : (
         <button
           aria-current={selected ? "page" : undefined}
-          aria-label={ariaLabel}
+          aria-label={ariaLabel ? ariaLabel : undefined}
           className={combinedClassNames}
           onClick={!disabled ? handleMainClick : undefined}
+          disabled={disabled}
           {...props}
         >
           {renderItem()}

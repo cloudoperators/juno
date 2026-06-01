@@ -33,7 +33,7 @@ describe("SideNavigationItem", () => {
     expect(handleClick).toHaveBeenCalledTimes(1)
   })
 
-  it("renders href as link and navigates correctly", () => {
+  it("renders as a link with href and navigates correctly", () => {
     const href = "http://example.com"
     render(<SideNavigationItem label="External Link" href={href} />)
     const linkElement = screen.getByRole("link")
@@ -47,7 +47,7 @@ describe("SideNavigationItem", () => {
       </SideNavigationItem>
     )
 
-    const expandButton = screen.getAllByRole("button")[0] // To ensure correct element targeting
+    const expandButton = screen.getAllByRole("button")[0]
     fireEvent.click(expandButton)
 
     const childElement = screen.getByText("Inbox")
@@ -71,13 +71,13 @@ describe("SideNavigationItem", () => {
   it("renders with selected styles when selected", () => {
     render(<SideNavigationItem label="Selected Item" selected />)
     const itemElement = screen.getByRole("button")
-    expect(itemElement).toHaveClass("selected")
+    expect(itemElement).toHaveClass("juno-sidenavigation-item-selected")
   })
 
-  it("renders Icon when icon prop is provided", () => {
+  it("renders an icon when icon prop is provided", () => {
     render(<SideNavigationItem label="Item with Icon" icon="home" />)
-    // Check for the icon presence, depending on how Icon renders
-    const iconElement = screen.getByRole("img") // Adjust role based on actual implementation
+    // Ensure the icon is correctly displayed
+    const iconElement = screen.getByRole("img", { hidden: true })
     expect(iconElement).toBeInTheDocument()
   })
 
