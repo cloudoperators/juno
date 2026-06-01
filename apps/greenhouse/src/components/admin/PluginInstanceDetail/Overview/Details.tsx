@@ -41,21 +41,25 @@ export const Details: React.FC<DetailsProps> = ({ plugin }) => {
           </DataGridRow>
           <DataGridRow>
             <DataGridHeadCell nowrap>PluginPreset</DataGridHeadCell>
-            <DataGridCell>{plugin.metadata?.labels?.["greenhouse.sap/pluginpreset"]}</DataGridCell>
+            <DataGridCell>{plugin.metadata?.labels?.["greenhouse.sap/pluginpreset"] ?? "--"}</DataGridCell>
           </DataGridRow>
           <DataGridRow>
             <DataGridHeadCell nowrap>Plugin Definition</DataGridHeadCell>
-            <DataGridCell>{plugin.spec?.pluginDefinitionRef?.name}</DataGridCell>
+            <DataGridCell>{plugin.spec?.pluginDefinitionRef?.name ?? "--"}</DataGridCell>
+          </DataGridRow>
+          <DataGridRow>
+            <DataGridHeadCell nowrap>Release Name</DataGridHeadCell>
+            <DataGridCell>{plugin?.spec?.releaseName ?? "--"}</DataGridCell>
           </DataGridRow>
           <DataGridRow>
             <DataGridHeadCell nowrap>Owning Team</DataGridHeadCell>
-            <DataGridCell>{plugin.metadata?.labels?.[SUPPORT_GROUP_LABEL]}</DataGridCell>
+            <DataGridCell>{plugin.metadata?.labels?.[SUPPORT_GROUP_LABEL] ?? "--"}</DataGridCell>
           </DataGridRow>
         </DataGrid>
         <DataGrid columns={2} minContentColumns={[0]} className="flex-1">
           <DataGridRow>
             <DataGridHeadCell nowrap>Cluster</DataGridHeadCell>
-            <DataGridCell>{plugin.spec?.clusterName}</DataGridCell>
+            <DataGridCell>{plugin.spec?.clusterName ?? "--"}</DataGridCell>
           </DataGridRow>
           {plugin.metadata?.labels && Object.keys(plugin.metadata.labels).length > 0 && (
             <DataGridRow>
