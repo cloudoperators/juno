@@ -37,7 +37,7 @@ export const DataRows = ({ colSpan }: DataRowsProps) => {
   })
 
   if (!pluginPresets || pluginPresets.length === 0) {
-    return <EmptyDataGridRow colSpan={colSpan}>No plugin presets found.</EmptyDataGridRow>
+    return <EmptyDataGridRow colSpan={colSpan}>No PluginPresets found.</EmptyDataGridRow>
   }
 
   const handleRowClick = (presetName: string) => {

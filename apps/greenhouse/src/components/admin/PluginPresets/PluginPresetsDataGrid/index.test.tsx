@@ -69,7 +69,7 @@ const renderComponent = async (mockPromise: Promise<MockPluginPresetsResponse | 
 }
 
 describe("PluginPresetsDataGrid", () => {
-  it("should render plugin presets", async () => {
+  it("should render PluginPresets", async () => {
     await renderComponent(new Promise<MockPluginPresetsResponse>((resolve) => resolve(mockPluginPresets)))
 
     // Check for column headers

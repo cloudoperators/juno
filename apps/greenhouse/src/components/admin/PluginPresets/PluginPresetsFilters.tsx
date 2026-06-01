@@ -99,7 +99,7 @@ export const PluginPresetsFilters = () => {
           variant="subdued"
         />
         <SearchInput
-          placeholder={`search term for plugin presets name`}
+          placeholder={`search term for PluginPresets name`}
           className="w-96 ml-auto"
           data-testid="searchbar"
           value={filterSettings.searchTerm}
