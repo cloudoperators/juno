@@ -40,14 +40,14 @@ describe("SideNavigationItem", () => {
     expect(linkElement).toHaveAttribute("href", href)
   })
 
-  it("toggles open state when clicked", () => {
+  test("toggles open state when clicked", () => {
     render(
       <SideNavigationItem label="Messages" open={false}>
         <SideNavigationItem label="Inbox" />
       </SideNavigationItem>
     )
 
-    const expandButton = screen.getAllByRole("button")[0]
+    const expandButton = screen.getByLabelText("Expand section")
     fireEvent.click(expandButton)
 
     const childElement = screen.getByText("Inbox")
