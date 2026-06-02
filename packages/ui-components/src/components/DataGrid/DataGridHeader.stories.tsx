@@ -338,7 +338,9 @@ export const FullyFeatured: Story = {
       <Stack gap="2" alignment="center">
         <Checkbox />
         <PopupMenu className="flex items-center">
-          <PopupMenuToggle {...({ as: Button, size: "xs", icon: "moreVert", label: "Actions" } as any)} />
+          <PopupMenuToggle as={React.Fragment}>
+            <Button icon="moreVert" title="More actions" />
+          </PopupMenuToggle>
           <PopupMenuOptions>
             <PopupMenuItem label="Download" />
             <PopupMenuItem label="Delete" />
