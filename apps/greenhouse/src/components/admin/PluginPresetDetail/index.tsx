@@ -55,7 +55,7 @@ export const PluginPresetDetail = () => {
   })
 
   const handleReconcile = useCallback(() => {
-    // Invalidate and refetch the plugin preset
+    // Invalidate and refetch the PluginPreset
     queryClient.invalidateQueries({ queryKey: [FETCH_PLUGIN_PRESET_CACHE_KEY, user.organization, pluginPresetName] })
   }, [queryClient, user.organization, pluginPresetName])
 
