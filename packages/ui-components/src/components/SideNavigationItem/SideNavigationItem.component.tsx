@@ -38,7 +38,6 @@ const leftStyles = `
 
 const disabledStyles = `
   jn:opacity-50
-  jn:cursor-not-allowed
 `
 
 export interface SideNavigationItemProps extends HTMLAttributes<HTMLElement> {
@@ -116,6 +115,7 @@ export const SideNavigationItem = ({
   const renderExpandButton = () =>
     children && typeof children !== "string" && Children.count(children) ? (
       <button
+        type="button"
         onClick={handleToggleOpen}
         aria-label={isOpen ? "Collapse section" : "Expand section"}
         disabled={disabled}
@@ -132,13 +132,6 @@ export const SideNavigationItem = ({
     </span>
   )
 
-  const renderItem = () => (
-    <div className="jn:flex jn:w-full jn:items-center jn:justify-between">
-      {renderLeft()}
-      {renderExpandButton()} {/* Aligning to the right end */}
-    </div>
-  )
-
   const combinedClassNames = `
     juno-sidenavigation-item
     ${sideNavItemStyles}
@@ -150,31 +143,35 @@ export const SideNavigationItem = ({
 
   return (
     <LevelContext.Provider value={level + 1}>
-      {href ? (
-        <a
-          aria-current={selected ? "page" : undefined}
-          aria-label={ariaLabel ? ariaLabel : undefined}
-          className={combinedClassNames}
-          href={!disabled ? href : undefined}
-          onClick={!disabled ? handleMainClick : undefined}
-          aria-disabled={disabled}
-          tabIndex={disabled ? -1 : undefined}
-          {...props}
-        >
-          {renderItem()}
-        </a>
-      ) : (
-        <button
-          aria-current={selected ? "page" : undefined}
-          aria-label={ariaLabel ? ariaLabel : undefined}
-          className={combinedClassNames}
-          onClick={!disabled ? handleMainClick : undefined}
-          disabled={disabled}
-          {...props}
-        >
-          {renderItem()}
-        </button>
-      )}
+      <div className="jn:flex jn:w-full jn:items-center jn:justify-between">
+        {href ? (
+          <a
+            aria-current={selected ? "page" : undefined}
+            aria-label={ariaLabel ? ariaLabel : undefined}
+            className={combinedClassNames}
+            href={!disabled ? href : undefined}
+            onClick={!disabled ? handleMainClick : undefined}
+            aria-disabled={disabled || undefined}
+            tabIndex={disabled ? -1 : undefined}
+            {...props}
+          >
+            {renderLeft()}
+          </a>
+        ) : (
+          <button
+            type="button"
+            aria-current={selected ? "page" : undefined}
+            aria-label={ariaLabel ? ariaLabel : undefined}
+            className={combinedClassNames}
+            onClick={!disabled ? handleMainClick : undefined}
+            disabled={disabled}
+            {...props}
+          >
+            {renderLeft()}
+          </button>
+        )}
+        {renderExpandButton()}
+      </div>
       {isOpen && typeof children !== "string" && children}
     </LevelContext.Provider>
   )

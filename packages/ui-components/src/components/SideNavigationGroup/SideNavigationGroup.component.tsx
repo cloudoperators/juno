@@ -54,11 +54,7 @@ export const SideNavigationGroup = ({ children, label = "", open = false }: Side
 
   const renderExpandButton = () =>
     children && Children.count(children) > 0 ? (
-      <button
-        onClick={handleToggleOpen}
-        className="expand-icon"
-        aria-label={isOpen ? "Collapse section" : "Expand section"}
-      >
+      <button type="button" onClick={handleToggleOpen} aria-label={isOpen ? "Collapse section" : "Expand section"}>
         <Icon size="24" icon={isOpen ? "expandMore" : "chevronRight"} />
       </button>
     ) : null

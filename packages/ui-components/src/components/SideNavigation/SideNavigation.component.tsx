@@ -23,12 +23,7 @@ const sideNavStyles = `
  * @see {@link SideNavigationProps}
  */
 
-export const SideNavigation = ({
-  ariaLabel,
-  children,
-  className = "",
-  ...props
-}: Omit<SideNavigationProps, "activeItem" | "disabled" | "onActiveItemChange">): ReactNode => {
+export const SideNavigation = ({ ariaLabel, children, className = "", ...props }: SideNavigationProps): ReactNode => {
   return (
     <Navigation ariaLabel={ariaLabel} className={`juno-sidenavigation ${sideNavStyles} ${className}`} {...props}>
       {children}
