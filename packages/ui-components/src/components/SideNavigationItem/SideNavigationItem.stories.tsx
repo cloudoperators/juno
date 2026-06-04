@@ -10,7 +10,7 @@ import { SideNavigationItem } from "./SideNavigationItem.component"
 import { KnownIconsEnum } from "../Icon/Icon.component"
 
 const meta: Meta<typeof SideNavigationItem> = {
-  title: "Navigation/SideNavigation/SideNavigationItem",
+  title: "Navigation/SideNavigation/Item",
   component: SideNavigationItem,
   argTypes: {
     icon: {
@@ -43,6 +43,13 @@ export const Default: Story = {
   args: {
     label: "Navigation Item",
   },
+  parameters: {
+    docs: {
+      description: {
+        story: "Displays a standard navigation item without additional attributes.",
+      },
+    },
+  },
 }
 
 export const Active: Story = {
@@ -50,13 +57,26 @@ export const Active: Story = {
     label: "Active Navigation Item",
     selected: true,
   },
+  parameters: {
+    docs: {
+      description: {
+        story: "Showcases an item that is marked as selected or active within its group.",
+      },
+    },
+  },
 }
 
 export const Disabled: Story = {
   args: {
-    label: "Active Navigation Item",
+    label: "Disabled Navigation Item",
     disabled: true,
-    href: "#",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Demonstrates a navigation item that is disabled and non-interactive.",
+      },
+    },
   },
 }
 
@@ -65,6 +85,13 @@ export const WithIcon: Story = {
     label: "Navigation Item With Icon",
     icon: "addCircle",
   },
+  parameters: {
+    docs: {
+      description: {
+        story: "Presents a navigation item that includes an icon for visual assistance.",
+      },
+    },
+  },
 }
 
 export const AsLink: Story = {
@@ -72,12 +99,26 @@ export const AsLink: Story = {
     label: "Navigation Item as Anchor",
     href: "#",
   },
+  parameters: {
+    docs: {
+      description: {
+        story: "Displays an item intended to function as a link within navigation.",
+      },
+    },
+  },
 }
 
 export const WithChildren: Story = {
   args: {
-    label: "itm-1",
+    label: "Item with Children",
     children: "Item 1",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Illustrates an item with children, showing nesting capabilities.",
+      },
+    },
   },
 }
 
@@ -103,7 +144,7 @@ export const Expandable: Story = {
     docs: {
       description: {
         story:
-          "Demonstrates an expandable SideNavigationItem with nested child items. Note: Styling is supported for three nested levels only (recommended). Beyond this, custom styling is required.",
+          "Demonstrates an expandable SideNavigationItem with nested child items. Note that styling support is provided for three nested levels only.",
       },
     },
   },
@@ -129,7 +170,7 @@ export const ExpandableWithIcon: Story = {
     docs: {
       description: {
         story:
-          "Demonstrates an expandable SideNavigationItem with nested child items with icon. Note: Only the first level can contain an icon.",
+          "Illustrates an expandable navigation item with children and an icon, noting that only the first level can include an icon.",
       },
     },
   },
@@ -137,7 +178,7 @@ export const ExpandableWithIcon: Story = {
 
 export const DisabledWithExpandable: Story = {
   args: {
-    label: "1st Level Item",
+    label: "Disabled Expandable Item",
     icon: "error",
     disabled: true,
     children: (
@@ -154,7 +195,7 @@ export const DisabledWithExpandable: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Demonstrates an expandable SideNavigationItem with nested child items with icons.",
+        story: "Displays an expandable navigation item in a disabled state with nested children.",
       },
     },
   },
