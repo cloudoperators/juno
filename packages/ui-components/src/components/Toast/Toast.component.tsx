@@ -21,18 +21,18 @@ const toastStylesText = `
 `
 
 // get the appropriate icon for messasge tyope by MUI name:
-const getMuiIcon = (messageType: IconType) => {
-  switch (messageType) {
+const getMuiIcon = (variant: ToastVariant) => {
+  switch (variant) {
     case "error":
       return "dangerous"
     default:
-      return messageType
+      return variant
   }
 }
-type IconType = "info" | "warning" | "danger" | "error" | "success"
+export type ToastVariant = "info" | "warning" | "danger" | "error" | "success"
 export interface ToastProps extends HTMLAttributes<HTMLDivElement> {
   /** Specify a semantic variant */
-  variant?: IconType
+  variant?: ToastVariant
   /** Pass child nodes to be rendered as contents */
   children?: ReactNode
   /** Pass an optional text */

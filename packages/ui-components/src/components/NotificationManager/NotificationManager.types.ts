@@ -4,12 +4,13 @@
  */
 import type { CSSProperties, ReactNode } from "react"
 import { toast as sonnerToast } from "sonner"
+import type { ToastVariant } from "../Toast"
 
-export type ToastMessage = (() => ReactNode) | ReactNode
+type ToastMessage = (() => ReactNode) | ReactNode
 type ToastId = string | number
 export type ToastHandler = (_message: ToastMessage, _data?: NotificationOptions) => ToastId
 
-export type ToastVariants = "info" | "success" | "warning" | "error" | "danger"
+export type { ToastVariant }
 export type ToastPosition = "top-left" | "top-right" | "bottom-left" | "bottom-right" | "top-center" | "bottom-center"
 
 type ToastAction = {
@@ -17,7 +18,7 @@ type ToastAction = {
   onClick: () => void
   actionButtonStyle?: CSSProperties
 }
-export type NotificationOptions = {
+type NotificationOptions = {
   id?: ToastId
   toasterId?: string
   duration?: number
@@ -44,7 +45,5 @@ export type NotificationToast = ToastHandler &
     danger: ToastHandler
   }
 
-export type SonnerCustomToast = (_content: (_id: ToastId) => ReactNode, _options?: NotificationOptions) => ToastId
-
-// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-export const customToast = (sonnerToast as any).custom as SonnerCustomToast
+type SonnerCustomToast = (_content: (_id: ToastId) => ReactNode, _options?: NotificationOptions) => ToastId
+export const customToast = sonnerToast.custom as unknown as SonnerCustomToast

@@ -5,7 +5,7 @@
 
 import React from "react"
 import { Toaster, toast as sonnerToast } from "sonner"
-import { customToast, NotificationToast, ToastHandler, ToastPosition, ToastVariants } from "./NotificationManager.types"
+import { customToast, NotificationToast, ToastHandler, ToastPosition, ToastVariant } from "./NotificationManager.types"
 import { Toast } from "../Toast"
 
 /**
@@ -130,14 +130,14 @@ export const NotificationManager = ({
   ...props
 }: NotificationManagerProps) => (
   <Toaster
-    id={id}
     expand
-    className="juno-notification-manager jn:font-sans"
+    id={id}
     closeButton={dismissible}
     duration={duration}
     visibleToasts={visibleToasts}
     position={position}
     toastOptions={{ classNames: { toast: "juno-toast jn:font-sans" } }}
+    className="juno-notification-manager jn:font-sans"
     {...props}
   />
 )
@@ -154,7 +154,7 @@ export const NotificationManager = ({
  * The incoming message/description can be values or lazy functions; both are
  * normalized before rendering into the custom toast body.
  */
-const createSemanticToast = (variant: ToastVariants): ToastHandler => {
+const createSemanticToast = (variant: ToastVariant): ToastHandler => {
   return (message, data) => {
     const title = typeof message === "function" ? message() : message
     const description = typeof data?.description === "function" ? data.description() : data?.description
@@ -194,7 +194,7 @@ const semanticToasts = {
   warning: createSemanticToast("warning"),
   error: createSemanticToast("error"),
   danger: createSemanticToast("danger"),
-} satisfies Record<ToastVariants, ToastHandler>
+} satisfies Record<ToastVariant, ToastHandler>
 
 const baseToast: ToastHandler = (message, data) => semanticToasts.info(message, data)
 export const toast = Object.assign(baseToast, sonnerToast, semanticToasts) as NotificationToast

@@ -5,6 +5,7 @@
 
 import * as React from "react"
 import { cleanup, render, screen, waitFor } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 import { NotificationManager, toast } from "./index"
 
 describe("NotificationManager", () => {
@@ -74,6 +75,85 @@ describe("NotificationManager", () => {
 
     await waitFor(() => {
       expect(screen.getAllByText("Only manager B should show this")).toHaveLength(1)
+    })
+  })
+
+  test("closes toast when close button is clicked", async () => {
+    render(<NotificationManager id="close-btn-test" />)
+
+    toast.info("Close me", { toasterId: "close-btn-test", duration: 100000 })
+
+    await waitFor(() => {
+      expect(screen.getByText("Close me")).toBeInTheDocument()
+    })
+
+    await userEvent.click(screen.getByTitle("Close"))
+
+    await waitFor(() => {
+      expect(screen.queryByText("Close me")).not.toBeInTheDocument()
+    })
+  })
+
+  test("fires onDismiss when close button is clicked", async () => {
+    const handleDismiss = vi.fn()
+    render(<NotificationManager id="ondismiss-test" />)
+
+    toast.info("Dismiss callback toast", {
+      toasterId: "ondismiss-test",
+      duration: 100000,
+      onDismiss: handleDismiss,
+    })
+
+    await waitFor(() => {
+      expect(screen.getByText("Dismiss callback toast")).toBeInTheDocument()
+    })
+
+    await userEvent.click(screen.getByTitle("Close"))
+
+    await waitFor(() => {
+      expect(handleDismiss).toHaveBeenCalledTimes(1)
+    })
+  })
+
+  test("fires onAutoClose after duration expires", async () => {
+    const handleAutoClose = vi.fn()
+    render(<NotificationManager id="autoclose-test" />)
+
+    toast.info("Auto-close toast", {
+      toasterId: "autoclose-test",
+      duration: 100,
+      onAutoClose: handleAutoClose,
+    })
+
+    await waitFor(() => {
+      expect(screen.getByText("Auto-close toast")).toBeInTheDocument()
+    })
+
+    await waitFor(() => expect(handleAutoClose).toHaveBeenCalledTimes(1), { timeout: 2000 })
+  })
+
+  test("toast() without variant renders as info", async () => {
+    render(<NotificationManager id="default-variant-test" />)
+
+    toast("Default variant toast", { toasterId: "default-variant-test" })
+
+    await waitFor(() => {
+      expect(screen.getByText("Default variant toast")).toBeInTheDocument()
+      expect(document.querySelector(".juno-toast-info")).toBeInTheDocument()
+    })
+  })
+
+  test("renders toast with lazy message and description functions", async () => {
+    render(<NotificationManager id="lazy-test" />)
+
+    toast.warning(() => "Lazy title", {
+      toasterId: "lazy-test",
+      description: () => "Lazy description",
+    })
+
+    await waitFor(() => {
+      expect(screen.getByText("Lazy title")).toBeInTheDocument()
+      expect(screen.getByText("Lazy description")).toBeInTheDocument()
     })
   })
 })

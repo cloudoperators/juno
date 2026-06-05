@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -20,7 +20,7 @@ describe("Toast", () => {
     expect(screen.getByTitle("Info")).toBeInTheDocument()
   })
 
-  test("render an warning toast", () => {
+  test("render a warning toast", () => {
     render(<Toast data-testid="my-toast" variant="warning" />)
     expect(screen.getByTestId("my-toast")).toBeInTheDocument()
     expect(screen.getByTitle("Warning")).toBeInTheDocument()
@@ -38,7 +38,7 @@ describe("Toast", () => {
     expect(screen.getByTitle("Dangerous")).toBeInTheDocument()
   })
 
-  test("render an danger toas", () => {
+  test("renders a danger toast", () => {
     render(<Toast data-testid="my-toast" variant={"danger"} />)
     expect(screen.getByTestId("my-toast")).toBeInTheDocument()
     expect(screen.getByTitle("Danger")).toBeInTheDocument()
@@ -80,8 +80,13 @@ describe("Toast", () => {
     expect(screen.getByTestId("my-toast")).toHaveClass("my-custom-class")
   })
 
-  test("renders all props as passed", () => {
-    render(<Toast data-testid="my-toast" id="my-shiny-little-message" />)
-    expect(screen.getByTestId("my-toast")).toHaveAttribute("id", "my-shiny-little-message")
+  test("renders children over text when both are provided", () => {
+    render(
+      <Toast data-testid="my-toast" text="fallback text">
+        <span>children content</span>
+      </Toast>
+    )
+    expect(screen.getByText("children content")).toBeInTheDocument()
+    expect(screen.queryByText("fallback text")).not.toBeInTheDocument()
   })
 })
