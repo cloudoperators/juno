@@ -28,6 +28,12 @@ describe("ContentContainer", () => {
     expect(screen.getByTestId("content-container")).toHaveClass("jn:grow")
   })
 
+  test("renders a content container with min-w-0 so flex children can shrink correctly", () => {
+    render(<ContentContainer data-testid="content-container" />)
+    expect(screen.getByTestId("content-container")).toBeInTheDocument()
+    expect(screen.getByTestId("content-container")).toHaveClass("jn:min-w-0")
+  })
+
   test("renders without any props", () => {
     render(<ContentContainer data-testid="content-container" />)
     expect(screen.getByTestId("content-container")).toBeInTheDocument()
