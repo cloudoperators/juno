@@ -130,13 +130,13 @@ export const NotificationManager = ({
 }: NotificationManagerProps) => (
   <Toaster
     expand
-    className="juno-notification-manager"
+    className="juno-notification-manager jn:font-sans"
     closeButton={dismissible}
     duration={duration}
     visibleToasts={visibleToasts}
     position={position}
     toastOptions={{
-      classNames: { toast: "juno-toast" },
+      classNames: { toast: "juno-toast jn:font-sans" },
     }}
     {...props}
   />
