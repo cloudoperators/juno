@@ -18,6 +18,7 @@ const STORY_TOASTER_IDS = {
   modal: "nm-story-modal",
   shadowRootOff: "nm-story-shadow-root-off",
   shadowRootOn: "nm-story-shadow-root-on",
+  infinite: "nm-story-infinite",
 } as const
 
 const meta: Meta<typeof NotificationManager> = {
@@ -250,5 +251,45 @@ export const ShadowRootTrue: Story = {
         <NotificationManager {...args} id={STORY_TOASTER_IDS.shadowRootOn} />
       </div>
     </AppShellProvider>
+  ),
+}
+
+export const InfiniteDuration: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Notifications can be created with infinite duration by passing Infinity. These notifications stay visible until manually dismissed by the user, useful for critical alerts or persistent messages that require explicit action.",
+      },
+    },
+  },
+  args: {
+    dismissible: true,
+    duration: Infinity,
+    visibleToasts: 3,
+    position: "bottom-right",
+  },
+  render: (args) => (
+    <div className="jn:flex jn:flex-wrap jn:gap-2">
+      <Button
+        label="Critical Alert (no auto-close)"
+        onClick={() => {
+          toast.error("This notification will stay visible indefinitely", {
+            description: "Only dismissible by clicking the close button.",
+            toasterId: STORY_TOASTER_IDS.infinite,
+          })
+        }}
+      />
+      <Button
+        label="Info (no auto-close)"
+        onClick={() => {
+          toast.info("Important information", {
+            description: "Duration is set to Infinity, so it persists until dismissed.",
+            toasterId: STORY_TOASTER_IDS.infinite,
+          })
+        }}
+      />
+      <NotificationManager {...args} id={STORY_TOASTER_IDS.infinite} />
+    </div>
   ),
 }
