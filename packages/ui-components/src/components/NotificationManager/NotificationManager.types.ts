@@ -13,7 +13,7 @@ export type ToastVariants = "info" | "success" | "warning" | "error" | "danger"
 export type ToastPosition = "top-left" | "top-right" | "bottom-left" | "bottom-right" | "top-center" | "bottom-center"
 
 type ToastAction = {
-  label: React.ReactNode
+  label: ReactNode
   onClick: () => void
   actionButtonStyle?: CSSProperties
 }
@@ -23,13 +23,13 @@ export type NotificationOptions = {
   duration?: number
   closeButton?: boolean
   dismissible?: boolean
-  description?: (() => React.ReactNode) | React.ReactNode
-  action?: ToastAction | React.ReactNode
-  cancel?: ToastAction | React.ReactNode
+  description?: (() => ReactNode) | ReactNode
+  action?: ToastAction | ReactNode
+  cancel?: ToastAction | ReactNode
   onDismiss?: () => void
   onAutoClose?: () => void
   onClick?: () => void
-  style?: React.CSSProperties
+  style?: CSSProperties
   className?: string
   descriptionClassName?: string
   position?: ToastPosition
@@ -44,10 +44,10 @@ export type NotificationToast = ToastHandler &
     danger: ToastHandler
   }
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 export type SonnerCustomToast = (
-  _content: (_t: { dismiss: () => void; id: ToastId }) => React.ReactNode,
+  _content: (_t: { dismiss: () => void; id: ToastId }) => ReactNode,
   _options?: NotificationOptions
 ) => ToastId
+
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 export const customToast = (sonnerToast as any).custom as SonnerCustomToast

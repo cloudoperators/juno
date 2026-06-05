@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Meta, StoryObj } from "@storybook/react-vite"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { NotificationManager, toast } from "./index"
 import { PortalProvider } from "../PortalProvider"

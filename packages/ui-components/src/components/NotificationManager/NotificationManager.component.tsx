@@ -159,7 +159,6 @@ const createSemanticToast = (variant: ToastVariants): ToastHandler => {
     const title = typeof message === "function" ? message() : message
     const description = typeof data?.description === "function" ? data.description() : data?.description
 
-    // const { description: _description, ...customOptions } = data || {}
     const { description: _description, ...options } = data ?? {}
 
     // Use Sonner's custom renderer but keep dismissal bound to Sonner toast id.
