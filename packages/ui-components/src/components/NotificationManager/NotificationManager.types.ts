@@ -44,10 +44,7 @@ export type NotificationToast = ToastHandler &
     danger: ToastHandler
   }
 
-export type SonnerCustomToast = (
-  _content: (_t: { dismiss: () => void; id: ToastId }) => ReactNode,
-  _options?: NotificationOptions
-) => ToastId
+export type SonnerCustomToast = (_content: (_id: ToastId) => ReactNode, _options?: NotificationOptions) => ToastId
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 export const customToast = (sonnerToast as any).custom as SonnerCustomToast

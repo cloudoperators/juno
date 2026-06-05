@@ -163,8 +163,8 @@ const createSemanticToast = (variant: ToastVariants): ToastHandler => {
 
     // Use Sonner's custom renderer but keep dismissal bound to Sonner toast id.
     return customToast(
-      ({ dismiss }) => (
-        <Toast variant={variant} onDismiss={dismiss}>
+      (id) => (
+        <Toast variant={variant} onDismiss={() => sonnerToast.dismiss(id)}>
           <div className="jn:flex jn:flex-col jn:gap-1">
             <div>{title}</div>
             {description ? <div className="jn:text-theme-medium">{description}</div> : null}

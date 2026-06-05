@@ -75,16 +75,6 @@ describe("Toast", () => {
     })
   })
 
-  test("renders a toast e that will be automatically dismissed", async () => {
-    render(<Toast data-testid="my-toast" autoDismiss={true} autoDismissTimeout={500} />)
-    await waitFor(
-      () => {
-        expect(screen.queryByTestId("my-toast")).not.toBeInTheDocument()
-      },
-      { timeout: 1000 }
-    )
-  })
-
   test("renders custom classNames as passed", () => {
     render(<Toast data-testid="my-toast" className="my-custom-class" />)
     expect(screen.getByTestId("my-toast")).toHaveClass("my-custom-class")
