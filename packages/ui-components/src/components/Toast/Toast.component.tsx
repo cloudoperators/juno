@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -54,23 +54,14 @@ export interface ToastProps extends HTMLAttributes<HTMLDivElement> {
  * @see https://cloudoperators.github.io/juno/?path=/docs/wip-toast--docs
  * @see {@link ToastProps}
  */
-export const Toast = ({
-  variant = "info",
-  children,
-  text = "",
-  onDismiss,
-  className = "",
-  ...props
-}: ToastProps): ReactNode => {
-  return (
-    <div className={`juno-toast juno-toast-${variant} ${toastStyles} ${className}`} {...props}>
-      <Icon icon={getMuiIcon(variant)} color={"jn:text-theme-" + variant} className="jn:shrink-0" />
-      <div className={`juno-toast-text ${toastStylesText}`}>{children ? children : text}</div>
-      <Icon
-        icon="close"
-        onClick={onDismiss}
-        className="juno-message-close-button jn:opacity-50 jn:hover:opacity-100 jn:shrink-0"
-      />
-    </div>
-  )
-}
+export const Toast = ({ variant = "info", children, text = "", onDismiss, className = "", ...props }: ToastProps) => (
+  <div className={`juno-toast juno-toast-${variant} ${toastStyles} ${className}`} {...props}>
+    <Icon icon={getMuiIcon(variant)} color={"jn:text-theme-" + variant} className="jn:shrink-0" />
+    <div className={`juno-toast-text ${toastStylesText}`}>{children ? children : text}</div>
+    <Icon
+      icon="close"
+      onClick={onDismiss}
+      className="juno-message-close-button jn:opacity-50 jn:hover:opacity-100 jn:shrink-0"
+    />
+  </div>
+)

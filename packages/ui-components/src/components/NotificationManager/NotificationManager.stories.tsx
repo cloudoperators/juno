@@ -19,6 +19,7 @@ const STORY_TOASTER_IDS = {
   shadowRootOff: "nm-story-shadow-root-off",
   shadowRootOn: "nm-story-shadow-root-on",
   infinite: "nm-story-infinite",
+  callbacks: "nm-story-callbacks",
 } as const
 
 const meta: Meta<typeof NotificationManager> = {
@@ -270,18 +271,9 @@ export const InfiniteDuration: Story = {
     position: "bottom-right",
   },
   render: (args) => (
-    <div className="jn:flex jn:flex-wrap jn:gap-2">
+    <>
       <Button
         label="Critical Alert (no auto-close)"
-        onClick={() => {
-          toast.error("This notification will stay visible indefinitely", {
-            description: "Only dismissible by clicking the close button.",
-            toasterId: STORY_TOASTER_IDS.infinite,
-          })
-        }}
-      />
-      <Button
-        label="Info (no auto-close)"
         onClick={() => {
           toast.info("Important information", {
             description: "Duration is set to Infinity, so it persists until dismissed.",
@@ -290,6 +282,59 @@ export const InfiniteDuration: Story = {
         }}
       />
       <NotificationManager {...args} id={STORY_TOASTER_IDS.infinite} />
+    </>
+  ),
+}
+
+export const DismissCallbacks: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Individual notifications can receive lifecycle callbacks via toast options. `onDismiss` fires when the user manually closes the toast, `onAutoClose` fires when it expires after its duration. Check the browser console to see the callbacks firing.",
+      },
+    },
+  },
+  args: {
+    dismissible: true,
+    duration: 4000,
+    visibleToasts: 3,
+    position: "bottom-right",
+  },
+  render: (args) => (
+    <div className="jn:flex jn:flex-wrap jn:gap-2">
+      <Button
+        label="With onDismiss"
+        onClick={() => {
+          toast.info("Dismiss me manually", {
+            description: "Click the close button — check the console.",
+            toasterId: STORY_TOASTER_IDS.callbacks,
+            onDismiss: () => console.log("onDismiss fired"),
+          })
+        }}
+      />
+      <Button
+        label="With onAutoClose"
+        onClick={() => {
+          toast.success("Wait for auto-close", {
+            description: "Will auto-close after 4s — check the console.",
+            toasterId: STORY_TOASTER_IDS.callbacks,
+            onAutoClose: () => console.log("onAutoClose fired"),
+          })
+        }}
+      />
+      <Button
+        label="With both callbacks"
+        onClick={() => {
+          toast.warning("Dismiss or wait", {
+            description: "Either action logs to the console.",
+            toasterId: STORY_TOASTER_IDS.callbacks,
+            onDismiss: () => console.log("onDismiss fired"),
+            onAutoClose: () => console.log("onAutoClose fired"),
+          })
+        }}
+      />
+      <NotificationManager {...args} id={STORY_TOASTER_IDS.callbacks} />
     </div>
   ),
 }

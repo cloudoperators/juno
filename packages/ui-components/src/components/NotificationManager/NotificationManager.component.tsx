@@ -122,6 +122,7 @@ export interface NotificationManagerProps {
  * @see https://sonner.emilkowal.ski/
  */
 export const NotificationManager = ({
+  id,
   dismissible = true,
   duration = 4000,
   visibleToasts = 3,
@@ -129,15 +130,14 @@ export const NotificationManager = ({
   ...props
 }: NotificationManagerProps) => (
   <Toaster
+    id={id}
     expand
     className="juno-notification-manager jn:font-sans"
     closeButton={dismissible}
     duration={duration}
     visibleToasts={visibleToasts}
     position={position}
-    toastOptions={{
-      classNames: { toast: "juno-toast jn:font-sans" },
-    }}
+    toastOptions={{ classNames: { toast: "juno-toast jn:font-sans" } }}
     {...props}
   />
 )
