@@ -1,5 +1,15 @@
 # @cloudoperators/juno-ui-components
 
+## 7.0.0
+
+### Major Changes
+
+- f401418: Fix issues in `SideNavigation`,`SideNavigationItem` and `SideNavigationGroup`:
+  - Removed `disabled` prop from SideNavigation (BREAKING CHANGE)
+  - Removed `activeItem` and `onActiveItemChange` prop from SideNavigation (BREAKING CHANGE)
+  - Removed `disabled` prop from SidenavigationGroup (BREAKING CHANGE)
+  - Fixed multiple issues in all components
+
 ## 6.5.0
 
 ### Minor Changes
