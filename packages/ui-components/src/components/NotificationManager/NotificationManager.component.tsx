@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { useEffect } from "react"
 import { Toaster, toast as sonnerToast } from "sonner"
 import { customToast, NotificationToast, ToastHandler, ToastPosition, ToastVariant } from "./NotificationManager.types"
 import { Toast } from "../Toast"
@@ -13,6 +13,9 @@ import { Toast } from "../Toast"
 // manager-level default when a toast() call does not specify dismissible/closeButton.
 // A module-level Map is used because toast() is a singleton with no access to
 // component props — this is the only way to bridge manager config into the renderer.
+// Id-less managers are registered under DEFAULT_MANAGER_KEY so that toast() calls
+// without a toasterId also respect the manager-level dismissible setting.
+const DEFAULT_MANAGER_KEY = ""
 const managerDismissibleRegistry = new Map<string, boolean>()
 
 /**
@@ -136,7 +139,17 @@ export const NotificationManager = ({
   position = "bottom-right",
   ...props
 }: NotificationManagerProps) => {
-  if (id !== undefined) managerDismissibleRegistry.set(id, dismissible)
+  const registryKey = id ?? DEFAULT_MANAGER_KEY
+  managerDismissibleRegistry.set(registryKey, dismissible)
+
+  // Remove this manager's entry when it unmounts to prevent stale config
+  // from affecting future toast() calls that share the same key.
+  useEffect(
+    () => () => {
+      managerDismissibleRegistry.delete(registryKey)
+    },
+    [registryKey]
+  )
 
   return (
     <Toaster
@@ -175,7 +188,7 @@ const createSemanticToast = (variant: ToastVariant): ToastHandler => {
     const isDismissible =
       (data?.dismissible ??
         data?.closeButton ??
-        (data?.toasterId !== undefined ? managerDismissibleRegistry.get(data.toasterId) : undefined) ??
+        managerDismissibleRegistry.get(data?.toasterId ?? DEFAULT_MANAGER_KEY) ??
         true) !== false
 
     // Use Sonner's custom renderer but keep dismissal bound to Sonner toast id.
@@ -188,7 +201,7 @@ const createSemanticToast = (variant: ToastVariant): ToastHandler => {
           </div>
         </Toast>
       ),
-      options
+      { ...options, dismissible: isDismissible }
     )
   }
 }

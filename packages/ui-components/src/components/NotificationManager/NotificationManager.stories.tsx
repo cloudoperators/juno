@@ -20,6 +20,8 @@ const STORY_TOASTER_IDS = {
   shadowRootOn: "nm-story-shadow-root-on",
   infinite: "nm-story-infinite",
   callbacks: "nm-story-callbacks",
+  nonDismissible: "nm-story-non-dismissible",
+  perToastDismissible: "nm-story-per-toast-dismissible",
 } as const
 
 const meta: Meta<typeof NotificationManager> = {
@@ -335,6 +337,78 @@ export const DismissCallbacks: Story = {
         }}
       />
       <NotificationManager {...args} id={STORY_TOASTER_IDS.callbacks} />
+    </div>
+  ),
+}
+
+export const ManagerLevelNonDismissible: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "When `dismissible={false}` is set on NotificationManager, all toasts rendered by that instance have no close icon and cannot be manually dismissed. They will disappear only after their duration expires.",
+      },
+    },
+  },
+  args: {
+    dismissible: false,
+    duration: 4000,
+    visibleToasts: 3,
+    position: "bottom-right",
+  },
+  render: (args) => (
+    <div className="jn:flex jn:flex-wrap jn:gap-2">
+      <Button
+        label="Show non-dismissible toast"
+        onClick={() => {
+          toast.warning("This toast has no close button", {
+            description: "Manager-level dismissible={false} — wait for auto-close.",
+            toasterId: STORY_TOASTER_IDS.nonDismissible,
+          })
+        }}
+      />
+      <NotificationManager {...args} id={STORY_TOASTER_IDS.nonDismissible} />
+    </div>
+  ),
+}
+
+export const PerToastDismissibleOverride: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Individual `toast()` calls can override the manager-level `dismissible` setting. Here the manager defaults to `dismissible={false}`, but one specific toast passes `dismissible: true` to opt back in to manual dismissal.",
+      },
+    },
+  },
+  args: {
+    dismissible: false,
+    duration: 8000,
+    visibleToasts: 3,
+    position: "bottom-right",
+  },
+  render: (args) => (
+    <div className="jn:flex jn:flex-wrap jn:gap-2">
+      <Button
+        label="Non-dismissible (manager default)"
+        onClick={() => {
+          toast.error("No close button — manager default", {
+            description: "Inherits dismissible={false} from the manager.",
+            toasterId: STORY_TOASTER_IDS.perToastDismissible,
+          })
+        }}
+      />
+      <Button
+        label="Dismissible (per-toast override)"
+        onClick={() => {
+          toast.success("Has close button — per-toast override", {
+            description: "Passes dismissible: true, overriding the manager.",
+            toasterId: STORY_TOASTER_IDS.perToastDismissible,
+            dismissible: true,
+          })
+        }}
+      />
+      <NotificationManager {...args} id={STORY_TOASTER_IDS.perToastDismissible} />
     </div>
   ),
 }

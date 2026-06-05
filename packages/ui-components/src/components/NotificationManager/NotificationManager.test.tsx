@@ -15,6 +15,11 @@ describe("NotificationManager", () => {
     Element.prototype.releasePointerCapture = vi.fn()
   })
 
+  afterAll(() => {
+    delete (Element.prototype as Partial<Element>).setPointerCapture
+    delete (Element.prototype as Partial<Element>).releasePointerCapture
+  })
+
   afterEach(() => {
     toast.dismiss()
     cleanup()
@@ -161,5 +166,79 @@ describe("NotificationManager", () => {
       expect(screen.getByText("Lazy title")).toBeInTheDocument()
       expect(screen.getByText("Lazy description")).toBeInTheDocument()
     })
+  })
+
+  test("hides close icon when manager-level dismissible is false", async () => {
+    render(<NotificationManager id="manager-non-dismissible-test" dismissible={false} />)
+
+    toast.info("Non-dismissible toast", {
+      toasterId: "manager-non-dismissible-test",
+      duration: 100000,
+    })
+
+    await waitFor(() => {
+      expect(screen.getByText("Non-dismissible toast")).toBeInTheDocument()
+    })
+
+    expect(screen.queryByTitle("Close")).not.toBeInTheDocument()
+  })
+
+  test("shows close icon when per-toast dismissible overrides manager-level false", async () => {
+    render(<NotificationManager id="per-toast-override-test" dismissible={false} />)
+
+    toast.info("Override toast", {
+      toasterId: "per-toast-override-test",
+      duration: 100000,
+      dismissible: true,
+    })
+
+    await waitFor(() => {
+      expect(screen.getByText("Override toast")).toBeInTheDocument()
+    })
+
+    expect(screen.getByTitle("Close")).toBeInTheDocument()
+  })
+
+  test("hides close icon when per-toast dismissible is false and manager allows dismissal", async () => {
+    render(<NotificationManager id="per-toast-non-dismissible-test" dismissible={true} />)
+
+    toast.info("Per-toast non-dismissible", {
+      toasterId: "per-toast-non-dismissible-test",
+      duration: 100000,
+      dismissible: false,
+    })
+
+    await waitFor(() => {
+      expect(screen.getByText("Per-toast non-dismissible")).toBeInTheDocument()
+    })
+
+    expect(screen.queryByTitle("Close")).not.toBeInTheDocument()
+  })
+
+  test("hides close icon for id-less manager with dismissible={false} and toast() without toasterId", async () => {
+    render(<NotificationManager dismissible={false} />)
+
+    toast.info("No id manager toast", { duration: 100000 })
+
+    await waitFor(() => {
+      expect(screen.getByText("No id manager toast")).toBeInTheDocument()
+    })
+
+    expect(screen.queryByTitle("Close")).not.toBeInTheDocument()
+  })
+
+  test("restores close icon after non-dismissible manager unmounts and dismissible manager mounts", async () => {
+    const { unmount } = render(<NotificationManager dismissible={false} />)
+    unmount()
+
+    render(<NotificationManager dismissible={true} />)
+
+    toast.info("After remount toast", { duration: 100000 })
+
+    await waitFor(() => {
+      expect(screen.getByText("After remount toast")).toBeInTheDocument()
+    })
+
+    expect(screen.getByTitle("Close")).toBeInTheDocument()
   })
 })
