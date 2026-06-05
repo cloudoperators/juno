@@ -9,6 +9,12 @@ import userEvent from "@testing-library/user-event"
 import { NotificationManager, toast } from "./index"
 
 describe("NotificationManager", () => {
+  beforeAll(() => {
+    // jsdom does not implement pointer capture APIs used by Sonner's drag-to-dismiss handler
+    Element.prototype.setPointerCapture = vi.fn()
+    Element.prototype.releasePointerCapture = vi.fn()
+  })
+
   afterEach(() => {
     toast.dismiss()
     cleanup()
