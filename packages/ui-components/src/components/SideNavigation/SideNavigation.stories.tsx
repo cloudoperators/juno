@@ -11,7 +11,7 @@ import { SideNavigationList } from "../SideNavigationList/SideNavigationList.com
 import { SideNavigationGroup } from "../SideNavigationGroup/SideNavigationGroup.component"
 
 const meta: Meta<typeof SideNavigation> = {
-  title: "Navigation/SideNavigation/SideNavigation",
+  title: "Navigation/SideNavigation/Default",
   component: SideNavigation,
   decorators: [
     (Story) => (
@@ -37,7 +37,7 @@ export const Default: Story = {
   render: (args) => (
     <SideNavigation {...args}>
       <SideNavigationList>
-        <SideNavigationItem label="Home" href="/" />
+        <SideNavigationItem label="Home" href="#" />
         <SideNavigationItem label="Messages">
           <SideNavigationItem label="Inbox" />
           <SideNavigationItem label="Sent Items" />
@@ -82,34 +82,6 @@ export const NavigationWithGroups: Story = {
     docs: {
       description: {
         story: "Demonstrates a SideNavigation with nested lists and groups, showing hierarchical navigation structure.",
-      },
-    },
-  },
-}
-
-export const InteractiveNavigation: Story = {
-  render: (args) => (
-    <SideNavigation {...args} onActiveItemChange={(item) => console.log("Active item changed:", item)}>
-      <SideNavigationList>
-        <SideNavigationItem label="Dashboard" href="/" />
-        <SideNavigationItem label="Settings" icon="search">
-          <SideNavigationItem label="Profile" />
-          <SideNavigationItem label="Preferences" />
-        </SideNavigationItem>
-        <SideNavigationGroup label="Project Management">
-          <SideNavigationItem label="Overview" />
-          <SideNavigationItem label="Analytics">
-            <SideNavigationItem label="Reports" />
-            <SideNavigationItem label="Statistics" selected />
-          </SideNavigationItem>
-        </SideNavigationGroup>
-      </SideNavigationList>
-    </SideNavigation>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: "An interactive navigation setup that logs active item changes.",
       },
     },
   },

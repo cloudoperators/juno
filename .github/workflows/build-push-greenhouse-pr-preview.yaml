@@ -16,11 +16,14 @@
 # 2. PR-Build label already exists
 # 3. Action removes PR-Preview label (ArgoCD deletes the app)
 # 4. Action builds new Docker image with new tag pr-{number}-{new-sha}
-# 5. Action sets PR-Preview label back (ArgoCD redeploys after 2-3 mins)
+# 5. Action sets PR-Preview label back during build-and-push
+#    (ArgoCD redeploys after 2-3 mins)
+# 6. Action deletes old Docker images for this PR afterward via cleanup-old-images
+#    (keeps only the latest)
 #
 # On PR close/merge:
 # 1. PR is closed or merged
-# 2. Action deletes all Docker images matching pr-{number}-*
+# 2. Action deletes all remaining Docker images matching pr-{number}-*
 # 3. Action removes PR-Preview label
 # 4. Sends Slack notification on failure
 
@@ -57,6 +60,9 @@ jobs:
           github.event.label.name == 'greenhouse-pr-build'
       )
     runs-on: ubuntu-latest
+    outputs:
+      image-built: ${{ steps.build-image.outcome == 'success' }}
+      pr-version: ${{ steps.pr-version.outputs.PR_VERSION }}
     permissions:
       contents: read
       packages: write
@@ -128,7 +134,7 @@ jobs:
 
       - name: Log into registry ${{ env.REGISTRY }}
         if: steps.check-label.outputs.should-build == 'true'
-        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
+        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -137,7 +143,7 @@ jobs:
       - name: Generate Docker metadata
         if: steps.check-label.outputs.should-build == 'true'
         id: meta
-        uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5.10.0
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
         with:
           images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
           tags: |
@@ -149,7 +155,7 @@ jobs:
       - name: Build and push Docker image
         if: steps.check-label.outputs.should-build == 'true'
         id: build-image
-        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
+        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f # v7.1.0
         with:
           context: .
           push: true
@@ -169,6 +175,20 @@ jobs:
               labels: ['${{ env.PR_PREVIEW_LABEL }}']
             });
 
+  cleanup-old-images:
+    name: Cleanup Old PR Images
+    needs: build-and-push
+    if: needs.build-and-push.outputs.image-built == 'true'
+    permissions:
+      packages: write
+    uses: cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml@d138f9922c75ed1e1ad3ae3bfb68dd8ae3284dc6 # main
+    with:
+      runs-on: ubuntu-latest
+      package: juno-app-greenhouse-pr-preview
+      delete-tags: pr-${{ github.event.pull_request.number }}-*
+      exclude-tags: ${{ needs.build-and-push.outputs.pr-version }}
+      delete-partial-images: true
+
   cleanup:
     name: Cleanup PR Preview Image
     # Skip if PR is not closed or from a forked repository
@@ -178,6 +198,7 @@ jobs:
       packages: write
     uses: cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml@d138f9922c75ed1e1ad3ae3bfb68dd8ae3284dc6 # main
     with:
+      runs-on: ubuntu-latest
       package: juno-app-greenhouse-pr-preview
       delete-tags: pr-${{ github.event.pull_request.number }}-*
       delete-partial-images: true
@@ -190,6 +211,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       issues: write
+      pull-requests: write
     steps:
       - name: Remove PR Preview label
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
@@ -218,7 +240,7 @@ jobs:
       needs.cleanup.result == 'failure'
     needs: [ cleanup ]
     permissions: {}
-    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@e69fd9982d52aa1e1623ceda55875724843516b6 # main
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@f0c9d08e2c9d7c348dd3f24e7ea72ac3db3a6993 # main
     with:
       title: "🚨 Greenhouse PR Preview Image Cleanup Failed 🚨"
       body: "Failed to delete preview images for PR #${{

@@ -17,6 +17,11 @@ export const mockPlugins: MockPluginsResponse = {
         labels: {
           "greenhouse.sap/pluginpreset": "test-preset",
         },
+        ownerReferences: [
+          {
+            name: "preset-1",
+          },
+        ],
       },
       spec: {
         clusterName: "cluster-1",
@@ -42,6 +47,11 @@ export const mockPlugins: MockPluginsResponse = {
         labels: {
           "greenhouse.sap/pluginpreset": "test-preset",
         },
+        ownerReferences: [
+          {
+            name: "preset-1",
+          },
+        ],
       },
       spec: {
         clusterName: "cluster-2",

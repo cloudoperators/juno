@@ -23,6 +23,7 @@ describe("Details", () => {
         pluginDefinition: "test-plugin-def",
         pluginDefinitionRef: { name: "test-plugin-def" },
         deletionPolicy: "Delete",
+        releaseName: "Release",
       },
     }
 
@@ -34,5 +35,6 @@ describe("Details", () => {
     expect(screen.getByText("test-plugin-def")).toBeInTheDocument()
     expect(screen.getAllByText("test-team").length).toBeGreaterThan(0)
     expect(screen.getByText("test-cluster")).toBeInTheDocument()
+    expect(screen.getByText("Release")).toBeInTheDocument()
   })
 })

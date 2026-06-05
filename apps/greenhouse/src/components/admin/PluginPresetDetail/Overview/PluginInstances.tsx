@@ -43,7 +43,7 @@ const DataRows = ({ colSpan }: { colSpan: number }) => {
   if (plugins.length === 0) {
     return (
       <DataGridRow>
-        <DataGridCell colSpan={colSpan}>No plugin instances found for this plugin preset.</DataGridCell>
+        <DataGridCell colSpan={colSpan}>No plugin instances found for this PluginPreset.</DataGridCell>
       </DataGridRow>
     )
   }

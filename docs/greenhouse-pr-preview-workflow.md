@@ -30,8 +30,8 @@ INITIAL SETUP
 ─────────────
 Developer                Workflow                  ArgoCD
     │                        │                        │
-    ├──► Add "pr-build"      │                        │
-    │    label               │                        │
+    ├──► Add "greenhouse-    │                        │
+    │    pr-build" label     │                        │
     │                        │                        │
     │                    ┌───▼────────────────────┐   │
     │                    │ Build Docker image     │   │
@@ -43,8 +43,8 @@ Developer                Workflow                  ArgoCD
     │                    └───┬────────────────────┘   │
     │                        │                        │
     │                    ┌───▼────────────────────┐   │
-    │                    │ Add "pr-preview"       │   │
-    │                    │ label                  │   │
+    │                    │ Add "greenhouse-       │   │
+    │                    │ pr-preview" label      │   │
     │                    └───┬────────────────────┘   │
     │                        │                        │
     │                        ├──────────────────────► │
@@ -62,8 +62,8 @@ Developer                Workflow                  ArgoCD
     ├──► Push commit         │                        │
     │                        │                        │
     │                    ┌───▼────────────────────┐   │
-    │                    │ Check "pr-build"       │   │
-    │                    │ label exists?          │   │
+    │                    │ Check "greenhouse-     │   │
+    │                    │ pr-build" exists?      │   │
     │                    └───┬────────────────────┘   │
     │                        │                        │
     │                ┌───────┴────────┐               │
@@ -72,8 +72,8 @@ Developer                Workflow                  ArgoCD
     │                │                │               │
     │    ┌───────────▼───────┐   ┌────▼────────┐    │
     │    │ Remove            │   │ Skip build  │    │
-    │    │ "pr-preview"      │   │ Exit        │    │
-    │    │ label             │   └─────────────┘    │
+    │    │ "greenhouse-      │   │ Exit        │    │
+    │    │ pr-preview" label │   └─────────────┘    │
     │    └───────────┬───────┘        │             │
     │                │                 │             │
     │                ├─────────────────┼────────────► │
@@ -96,8 +96,8 @@ Developer                Workflow                  ArgoCD
     │    └──────────┬────────┘         │             │
     │               │                  │             │
     │    ┌──────────▼────────┐         │             │
-    │    │ Add "pr-preview" │         │             │
-    │    │ label back       │         │             │
+    │    │ Add "greenhouse-  │         │             │
+    │    │ pr-preview" back  │         │             │
     │    └──────────┬────────┘         │             │
     │               │                  │             │
     │               ├──────────────────┼────────────► │
@@ -106,6 +106,12 @@ Developer                Workflow                  ArgoCD
     │               │   (2-3 mins)     │       │ Redeploy │
     │               │                  │       │ Preview  │
     │               │                  │       └──────────┘
+    │               │                  │             │
+    │    ┌──────────▼────────┐         │             │
+    │    │ Delete old PR     │         │             │
+    │    │ images (async,    │         │             │
+    │    │ keep latest)      │         │             │
+    │    └───────────────────┘         │             │
 
 
 PR CLOSE/MERGE
@@ -125,8 +131,9 @@ Developer                Workflow                  ArgoCD
     │                    └───┬────────────────────┘   │
     │                        │                        │
     │                    ┌───▼────────────────────┐   │
-    │                    │ Remove "pr-preview"    │   │
-    │                    │ label (always runs)    │   │
+    │                    │ Remove "greenhouse-    │   │
+    │                    │ pr-preview" label      │   │
+    │                    │ (always runs)          │   │
     │                    └───┬────────────────────┘   │
     │                        │                        │
     │                    ┌───▼────────────────────┐   │
@@ -164,6 +171,7 @@ Developer                Workflow                  ArgoCD
    - Build a new Docker image with the new commit SHA
    - Push the new image to the registry
    - Re-add the `greenhouse-pr-preview` label (ArgoCD redeploys after 2-3 minutes)
+   - Delete all old Docker images for this PR in parallel (keeps only the latest image)
 
 ### Disabling PR Preview
 
@@ -189,6 +197,7 @@ When the PR is closed or merged:
 - **Image Name**: `juno-app-greenhouse-pr-preview`
 - **Tag Format**: `pr-{PR_NUMBER}-{SHORT_SHA}`
 - **Example**: `ghcr.io/cloudoperators/juno-app-greenhouse-pr-preview:pr-123-a1b2c3d`
+- **Retention**: Only the latest image per PR is kept; old images are automatically deleted after each new build
 
 ## Trigger Events
 
@@ -223,9 +232,31 @@ Builds and pushes the Docker image when the `greenhouse-pr-build` label is prese
 7. Build and push Docker image
 8. Add `greenhouse-pr-preview` label on success
 
+**Outputs:**
+
+- `image-built`: true if the Docker image was successfully built and pushed
+- `pr-version`: The generated PR version tag (e.g., `pr-123-a1b2c3d`)
+
+### cleanup-old-images
+
+Deletes old Docker images for the PR after a new image is successfully built, keeping only the latest image.
+
+**Conditions:**
+
+- Runs only if `build-and-push` successfully built an image
+
+**Workflow:**
+
+Uses `cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml` with:
+
+- `package`: juno-app-greenhouse-pr-preview
+- `delete-tags`: pr-{number}-\* (wildcard pattern to match all images for this PR)
+- `exclude-tags`: pr-{number}-{sha} (the newly built image to keep)
+- `delete-partial-images`: true
+
 ### cleanup
 
-Deletes Docker images using the shared GHCR cleanup workflow when the PR is closed.
+Deletes all remaining Docker images using the shared GHCR cleanup workflow when the PR is closed.
 
 **Conditions:**
 
@@ -325,15 +356,20 @@ This ensures the team is aware of orphaned images that may need manual cleanup.
 - `issues: write` - Add/remove labels on PRs
 - `pull-requests: write` - Manage PR labels
 
+### cleanup-old-images job
+
+- `packages: write` - Delete old container images
+
 ### cleanup job
 
 - `packages: write` - Delete container images
 
-Note: The `cleanup` job uses a shared reusable workflow, but that workflow cannot elevate `GITHUB_TOKEN` permissions beyond what the caller grants. The caller workflow must still declare the permissions required for cleanup to succeed, such as `packages: write` for deleting container images.
+Note: The `cleanup` and `cleanup-old-images` jobs use a shared reusable workflow, but that workflow cannot elevate `GITHUB_TOKEN` permissions beyond what the caller grants. The caller workflow must still declare the permissions required for cleanup to succeed, such as `packages: write` for deleting container images.
 
 ### remove-label job
 
 - `issues: write` - Remove labels from PRs
+- `pull-requests: write` - Required for PR label operations (even though Issues API is used)
 
 ## Configuration
 

@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-messages-provider",
-  "version": "0.2.39",
+  "version": "0.2.41",
   "description": "Messages provider",
   "author": "UI-Team",
   "repository": "https://github.com/cloudoperators/juno/tree/main/packages/messages-provider",
@@ -12,27 +12,27 @@
   ],
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=20.12.0",
+    "node": ">=20.19.0",
     "pnpm": ">=8.0.0"
   },
   "peerDependencies": {
-    "react": "19.2.5",
-    "react-dom": "19.2.5",
-    "zustand": "5.0.12"
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "zustand": "5.0.13"
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
-    "@types/react": "19.2.14",
+    "@types/react": "19.2.15",
     "@types/react-dom": "19.2.3",
-    "react": "19.2.5",
-    "react-dom": "19.2.5",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
     "typescript": "6.0.3",
-    "vite": "8.0.10",
+    "vite": "8.0.14",
     "vite-plugin-dts": "4.5.4",
-    "vitest": "3.2.4",
-    "zustand": "5.0.12"
+    "vitest": "4.1.7",
+    "zustand": "5.0.13"
   },
   "dependencies": {
     "@cloudoperators/juno-ui-components": "workspace:*"

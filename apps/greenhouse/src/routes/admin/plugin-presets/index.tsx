@@ -56,7 +56,10 @@ export const Route = createFileRoute("/admin/plugin-presets/")({
       // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({
         to: "/admin/plugin-presets",
-        search: getFiltersForUrl({ selectedFilters: defaultFilters }),
+        search: {
+          ...search,
+          ...getFiltersForUrl({ selectedFilters: defaultFilters }),
+        },
         replace: true,
       })
     }

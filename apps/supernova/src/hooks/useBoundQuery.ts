@@ -22,7 +22,7 @@ function isFirefoxNetworkError(err: unknown): boolean {
     return false
   }
 
-  const message = (err as Error).message || ""
+  const message = err.message || ""
 
   if (navigator.userAgent.includes("Firefox") && message.includes("NetworkError")) {
     return true

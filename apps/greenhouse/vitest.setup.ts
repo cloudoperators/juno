@@ -3,24 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import "@testing-library/jest-dom/vitest"
 import { beforeAll, vi } from "vitest"
-import { expect } from "vitest"
-import * as matchers from "@testing-library/jest-dom/matchers"
-
-expect.extend(matchers)
-
-global.fetch = vi.fn(
-  () =>
-    Promise.resolve({
-      ok: true, // Indicates if the request was successful (status code 2xx)
-      status: 200, // HTTP status code
-
-      json: () => Promise.resolve({}), // Mocking the json method
-    } as Response) // Cast to Response type to satisfy TypeScript
-)
 
 beforeAll(() => {
-  // Mock global objects if necessary
-  global.window = window
-  global.document = window.document
+  // Mock fetch globally using vi.stubGlobal (Vitest 4 recommended approach)
+  const mockFetch = vi.fn(
+    () =>
+      Promise.resolve({
+        ok: true, // Indicates if the request was successful (status code 2xx)
+        status: 200, // HTTP status code
+        json: () => Promise.resolve({}), // Mocking the json method
+      } as Response) // Cast to Response type to satisfy TypeScript
+  )
+  vi.stubGlobal("fetch", mockFetch)
 })

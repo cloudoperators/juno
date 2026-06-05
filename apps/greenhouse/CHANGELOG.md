@@ -1,5 +1,49 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.13.0
+
+### Minor Changes
+
+- 1042d50: - Add a list of exposed services for all plugins
+  - Updated the plugin instance detail page to display a list of exposed services under `Details`, instead of a separate section.
+
+### Patch Changes
+
+- Updated dependencies [0e11c6e]
+- Updated dependencies [374c671]
+- Updated dependencies [44f2140]
+- Updated dependencies [1ce58f0]
+- Updated dependencies [b2844e4]
+- Updated dependencies [c29127f]
+  - @cloudoperators/juno-url-state-provider@3.0.10
+  - @cloudoperators/juno-messages-provider@0.2.41
+  - @cloudoperators/juno-ui-components@6.5.0
+  - @cloudoperators/juno-app-supernova@0.19.33
+  - @cloudoperators/juno-app-heureka@1.1.4
+  - @cloudoperators/juno-app-doop@2.6.29
+
+## 0.12.10
+
+### Patch Changes
+
+- c828ab1: Improve ReadinessConditions layout with responsive column widths
+- ed9353f: Update tanstack dependencies to latest version
+- Updated dependencies [4ef8a72]
+- Updated dependencies [6ce5352]
+- Updated dependencies [ed9353f]
+- Updated dependencies [f1e2c7b]
+- Updated dependencies [9eaed28]
+- Updated dependencies [07a0bf8]
+  - @cloudoperators/juno-app-heureka@1.1.3
+  - @cloudoperators/juno-ui-components@6.4.0
+  - @cloudoperators/juno-app-supernova@0.19.32
+  - @cloudoperators/juno-app-doop@2.6.28
+  - @cloudoperators/juno-messages-provider@0.2.40
+  - @cloudoperators/greenhouse-auth-provider@1.0.3
+  - @cloudoperators/juno-k8s-client@1.1.5
+  - @cloudoperators/juno-oauth@1.4.11
+  - @cloudoperators/juno-url-state-provider@3.0.9
+
 ## 0.12.9
 
 ### Patch Changes

@@ -20,6 +20,7 @@ import { ImageVulnerability } from "../../../../../Services/utils"
 import { getSeverityColor, useTextOverflow } from "../../../../../../utils"
 import { FalsePositiveModal } from "../../../FalsePositiveModal"
 import { RiskAcceptanceModal } from "../../../RiskAcceptanceModal"
+import { MitigateManuallyModal } from "../../../MitigateManuallyModal"
 import { useRouteContext } from "@tanstack/react-router"
 import { createRemediation } from "../../../../../../api/createRemediation"
 import { RemediationInput } from "../../../../../../generated/graphql"
@@ -42,6 +43,7 @@ type IssuesDataRowProps = {
   showFalsePositiveAction?: boolean
   onFalsePositiveSuccess?: (cveNumber: string) => void | Promise<void>
   onRiskAcceptanceSuccess?: (cveNumber: string) => void | Promise<void>
+  onMitigateManuallySuccess?: (cveNumber: string) => void | Promise<void>
 }
 
 export const IssuesDataRow = ({
@@ -51,10 +53,12 @@ export const IssuesDataRow = ({
   showFalsePositiveAction = true,
   onFalsePositiveSuccess,
   onRiskAcceptanceSuccess,
+  onMitigateManuallySuccess,
 }: IssuesDataRowProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isRiskAcceptanceModalOpen, setIsRiskAcceptanceModalOpen] = useState(false)
+  const [isMitigateManuallyModalOpen, setIsMitigateManuallyModalOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { needsExpansion, textRef } = useTextOverflow(issue?.description || "")
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
@@ -68,99 +72,50 @@ export const IssuesDataRow = ({
     setIsExpanded(!isExpanded)
   }
 
-  const handleModalConfirm = async (input: RemediationInput): Promise<{ error: string } | void> => {
-    setIsSubmitting(true)
-    try {
-      const remediation = await createRemediation({ apiClient, input })
-      const cveNumber = issue?.name || "unknown"
-      if (remediation) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        queryClient.setQueriesData(
-          {
-            predicate: (query) => {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              const [key, filter] = query.queryKey as [string, any]
-              if (key !== "remediations") return false
-              if (filter?.service && !filter.service.includes(service)) return false
-              if (filter?.image && !filter.image.includes(image)) return false
-              if (filter?.vulnerability && !filter.vulnerability.includes(cveNumber)) return false
-              return true
-            },
-          },
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (old: any) => {
-            if (!old?.data?.Remediations) return old
-            const edges = old.data.Remediations.edges ?? []
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            if (edges.some((e: any) => e?.node?.id === remediation.id)) return old
-            return {
-              ...old,
-              data: {
-                ...old.data,
-                Remediations: {
-                  ...old.data.Remediations,
-                  edges: [...edges, { node: remediation }],
-                  totalCount: (old.data.Remediations.totalCount ?? 0) + 1,
-                },
+  const makeRemediationHandler =
+    (onSuccess?: (cveNumber: string) => void | Promise<void>) =>
+    async (input: RemediationInput): Promise<{ error: string } | void> => {
+      setIsSubmitting(true)
+      try {
+        const remediation = await createRemediation({ apiClient, input })
+        const cveNumber = issue?.name || "unknown"
+        if (remediation) {
+          queryClient.setQueriesData(
+            {
+              predicate: (query) => {
+                const [key, filter] = query.queryKey as [string, any]
+                if (key !== "remediations") return false
+                if (filter?.service && !filter.service.includes(service)) return false
+                if (filter?.image && !filter.image.includes(image)) return false
+                if (filter?.vulnerability && !filter.vulnerability.includes(cveNumber)) return false
+                return true
               },
-            }
-          }
-        )
-      }
-      await onFalsePositiveSuccess?.(cveNumber)
-    } catch (error) {
-      return { error: error instanceof Error ? error.message : "Failed to create remediation" }
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  const handleRiskAcceptanceConfirm = async (input: RemediationInput): Promise<{ error: string } | void> => {
-    setIsSubmitting(true)
-    try {
-      const remediation = await createRemediation({ apiClient, input })
-      const cveNumber = issue?.name || "unknown"
-      if (remediation) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        queryClient.setQueriesData(
-          {
-            predicate: (query) => {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              const [key, filter] = query.queryKey as [string, any]
-              if (key !== "remediations") return false
-              if (filter?.service && !filter.service.includes(service)) return false
-              if (filter?.image && !filter.image.includes(image)) return false
-              if (filter?.vulnerability && !filter.vulnerability.includes(cveNumber)) return false
-              return true
             },
-          },
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (old: any) => {
-            if (!old?.data?.Remediations) return old
-            const edges = old.data.Remediations.edges ?? []
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            if (edges.some((e: any) => e?.node?.id === remediation.id)) return old
-            return {
-              ...old,
-              data: {
-                ...old.data,
-                Remediations: {
-                  ...old.data.Remediations,
-                  edges: [...edges, { node: remediation }],
-                  totalCount: (old.data.Remediations.totalCount ?? 0) + 1,
+            (old: any) => {
+              if (!old?.data?.Remediations) return old
+              const edges = old.data.Remediations.edges ?? []
+              if (edges.some((e: any) => e?.node?.id === remediation.id)) return old
+              return {
+                ...old,
+                data: {
+                  ...old.data,
+                  Remediations: {
+                    ...old.data.Remediations,
+                    edges: [...edges, { node: remediation }],
+                    totalCount: (old.data.Remediations.totalCount ?? 0) + 1,
+                  },
                 },
-              },
+              }
             }
-          }
-        )
+          )
+        }
+        await onSuccess?.(cveNumber)
+      } catch (error) {
+        return { error: error instanceof Error ? error.message : "Failed to create remediation" }
+      } finally {
+        setIsSubmitting(false)
       }
-      await onRiskAcceptanceSuccess?.(cveNumber)
-    } catch (error) {
-      return { error: error instanceof Error ? error.message : "Failed to create remediation" }
-    } finally {
-      setIsSubmitting(false)
     }
-  }
 
   return (
     <>
@@ -211,6 +166,7 @@ export const IssuesDataRow = ({
                 <PopupMenuOptions>
                   <PopupMenuItem label="Mark False Positive" onClick={() => setIsModalOpen(true)} />
                   <PopupMenuItem label="Accept Risk" onClick={() => setIsRiskAcceptanceModalOpen(true)} />
+                  <PopupMenuItem label="Mitigate Manually" onClick={() => setIsMitigateManuallyModalOpen(true)} />
                 </PopupMenuOptions>
               </PopupMenu>
             )}
@@ -222,7 +178,7 @@ export const IssuesDataRow = ({
           <FalsePositiveModal
             open={isModalOpen}
             onClose={() => setIsModalOpen(false)}
-            onConfirm={handleModalConfirm}
+            onConfirm={makeRemediationHandler(onFalsePositiveSuccess)}
             vulnerability={issue.name}
             severity={issue.severity}
             service={service}
@@ -231,7 +187,16 @@ export const IssuesDataRow = ({
           <RiskAcceptanceModal
             open={isRiskAcceptanceModalOpen}
             onClose={() => setIsRiskAcceptanceModalOpen(false)}
-            onConfirm={handleRiskAcceptanceConfirm}
+            onConfirm={makeRemediationHandler(onRiskAcceptanceSuccess)}
+            vulnerability={issue.name}
+            severity={issue.severity}
+            service={service}
+            image={image}
+          />
+          <MitigateManuallyModal
+            open={isMitigateManuallyModalOpen}
+            onClose={() => setIsMitigateManuallyModalOpen(false)}
+            onConfirm={makeRemediationHandler(onMitigateManuallySuccess)}
             vulnerability={issue.name}
             severity={issue.severity}
             service={service}

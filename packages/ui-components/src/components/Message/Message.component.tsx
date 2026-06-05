@@ -204,7 +204,7 @@ const initiateAutoDismiss = (
   // Set a new timeout to hide message after the specified timeout
   timeoutRef.current = window.setTimeout(() => {
     hideMessage()
-  }, timeout) as unknown as number
+  }, timeout)
 }
 
 // Clear auto-dismiss timeout, if exists and reset the timeout reference

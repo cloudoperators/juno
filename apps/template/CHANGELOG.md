@@ -1,5 +1,28 @@
 # @cloudoperators/juno-app-template
 
+## 2.0.39
+
+### Patch Changes
+
+- 0e11c6e: Updated jsdom from 26.1.0 to 29.1.1 and updated Node.js engine requirement to >=20.19.0 to match jsdom's requirements.
+- Updated dependencies [0e11c6e]
+- Updated dependencies [374c671]
+- Updated dependencies [44f2140]
+- Updated dependencies [c29127f]
+  - @cloudoperators/juno-ui-components@6.5.0
+
+## 2.0.38
+
+### Patch Changes
+
+- ed9353f: Update tanstack dependencies to latest version
+- Updated dependencies [6ce5352]
+- Updated dependencies [ed9353f]
+- Updated dependencies [f1e2c7b]
+- Updated dependencies [9eaed28]
+- Updated dependencies [07a0bf8]
+  - @cloudoperators/juno-ui-components@6.4.0
+
 ## 2.0.37
 
 ### Patch Changes

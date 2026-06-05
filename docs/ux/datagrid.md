@@ -6,6 +6,8 @@
 
 The DataGrid is the primary pattern for displaying collections of structured data — a list of resources, entities, or items that share a common set of attributes or properties.
 
+![Juno DataGrid](images/DataGrid-fully-featured.png)
+
 ## When to Use a DataGrid
 
 ### Use a DataGrid When:
@@ -25,24 +27,23 @@ The DataGrid is the primary pattern for displaying collections of structured dat
 
 A DataGrid typically consists of:
 
-- **DataGrid Toolbar** (also referred to as **DataGrid Header**)  — sits above the grid items; holds filters, search, bulk actions, and other controls to modify the display of the data or interacting with multiple items
-- **DataGrid Header row** — labels for each column; always present unless the column purpose is self-evident from context, or the data displayed in one or multiple individual cells is synthesized but can not be meaningfully labelled with a single or a few terms
-- **DataGrid rows** (also referred to as **DataGrid Items**) — one row representing an item or entity of the set of data displayed
+- **DataGrid Header**  — sits above the grid items; holds filters, search, bulk actions, and other controls to modify the display of the data or interacting with multiple items. This is a composable pattern, not a single component in itself.
+- **DataGrid Head row** — labels for each column; always present unless the column purpose is self-evident from context, or the data displayed in one or multiple individual cells is synthesized but can not be meaningfully labelled with a single or a few terms
+- **DataGrid rows** (also referred to as **DataGrid Items** or **Elements**) — one row representing an item or entity of the set of data displayed
 - **DataGrid Footer** – optional. Can hold pagination or other, additional controls and/or metadata concerning the set as a whole
 
 ## DataGrid Header / Toolbar
 
-(TODO: Illustration of a fully featured header)
-
 The DataGrid Toolbar holds all the tools necessary for users to modify and customize their view on the dataset, and to interact with multiple items at once by running bulk actions.
+
+![Fully featured Juno DataGrid Header](images/DataGrid-fully-featured-header.png)
 
 More specifically, these are any combination of the following elements. Each element has a designated space in the DataGrid header structure. If an element is not needed, its space remains empty/unused. If none of the elements of a given zone is needed, don't render the zone / empty area at all.
 
-(TODO: Illustration of the fully featured header with overlayed/indicated zones)
+![Juno DataGrid Header zones](images/DataGrid-header-zones.png)
 
-### Zone 1: Bulk Actions, Sorting, Action(s)
+### Zone 1: Sorting, Action(s)
 
-- Bulk Actions: Actions that can be run on multiple items in the DataGrid at once. Contains a Checkbox to select/deselect all items, and requires a Checkbox on each individual item / row.
 - Sorting: Select to choose what to sort by, and a button to toggle sort direction
 - Other Actions Overflow Menu: Any actions global to the data set other than the primary action
 - Primary Action: The primary, i.e. most likely action for users. If users can create new items in the DataGrid, this can be done using the primary action button
@@ -53,14 +54,13 @@ More specifically, these are any combination of the following elements. Each ele
 - Search: A SearchBox to perform a string-based search on the data and display the matching items. Make sure to manage user expectations as to what exactly will be searched, i.e. if the string entered is only matched against a single or a subset of fields, the placeholder should indicate that (e.g. "Search Description" if only descriptions can be searched)
 - Filter Pills: Each filter that has been configured by the user using the Filter element(s) and that is currently active is displayed here. As a last item, there is a button that allows for clearing all active filters at once.
 
-### Zone 3: DataGrid View/State, Refresh
+### Zone 3: DataGrid View/State, Bulk Actions, Refresh
 
-- Item Count: The number of items of the set that is currently visible as a whole (not only on the current page). If filters or searches are active, the number of matching items and the total number of items in the data set is being displayed.
-- Last Update, Update/Refresh: The date and time of the last refresh of the data displayed, and a button to trigger a refresh.
+- Bulk Actions: Actions that can be run on multiple items in the DataGrid at once. Positioned on the left side of Zone 3. Contains a Checkbox to select/deselect all items, and a menu of available bulk actions. Requires a Checkbox on each individual item / row. Bulk action controls should be disabled until at least one item is selected. The select-all checkbox follows a tri-state model: unchecked when no items are selected, indeterminate when some are, and checked when all are. Clicking the checkbox in the unchecked or indeterminate state selects all items; clicking it in the checked state deselects all.
+- Item Count: The number of items of the set that is currently visible as a whole (not only on the current page), displayed in the center. If filters or searches are active, the number of matching items and the total number of items in the data set is being displayed.
+- Last Update, Update/Refresh: The date and time of the last refresh of the data displayed, and a button to trigger a refresh. Positioned on the right side of Zone 3.
 
 All of the above elements are optional in the sense that none of them will be required for any given DataGrid. However, if you find yourself in a situation where none of the above options is needed or desired, reconsider whether using a DataGrid is the right choice to display the given data. This case can occur, but it is rare. In most cases a simple list is then a more appropriate option to display the data.
-
-(TODO: illustration of one or two non-fully featured headers that reflect typical, real-world use cases)
 
 ## Column Order, Structure, and Layout
 
@@ -94,7 +94,14 @@ A DataGrid must handle the full range of data states gracefully. Do not render a
 
 ## Re-Loading Data
 
-A DataGrid may have a Reload/Refresh-button in the Header / Toolbar in order to make sure the latest state of the data is displayed and interacted with.
+A DataGrid may have a Reload/Refresh-button in the Header in order to make sure the latest state of the data is displayed and interacted with.
+
+## Render Elements Based on User Permissions
+
+When rendering elements in the DataGrid, keep permissions of the user in mind:
+For users that are not allowed to perform any of the available bulk actions for the elements of a given DataGrid, do not render Bulk action elements at all.
+The same goes for the checkboxes on the individual items: If a user has no permission to perform any of the available bulk actions, do not render any checkboxes (and the surrounding cells) for the items.
+If a user is not allowed to create any new items, do not render a "Create […]" button.
 
 ## DataGrid Content and Writing
 
