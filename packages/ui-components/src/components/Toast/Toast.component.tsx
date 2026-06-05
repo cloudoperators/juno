@@ -20,7 +20,7 @@ const toastStylesText = `
     jn:max-w-full
 `
 
-// get the appropriate icon for messasge tyope by MUI name:
+// get the appropriate icon for message type by MUI name:
 const getMuiIcon = (variant: ToastVariant) => {
   switch (variant) {
     case "error":
@@ -58,10 +58,12 @@ export const Toast = ({ variant = "info", children, text = "", onDismiss, classN
   <div className={`juno-toast juno-toast-${variant} ${toastStyles} ${className}`} {...props}>
     <Icon icon={getMuiIcon(variant)} color={"jn:text-theme-" + variant} className="jn:shrink-0" />
     <div className={`juno-toast-text ${toastStylesText}`}>{children ? children : text}</div>
-    <Icon
-      icon="close"
-      onClick={onDismiss}
-      className="juno-message-close-button jn:opacity-50 jn:hover:opacity-100 jn:shrink-0"
-    />
+    {onDismiss && (
+      <Icon
+        icon="close"
+        onClick={onDismiss}
+        className="juno-message-close-button jn:opacity-50 jn:hover:opacity-100 jn:shrink-0"
+      />
+    )}
   </div>
 )

@@ -1,5 +1,5 @@
 ---
-"@cloudoperators/juno-ui-components": minor
+"@cloudoperators/juno-ui-components": major
 ---
 
-Add a new NotificationManager component, replacing the existing Toast and using it as a base for presentation.
+Add NotificationManager (based on the Sonner library and using Toast as a base) and make Toast a presentational component (remove logic entirely).

@@ -8,6 +8,13 @@ import { Toaster, toast as sonnerToast } from "sonner"
 import { customToast, NotificationToast, ToastHandler, ToastPosition, ToastVariant } from "./NotificationManager.types"
 import { Toast } from "../Toast"
 
+// Maps each NotificationManager instance (by id) to its dismissible setting.
+// Written synchronously during render so createSemanticToast can read the correct
+// manager-level default when a toast() call does not specify dismissible/closeButton.
+// A module-level Map is used because toast() is a singleton with no access to
+// component props — this is the only way to bridge manager config into the renderer.
+const managerDismissibleRegistry = new Map<string, boolean>()
+
 /**
  * NotificationManager wraps the Sonner toast library and supports rendering
  * multiple notifications simultaneously, each with independent durations and
@@ -128,19 +135,23 @@ export const NotificationManager = ({
   visibleToasts = 3,
   position = "bottom-right",
   ...props
-}: NotificationManagerProps) => (
-  <Toaster
-    expand
-    id={id}
-    closeButton={dismissible}
-    duration={duration}
-    visibleToasts={visibleToasts}
-    position={position}
-    toastOptions={{ classNames: { toast: "juno-toast jn:font-sans" } }}
-    className="juno-notification-manager jn:font-sans"
-    {...props}
-  />
-)
+}: NotificationManagerProps) => {
+  if (id !== undefined) managerDismissibleRegistry.set(id, dismissible)
+
+  return (
+    <Toaster
+      expand
+      id={id}
+      closeButton={dismissible}
+      duration={duration}
+      visibleToasts={visibleToasts}
+      position={position}
+      toastOptions={{ classNames: { toast: "juno-toast jn:font-sans" } }}
+      className="juno-notification-manager jn:font-sans"
+      {...props}
+    />
+  )
+}
 
 /**
  * Builds a semantic toast handler that renders Juno's `Toast` component through
@@ -161,10 +172,16 @@ const createSemanticToast = (variant: ToastVariant): ToastHandler => {
 
     const { description: _description, ...options } = data ?? {}
 
+    const isDismissible =
+      (data?.dismissible ??
+        data?.closeButton ??
+        (data?.toasterId !== undefined ? managerDismissibleRegistry.get(data.toasterId) : undefined) ??
+        true) !== false
+
     // Use Sonner's custom renderer but keep dismissal bound to Sonner toast id.
     return customToast(
       (id) => (
-        <Toast variant={variant} onDismiss={() => sonnerToast.dismiss(id)}>
+        <Toast variant={variant} onDismiss={isDismissible ? () => sonnerToast.dismiss(id) : undefined}>
           <div className="jn:flex jn:flex-col jn:gap-1">
             <div>{title}</div>
             {description ? <div className="jn:text-theme-medium">{description}</div> : null}
