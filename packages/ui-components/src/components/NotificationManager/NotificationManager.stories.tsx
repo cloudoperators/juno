@@ -23,6 +23,29 @@ const STORY_TOASTER_IDS = {
 const meta: Meta<typeof NotificationManager> = {
   title: "WIP/NotificationManager",
   component: NotificationManager,
+  argTypes: {
+    id: {
+      control: "text",
+      description: "Optional Sonner toaster id to scope notifications to this instance",
+    },
+    dismissible: {
+      control: "boolean",
+      description: "Controls whether notifications can be dismissed manually",
+    },
+    duration: {
+      control: { type: "number", min: 1000, max: 10000, step: 500 },
+      description: "Default display time for notifications in milliseconds",
+    },
+    visibleToasts: {
+      control: { type: "number", min: 1, max: 10, step: 1 },
+      description: "Maximum number of notifications visible on screen at once",
+    },
+    position: {
+      control: "select",
+      options: ["top-left", "top-right", "bottom-left", "bottom-right", "top-center", "bottom-center"],
+      description: "Position of the notification stack on screen",
+    },
+  },
   decorators: [
     (Story) => (
       <PortalProvider>
@@ -44,19 +67,22 @@ export const SimpleMountAndClick: Story = {
       },
     },
   },
-  render: () => (
+  args: {
+    position: "bottom-right",
+  },
+  render: (args) => (
     <div className="jn:flex jn:items-center jn:gap-3">
       <Button
         label="Show notification"
         onClick={() => {
-          toast("NotificationManager mounted and working", {
+          toast("NotificationManager mounted and working (edit props above)", {
             description: "Clicking this button triggers a standard toast.",
             duration: 5000,
             toasterId: STORY_TOASTER_IDS.simple,
           })
         }}
       />
-      <NotificationManager id={STORY_TOASTER_IDS.simple} />
+      <NotificationManager {...args} id={STORY_TOASTER_IDS.simple} />
     </div>
   ),
 }
@@ -69,7 +95,13 @@ export const AllSemanticButtons: Story = {
       },
     },
   },
-  render: () => (
+  args: {
+    dismissible: true,
+    duration: 4000,
+    visibleToasts: 3,
+    position: "bottom-right",
+  },
+  render: (args) => (
     <div className="jn:flex jn:flex-wrap jn:gap-2">
       <Button
         label="Info"
@@ -116,7 +148,7 @@ export const AllSemanticButtons: Story = {
           })
         }
       />
-      <NotificationManager id={STORY_TOASTER_IDS.semantics} />
+      <NotificationManager {...args} id={STORY_TOASTER_IDS.semantics} />
     </div>
   ),
 }
@@ -130,7 +162,7 @@ export const InsideModalOverlaysModal: Story = {
       },
     },
   },
-  render: () => {
+  render: (args) => {
     const [isOpen, setOpen] = React.useState(false)
 
     return (
@@ -149,7 +181,7 @@ export const InsideModalOverlaysModal: Story = {
             }}
           />
         </Modal>
-        <NotificationManager id={STORY_TOASTER_IDS.modal} />
+        <NotificationManager {...args} id={STORY_TOASTER_IDS.modal} />
       </div>
     )
   },
@@ -164,7 +196,13 @@ export const ShadowRootFalseWorks: Story = {
       },
     },
   },
-  render: () => (
+  args: {
+    dismissible: true,
+    duration: 4000,
+    visibleToasts: 3,
+    position: "bottom-right",
+  },
+  render: (args) => (
     <AppShellProvider shadowRoot={false}>
       <div className="jn:flex jn:items-center jn:gap-3 jn:p-3">
         <Button
@@ -176,7 +214,7 @@ export const ShadowRootFalseWorks: Story = {
             })
           }}
         />
-        <NotificationManager id={STORY_TOASTER_IDS.shadowRootOff} />
+        <NotificationManager {...args} id={STORY_TOASTER_IDS.shadowRootOff} />
       </div>
     </AppShellProvider>
   ),
@@ -191,7 +229,13 @@ export const ShadowRootTrue: Story = {
       },
     },
   },
-  render: () => (
+  args: {
+    dismissible: true,
+    duration: 4000,
+    visibleToasts: 3,
+    position: "bottom-right",
+  },
+  render: (args) => (
     <AppShellProvider shadowRoot={true}>
       <div className="jn:flex jn:items-center jn:gap-3 jn:p-3">
         <Button
@@ -203,7 +247,7 @@ export const ShadowRootTrue: Story = {
             })
           }}
         />
-        <NotificationManager id={STORY_TOASTER_IDS.shadowRootOn} />
+        <NotificationManager {...args} id={STORY_TOASTER_IDS.shadowRootOn} />
       </div>
     </AppShellProvider>
   ),
