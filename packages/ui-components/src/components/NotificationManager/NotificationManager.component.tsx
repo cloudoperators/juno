@@ -10,8 +10,9 @@ import type { NotificationToast, ToastHandler, ToastPosition, ToastVariant } fro
 import { Toast } from "../Toast"
 
 // Maps each NotificationManager instance (by id) to its dismissible setting.
-// Written synchronously during render so createSemanticToast can read the correct
-// manager-level default when a toast() call does not specify dismissible/closeButton.
+// Written after commit by NotificationManager effects so createSemanticToast can
+// read the current manager-level default when a toast() call does not specify
+// dismissible/closeButton.
 // A module-level Map is used because toast() is a singleton with no access to
 // component props — this is the only way to bridge manager config into the renderer.
 // Id-less managers are registered under DEFAULT_MANAGER_KEY so that toast() calls
@@ -140,16 +141,20 @@ export const NotificationManager = ({
   position = "bottom-right",
 }: NotificationManagerProps) => {
   const registryKey = id ?? DEFAULT_MANAGER_KEY
-  managerDismissibleRegistry.set(registryKey, dismissible)
 
-  // Remove this manager's entry when it unmounts to prevent stale config
-  // from affecting future toast() calls that share the same key.
-  useEffect(
-    () => () => {
+  // Keep module-level registry in sync only after commit to avoid
+  // stale state from aborted concurrent renders.
+  useEffect(() => {
+    managerDismissibleRegistry.set(registryKey, dismissible)
+  }, [registryKey, dismissible])
+
+  // Remove this manager's entry when it unmounts (or key changes) to prevent
+  // stale config from affecting future toast() calls that share the same key.
+  useEffect(() => {
+    return () => {
       managerDismissibleRegistry.delete(registryKey)
-    },
-    [registryKey]
-  )
+    }
+  }, [registryKey])
 
   return (
     <Toaster
@@ -182,7 +187,7 @@ const createSemanticToast = (variant: ToastVariant): ToastHandler => {
     const title = typeof message === "function" ? message() : message
     const description = typeof data?.description === "function" ? data.description() : data?.description
 
-    const { description: _description, ...options } = data ?? {}
+    const { description: _description, descriptionClassName, ...options } = data ?? {}
 
     const isDismissible =
       (data?.dismissible ??
@@ -196,7 +201,9 @@ const createSemanticToast = (variant: ToastVariant): ToastHandler => {
         <Toast variant={variant} onDismiss={isDismissible ? () => sonnerToast.dismiss(id) : undefined}>
           <div className="jn:flex jn:flex-col jn:gap-1">
             <div>{title}</div>
-            {description ? <div className="jn:text-theme-medium">{description}</div> : null}
+            {description ? (
+              <div className={`jn:text-theme-medium ${descriptionClassName ?? ""}`}>{description}</div>
+            ) : null}
           </div>
         </Toast>
       ),
