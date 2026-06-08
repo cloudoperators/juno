@@ -5,7 +5,8 @@
 
 import React, { useEffect } from "react"
 import { Toaster, toast as sonnerToast } from "sonner"
-import { customToast, NotificationToast, ToastHandler, ToastPosition, ToastVariant } from "./NotificationManager.types"
+import { customToast } from "./NotificationManager.types"
+import type { NotificationToast, ToastHandler, ToastPosition, ToastVariant } from "./NotificationManager.types"
 import { Toast } from "../Toast"
 
 // Maps each NotificationManager instance (by id) to its dismissible setting.
