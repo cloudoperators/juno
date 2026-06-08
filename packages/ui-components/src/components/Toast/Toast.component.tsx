@@ -13,6 +13,9 @@ const toastStyles = `
     jn:items-start
     jn:p-2
     jn:rounded
+    jn:border
+    jn:border-theme-default
+    jn:shadow-theme-default
 `
 const toastStylesText = `
     jn:mx-4
