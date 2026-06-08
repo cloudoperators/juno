@@ -36,42 +36,40 @@
 
   h1 {
     font-size: 1.69rem;
-    font-weight: 700;
-    line-height: 1.11; /* round(40 / 36) */
+    line-height: 1.375; /* leading-snug */
     margin-top: 0;
     margin-bottom: 2rem; /* rem(32) */
   }
 
   h2 {
     font-size: 1.56rem;
-    font-weight: 700;
-    line-height: 160%;
+    line-height: 1.375; /* leading-snug */
     margin-top: 3rem; /* rem(48) */
     margin-bottom: 1.5rem; /* rem(24) */
   }
 
   h3 {
     font-size: 1.44rem;
-    font-weight: 700;
-    line-height: 160%;
+    line-height: 1.375; /* leading-snug */
     margin-top: 1rem;
     margin-bottom: 0.75rem; /* rem(12) */
   }
 
   h4 {
     font-size: 1.28rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 160%;
+    line-height: 1.625; /* leading-relaxed */
     margin-top: 1.5rem; /* rem(24) */
     margin-bottom: 0.5rem; /* rem(8) */
   }
 
   h5 {
-    font-size: 1.03rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 160%;
+    font-size: 1.125rem;
+    line-height: 1.625; /* leading-relaxed */
+  }
+
+  h6 {
+    font-size: 1rem;
+    line-height: 1.5; /* leading-normal */
   }
 
   img,
