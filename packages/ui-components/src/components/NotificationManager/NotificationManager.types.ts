@@ -6,19 +6,19 @@ import type { CSSProperties, ReactNode } from "react"
 import { toast as sonnerToast } from "sonner"
 import type { ToastVariant } from "../Toast"
 
-type ToastMessage = (() => ReactNode) | ReactNode
-type ToastId = string | number
+export type ToastMessage = (() => ReactNode) | ReactNode
+export type ToastId = string | number
 export type ToastHandler = (_message: ToastMessage, _data?: NotificationOptions) => ToastId
 
 export type { ToastVariant }
 export type ToastPosition = "top-left" | "top-right" | "bottom-left" | "bottom-right" | "top-center" | "bottom-center"
 
-type ToastAction = {
+export type ToastAction = {
   label: ReactNode
   onClick: () => void
   actionButtonStyle?: CSSProperties
 }
-type NotificationOptions = {
+export type NotificationOptions = {
   id?: ToastId
   toasterId?: string
   duration?: number
@@ -45,5 +45,5 @@ export type NotificationToast = ToastHandler &
     danger: ToastHandler
   }
 
-type SonnerCustomToast = (_content: (_id: ToastId) => ReactNode, _options?: NotificationOptions) => ToastId
+export type SonnerCustomToast = (_content: (_id: ToastId) => ReactNode, _options?: NotificationOptions) => ToastId
 export const customToast = sonnerToast.custom as unknown as SonnerCustomToast

@@ -45,18 +45,20 @@ describe("Toast", () => {
   })
 
   test("renders a toast that can be dismissed", async () => {
+    const user = userEvent.setup()
     const handleDismiss = vi.fn()
     render(<Toast data-testid="my-toast" onDismiss={handleDismiss} />)
     expect(screen.getByTitle("Close")).toBeInTheDocument()
-    await userEvent.click(screen.getByTitle("Close"))
+    await user.click(screen.getByTitle("Close"))
     expect(handleDismiss).toHaveBeenCalledTimes(1)
   })
 
   test("fires onDismiss handler when toast is manually dismissed", async () => {
+    const user = userEvent.setup()
     const handleDismiss = vi.fn()
     render(<Toast data-testid="my-toast" onDismiss={handleDismiss} />)
     expect(screen.getByTitle("Close")).toBeInTheDocument()
-    await userEvent.click(screen.getByTitle("Close"))
+    await user.click(screen.getByTitle("Close"))
     expect(handleDismiss).toHaveBeenCalledTimes(1)
   })
 

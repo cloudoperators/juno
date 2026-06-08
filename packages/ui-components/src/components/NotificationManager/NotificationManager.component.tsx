@@ -137,7 +137,6 @@ export const NotificationManager = ({
   duration = 4000,
   visibleToasts = 3,
   position = "bottom-right",
-  ...props
 }: NotificationManagerProps) => {
   const registryKey = id ?? DEFAULT_MANAGER_KEY
   managerDismissibleRegistry.set(registryKey, dismissible)
@@ -161,7 +160,6 @@ export const NotificationManager = ({
       position={position}
       toastOptions={{ classNames: { toast: "juno-toast jn:font-sans" } }}
       className="juno-notification-manager jn:font-sans"
-      {...props}
     />
   )
 }
