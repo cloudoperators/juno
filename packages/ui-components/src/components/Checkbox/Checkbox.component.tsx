@@ -235,7 +235,7 @@ export const Checkbox = ({
   const theId = id || uniqueId()
 
   return (
-    <div className="jn-checkbox-outer">
+    <div className="jn-checkbox-outer jn:inline-flex jn:flex-col">
       <div className={`jn-checkbox-wrapper ${wrapperStyles}`}>
         <div
           className={`
