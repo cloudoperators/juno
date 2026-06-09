@@ -5,7 +5,7 @@
 
 import React, { use } from "react"
 import { ApolloQueryResult } from "@apollo/client"
-import { Badge, Stack, DataGrid, DataGridRow, DataGridHeadCell, DataGridCell } from "@cloudoperators/juno-ui-components"
+import { Badge, Stack, DL, DT, DD } from "@cloudoperators/juno-ui-components"
 import { getNormalizedServicesResponse } from "../Services/utils"
 import { IssueCountsPerSeverityLevel } from "../common/IssueCountsPerSeverityLevel"
 import SectionContentHeading from "../common/SectionContentHeading"
@@ -25,22 +25,18 @@ export const ServiceDetails = ({ servicePromise }: ServiceDetailsProps) => {
       <SectionContentHeading>Service {service.name}</SectionContentHeading>
 
       {/* Service Information Section */}
-      <DataGrid columns={2} gridColumnTemplate="20% auto" className="mb-6">
-        <DataGridRow>
-          <DataGridHeadCell>Support Group</DataGridHeadCell>
-          <DataGridCell>
-            <Stack gap="1" direction="horizontal" wrap>
-              {supportGroups.length ? supportGroups.map((group) => <Badge key={group} text={group} />) : "—"}
-            </Stack>
-          </DataGridCell>
-        </DataGridRow>
-        <DataGridRow>
-          <DataGridHeadCell>Vulnerabilities Counts</DataGridHeadCell>
-          <DataGridCell>
-            <IssueCountsPerSeverityLevel counts={service.issuesCount} />
-          </DataGridCell>
-        </DataGridRow>
-      </DataGrid>
+      <DL className="mb-6" alignTerms="left">
+        <DT className="jn:col-span-1">Support Groups</DT>
+        <DD className="jn:col-span-1">
+          <Stack gap="1" direction="horizontal" wrap>
+            {supportGroups.length ? supportGroups.map((group) => <Badge key={group} text={group} />) : "—"}
+          </Stack>
+        </DD>
+        <DT className="jn:col-span-1">Vulnerabilities Counts</DT>
+        <DD className="jn:col-span-1">
+          <IssueCountsPerSeverityLevel counts={service.issuesCount} />
+        </DD>
+      </DL>
     </>
   )
 }
