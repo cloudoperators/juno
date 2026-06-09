@@ -14,7 +14,6 @@ const cellBaseStyles = (nowrap: boolean, cellVerticalAlignment: CellVerticalAlig
       cellVerticalAlignment === "center"
         ? `
 				jn:justify-center
-				jn:items-start
 				jn:flex
 				jn:flex-col
 			`

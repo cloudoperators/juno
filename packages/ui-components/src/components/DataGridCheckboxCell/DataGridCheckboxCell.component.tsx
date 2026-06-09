@@ -21,7 +21,7 @@ export const DataGridCheckboxCell = ({
   ...props
 }: DataGridCheckboxCellProps): ReactNode => {
   return (
-    <DataGridCell className={`juno-datagrid-checkbox-cell ${className}`} {...props}>
+    <DataGridCell className={`juno-datagrid-checkbox-cell jn:items-center ${className}`} {...props}>
       <Checkbox disabled={disabled} checked={selected} onChange={onChange} />
     </DataGridCell>
   )
