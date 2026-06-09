@@ -28,8 +28,8 @@ const wrapperStyles = `
 
 const inputstyles = (disabled: boolean): string => {
   return `
-    jn:w-4
-    jn:h-4
+    jn:absolute
+    jn:inset-0
     jn:opacity-0
     jn:z-50
     ${disabled ? "jn:cursor-not-allowed" : "jn:cursor-pointer"}
@@ -235,7 +235,7 @@ export const Checkbox = ({
   const theId = id || uniqueId()
 
   return (
-    <div className="jn-checkbox-outer jn:inline-flex jn:flex-col jn:self-center">
+    <div className="jn-checkbox-outer">
       <div className={`jn-checkbox-wrapper ${wrapperStyles}`}>
         <div
           className={`
