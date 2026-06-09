@@ -181,6 +181,7 @@ export type { NativeSelectProps } from "./components/NativeSelect/NativeSelect.c
 export type { NativeSelectOptionProps } from "./components/NativeSelectOption/NativeSelectOption.component"
 export type { NativeSelectOptionGroupProps } from "./components/NativeSelectOptionGroup/NativeSelectOptionGroup.component"
 export type { NotificationManagerProps } from "./components/NotificationManager/NotificationManager.component"
+export type { NotificationOptions } from "./components/NotificationManager/NotificationManager.types"
 export type { PanelProps } from "./components/Panel/Panel.component"
 export type { PanelBodyProps } from "./components/PanelBody/PanelBody.component"
 export type { PanelFooterProps } from "./components/PanelFooter/PanelFooter.component"

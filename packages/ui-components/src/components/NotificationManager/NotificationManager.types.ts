@@ -4,6 +4,7 @@
  */
 import type { CSSProperties, ReactNode } from "react"
 import { toast as sonnerToast } from "sonner"
+import type { ToastT } from "sonner"
 import type { ToastVariant } from "../Toast"
 
 export type ToastMessage = (() => ReactNode) | ReactNode
@@ -27,8 +28,8 @@ export type NotificationOptions = {
   description?: (() => ReactNode) | ReactNode
   action?: ToastAction | ReactNode
   cancel?: ToastAction | ReactNode
-  onDismiss?: () => void
-  onAutoClose?: () => void
+  onDismiss?: (_toast: ToastT) => void
+  onAutoClose?: (_toast: ToastT) => void
   onClick?: () => void
   style?: CSSProperties
   className?: string
