@@ -39,6 +39,12 @@ describe("SideNavigation", () => {
     expect(navigationElement).toHaveClass("custom-class")
   })
 
+  it("does not shrink in a flex row (has jn:shrink-0)", () => {
+    render(<SideNavigation ariaLabel="Test Navigation" />)
+    const navigationElement = screen.getByRole("navigation")
+    expect(navigationElement).toHaveClass("jn:shrink-0")
+  })
+
   it("detects item clicks with onClick handlers on navigation items", () => {
     const handleClick1 = vi.fn()
     const handleClick2 = vi.fn()
