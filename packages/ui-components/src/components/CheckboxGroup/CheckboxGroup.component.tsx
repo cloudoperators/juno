@@ -18,6 +18,8 @@ const groupstyles = `
   jn:rounded
   jn:border
   jn:py-1
+  jn:flex
+  jn:flex-col
 `
 
 const defaultgroupstyles = `
