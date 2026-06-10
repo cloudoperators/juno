@@ -14,20 +14,12 @@ export type ToastHandler = (_message: ToastMessage, _data?: NotificationOptions)
 export type { ToastVariant }
 export type ToastPosition = "top-left" | "top-right" | "bottom-left" | "bottom-right" | "top-center" | "bottom-center"
 
-export type ToastAction = {
-  label: ReactNode
-  onClick: () => void
-  actionButtonStyle?: CSSProperties
-}
 export type NotificationOptions = {
   id?: ToastId
   toasterId?: string
   duration?: number
-  closeButton?: boolean
   dismissible?: boolean
   description?: (() => ReactNode) | ReactNode
-  action?: ToastAction | ReactNode
-  cancel?: ToastAction | ReactNode
   onDismiss?: (_toast: ToastT) => void
   onAutoClose?: (_toast: ToastT) => void
   onClick?: () => void

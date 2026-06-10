@@ -40,7 +40,7 @@ describe("NotificationManager", () => {
     render(<NotificationManager />)
 
     await waitFor(() => {
-      expect(screen.getByLabelText("Notifications alt+T")).toBeInTheDocument()
+      expect(screen.getByRole("region", { name: /notifications/i })).toBeInTheDocument()
     })
   })
 

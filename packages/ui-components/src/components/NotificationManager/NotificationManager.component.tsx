@@ -11,8 +11,7 @@ import { Toast } from "../Toast"
 
 // Maps each NotificationManager instance (by id) to its dismissible setting.
 // Written after commit by NotificationManager effects so createSemanticToast can
-// read the current manager-level default when a toast() call does not specify
-// dismissible/closeButton.
+// read the current manager-level default when a toast() call does not specify dismissible.
 // A module-level Map is used because toast() is a singleton with no access to
 // component props — this is the only way to bridge manager config into the renderer.
 // Id-less managers are registered under DEFAULT_MANAGER_KEY so that toast() calls
@@ -44,10 +43,10 @@ export interface NotificationManagerProps {
    * Set to `false` to render non-dismissible notifications that disappear only
    * after their configured duration (or when dismissed programmatically).
    * Can be overridden for individual notifications by passing
-   * `closeButton` in `toast()` options.
+   * `dismissible` in `toast()` options.
    *
    * @example
-   * toast("Background sync started", { closeButton: false })
+   * toast("Background sync started", { dismissible: false })
    *
    * @default true
    */
@@ -190,10 +189,7 @@ const createSemanticToast = (variant: ToastVariant): ToastHandler => {
     const { description: _description, descriptionClassName, ...options } = data ?? {}
 
     const isDismissible =
-      (data?.dismissible ??
-        data?.closeButton ??
-        managerDismissibleRegistry.get(data?.toasterId ?? DEFAULT_MANAGER_KEY) ??
-        true) !== false
+      (data?.dismissible ?? managerDismissibleRegistry.get(data?.toasterId ?? DEFAULT_MANAGER_KEY) ?? true) !== false
 
     // Use Sonner's custom renderer but keep dismissal bound to Sonner toast id.
     return customToast(
@@ -221,8 +217,12 @@ const createSemanticToast = (variant: ToastVariant): ToastHandler => {
  *
  * Calling `toast()` without a variant renders as the `info` semantic variant.
  *
- * All other Sonner methods, such as `dismiss`, `getHistory`, `getToasts`,
- * `loading`, `promise`, and `custom`, remain available on the exported API.
+ * Utility methods `dismiss`, `getHistory`, and `getToasts` are passed through
+ * from Sonner and work as documented there.
+ *
+ * `loading`, `promise`, and `custom` are also passed through directly from Sonner
+ * and remain available, but they bypass Juno's custom renderer — output will use
+ * Sonner's default styling, not Juno's Toast component.
  */
 const semanticToasts = {
   info: createSemanticToast("info"),
