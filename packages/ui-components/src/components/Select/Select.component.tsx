@@ -72,8 +72,6 @@ const menuStylesContainer = `
 `
 
 const menuStyles = `
-  jn:rounded
-  jn:bg-theme-background-lvl-1
   jn:w-full
   jn:overflow-y-auto
 `
