@@ -1,1 +1,0 @@
-import{i as e}from"./preload-helper-usAeo7Bx.js";import{i as t,n}from"./TabList.component-BDlB5Uar.js";var r=e((()=>{t()})),i=e((()=>{n()}));export{r as n,i as t};
