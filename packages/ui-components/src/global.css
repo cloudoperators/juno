@@ -1064,32 +1064,32 @@
 
   h1 {
     font-size: 1.69rem;
-    @apply jn:leading-snug;
+    line-height: 1.375; /* leading-snug */
   }
 
   h2 {
     font-size: 1.56rem;
-    @apply jn:leading-snug;
+    line-height: 1.375; /* leading-snug */
   }
 
   h3 {
     font-size: 1.44rem;
-    @apply jn:leading-snug;
+    line-height: 1.375; /* leading-snug */
   }
 
   h4 {
     font-size: 1.28rem;
-    @apply jn:leading-relaxed;
+    line-height: 1.625; /* leading-relaxed */
   }
 
   h5 {
     font-size: 1.125rem;
-    @apply jn:leading-relaxed;
+    line-height: 1.625; /* leading-relaxed */
   }
 
   h6 {
     font-size: 1rem;
-    @apply jn:leading-normal;
+    line-height: 1.5; /* leading-normal */
   }
 
   /* adds pointer cursor to buttons to restore tw3 behavior */
