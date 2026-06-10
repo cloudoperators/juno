@@ -1,3 +1,0 @@
-import{i as e}from"./preload-helper-usAeo7Bx.js";import{F as t,I as n,U as r,tt as i}from"./iframe-DVGUqB5j.js";var a,o,s,c;e((()=>{i(),n(),a=r(),o={title:`Internal/ContentContainer`,component:t,argTypes:{children:{control:!1,table:{type:{summary:`ReactNode`}}}}},s={render:e=>(0,a.jsx)(t,{...e,children:`content`})},s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
-  render: args => <ContentContainer {...args}>content</ContentContainer>
-}`,...s.parameters?.docs?.source}}},c=[`Centered`]}))();export{s as Centered,c as __namedExportsOrder,o as default};
