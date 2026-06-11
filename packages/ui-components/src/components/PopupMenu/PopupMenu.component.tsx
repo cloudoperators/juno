@@ -398,7 +398,7 @@ export const PopupMenuSectionHeading = ({
 }: PopupMenuSectionHeadingProps): ReactNode => {
   return (
     <header className={`juno-popupmenu-section-title ${sectionTitleStyles} ${className}`} {...props}>
-      <h1>{label && label.length ? label : children}</h1>
+      <span>{label && label.length ? label : children}</span>
     </header>
   )
 }
