@@ -178,9 +178,9 @@ export const Modal = ({
       )
     }
     return (
-      <div className="juno-modal-title" id={modalTitleId}>
+      <h4 className="juno-modal-title" id={modalTitleId}>
         {modalTitle}
-      </div>
+      </h4>
     )
   }
 
