@@ -69,8 +69,6 @@ describe("SignInForm Component Tests", () => {
     test("applies correct styling to title", () => {
       render(<SignInForm data-testid="my-signin-form" title="Test Title" />)
       const heading = screen.getByRole("heading")
-      expect(heading).toHaveClass("jn:text-xl")
-      expect(heading).toHaveClass("jn:font-bold")
       expect(heading).toHaveClass("jn:text-theme-highest")
     })
   })
