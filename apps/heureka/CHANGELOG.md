@@ -1,5 +1,26 @@
 # heureka
 
+## 1.1.5
+
+### Patch Changes
+
+- Updated dependencies [f401418]
+  - @cloudoperators/juno-ui-components@7.0.0
+
+## 1.1.4
+
+### Patch Changes
+
+- 0e11c6e: Updated jsdom from 26.1.0 to 29.1.1 and updated Node.js engine requirement to >=20.19.0 to match jsdom's requirements.
+- 1ce58f0: Add Mitigate Manually action to vulnerability rows. Users can now mark a CVE as manually mitigated from the popup menu in both the Active and Remediated vulnerability tabs. The CVE moves to the Remediated tab immediately and can be reverted via the Remediation History Panel.
+- b2844e4: Wire Jira ticket to dedicated url field in createRemediation for risk acceptance, replacing the description-prefix workaround. Surface the ticket in a new "Source Ticket" column in the remediations history panel with improved date formatting and empty-value handling.
+- Updated dependencies [0e11c6e]
+- Updated dependencies [374c671]
+- Updated dependencies [44f2140]
+- Updated dependencies [c29127f]
+  - @cloudoperators/juno-url-state-provider@3.0.10
+  - @cloudoperators/juno-ui-components@6.5.0
+
 ## 1.1.3
 
 ### Patch Changes

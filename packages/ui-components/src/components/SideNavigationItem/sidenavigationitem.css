@@ -18,12 +18,7 @@
   box-shadow: 0 0 0 2px var(--color-accent);
 }
 
-.juno-sidenavigation-item:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.juno-sidenavigation-item.selected {
+.juno-sidenavigation-item-selected {
   background-color: var(--color-sidenav-item-background-selected);
   border-left: 0.25rem solid var(--color-accent);
 }

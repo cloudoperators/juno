@@ -20,20 +20,21 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    environment: npm-publish
     outputs:
       published: ${{ steps.changesets.outputs.published }}
       publishedPackages: ${{ steps.changesets.outputs.publishedPackages }}
     steps:
       - name: Generate GitHub App Token
         id: github-app-token
-        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2
+        uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3
         with:
           app-id: ${{ secrets.CLOUDOPERATOR_APP_ID }}
           private-key: ${{ secrets.CLOUDOPERATOR_APP_PRIVATE_KEY }}
           permission-contents: write
           permission-pull-requests: write
       - name: Checkout Repo
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Setup Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
@@ -45,12 +46,12 @@ jobs:
         run: npm install -g npm@11.5.1
 
       - name: Install pnpm
-        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
         with:
-          version: 10.32.1
+          version: 10.34.1
 
       - name: Cache \ store
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
           path: ~/.pnpm-store
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -74,7 +75,7 @@ jobs:
   notify-on-success:
     if: needs.release.outputs.published == 'true'
     needs: [release] # List the jobs that should complete successfully
-    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@e69fd9982d52aa1e1623ceda55875724843516b6 # main
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@f0c9d08e2c9d7c348dd3f24e7ea72ac3db3a6993 # main
     with:
       title: "JUNO Packages Released Successfully! 🚀"
       body: ${{ needs.release.outputs.publishedPackages }}
@@ -85,7 +86,7 @@ jobs:
   notify-on-failure:
     if: failure()
     needs: [release]
-    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@e69fd9982d52aa1e1623ceda55875724843516b6 # main
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@f0c9d08e2c9d7c348dd3f24e7ea72ac3db3a6993 # main
     with:
       title: "🚨 JUNO Packages Release Failed 🚨"
       body: "An error occurred while releasing JUNO Packages for the branch ${{ github.head_ref || github.ref_name }}. Please check the logs for more information. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>"

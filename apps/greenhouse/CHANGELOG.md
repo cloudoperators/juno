@@ -1,5 +1,44 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.14.0
+
+### Minor Changes
+
+- 354ae24: Show release name in plugin instance detail page
+- f7c7b5c: Add new Clusters dashboard
+
+### Patch Changes
+
+- 85d915e: Fixed typos and spacing issue for PluginPreset and Cluster tabs
+- Updated dependencies [f401418]
+  - @cloudoperators/juno-ui-components@7.0.0
+  - @cloudoperators/juno-app-doop@2.6.30
+  - @cloudoperators/juno-app-heureka@1.1.5
+  - @cloudoperators/juno-app-supernova@0.19.34
+  - @cloudoperators/juno-messages-provider@0.2.42
+
+## 0.13.0
+
+### Minor Changes
+
+- 1042d50: - Add a list of exposed services for all plugins
+  - Updated the plugin instance detail page to display a list of exposed services under `Details`, instead of a separate section.
+
+### Patch Changes
+
+- Updated dependencies [0e11c6e]
+- Updated dependencies [374c671]
+- Updated dependencies [44f2140]
+- Updated dependencies [1ce58f0]
+- Updated dependencies [b2844e4]
+- Updated dependencies [c29127f]
+  - @cloudoperators/juno-url-state-provider@3.0.10
+  - @cloudoperators/juno-messages-provider@0.2.41
+  - @cloudoperators/juno-ui-components@6.5.0
+  - @cloudoperators/juno-app-supernova@0.19.33
+  - @cloudoperators/juno-app-heureka@1.1.4
+  - @cloudoperators/juno-app-doop@2.6.29
+
 ## 0.12.10
 
 ### Patch Changes

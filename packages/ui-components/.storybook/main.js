@@ -1,4 +1,3 @@
-import { createRequire } from "node:module"
 import { merge } from "storybook/manager-api"
 import svgr from "vite-plugin-svgr"
 
@@ -7,12 +6,7 @@ import svgr from "vite-plugin-svgr"
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// Create require function for CommonJS modules
-const require = createRequire(import.meta.url)
-
-// Import CommonJS modules after require is defined
-const globImporter = require("node-sass-glob-importer")
-const vitePluginGlob = require("vite-plugin-glob")
+import vitePluginGlob from "vite-plugin-glob"
 
 /** @type { import('@storybook/react-vite').StorybookConfig } */
 const config = {
@@ -40,15 +34,6 @@ const config = {
           svgo: false,
         }),
       ],
-      css: {
-        preprocessorOptions: {
-          scss: {
-            sassOptions: {
-              importer: globImporter(),
-            },
-          },
-        },
-      },
     })
     return config
   },

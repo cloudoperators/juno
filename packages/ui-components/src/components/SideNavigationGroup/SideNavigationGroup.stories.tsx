@@ -7,10 +7,10 @@ import React from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { SideNavigationGroup } from "./SideNavigationGroup.component"
 import { SideNavigation } from "../SideNavigation/SideNavigation.component"
-import { SideNavigationItem } from "../SideNavigationItem"
+import { SideNavigationItem } from "../SideNavigationItem/SideNavigationItem.component"
 
 const meta: Meta<typeof SideNavigationGroup> = {
-  title: "Navigation/SideNavigation/SideNavigationGroup",
+  title: "Navigation/SideNavigation/Group",
   component: SideNavigationGroup,
   argTypes: {
     children: {
@@ -36,12 +36,12 @@ export const Default: Story = {
   args: {
     label: "Group",
   },
-}
-
-export const Disabled: Story = {
-  args: {
-    label: "Group",
-    disabled: true,
+  parameters: {
+    docs: {
+      description: {
+        story: "Displays a simple SideNavigationGroup without children, useful for organizing items.",
+      },
+    },
   },
 }
 
@@ -51,14 +51,20 @@ export const Expandable: Story = {
     children: (
       <>
         <SideNavigationItem label="1st Level Item" href="#" icon="addCircle" />
-        <SideNavigationItem label="1st Level Item" icon="addCircle">
+        <SideNavigationItem label="Nested" icon="addCircle">
           <SideNavigationItem label="2nd Level Item" icon="addCircle">
-            <SideNavigationItem label="3rd Level Item" href="#" icon="addCircle">
-              <SideNavigationItem label="4th Level Item" href="#" icon="addCircle" />
-            </SideNavigationItem>
+            <SideNavigationItem label="3rd Level Item" href="#" icon="addCircle" />
+            <SideNavigationItem label="4th Level Item" href="#" icon="addCircle" />
           </SideNavigationItem>
         </SideNavigationItem>
       </>
     ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Shows a SideNavigationGroup with expandable items, demonstrating hierarchical navigation.",
+      },
+    },
   },
 }

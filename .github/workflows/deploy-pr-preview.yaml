@@ -50,7 +50,7 @@ jobs:
     needs: [run-detect-changes]
     runs-on: [ubuntu-latest]
     steps:
-      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Precompile ENVs
         if: github.event.action != 'closed'
@@ -65,11 +65,30 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
+      - name: Install pnpm
+        if: github.event.action != 'closed'
+        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
+        with:
+          version: 10.34.1
+
+      - name: Get pnpm store directory
+        if: github.event.action != 'closed'
+        id: pnpm-cache
+        run: |
+          echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        if: github.event.action != 'closed'
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
       - name: Install dependencies
         if: github.event.action != 'closed'
-        run: |
-          npm install -g pnpm
-          pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Create a folder with all compiled apps and pkgs
         if: github.event.action != 'closed'

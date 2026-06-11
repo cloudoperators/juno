@@ -1,5 +1,29 @@
 # @cloudoperators/juno-ui-components
 
+## 7.0.0
+
+### Major Changes
+
+- f401418: Fix issues in `SideNavigation`,`SideNavigationItem` and `SideNavigationGroup`:
+  - Removed `disabled` prop from SideNavigation (BREAKING CHANGE)
+  - Removed `activeItem` and `onActiveItemChange` prop from SideNavigation (BREAKING CHANGE)
+  - Removed `disabled` prop from SidenavigationGroup (BREAKING CHANGE)
+  - Fixed multiple issues in all components
+
+## 6.5.0
+
+### Minor Changes
+
+- c29127f: feat(ui): add `DataGrid` header stories
+  feat(docs): filter out `js:`-prefix from classNames in storyabook code examples (everywhere, this is a global storybook setting now for ui-components)
+  BREAKING CHANGE: remove `alignRight` prop (the component now relies purely on composition)
+
+### Patch Changes
+
+- 0e11c6e: Updated jsdom from 26.1.0 to 29.1.1 and updated Node.js engine requirement to >=20.19.0 to match jsdom's requirements.
+- 374c671: Upgrade focus-trap-react to 12.0.2 and node-sass-glob-importer to 5.3.3
+- 44f2140: Add `href`, `onClick` and `disabled` props to Card
+
 ## 6.4.0
 
 ### Minor Changes

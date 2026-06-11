@@ -22,7 +22,6 @@ const btnBase = `
   jn:justify-center 
   jn:items-center
   jn:rounded
-  jn:shadow-sm 
   jn:w-auto
   jn:focus:outline-hidden 
   jn:focus-visible:ring-2
