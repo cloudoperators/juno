@@ -178,9 +178,9 @@ export const Modal = ({
       )
     }
     return (
-      <h4 className="juno-modal-title" id={modalTitleId}>
+      <div className="juno-modal-title" role="heading" aria-level={4} id={modalTitleId}>
         {modalTitle}
-      </h4>
+      </div>
     )
   }
 

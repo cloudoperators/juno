@@ -1131,7 +1131,7 @@
   h5,
   h6 {
     font-family: var(--font-sans);
-    font-weight: 700;
+    @apply jn:font-bold;
   }
 
   h1 {

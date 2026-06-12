@@ -15,4 +15,6 @@ Fix h1 misuse in components that rendered UI labels as `<h1>`, which caused unin
 - `FormSection`: title changed from `<h1>` to `<h4>`. One level below `Form` (`<h3>`) in the heading hierarchy. `<h4>` was chosen over `<h5>` (visual match) to maintain correct nesting.
 - `SignInForm`: title changed from `<h1>` to `<h2>`. The form is often the primary content of a page but may also be embedded; `<h2>` is a safe default for both cases.
 - `IntroBox`: title changed from `<h1>` to `<p>`. An info box is not a navigable section; adding it to the heading outline would confuse screen reader users navigating by heading. Bold styling preserved via existing `introboxHeading` class.
-- `PopupMenu`: section heading changed from `<h1>` to `<span>`. A dropdown menu label is purely decorative grouping — not a document section. Using a heading here would pollute the heading outline with menu internals.
+- `global.css`: replaced `font-weight: 700` with `@apply jn:font-bold` in h1–h6 base styles for consistency with Tailwind conventions.
+- `theme.css`: same — replaced `font-weight: 700` with `@apply jn:font-bold`.
+- `Modal`: ReactNode titles now render as `<div role="heading" aria-level={4}>` instead of `<h4>` to avoid invalid HTML (block elements inside heading elements). String titles remain `<h4>`. Both approaches are equivalent for assistive technologies.

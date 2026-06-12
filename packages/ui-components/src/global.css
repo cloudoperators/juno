@@ -1058,8 +1058,7 @@
   h4,
   h5,
   h6 {
-    @apply jn:font-sans;
-    font-weight: 700;
+    @apply jn:font-sans jn:font-bold;
   }
 
   h1 {
