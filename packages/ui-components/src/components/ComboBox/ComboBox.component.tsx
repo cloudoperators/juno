@@ -139,6 +139,7 @@ const menuStyles = `
   jn:border
   jn:border-theme-default
   jn:shadow-theme-default
+  jn:box-border
 `
 
 const iconContainerStyles = `
