@@ -98,4 +98,10 @@ describe("SideNavigationItem", () => {
     const itemElement = screen.getByRole("button")
     expect(itemElement).toHaveAttribute("title", "Children-only label")
   })
+
+  it("does not set a title attribute when label is a ReactNode", () => {
+    render(<SideNavigationItem label={<span>Node label</span>} />)
+    const itemElement = screen.getByRole("button")
+    expect(itemElement).not.toHaveAttribute("title")
+  })
 })
