@@ -86,4 +86,10 @@ describe("SideNavigationItem", () => {
     const itemElement = screen.getByRole("button")
     expect(itemElement).toHaveAttribute("aria-label", "Custom Aria Label")
   })
+
+  it("sets a title attribute on the rendered button when label is a string", () => {
+    render(<SideNavigationItem label="A very long label that may overflow" />)
+    const itemElement = screen.getByRole("button")
+    expect(itemElement).toHaveAttribute("title", "A very long label that may overflow")
+  })
 })

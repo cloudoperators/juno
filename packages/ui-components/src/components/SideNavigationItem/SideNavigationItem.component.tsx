@@ -112,6 +112,13 @@ export const SideNavigationItem = ({
     }
   }
 
+  const titleText: string | undefined =
+    typeof label === "string" && label.length > 0
+      ? label
+      : typeof children === "string" && children.length > 0
+        ? children
+        : undefined
+
   const renderExpandButton = () =>
     children && typeof children !== "string" && Children.count(children) ? (
       <button
@@ -153,6 +160,7 @@ export const SideNavigationItem = ({
             onClick={!disabled ? handleMainClick : undefined}
             aria-disabled={disabled || undefined}
             tabIndex={disabled ? -1 : undefined}
+            title={titleText}
             {...props}
           >
             {renderLeft()}
@@ -165,6 +173,7 @@ export const SideNavigationItem = ({
             className={combinedClassNames}
             onClick={!disabled ? handleMainClick : undefined}
             disabled={disabled}
+            title={titleText}
             {...props}
           >
             {renderLeft()}
