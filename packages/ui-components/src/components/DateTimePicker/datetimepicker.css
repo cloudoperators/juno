@@ -42,8 +42,8 @@
   -ms-touch-action: manipulation;
   touch-action: manipulation;
   background: var(--color-datetimepicker-calendar-bg);
-  border: 1px solid var(--color-border-default);
-  box-shadow: var(--box-shadow-default);
+  border: 1px solid var(--border-color-theme-default);
+  box-shadow: var(--shadow-theme-default);
   /* -webkit-box-shadow: 1px 0 0 #20222c, -1px 0 0 #20222c, 0 1px 0 #20222c, 0 -1px 0 #20222c, 0 3px 13px rgba(0,0,0,0.08); */
   /* box-shadow: 1px 0 0 #20222c, -1px 0 0 #20222c, 0 1px 0 #20222c, 0 -1px 0 #20222c, 0 3px 13px rgba(0,0,0,0.08); */
 }
