@@ -4,15 +4,7 @@
  */
 
 import React, { use, useState } from "react"
-import {
-  Stack,
-  Pill,
-  DataGrid,
-  DataGridRow,
-  DataGridHeadCell,
-  DataGridCell,
-  Icon,
-} from "@cloudoperators/juno-ui-components"
+import { Stack, Badge, DL, DT, DD, Icon } from "@cloudoperators/juno-ui-components"
 import { useNavigate } from "@tanstack/react-router"
 import { getNormalizedImagesResponse, ServiceImage } from "../../Services/utils"
 import { getShortSha256 } from "../../../utils"
@@ -21,6 +13,9 @@ import SectionContentHeading from "../../common/SectionContentHeading"
 import { ImageIssuesList } from "./ImageIssuesList"
 import { ObservableQuery } from "@apollo/client"
 import { GetImagesQuery } from "../../../generated/graphql"
+
+// DL's children type is too strict for conditional rows — cast to allow ReactNode
+const FlexDL = DL as React.FC<Omit<React.ComponentProps<typeof DL>, "children"> & { children: React.ReactNode }>
 
 export type VulnerabilitiesTabValue = "active" | "remediated"
 
@@ -67,80 +62,73 @@ export const ImageDetails = ({
   const displayedVersions = showAllVersions ? versions : versions.slice(0, VERSIONS_INITIAL)
   const hasMoreVersions = versions.length > VERSIONS_INITIAL
 
+  const versionsRow =
+    versions.length > 0
+      ? [
+          <DT key="versions-dt" className="jn:col-span-1">{`Versions (${versions.length})`}</DT>,
+          <DD key="versions-dd" className="jn:col-span-1">
+            <Stack gap="1" direction="horizontal" wrap>
+              {displayedVersions.map((version) =>
+                version.version ? (
+                  <Badge
+                    key={version.id}
+                    text={getShortSha256(version.version)}
+                    title={version.version}
+                    onClick={() => handleVersionClick(version.version)}
+                    className="cursor-pointer"
+                  />
+                ) : (
+                  <React.Fragment key={version.id}>—</React.Fragment>
+                )
+              )}
+            </Stack>
+            {hasMoreVersions && (
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault()
+                  setShowAllVersions((prev) => !prev)
+                }}
+                className="link-hover mt-2 inline-flex items-center gap-1"
+              >
+                {showAllVersions ? (
+                  <>
+                    <span>Show less ...</span>
+                    <Icon color="global-text" icon="expandLess" />
+                  </>
+                ) : (
+                  <>
+                    <span>Show ({versions.length - VERSIONS_INITIAL} more ...)</span>
+                    <Icon color="global-text" icon="expandMore" />
+                  </>
+                )}
+              </a>
+            )}
+          </DD>,
+        ]
+      : []
+
   return (
     <>
       <SectionContentHeading>Image {image.repository}</SectionContentHeading>
 
       {/* Image Information Section */}
-      <DataGrid columns={2} gridColumnTemplate="20% auto" className="mb-6">
-        <DataGridRow>
-          <DataGridHeadCell>Details</DataGridHeadCell>
-          <DataGridCell>
-            <Stack gap="1" direction="horizontal" wrap>
-              <Pill
-                pillKey="repository"
-                pillKeyLabel="repository"
-                pillValue={image.repository}
-                pillValueLabel={image.repository}
-              />
-              {image.versionsCount !== undefined && image.versionsCount > 0 && (
-                <Pill
-                  pillKey="versions"
-                  pillKeyLabel="versions"
-                  pillValue={image.versionsCount.toString()}
-                  pillValueLabel={image.versionsCount.toString()}
-                />
-              )}
-            </Stack>
-          </DataGridCell>
-        </DataGridRow>
-        <DataGridRow>
-          <DataGridHeadCell>Vulnerabilities Counts</DataGridHeadCell>
-          <DataGridCell>
-            <IssueCountsPerSeverityLevel counts={image.vulnerabilityCounts} />
-          </DataGridCell>
-        </DataGridRow>
-        {versions.length > 0 && (
-          <DataGridRow>
-            <DataGridHeadCell>Versions ({versions.length})</DataGridHeadCell>
-            <DataGridCell>
-              <Stack gap="1" direction="horizontal" wrap>
-                {displayedVersions.map((version) => (
-                  <Pill
-                    key={version.id}
-                    pillValue={version.version || "_"}
-                    pillValueLabel={version.version ? getShortSha256(version.version) : "_"}
-                    title={version.version}
-                    onClick={() => handleVersionClick(version.version)}
-                  />
-                ))}
-              </Stack>
-              {hasMoreVersions && (
-                <a
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    setShowAllVersions((prev) => !prev)
-                  }}
-                  className="link-hover mt-2 inline-flex items-center gap-1"
-                >
-                  {showAllVersions ? (
-                    <>
-                      <span>Show less ...</span>
-                      <Icon color="global-text" icon="expandLess" />
-                    </>
-                  ) : (
-                    <>
-                      <span>Show ({versions.length - VERSIONS_INITIAL} more ...)</span>
-                      <Icon color="global-text" icon="expandMore" />
-                    </>
-                  )}
-                </a>
-              )}
-            </DataGridCell>
-          </DataGridRow>
-        )}
-      </DataGrid>
+      <FlexDL className="mb-6" alignTerms="left">
+        <DT className="jn:col-span-1">Image</DT>
+        <DD className="jn:col-span-1">
+          <Stack gap="1" direction="horizontal" wrap>
+            <Badge text={image.repository} />
+            {image.versionsCount !== undefined && image.versionsCount > 0 && (
+              <Badge text={image.versionsCount.toString()} />
+            )}
+          </Stack>
+        </DD>
+        <DT className="jn:col-span-1">Vulnerabilities Counts</DT>
+        <DD className="jn:col-span-1">
+          <IssueCountsPerSeverityLevel counts={image.vulnerabilityCounts} />
+        </DD>
+        {versionsRow}
+      </FlexDL>
 
       {/* Issues List Section */}
       {service && imageRepository && image && (
