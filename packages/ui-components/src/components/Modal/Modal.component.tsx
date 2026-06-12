@@ -179,7 +179,7 @@ export const Modal = ({
     }
     if (typeof modalTitle === "string") {
       return (
-        <h4 className="juno-modal-title" id={modalTitleId}>
+        <h4 className={`juno-modal-title ${titlestyles}`} id={modalTitleId}>
           {modalTitle}
         </h4>
       )
