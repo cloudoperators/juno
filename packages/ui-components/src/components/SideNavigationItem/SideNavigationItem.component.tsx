@@ -34,6 +34,7 @@ const leftStyles = `
   jn:flex
   jn:items-center
   jn:flex-grow
+  jn:min-w-0
 `
 
 const disabledStyles = `
