@@ -23,6 +23,16 @@
   border-left: 0.25rem solid var(--color-accent);
 }
 
+.level-1,
+.level-2,
+.level-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
 .level-1 {
   font-weight: bold;
 }
