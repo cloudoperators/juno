@@ -10,3 +10,4 @@ Add `border-theme-default` and `shadow-theme-default` to floating menu and overl
 - `Toast`: border and shadow added
 - `DateTimePicker`: border and shadow added to flatpickr calendar popup
 - `Select`, `ComboBox`: added `box-border` to floating container so the 1px border is included in the Floating UI computed width, preventing subtle misalignment with the toggle
+- `Select`: added `overflow-hidden` to outer floating container so option hover backgrounds are clipped by the rounded corners

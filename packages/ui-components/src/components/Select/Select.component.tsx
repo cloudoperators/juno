@@ -70,6 +70,7 @@ const menuStylesContainer = `
   jn:border-theme-default
   jn:shadow-theme-default
   jn:box-border
+  jn:overflow-hidden
 `
 
 const menuStyles = `
