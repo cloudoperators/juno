@@ -1,5 +1,14 @@
 # heureka
 
+## 1.1.6
+
+### Patch Changes
+
+- 1c09e1a: Improves UX consistency across the Heureka app by replacing Pill components with Badges in service and image detail views, renaming columns for clarity, ensuring DataGrids show `—` instead of empty cells when no data is available, and replacing DataGrid with the semantic DescriptionList component in service, image, and image version detail pages.
+- Updated dependencies [1a99afb]
+- Updated dependencies [d09aeff]
+  - @cloudoperators/juno-ui-components@8.0.0
+
 ## 1.1.5
 
 ### Patch Changes
