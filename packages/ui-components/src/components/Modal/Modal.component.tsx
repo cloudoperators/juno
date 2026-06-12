@@ -57,7 +57,8 @@ const headerstyles = `
 `
 
 const titlestyles = `
-  jn:text-xl
+  jn:text-[1.28rem]
+  jn:leading-relaxed
   jn:font-bold
 `
 
