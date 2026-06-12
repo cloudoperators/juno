@@ -53,7 +53,7 @@ describe("Modal", () => {
     )
 
     const dialog = screen.getByRole("dialog")
-    const titleWrapper = screen.getByText("Node Title").closest("div")
+    const titleWrapper = screen.getByRole("heading", { level: 4 })
 
     expect(dialog).toBeInTheDocument()
     expect(titleWrapper).toBeInTheDocument()

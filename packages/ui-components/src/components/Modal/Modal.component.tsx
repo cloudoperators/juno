@@ -57,7 +57,9 @@ const headerstyles = `
 `
 
 const titlestyles = `
-  jn:text-xl
+  jn:font-sans
+  jn:text-[1.28rem]
+  jn:leading-relaxed
   jn:font-bold
 `
 
@@ -177,13 +179,13 @@ export const Modal = ({
     }
     if (typeof modalTitle === "string") {
       return (
-        <h1 className={`juno-modal-title ${titlestyles}`} id={modalTitleId}>
+        <h4 className={`juno-modal-title ${titlestyles}`} id={modalTitleId}>
           {modalTitle}
-        </h1>
+        </h4>
       )
     }
     return (
-      <div className={`juno-modal-title ${titlestyles}`} id={modalTitleId}>
+      <div className={`juno-modal-title ${titlestyles}`} role="heading" aria-level={4} id={modalTitleId}>
         {modalTitle}
       </div>
     )

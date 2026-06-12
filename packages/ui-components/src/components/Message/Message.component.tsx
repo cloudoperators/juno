@@ -264,7 +264,7 @@ export const Message = ({
       <div className={`juno-message-border ${messageBorderStyles} ${variantStyle}`}></div>
       <Icon icon={iconToRender} size={21} className={`${getIconStyles(variant)} ${messageIconStyles}`} />
       <div className={`juno-message-content ${messageContentStyles}`}>
-        {title && <h1 className={messageHeadingStyles}>{title}</h1>}
+        {title && <strong className={messageHeadingStyles}>{title}</strong>}
         <div>{children || text}</div>
       </div>
       {dismissible && (
