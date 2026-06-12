@@ -92,4 +92,10 @@ describe("SideNavigationItem", () => {
     const itemElement = screen.getByRole("button")
     expect(itemElement).toHaveAttribute("title", "A very long label that may overflow")
   })
+
+  it("falls back to string children for the title when label is not provided", () => {
+    render(<SideNavigationItem>Children-only label</SideNavigationItem>)
+    const itemElement = screen.getByRole("button")
+    expect(itemElement).toHaveAttribute("title", "Children-only label")
+  })
 })
