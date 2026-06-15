@@ -8,6 +8,6 @@ Add `border-theme-default` and `shadow-theme-default` to floating menu and overl
 - `ComboBox`, `PopupMenu`: border and shadow added to menu panel
 - `TooltipContent`: replaced custom `drop-shadow` with consistent `shadow-theme-default`; border added
 - `Toast`: border and shadow added
-- `DateTimePicker`: border and shadow added to flatpickr calendar popup using `--color-border-default` and `--box-shadow-default`; theme-level tokens were reverted as the flatpickr popup renders outside the Juno theme wrapper and cannot access them
+- `DateTimePicker`: border and shadow added to flatpickr calendar popup using `--border-color-theme-default` and `--shadow-theme-default`
 - `Select`, `ComboBox`: added `box-border` to floating container so the 1px border is included in the Floating UI computed width, preventing subtle misalignment with the toggle
 - `Select`: added `overflow-hidden` to outer floating container so option hover backgrounds are clipped by the rounded corners
