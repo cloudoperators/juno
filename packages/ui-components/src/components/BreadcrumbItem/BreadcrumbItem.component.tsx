@@ -99,7 +99,7 @@ export const BreadcrumbItem = ({
 
   const combinedClassName = `juno-breadcrumb-item 
     ${breadcrumbItemBaseStyles} 
-    ${disabled ? "juno-breadcrumb-item-disabled" : ""} 
+    ${active ? "juno-breadcrumb-item-active" : ""} 
     ${!active && disabled ? "juno-breadcrumb-item-disabled" : ""} 
     ${className}`
 
