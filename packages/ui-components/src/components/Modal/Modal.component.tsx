@@ -49,11 +49,12 @@ const modalstyles = `
 
 const headerstyles = `
 	jn:flex
+	jn:items-start
 	jn:py-2
 	jn:px-8
 	jn:border-b
 	jn:border-theme-background-lvl-4
-	jn:h-[2.8125rem]
+	jn:min-h-[2.8125rem]
 `
 
 const contentstyles = `
