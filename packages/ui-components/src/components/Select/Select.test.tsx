@@ -431,6 +431,10 @@ describe("Select", () => {
     expect(screen.getAllByRole("option")[0]).toHaveTextContent("Option 1")
     expect(screen.getAllByRole("option")[1]).toHaveTextContent("Option 2")
     expect(screen.getAllByRole("option")[2]).toHaveTextContent("Option 3")
+    const menuContainer = document.querySelector(".juno-select-menu-container")
+    expect(menuContainer).toHaveClass("jn:border")
+    expect(menuContainer).toHaveClass("jn:border-theme-default")
+    expect(menuContainer).toHaveClass("jn:shadow-theme-default")
   })
 
   test("changes the selected value as clicked by a user", async () => {
