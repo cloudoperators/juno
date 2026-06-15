@@ -80,7 +80,8 @@ describe("BreadcrumbItem", () => {
 
   describe("State Handling", () => {
     test("renders an active item", () => {
-      render(<BreadcrumbItem active data-testid="breadcrumbitem" />)
+      render(<BreadcrumbItem active href="#" data-testid="breadcrumbitem" />)
+      expect(screen.queryByRole("link")).not.toBeInTheDocument()
       expect(screen.getByTestId("breadcrumbitem")).toHaveAttribute("aria-current", "page")
     })
 

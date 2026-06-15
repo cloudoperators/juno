@@ -100,7 +100,7 @@ export const BreadcrumbItem = ({
   const combinedClassName = `juno-breadcrumb-item 
     ${breadcrumbItemBaseStyles} 
     ${disabled ? "juno-breadcrumb-item-disabled" : ""} 
-    ${active ? "juno-breadcrumb-item-active" : ""} 
+    ${!active && disabled ? "juno-breadcrumb-item-disabled" : ""} 
     ${className}`
 
   if (active) {
@@ -127,7 +127,13 @@ export const BreadcrumbItem = ({
     // Render the breadcrumb item as a link if href is provided and apply breadcrumbLinkBaseStyles
     const linkClassName = `${combinedClassName} ${breadcrumbLinkBaseStyles}`
     return (
-      <a href={href} className={linkClassName} aria-label={ariaLabel || label} onClick={onClick} {...props}>
+      <a
+        href={href}
+        className={linkClassName}
+        aria-label={ariaLabel || label || undefined}
+        onClick={onClick}
+        {...props}
+      >
         {iconElement}
         {label}
       </a>
@@ -137,7 +143,13 @@ export const BreadcrumbItem = ({
   if (onClick) {
     // Render the breadcrumb item as a button if only onClick is provided
     return (
-      <button type="button" className={combinedClassName} onClick={onClick} {...props}>
+      <button
+        type="button"
+        className={combinedClassName}
+        aria-label={ariaLabel || label || undefined}
+        onClick={onClick}
+        {...props}
+      >
         {iconElement}
         {label}
       </button>

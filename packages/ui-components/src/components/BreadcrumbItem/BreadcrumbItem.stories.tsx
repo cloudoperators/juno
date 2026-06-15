@@ -129,9 +129,7 @@ export const Button = {
 
   args: {
     label: "Breadcrumb Button Item",
-    onClick: () => {
-      console.log("Button clicked")
-    },
+    onClick: () => undefined,
   },
 }
 
