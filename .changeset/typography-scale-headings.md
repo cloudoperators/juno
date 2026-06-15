@@ -2,19 +2,20 @@
 "@cloudoperators/juno-ui-components": minor
 ---
 
-Add h1–h6 base typography styles aligned with the Juno design system scale.
+Add base typography styles for `h1`–`h6` aligned with the Juno design system scale.
 
-- `global.css` and `theme.css`: h1–h6 defined in `@layer base` with IBM Plex Sans Bold, rem font sizes, and plain CSS `line-height` values. `theme.css` uses `var(--font-sans)` instead of a hardcoded font stack.
-- `FormattedText`: heading sizes and line-heights aligned with the scale; h5 corrected (1.03rem → 1.125rem); h6 added; redundant `font-weight`/`font-style` declarations removed.
-- `ContentHeading`: removed `jn:font-bold` and `jn:text-lg` overrides that were overriding the h1 base style with a smaller size.
+Headings rendered inside Juno apps (and inside `FormattedText`) now use a consistent IBM Plex Sans Bold scale: `h1` 1.69rem, `h2` 1.56rem, `h3` 1.44rem, `h4` 1.28rem, `h5` 1.125rem, `h6` 1rem.
 
-Fix h1 misuse in components that rendered UI labels as `<h1>`, which caused unintended size changes after the global h1 style was introduced. Heading levels were chosen to reflect both visual size and accessibility (correct heading outline for screen readers).
+Matching `.juno-h1`–`.juno-h6` utility classes apply the same scale to non-heading elements (e.g. an element with `role="heading"`).
 
-- `Modal`: title changed from `<h1>` to `<h4>`. The modal has `role="dialog"` which creates an isolated landmark; the title is referenced via `aria-labelledby`. A heading inside a dialog is semantically correct and independent of the page outline. `<h4>` matches the previous visual size (~20px).
-- `Form`: title changed from `<h1>` to `<h3>`. A form is a named content section; a heading is appropriate. `<h3>` matches the previous visual size (~24px).
-- `FormSection`: title changed from `<h1>` to `<h4>`. One level below `Form` (`<h3>`) in the heading hierarchy. `<h4>` was chosen over `<h5>` (visual match) to maintain correct nesting.
-- `SignInForm`: title changed from `<h1>` to `<h2>`. The form is often the primary content of a page but may also be embedded; `<h2>` is a safe default for both cases.
-- `IntroBox`: title changed from `<h1>` to `<p>`. An info box is not a navigable section; adding it to the heading outline would confuse screen reader users navigating by heading. Bold styling preserved via existing `introboxHeading` class.
-- `global.css`: replaced `font-weight: 700` with `@apply jn:font-bold` in h1–h6 base styles for consistency with Tailwind conventions.
-- `theme.css`: same — replaced `font-weight: 700` with `@apply font-bold` (no `jn:` prefix, consistent with existing `@apply` usage in that file).
-- `Modal`: ReactNode titles now render as `<div role="heading" aria-level={4}>` instead of `<h4>` to avoid invalid HTML (block elements inside heading elements). String titles remain `<h4>`. Both approaches are equivalent for assistive technologies.
+**Visual change**: `ContentHeading` now uses the h1 scale (1.69rem) instead of `text-lg` (1.125rem). If you relied on the previous size, override with your own classes.
+
+**Accessibility fixes**: several components previously used `<h1>` for UI labels regardless of context. They now use semantically appropriate elements so screen reader heading navigation reflects real document structure:
+
+- `Modal` title: `<h4>` (string title) or `<div role="heading" aria-level={4}>` (ReactNode title)
+- `Form` title: `<h3>`
+- `FormSection` title: `<h4>`
+- `SignInForm` title: `<h2>`
+- `Message` title: `<strong>` (no longer a heading)
+- `IntroBox` title: `<p>` (no longer a heading)
+- `PopupMenuSectionHeading` label: plain text inside `<header>` (no longer a heading)

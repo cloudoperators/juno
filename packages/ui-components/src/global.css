@@ -1052,41 +1052,41 @@
     @apply jn:text-theme-link;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  h1, .juno-h1,
+  h2, .juno-h2,
+  h3, .juno-h3,
+  h4, .juno-h4,
+  h5, .juno-h5,
+  h6, .juno-h6 {
     @apply jn:font-sans jn:font-bold;
   }
 
-  h1 {
+  h1, .juno-h1 {
     font-size: 1.69rem;
     line-height: 1.375;
   }
 
-  h2 {
+  h2, .juno-h2 {
     font-size: 1.56rem;
     line-height: 1.375;
   }
 
-  h3 {
+  h3, .juno-h3 {
     font-size: 1.44rem;
     line-height: 1.375;
   }
 
-  h4 {
+  h4, .juno-h4 {
     font-size: 1.28rem;
     line-height: 1.625;
   }
 
-  h5 {
+  h5, .juno-h5 {
     font-size: 1.125rem;
     line-height: 1.625;
   }
 
-  h6 {
+  h6, .juno-h6 {
     font-size: 1rem;
     line-height: 1.5;
   }
