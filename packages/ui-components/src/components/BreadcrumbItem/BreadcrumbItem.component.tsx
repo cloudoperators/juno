@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactNode, MouseEvent, HTMLAttributes, MouseEventHandler } from "react"
+import React, { ReactNode, HTMLAttributes, MouseEventHandler } from "react"
 import { Icon, KnownIcons } from "../Icon/Icon.component"
 
 const breadcrumbItemBaseStyles = `
@@ -19,7 +19,7 @@ const breadcrumbLinkBaseStyles = `
   jn:inline-flex
 `
 
-export interface BreadcrumbItemProps extends HTMLAttributes<HTMLSpanElement> {
+export interface BreadcrumbItemProps extends HTMLAttributes<HTMLElement> {
   /**
    * The type of icon to display within the breadcrumb item.
    */
@@ -27,7 +27,7 @@ export interface BreadcrumbItemProps extends HTMLAttributes<HTMLSpanElement> {
 
   /**
    * The URL that the breadcrumb item points to for navigation.
-   * @default "#"
+   * @default undefined
    */
   href?: string
 
@@ -51,7 +51,7 @@ export interface BreadcrumbItemProps extends HTMLAttributes<HTMLSpanElement> {
   /**
    * The click event handler for the breadcrumb item, called when the item is clicked.
    */
-  onClick?: MouseEventHandler<HTMLAnchorElement>
+  onClick?: MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>
 
   /**
    * If `true`, disables the breadcrumb item, preventing interaction.
@@ -80,7 +80,7 @@ export interface BreadcrumbItemProps extends HTMLAttributes<HTMLSpanElement> {
  * @see {@link BreadcrumbItemProps}
  */
 export const BreadcrumbItem = ({
-  href = "#",
+  href,
   label = "Item",
   ariaLabel = "",
   active = false,
@@ -103,26 +103,52 @@ export const BreadcrumbItem = ({
     ${active ? "juno-breadcrumb-item-active" : ""} 
     ${className}`
 
-  if (active || disabled) {
+  if (active) {
+    // Render a non-interactive span for active breadcrumb items with aria-current
     return (
-      <span className={combinedClassName} {...props}>
+      <span className={combinedClassName} aria-current="page" {...props}>
         {iconElement}
         {label}
       </span>
     )
   }
 
-  const handleLinkClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    if (onClick && !disabled) onClick(event)
+  if (disabled) {
+    // Render a non-interactive span with aria-disabled for disabled breadcrumb items
+    return (
+      <span className={combinedClassName} aria-disabled="true" {...props}>
+        {iconElement}
+        {label}
+      </span>
+    )
   }
 
-  // Render the breadcrumb item as a link if neither active nor disabled
-  return (
-    <span className={combinedClassName} {...props}>
-      <a href={href} className={breadcrumbLinkBaseStyles} aria-label={ariaLabel || label} onClick={handleLinkClick}>
+  if (href) {
+    // Render the breadcrumb item as a link if href is provided and apply breadcrumbLinkBaseStyles
+    const linkClassName = `${combinedClassName} ${breadcrumbLinkBaseStyles}`
+    return (
+      <a href={href} className={linkClassName} aria-label={ariaLabel || label} onClick={onClick} {...props}>
         {iconElement}
         {label}
       </a>
+    )
+  }
+
+  if (onClick) {
+    // Render the breadcrumb item as a button if only onClick is provided
+    return (
+      <button type="button" className={combinedClassName} onClick={onClick} {...props}>
+        {iconElement}
+        {label}
+      </button>
+    )
+  }
+
+  // Default render as a non-interactive span (when no href or onClick is provided)
+  return (
+    <span className={combinedClassName} {...props}>
+      {iconElement}
+      {label}
     </span>
   )
 }
