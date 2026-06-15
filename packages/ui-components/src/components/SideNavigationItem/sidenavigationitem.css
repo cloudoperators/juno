@@ -31,6 +31,7 @@
   -webkit-line-clamp: 2;
   overflow: hidden;
   overflow-wrap: anywhere;
+  text-align: left;
 }
 
 .level-1 {
