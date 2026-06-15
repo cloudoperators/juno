@@ -53,7 +53,7 @@ export const ServicesList = () => {
           <DataGridHeadCell colSpan={5} className="whitespace-nowrap">
             Vulnerability Counts
           </DataGridHeadCell>
-          <DataGridHeadCell>Details</DataGridHeadCell>
+          <DataGridHeadCell>Support Group</DataGridHeadCell>
         </DataGridRow>
         <ErrorBoundary
           displayErrorMessage
