@@ -34,7 +34,7 @@ jobs:
     outputs:
       failed: ${{ steps.set-failure-output.outputs.failed }}
     permissions:
-      contents: read
+      contents: write
       packages: write
       # This is used to complete the identity challenge
       # with sigstore/fulcio when running outside of PRs.
