@@ -111,7 +111,7 @@ export const Modal = ({
   onCancel,
   ...props
 }: ModalProps): ReactNode => {
-  const uniqueId = () => "juno-modal-" + useId()
+  const id = "juno-modal-" + useId()
 
   const [isOpen, setIsOpen] = useState(open)
   const [isCloseable, setIsCloseable] = useState(closeable)
@@ -165,7 +165,7 @@ export const Modal = ({
 
   const modalTitle = title || heading
   const hasTitle = Boolean(modalTitle)
-  const modalTitleId = hasTitle ? uniqueId() : undefined
+  const modalTitleId = hasTitle ? id : undefined
 
   const renderModalTitle = () => {
     if (modalTitle === null || modalTitle === undefined || modalTitle === false || modalTitle === "") {
