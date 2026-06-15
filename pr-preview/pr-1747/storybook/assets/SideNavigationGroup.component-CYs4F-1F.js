@@ -1,0 +1,16 @@
+import{c as e,i as t}from"./preload-helper-usAeo7Bx.js";import{t as n}from"./react-CmJWSAiZ.js";import{t as r}from"./jsx-runtime-O9QVJvLM.js";import{t as i}from"./Icon.component-CdObray_.js";import{t as a}from"./Icon-cPKLBRd4.js";var o,s,c,l,u=t((()=>{o=e(n()),a(),s=r(),c=`
+  jn:flex
+  jn:justify-between
+  jn:px-[0.5rem]
+  jn:py-[0.1875rem]
+  jn:text-theme-default
+  jn:w-full
+  jn:rounded
+  jn:border-l-[0.25rem]
+  jn:border-transparent
+`,l=({children:e,label:t=``,open:n=!1})=>{let[r,a]=(0,o.useState)(n);return(0,o.useEffect)(()=>{a(n)},[n]),(0,s.jsxs)(s.Fragment,{children:[(0,s.jsxs)(`div`,{className:`juno-sidenavigation-group ${c} ${r?`juno-sidenavigation-group-open`:``}`,children:[(0,s.jsx)(`span`,{className:`font-bold text-sm`,children:t}),e&&o.Children.count(e)>0?(0,s.jsx)(`button`,{type:`button`,onClick:e=>{e.stopPropagation(),a(!r)},"aria-label":r?`Collapse section`:`Expand section`,children:(0,s.jsx)(i,{size:`24`,icon:r?`expandMore`:`chevronRight`})}):null]}),r&&e]})};try{l.displayName=`SideNavigationGroup`,l.__docgenInfo={description:`SideNavigationGroup is a component designed to encapsulate and organize multiple
+SideNavigationItem components, forming a logical grouping within a side navigation structure.
+
+This component is used to create and manage expandable and collapsible sections of navigation,
+allowing users to efficiently navigate hierarchical menus.`,displayName:`SideNavigationGroup`,filePath:`/home/runner/work/juno/juno/packages/ui-components/src/components/SideNavigationGroup/SideNavigationGroup.component.tsx`,methods:[],props:{children:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/SideNavigationGroup/SideNavigationGroup.component.tsx`,name:`SideNavigationGroupProps`}],description:`Represents the nested components within the navigation group.`,name:`children`,parent:{fileName:`ui-components/src/components/SideNavigationGroup/SideNavigationGroup.component.tsx`,name:`SideNavigationGroupProps`},required:!1,tags:{},type:{name:`ReactElement<SideNavigationItemProps, string | JSXElementConstructor<any>> | ReactElement<SideNavigationItemProps, string | JSXElementConstructor<...>>[]`}},label:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/SideNavigationGroup/SideNavigationGroup.component.tsx`,name:`SideNavigationGroupProps`}],description:`Label displayed for the navigation group.`,name:`label`,parent:{fileName:`ui-components/src/components/SideNavigationGroup/SideNavigationGroup.component.tsx`,name:`SideNavigationGroupProps`},required:!1,tags:{},type:{name:`ReactNode`}},open:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/SideNavigationGroup/SideNavigationGroup.component.tsx`,name:`SideNavigationGroupProps`}],description:`Controls whether the navigation group is expanded by default.`,name:`open`,parent:{fileName:`ui-components/src/components/SideNavigationGroup/SideNavigationGroup.component.tsx`,name:`SideNavigationGroupProps`},required:!1,tags:{},type:{name:`boolean`}}},tags:{see:`https://cloudoperators.github.io/juno/?path=/docs/navigation-sidenavigation-sidenavigationgroup--docs
+{@link SideNavigationGroupProps }`}}}catch{}}));export{u as n,l as t};
