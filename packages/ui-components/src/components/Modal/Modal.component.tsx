@@ -168,7 +168,7 @@ export const Modal = ({
   const modalTitleId = hasTitle ? uniqueId() : undefined
 
   const renderModalTitle = () => {
-    if (modalTitle === null || modalTitle === undefined || modalTitle === false) {
+    if (modalTitle === null || modalTitle === undefined || modalTitle === false || modalTitle === "") {
       return null
     }
     if (typeof modalTitle === "string") {
