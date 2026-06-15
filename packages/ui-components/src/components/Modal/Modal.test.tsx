@@ -72,6 +72,18 @@ describe("Modal", () => {
     expect(screen.getByRole("dialog")).toHaveTextContent("My Modal Heading")
   })
 
+  test("does not render a heading when title is an empty string", async () => {
+    await waitFor(() =>
+      render(
+        <PortalProvider>
+          <Modal title="" open />
+        </PortalProvider>
+      )
+    )
+    expect(screen.getByRole("dialog")).toBeInTheDocument()
+    expect(screen.queryByRole("heading")).not.toBeInTheDocument()
+  })
+
   test("renders an aria-labelledby attribute referencing the title if passed", async () => {
     await waitFor(() =>
       render(
