@@ -12,7 +12,7 @@ Matching `.juno-h1`–`.juno-h6` utility classes apply the same scale to non-hea
 
 **Accessibility fixes**: several components previously used `<h1>` for UI labels regardless of context. They now use semantically appropriate elements so screen reader heading navigation reflects real document structure:
 
-- `Modal` title: `<h4>` (string title) or `<div role="heading" aria-level={4}>` (ReactNode title); modal header uses `min-height` instead of fixed height and aligns items to the top so long titles wrap without clipping
+- `Modal` title: `<h4>` (string title) or `<div role="heading" aria-level={4}>` (ReactNode title); modal header uses `min-height` instead of fixed height, aligns items to the top so long titles wrap without clipping, and the close button stretches to full header height for a larger click target
 - `Form` title: `<h3>`
 - `FormSection` title: `<h4>`
 - `SignInForm` title: `<h2>`

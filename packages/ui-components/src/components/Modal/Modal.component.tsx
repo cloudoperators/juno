@@ -217,6 +217,7 @@ export const Modal = ({
                   {isCloseable ? (
                     <Icon
                       icon="close"
+                      className="jn:self-stretch jn:flex jn:items-start jn:pt-1"
                       onClick={handleCancelClick}
                       disabled={disableCancelButton || disableCloseButton}
                     />
