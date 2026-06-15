@@ -162,3 +162,28 @@ export const WithCustomLogoPNGPortrait: Story = {
     ),
   },
 }
+
+export const WithWrappedLogo: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "A 'wrapped' logo is a logo element nested inside a parent (e.g. an `<a>` link, or any other container) rather than passed directly. The size constraints applied by `PageHeader` propagate to descendants, so the inner logo is sized correctly within the fixed-height header regardless of how deeply it is nested.",
+      },
+    },
+  },
+  args: {
+    logo: (
+      <a href="https://example.com">
+        <CustomLogoLandscape alt="" />
+      </a>
+    ),
+    applicationName: "My Awesome App",
+    children: (
+      <>
+        <span>Jane Doe</span>
+        <Button size="small">Log Out</Button>
+      </>
+    ),
+  },
+}
