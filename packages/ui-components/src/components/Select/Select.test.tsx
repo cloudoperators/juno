@@ -431,7 +431,7 @@ describe("Select", () => {
     expect(screen.getAllByRole("option")[0]).toHaveTextContent("Option 1")
     expect(screen.getAllByRole("option")[1]).toHaveTextContent("Option 2")
     expect(screen.getAllByRole("option")[2]).toHaveTextContent("Option 3")
-    const menuContainer = document.querySelector(".juno-select-menu-container")
+    const menuContainer = screen.getByRole("listbox").closest(".juno-select-menu-container")
     expect(menuContainer).toBeInTheDocument()
     expect(menuContainer).toHaveClass("jn:border", "jn:border-theme-default", "jn:shadow-theme-default")
   })
