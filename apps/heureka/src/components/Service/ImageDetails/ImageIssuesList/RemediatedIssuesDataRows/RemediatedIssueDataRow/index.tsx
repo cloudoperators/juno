@@ -20,6 +20,7 @@ import { ImageVulnerability } from "../../../../../Services/utils"
 import { getSeverityColor, useTextOverflow } from "../../../../../../utils"
 import { FalsePositiveModal } from "../../../FalsePositiveModal"
 import { RiskAcceptanceModal } from "../../../RiskAcceptanceModal"
+import { MitigateManuallyModal } from "../../../MitigateManuallyModal"
 import { useRouteContext } from "@tanstack/react-router"
 import { createRemediation } from "../../../../../../api/createRemediation"
 import { RemediationInput, RemediationTypeValues } from "../../../../../../generated/graphql"
@@ -54,6 +55,7 @@ export const RemediatedIssueDataRow = ({
   const [isExpanded, setIsExpanded] = useState(false)
   const [isFalsePositiveModalOpen, setIsFalsePositiveModalOpen] = useState(false)
   const [isRiskAcceptanceModalOpen, setIsRiskAcceptanceModalOpen] = useState(false)
+  const [isMitigateManuallyModalOpen, setIsMitigateManuallyModalOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { needsExpansion, textRef } = useTextOverflow(issue?.description || "")
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
@@ -69,11 +71,9 @@ export const RemediatedIssueDataRow = ({
       const remediation = await createRemediation({ apiClient, input })
       const cveNumber = issue?.name || "unknown"
       if (remediation) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         queryClient.setQueriesData(
           {
             predicate: (query) => {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               const [key, filter] = query.queryKey as [string, any]
               if (key !== "remediations") return false
               if (filter?.service && !filter.service.includes(service)) return false
@@ -82,11 +82,11 @@ export const RemediatedIssueDataRow = ({
               return true
             },
           },
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
           (old: any) => {
             if (!old?.data?.Remediations) return old
             const edges = old.data.Remediations.edges ?? []
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
             if (edges.some((e: any) => e?.node?.id === remediation.id)) return old
             return {
               ...old,
@@ -181,6 +181,7 @@ export const RemediatedIssueDataRow = ({
               <PopupMenuOptions>
                 <PopupMenuItem label="Mark False Positive" onClick={() => setIsFalsePositiveModalOpen(true)} />
                 <PopupMenuItem label="Accept Risk" onClick={() => setIsRiskAcceptanceModalOpen(true)} />
+                <PopupMenuItem label="Mitigate Manually" onClick={() => setIsMitigateManuallyModalOpen(true)} />
               </PopupMenuOptions>
             </PopupMenu>
           )}
@@ -198,6 +199,15 @@ export const RemediatedIssueDataRow = ({
       <RiskAcceptanceModal
         open={isRiskAcceptanceModalOpen}
         onClose={() => setIsRiskAcceptanceModalOpen(false)}
+        onConfirm={handleRemediationConfirm}
+        vulnerability={issue.name}
+        severity={issue.severity}
+        service={service}
+        image={image}
+      />
+      <MitigateManuallyModal
+        open={isMitigateManuallyModalOpen}
+        onClose={() => setIsMitigateManuallyModalOpen(false)}
         onConfirm={handleRemediationConfirm}
         vulnerability={issue.name}
         severity={issue.severity}

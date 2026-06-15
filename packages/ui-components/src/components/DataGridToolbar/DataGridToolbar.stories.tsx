@@ -5,17 +5,9 @@
 
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import { DataGridToolbar, DataGridToolbarProps } from "./index"
-import { Pill } from "../Pill"
-import { Stack } from "../Stack"
-import { SearchInput } from "../SearchInput"
-import { ComboBox } from "../ComboBox"
-import { ComboBoxOption } from "../ComboBoxOption"
+import { DataGridToolbar } from "./index"
 import { Button } from "../Button"
-import { NativeSelectOption } from "../NativeSelectOption"
-import { NativeSelect } from "../NativeSelect"
-import { InputGroup } from "../InputGroup"
-import { PortalProvider } from "../PortalProvider"
+import { Stack } from "../Stack"
 
 const meta: Meta<typeof DataGridToolbar> = {
   title: "Components/DataGrid/DataGridToolbar",
@@ -23,9 +15,10 @@ const meta: Meta<typeof DataGridToolbar> = {
   argTypes: {
     children: {
       control: false,
-      table: {
-        type: { summary: "ReactNode" },
-      },
+      table: { type: { summary: "ReactNode" } },
+    },
+    className: {
+      control: "text",
     },
   },
 }
@@ -34,64 +27,19 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  render: (args: DataGridToolbarProps) => (
+  render: (args) => (
     <DataGridToolbar {...args}>
-      <Button label="Create" />
-    </DataGridToolbar>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Demonstrates a simple toolbar layout with children right-aligned by default. Use ButtonRow for multiple buttons.",
-      },
-    },
-  },
-}
-
-export const ComplexCustomLayout: Story = {
-  decorators: [
-    (Story) => (
-      <PortalProvider>
-        <Story />
-      </PortalProvider>
-    ),
-  ],
-  render: (args: DataGridToolbarProps) => (
-    <DataGridToolbar {...args}>
-      <Stack direction="horizontal" distribution="between">
-        <Stack direction="vertical" gap="4">
-          <InputGroup>
-            <NativeSelect name="Filter" value="category" wrapperClassName="jn:w-full">
-              <NativeSelectOption value="category" label="Category" />
-              <NativeSelectOption value="status" label="Status" />
-              <NativeSelectOption value="priority" label="Priority" />
-            </NativeSelect>
-            <ComboBox>
-              <ComboBoxOption value="Electronics" />
-              <ComboBoxOption value="Clothing" />
-              <ComboBoxOption value="Furniture" />
-            </ComboBox>
-          </InputGroup>
-          <Stack gap="2" wrap>
-            <Pill pillKey="category" pillValue="electronics" closeable />
-            <Pill pillKey="status" pillValue="active" closeable />
-            <Pill pillKey="priority" pillValue="high" closeable />
-            <Button label="Clear Filters" variant="subdued" size="xs" />
-          </Stack>
-        </Stack>
-        <SearchInput placeholder="Search items..." />
+      <Stack distribution="between" alignment="center" className="jn:text-sm">
+        <span className="jn:theme-color-text-light">Showing 4 of 10 servers</span>
+        <Button label="Update" size="xs" />
       </Stack>
     </DataGridToolbar>
   ),
-  args: {
-    alignRight: false,
-  },
   parameters: {
     docs: {
       description: {
         story:
-          "Demonstrates a complex toolbar layout with custom styling - children aligned left and search aligned right. The xs 'Clear Filters' button sits inline with the filter pills.",
+          "A spacing wrapper for Zone 2+3 content — filter controls, DataGrid state, and refresh. Use `Stack` inside to position content. Zone 1 (sorting and primary actions) does not use `DataGridToolbar` — it is a plain `Stack`. See DataGrid Header stories for full composition examples.",
       },
     },
   },

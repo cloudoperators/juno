@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from "react"
-import { Container, ContentHeading, Button, Stack } from "@cloudoperators/juno-ui-components"
+import { Container, ContentHeading, Button, Stack, DataGridToolbar } from "@cloudoperators/juno-ui-components"
 import { useIsFetching, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useRouteContext, useSearch } from "@tanstack/react-router"
 import { fetchPluginPresets, FETCH_PLUGIN_PRESETS_CACHE_KEY } from "../api/plugin-presets/fetchPluginPresets"
@@ -42,23 +42,25 @@ export const PluginPresets = () => {
       </Container>
       <Container px={false} py>
         <PluginPresetsFilters />
-        <Stack alignment="center" className="bg-theme-background-lvl-1 py-1.5 px-4 my-px text-theme-light">
-          <div>
-            <span className="text-theme-default pr-2">{`${total} pluginpresets`}</span>
-            <span>{`(${ready} ready, ${notReady} not ready)`}</span>
-          </div>
-          <Stack alignment="center" className="ml-auto">
-            {lastUpdatedAt && `Last update: ${new Date(lastUpdatedAt).toLocaleString()}`}
-            <Button
-              size="small"
-              label={isFetching > 0 ? "Loading..." : "Refresh"}
-              className="ml-4 min-w-[90px]"
-              onClick={handleRefresh}
-              variant="subdued"
-              disabled={isFetching > 0}
-            />
+        <DataGridToolbar>
+          <Stack>
+            <div>
+              <span className="text-theme-default pr-2">{`${total} PluginPresets`}</span>
+              <span>{`(${ready} ready, ${notReady} not ready)`}</span>
+            </div>
+            <Stack alignment="center" className="ml-auto">
+              {lastUpdatedAt && `Last update: ${new Date(lastUpdatedAt).toLocaleString()}`}
+              <Button
+                size="small"
+                label={isFetching > 0 ? "Loading..." : "Refresh"}
+                className="ml-4 min-w-[90px]"
+                onClick={handleRefresh}
+                variant="subdued"
+                disabled={isFetching > 0}
+              />
+            </Stack>
           </Stack>
-        </Stack>
+        </DataGridToolbar>
         <PluginPresetsDataGrid />
       </Container>
     </>

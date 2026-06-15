@@ -41,15 +41,16 @@ type RemediationHistoryPanelProps = {
   refreshKey?: number
 }
 
-const COLUMN_SPAN = 6
+const COLUMN_SPAN = 7
 
 function formatDateTime(value: string | null): string {
-  if (!value) return "—"
+  if (!value) return "--"
   try {
     const d = new Date(value)
-    return Number.isNaN(d.getTime())
-      ? value
-      : d.toLocaleDateString("en-GB", { year: "numeric", month: "short", day: "numeric" })
+    if (Number.isNaN(d.getTime())) return value
+    const dayMonth = d.toLocaleDateString("en-GB", { month: "short", day: "2-digit" })
+    const year = String(d.getFullYear()).padStart(4, "0")
+    return `${dayMonth} ${year}`
   } catch {
     return value
   }
@@ -87,11 +88,12 @@ const RemediationHistoryTable = ({
     <>
       {remediatedVulnerabilities.map((r: RemediatedVulnerability) => (
         <DataGridRow key={r.remediationId}>
-          <DataGridCell className="whitespace-nowrap">{r.type ?? "—"}</DataGridCell>
+          <DataGridCell className="whitespace-nowrap">{r.type ?? "--"}</DataGridCell>
           <DataGridCell className="whitespace-nowrap">{formatDateTime(r.expirationDate)}</DataGridCell>
           <DataGridCell className="whitespace-nowrap">{formatDateTime(r.remediationDate)}</DataGridCell>
-          <DataGridCell>{r.remediatedBy ?? "—"}</DataGridCell>
-          <DataGridCell>{r.description ?? "—"}</DataGridCell>
+          <DataGridCell>{r.remediatedBy ?? "--"}</DataGridCell>
+          <DataGridCell className="min-w-0">{r.description ?? "--"}</DataGridCell>
+          <DataGridCell className="min-w-0">{r.type === "risk_accepted" ? (r.url ?? "--") : ""}</DataGridCell>
           <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
             {revertingId === r.remediationId ? (
               <Spinner variant="primary" size="small" className="ml-auto" />
@@ -144,11 +146,10 @@ export const RemediationHistoryPanel = ({
       await deleteRemediation({ apiClient, remediationId: remediation.remediationId })
       // Remove the deleted remediation from all matching cache entries so both the
       // Remediated tab and this panel reflect the change before the BE cache expires.
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       queryClient.setQueriesData(
         {
           predicate: (query) => {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const [key, filter] = query.queryKey as [string, any]
             if (key !== "remediations") return false
             if (filter?.service && !filter.service.includes(service)) return false
@@ -156,11 +157,11 @@ export const RemediationHistoryPanel = ({
             return true
           },
         },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
         (old: any) => {
           const edges = old?.data?.Remediations?.edges
           if (!edges) return old
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
           const newEdges = edges.filter((e: any) => e?.node?.id !== remediation.remediationId)
           if (newEdges.length === edges.length) return old
           return {
@@ -176,6 +177,54 @@ export const RemediationHistoryPanel = ({
           }
         }
       )
+
+      // The panel fetched its data fresh when it opened (staleTime: 0). Read that
+      // cache synchronously — no network request needed — to patch the broad cache
+      // with any remediations that were created in other sessions and are therefore
+      // missing from it. Without this, a CVE could wrongly move to Active even
+      // though other remediations still exist.
+      if (vulnerability) {
+        const panelFilter = { service: [service], image: [image], vulnerability: [vulnerability] }
+        const panelCache = queryClient.getQueryData<any>(["remediations", panelFilter])
+        const remainingEdges = (panelCache?.data?.Remediations?.edges ?? []).filter(
+          (e: any) => e?.node?.id !== remediation.remediationId
+        )
+
+        if (remainingEdges.length > 0) {
+          queryClient.setQueriesData(
+            {
+              predicate: (query) => {
+                const [key, filter] = query.queryKey as [string, any]
+                if (key !== "remediations") return false
+                if (filter?.service && !filter.service.includes(service)) return false
+                if (filter?.image && !filter.image.includes(image)) return false
+                if (filter?.vulnerability) return false // broad cache only
+                return true
+              },
+            },
+            (old: any) => {
+              if (!old?.data?.Remediations) return old
+              const edges: any[] = old.data.Remediations.edges ?? []
+              const existingIds = new Set(edges.map((e: any) => e?.node?.id).filter(Boolean))
+              const missingEdges = remainingEdges.filter((e: any) => e?.node?.id && !existingIds.has(e.node.id))
+              if (missingEdges.length === 0) return old
+              const newEdges = [...edges, ...missingEdges]
+              return {
+                ...old,
+                data: {
+                  ...old.data,
+                  Remediations: {
+                    ...old.data.Remediations,
+                    edges: newEdges,
+                    totalCount: (old.data.Remediations.totalCount ?? 0) + missingEdges.length,
+                  },
+                },
+              }
+            }
+          )
+        }
+      }
+
       const typeLabel = remediation.type ?? "remediation"
       const dateLabel = remediation.remediationDate ? ` from ${formatDateTime(remediation.remediationDate)}` : ""
       const text = `The ${typeLabel}${dateLabel} for ${vulnerability ?? "unknown"} has been reverted.`
@@ -226,13 +275,14 @@ export const RemediationHistoryPanel = ({
             fallbackRender={getErrorDataRowComponent({ colspan: COLUMN_SPAN })}
             resetKeys={[remediationsPromise]}
           >
-            <DataGrid columns={COLUMN_SPAN} minContentColumns={[0, 1, 2, 3, 5]} cellVerticalAlignment="top">
+            <DataGrid columns={COLUMN_SPAN} minContentColumns={[0, 1, 2, 3, 6]} cellVerticalAlignment="top">
               <DataGridRow>
                 <DataGridHeadCell>Type</DataGridHeadCell>
                 <DataGridHeadCell>Expiration Date</DataGridHeadCell>
                 <DataGridHeadCell>Remediation Date</DataGridHeadCell>
                 <DataGridHeadCell>Remediated By</DataGridHeadCell>
                 <DataGridHeadCell>Description</DataGridHeadCell>
+                <DataGridHeadCell>Source Ticket</DataGridHeadCell>
                 <DataGridHeadCell />
               </DataGridRow>
               <Suspense fallback={<LoadingDataRow colSpan={COLUMN_SPAN} />}>

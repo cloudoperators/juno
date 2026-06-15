@@ -13,6 +13,11 @@ on:
         required: false
         type: boolean
         default: false
+      environment:
+        required: false
+        type: string
+        default: notifications
+        description: GitHub Environment name containing SLACK_WEBHOOK_URL secret
     secrets:
       SLACK_WEBHOOK_URL:
         required: true
@@ -20,6 +25,7 @@ on:
 jobs:
   notify:
     runs-on: [ ubuntu-latest ]
+    environment: ${{ inputs.environment }}
     steps:
       - name: Set Slack Payload
         env:
@@ -58,7 +64,7 @@ jobs:
           )" >> $GITHUB_ENV
 
       - name: Send a Slack notification if a publish happens
-        uses: slackapi/slack-github-action@91efab103c0de0a537f72a35f6b8cda0ee76bf0a # v2.1.1
+        uses: slackapi/slack-github-action@45a88b9581bfab2566dc881e2cd66d334e621e2c # v3.0.3
         with:
           payload: ${{ env.FULL_PAYLOAD }}
           webhook-type: incoming-webhook

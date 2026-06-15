@@ -1,20 +1,20 @@
 /*
- * SPDX-FileCopyrightText: 2025 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
 import { PluginPresetSearchParams } from "../../routes/admin/plugin-presets"
 import { FilterSettings } from "./common/types"
 import { SELECTED_FILTER_PREFIX } from "./constants"
-import { PluginPreset } from "./types/k8sTypes"
+import { Cluster, PluginPreset } from "./types/k8sTypes"
 
 // Get the "Ready" condition from a PluginPreset
-export const getReadyCondition = (preset: PluginPreset) => {
+export const getReadyCondition = (preset: PluginPreset | Cluster) => {
   return preset.status?.statusConditions?.conditions?.find((condition) => condition.type === "Ready")
 }
 
 // Check if a PluginPreset is ready
-export const isReady = (preset: PluginPreset) => {
+export const isReady = (preset: PluginPreset | Cluster) => {
   const readyCondition = getReadyCondition(preset)
   return readyCondition?.type === "Ready" && readyCondition?.status === "True"
 }
@@ -93,4 +93,37 @@ export const getFiltersForUrl = (filterSettings: FilterSettings) => {
   }
 
   return result
+}
+
+export const formatAge = (jsDateAllowedInput: string | number | Date): string => {
+  const now = new Date()
+  const inputDate = new Date(jsDateAllowedInput)
+
+  const diffMs = Math.abs(now.getTime() - inputDate.getTime())
+
+  const seconds = Math.floor(diffMs / 1000)
+  const minutes = Math.floor(seconds / 60)
+  const hours = Math.floor(minutes / 60)
+  const days = Math.floor(hours / 24)
+
+  const parts: string[] = []
+
+  if (days > 0) parts.push(`${days} ${days === 1 ? "day" : "days"}`)
+  if (hours % 24 > 0) parts.push(`${hours % 24} ${hours % 24 === 1 ? "hour" : "hours"}`)
+  if (minutes % 60 > 0) parts.push(`${minutes % 60} ${minutes % 60 === 1 ? "minute" : "minutes"}`)
+
+  return parts.length > 0 ? parts.join(", ") : "0 minutes"
+}
+
+// Check if a URL is safe
+export const getSafeExternalUrl = (url: string) => {
+  try {
+    const parsedUrl = new URL(url)
+    if (parsedUrl.protocol === "http:" || parsedUrl.protocol === "https:") {
+      return parsedUrl.toString()
+    }
+  } catch {
+    return null
+  }
+  return null
 }
