@@ -174,7 +174,7 @@ export const WithWrappedLogo: Story = {
   },
   args: {
     logo: (
-      <a href="https://example.com">
+      <a href="https://example.com" aria-label="Go to homepage">
         <CustomLogoLandscape alt="" />
       </a>
     ),
