@@ -12,7 +12,7 @@ import React, {
   ReactNode,
   ChangeEvent,
   MouseEvent,
-  HTMLAttributes,
+  InputHTMLAttributes,
   ChangeEventHandler,
   MouseEventHandler,
 } from "react"
@@ -28,8 +28,8 @@ const wrapperStyles = `
 
 const inputstyles = (disabled: boolean): string => {
   return `
-    jn:w-4
-    jn:h-4
+    jn:absolute
+    jn:inset-0
     jn:opacity-0
     jn:z-50
     ${disabled ? "jn:cursor-not-allowed" : "jn:cursor-pointer"}
@@ -132,13 +132,14 @@ export const Checkbox = ({
   successtext = "",
   valid = false,
   value = "",
+  wrapperClassName = "",
   ...props
 }: CheckboxProps): ReactNode => {
   const isNotEmptyString = (str: ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
-  const uniqueId = () => "juno-checkbox-" + useId()
+  const generatedId = "juno-checkbox-" + useId()
 
   // Consume and deconstruct the context so we won't get errors but 'undefined' when trying to access a group context property in case there is none:
   const checkboxGroupContext = useContext(CheckboxGroupContext)
@@ -232,23 +233,22 @@ export const Checkbox = ({
     }
   }
 
-  const theId = id || uniqueId()
+  const theId = id || generatedId
 
   return (
     <div className="jn-checkbox-outer">
       <div className={`jn-checkbox-wrapper ${wrapperStyles}`}>
         <div
           className={`
-            juno-checkbox 
-            ${mockcheckboxstyles} 
-            ${hasFocus ? mockfocusstyles : ""} 
-            ${groupDisabled || disabled ? mockdisabledstyles : ""} 
-            ${isInvalid ? errorstyles : ""} 
-            ${isValid ? successstyles : ""} 
+            juno-checkbox
+            ${mockcheckboxstyles}
+            ${hasFocus ? mockfocusstyles : ""}
+            ${groupDisabled || disabled ? mockdisabledstyles : ""}
+            ${isInvalid ? errorstyles : ""}
+            ${isValid ? successstyles : ""}
             ${isInvalid || isValid ? "" : noBorderStyles}
-            ${className}
+            ${wrapperClassName}
           `}
-          {...props}
         >
           {determineChecked() ? (
             <svg
@@ -266,9 +266,10 @@ export const Checkbox = ({
           <input
             checked={determineChecked()}
             className={`
-              ${inputstyles(groupDisabled || disabled)} 
-              ${isInvalid ? "juno-checkbox-invalid" : ""} 
-              ${isValid ? "juno-checkbox-valid" : ""} 
+              ${inputstyles(groupDisabled || disabled)}
+              ${isInvalid ? "juno-checkbox-invalid" : ""}
+              ${isValid ? "juno-checkbox-valid" : ""}
+              ${className}
             `}
             disabled={groupDisabled || disabled}
             id={theId}
@@ -279,6 +280,7 @@ export const Checkbox = ({
             onFocus={handleFocus}
             type="checkbox"
             value={value}
+            {...props}
           />
           {isIndeterminate && !determineChecked() ? <div className={`${mockindeterminatestyles}`}></div> : ""}
         </div>
@@ -337,7 +339,7 @@ export const Checkbox = ({
   )
 }
 
-export interface CheckboxProps extends HTMLAttributes<HTMLDivElement> {
+export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "value"> {
   /**
    * Specifies if the Checkbox is checked.
    * @default false
@@ -345,7 +347,7 @@ export interface CheckboxProps extends HTMLAttributes<HTMLDivElement> {
   checked?: boolean
 
   /**
-   * Custom CSS class for styling the Checkbox.
+   * Custom CSS class forwarded to the native checkbox input.
    * @default ""
    */
   className?: string
@@ -424,4 +426,10 @@ export interface CheckboxProps extends HTMLAttributes<HTMLDivElement> {
    * The value attribute of the Checkbox.
    */
   value?: string
+
+  /**
+   * Custom CSS class for styling the outer wrapper element.
+   * @default ""
+   */
+  wrapperClassName?: string
 }
