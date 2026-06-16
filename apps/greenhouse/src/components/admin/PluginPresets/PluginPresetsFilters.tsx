@@ -87,19 +87,8 @@ export const PluginPresetsFilters = () => {
             }}
           />
         </InputGroup>
-        <Button
-          label="Clear all"
-          className="ml-4"
-          onClick={() =>
-            updateFilters({
-              ...filterSettings,
-              selectedFilters: [],
-            })
-          }
-          variant="subdued"
-        />
         <SearchInput
-          placeholder={`search term for PluginPresets name`}
+          placeholder={`search term for PluginPreset name`}
           className="w-96 ml-auto"
           data-testid="searchbar"
           value={filterSettings.searchTerm}
@@ -118,7 +107,21 @@ export const PluginPresetsFilters = () => {
         />
       </Stack>
       {filterSettings.selectedFilters && filterSettings.selectedFilters.length > 0 && (
-        <SelectedFilters selectedFilters={filterSettings.selectedFilters} onDelete={handleFilterDelete} />
+        <Stack>
+          <SelectedFilters selectedFilters={filterSettings.selectedFilters} onDelete={handleFilterDelete} />
+          <Button
+            size="xs"
+            label="Clear all"
+            className="ml-4"
+            onClick={() =>
+              updateFilters({
+                ...filterSettings,
+                selectedFilters: [],
+              })
+            }
+            variant="subdued"
+          />
+        </Stack>
       )}
     </Stack>
   )

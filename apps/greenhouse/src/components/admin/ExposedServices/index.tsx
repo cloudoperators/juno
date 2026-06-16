@@ -47,7 +47,7 @@ export const ExposedServices = () => {
       <Container px={false} py>
         <ExposedServicesFilters />
         <DataGridToolbar>
-          <Stack>
+          <Stack alignment="center" className="bg-theme-background-lvl-1 py-1.5 px-4 my-px text-theme-light">
             <div>
               <span className="text-theme-default pr-2">{`${total} exposed services`}</span>
             </div>
