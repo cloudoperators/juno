@@ -42,6 +42,9 @@ const menuStyles = `
   jn:w-max
   jn:rounded
   jn:bg-theme-background-lvl-1
+  jn:border
+  jn:border-theme-default
+  jn:shadow-theme-default
 `
 
 const itemStyles = `
