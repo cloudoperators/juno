@@ -7,7 +7,6 @@ import React, {
   useState,
   useEffect,
   useContext,
-  createContext,
   ReactNode,
   HTMLAttributes,
   MouseEventHandler,
@@ -16,9 +15,8 @@ import React, {
   Children,
 } from "react"
 import { Icon, KnownIcons } from "../Icon/Icon.component"
+import { LevelContext } from "../SideNavigation/levelContext"
 import "./sidenavigationitem.css"
-
-const LevelContext = createContext<number>(0)
 
 const sideNavItemStyles = `
   jn:flex
@@ -151,7 +149,7 @@ export const SideNavigationItem = ({
 
   return (
     <LevelContext.Provider value={level + 1}>
-      <div className="jn:flex jn:w-full jn:items-center jn:justify-between">
+      <div className="jn:flex jn:w-full jn:items-start jn:justify-between">
         {href ? (
           <a
             aria-current={selected ? "page" : undefined}

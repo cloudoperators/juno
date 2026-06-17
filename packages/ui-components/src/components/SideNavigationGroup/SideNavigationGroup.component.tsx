@@ -6,17 +6,40 @@
 import React, { Children, ReactElement, ReactNode, useEffect, useState, MouseEvent } from "react"
 import { Icon } from "../Icon"
 import { SideNavigationItemProps } from "../SideNavigationItem"
+import { LevelContext } from "../SideNavigation/levelContext"
 
 const sideNavGroupStyles = `
   jn:flex
+  jn:items-start
   jn:justify-between
-  jn:px-[0.5rem]
-  jn:py-[0.1875rem]
+  jn:pl-[0.5rem]
   jn:text-theme-default
   jn:w-full
   jn:rounded
   jn:border-l-[0.25rem]
   jn:border-transparent
+  jn:cursor-pointer
+  jn:hover:bg-theme-sidenav-item-hover
+`
+
+const labelContainerStyles = `
+  jn:flex
+  jn:items-center
+  jn:flex-grow
+  jn:min-w-0
+  jn:min-h-[1.875rem]
+`
+
+const labelClampStyles = `
+  jn:text-left
+  jn:line-clamp-2
+  jn:[overflow-wrap:anywhere]
+`
+
+const chevronStyles = `
+  jn:flex
+  jn:items-center
+  jn:min-h-[1.875rem]
 `
 
 export interface SideNavigationGroupProps {
@@ -52,26 +75,45 @@ export const SideNavigationGroup = ({ children, label = "", open = false }: Side
     setIsOpen(!isOpen)
   }
 
-  const renderExpandButton = () =>
-    children && Children.count(children) > 0 ? (
-      <button type="button" onClick={handleToggleOpen} aria-label={isOpen ? "Collapse section" : "Expand section"}>
+  const hasChildren = !!children && Children.count(children) > 0
+
+  const renderChevron = () =>
+    hasChildren ? (
+      <span className={chevronStyles} aria-hidden="true">
         <Icon size="24" icon={isOpen ? "expandMore" : "chevronRight"} />
-      </button>
+      </span>
     ) : null
 
-  const renderGroup = () => (
-    <div
-      className={`juno-sidenavigation-group ${sideNavGroupStyles} ${isOpen ? "juno-sidenavigation-group-open" : ""}`}
-    >
-      <span className="font-bold text-sm">{label}</span>
-      {renderExpandButton()}
-    </div>
+  const renderLabel = () => (
+    <span className={labelContainerStyles}>
+      <span className={labelClampStyles}>{label}</span>
+    </span>
   )
+
+  const renderGroup = () => {
+    const className = `juno-sidenavigation-group ${sideNavGroupStyles} ${isOpen ? "juno-sidenavigation-group-open" : ""}`
+
+    if (hasChildren) {
+      return (
+        <button
+          type="button"
+          onClick={handleToggleOpen}
+          aria-expanded={isOpen}
+          className={className}
+        >
+          {renderLabel()}
+          {renderChevron()}
+        </button>
+      )
+    }
+
+    return <div className={className}>{renderLabel()}</div>
+  }
 
   return (
     <>
       {renderGroup()}
-      {isOpen && children}
+      {isOpen && <LevelContext.Provider value={1}>{children}</LevelContext.Provider>}
     </>
   )
 }
