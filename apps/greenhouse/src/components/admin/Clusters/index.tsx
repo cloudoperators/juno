@@ -43,8 +43,8 @@ export const Clusters = () => {
       </Container>
       <Container px={false} py>
         <ClustersFilters />
-        <DataGridToolbar>
-          <Stack alignment="center" className="bg-theme-background-lvl-1 py-1.5 px-4 my-px text-theme-light">
+        <DataGridToolbar className="text-theme-light">
+          <Stack>
             <div>
               <span className="text-theme-default pr-2">{`${total} clusters`}</span>
               <span>{`(${ready} ready, ${notReady} not ready)`}</span>
