@@ -11,7 +11,7 @@ import React, {
   useContext,
   MouseEventHandler,
   ReactNode,
-  HTMLAttributes,
+  InputHTMLAttributes,
   MouseEvent,
 } from "react"
 import { RadioGroupContext, RadioGroupContextProps } from "../RadioGroup/RadioGroup.component"
@@ -26,8 +26,8 @@ const wrapperStyles = `
 
 const inputstyles = (disabled: boolean): string => {
   return `
-    jn:w-4
-    jn:h-4
+    jn:absolute
+    jn:inset-0
     jn:opacity-0
     jn:z-50
     ${disabled ? "jn:cursor-not-allowed" : "jn:cursor-pointer"}
@@ -114,6 +114,7 @@ export const Radio = ({
   successtext = "",
   valid = false,
   value = "",
+  wrapperClassName = "",
   ...props
 }: RadioProps): ReactNode => {
   // Utility
@@ -121,7 +122,7 @@ export const Radio = ({
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
-  const uniqueId = () => "juno-radio-" + useId()
+  const generatedId = "juno-radio-" + useId()
 
   // Consume and deconstruct the context so we won't get errors but 'undefined' when trying to access a group context in case there is none:
   const radioGroupContext = useContext<RadioGroupContextProps>(RadioGroupContext)
@@ -218,30 +219,30 @@ export const Radio = ({
     setHasFocus(false)
   }
 
-  const theId = id || uniqueId()
+  const theId = id || generatedId
 
   return (
     <div className={`jn-radio-outer`}>
       <div className={`juno-radio-wrapper ${wrapperStyles}`}>
         <div
           className={`
-             juno-radio 
-             ${mockradiostyles} 
-             ${hasFocus ? mockfocusradiostyles : ""} 
-             ${disabled ? mockdisabledradiostyles : ""} 
-             ${isInvalid ? errorstyles : ""} 
-             ${isValid ? successstyles : ""} 
+             juno-radio
+             ${mockradiostyles}
+             ${hasFocus ? mockfocusradiostyles : ""}
+             ${disabled ? mockdisabledradiostyles : ""}
+             ${isInvalid ? errorstyles : ""}
+             ${isValid ? successstyles : ""}
              ${isInvalid || isValid ? "" : noBorderStyles}
-             ${className}
+             ${wrapperClassName}
            `}
-          {...props}
         >
           <input
             checked={determineChecked()}
             className={`
-              ${inputstyles(groupDisabled || disabled)} 
-              ${isInvalid ? "juno-radio-invalid" : ""} 
+              ${inputstyles(groupDisabled || disabled)}
+              ${isInvalid ? "juno-radio-invalid" : ""}
               ${isValid ? "juno-radio-valid" : ""}
+              ${className}
             `}
             disabled={groupDisabled || disabled}
             id={theId}
@@ -252,6 +253,7 @@ export const Radio = ({
             name={groupName || name}
             type="radio"
             value={value}
+            {...props}
           />
           {determineChecked() ? <span className={`${checkedstyles}`}></span> : ""}
         </div>
@@ -310,10 +312,10 @@ export const Radio = ({
   )
 }
 
-export interface RadioProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
+export interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange"> {
   /** Whether the Radio is checked */
   checked?: boolean
-  /** Pass a custom className */
+  /** Custom CSS class forwarded to the native radio input */
   className?: string
   /** Whether the Radio is disabled */
   disabled?: boolean
@@ -342,4 +344,6 @@ export interface RadioProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChan
   valid?: boolean
   /** The value of the Radio */
   value?: string
+  /** Custom CSS class for styling the outer wrapper element */
+  wrapperClassName?: string
 }
