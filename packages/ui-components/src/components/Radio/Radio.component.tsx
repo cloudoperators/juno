@@ -26,6 +26,10 @@ const wrapperStyles = `
 `
 
 const inputstyles = (disabled: boolean): string => {
+  // absolute + inset-0: overlays the native input exactly over the mock radio (same 16x16 area).
+  // This removes it from normal flow so it cannot inflate the wrapper height, while still
+  // receiving all pointer and keyboard events. opacity-0 hides it visually; z-50 keeps it
+  // on top so clicks always hit the real input.
   return `
     jn:absolute
     jn:inset-0
@@ -33,10 +37,6 @@ const inputstyles = (disabled: boolean): string => {
     jn:z-50
     ${disabled ? "jn:cursor-not-allowed" : "jn:cursor-pointer"}
   `
-  // absolute + inset-0: overlays the native input exactly over the mock radio (same 16x16 area).
-  // This removes it from normal flow so it cannot inflate the wrapper height, while still
-  // receiving all pointer and keyboard events. opacity-0 hides it visually; z-50 keeps it
-  // on top so clicks always hit the real input.
 }
 
 // relative establishes the positioning context for the absolutely placed native input and
@@ -49,7 +49,7 @@ const mockradiostyles = `
   jn:bg-theme-radio
 `
 
-// absolute positions the checked dot within the mock. top/left of 1px insets it from the border.
+// absolute positions the checked dot within the mock. top-px / left-px insets it from the border.
 const checkedstyles = `
   jn:absolute
   jn:block
@@ -57,8 +57,8 @@ const checkedstyles = `
   jn:rounded-full
   jn:w-3
   jn:h-3
-  jn:top-[1px]
-  jn:left-[1px]
+  jn:top-px
+  jn:left-px
 `
 
 const mockfocusradiostyles = `
@@ -230,12 +230,12 @@ export const Radio = ({
 
   const theId = id || generatedId
 
-  // leading-[0] on the outer div collapses its line box to zero, preventing inherited
+  // leading-0 on the outer div collapses its line box to zero, preventing inherited
   // line-height from the parent context from adding implicit height around the inline-flex
   // wrapper inside. Without this, the radio can appear shifted upward in flex containers
   // (e.g. items-center rows in a DataGrid).
   return (
-    <div className={`jn-radio-outer jn:leading-[0]`}>
+    <div className="jn-radio-outer jn:leading-0">
       <div className={`juno-radio-wrapper ${wrapperStyles}`}>
         <div
           className={`
