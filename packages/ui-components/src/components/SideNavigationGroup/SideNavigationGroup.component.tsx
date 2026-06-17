@@ -18,6 +18,9 @@ const sideNavGroupStyles = `
   jn:rounded
   jn:border-l-[0.25rem]
   jn:border-transparent
+`
+
+const interactiveGroupStyles = `
   jn:cursor-pointer
   jn:hover:bg-theme-sidenav-item-hover
 `
@@ -77,6 +80,8 @@ export const SideNavigationGroup = ({ children, label = "", open = false }: Side
 
   const hasChildren = !!children && Children.count(children) > 0
 
+  const titleText: string | undefined = typeof label === "string" && label.length > 0 ? label : undefined
+
   const renderChevron = () =>
     hasChildren ? (
       <span className={chevronStyles} aria-hidden="true">
@@ -91,7 +96,7 @@ export const SideNavigationGroup = ({ children, label = "", open = false }: Side
   )
 
   const renderGroup = () => {
-    const className = `juno-sidenavigation-group ${sideNavGroupStyles} ${isOpen ? "juno-sidenavigation-group-open" : ""}`
+    const baseClassName = `juno-sidenavigation-group ${sideNavGroupStyles} ${isOpen ? "juno-sidenavigation-group-open" : ""}`
 
     if (hasChildren) {
       return (
@@ -99,7 +104,8 @@ export const SideNavigationGroup = ({ children, label = "", open = false }: Side
           type="button"
           onClick={handleToggleOpen}
           aria-expanded={isOpen}
-          className={className}
+          className={`${baseClassName} ${interactiveGroupStyles}`}
+          title={titleText}
         >
           {renderLabel()}
           {renderChevron()}
@@ -107,7 +113,11 @@ export const SideNavigationGroup = ({ children, label = "", open = false }: Side
       )
     }
 
-    return <div className={className}>{renderLabel()}</div>
+    return (
+      <div className={baseClassName} title={titleText}>
+        {renderLabel()}
+      </div>
+    )
   }
 
   return (
