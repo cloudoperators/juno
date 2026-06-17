@@ -1,5 +1,19 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.20.0
+
+### Minor Changes
+
+- 110841c: Add Perses and PersesGlobal dashboard links to alert details
+
+### Patch Changes
+
+- Updated dependencies [1a99afb]
+- Updated dependencies [0e1f1d6]
+- Updated dependencies [d09aeff]
+  - @cloudoperators/juno-ui-components@8.0.0
+  - @cloudoperators/juno-messages-provider@0.2.43
+
 ## 0.19.34
 
 ### Patch Changes

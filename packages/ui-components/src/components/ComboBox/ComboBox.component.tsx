@@ -136,6 +136,10 @@ const menuStyles = `
   jn:bg-theme-background-lvl-1
   jn:w-full
   jn:overflow-y-auto
+  jn:border
+  jn:border-theme-default
+  jn:shadow-theme-default
+  jn:box-border
 `
 
 const iconContainerStyles = `
