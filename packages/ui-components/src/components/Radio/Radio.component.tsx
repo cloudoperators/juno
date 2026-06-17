@@ -19,6 +19,7 @@ import { Label } from "../Label/index"
 import { Icon } from "../Icon/Icon.component"
 import { FormHint } from "../FormHint/FormHint.component"
 
+// inline-flex to sit the mock radio and label side by side; items-center vertically centers them.
 const wrapperStyles = `
   jn:inline-flex
   jn:items-center
@@ -32,8 +33,14 @@ const inputstyles = (disabled: boolean): string => {
     jn:z-50
     ${disabled ? "jn:cursor-not-allowed" : "jn:cursor-pointer"}
   `
+  // absolute + inset-0: overlays the native input exactly over the mock radio (same 16x16 area).
+  // This removes it from normal flow so it cannot inflate the wrapper height, while still
+  // receiving all pointer and keyboard events. opacity-0 hides it visually; z-50 keeps it
+  // on top so clicks always hit the real input.
 }
 
+// relative establishes the positioning context for the absolutely placed native input and
+// checked indicator span. Explicit w-4 h-4 locks the mock to exactly 16x16.
 const mockradiostyles = `
   jn:relative
   jn:w-4
@@ -42,6 +49,7 @@ const mockradiostyles = `
   jn:bg-theme-radio
 `
 
+// absolute positions the checked dot within the mock. top/left of 1px insets it from the border.
 const checkedstyles = `
   jn:absolute
   jn:block
@@ -79,8 +87,9 @@ const successstyles = `
   jn:border-theme-success
 `
 
+// No leading override here: the label must retain its natural line-height so that the
+// required marker (a small absolutely-offset dot rendered inside Label) positions correctly.
 const labelStyles = `
-  jn:leading-0
   jn:ml-2
 `
 
@@ -221,8 +230,12 @@ export const Radio = ({
 
   const theId = id || generatedId
 
+  // leading-[0] on the outer div collapses its line box to zero, preventing inherited
+  // line-height from the parent context from adding implicit height around the inline-flex
+  // wrapper inside. Without this, the radio can appear shifted upward in flex containers
+  // (e.g. items-center rows in a DataGrid).
   return (
-    <div className={`jn-radio-outer`}>
+    <div className={`jn-radio-outer jn:leading-[0]`}>
       <div className={`juno-radio-wrapper ${wrapperStyles}`}>
         <div
           className={`

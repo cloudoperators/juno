@@ -21,6 +21,7 @@ import { Label } from "../Label/index"
 import { Icon } from "../Icon/index"
 import { FormHint } from "../FormHint/index"
 
+// inline-flex to sit the mock checkbox and label side by side; items-center vertically centers them.
 const wrapperStyles = `
   jn:inline-flex
   jn:items-center
@@ -34,8 +35,14 @@ const inputstyles = (disabled: boolean): string => {
     jn:z-50
     ${disabled ? "jn:cursor-not-allowed" : "jn:cursor-pointer"}
   `
+  // absolute + inset-0: overlays the native input exactly over the mock checkbox (same 16x16 area).
+  // This removes it from normal flow so it cannot inflate the wrapper height, while still
+  // receiving all pointer and keyboard events. opacity-0 hides it visually; z-50 keeps it
+  // on top so clicks always hit the real input.
 }
 
+// relative establishes the positioning context for the absolutely placed native input,
+// checkmark SVG, and indeterminate bar. Explicit w-4 h-4 locks the mock to exactly 16x16.
 const mockcheckboxstyles = `
   jn:relative
   jn:w-4
@@ -53,6 +60,7 @@ const mockfocusstyles = `
   jn:ring-theme-focus
 `
 
+// absolute positions the SVG over the mock; top-0 left-0 anchors it to the mock's top-left corner.
 const mockcheckmarkstyles = `
   jn:absolute
   jn:top-0
@@ -61,6 +69,7 @@ const mockcheckmarkstyles = `
   jn:fill-current
 `
 
+// absolute positions the bar within the mock. top-1.5 / left-[.2rem] centres it visually.
 const mockindeterminatestyles = `
   jn:absolute
   jn:w-2
@@ -92,8 +101,9 @@ const successstyles = `
   jn:border-theme-success
 `
 
+// No leading override here: the label must retain its natural line-height so that the
+// required marker (a small absolutely-offset dot rendered inside Label) positions correctly.
 const labelStyles = `
-  jn:leading-0
   jn:ml-2
 `
 
@@ -235,8 +245,12 @@ export const Checkbox = ({
 
   const theId = id || generatedId
 
+  // leading-[0] on the outer div collapses its line box to zero, preventing inherited
+  // line-height from the parent context from adding implicit height around the inline-flex
+  // wrapper inside. Without this, the checkbox can appear shifted upward in flex containers
+  // (e.g. items-center rows in a DataGrid).
   return (
-    <div className="jn-checkbox-outer">
+    <div className="jn-checkbox-outer jn:leading-[0]">
       <div className={`jn-checkbox-wrapper ${wrapperStyles}`}>
         <div
           className={`
