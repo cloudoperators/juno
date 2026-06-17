@@ -45,7 +45,9 @@ const menuStyles = `
   jn:border
   jn:border-theme-default
   jn:shadow-theme-default
+  jn:focus:outline-hidden
 `
+// prevent browser default focus styles on the oparent menu element, we handle these on the item level via data-[active]:
 
 const itemStyles = `
   jn:text-base
@@ -72,7 +74,11 @@ const smallItemStyles = `
 `
 
 const actionableItemStyles = `
-  jn:hover:bg-theme-background-lvl-3
+  jn:data-[active]:outline-hidden
+  jn:data-[active]:ring-2
+  jn:data-[active]:ring-inset
+  jn:data-[active]:ring-theme-focus
+  jn:data-[active]:bg-theme-background-lvl-3
   jn:cursor-pointer
 `
 
