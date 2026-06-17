@@ -1,0 +1,1 @@
+import{i as e}from"./preload-helper-usAeo7Bx.js";import{o as t}from"./SideNavigationItem.component-IB5sjvOc.js";var n=e((()=>{t()}));export{n as t};
