@@ -63,10 +63,17 @@ const centeredIconStyles = `
   jn:translate-y-[-50%]
   jn:translate-x-[-0.75rem]
 `
-
-const menuStyles = `
+const menuStylesContainer = `
   jn:rounded
   jn:bg-theme-background-lvl-1
+  jn:border
+  jn:border-theme-default
+  jn:shadow-theme-default
+  jn:box-border
+  jn:overflow-hidden
+`
+
+const menuStyles = `
   jn:w-full
   jn:overflow-y-auto
 `
@@ -411,6 +418,10 @@ export const Select = ({
                   {createPortal(
                     <div
                       ref={refs.setFloating}
+                      className={`
+                          juno-select-menu-container
+                          ${menuStylesContainer}
+                        `}
                       style={{
                         position: strategy,
                         top: y ?? 0,
