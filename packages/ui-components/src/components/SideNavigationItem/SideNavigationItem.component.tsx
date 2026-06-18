@@ -16,7 +16,7 @@ import React, {
 } from "react"
 import { Icon, KnownIcons } from "../Icon/Icon.component"
 import { LevelContext } from "../SideNavigation/levelContext"
-import "./sidenavigationitem.css"
+import "../SideNavigation/sidenavigation.css"
 
 const sideNavItemStyles = `
   jn:flex

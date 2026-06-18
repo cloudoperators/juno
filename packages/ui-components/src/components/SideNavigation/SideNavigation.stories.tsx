@@ -42,7 +42,7 @@ export const Default: Story = {
           <SideNavigationItem label="Inbox" />
           <SideNavigationItem label="Sent Items" />
         </SideNavigationItem>
-        <SideNavigationItem label="Searches" icon="search" />
+        <SideNavigationItem label="Searches" />
       </SideNavigationList>
     </SideNavigation>
   ),
@@ -60,20 +60,20 @@ export const NavigationWithGroups: Story = {
   render: (args) => (
     <SideNavigation {...args}>
       <SideNavigationList>
-        <SideNavigationItem label="Item 1" icon="addCircle" selected={true} href="#" />
-        <SideNavigationItem label="Item 2" icon="addCircle">
+        <SideNavigationItem label="Item 1" selected={true} href="#" />
+        <SideNavigationGroup label="Item 2">
           <SideNavigationItem label="Sub-Child 1" />
-          <SideNavigationItem label="Sub-Child 2">
+          <SideNavigationGroup label="Sub-Child 2">
             <SideNavigationItem label="Sub-Child 3" />
-          </SideNavigationItem>
-        </SideNavigationItem>
+          </SideNavigationGroup>
+        </SideNavigationGroup>
         <SideNavigationItem label="Item 3" href="#" />
         <SideNavigationGroup label="Group Example">
           <SideNavigationItem label="Grouped Item 1" />
-          <SideNavigationItem label="Grouped Item 2">
+          <SideNavigationGroup label="Grouped Item 2">
             <SideNavigationItem label="Sub-Child 1" />
             <SideNavigationItem label="Sub-Child 2" selected />
-          </SideNavigationItem>
+          </SideNavigationGroup>
         </SideNavigationGroup>
       </SideNavigationList>
     </SideNavigation>

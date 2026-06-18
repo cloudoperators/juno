@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Children, ReactElement, ReactNode, useEffect, useState, MouseEvent } from "react"
+import React, { Children, ReactElement, ReactNode, useContext, useEffect, useState, MouseEvent } from "react"
 import { Icon } from "../Icon"
 import { SideNavigationItemProps } from "../SideNavigationItem"
 import { LevelContext } from "../SideNavigation/levelContext"
+import "../SideNavigation/sidenavigation.css"
 
 const sideNavGroupStyles = `
   jn:flex
@@ -67,6 +68,8 @@ export interface SideNavigationGroupProps {
 
 export const SideNavigationGroup = ({ children, label = "", open = false }: SideNavigationGroupProps): ReactNode => {
   const [isOpen, setIsOpen] = useState(open)
+  const level = useContext(LevelContext)
+  const levelClassName = `level-${level + 1}`
 
   // Sync internal state with external prop changes
   useEffect(() => {
@@ -91,7 +94,7 @@ export const SideNavigationGroup = ({ children, label = "", open = false }: Side
 
   const renderLabel = () => (
     <span className={labelContainerStyles}>
-      <span className={labelClampStyles}>{label}</span>
+      <span className={`${labelClampStyles} ${levelClassName}`}>{label}</span>
     </span>
   )
 
@@ -123,7 +126,7 @@ export const SideNavigationGroup = ({ children, label = "", open = false }: Side
   return (
     <>
       {renderGroup()}
-      {isOpen && <LevelContext.Provider value={1}>{children}</LevelContext.Provider>}
+      {isOpen && <LevelContext.Provider value={level + 1}>{children}</LevelContext.Provider>}
     </>
   )
 }

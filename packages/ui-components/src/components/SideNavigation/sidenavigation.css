@@ -1,7 +1,23 @@
 /*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
+
+/* Shared nesting levels.
+ * Both SideNavigationItem and SideNavigationGroup tag the element that carries
+ * their label with one of these classes; the indentation lives here so an item
+ * and a group at the same nesting depth always indent identically.
+ * level-1 has no margin-left rule (top level, flush with the navigation edge).
+ */
+.level-2 {
+  margin-left: 1.75rem;
+}
+
+.level-3 {
+  margin-left: 2.5rem;
+}
+
+/* SideNavigationItem */
 
 .juno-sidenavigation-item {
   border-radius: 0.25rem;
@@ -38,9 +54,10 @@
   background-color: var(--color-sidenav-item-background-hover);
 }
 
-.level-1,
-.level-2,
-.level-3 {
+/* Item label: clamp + per-level font weight, derived from the shared level-N classes. */
+.juno-sidenavigation-item .level-1,
+.juno-sidenavigation-item .level-2,
+.juno-sidenavigation-item .level-3 {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -49,16 +66,11 @@
   text-align: left;
 }
 
-.level-1 {
+.juno-sidenavigation-item .level-1 {
   font-weight: bold;
 }
 
-.level-2 {
-  margin-left: 1.75rem;
-  font-weight: 500;
-}
-
-.level-3 {
-  margin-left: 2.5rem;
+.juno-sidenavigation-item .level-2,
+.juno-sidenavigation-item .level-3 {
   font-weight: 500;
 }

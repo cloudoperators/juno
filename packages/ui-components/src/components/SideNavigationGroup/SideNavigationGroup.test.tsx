@@ -102,4 +102,32 @@ describe("SideNavigationGroup", () => {
     const group = screen.getByRole("button")
     expect(group).not.toHaveAttribute("title")
   })
+
+  test("indents the group label based on its nesting level", () => {
+    render(
+      <SideNavigationGroup label="Top" open>
+        <SideNavigationGroup label="Middle" open>
+          <SideNavigationGroup label="Inner" open>
+            <SideNavigationItem label="Leaf" />
+          </SideNavigationGroup>
+        </SideNavigationGroup>
+      </SideNavigationGroup>
+    )
+
+    expect(screen.getByText("Top")).toHaveClass("level-1")
+    expect(screen.getByText("Middle")).toHaveClass("level-2")
+    expect(screen.getByText("Inner")).toHaveClass("level-3")
+  })
+
+  test("propagates its level so child SideNavigationItems indent correctly", () => {
+    render(
+      <SideNavigationGroup label="Outer" open>
+        <SideNavigationGroup label="Inner" open>
+          <SideNavigationItem label="Leaf" />
+        </SideNavigationGroup>
+      </SideNavigationGroup>
+    )
+
+    expect(screen.getByText("Leaf")).toHaveClass("level-3")
+  })
 })

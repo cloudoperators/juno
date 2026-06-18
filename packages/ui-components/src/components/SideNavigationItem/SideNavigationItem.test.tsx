@@ -104,4 +104,18 @@ describe("SideNavigationItem", () => {
     const itemElement = screen.getByRole("button")
     expect(itemElement).not.toHaveAttribute("title")
   })
+
+  it("applies the top-level class at the root", () => {
+    render(<SideNavigationItem label="Top" />)
+    expect(screen.getByText("Top")).toHaveClass("level-1")
+  })
+
+  it("applies the second-level class when nested once", () => {
+    render(
+      <SideNavigationItem label="Parent" open>
+        <SideNavigationItem label="Child" />
+      </SideNavigationItem>
+    )
+    expect(screen.getByText("Child")).toHaveClass("level-2")
+  })
 })

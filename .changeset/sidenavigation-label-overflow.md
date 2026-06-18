@@ -8,3 +8,4 @@ SideNavigation polish:
 - Wrapped labels are left-aligned, and the expand/collapse chevron stays aligned with the first line.
 - `SideNavigationItem` and its expand chevron now show a hover background.
 - The whole `SideNavigationGroup` row is clickable to expand/collapse, and its children are indented to match nested `SideNavigationItem` children.
+- Nested `SideNavigationGroup`s (a group inside another group, or inside a `SideNavigationItem`) now indent correctly.
