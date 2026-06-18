@@ -8,8 +8,6 @@ import { Message } from "../Message"
 import { Stack } from "../Stack"
 
 const signInFormTitleStyles = `
-  jn:text-xl
-  jn:font-bold
   jn:text-theme-highest
   jn:mb-4
 `
@@ -75,7 +73,7 @@ export const SignInForm = ({
 
   return (
     <form className={`juno-sign-in-form ${className}`} {...props}>
-      {title !== false && <h1 className={`juno-sign-in-form-heading ${signInFormTitleStyles}`}>{title}</h1>}
+      {title !== false && <h2 className={`juno-sign-in-form-heading ${signInFormTitleStyles}`}>{title}</h2>}
 
       {errorMessage && <Message variant="error" text={errorMessage} className="jn:mb-4" />}
 
