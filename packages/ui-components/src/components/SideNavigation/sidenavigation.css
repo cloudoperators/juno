@@ -50,7 +50,7 @@
   border-radius: 0.25rem;
 }
 
-.expand-icon:hover {
+.expand-icon:not(:disabled):hover {
   background-color: var(--color-sidenav-item-background-hover);
 }
 
