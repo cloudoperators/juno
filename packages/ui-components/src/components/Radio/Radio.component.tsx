@@ -26,13 +26,13 @@ const wrapperStyles = `
 `
 
 const inputstyles = (disabled: boolean): string => {
-  // absolute + inset-0: overlays the native input exactly over the mock radio (same 16x16 area).
-  // This removes it from normal flow so it cannot inflate the wrapper height, while still
-  // receiving all pointer and keyboard events. opacity-0 hides it visually; z-50 keeps it
-  // on top so clicks always hit the real input.
+  // absolute + -inset-px: overlays the native input exactly over the mock radio (full 16x16 area).
+  // inset-0 would only fill the padding box (14x14 when a 1px border is present); -inset-px
+  // extends by 1px on each side to reach the border edge, matching the full visual size.
+  // opacity-0 hides it visually; z-50 keeps it on top so clicks always hit the real input.
   return `
     jn:absolute
-    jn:inset-0
+    jn:-inset-px
     jn:opacity-0
     jn:z-50
     ${disabled ? "jn:cursor-not-allowed" : "jn:cursor-pointer"}
