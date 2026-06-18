@@ -7,7 +7,17 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import { describe, expect, test } from "vitest"
 
+import { FormSection } from "./FormSection.component"
 import { FormRow } from "../FormRow/FormRow.component"
+
+describe("FormSection Component Tests", () => {
+  test("renders a title as h4", () => {
+    render(<FormSection title="My Section" />)
+    expect(screen.getByRole("heading", { level: 4 })).toBeInTheDocument()
+    expect(screen.getByRole("heading", { level: 4 })).toHaveClass("juno-formsection-heading")
+    expect(screen.getByRole("heading", { level: 4 })).toHaveTextContent("My Section")
+  })
+})
 
 describe("FormRow Component Tests", () => {
   describe("Basic Rendering", () => {

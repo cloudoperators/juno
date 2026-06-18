@@ -22,4 +22,14 @@ describe("FormattedText", () => {
     expect(element).not.toBeNull() // Check if element exists
     expect(element.getAttribute("data-lolol")).toBe("123-456") // Check attribute value
   })
+
+  it("renders h6 headings inside FormattedText", () => {
+    render(
+      <FormattedText>
+        <h6>Headline 6</h6>
+      </FormattedText>
+    )
+    expect(screen.getByRole("heading", { level: 6 })).toBeInTheDocument()
+    expect(screen.getByRole("heading", { level: 6 })).toHaveTextContent("Headline 6")
+  })
 })
