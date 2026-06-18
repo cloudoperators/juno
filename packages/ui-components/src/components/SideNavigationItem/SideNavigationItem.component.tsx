@@ -30,7 +30,7 @@ const sideNavItemStyles = `
 
 const leftStyles = `
   jn:flex
-  jn:items-center
+  jn:items-start
   jn:flex-grow
   jn:min-w-0
 `
