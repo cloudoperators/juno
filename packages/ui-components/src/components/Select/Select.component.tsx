@@ -76,6 +76,7 @@ const menuStylesContainer = `
 const menuStyles = `
   jn:w-full
   jn:overflow-y-auto
+  jn:focus:outline-hidden
 `
 
 const truncateStyles = `
