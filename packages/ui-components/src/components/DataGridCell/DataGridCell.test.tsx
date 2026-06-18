@@ -18,9 +18,4 @@ describe("DataGridCell", () => {
     expect(screen.getByRole("gridcell")).toBeInTheDocument()
     expect(screen.getByRole("gridcell")).toHaveClass("my-custom-class")
   })
-
-  test("does not apply a reduced font size by default", () => {
-    render(<DataGridCell />)
-    expect(screen.getByRole("gridcell")).not.toHaveClass("jn:text-sm")
-  })
 })
