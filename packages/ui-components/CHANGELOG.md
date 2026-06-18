@@ -1,5 +1,20 @@
 # @cloudoperators/juno-ui-components
 
+## 8.0.0
+
+### Major Changes
+
+- d09aeff: Add NotificationManager (based on the Sonner library and using Toast as a base) and make Toast a purely presentational component. The `autoDismiss` and `autoDismissTimeout` props have been removed from Toast — use NotificationManager with the `toast()` API for notification lifecycle management instead.
+
+### Patch Changes
+
+- 1a99afb: AppShell layout fixes:
+  - Fix SideNavigation being squashed by oversized content in ContentContainer. SideNavigation now keeps its 16rem width and ContentContainer's wide children overflow inside the container instead of expanding the page row.
+  - Remove the top margin from `MainContainerInner` in non-embedded mode. The `HeaderContainer` is sticky (in flow), so the extra margin was over-compensating; content now sits directly below the header. Apps relying on the previous spacing may see a small upward shift.
+  - Increase `SideNavigation` vertical padding from `1rem` to `1.25rem` so it matches the horizontal padding.
+
+- 0e1f1d6: Fix `PageHeader` logo size constraints not applying to nested logo elements. The logo container now uses the universal-descendant variant so a wrapped logo (e.g. an `<a>` containing an `<svg>`) is sized correctly within the fixed-height header.
+
 ## 7.0.0
 
 ### Major Changes

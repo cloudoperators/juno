@@ -42,10 +42,10 @@ const logoAndTitleContainerStyles = `
 
 const logoContainerStyles = `
   jn:max-w-xs
-  jn:*:w-min
-  jn:*:max-w-xs
-  jn:*:h-7
-  jn:*:object-contain
+  jn:**:w-min
+  jn:**:max-w-xs
+  jn:**:h-7
+  jn:**:object-contain
 `
 
 const applicationNameStyles = `

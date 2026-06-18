@@ -42,7 +42,12 @@ const menuStyles = `
   jn:w-max
   jn:rounded
   jn:bg-theme-background-lvl-1
+  jn:border
+  jn:border-theme-default
+  jn:shadow-theme-default
+  jn:focus:outline-hidden
 `
+// Prevent browser default focus outline on the menu panel container (MenuItems). Focus styles are applied at the item level via `data-[active]`.
 
 const itemStyles = `
   jn:text-base
@@ -69,7 +74,11 @@ const smallItemStyles = `
 `
 
 const actionableItemStyles = `
-  jn:hover:bg-theme-background-lvl-3
+  jn:data-[active]:outline-hidden
+  jn:data-[active]:ring-2
+  jn:data-[active]:ring-inset
+  jn:data-[active]:ring-theme-focus
+  jn:data-[active]:bg-theme-background-lvl-3
   jn:cursor-pointer
 `
 
@@ -398,7 +407,7 @@ export const PopupMenuSectionHeading = ({
 }: PopupMenuSectionHeadingProps): ReactNode => {
   return (
     <header className={`juno-popupmenu-section-title ${sectionTitleStyles} ${className}`} {...props}>
-      <h1>{label && label.length ? label : children}</h1>
+      {label && label.length ? label : children}
     </header>
   )
 }
