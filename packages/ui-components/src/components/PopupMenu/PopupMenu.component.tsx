@@ -47,7 +47,7 @@ const menuStyles = `
   jn:shadow-theme-default
   jn:focus:outline-hidden
 `
-// prevent browser default focus styles on the oparent menu element, we handle these on the item level via data-[active]:
+// Prevent browser default focus outline on the menu panel container (MenuItems). Focus styles are applied at the item level via `data-[active]`.
 
 const itemStyles = `
   jn:text-base
