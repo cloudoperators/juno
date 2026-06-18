@@ -14,11 +14,6 @@ const breadcrumbItemBaseStyles = `
   jn:items-center
 `
 
-const breadcrumbLinkBaseStyles = `
-  jn:text-theme-high
-  jn:inline-flex
-`
-
 export interface BreadcrumbItemProps extends HTMLAttributes<HTMLElement> {
   /**
    * The type of icon to display within the breadcrumb item.
@@ -125,11 +120,10 @@ export const BreadcrumbItem = ({
 
   if (href) {
     // Render the breadcrumb item as a link if href is provided and apply breadcrumbLinkBaseStyles
-    const linkClassName = `${combinedClassName} ${breadcrumbLinkBaseStyles}`
     return (
       <a
         href={href}
-        className={linkClassName}
+        className={combinedClassName}
         aria-label={ariaLabel || label || undefined}
         onClick={onClick}
         {...props}

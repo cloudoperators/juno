@@ -29,6 +29,7 @@ describe("BreadcrumbItem", () => {
       render(<BreadcrumbItem icon="help" />)
       const imgElement = screen.getByRole("img")
       expect(imgElement).toBeInTheDocument()
+      expect(imgElement).toHaveAttribute("alt", "help")
     })
 
     test("renders a label as passed", () => {
@@ -89,7 +90,6 @@ describe("BreadcrumbItem", () => {
       const onClickSpy = vi.fn()
       render(<BreadcrumbItem href="#" disabled data-testid="breadcrumbitem" onClick={onClickSpy} />)
       const element = screen.getByTestId("breadcrumbitem")
-      expect(element).toBeInTheDocument()
       expect(element).toHaveAttribute("aria-disabled", "true")
       await waitFor(() => {
         element.click()
@@ -140,6 +140,25 @@ describe("BreadcrumbItem", () => {
       expect(breadcrumbItem).toBeInTheDocument()
       expect(breadcrumbItem).toHaveClass("my-custom-class")
       expect(breadcrumbItem).toHaveClass("juno-breadcrumb-item-active")
+    })
+
+    test("renders a link if both href and onClick are passed", () => {
+      const onClickSpy = vi.fn()
+      render(
+        <BreadcrumbItem
+          href="https://example.com"
+          onClick={onClickSpy}
+          data-testid="breadcrumbitem"
+          label="Link with Click"
+        />
+      )
+
+      const linkElement = screen.getByRole("link")
+      expect(linkElement).toBeInTheDocument()
+      expect(linkElement).toHaveAttribute("href", "https://example.com")
+
+      linkElement.click()
+      expect(onClickSpy).toHaveBeenCalled()
     })
   })
 })

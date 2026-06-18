@@ -104,7 +104,7 @@ export const Link = {
   parameters: {
     docs: {
       description: {
-        story: "A breadcrumb item rendered as a <a> with provided href",
+        story: "A breadcrumb item rendered as a `<a>` with provided href",
       },
     },
   },
@@ -122,7 +122,7 @@ export const Button = {
   parameters: {
     docs: {
       description: {
-        story: "A breadcrumb item rendered as a <button> using onClick for interaction.",
+        story: "A breadcrumb item rendered as a `<button>` using `onClick` for interaction.",
       },
     },
   },
