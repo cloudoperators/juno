@@ -49,16 +49,12 @@ const modalstyles = `
 
 const headerstyles = `
 	jn:flex
+	jn:items-start
 	jn:py-2
 	jn:px-8
 	jn:border-b
 	jn:border-theme-background-lvl-4
-	jn:h-[2.8125rem]
-`
-
-const titlestyles = `
-  jn:text-xl
-  jn:font-bold
+	jn:min-h-[2.8125rem]
 `
 
 const contentstyles = `
@@ -115,7 +111,7 @@ export const Modal = ({
   onCancel,
   ...props
 }: ModalProps): ReactNode => {
-  const uniqueId = () => "juno-modal-" + useId()
+  const id = "juno-modal-" + useId()
 
   const [isOpen, setIsOpen] = useState(open)
   const [isCloseable, setIsCloseable] = useState(closeable)
@@ -169,21 +165,21 @@ export const Modal = ({
 
   const modalTitle = title || heading
   const hasTitle = Boolean(modalTitle)
-  const modalTitleId = hasTitle ? uniqueId() : undefined
+  const modalTitleId = hasTitle ? id : undefined
 
   const renderModalTitle = () => {
-    if (modalTitle === null || modalTitle === undefined || modalTitle === false) {
+    if (modalTitle === null || modalTitle === undefined || modalTitle === false || modalTitle === "") {
       return null
     }
     if (typeof modalTitle === "string") {
       return (
-        <h1 className={`juno-modal-title ${titlestyles}`} id={modalTitleId}>
+        <h4 className="juno-modal-title" id={modalTitleId}>
           {modalTitle}
-        </h1>
+        </h4>
       )
     }
     return (
-      <div className={`juno-modal-title ${titlestyles}`} id={modalTitleId}>
+      <div className="juno-modal-title juno-h4" role="heading" aria-level={4} id={modalTitleId}>
         {modalTitle}
       </div>
     )
@@ -221,6 +217,7 @@ export const Modal = ({
                   {isCloseable ? (
                     <Icon
                       icon="close"
+                      className="jn:self-stretch jn:flex jn:items-start jn:pt-1"
                       onClick={handleCancelClick}
                       disabled={disableCancelButton || disableCloseButton}
                     />
