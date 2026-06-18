@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-greenhouse",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "orgAdminVersion": "latest",
   "author": "UI-Team",
   "repository": "https://github.com/cloudoperators/greenhouse/tree/main/ui/dashboard",
@@ -31,7 +31,7 @@
     "remark-gfm": " 4.0.1",
     "shadow-dom-testing-library": "1.13.1",
     "tailwindcss": "4.3.0",
-    "vite": "8.0.14",
+    "vite": "8.0.16",
     "vite-plugin-svgr": "5.2.0",
     "vitest": "4.1.7",
     "zustand": "5.0.14"
