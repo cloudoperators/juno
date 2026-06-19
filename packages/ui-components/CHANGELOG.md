@@ -1,5 +1,41 @@
 # @cloudoperators/juno-ui-components
 
+## 8.1.0
+
+### Minor Changes
+
+- 92319d7: Add base typography styles for `h1`–`h6` aligned with the Juno design system scale.
+
+  Headings rendered inside Juno apps (and inside `FormattedText`) now use a consistent IBM Plex Sans Bold scale: `h1` 1.69rem, `h2` 1.56rem, `h3` 1.44rem, `h4` 1.28rem, `h5` 1.125rem, `h6` 1rem.
+
+  Matching `.juno-h1`–`.juno-h6` utility classes apply the same scale to non-heading elements (e.g. an element with `role="heading"`).
+
+  **Visual change**: `ContentHeading` now uses the h1 scale (1.69rem) instead of `text-lg` (1.125rem). If you relied on the previous size, override with your own classes.
+
+  **Accessibility fixes**: several components previously used `<h1>` for UI labels regardless of context. They now use semantically appropriate elements so screen reader heading navigation reflects real document structure:
+  - `Modal` title: `<h4>` (string title) or `<div role="heading" aria-level={4}>` (ReactNode title); modal header uses `min-height` instead of fixed height, aligns items to the top so long titles wrap without clipping, and the close button stretches to full header height for a larger click target
+  - `Form` title: `<h3>`
+  - `FormSection` title: `<h4>`
+  - `SignInForm` title: `<h2>`
+  - `Message` title: `<strong>` (no longer a heading)
+  - `IntroBox` title: `<p>` (no longer a heading)
+  - `PopupMenuSectionHeading` label: plain text inside `<header>` (no longer a heading)
+
+### Patch Changes
+
+- ba2d9ae: fix(ui): fix and improve Checkbox and Radio layout, markup, and props routing
+- 2a5c77e: Add `border-theme-default` and `shadow-theme-default` to floating menu and overlay components to ensure they are always visually distinct from the page background. This affects the following components: Select, ComboBox, PopupMenu, Tooltip, Toast, DateTimePicker
+- b6f1f3b: fix(ui): fix focus styles for PopupMenu: remove browser default focus outline on the menu panel container (MenuItems), handle focus styles on the item level via Headless UI's `data-active` attribute
+- 2bc74cc: Revert DataGridCell font size back to the default (1rem). The reduced font size (0.875rem) introduced in #1710 was made the default without sufficient consideration; a smaller, opt-in size may be reintroduced as a configurable option in the future.
+- 2bc74cc: SideNavigation polish:
+  - Long labels in `SideNavigationItem` and `SideNavigationGroup` now clamp to two lines and break mid-word, instead of overflowing the sidenav. String labels are exposed as a native `title` tooltip so users can read the full text on hover.
+  - Wrapped labels are left-aligned, and the expand/collapse chevron and optional icon stay aligned with the first line.
+  - `SideNavigationItem` and its expand chevron now show a hover background. The chevron's hover background is suppressed when the item is disabled.
+  - The whole `SideNavigationGroup` row is clickable to expand/collapse, and its children are indented to match nested `SideNavigationItem` children.
+  - Nested `SideNavigationGroup`s (a group inside another group, or inside a `SideNavigationItem`) now indent correctly.
+
+- 84a6051: fix(ui): fix focus styles for Select and ComboBox
+
 ## 8.0.0
 
 ### Major Changes
