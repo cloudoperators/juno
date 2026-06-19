@@ -24,7 +24,6 @@ const cellBaseStyles = (nowrap: boolean, cellVerticalAlignment: CellVerticalAlig
 		jn:border-b
 		jn:border-theme-background-lvl-2
 		jn:h-full
-    jn:text-sm
 	`
 }
 

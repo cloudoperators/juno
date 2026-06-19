@@ -61,4 +61,73 @@ describe("SideNavigationGroup", () => {
     expect(screen.queryByText("Child Item 1")).not.toBeInTheDocument()
     expect(screen.queryByText("Child Item 2")).not.toBeInTheDocument()
   })
+
+  test("renders the group as a button with aria-expanded when it has children", () => {
+    render(
+      <SideNavigationGroup label="Group with children">
+        <SideNavigationItem label="Child Item" />
+      </SideNavigationGroup>
+    )
+
+    const group = screen.getByRole("button", { name: /Group with children/ })
+    expect(group.tagName).toBe("BUTTON")
+    expect(group).toHaveAttribute("aria-expanded", "false")
+  })
+
+  test("renders the group as a non-button element when it has no children", () => {
+    render(<SideNavigationGroup label="Childless Group" />)
+
+    expect(screen.queryByRole("button")).not.toBeInTheDocument()
+    expect(screen.getByText("Childless Group")).toBeInTheDocument()
+  })
+
+  test("sets a title attribute on the group when label is a string", () => {
+    render(
+      <SideNavigationGroup label="A very long group label that may overflow">
+        <SideNavigationItem label="Child Item" />
+      </SideNavigationGroup>
+    )
+
+    const group = screen.getByRole("button")
+    expect(group).toHaveAttribute("title", "A very long group label that may overflow")
+  })
+
+  test("does not set a title attribute when label is a ReactNode", () => {
+    render(
+      <SideNavigationGroup label={<span>Node label</span>}>
+        <SideNavigationItem label="Child Item" />
+      </SideNavigationGroup>
+    )
+
+    const group = screen.getByRole("button")
+    expect(group).not.toHaveAttribute("title")
+  })
+
+  test("indents the group label based on its nesting level", () => {
+    render(
+      <SideNavigationGroup label="Top" open>
+        <SideNavigationGroup label="Middle" open>
+          <SideNavigationGroup label="Inner" open>
+            <SideNavigationItem label="Leaf" />
+          </SideNavigationGroup>
+        </SideNavigationGroup>
+      </SideNavigationGroup>
+    )
+
+    expect(screen.getByText("Top")).toHaveClass("level-1")
+    expect(screen.getByText("Middle")).toHaveClass("level-2")
+    expect(screen.getByText("Inner")).toHaveClass("level-3")
+  })
+
+  test("propagates its level so child SideNavigationItems indent correctly", () => {
+    render(
+      <SideNavigationGroup label="Outer" open>
+        <SideNavigationGroup label="Inner" open>
+          <SideNavigationItem label="Leaf" />
+        </SideNavigationGroup>
+      </SideNavigationGroup>
+    )
+
+    expect(screen.getByText("Leaf")).toHaveClass("level-3")
+  })
 })

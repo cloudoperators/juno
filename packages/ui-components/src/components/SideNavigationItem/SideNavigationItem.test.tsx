@@ -86,4 +86,36 @@ describe("SideNavigationItem", () => {
     const itemElement = screen.getByRole("button")
     expect(itemElement).toHaveAttribute("aria-label", "Custom Aria Label")
   })
+
+  it("sets a title attribute on the rendered button when label is a string", () => {
+    render(<SideNavigationItem label="A very long label that may overflow" />)
+    const itemElement = screen.getByRole("button")
+    expect(itemElement).toHaveAttribute("title", "A very long label that may overflow")
+  })
+
+  it("falls back to string children for the title when label is not provided", () => {
+    render(<SideNavigationItem>Children-only label</SideNavigationItem>)
+    const itemElement = screen.getByRole("button")
+    expect(itemElement).toHaveAttribute("title", "Children-only label")
+  })
+
+  it("does not set a title attribute when label is a ReactNode", () => {
+    render(<SideNavigationItem label={<span>Node label</span>} />)
+    const itemElement = screen.getByRole("button")
+    expect(itemElement).not.toHaveAttribute("title")
+  })
+
+  it("applies the top-level class at the root", () => {
+    render(<SideNavigationItem label="Top" />)
+    expect(screen.getByText("Top")).toHaveClass("level-1")
+  })
+
+  it("applies the second-level class when nested once", () => {
+    render(
+      <SideNavigationItem label="Parent" open>
+        <SideNavigationItem label="Child" />
+      </SideNavigationItem>
+    )
+    expect(screen.getByText("Child")).toHaveClass("level-2")
+  })
 })

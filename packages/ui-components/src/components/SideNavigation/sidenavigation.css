@@ -1,0 +1,76 @@
+/*
+ * SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/* Shared nesting levels.
+ * Both SideNavigationItem and SideNavigationGroup tag the element that carries
+ * their label with one of these classes; the indentation lives here so an item
+ * and a group at the same nesting depth always indent identically.
+ * level-1 has no margin-left rule (top level, flush with the navigation edge).
+ */
+.level-2 {
+  margin-left: 1.75rem;
+}
+
+.level-3 {
+  margin-left: 2.5rem;
+}
+
+/* SideNavigationItem */
+
+.juno-sidenavigation-item {
+  border-radius: 0.25rem;
+  border-left: 0.25rem solid transparent;
+  color: var(--color-sidenav-item-text-default);
+}
+
+.juno-sidenavigation-item:hover {
+  color: var(--color-sidenav-item-text-hover);
+}
+
+.juno-sidenavigation-item:not(.juno-sidenavigation-item-selected):hover {
+  background-color: var(--color-sidenav-item-background-hover);
+}
+
+.juno-sidenavigation-item:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-accent);
+}
+
+.juno-sidenavigation-item-selected {
+  background-color: var(--color-sidenav-item-background-selected);
+  border-left: 0.25rem solid var(--color-accent);
+}
+
+.expand-icon {
+  display: flex;
+  align-items: center;
+  min-height: 1.875rem;
+  border-radius: 0.25rem;
+}
+
+.expand-icon:not(:disabled):hover {
+  background-color: var(--color-sidenav-item-background-hover);
+}
+
+/* Item label: clamp + per-level font weight, derived from the shared level-N classes. */
+.juno-sidenavigation-item .level-1,
+.juno-sidenavigation-item .level-2,
+.juno-sidenavigation-item .level-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+
+.juno-sidenavigation-item .level-1 {
+  font-weight: bold;
+}
+
+.juno-sidenavigation-item .level-2,
+.juno-sidenavigation-item .level-3 {
+  font-weight: 500;
+}
