@@ -62,10 +62,14 @@ describe("BreadcrumbItem", () => {
       expect(screen.getByTestId("breadcrumbitem")).toHaveAttribute("data-lolol", "true")
     })
 
+    test("renders as a link when href is provided", () => {
+      render(<BreadcrumbItem href="#" data-testid="breadcrumbitem" />)
+      expect(screen.getByRole("link")).toBeInTheDocument()
+    })
+
     test("does not render a link if 'href' is null", () => {
-      render(<BreadcrumbItem active data-testid="breadcrumbitem" />)
+      render(<BreadcrumbItem aria-label="breadcrumbitem" data-testid="breadcrumbitem" />)
       expect(screen.queryByRole("link")).not.toBeInTheDocument()
-      expect(screen.getByTestId("breadcrumbitem")).toBeInTheDocument()
     })
 
     test("adds all passed props to the root element", () => {
@@ -76,46 +80,51 @@ describe("BreadcrumbItem", () => {
   })
 
   describe("State Handling", () => {
-    test("renders an active item that is not a link as passed", () => {
-      render(<BreadcrumbItem href="#" active data-testid="breadcrumbitem" />)
+    test("renders an active item", () => {
+      render(<BreadcrumbItem active href="#" data-testid="breadcrumbitem" />)
       expect(screen.queryByRole("link")).not.toBeInTheDocument()
-      expect(screen.getByTestId("breadcrumbitem")).toBeInTheDocument()
-      expect(screen.getByTestId("breadcrumbitem")).toHaveClass("juno-breadcrumb-item-active")
+      expect(screen.getByTestId("breadcrumbitem")).toHaveAttribute("aria-current", "page")
     })
 
-    test("renders a disabled item as passed", async () => {
+    test("renders a disabled item with aria-disabled and does not render as a link", async () => {
       const onClickSpy = vi.fn()
       render(<BreadcrumbItem href="#" disabled data-testid="breadcrumbitem" onClick={onClickSpy} />)
-      expect(screen.getByTestId("breadcrumbitem")).toBeInTheDocument()
-      expect(screen.getByTestId("breadcrumbitem")).toHaveClass("juno-breadcrumb-item-disabled")
+
+      const element = screen.getByTestId("breadcrumbitem")
+      expect(element).toBeInTheDocument()
+      expect(element).toHaveAttribute("aria-disabled", "true")
+
+      // Check that <a> link isn't rendered
+      expect(screen.queryByRole("link")).not.toBeInTheDocument()
+
+      // Ensure onClick isn't called
       await waitFor(() => {
-        screen.getByTestId("breadcrumbitem").click()
+        element.click()
         expect(onClickSpy).not.toHaveBeenCalled()
       })
     })
 
-    test("renders correctly with both active and disabled states", () => {
+    test("handles both active and disabled states mutually exclusive", () => {
       render(<BreadcrumbItem active disabled data-testid="breadcrumbitem" />)
       const breadcrumbItem = screen.getByTestId("breadcrumbitem")
       expect(breadcrumbItem).toBeInTheDocument()
-      expect(breadcrumbItem).toHaveClass("juno-breadcrumb-item-active")
-      expect(breadcrumbItem).toHaveClass("juno-breadcrumb-item-disabled")
+      expect(breadcrumbItem).toHaveAttribute("aria-current", "page")
     })
   })
 
   describe("Event Handling", () => {
-    test("executes an onClick handler as passed", () => {
+    test("executes an onClick handler when rendered as a button", () => {
       const onClickSpy = vi.fn()
-      render(<BreadcrumbItem onClick={onClickSpy} />)
-      screen.getByRole("link").click()
+      render(<BreadcrumbItem onClick={onClickSpy} label="Button Test" />)
+      const buttonElement = screen.getByRole("button")
+      buttonElement.click()
       expect(onClickSpy).toHaveBeenCalled()
     })
 
-    test("renders as a link and executes onClick handler", () => {
+    test("executes onClick handler when rendered as a link", () => {
       const onClickSpy = vi.fn()
-      render(<BreadcrumbItem href="#" onClick={onClickSpy} label="My Item" />)
+      render(<BreadcrumbItem href="#" onClick={onClickSpy} label="Link Test" />)
       const linkElement = screen.getByRole("link")
-      expect(linkElement).toBeInTheDocument()
       linkElement.click()
       expect(onClickSpy).toHaveBeenCalled()
     })
@@ -138,6 +147,25 @@ describe("BreadcrumbItem", () => {
       expect(breadcrumbItem).toBeInTheDocument()
       expect(breadcrumbItem).toHaveClass("my-custom-class")
       expect(breadcrumbItem).toHaveClass("juno-breadcrumb-item-active")
+    })
+
+    test("renders a link if both href and onClick are passed", () => {
+      const onClickSpy = vi.fn()
+      render(
+        <BreadcrumbItem
+          href="https://example.com"
+          onClick={onClickSpy}
+          data-testid="breadcrumbitem"
+          label="Link with Click"
+        />
+      )
+
+      const linkElement = screen.getByRole("link")
+      expect(linkElement).toBeInTheDocument()
+      expect(linkElement).toHaveAttribute("href", "https://example.com")
+
+      linkElement.click()
+      expect(onClickSpy).toHaveBeenCalled()
     })
   })
 })

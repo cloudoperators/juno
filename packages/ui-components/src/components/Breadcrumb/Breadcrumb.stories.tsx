@@ -34,3 +34,24 @@ export const Default = {
     ],
   },
 }
+
+export const VariedBreadcrumbTypes = {
+  render: Template,
+  args: {
+    children: [
+      <BreadcrumbItem key="1" label="Breadcrumb with Icon and Link" icon="home" href="#" onClick={undefined} />,
+      <BreadcrumbItem key="2" label="Breadcrumb with Link" href="https://example.com" onClick={undefined} />,
+      <BreadcrumbItem key="3" label="Breadcrumb With Event" onClick={() => undefined} />,
+      <BreadcrumbItem key="5" label="Disabled Item" disabled />,
+      <BreadcrumbItem key="6" label="Active Item" active />,
+    ],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "This story showcases a variety of breadcrumb items, including different interactive states, active and disabled items, links, and clickable elements. For detailed options and descriptions of various breadcrumb items, refer to the `BreadcrumbItem` stories.",
+      },
+    },
+  },
+}
