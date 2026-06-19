@@ -11,7 +11,7 @@ import React, {
   useContext,
   MouseEventHandler,
   ReactNode,
-  HTMLAttributes,
+  InputHTMLAttributes,
   MouseEvent,
 } from "react"
 import { RadioGroupContext, RadioGroupContextProps } from "../RadioGroup/RadioGroup.component"
@@ -19,21 +19,28 @@ import { Label } from "../Label/index"
 import { Icon } from "../Icon/Icon.component"
 import { FormHint } from "../FormHint/FormHint.component"
 
+// inline-flex to sit the mock radio and label side by side; items-center vertically centers them.
 const wrapperStyles = `
   jn:inline-flex
   jn:items-center
 `
 
 const inputstyles = (disabled: boolean): string => {
+  // absolute + -inset-px: overlays the native input exactly over the mock radio (full 16x16 area).
+  // inset-0 would only fill the padding box (14x14 when a 1px border is present); -inset-px
+  // extends by 1px on each side to reach the border edge, matching the full visual size.
+  // opacity-0 hides it visually; z-50 keeps it on top so clicks always hit the real input.
   return `
-    jn:w-4
-    jn:h-4
+    jn:absolute
+    jn:-inset-px
     jn:opacity-0
     jn:z-50
     ${disabled ? "jn:cursor-not-allowed" : "jn:cursor-pointer"}
   `
 }
 
+// relative establishes the positioning context for the absolutely placed native input and
+// checked indicator span. Explicit w-4 h-4 locks the mock to exactly 16x16.
 const mockradiostyles = `
   jn:relative
   jn:w-4
@@ -42,6 +49,7 @@ const mockradiostyles = `
   jn:bg-theme-radio
 `
 
+// absolute positions the checked dot within the mock. top-px / left-px insets it from the border.
 const checkedstyles = `
   jn:absolute
   jn:block
@@ -49,8 +57,8 @@ const checkedstyles = `
   jn:rounded-full
   jn:w-3
   jn:h-3
-  jn:top-[1px]
-  jn:left-[1px]
+  jn:top-px
+  jn:left-px
 `
 
 const mockfocusradiostyles = `
@@ -79,8 +87,9 @@ const successstyles = `
   jn:border-theme-success
 `
 
+// No leading override here: the label must retain its natural line-height so that the
+// required marker (a small absolutely-offset dot rendered inside Label) positions correctly.
 const labelStyles = `
-  jn:leading-0
   jn:ml-2
 `
 
@@ -114,6 +123,7 @@ export const Radio = ({
   successtext = "",
   valid = false,
   value = "",
+  wrapperClassName = "",
   ...props
 }: RadioProps): ReactNode => {
   // Utility
@@ -121,7 +131,7 @@ export const Radio = ({
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
-  const uniqueId = () => "juno-radio-" + useId()
+  const generatedId = "juno-radio-" + useId()
 
   // Consume and deconstruct the context so we won't get errors but 'undefined' when trying to access a group context in case there is none:
   const radioGroupContext = useContext<RadioGroupContextProps>(RadioGroupContext)
@@ -218,30 +228,34 @@ export const Radio = ({
     setHasFocus(false)
   }
 
-  const theId = id || uniqueId()
+  const theId = id || generatedId
 
+  // leading-0 on the outer div collapses its line box to zero, preventing inherited
+  // line-height from the parent context from adding implicit height around the inline-flex
+  // wrapper inside. Without this, the radio can appear shifted upward in flex containers
+  // (e.g. items-center rows in a DataGrid).
   return (
-    <div className={`jn-radio-outer`}>
+    <div className="jn-radio-outer jn:leading-0">
       <div className={`juno-radio-wrapper ${wrapperStyles}`}>
         <div
           className={`
-             juno-radio 
-             ${mockradiostyles} 
-             ${hasFocus ? mockfocusradiostyles : ""} 
-             ${disabled ? mockdisabledradiostyles : ""} 
-             ${isInvalid ? errorstyles : ""} 
-             ${isValid ? successstyles : ""} 
+             juno-radio
+             ${mockradiostyles}
+             ${hasFocus ? mockfocusradiostyles : ""}
+             ${disabled ? mockdisabledradiostyles : ""}
+             ${isInvalid ? errorstyles : ""}
+             ${isValid ? successstyles : ""}
              ${isInvalid || isValid ? "" : noBorderStyles}
-             ${className}
+             ${wrapperClassName}
            `}
-          {...props}
         >
           <input
             checked={determineChecked()}
             className={`
-              ${inputstyles(groupDisabled || disabled)} 
-              ${isInvalid ? "juno-radio-invalid" : ""} 
+              ${inputstyles(groupDisabled || disabled)}
+              ${isInvalid ? "juno-radio-invalid" : ""}
               ${isValid ? "juno-radio-valid" : ""}
+              ${className}
             `}
             disabled={groupDisabled || disabled}
             id={theId}
@@ -252,6 +266,7 @@ export const Radio = ({
             name={groupName || name}
             type="radio"
             value={value}
+            {...props}
           />
           {determineChecked() ? <span className={`${checkedstyles}`}></span> : ""}
         </div>
@@ -310,10 +325,10 @@ export const Radio = ({
   )
 }
 
-export interface RadioProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
+export interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange"> {
   /** Whether the Radio is checked */
   checked?: boolean
-  /** Pass a custom className */
+  /** Custom CSS class forwarded to the native radio input */
   className?: string
   /** Whether the Radio is disabled */
   disabled?: boolean
@@ -342,4 +357,6 @@ export interface RadioProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChan
   valid?: boolean
   /** The value of the Radio */
   value?: string
+  /** Custom CSS class for styling the outer wrapper element */
+  wrapperClassName?: string
 }

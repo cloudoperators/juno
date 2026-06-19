@@ -164,15 +164,24 @@ describe("Radio", () => {
     expect(onClickSpy).not.toHaveBeenCalled()
   })
 
-  test("renders a custom className as passed", () => {
-    render(<Radio data-testid="23" className="my-custom-class" />)
-    expect(screen.getByTestId("23")).toBeInTheDocument()
-    expect(screen.getByTestId("23")).toHaveClass("my-custom-class")
+  test("renders a custom className on the native input as passed", () => {
+    render(<Radio className="my-custom-class" />)
+    expect(screen.getByRole("radio")).toHaveClass("my-custom-class")
   })
 
-  test("renders all props as passed", () => {
-    render(<Radio id="check-1" data-testid="23" data-lolol={true} />)
+  test("renders a wrapperClassName on the outer wrapper as passed", () => {
+    render(<Radio wrapperClassName="my-wrapper-classname" />)
+    expect(document.querySelector(".juno-radio")).toHaveClass("my-wrapper-classname")
+  })
+
+  test("forwards arbitrary props to the native input", () => {
+    render(<Radio data-testid="23" data-lolol={true} />)
     expect(screen.getByTestId("23")).toBeInTheDocument()
     expect(screen.getByTestId("23")).toHaveAttribute("data-lolol")
+  })
+
+  test("forwards aria-label to the native input", () => {
+    render(<Radio aria-label="my-aria-label" />)
+    expect(screen.getByRole("radio")).toHaveAttribute("aria-label", "my-aria-label")
   })
 })
