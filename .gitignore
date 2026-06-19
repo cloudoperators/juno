@@ -24,3 +24,4 @@ act_*.json
 .out-of-code-insights
 .claude
 claude.md
+.mcp.json

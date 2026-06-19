@@ -7,7 +7,6 @@ import React, {
   useState,
   useEffect,
   useContext,
-  createContext,
   ReactNode,
   HTMLAttributes,
   MouseEventHandler,
@@ -16,9 +15,8 @@ import React, {
   Children,
 } from "react"
 import { Icon, KnownIcons } from "../Icon/Icon.component"
-import "./sidenavigationitem.css"
-
-const LevelContext = createContext<number>(0)
+import { LevelContext } from "../SideNavigation/levelContext"
+import "../SideNavigation/sidenavigation.css"
 
 const sideNavItemStyles = `
   jn:flex
@@ -32,8 +30,9 @@ const sideNavItemStyles = `
 
 const leftStyles = `
   jn:flex
-  jn:items-center
+  jn:items-start
   jn:flex-grow
+  jn:min-w-0
 `
 
 const disabledStyles = `
@@ -112,6 +111,13 @@ export const SideNavigationItem = ({
     }
   }
 
+  const titleText: string | undefined =
+    typeof label === "string" && label.length > 0
+      ? label
+      : typeof children === "string" && children.length > 0
+        ? children
+        : undefined
+
   const renderExpandButton = () =>
     children && typeof children !== "string" && Children.count(children) ? (
       <button
@@ -143,7 +149,7 @@ export const SideNavigationItem = ({
 
   return (
     <LevelContext.Provider value={level + 1}>
-      <div className="jn:flex jn:w-full jn:items-center jn:justify-between">
+      <div className="jn:flex jn:w-full jn:items-start jn:justify-between">
         {href ? (
           <a
             aria-current={selected ? "page" : undefined}
@@ -153,6 +159,7 @@ export const SideNavigationItem = ({
             onClick={!disabled ? handleMainClick : undefined}
             aria-disabled={disabled || undefined}
             tabIndex={disabled ? -1 : undefined}
+            title={titleText}
             {...props}
           >
             {renderLeft()}
@@ -165,6 +172,7 @@ export const SideNavigationItem = ({
             className={combinedClassNames}
             onClick={!disabled ? handleMainClick : undefined}
             disabled={disabled}
+            title={titleText}
             {...props}
           >
             {renderLeft()}
