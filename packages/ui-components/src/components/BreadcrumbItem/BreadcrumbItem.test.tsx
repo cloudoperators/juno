@@ -86,11 +86,18 @@ describe("BreadcrumbItem", () => {
       expect(screen.getByTestId("breadcrumbitem")).toHaveAttribute("aria-current", "page")
     })
 
-    test("renders a disabled item with aria-disabled", async () => {
+    test("renders a disabled item with aria-disabled and does not render as a link", async () => {
       const onClickSpy = vi.fn()
       render(<BreadcrumbItem href="#" disabled data-testid="breadcrumbitem" onClick={onClickSpy} />)
+
       const element = screen.getByTestId("breadcrumbitem")
+      expect(element).toBeInTheDocument()
       expect(element).toHaveAttribute("aria-disabled", "true")
+
+      // Check that <a> link isn't rendered
+      expect(screen.queryByRole("link")).not.toBeInTheDocument()
+
+      // Ensure onClick isn't called
       await waitFor(() => {
         element.click()
         expect(onClickSpy).not.toHaveBeenCalled()
