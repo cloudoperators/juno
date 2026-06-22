@@ -175,7 +175,7 @@ export const RadioGroup = ({
         )}
         <div
           className={`
-            juno-checkbox-group-options 
+            juno-radio-group-options
             ${groupstyles} 
             ${isValid ? validgroupstyles : ""} 
             ${isInvalid ? invalidgroupstyles : ""} 

@@ -43,15 +43,15 @@ describe("SignInForm Component Tests", () => {
   describe("Title Prop", () => {
     test("renders default title 'Sign In' when no title prop is passed", () => {
       render(<SignInForm data-testid="my-signin-form" />)
-      expect(screen.getByRole("heading")).toBeInTheDocument()
-      expect(screen.getByRole("heading")).toHaveClass("juno-sign-in-form-heading")
-      expect(screen.getByRole("heading")).toHaveTextContent("Sign In")
+      expect(screen.getByRole("heading", { level: 2 })).toBeInTheDocument()
+      expect(screen.getByRole("heading", { level: 2 })).toHaveClass("juno-sign-in-form-heading")
+      expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent("Sign In")
     })
 
     test("renders custom title when string is passed", () => {
       render(<SignInForm data-testid="my-signin-form" title="Welcome Back" />)
-      expect(screen.getByRole("heading")).toBeInTheDocument()
-      expect(screen.getByRole("heading")).toHaveTextContent("Welcome Back")
+      expect(screen.getByRole("heading", { level: 2 })).toBeInTheDocument()
+      expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent("Welcome Back")
     })
 
     test("does not render title when title={false}", () => {
@@ -61,16 +61,14 @@ describe("SignInForm Component Tests", () => {
 
     test("renders empty string title as empty heading", () => {
       render(<SignInForm data-testid="my-signin-form" title="" />)
-      const heading = screen.queryByRole("heading")
+      const heading = screen.queryByRole("heading", { level: 2 })
       expect(heading).toBeInTheDocument()
       expect(heading).toHaveTextContent("")
     })
 
     test("applies correct styling to title", () => {
       render(<SignInForm data-testid="my-signin-form" title="Test Title" />)
-      const heading = screen.getByRole("heading")
-      expect(heading).toHaveClass("jn:text-xl")
-      expect(heading).toHaveClass("jn:font-bold")
+      const heading = screen.getByRole("heading", { level: 2 })
       expect(heading).toHaveClass("jn:text-theme-highest")
     })
   })

@@ -12,7 +12,7 @@ import React, {
   ReactNode,
   ChangeEvent,
   MouseEvent,
-  HTMLAttributes,
+  InputHTMLAttributes,
   ChangeEventHandler,
   MouseEventHandler,
 } from "react"
@@ -21,21 +21,28 @@ import { Label } from "../Label/index"
 import { Icon } from "../Icon/index"
 import { FormHint } from "../FormHint/index"
 
+// inline-flex to sit the mock checkbox and label side by side; items-center vertically centers them.
 const wrapperStyles = `
   jn:inline-flex
   jn:items-center
 `
 
 const inputstyles = (disabled: boolean): string => {
+  // absolute + -inset-px: overlays the native input exactly over the mock checkbox (full 16x16 area).
+  // inset-0 would only fill the padding box (14x14 when a 1px border is present); -inset-px
+  // extends by 1px on each side to reach the border edge, matching the full visual size.
+  // opacity-0 hides it visually; z-50 keeps it on top so clicks always hit the real input.
   return `
-    jn:w-4
-    jn:h-4
+    jn:absolute
+    jn:-inset-px
     jn:opacity-0
     jn:z-50
     ${disabled ? "jn:cursor-not-allowed" : "jn:cursor-pointer"}
   `
 }
 
+// relative establishes the positioning context for the absolutely placed native input,
+// checkmark SVG, and indeterminate bar. Explicit w-4 h-4 locks the mock to exactly 16x16.
 const mockcheckboxstyles = `
   jn:relative
   jn:w-4
@@ -53,6 +60,7 @@ const mockfocusstyles = `
   jn:ring-theme-focus
 `
 
+// absolute positions the SVG over the mock; top-0 left-0 anchors it to the mock's top-left corner.
 const mockcheckmarkstyles = `
   jn:absolute
   jn:top-0
@@ -61,6 +69,7 @@ const mockcheckmarkstyles = `
   jn:fill-current
 `
 
+// absolute positions the bar within the mock. top-1.5 / left-[.2rem] centres it visually.
 const mockindeterminatestyles = `
   jn:absolute
   jn:w-2
@@ -92,8 +101,9 @@ const successstyles = `
   jn:border-theme-success
 `
 
+// No leading override here: the label must retain its natural line-height so that the
+// required marker (a small absolutely-offset dot rendered inside Label) positions correctly.
 const labelStyles = `
-  jn:leading-0
   jn:ml-2
 `
 
@@ -132,13 +142,14 @@ export const Checkbox = ({
   successtext = "",
   valid = false,
   value = "",
+  wrapperClassName = "",
   ...props
 }: CheckboxProps): ReactNode => {
   const isNotEmptyString = (str: ReactNode) => {
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
-  const uniqueId = () => "juno-checkbox-" + useId()
+  const generatedId = "juno-checkbox-" + useId()
 
   // Consume and deconstruct the context so we won't get errors but 'undefined' when trying to access a group context property in case there is none:
   const checkboxGroupContext = useContext(CheckboxGroupContext)
@@ -232,23 +243,26 @@ export const Checkbox = ({
     }
   }
 
-  const theId = id || uniqueId()
+  const theId = id || generatedId
 
+  // leading-0 on the outer div collapses its line box to zero, preventing inherited
+  // line-height from the parent context from adding implicit height around the inline-flex
+  // wrapper inside. Without this, the checkbox can appear shifted upward in flex containers
+  // (e.g. items-center rows in a DataGrid).
   return (
-    <div className="jn-checkbox-outer">
+    <div className="jn-checkbox-outer jn:leading-0">
       <div className={`jn-checkbox-wrapper ${wrapperStyles}`}>
         <div
           className={`
-            juno-checkbox 
-            ${mockcheckboxstyles} 
-            ${hasFocus ? mockfocusstyles : ""} 
-            ${groupDisabled || disabled ? mockdisabledstyles : ""} 
-            ${isInvalid ? errorstyles : ""} 
-            ${isValid ? successstyles : ""} 
+            juno-checkbox
+            ${mockcheckboxstyles}
+            ${hasFocus ? mockfocusstyles : ""}
+            ${groupDisabled || disabled ? mockdisabledstyles : ""}
+            ${isInvalid ? errorstyles : ""}
+            ${isValid ? successstyles : ""}
             ${isInvalid || isValid ? "" : noBorderStyles}
-            ${className}
+            ${wrapperClassName}
           `}
-          {...props}
         >
           {determineChecked() ? (
             <svg
@@ -266,9 +280,10 @@ export const Checkbox = ({
           <input
             checked={determineChecked()}
             className={`
-              ${inputstyles(groupDisabled || disabled)} 
-              ${isInvalid ? "juno-checkbox-invalid" : ""} 
-              ${isValid ? "juno-checkbox-valid" : ""} 
+              ${inputstyles(groupDisabled || disabled)}
+              ${isInvalid ? "juno-checkbox-invalid" : ""}
+              ${isValid ? "juno-checkbox-valid" : ""}
+              ${className}
             `}
             disabled={groupDisabled || disabled}
             id={theId}
@@ -279,6 +294,7 @@ export const Checkbox = ({
             onFocus={handleFocus}
             type="checkbox"
             value={value}
+            {...props}
           />
           {isIndeterminate && !determineChecked() ? <div className={`${mockindeterminatestyles}`}></div> : ""}
         </div>
@@ -337,7 +353,7 @@ export const Checkbox = ({
   )
 }
 
-export interface CheckboxProps extends HTMLAttributes<HTMLDivElement> {
+export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "value"> {
   /**
    * Specifies if the Checkbox is checked.
    * @default false
@@ -345,7 +361,7 @@ export interface CheckboxProps extends HTMLAttributes<HTMLDivElement> {
   checked?: boolean
 
   /**
-   * Custom CSS class for styling the Checkbox.
+   * Custom CSS class forwarded to the native checkbox input.
    * @default ""
    */
   className?: string
@@ -424,4 +440,10 @@ export interface CheckboxProps extends HTMLAttributes<HTMLDivElement> {
    * The value attribute of the Checkbox.
    */
   value?: string
+
+  /**
+   * Custom CSS class for styling the outer wrapper element.
+   * @default ""
+   */
+  wrapperClassName?: string
 }
