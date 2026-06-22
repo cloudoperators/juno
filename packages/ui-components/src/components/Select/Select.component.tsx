@@ -60,6 +60,8 @@ const centeredIconStyles = `
   jn:absolute
   jn:top-1/2
   jn:left-1/2
+  jn:inline-flex
+  jn:leading-none
   jn:translate-y-[-50%]
   jn:translate-x-[-0.75rem]
 `
@@ -395,10 +397,10 @@ export const Select = ({
                           >
                             {getDisplayValue(value)}
                           </span>
-                          <span className="jn:flex">
+                          <span className="jn:flex jn:items-center">
                             {isValid ? <Icon icon="checkCircle" color="jn:text-theme-success" /> : ""}
                             {isInvalid ? <Icon icon="dangerous" color="jn:text-theme-error" /> : ""}
-                            <span>
+                            <span className="jn:inline-flex jn:leading-none">
                               <Icon icon={open ? "expandLess" : "expandMore"} />
                             </span>
                           </span>
