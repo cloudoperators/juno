@@ -1,5 +1,0 @@
-import{i as e}from"./preload-helper-usAeo7Bx.js";import{t}from"./react-IGKVQItS.js";import{t as n}from"./jsx-runtime-O9QVJvLM.js";import{t as r}from"./Button.component-CE9qJOMt.js";import{t as i}from"./Button-Bcx7pJlL.js";import{t as a}from"./ButtonRow.component-D6U_-NV1.js";import{t as o}from"./ButtonRow-BZNAchld.js";var s,c,l,u;e((()=>{t(),o(),i(),s=n(),c={title:`Forms/ButtonRow`,component:a,argTypes:{children:{control:!1}}},l={args:{children:[(0,s.jsx)(r,{label:`Cancel`,title:`Cancel`},`1`),(0,s.jsx)(r,{label:`Save`,title:`Save`,variant:`primary`},`2`)]}},l.parameters={...l.parameters,docs:{...l.parameters?.docs,source:{originalSource:`{
-  args: {
-    children: [<Button key="1" label="Cancel" title="Cancel" />, <Button key="2" label="Save" title="Save" variant="primary" />]
-  }
-}`,...l.parameters?.docs?.source}}},u=[`Default`]}))();export{l as Default,u as __namedExportsOrder,c as default};
