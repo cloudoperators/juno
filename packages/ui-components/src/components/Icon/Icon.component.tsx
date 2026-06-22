@@ -1002,7 +1002,7 @@ export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>
 
   /* render an <a> if href was passed, otherwise render button if onClick was passes, otherwise render plain icon: */
   /* if plain icon, add ref to the icon. In the other cases the ref goes on the anchor or button */
-  return href ? anchor : onClick ? button : <span ref={ref} className="jn:inline-flex jn:leading-none">{icn}</span>
+  return href ? anchor : onClick ? button : <span className="jn:inline-flex jn:leading-none">{icn}</span>
 })
 
 export interface IconProps extends Omit<HTMLProps<HTMLAnchorElement> | HTMLProps<HTMLButtonElement>, "size"> {

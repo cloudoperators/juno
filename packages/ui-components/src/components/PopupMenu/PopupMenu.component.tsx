@@ -338,7 +338,7 @@ export const PopupMenuToggle = ({
 }: PopupMenuToggleProps): ReactNode => (
   <MenuButton
     as={as}
-    className={`juno-popupmenu-toggle ${baseToggleStyles} ${disabled && disabledToggleStyles} ${className}`}
+    className={`juno-popupmenu-toggle ${baseToggleStyles} ${disabled ? disabledToggleStyles : ""} ${className}`}
     disabled={disabled}
     {...props}
   >
