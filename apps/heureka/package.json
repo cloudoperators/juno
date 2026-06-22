@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-heureka",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "author": "UI-Team",
   "type": "module",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/heureka",
