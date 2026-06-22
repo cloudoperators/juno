@@ -42,7 +42,7 @@ export const PluginPresets = () => {
       </Container>
       <Container px={false} py>
         <PluginPresetsFilters />
-        <DataGridToolbar>
+        <DataGridToolbar className="text-theme-light">
           <Stack>
             <div>
               <span className="text-theme-default pr-2">{`${total} PluginPresets`}</span>
