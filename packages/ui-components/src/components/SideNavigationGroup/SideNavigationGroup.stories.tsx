@@ -35,6 +35,11 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     label: "Group",
+    children: [
+      <SideNavigationItem key="1" label="Item 1" href="#" />,
+      <SideNavigationItem key="2" label="Item 2" href="#" />,
+      <SideNavigationItem key="3" label="Item 3" href="#" />,
+    ],
   },
   parameters: {
     docs: {
