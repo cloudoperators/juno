@@ -55,11 +55,11 @@ export const Expandable: Story = {
     label: "Expandable Group",
     children: (
       <>
-        <SideNavigationItem label="1st Level Item" href="#" icon="addCircle" />
-        <SideNavigationItem label="Nested" icon="addCircle">
-          <SideNavigationItem label="2nd Level Item" icon="addCircle">
-            <SideNavigationItem label="3rd Level Item" href="#" icon="addCircle" />
-            <SideNavigationItem label="4th Level Item" href="#" icon="addCircle" />
+        <SideNavigationItem label="1st Level Item" href="#" />
+        <SideNavigationItem label="Nested">
+          <SideNavigationItem label="2nd Level Item">
+            <SideNavigationItem label="3rd Level Item" href="#" />
+            <SideNavigationItem label="4th Level Item" href="#" />
           </SideNavigationItem>
         </SideNavigationItem>
       </>
