@@ -124,9 +124,13 @@ export const SideNavigationGroup = ({ children, label = "", open = false }: Side
   }
 
   return (
-    <>
+    <li>
       {renderGroup()}
-      {isOpen && <LevelContext.Provider value={level + 1}>{children}</LevelContext.Provider>}
-    </>
+      {isOpen && (
+        <ul>
+          <LevelContext.Provider value={level + 1}>{children}</LevelContext.Provider>
+        </ul>
+      )}
+    </li>
   )
 }
