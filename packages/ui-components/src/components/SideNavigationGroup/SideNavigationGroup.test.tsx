@@ -103,31 +103,52 @@ describe("SideNavigationGroup", () => {
     expect(group).not.toHaveAttribute("title")
   })
 
-  test("indents the group label based on its nesting level", () => {
+  test("does not apply a level-* class to the group label", () => {
     render(
       <SideNavigationGroup label="Top" open>
-        <SideNavigationGroup label="Middle" open>
-          <SideNavigationGroup label="Inner" open>
-            <SideNavigationItem label="Leaf" />
-          </SideNavigationGroup>
-        </SideNavigationGroup>
+        <SideNavigationItem label="Leaf" />
       </SideNavigationGroup>
     )
 
-    expect(screen.getByText("Top")).toHaveClass("level-1")
-    expect(screen.getByText("Middle")).toHaveClass("level-2")
-    expect(screen.getByText("Inner")).toHaveClass("level-3")
+    const label = screen.getByText("Top")
+    expect(label.className).not.toMatch(/\blevel-\d+\b/)
   })
 
-  test("propagates its level so child SideNavigationItems indent correctly", () => {
+  test("does not increment the level for its children (groups are top-level only)", () => {
     render(
       <SideNavigationGroup label="Outer" open>
-        <SideNavigationGroup label="Inner" open>
-          <SideNavigationItem label="Leaf" />
-        </SideNavigationGroup>
+        <SideNavigationItem label="Leaf" />
       </SideNavigationGroup>
     )
 
-    expect(screen.getByText("Leaf")).toHaveClass("level-3")
+    expect(screen.getByText("Leaf")).toHaveClass("level-1")
+  })
+
+  test("renders as a <li> so it is a valid direct child of a <ul>", () => {
+    const { container } = render(<SideNavigationGroup label="Group" />)
+    const root = container.firstElementChild
+    expect(root?.tagName).toBe("LI")
+  })
+
+  test("wraps expanded children in a nested <ul> with only <li> direct children", () => {
+    const { container } = render(
+      <SideNavigationGroup label="Group" open>
+        <SideNavigationItem label="Child A" />
+        <SideNavigationItem label="Child B" />
+      </SideNavigationGroup>
+    )
+
+    const nestedUls = container.querySelectorAll("ul")
+    expect(nestedUls.length).toBe(1)
+    for (const ul of nestedUls) {
+      for (const child of Array.from(ul.children)) {
+        expect(child.tagName).toBe("LI")
+      }
+    }
+  })
+
+  test("does not render a nested <ul> when the group has no children", () => {
+    const { container } = render(<SideNavigationGroup label="Childless Group" open />)
+    expect(container.querySelector("ul")).toBeNull()
   })
 })

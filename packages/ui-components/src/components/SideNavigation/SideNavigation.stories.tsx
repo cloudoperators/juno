@@ -60,20 +60,18 @@ export const NavigationWithGroups: Story = {
   render: (args) => (
     <SideNavigation {...args}>
       <SideNavigationList>
-        <SideNavigationItem label="Item 1" selected={true} href="#" />
-        <SideNavigationGroup label="Item 2">
-          <SideNavigationItem label="Sub-Child 1" />
-          <SideNavigationGroup label="Sub-Child 2">
-            <SideNavigationItem label="Sub-Child 3" />
-          </SideNavigationGroup>
+        <SideNavigationGroup label="Group 1" open>
+          <SideNavigationItem label="Grouped-Item 1" />
+          <SideNavigationItem label="Grouped-Item 2">
+            <SideNavigationItem label="Grouped-Item 3" />
+          </SideNavigationItem>
         </SideNavigationGroup>
-        <SideNavigationItem label="Item 3" href="#" />
-        <SideNavigationGroup label="Group Example">
+        <SideNavigationGroup label="Group 2" open>
           <SideNavigationItem label="Grouped Item 1" />
-          <SideNavigationGroup label="Grouped Item 2">
+          <SideNavigationItem label="Grouped Item 2">
             <SideNavigationItem label="Sub-Child 1" />
             <SideNavigationItem label="Sub-Child 2" />
-          </SideNavigationGroup>
+          </SideNavigationItem>
         </SideNavigationGroup>
       </SideNavigationList>
     </SideNavigation>

@@ -118,4 +118,32 @@ describe("SideNavigationItem", () => {
     )
     expect(screen.getByText("Child")).toHaveClass("level-2")
   })
+
+  it("renders as a <li> so it is a valid direct child of a <ul>", () => {
+    const { container } = render(<SideNavigationItem label="Item" />)
+    const root = container.firstElementChild
+    expect(root?.tagName).toBe("LI")
+  })
+
+  it("wraps expanded children in a nested <ul> with only <li> direct children", () => {
+    const { container } = render(
+      <SideNavigationItem label="Parent" open>
+        <SideNavigationItem label="Child A" />
+        <SideNavigationItem label="Child B" />
+      </SideNavigationItem>
+    )
+
+    const nestedUls = container.querySelectorAll("ul")
+    expect(nestedUls.length).toBe(1)
+    for (const ul of nestedUls) {
+      for (const child of Array.from(ul.children)) {
+        expect(child.tagName).toBe("LI")
+      }
+    }
+  })
+
+  it("does not render a nested <ul> when expanded without children", () => {
+    const { container } = render(<SideNavigationItem label="Lonely" open />)
+    expect(container.querySelector("ul")).toBeNull()
+  })
 })
