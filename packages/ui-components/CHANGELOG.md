@@ -1,5 +1,12 @@
 # @cloudoperators/juno-ui-components
 
+## 9.0.1
+
+### Patch Changes
+
+- 72b2ba6: fix(ui): collapse Icon line-box so icons align reliably inside flex containers, with follow-up fixes in PopupMenu, ComboBox, and Select
+- f5ee711: fix(ui): emit valid HTML in SideNavigation by rendering items/groups as `<li>` and wrapping nested children in `<ul>`. `SideNavigationGroup` is now first-level only and no longer participates in `LevelContext`.
+
 ## 9.0.0
 
 ### Major Changes
