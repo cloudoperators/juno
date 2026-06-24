@@ -29,5 +29,5 @@ export interface SideNavigationListProps {
  * @see {@link SideNavigationListProps}
  */
 export const SideNavigationList = ({ children }: SideNavigationListProps): ReactNode => {
-  return <ul className={`${sideNavListStyles}`}>{children}</ul>
+  return <ul className={`juno-sidenavigation-list ${sideNavListStyles}`}>{children}</ul>
 }
