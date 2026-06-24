@@ -487,17 +487,14 @@ describe("Pagination", () => {
     expect(screen.getByTestId("my-pagination")).toHaveAttribute("data-lolol", "123-456")
   })
 
-  test("sets inputValue to controlTotalPage on symbol or non-numeric input", async () => {
+  test("defaults to last page on non-numeric input", () => {
     const onInputChangeMock = vi.fn()
     render(<Pagination variant="input" totalPages={5} onInputChange={onInputChangeMock} />)
 
     const textInput = screen.getByRole("textbox")
-    fireEvent.change(textInput, { target: { value: "$" } }) // Non-numeric input
-    fireEvent.blur(textInput)
+    fireEvent.change(textInput, { target: { value: "$" } })
 
-    await waitFor(() => {
-      // Check that controlTotalPage was set after invalid input
-      expect(onInputChangeMock).toHaveBeenCalledWith(5)
-    })
+    expect(textInput).toHaveValue("5")
+    expect(onInputChangeMock).toHaveBeenCalledWith(5)
   })
 })
