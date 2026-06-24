@@ -124,7 +124,7 @@ export const SideNavigationGroup = ({ children, label = "", open = false }: Side
   return (
     <li className="juno-sidenavigation-group-element">
       {renderGroup()}
-      {isOpen && <ul>{children}</ul>}
+      {isOpen && hasChildren && <ul>{children}</ul>}
     </li>
   )
 }

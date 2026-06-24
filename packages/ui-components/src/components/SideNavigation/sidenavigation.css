@@ -25,7 +25,14 @@
   margin-top: 1rem;
 }
 
-/* The below styles should go the the button element and renamed accordingly: */
+/* Nested lists inside items/groups must not show default list styling. */
+.juno-sidenavigation ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* The below styles should go to the button element and renamed accordingly: */
 
 .juno-sidenavigation-item {
   border-radius: 0.25rem;

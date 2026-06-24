@@ -44,7 +44,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Displays a simple SideNavigationGroup without children, useful for organizing items.",
+        story: "Displays a simple SideNavigationGroup with a few items, useful for organizing items.",
       },
     },
   },

@@ -181,7 +181,7 @@ export const SideNavigationItem = ({
           )}
           {renderExpandButton()}
         </div>
-        {isOpen && typeof children !== "string" && <ul>{children}</ul>}
+        {isOpen && typeof children !== "string" && children && Children.count(children) > 0 && <ul>{children}</ul>}
       </li>
     </LevelContext.Provider>
   )
