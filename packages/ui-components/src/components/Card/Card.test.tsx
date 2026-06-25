@@ -129,6 +129,7 @@ describe("Card Component", () => {
       const element = screen.getByTestId("card")
       expect(element).toHaveClass("jn:cursor-pointer")
       expect(element).toHaveClass("jn:hover:border-theme-card-hover")
+      expect(element).toHaveClass("jn:hover:shadow-theme-default-hover")
       expect(element).toHaveClass("jn:active:border-theme-accent")
     })
 
@@ -141,6 +142,7 @@ describe("Card Component", () => {
       const element = screen.getByTestId("card")
       expect(element).toHaveClass("jn:cursor-pointer")
       expect(element).toHaveClass("jn:hover:border-theme-card-hover")
+      expect(element).toHaveClass("jn:hover:shadow-theme-default-hover")
       expect(element).toHaveClass("jn:active:border-theme-accent")
     })
 
