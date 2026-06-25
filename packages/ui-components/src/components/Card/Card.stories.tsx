@@ -66,3 +66,11 @@ export const WithoutPadding: Story = {
     onClick: undefined,
   },
 }
+
+export const InteractiveHover: Story = {
+  args: {
+    children: "Hover or click me to see the interactive states.",
+    padding: true,
+    onClick: () => {},
+  },
+}

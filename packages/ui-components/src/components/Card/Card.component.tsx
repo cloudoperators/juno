@@ -14,6 +14,13 @@ const cardStyles = `
   jn:shadow-theme-default
 `
 
+const cardInteractiveStyles = `
+  jn:cursor-pointer
+  jn:hover:border-theme-card-hover
+  jn:hover:shadow-theme-default-hover
+  jn:active:border-theme-accent
+`
+
 const cardPadding = "jn:p-4"
 
 export interface CardProps extends HTMLAttributes<HTMLElement> {
@@ -60,7 +67,8 @@ export interface CardProps extends HTMLAttributes<HTMLElement> {
  */
 export const Card = forwardRef<HTMLElement, CardProps>(
   ({ children, padding = false, className = "", href, onClick, disabled = false, ...props }, ref) => {
-    const combinedClassName = `juno-card ${cardStyles} ${padding ? cardPadding : ""} ${className} ${disabled ? "jn:cursor-not-allowed" : ""}`
+    const isInteractive = (!!href || !!onClick) && !disabled
+    const combinedClassName = `juno-card ${cardStyles} ${isInteractive ? cardInteractiveStyles : ""} ${padding ? cardPadding : ""} ${className} ${disabled ? "jn:cursor-not-allowed" : ""}`
 
     // Handle click event when disabled
     const handleClick: MouseEventHandler<HTMLElement> = (event) => {

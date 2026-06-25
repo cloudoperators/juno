@@ -118,4 +118,38 @@ describe("Card Component", () => {
       expect(handleClick).not.toHaveBeenCalled()
     })
   })
+
+  describe("Interactive Styles", () => {
+    test("applies interactive styles when onClick is provided", () => {
+      render(<Card data-testid="card" onClick={() => {}}>Button</Card>)
+      const element = screen.getByTestId("card")
+      expect(element).toHaveClass("jn:cursor-pointer")
+      expect(element).toHaveClass("jn:hover:border-theme-card-hover")
+      expect(element).toHaveClass("jn:active:border-theme-accent")
+    })
+
+    test("applies interactive styles when href is provided", () => {
+      render(<Card data-testid="card" href="https://example.com">Link</Card>)
+      const element = screen.getByTestId("card")
+      expect(element).toHaveClass("jn:cursor-pointer")
+      expect(element).toHaveClass("jn:hover:border-theme-card-hover")
+      expect(element).toHaveClass("jn:active:border-theme-accent")
+    })
+
+    test("does not apply interactive styles when neither href nor onClick are provided", () => {
+      render(<Card data-testid="card">Div</Card>)
+      const element = screen.getByTestId("card")
+      expect(element).not.toHaveClass("jn:cursor-pointer")
+      expect(element).not.toHaveClass("jn:hover:border-theme-card-hover")
+      expect(element).not.toHaveClass("jn:active:border-theme-accent")
+    })
+
+    test("does not apply interactive styles when disabled", () => {
+      render(<Card data-testid="card" onClick={() => {}} disabled>Disabled</Card>)
+      const element = screen.getByTestId("card")
+      expect(element).not.toHaveClass("jn:cursor-pointer")
+      expect(element).not.toHaveClass("jn:hover:border-theme-card-hover")
+      expect(element).toHaveClass("jn:cursor-not-allowed")
+    })
+  })
 })
