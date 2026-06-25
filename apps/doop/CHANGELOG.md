@@ -1,5 +1,14 @@
 # @cloudoperators/juno-app-doop
 
+## 2.6.34
+
+### Patch Changes
+
+- Updated dependencies [72b2ba6]
+- Updated dependencies [f5ee711]
+  - @cloudoperators/juno-ui-components@9.0.1
+  - @cloudoperators/juno-messages-provider@0.2.46
+
 ## 2.6.33
 
 ### Patch Changes

@@ -19,6 +19,21 @@
 
 /* SideNavigationItem */
 
+/* This selector addresses the actual list element of a group and should become .juno-sidenavigation-item once we have renamed the below classes for the buttons */
+
+.juno-sidenavigation-group-element:not(:first-child) {
+  margin-top: 1rem;
+}
+
+/* Nested lists inside items/groups must not show default list styling. */
+.juno-sidenavigation ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* The below styles should go to the button element and renamed accordingly: */
+
 .juno-sidenavigation-item {
   border-radius: 0.25rem;
   border-left: 0.25rem solid transparent;

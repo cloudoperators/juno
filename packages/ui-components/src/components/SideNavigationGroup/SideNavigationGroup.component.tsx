@@ -3,10 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Children, ReactElement, ReactNode, useContext, useEffect, useState, MouseEvent } from "react"
+import React, { Children, ReactElement, ReactNode, useEffect, useState, MouseEvent } from "react"
 import { Icon } from "../Icon"
 import { SideNavigationItemProps } from "../SideNavigationItem"
-import { LevelContext } from "../SideNavigation/levelContext"
 import "../SideNavigation/sidenavigation.css"
 
 const sideNavGroupStyles = `
@@ -19,6 +18,7 @@ const sideNavGroupStyles = `
   jn:rounded
   jn:border-l-[0.25rem]
   jn:border-transparent
+  jn:text-sm
 `
 
 const interactiveGroupStyles = `
@@ -68,8 +68,6 @@ export interface SideNavigationGroupProps {
 
 export const SideNavigationGroup = ({ children, label = "", open = false }: SideNavigationGroupProps): ReactNode => {
   const [isOpen, setIsOpen] = useState(open)
-  const level = useContext(LevelContext)
-  const levelClassName = `level-${level + 1}`
 
   // Sync internal state with external prop changes
   useEffect(() => {
@@ -94,7 +92,7 @@ export const SideNavigationGroup = ({ children, label = "", open = false }: Side
 
   const renderLabel = () => (
     <span className={labelContainerStyles}>
-      <span className={`${labelClampStyles} ${levelClassName}`}>{label}</span>
+      <span className={`${labelClampStyles}`}>{label}</span>
     </span>
   )
 
@@ -124,9 +122,9 @@ export const SideNavigationGroup = ({ children, label = "", open = false }: Side
   }
 
   return (
-    <>
+    <li className="juno-sidenavigation-group-element">
       {renderGroup()}
-      {isOpen && <LevelContext.Provider value={level + 1}>{children}</LevelContext.Provider>}
-    </>
+      {isOpen && hasChildren && <ul>{children}</ul>}
+    </li>
   )
 }
