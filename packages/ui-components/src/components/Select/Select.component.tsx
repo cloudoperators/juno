@@ -418,33 +418,34 @@ export const Select = ({
                       )
                     }}
                   </ListboxButton>
-                  {createPortal(
-                    <div
-                      ref={refs.setFloating}
-                      className={`
+                  {open &&
+                    createPortal(
+                      <div
+                        ref={refs.setFloating}
+                        className={`
                           juno-select-menu-container
                           ${menuStylesContainer}
                         `}
-                      style={{
-                        position: strategy,
-                        top: y ?? 0,
-                        left: x ?? 0,
-                        display: open ? "block" : "none",
-                      }}
-                      {...getFloatingProps()}
-                    >
-                      <ListboxOptions
-                        static
-                        className={`
-                          juno-select-menu
-                          ${menuStyles}
-                        `}
+                        style={{
+                          position: strategy,
+                          top: y ?? 0,
+                          left: x ?? 0,
+                        }}
+                        {...getFloatingProps()}
+                        tabIndex={-1}
                       >
-                        {children}
-                      </ListboxOptions>
-                    </div>,
-                    portalContainerRef ?? document.body
-                  )}
+                        <ListboxOptions
+                          static
+                          className={`
+                            juno-select-menu
+                            ${menuStyles}
+                          `}
+                        >
+                          {children}
+                        </ListboxOptions>
+                      </div>,
+                      portalContainerRef ?? document.body
+                    )}
                 </div>
               </>
             )
