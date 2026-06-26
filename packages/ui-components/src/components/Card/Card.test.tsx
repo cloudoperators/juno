@@ -126,11 +126,7 @@ describe("Card Component", () => {
           Button
         </Card>
       )
-      const element = screen.getByTestId("card")
-      expect(element).toHaveClass("jn:cursor-pointer")
-      expect(element).toHaveClass("jn:hover:border-theme-card-hover")
-      expect(element).toHaveClass("jn:hover:shadow-theme-default-hover")
-      expect(element).toHaveClass("jn:active:border-theme-accent")
+      expect(screen.getByTestId("card")).toHaveClass("juno-card-interactive")
     })
 
     test("applies interactive styles when href is provided", () => {
@@ -139,19 +135,12 @@ describe("Card Component", () => {
           Link
         </Card>
       )
-      const element = screen.getByTestId("card")
-      expect(element).toHaveClass("jn:cursor-pointer")
-      expect(element).toHaveClass("jn:hover:border-theme-card-hover")
-      expect(element).toHaveClass("jn:hover:shadow-theme-default-hover")
-      expect(element).toHaveClass("jn:active:border-theme-accent")
+      expect(screen.getByTestId("card")).toHaveClass("juno-card-interactive")
     })
 
     test("does not apply interactive styles when neither href nor onClick are provided", () => {
       render(<Card data-testid="card">Div</Card>)
-      const element = screen.getByTestId("card")
-      expect(element).not.toHaveClass("jn:cursor-pointer")
-      expect(element).not.toHaveClass("jn:hover:border-theme-card-hover")
-      expect(element).not.toHaveClass("jn:active:border-theme-accent")
+      expect(screen.getByTestId("card")).not.toHaveClass("juno-card-interactive")
     })
 
     test("does not apply interactive styles when disabled", () => {
@@ -161,8 +150,7 @@ describe("Card Component", () => {
         </Card>
       )
       const element = screen.getByTestId("card")
-      expect(element).not.toHaveClass("jn:cursor-pointer")
-      expect(element).not.toHaveClass("jn:hover:border-theme-card-hover")
+      expect(element).not.toHaveClass("juno-card-interactive")
       expect(element).toHaveClass("jn:cursor-not-allowed")
     })
   })
