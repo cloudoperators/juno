@@ -409,6 +409,7 @@
   --border-color-theme-box-default: var(--color-box-border);
 
   --border-color-theme-card-default: var(--color-card-border-default);
+  --border-color-theme-card-hover: var(--color-card-border-hover);
 
   --border-color-theme-codeblock-bar: var(--color-codeblock-bar-border);
   --border-color-theme-codeblock-tab-active: var(--color-text-default);
@@ -521,6 +522,7 @@
   /* LT Global */
   --color-global-bg: var(--color-juno-grey-light-1);
   --color-border-default: var(--color-juno-grey-light-7);
+  --color-border-high: var(--color-juno-grey-light-9);
   --color-global-text: var(--color-juno-text-default);
   --color-content-area-bg: var(--color-background-lvl-0);
   /* LT FOCUS */
@@ -635,6 +637,7 @@
   /* LT Card */
   --color-card-background-default: var(--color-white);
   --color-card-border-default: var(--color-border-default);
+  --color-card-border-hover: var(--color-border-high);
   /* LT Checkbox */
   --color-checkbox-bg: var(--color-background-lvl-5);
   --color-checkbox-checked-color: var(--color-accent);
@@ -730,7 +733,7 @@
   ); /* Light Theme DateTimePicker range background. We need to use a synthetisized solid value based on the current theme's accent color, the way that flatpickr is built here forbids using translucent colors. */
   /* LT Box Shadow */
   --box-shadow-default: 0 1px 2px 0 rgba(34, 54, 73, 0.3);
-  --box-shadow-hover: 0 0 0 1px var(--color-color-shadow, rgba(79, 79, 79, 0.3)), 0 2px 8px 0 rgba(0, 0, 0, 0.3);
+  --box-shadow-hover: 0 0 0 1px var(--color-color-shadow, rgba(79, 79, 79, 0.2)), 0 2px 8px 0 rgba(0, 0, 0, 0.2);
   /* LT PageFooter */
   --color-pagefooter-text: var(--color-text-light);
   --color-pagefooter-background: var(--color-white);
@@ -772,6 +775,7 @@
   /* DT Global */
   --color-global-bg: var(--color-juno-grey-blue-10);
   --color-border-default: var(--color-juno-grey-blue-3);
+  --color-border-high: var(--color-juno-grey-blue-1);
   --color-global-text: var(--color-juno-text-default);
   --color-content-area-bg: var(--color-background-lvl-0);
 
@@ -888,6 +892,7 @@
   /* DT Card */
   --color-card-background-default: var(--color-juno-grey-blue-10);
   --color-card-border-default: var(--color-border-default);
+  --color-card-border-hover: var(--color-border-high);
   /* DT Checkbox */
   --color-checkbox-bg: var(--color-background-lvl-5);
   --color-checkbox-checked-color: var(--color-accent);

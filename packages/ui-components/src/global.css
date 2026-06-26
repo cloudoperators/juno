@@ -421,6 +421,7 @@
   --border-color-theme-box-default: var(--color-box-border);
 
   --border-color-theme-card-default: var(--color-card-border-default);
+  --border-color-theme-card-hover: var(--color-card-border-hover);
 
   --border-color-theme-codeblock-bar: var(--color-codeblock-bar-border);
   --border-color-theme-codeblock-tab-active: var(--color-text-default);
@@ -532,6 +533,7 @@
   /* LT Global */
   --color-global-bg: var(--color-juno-grey-light-1);
   --color-border-default: var(--color-juno-grey-light-7);
+  --color-border-high: var(--color-juno-grey-light-9);
   --color-global-text: var(--color-juno-text-default);
   --color-content-area-bg: var(--color-background-lvl-0);
   /* LT FOCUS */
@@ -595,7 +597,7 @@
   --color-button-primary-danger-active-text: var(--color-white);
   --color-button-primary-danger-active-bg: var(--color-juno-primary-danger-5);
 
-   /* LT DataGrid */
+  /* LT DataGrid */
   --color-datagridtoolbar-bg: var(--color-background-lvl-1);
   --color-datagridrow-selected: var(--color-accent);
 
@@ -650,6 +652,7 @@
   /* LT Card */
   --color-card-background-default: var(--color-white);
   --color-card-border-default: var(--color-border-default);
+  --color-card-border-hover: var(--color-border-high);
   /* LT Checkbox */
   --color-checkbox-bg: var(--color-background-lvl-5);
   --color-checkbox-checked-color: var(--color-accent);
@@ -742,7 +745,7 @@
   ); /* Dark Theme DateTimePicker range background. We need to use a synthetisized solid value based on the current theme's accent color, the way that flatpickr is built here forbids using translucent colors. */
   /* LT Box Shadow */
   --box-shadow-default: 0 1px 2px 0 rgba(34, 54, 73, 0.3);
-  --box-shadow-hover: 0 0 0 1px var(--color-color-shadow, rgba(79, 79, 79, 0.3)), 0 2px 8px 0 rgba(0, 0, 0, 0.3);
+  --box-shadow-hover: 0 0 0 1px var(--color-color-shadow, rgba(79, 79, 79, 0.2)), 0 2px 8px 0 rgba(0, 0, 0, 0.2);
   /* LT PageFooter */
   --color-pagefooter-text: var(--color-text-light);
   --color-pagefooter-background: var(--color-white);
@@ -783,6 +786,7 @@
   /* DT Global */
   --color-global-bg: var(--color-juno-grey-blue-10);
   --color-border-default: var(--color-juno-grey-blue-3);
+  --color-border-high: var(--color-juno-grey-blue-1);
   --color-global-text: var(--color-juno-text-default);
   --color-content-area-bg: var(--color-background-lvl-0);
 
@@ -901,6 +905,7 @@
   /* DT Card */
   --color-card-background-default: var(--color-juno-grey-blue-10);
   --color-card-border-default: var(--color-border-default);
+  --color-card-border-hover: var(--color-border-high);
   /* DT Checkbox */
   --color-checkbox-bg: var(--color-background-lvl-5);
   --color-checkbox-checked-color: var(--color-accent);
@@ -1052,41 +1057,53 @@
     @apply jn:text-theme-link;
   }
 
-  h1, .juno-h1,
-  h2, .juno-h2,
-  h3, .juno-h3,
-  h4, .juno-h4,
-  h5, .juno-h5,
-  h6, .juno-h6 {
+  h1,
+  .juno-h1,
+  h2,
+  .juno-h2,
+  h3,
+  .juno-h3,
+  h4,
+  .juno-h4,
+  h5,
+  .juno-h5,
+  h6,
+  .juno-h6 {
     @apply jn:font-sans jn:font-bold;
   }
 
-  h1, .juno-h1 {
+  h1,
+  .juno-h1 {
     font-size: 1.69rem;
     line-height: 1.375;
   }
 
-  h2, .juno-h2 {
+  h2,
+  .juno-h2 {
     font-size: 1.56rem;
     line-height: 1.375;
   }
 
-  h3, .juno-h3 {
+  h3,
+  .juno-h3 {
     font-size: 1.44rem;
     line-height: 1.375;
   }
 
-  h4, .juno-h4 {
+  h4,
+  .juno-h4 {
     font-size: 1.28rem;
     line-height: 1.625;
   }
 
-  h5, .juno-h5 {
+  h5,
+  .juno-h5 {
     font-size: 1.125rem;
     line-height: 1.625;
   }
 
-  h6, .juno-h6 {
+  h6,
+  .juno-h6 {
     font-size: 1rem;
     line-height: 1.5;
   }
