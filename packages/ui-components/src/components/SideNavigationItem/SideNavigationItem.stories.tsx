@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { SideNavigation } from "../SideNavigation/SideNavigation.component"
 import { SideNavigationItem } from "./SideNavigationItem.component"
@@ -196,6 +196,29 @@ export const DisabledWithExpandable: Story = {
     docs: {
       description: {
         story: "Displays an expandable navigation item in a disabled state with nested children.",
+      },
+    },
+  },
+}
+
+export const Controlled: Story = {
+  render: () => {
+    const ControlledItem = () => {
+      const [open, setOpen] = useState(true)
+      return (
+        <SideNavigationItem label={`Controlled Item (${open ? "open" : "closed"})`} open={open} onToggle={setOpen}>
+          <SideNavigationItem label="Child A" href="#" />
+          <SideNavigationItem label="Child B" href="#" />
+        </SideNavigationItem>
+      )
+    }
+    return <ControlledItem />
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates a controlled SideNavigationItem: the parent owns the open state via the `open` prop and is notified of user toggles via `onToggle`. The chevron toggles open/close; the label remains independent for navigation.",
       },
     },
   },

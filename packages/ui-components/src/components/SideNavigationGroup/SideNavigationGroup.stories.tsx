@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { SideNavigationGroup } from "./SideNavigationGroup.component"
 import { SideNavigation } from "../SideNavigation/SideNavigation.component"
@@ -69,6 +69,30 @@ export const Expandable: Story = {
     docs: {
       description: {
         story: "Shows a SideNavigationGroup with expandable items, demonstrating hierarchical navigation.",
+      },
+    },
+  },
+}
+
+export const Controlled: Story = {
+  render: () => {
+    const ControlledGroup = () => {
+      const [open, setOpen] = useState(true)
+      return (
+        <SideNavigationGroup label={`Controlled Group (${open ? "open" : "closed"})`} open={open} onToggle={setOpen}>
+          <SideNavigationItem label="Item 1" href="#" />
+          <SideNavigationItem label="Item 2" href="#" />
+          <SideNavigationItem label="Item 3" href="#" />
+        </SideNavigationGroup>
+      )
+    }
+    return <ControlledGroup />
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates a controlled SideNavigationGroup: the parent owns the open state via the `open` prop and is notified of user toggles via `onToggle`.",
       },
     },
   },

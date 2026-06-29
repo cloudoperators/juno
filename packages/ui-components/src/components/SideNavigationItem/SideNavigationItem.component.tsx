@@ -39,7 +39,7 @@ const disabledStyles = `
   jn:opacity-50
 `
 
-export interface SideNavigationItemProps extends HTMLAttributes<HTMLElement> {
+export interface SideNavigationItemProps extends Omit<HTMLAttributes<HTMLElement>, "onToggle"> {
   /** Provides an accessibility label for the navigation item. */
   ariaLabel?: string
   /** Nested SideNavigationItem components rendered as a sub-list when expanded. A string may be passed instead and will be treated as a label. */
@@ -54,7 +54,9 @@ export interface SideNavigationItemProps extends HTMLAttributes<HTMLElement> {
   label?: ReactNode
   /** Function handler triggered upon item click. */
   onClick?: MouseEventHandler<HTMLElement>
-  /** Controls whether the item is expanded by default. */
+  /** Fired when the user clicks the chevron to expand or collapse the nested children. Receives the next open state. */
+  onToggle?: (_isOpen: boolean) => void
+  /** Controls whether the item is expanded. When changed by the parent the item re-syncs to the new value. */
   open?: boolean
   /** Indicates if the item is currently selected or active. */
   selected?: boolean
@@ -86,6 +88,7 @@ export const SideNavigationItem = ({
   icon,
   label = "",
   onClick,
+  onToggle,
   open = false,
   selected = false,
   ...props
@@ -100,7 +103,9 @@ export const SideNavigationItem = ({
   const handleToggleOpen = (e: MouseEvent<HTMLElement>) => {
     if (disabled) return
     e.stopPropagation()
-    setIsOpen(!isOpen)
+    const next = !isOpen
+    setIsOpen(next)
+    onToggle?.(next)
   }
 
   const handleMainClick = (e: MouseEvent<HTMLElement>) => {
