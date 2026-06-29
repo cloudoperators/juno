@@ -125,7 +125,7 @@ export const SideNavigationItem = ({
         onClick={handleToggleOpen}
         aria-label={isOpen ? "Collapse section" : "Expand section"}
         disabled={disabled}
-        className="expand-icon jn:ml-0"
+        className="expand-icon jn:ml-0.5"
       >
         <Icon size="24" icon={isOpen ? "expandMore" : "chevronRight"} />
       </button>
