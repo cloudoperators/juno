@@ -125,7 +125,7 @@ export const SideNavigationItem = ({
         onClick={handleToggleOpen}
         aria-label={isOpen ? "Collapse section" : "Expand section"}
         disabled={disabled}
-        className="expand-icon"
+        className="expand-icon jn:ml-0.5"
       >
         <Icon size="24" icon={isOpen ? "expandMore" : "chevronRight"} />
       </button>
@@ -133,7 +133,7 @@ export const SideNavigationItem = ({
 
   const renderLeft = () => (
     <span className={leftStyles}>
-      {icon && level === 0 ? <Icon className={"jn:mr-[0.25rem]"} icon={icon} size="24" /> : null}
+      {icon && level === 0 ? <Icon className={"jn:mr-1"} icon={icon} size="24" /> : null}
       <div className={`level-${level + 1}`}>{label || children}</div>
     </span>
   )
@@ -149,7 +149,7 @@ export const SideNavigationItem = ({
 
   return (
     <LevelContext.Provider value={level + 1}>
-      <li className="jn:flex jn:w-full jn:flex-col">
+      <li className="jn:flex jn:w-full jn:flex-col jn:py-0.5">
         <div className="jn:flex jn:w-full jn:items-start jn:justify-between">
           {href ? (
             <a
