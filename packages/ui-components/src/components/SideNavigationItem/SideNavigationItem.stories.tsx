@@ -5,6 +5,7 @@
 
 import React, { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
+import { fn } from "storybook/test"
 import { SideNavigation } from "../SideNavigation/SideNavigation.component"
 import { SideNavigationItem } from "./SideNavigationItem.component"
 import { KnownIconsEnum } from "../Icon/Icon.component"
@@ -12,6 +13,10 @@ import { KnownIconsEnum } from "../Icon/Icon.component"
 const meta: Meta<typeof SideNavigationItem> = {
   title: "Navigation/SideNavigation/Item",
   component: SideNavigationItem,
+  args: {
+    onClick: fn(),
+    onToggle: fn(),
+  },
   argTypes: {
     icon: {
       options: [null, ...Object.keys(KnownIconsEnum)],

@@ -5,6 +5,7 @@
 
 import React, { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
+import { fn } from "storybook/test"
 import { SideNavigationGroup } from "./SideNavigationGroup.component"
 import { SideNavigation } from "../SideNavigation/SideNavigation.component"
 import { SideNavigationItem } from "../SideNavigationItem/SideNavigationItem.component"
@@ -12,6 +13,9 @@ import { SideNavigationItem } from "../SideNavigationItem/SideNavigationItem.com
 const meta: Meta<typeof SideNavigationGroup> = {
   title: "Navigation/SideNavigation/Group",
   component: SideNavigationGroup,
+  args: {
+    onToggle: fn(),
+  },
   argTypes: {
     children: {
       control: false,
