@@ -51,7 +51,7 @@ export interface SideNavigationGroupProps {
   children?: ReactElement<SideNavigationItemProps> | ReactElement<SideNavigationItemProps>[]
   /** Label displayed for the navigation group. */
   label: ReactNode
-  /** Controls whether the navigation group is expanded. When changed by the parent the group re-syncs to the new value. */
+  /** Sets the open state of the navigation group. The component owns the open state internally but re-syncs to this prop whenever the parent updates it, so it can be used either as the initial value or to drive the state from the outside. */
   open?: boolean
   /** Fired when the user clicks the group to toggle it. Receives the next open state. */
   onToggle?: (_isOpen: boolean) => void

@@ -173,9 +173,7 @@ describe("SideNavigationItem", () => {
       </SideNavigationItem>
     )
 
-    // The label button is the first button; the chevron is the second.
-    const buttons = screen.getAllByRole("button")
-    fireEvent.click(buttons[0])
+    fireEvent.click(screen.getByRole("button", { name: "Messages" }))
     expect(onClick).toHaveBeenCalledTimes(1)
     expect(onToggle).not.toHaveBeenCalled()
   })

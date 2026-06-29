@@ -56,7 +56,7 @@ export interface SideNavigationItemProps extends Omit<HTMLAttributes<HTMLElement
   onClick?: MouseEventHandler<HTMLElement>
   /** Fired when the user clicks the chevron to expand or collapse the nested children. Receives the next open state. */
   onToggle?: (_isOpen: boolean) => void
-  /** Controls whether the item is expanded. When changed by the parent the item re-syncs to the new value. */
+  /** Sets the open state of the nested children. The component owns the open state internally but re-syncs to this prop whenever the parent updates it, so it can be used either as the initial value or to drive the state from the outside. */
   open?: boolean
   /** Indicates if the item is currently selected or active. */
   selected?: boolean
