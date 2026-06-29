@@ -6,6 +6,7 @@
 import React, { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { fn } from "storybook/test"
+import { action } from "storybook/actions"
 import { SideNavigationGroup } from "./SideNavigationGroup.component"
 import { SideNavigation } from "../SideNavigation/SideNavigation.component"
 import { SideNavigationItem } from "../SideNavigationItem/SideNavigationItem.component"
@@ -60,8 +61,8 @@ export const Expandable: Story = {
     children: (
       <>
         <SideNavigationItem label="1st Level Item" href="#" />
-        <SideNavigationItem label="Nested">
-          <SideNavigationItem label="2nd Level Item">
+        <SideNavigationItem label="Nested" onToggle={action("onToggle")}>
+          <SideNavigationItem label="2nd Level Item" onToggle={action("onToggle")}>
             <SideNavigationItem label="3rd Level Item" href="#" />
             <SideNavigationItem label="4th Level Item" href="#" />
           </SideNavigationItem>

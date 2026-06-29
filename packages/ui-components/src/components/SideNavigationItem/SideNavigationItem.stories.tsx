@@ -6,6 +6,7 @@
 import React, { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { fn } from "storybook/test"
+import { action } from "storybook/actions"
 import { SideNavigation } from "../SideNavigation/SideNavigation.component"
 import { SideNavigationItem } from "./SideNavigationItem.component"
 import { KnownIconsEnum } from "../Icon/Icon.component"
@@ -133,12 +134,12 @@ export const Expandable: Story = {
     children: (
       <>
         <SideNavigationItem label="Child Item 1" />
-        <SideNavigationItem label="Child Item 2">
+        <SideNavigationItem label="Child Item 2" onToggle={action("onToggle")}>
           <SideNavigationItem label="Sub-Child Item 1" />
           <SideNavigationItem label="Sub-Child Item 2" />
         </SideNavigationItem>
         <SideNavigationItem label="Child Item 1" />
-        <SideNavigationItem label="Child Item 2">
+        <SideNavigationItem label="Child Item 2" onToggle={action("onToggle")}>
           <SideNavigationItem label="Sub-Child Item 1" />
           <SideNavigationItem label="Sub-Child Item 2" />
         </SideNavigationItem>
@@ -162,7 +163,7 @@ export const ExpandableWithIcon: Story = {
     children: (
       <>
         <SideNavigationItem label="Child Item 1" />
-        <SideNavigationItem label="Child Item 2" icon="addCircle">
+        <SideNavigationItem label="Child Item 2" icon="addCircle" onToggle={action("onToggle")}>
           <SideNavigationItem label="Sub-Child Item 1" icon="addCircle" />
           <SideNavigationItem label="Sub-Child Item 2" />
         </SideNavigationItem>
@@ -189,8 +190,8 @@ export const DisabledWithExpandable: Story = {
     children: (
       <>
         <SideNavigationItem label="2nd Level Item" href="#" icon="addCircle" />
-        <SideNavigationItem label="2nd Level Item" icon="addCircle">
-          <SideNavigationItem label="3rd Level Item" icon="addCircle">
+        <SideNavigationItem label="2nd Level Item" icon="addCircle" onToggle={action("onToggle")}>
+          <SideNavigationItem label="3rd Level Item" icon="addCircle" onToggle={action("onToggle")}>
             <SideNavigationItem label="4th Level Item" href="#" icon="addCircle" />
           </SideNavigationItem>
         </SideNavigationItem>
