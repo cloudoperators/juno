@@ -1,5 +1,15 @@
 # @cloudoperators/juno-app-example
 
+## 2.4.22
+
+### Patch Changes
+
+- Updated dependencies [9033fcd]
+- Updated dependencies [aab4de3]
+- Updated dependencies [21013be]
+  - @cloudoperators/juno-ui-components@9.1.0
+  - @cloudoperators/juno-messages-provider@0.2.47
+
 ## 2.4.21
 
 ### Patch Changes
