@@ -151,4 +151,56 @@ describe("SideNavigationGroup", () => {
     const { container } = render(<SideNavigationGroup label="Childless Group" open />)
     expect(container.querySelector("ul")).toBeNull()
   })
+
+  test("fires onToggle with true on first click of a closed group", () => {
+    const onToggle = vi.fn()
+    render(
+      <SideNavigationGroup label="Group" onToggle={onToggle}>
+        <SideNavigationItem label="Child Item" />
+      </SideNavigationGroup>
+    )
+
+    fireEvent.click(screen.getByRole("button"))
+    expect(onToggle).toHaveBeenCalledTimes(1)
+    expect(onToggle).toHaveBeenCalledWith(true)
+  })
+
+  test("fires onToggle with false when clicked while open", () => {
+    const onToggle = vi.fn()
+    render(
+      <SideNavigationGroup label="Group" open onToggle={onToggle}>
+        <SideNavigationItem label="Child Item" />
+      </SideNavigationGroup>
+    )
+
+    fireEvent.click(screen.getByRole("button", { name: /Group/ }))
+    expect(onToggle).toHaveBeenCalledWith(false)
+  })
+
+  test("toggles internal state when onToggle is omitted", () => {
+    render(
+      <SideNavigationGroup label="Group">
+        <SideNavigationItem label="Child Item" />
+      </SideNavigationGroup>
+    )
+
+    fireEvent.click(screen.getByRole("button"))
+    expect(screen.getByText("Child Item")).toBeInTheDocument()
+  })
+
+  test("re-syncs internal state when the open prop changes", () => {
+    const { rerender } = render(
+      <SideNavigationGroup label="Group">
+        <SideNavigationItem label="Child Item" />
+      </SideNavigationGroup>
+    )
+    expect(screen.queryByText("Child Item")).not.toBeInTheDocument()
+
+    rerender(
+      <SideNavigationGroup label="Group" open>
+        <SideNavigationItem label="Child Item" />
+      </SideNavigationGroup>
+    )
+    expect(screen.getByText("Child Item")).toBeInTheDocument()
+  })
 })
