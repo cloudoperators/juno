@@ -486,4 +486,15 @@ describe("Pagination", () => {
     expect(screen.getByTestId("my-pagination")).toBeInTheDocument()
     expect(screen.getByTestId("my-pagination")).toHaveAttribute("data-lolol", "123-456")
   })
+
+  test("defaults to last page on non-numeric input", () => {
+    const onInputChangeMock = vi.fn()
+    render(<Pagination variant="input" totalPages={5} onInputChange={onInputChangeMock} />)
+
+    const textInput = screen.getByRole("textbox")
+    fireEvent.change(textInput, { target: { value: "$" } })
+
+    expect(textInput).toHaveValue("5")
+    expect(onInputChangeMock).toHaveBeenCalledWith(5)
+  })
 })

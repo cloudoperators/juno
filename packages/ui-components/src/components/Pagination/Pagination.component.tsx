@@ -184,7 +184,7 @@ export const Pagination = ({
       // Enforce minimum and maximum limits
       if (inputValue < 1) {
         inputValue = 1
-      } else if (controlTotalPage !== undefined && inputValue > controlTotalPage) {
+      } else if (isNaN(inputValue) || (controlTotalPage !== undefined && inputValue > controlTotalPage)) {
         inputValue = controlTotalPage
       }
     }
