@@ -76,6 +76,7 @@ describe("PluginPresetsDataGrid", () => {
     expect(screen.getByText("Instances")).toBeInTheDocument()
     expect(screen.getByText("Name")).toBeInTheDocument()
     expect(screen.getByText("PluginDefinition")).toBeInTheDocument()
+    expect(screen.getByText("Version")).toBeInTheDocument()
     expect(screen.getByText("Message")).toBeInTheDocument()
 
     // Check for data - verify all 5 presets are rendered
@@ -84,6 +85,9 @@ describe("PluginPresetsDataGrid", () => {
     expect(screen.getByText("preset-3")).toBeInTheDocument()
     expect(screen.getByText("preset-4")).toBeInTheDocument()
     expect(screen.getByText("preset-5")).toBeInTheDocument()
+
+    // Check version is displayed
+    expect(screen.getByText("1.2.3")).toBeInTheDocument()
 
     // Check some instance counts
     expect(screen.getByText("2/3")).toBeInTheDocument()

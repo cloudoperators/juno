@@ -11,12 +11,12 @@ import { LoadingDataRow } from "../../common/LoadingDataRow"
 import { ErrorBoundary } from "../../common/ErrorBoundary"
 import { getErrorDataRowComponent } from "../../common/getErrorDataRow"
 
-const COLUMN_SPAN = 7
+const COLUMN_SPAN = 8
 
 export const PluginPresetsDataGrid = () => {
   const { filterSettings } = useLoaderData({ from: "/admin/plugin-presets/" })
   return (
-    <DataGrid minContentColumns={[0, 1, 6]} columns={COLUMN_SPAN}>
+    <DataGrid minContentColumns={[0, 1, 7]} columns={COLUMN_SPAN}>
       <DataGridRow>
         <DataGridHeadCell>
           <Icon icon="monitorHeart" />
@@ -24,6 +24,7 @@ export const PluginPresetsDataGrid = () => {
         <DataGridHeadCell>Instances</DataGridHeadCell>
         <DataGridHeadCell>Name</DataGridHeadCell>
         <DataGridHeadCell>PluginDefinition</DataGridHeadCell>
+        <DataGridHeadCell>Version</DataGridHeadCell>
         <DataGridHeadCell>Message</DataGridHeadCell>
         <DataGridHeadCell>Support Group</DataGridHeadCell>
         <DataGridHeadCell></DataGridHeadCell>

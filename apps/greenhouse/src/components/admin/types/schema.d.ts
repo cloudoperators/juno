@@ -967,6 +967,8 @@ export interface components {
       status?: {
         /** @description FailedPlugins is the number of failed Plugins managed by the PluginPreset. */
         failedPlugins?: number
+        /** @description PluginDefinitionVersion is the version of the PluginDefinition referenced by this PluginPreset. */
+        pluginDefinitionVersion?: string
         /** @description PluginStatuses contains statuses of Plugins managed by the PluginPreset. */
         pluginStatuses?: {
           pluginName?: string
