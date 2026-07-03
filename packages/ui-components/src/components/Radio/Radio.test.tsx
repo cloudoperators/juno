@@ -8,7 +8,7 @@ import { render, screen, act } from "@testing-library/react"
 import { Radio } from "./index"
 
 describe("Radio", () => {
-  test("renders an html input type Radio", () => {
+  test('renders an HTML input of type "radio"', () => {
     render(<Radio />)
     expect(screen.getByRole("radio")).toBeInTheDocument()
     expect(screen.getByRole("radio")).toHaveAttribute("type", "radio")

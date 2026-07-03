@@ -96,9 +96,9 @@ describe("FormSection Component Tests", () => {
       expect(titleElement).toBeInTheDocument()
     })
 
-    test("renders h1 element only if title is provided", () => {
+    test("renders a heading element only if title is provided", () => {
       const { rerender } = render(<FormSection data-testid="my-formsection" title={undefined} />)
-      expect(screen.queryByRole("heading")).toBeNull()
+      expect(screen.queryByRole("heading")).not.toBeInTheDocument()
 
       rerender(<FormSection data-testid="my-formsection" title="Title" />)
       expect(screen.getByRole("heading")).toBeInTheDocument()
