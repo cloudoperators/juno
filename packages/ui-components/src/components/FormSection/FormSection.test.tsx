@@ -7,7 +7,7 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import { describe, expect, test } from "vitest"
 
-import { FormSection } from "../FormSection/FormSection.component"
+import { FormSection } from "./index"
 
 describe("FormSection Component Tests", () => {
   describe("Basic Rendering", () => {

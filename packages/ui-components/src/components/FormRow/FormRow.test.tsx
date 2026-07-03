@@ -7,7 +7,7 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import { describe, expect, test } from "vitest"
 
-import { FormRow } from "../FormRow/FormRow.component"
+import { FormRow } from "./index"
 
 describe("FormRow Component Tests", () => {
   describe("Basic Rendering", () => {
