@@ -67,7 +67,7 @@ describe("Select", () => {
     expect(screen.getByRole("button")).toHaveClass("juno-select-toggle")
   })
 
-  test("renders a default variant select toggle by defgault", async () => {
+  test("renders a default variant select toggle by default", async () => {
     await waitFor(() =>
       render(
         <PortalProvider>
