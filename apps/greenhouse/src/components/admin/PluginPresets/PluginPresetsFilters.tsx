@@ -8,7 +8,7 @@ import { useLoaderData, useNavigate, useRouteContext } from "@tanstack/react-rou
 import { FilterSettings, SelectedFilter } from "../common/types"
 import { getFiltersForUrl } from "../utils"
 import { SELECTED_FILTER_PREFIX } from "../constants"
-import { Stack, InputGroup, Button, SearchInput } from "@cloudoperators/juno-ui-components/index"
+import { Stack, Button, SearchInput } from "@cloudoperators/juno-ui-components/index"
 import { SelectedFilters } from "../common/SelectedFilters"
 import { useQuery } from "@tanstack/react-query"
 import {
@@ -68,38 +68,25 @@ export const PluginPresetsFilters = () => {
   return (
     <Stack direction="vertical" gap="4" className="bg-theme-background-lvl-1 py-2 px-4 mb-px">
       <Stack alignment="start" gap="4">
-        <InputGroup>
-          <FilterSelect
-            filters={filters}
-            isLoading={isLoading}
-            error={error}
-            onChange={(selectedFilter: SelectedFilter) => {
-              const filterExists = filterSettings.selectedFilters?.some(
-                (filter) => filter.id === selectedFilter.id && filter.value === selectedFilter.value
-              )
-              //only add the filter if it does not already exist
-              if (!filterExists) {
-                updateFilters({
-                  ...filterSettings,
-                  selectedFilters: [...(filterSettings.selectedFilters || []), selectedFilter],
-                })
-              }
-            }}
-          />
-        </InputGroup>
-        <Button
-          label="Clear all"
-          className="ml-4"
-          onClick={() =>
-            updateFilters({
-              ...filterSettings,
-              selectedFilters: [],
-            })
-          }
-          variant="subdued"
+        <FilterSelect
+          filters={filters}
+          isLoading={isLoading}
+          error={error}
+          onChange={(selectedFilter: SelectedFilter) => {
+            const filterExists = filterSettings.selectedFilters?.some(
+              (filter) => filter.id === selectedFilter.id && filter.value === selectedFilter.value
+            )
+            //only add the filter if it does not already exist
+            if (!filterExists) {
+              updateFilters({
+                ...filterSettings,
+                selectedFilters: [...(filterSettings.selectedFilters || []), selectedFilter],
+              })
+            }
+          }}
         />
         <SearchInput
-          placeholder={`search term for PluginPresets name`}
+          placeholder={`search term for PluginPreset name`}
           className="w-96 ml-auto"
           data-testid="searchbar"
           value={filterSettings.searchTerm}
@@ -118,7 +105,21 @@ export const PluginPresetsFilters = () => {
         />
       </Stack>
       {filterSettings.selectedFilters && filterSettings.selectedFilters.length > 0 && (
-        <SelectedFilters selectedFilters={filterSettings.selectedFilters} onDelete={handleFilterDelete} />
+        <Stack>
+          <SelectedFilters selectedFilters={filterSettings.selectedFilters} onDelete={handleFilterDelete} />
+          <Button
+            size="xs"
+            label="Clear all"
+            className="ml-4"
+            onClick={() =>
+              updateFilters({
+                ...filterSettings,
+                selectedFilters: [],
+              })
+            }
+            variant="subdued"
+          />
+        </Stack>
       )}
     </Stack>
   )

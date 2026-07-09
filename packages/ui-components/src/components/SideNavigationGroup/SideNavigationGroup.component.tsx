@@ -3,10 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Children, ReactElement, ReactNode, useContext, useEffect, useState, MouseEvent } from "react"
+import React, { Children, ReactElement, ReactNode, useEffect, useState, MouseEvent } from "react"
 import { Icon } from "../Icon"
 import { SideNavigationItemProps } from "../SideNavigationItem"
-import { LevelContext } from "../SideNavigation/levelContext"
 import "../SideNavigation/sidenavigation.css"
 
 const sideNavGroupStyles = `
@@ -19,6 +18,7 @@ const sideNavGroupStyles = `
   jn:rounded
   jn:border-l-[0.25rem]
   jn:border-transparent
+  jn:text-sm
 `
 
 const interactiveGroupStyles = `
@@ -51,8 +51,10 @@ export interface SideNavigationGroupProps {
   children?: ReactElement<SideNavigationItemProps> | ReactElement<SideNavigationItemProps>[]
   /** Label displayed for the navigation group. */
   label: ReactNode
-  /** Controls whether the navigation group is expanded by default. */
+  /** Sets the open state of the navigation group. The component owns the open state internally but re-syncs to this prop whenever the parent updates it, so it can be used either as the initial value or to drive the state from the outside. */
   open?: boolean
+  /** Fired when the user clicks the group to toggle it. Receives the next open state. */
+  onToggle?: (_isOpen: boolean) => void
 }
 
 /**
@@ -66,10 +68,13 @@ export interface SideNavigationGroupProps {
  * @see {@link SideNavigationGroupProps}
  **/
 
-export const SideNavigationGroup = ({ children, label = "", open = false }: SideNavigationGroupProps): ReactNode => {
+export const SideNavigationGroup = ({
+  children,
+  label = "",
+  open = false,
+  onToggle,
+}: SideNavigationGroupProps): ReactNode => {
   const [isOpen, setIsOpen] = useState(open)
-  const level = useContext(LevelContext)
-  const levelClassName = `level-${level + 1}`
 
   // Sync internal state with external prop changes
   useEffect(() => {
@@ -78,7 +83,9 @@ export const SideNavigationGroup = ({ children, label = "", open = false }: Side
 
   const handleToggleOpen = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation() //Prevent event bubbling when expanding/collapsing
-    setIsOpen(!isOpen)
+    const next = !isOpen
+    setIsOpen(next)
+    onToggle?.(next)
   }
 
   const hasChildren = !!children && Children.count(children) > 0
@@ -94,7 +101,7 @@ export const SideNavigationGroup = ({ children, label = "", open = false }: Side
 
   const renderLabel = () => (
     <span className={labelContainerStyles}>
-      <span className={`${labelClampStyles} ${levelClassName}`}>{label}</span>
+      <span className={`${labelClampStyles}`}>{label}</span>
     </span>
   )
 
@@ -124,9 +131,9 @@ export const SideNavigationGroup = ({ children, label = "", open = false }: Side
   }
 
   return (
-    <>
+    <li className="juno-sidenavigation-group-element">
       {renderGroup()}
-      {isOpen && <LevelContext.Provider value={level + 1}>{children}</LevelContext.Provider>}
-    </>
+      {isOpen && hasChildren && <ul>{children}</ul>}
+    </li>
   )
 }

@@ -17,7 +17,7 @@ describe("TopNavigationItem", () => {
     vi.clearAllMocks()
   })
 
-  test("renders a ToppNavigationItem", async () => {
+  test("renders a TopNavigationItem", async () => {
     await waitFor(() => render(<TopNavigationItem data-testid="top-nav-item" />))
     expect(screen.getByTestId("top-nav-item")).toBeInTheDocument()
     expect(screen.getByTestId("top-nav-item")).toHaveClass("juno-topnavigation-item")
@@ -74,7 +74,7 @@ describe("TopNavigationItem", () => {
     expect(screen.getByRole("button")).toHaveClass("juno-topnavigation-item")
   })
 
-  test("renders an active ToppNavigationItem as passed", async () => {
+  test("renders an active TopNavigationItem as passed", async () => {
     await waitFor(() => render(<TopNavigationItem data-testid="top-nav-item" active />))
     expect(screen.getByTestId("top-nav-item")).toBeInTheDocument()
     expect(screen.getByTestId("top-nav-item")).toHaveClass("juno-topnavigation-item")

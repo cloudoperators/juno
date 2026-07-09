@@ -1,5 +1,34 @@
 # @cloudoperators/juno-ui-components
 
+## 9.1.0
+
+### Minor Changes
+
+- 9033fcd: feat(Card): add hover and active states for interactive cards. When rendered as `<a>` or `<button>`, the Card now shows an elevated border on hover (`border-theme-card-hover`) with an enhanced shadow, and an accent border on active. Adds `--color-border-high` and `--color-card-border-hover` CSS variables.
+- aab4de3: feat(SideNavigation): `SideNavigationGroup` and `SideNavigationItem` now accept an `onToggle(isOpen: boolean)` callback that fires whenever the user expands or collapses the section. The existing `open` prop is unchanged — it still controls the initial open state and re-syncs when the parent updates it — so callers can opt into observing toggles without changing any existing code. For `SideNavigationGroup` the entire row triggers the toggle; for `SideNavigationItem` the chevron triggers the toggle while the label keeps its existing navigation behavior.
+
+### Patch Changes
+
+- 21013be: fix(SideNavigationItem): add vertical spacing between items to prevent visual overlap, align expand button, and replace arbitrary Tailwind value with standard scale equivalent
+
+## 9.0.1
+
+### Patch Changes
+
+- 72b2ba6: fix(ui): collapse Icon line-box so icons align reliably inside flex containers, with follow-up fixes in PopupMenu, ComboBox, and Select
+- f5ee711: fix(ui): emit valid HTML in SideNavigation by rendering items/groups as `<li>` and wrapping nested children in `<ul>`. `SideNavigationGroup` is now first-level only and no longer participates in `LevelContext`.
+
+## 9.0.0
+
+### Major Changes
+
+- 96ecfe1: Updated `BreadcrumbItem` with BREAKING CHANGES
+  - Removed Default href="#": This eliminated default navigation behavior, changing <a> to <span> without explicit href.
+  - Structural Updates: Modified DOM structure by eliminating unnecessary <span> wrappers.
+  - Rendering Logic Enhanced: Introduced <button> for onClick without href. Ensured <span> usage for neither href nor onClick.
+  - Accessibility Improvements: Added aria-current="page" for active and aria-disabled for disabled items.
+  - Expanded onClick Type: Now supports both <a> and <button> elements for broader interaction handling.
+
 ## 8.1.0
 
 ### Minor Changes

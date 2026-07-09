@@ -118,4 +118,101 @@ describe("SideNavigationItem", () => {
     )
     expect(screen.getByText("Child")).toHaveClass("level-2")
   })
+
+  it("renders as a <li> so it is a valid direct child of a <ul>", () => {
+    const { container } = render(<SideNavigationItem label="Item" />)
+    const root = container.firstElementChild
+    expect(root?.tagName).toBe("LI")
+  })
+
+  it("wraps expanded children in a nested <ul> with only <li> direct children", () => {
+    const { container } = render(
+      <SideNavigationItem label="Parent" open>
+        <SideNavigationItem label="Child A" />
+        <SideNavigationItem label="Child B" />
+      </SideNavigationItem>
+    )
+
+    const nestedUls = container.querySelectorAll("ul")
+    expect(nestedUls.length).toBe(1)
+    for (const ul of nestedUls) {
+      for (const child of Array.from(ul.children)) {
+        expect(child.tagName).toBe("LI")
+      }
+    }
+  })
+
+  it("does not render a nested <ul> when expanded without children", () => {
+    const { container } = render(<SideNavigationItem label="Lonely" open />)
+    expect(container.querySelector("ul")).toBeNull()
+  })
+
+  it("fires onToggle with the next state when the chevron is clicked", () => {
+    const onToggle = vi.fn()
+    render(
+      <SideNavigationItem label="Messages" onToggle={onToggle}>
+        <SideNavigationItem label="Inbox" />
+      </SideNavigationItem>
+    )
+
+    fireEvent.click(screen.getByLabelText("Expand section"))
+    expect(onToggle).toHaveBeenCalledTimes(1)
+    expect(onToggle).toHaveBeenCalledWith(true)
+
+    fireEvent.click(screen.getByLabelText("Collapse section"))
+    expect(onToggle).toHaveBeenCalledTimes(2)
+    expect(onToggle).toHaveBeenLastCalledWith(false)
+  })
+
+  it("does not fire onToggle when the label is clicked", () => {
+    const onToggle = vi.fn()
+    const onClick = vi.fn()
+    render(
+      <SideNavigationItem label="Messages" onClick={onClick} onToggle={onToggle}>
+        <SideNavigationItem label="Inbox" />
+      </SideNavigationItem>
+    )
+
+    fireEvent.click(screen.getByRole("button", { name: "Messages" }))
+    expect(onClick).toHaveBeenCalledTimes(1)
+    expect(onToggle).not.toHaveBeenCalled()
+  })
+
+  it("does not fire onToggle when the chevron is clicked while disabled", () => {
+    const onToggle = vi.fn()
+    render(
+      <SideNavigationItem label="Messages" disabled onToggle={onToggle}>
+        <SideNavigationItem label="Inbox" />
+      </SideNavigationItem>
+    )
+
+    fireEvent.click(screen.getByLabelText("Expand section"))
+    expect(onToggle).not.toHaveBeenCalled()
+  })
+
+  it("toggles internal state when onToggle is omitted", () => {
+    render(
+      <SideNavigationItem label="Messages">
+        <SideNavigationItem label="Inbox" />
+      </SideNavigationItem>
+    )
+    fireEvent.click(screen.getByLabelText("Expand section"))
+    expect(screen.getByText("Inbox")).toBeInTheDocument()
+  })
+
+  it("re-syncs internal state when the open prop changes", () => {
+    const { rerender } = render(
+      <SideNavigationItem label="Messages">
+        <SideNavigationItem label="Inbox" />
+      </SideNavigationItem>
+    )
+    expect(screen.queryByText("Inbox")).not.toBeInTheDocument()
+
+    rerender(
+      <SideNavigationItem label="Messages" open>
+        <SideNavigationItem label="Inbox" />
+      </SideNavigationItem>
+    )
+    expect(screen.getByText("Inbox")).toBeInTheDocument()
+  })
 })

@@ -11,7 +11,7 @@ import { GridColumn } from "./GridColumn.component"
 
 describe("GridColumn", () => {
   describe("Basic Rendering", () => {
-    test("renders a Grid row", () => {
+    test("renders a Grid column", () => {
       render(<GridColumn data-testid="my-grid-column" />)
       expect(screen.getByTestId("my-grid-column")).toBeInTheDocument()
     })

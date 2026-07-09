@@ -39,10 +39,10 @@ const disabledStyles = `
   jn:opacity-50
 `
 
-export interface SideNavigationItemProps extends HTMLAttributes<HTMLElement> {
+export interface SideNavigationItemProps extends Omit<HTMLAttributes<HTMLElement>, "onToggle"> {
   /** Provides an accessibility label for the navigation item. */
   ariaLabel?: string
-  /** Represents nested components. If a string is passed, it will be treated as a label.*/
+  /** Nested SideNavigationItem components rendered as a sub-list when expanded. A string may be passed instead and will be treated as a label. */
   children?: ReactElement<SideNavigationItemProps> | ReactElement<SideNavigationItemProps>[] | string
   /** Marks the item as non-interactive if set to true. */
   disabled?: boolean
@@ -54,7 +54,9 @@ export interface SideNavigationItemProps extends HTMLAttributes<HTMLElement> {
   label?: ReactNode
   /** Function handler triggered upon item click. */
   onClick?: MouseEventHandler<HTMLElement>
-  /** Controls whether the item is expanded by default. */
+  /** Fired when the user clicks the chevron to expand or collapse the nested children. Receives the next open state. */
+  onToggle?: (_isOpen: boolean) => void
+  /** Sets the open state of the nested children. The component owns the open state internally but re-syncs to this prop whenever the parent updates it, so it can be used either as the initial value or to drive the state from the outside. */
   open?: boolean
   /** Indicates if the item is currently selected or active. */
   selected?: boolean
@@ -86,6 +88,7 @@ export const SideNavigationItem = ({
   icon,
   label = "",
   onClick,
+  onToggle,
   open = false,
   selected = false,
   ...props
@@ -100,7 +103,9 @@ export const SideNavigationItem = ({
   const handleToggleOpen = (e: MouseEvent<HTMLElement>) => {
     if (disabled) return
     e.stopPropagation()
-    setIsOpen(!isOpen)
+    const next = !isOpen
+    setIsOpen(next)
+    onToggle?.(next)
   }
 
   const handleMainClick = (e: MouseEvent<HTMLElement>) => {
@@ -125,7 +130,7 @@ export const SideNavigationItem = ({
         onClick={handleToggleOpen}
         aria-label={isOpen ? "Collapse section" : "Expand section"}
         disabled={disabled}
-        className="expand-icon"
+        className="expand-icon jn:ml-0.5"
       >
         <Icon size="24" icon={isOpen ? "expandMore" : "chevronRight"} />
       </button>
@@ -133,7 +138,7 @@ export const SideNavigationItem = ({
 
   const renderLeft = () => (
     <span className={leftStyles}>
-      {icon && level === 0 ? <Icon className={"jn:mr-[0.25rem]"} icon={icon} size="24" /> : null}
+      {icon && level === 0 ? <Icon className={"jn:mr-1"} icon={icon} size="24" /> : null}
       <div className={`level-${level + 1}`}>{label || children}</div>
     </span>
   )
@@ -149,38 +154,40 @@ export const SideNavigationItem = ({
 
   return (
     <LevelContext.Provider value={level + 1}>
-      <div className="jn:flex jn:w-full jn:items-start jn:justify-between">
-        {href ? (
-          <a
-            aria-current={selected ? "page" : undefined}
-            aria-label={ariaLabel ? ariaLabel : undefined}
-            className={combinedClassNames}
-            href={!disabled ? href : undefined}
-            onClick={!disabled ? handleMainClick : undefined}
-            aria-disabled={disabled || undefined}
-            tabIndex={disabled ? -1 : undefined}
-            title={titleText}
-            {...props}
-          >
-            {renderLeft()}
-          </a>
-        ) : (
-          <button
-            type="button"
-            aria-current={selected ? "page" : undefined}
-            aria-label={ariaLabel ? ariaLabel : undefined}
-            className={combinedClassNames}
-            onClick={!disabled ? handleMainClick : undefined}
-            disabled={disabled}
-            title={titleText}
-            {...props}
-          >
-            {renderLeft()}
-          </button>
-        )}
-        {renderExpandButton()}
-      </div>
-      {isOpen && typeof children !== "string" && children}
+      <li className="jn:flex jn:w-full jn:flex-col jn:py-0.5">
+        <div className="jn:flex jn:w-full jn:items-start jn:justify-between">
+          {href ? (
+            <a
+              aria-current={selected ? "page" : undefined}
+              aria-label={ariaLabel ? ariaLabel : undefined}
+              className={combinedClassNames}
+              href={!disabled ? href : undefined}
+              onClick={!disabled ? handleMainClick : undefined}
+              aria-disabled={disabled || undefined}
+              tabIndex={disabled ? -1 : undefined}
+              title={titleText}
+              {...props}
+            >
+              {renderLeft()}
+            </a>
+          ) : (
+            <button
+              type="button"
+              aria-current={selected ? "page" : undefined}
+              aria-label={ariaLabel ? ariaLabel : undefined}
+              className={combinedClassNames}
+              onClick={!disabled ? handleMainClick : undefined}
+              disabled={disabled}
+              title={titleText}
+              {...props}
+            >
+              {renderLeft()}
+            </button>
+          )}
+          {renderExpandButton()}
+        </div>
+        {isOpen && typeof children !== "string" && children && Children.count(children) > 0 && <ul>{children}</ul>}
+      </li>
     </LevelContext.Provider>
   )
 }
