@@ -65,6 +65,22 @@ export const Default: Story = {
   },
 }
 
+export const WithError: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: "Sign-in form displaying the default authentication error message when `error={true}` is passed.",
+      },
+    },
+  },
+  args: {
+    title: "Sign In",
+    error: true,
+    resetPwUrl: "#",
+    children: commonFormChildren(),
+  },
+}
+
 export const AdditionalInputs: Story = {
   parameters: {
     docs: {
