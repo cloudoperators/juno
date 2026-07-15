@@ -146,4 +146,73 @@ describe("SideNavigationItem", () => {
     const { container } = render(<SideNavigationItem label="Lonely" open />)
     expect(container.querySelector("ul")).toBeNull()
   })
+
+  it("fires onToggle with the next state when the chevron is clicked", () => {
+    const onToggle = vi.fn()
+    render(
+      <SideNavigationItem label="Messages" onToggle={onToggle}>
+        <SideNavigationItem label="Inbox" />
+      </SideNavigationItem>
+    )
+
+    fireEvent.click(screen.getByLabelText("Expand section"))
+    expect(onToggle).toHaveBeenCalledTimes(1)
+    expect(onToggle).toHaveBeenCalledWith(true)
+
+    fireEvent.click(screen.getByLabelText("Collapse section"))
+    expect(onToggle).toHaveBeenCalledTimes(2)
+    expect(onToggle).toHaveBeenLastCalledWith(false)
+  })
+
+  it("does not fire onToggle when the label is clicked", () => {
+    const onToggle = vi.fn()
+    const onClick = vi.fn()
+    render(
+      <SideNavigationItem label="Messages" onClick={onClick} onToggle={onToggle}>
+        <SideNavigationItem label="Inbox" />
+      </SideNavigationItem>
+    )
+
+    fireEvent.click(screen.getByRole("button", { name: "Messages" }))
+    expect(onClick).toHaveBeenCalledTimes(1)
+    expect(onToggle).not.toHaveBeenCalled()
+  })
+
+  it("does not fire onToggle when the chevron is clicked while disabled", () => {
+    const onToggle = vi.fn()
+    render(
+      <SideNavigationItem label="Messages" disabled onToggle={onToggle}>
+        <SideNavigationItem label="Inbox" />
+      </SideNavigationItem>
+    )
+
+    fireEvent.click(screen.getByLabelText("Expand section"))
+    expect(onToggle).not.toHaveBeenCalled()
+  })
+
+  it("toggles internal state when onToggle is omitted", () => {
+    render(
+      <SideNavigationItem label="Messages">
+        <SideNavigationItem label="Inbox" />
+      </SideNavigationItem>
+    )
+    fireEvent.click(screen.getByLabelText("Expand section"))
+    expect(screen.getByText("Inbox")).toBeInTheDocument()
+  })
+
+  it("re-syncs internal state when the open prop changes", () => {
+    const { rerender } = render(
+      <SideNavigationItem label="Messages">
+        <SideNavigationItem label="Inbox" />
+      </SideNavigationItem>
+    )
+    expect(screen.queryByText("Inbox")).not.toBeInTheDocument()
+
+    rerender(
+      <SideNavigationItem label="Messages" open>
+        <SideNavigationItem label="Inbox" />
+      </SideNavigationItem>
+    )
+    expect(screen.getByText("Inbox")).toBeInTheDocument()
+  })
 })

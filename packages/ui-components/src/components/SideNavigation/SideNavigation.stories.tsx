@@ -5,6 +5,7 @@
 
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
+import { action } from "storybook/actions"
 import { SideNavigation } from "./index"
 import { SideNavigationItem } from "../SideNavigationItem/SideNavigationItem.component"
 import { SideNavigationList } from "../SideNavigationList/SideNavigationList.component"
@@ -38,7 +39,7 @@ export const Default: Story = {
     <SideNavigation {...args}>
       <SideNavigationList>
         <SideNavigationItem label="Home" href="#" />
-        <SideNavigationItem label="Messages">
+        <SideNavigationItem label="Messages" onToggle={action("onToggle")}>
           <SideNavigationItem label="Inbox" />
           <SideNavigationItem label="Sent Items" />
         </SideNavigationItem>
@@ -60,15 +61,15 @@ export const NavigationWithGroups: Story = {
   render: (args) => (
     <SideNavigation {...args}>
       <SideNavigationList>
-        <SideNavigationGroup label="Group 1" open>
+        <SideNavigationGroup label="Group 1" open onToggle={action("onToggle")}>
           <SideNavigationItem label="Grouped-Item 1" />
-          <SideNavigationItem label="Grouped-Item 2">
+          <SideNavigationItem label="Grouped-Item 2" onToggle={action("onToggle")}>
             <SideNavigationItem label="Grouped-Item 3" />
           </SideNavigationItem>
         </SideNavigationGroup>
-        <SideNavigationGroup label="Group 2" open>
+        <SideNavigationGroup label="Group 2" open onToggle={action("onToggle")}>
           <SideNavigationItem label="Grouped Item 1" />
-          <SideNavigationItem label="Grouped Item 2">
+          <SideNavigationItem label="Grouped Item 2" onToggle={action("onToggle")}>
             <SideNavigationItem label="Sub-Child 1" />
             <SideNavigationItem label="Sub-Child 2" />
           </SideNavigationItem>

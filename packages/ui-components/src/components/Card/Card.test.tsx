@@ -118,4 +118,40 @@ describe("Card Component", () => {
       expect(handleClick).not.toHaveBeenCalled()
     })
   })
+
+  describe("Interactive Styles", () => {
+    test("applies interactive styles when onClick is provided", () => {
+      render(
+        <Card data-testid="card" onClick={() => {}}>
+          Button
+        </Card>
+      )
+      expect(screen.getByTestId("card")).toHaveClass("juno-card-interactive")
+    })
+
+    test("applies interactive styles when href is provided", () => {
+      render(
+        <Card data-testid="card" href="https://example.com">
+          Link
+        </Card>
+      )
+      expect(screen.getByTestId("card")).toHaveClass("juno-card-interactive")
+    })
+
+    test("does not apply interactive styles when neither href nor onClick are provided", () => {
+      render(<Card data-testid="card">Div</Card>)
+      expect(screen.getByTestId("card")).not.toHaveClass("juno-card-interactive")
+    })
+
+    test("does not apply interactive styles when disabled", () => {
+      render(
+        <Card data-testid="card" onClick={() => {}} disabled>
+          Disabled
+        </Card>
+      )
+      const element = screen.getByTestId("card")
+      expect(element).not.toHaveClass("juno-card-interactive")
+      expect(element).toHaveClass("jn:cursor-not-allowed")
+    })
+  })
 })

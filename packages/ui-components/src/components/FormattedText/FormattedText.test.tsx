@@ -10,15 +10,15 @@ import { FormattedText } from "./index"
 
 describe("FormattedText", () => {
   it("renders a custom className as passed", () => {
-    render(<FormattedText className="my-class" data-testid="my-pagination" />)
-    const element = screen.getByTestId("my-pagination")
+    render(<FormattedText className="my-class" data-testid="my-formatted-text" />)
+    const element = screen.getByTestId("my-formatted-text")
     expect(element).not.toBeNull() // Check if element exists
     expect(element.className).toContain("my-class") // Check class name contains "my-class"
   })
 
   it("renders all props as passed", () => {
-    render(<FormattedText data-testid="my-pagination" data-lolol="123-456" />)
-    const element = screen.getByTestId("my-pagination")
+    render(<FormattedText data-testid="my-formatted-text" data-lolol="123-456" />)
+    const element = screen.getByTestId("my-formatted-text")
     expect(element).not.toBeNull() // Check if element exists
     expect(element.getAttribute("data-lolol")).toBe("123-456") // Check attribute value
   })

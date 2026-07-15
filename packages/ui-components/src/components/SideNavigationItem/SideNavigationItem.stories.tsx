@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
+import { fn } from "storybook/test"
+import { action } from "storybook/actions"
 import { SideNavigation } from "../SideNavigation/SideNavigation.component"
 import { SideNavigationItem } from "./SideNavigationItem.component"
 import { KnownIconsEnum } from "../Icon/Icon.component"
@@ -12,6 +14,10 @@ import { KnownIconsEnum } from "../Icon/Icon.component"
 const meta: Meta<typeof SideNavigationItem> = {
   title: "Navigation/SideNavigation/Item",
   component: SideNavigationItem,
+  args: {
+    onClick: fn(),
+    onToggle: fn(),
+  },
   argTypes: {
     icon: {
       options: [null, ...Object.keys(KnownIconsEnum)],
@@ -128,12 +134,12 @@ export const Expandable: Story = {
     children: (
       <>
         <SideNavigationItem label="Child Item 1" />
-        <SideNavigationItem label="Child Item 2">
+        <SideNavigationItem label="Child Item 2" onToggle={action("onToggle")}>
           <SideNavigationItem label="Sub-Child Item 1" />
           <SideNavigationItem label="Sub-Child Item 2" />
         </SideNavigationItem>
         <SideNavigationItem label="Child Item 1" />
-        <SideNavigationItem label="Child Item 2">
+        <SideNavigationItem label="Child Item 2" onToggle={action("onToggle")}>
           <SideNavigationItem label="Sub-Child Item 1" />
           <SideNavigationItem label="Sub-Child Item 2" />
         </SideNavigationItem>
@@ -157,7 +163,7 @@ export const ExpandableWithIcon: Story = {
     children: (
       <>
         <SideNavigationItem label="Child Item 1" />
-        <SideNavigationItem label="Child Item 2" icon="addCircle">
+        <SideNavigationItem label="Child Item 2" icon="addCircle" onToggle={action("onToggle")}>
           <SideNavigationItem label="Sub-Child Item 1" icon="addCircle" />
           <SideNavigationItem label="Sub-Child Item 2" />
         </SideNavigationItem>
@@ -184,8 +190,8 @@ export const DisabledWithExpandable: Story = {
     children: (
       <>
         <SideNavigationItem label="2nd Level Item" href="#" icon="addCircle" />
-        <SideNavigationItem label="2nd Level Item" icon="addCircle">
-          <SideNavigationItem label="3rd Level Item" icon="addCircle">
+        <SideNavigationItem label="2nd Level Item" icon="addCircle" onToggle={action("onToggle")}>
+          <SideNavigationItem label="3rd Level Item" icon="addCircle" onToggle={action("onToggle")}>
             <SideNavigationItem label="4th Level Item" href="#" icon="addCircle" />
           </SideNavigationItem>
         </SideNavigationItem>
@@ -196,6 +202,29 @@ export const DisabledWithExpandable: Story = {
     docs: {
       description: {
         story: "Displays an expandable navigation item in a disabled state with nested children.",
+      },
+    },
+  },
+}
+
+export const Controlled: Story = {
+  render: () => {
+    const ControlledItem = () => {
+      const [open, setOpen] = useState(true)
+      return (
+        <SideNavigationItem label={`Controlled Item (${open ? "open" : "closed"})`} open={open} onToggle={setOpen}>
+          <SideNavigationItem label="Child A" href="#" />
+          <SideNavigationItem label="Child B" href="#" />
+        </SideNavigationItem>
+      )
+    }
+    return <ControlledItem />
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates a controlled SideNavigationItem: the parent owns the open state via the `open` prop and is notified of user toggles via `onToggle`. The chevron toggles open/close; the label remains independent for navigation.",
       },
     },
   },

@@ -51,8 +51,10 @@ export interface SideNavigationGroupProps {
   children?: ReactElement<SideNavigationItemProps> | ReactElement<SideNavigationItemProps>[]
   /** Label displayed for the navigation group. */
   label: ReactNode
-  /** Controls whether the navigation group is expanded by default. */
+  /** Sets the open state of the navigation group. The component owns the open state internally but re-syncs to this prop whenever the parent updates it, so it can be used either as the initial value or to drive the state from the outside. */
   open?: boolean
+  /** Fired when the user clicks the group to toggle it. Receives the next open state. */
+  onToggle?: (_isOpen: boolean) => void
 }
 
 /**
@@ -66,7 +68,12 @@ export interface SideNavigationGroupProps {
  * @see {@link SideNavigationGroupProps}
  **/
 
-export const SideNavigationGroup = ({ children, label = "", open = false }: SideNavigationGroupProps): ReactNode => {
+export const SideNavigationGroup = ({
+  children,
+  label = "",
+  open = false,
+  onToggle,
+}: SideNavigationGroupProps): ReactNode => {
   const [isOpen, setIsOpen] = useState(open)
 
   // Sync internal state with external prop changes
@@ -76,7 +83,9 @@ export const SideNavigationGroup = ({ children, label = "", open = false }: Side
 
   const handleToggleOpen = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation() //Prevent event bubbling when expanding/collapsing
-    setIsOpen(!isOpen)
+    const next = !isOpen
+    setIsOpen(next)
+    onToggle?.(next)
   }
 
   const hasChildren = !!children && Children.count(children) > 0

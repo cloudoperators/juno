@@ -1,5 +1,16 @@
 # @cloudoperators/juno-ui-components
 
+## 9.1.0
+
+### Minor Changes
+
+- 9033fcd: feat(Card): add hover and active states for interactive cards. When rendered as `<a>` or `<button>`, the Card now shows an elevated border on hover (`border-theme-card-hover`) with an enhanced shadow, and an accent border on active. Adds `--color-border-high` and `--color-card-border-hover` CSS variables.
+- aab4de3: feat(SideNavigation): `SideNavigationGroup` and `SideNavigationItem` now accept an `onToggle(isOpen: boolean)` callback that fires whenever the user expands or collapses the section. The existing `open` prop is unchanged — it still controls the initial open state and re-syncs when the parent updates it — so callers can opt into observing toggles without changing any existing code. For `SideNavigationGroup` the entire row triggers the toggle; for `SideNavigationItem` the chevron triggers the toggle while the label keeps its existing navigation behavior.
+
+### Patch Changes
+
+- 21013be: fix(SideNavigationItem): add vertical spacing between items to prevent visual overlap, align expand button, and replace arbitrary Tailwind value with standard scale equivalent
+
 ## 9.0.1
 
 ### Patch Changes

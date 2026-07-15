@@ -8,32 +8,32 @@ import { render, screen, act } from "@testing-library/react"
 import { Radio } from "./index"
 
 describe("Radio", () => {
-  test("renders an html input type radio", () => {
+  test('renders an HTML input of type "radio"', () => {
     render(<Radio />)
     expect(screen.getByRole("radio")).toBeInTheDocument()
     expect(screen.getByRole("radio")).toHaveAttribute("type", "radio")
   })
 
-  test("renders a radio with a name as passed", () => {
+  test("renders a Radio with a name as passed", () => {
     render(<Radio name="My Radio" />)
     expect(screen.getByRole("radio")).toBeInTheDocument()
     expect(screen.getByRole("radio")).toHaveAttribute("name", "My Radio")
   })
 
-  test("renders a radio with a label", () => {
+  test("renders a Radio with a label", () => {
     render(<Radio label="My Radio" id="my-radio" />)
     expect(screen.getByLabelText("My Radio")).toBeInTheDocument()
     expect(document.querySelector(".juno-label")).toBeInTheDocument()
     expect(document.querySelector(".juno-label")).toHaveTextContent("My Radio")
   })
 
-  test("renders a radio with an id as passed", () => {
+  test("renders a Radio with an id as passed", () => {
     render(<Radio id="my-radio" />)
     expect(screen.getByRole("radio")).toBeInTheDocument()
     expect(screen.getByRole("radio")).toHaveAttribute("id", "my-radio")
   })
 
-  test("renders a Checkbox with an auto-generated id if no id was passed", () => {
+  test("renders a Radio with an auto-generated id if no id was passed", () => {
     render(<Radio />)
     expect(screen.getByRole("radio")).toBeInTheDocument()
     expect(screen.getByRole("radio")).toHaveAttribute("id")
@@ -75,7 +75,7 @@ describe("Radio", () => {
     expect(document.querySelector(".juno-required")).toBeInTheDocument()
   })
 
-  test("renders no checked attribute if false", () => {
+  test("renders a Radio with no checked attribute if false", () => {
     act(() => {
       render(<Radio checked={false} />)
     })
@@ -84,14 +84,14 @@ describe("Radio", () => {
     expect(radio).not.toBeChecked()
   })
 
-  test("renders a disabled radio as passed", () => {
+  test("renders a disabled Radio as passed", () => {
     render(<Radio disabled />)
     const radio = screen.getByRole("radio")
     expect(radio).toBeInTheDocument()
     expect(radio).toBeDisabled()
   })
 
-  test("renders an invalid radio as passed", () => {
+  test("renders an invalid Radio as passed", () => {
     render(<Radio invalid />)
     const radio = screen.getByRole("radio")
     expect(radio).toBeInTheDocument()
@@ -105,14 +105,14 @@ describe("Radio", () => {
     expect(radio).toHaveClass("juno-radio-valid")
   })
 
-  test("renders a helptext as passed", () => {
+  test("renders a Radio with helptext as passed", () => {
     render(<Radio helptext="this is a helptext" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
     expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-help")
     expect(document.querySelector(".juno-form-hint")).toHaveTextContent("this is a helptext")
   })
 
-  test("renders a successtext as passed and validates the Radio", () => {
+  test("renders a Radio with successtext as passed and validates the Radio", () => {
     render(<Radio successtext="great success!" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
     expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-success")
@@ -120,7 +120,7 @@ describe("Radio", () => {
     expect(screen.getByRole("radio")).toHaveClass("juno-radio-valid")
   })
 
-  test("renders an errortext as passed and invalidates the Radio", () => {
+  test("renders a Radio with errortext as passed and invalidates the Radio", () => {
     render(<Radio errortext="this is an error!" />)
     expect(document.querySelector(".juno-form-hint")).toBeInTheDocument()
     expect(document.querySelector(".juno-form-hint")).toHaveClass("juno-form-hint-error")
