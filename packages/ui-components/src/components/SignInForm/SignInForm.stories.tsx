@@ -44,7 +44,7 @@ const commonFormChildren = (additionalInputs?: React.ReactNode) => [
     {additionalInputs}
     <Checkbox key="remember" label="Remember me" id="remember" />
   </>,
-  <Button key="submit" variant="primary" type="submit" className="jn:mt-4 jn:w-full">
+  <Button key="submit" variant="primary" type="button" className="jn:mt-4 jn:w-full">
     Sign In
   </Button>,
 ]
