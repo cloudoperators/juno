@@ -44,7 +44,7 @@ const commonFormChildren = (additionalInputs?: React.ReactNode) => [
     {additionalInputs}
     <Checkbox key="remember" label="Remember me" id="remember" />
   </>,
-  <Button key="submit" variant="primary" type="submit" className="jn:mt-4 jn:w-full">
+  <Button key="submit" variant="primary" type="button" className="jn:mt-4 jn:w-full">
     Sign In
   </Button>,
 ]
@@ -60,6 +60,22 @@ export const Default: Story = {
   },
   args: {
     title: "Sign In",
+    resetPwUrl: "#",
+    children: commonFormChildren(),
+  },
+}
+
+export const WithError: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: "Sign-in form displaying the default authentication error message when `error={true}` is passed.",
+      },
+    },
+  },
+  args: {
+    title: "Sign In",
+    error: true,
     resetPwUrl: "#",
     children: commonFormChildren(),
   },
