@@ -76,23 +76,23 @@ describe("SignInForm Component Tests", () => {
   describe("Error Prop", () => {
     test("does not display error message by default", () => {
       render(<SignInForm data-testid="my-signin-form" />)
-      expect(screen.queryByText("Authentication failed")).not.toBeInTheDocument()
+      expect(screen.queryByText("Unable to authenticate the provided credentials.")).not.toBeInTheDocument()
     })
 
     test("does not display error when error={false}", () => {
       render(<SignInForm data-testid="my-signin-form" error={false} />)
-      expect(screen.queryByText("Authentication failed")).not.toBeInTheDocument()
+      expect(screen.queryByText("Unable to authenticate the provided credentials.")).not.toBeInTheDocument()
     })
 
     test("displays default error message when error={true}", () => {
       render(<SignInForm data-testid="my-signin-form" error={true} />)
-      expect(screen.getByText("Authentication failed")).toBeInTheDocument()
+      expect(screen.getByText("Unable to authenticate the provided credentials.")).toBeInTheDocument()
     })
 
     test("displays custom error message when error is a string", () => {
       render(<SignInForm data-testid="my-signin-form" error="Invalid credentials. Please try again." />)
       expect(screen.getByText("Invalid credentials. Please try again.")).toBeInTheDocument()
-      expect(screen.queryByText("Authentication failed")).not.toBeInTheDocument()
+      expect(screen.queryByText("Unable to authenticate the provided credentials.")).not.toBeInTheDocument()
     })
 
     test("error message renders as Message component with error variant", () => {
@@ -104,7 +104,7 @@ describe("SignInForm Component Tests", () => {
 
     test("does not render error when error is empty string", () => {
       render(<SignInForm data-testid="my-signin-form" error="" />)
-      expect(screen.queryByText("Authentication failed")).not.toBeInTheDocument()
+      expect(screen.queryByText("Unable to authenticate the provided credentials.")).not.toBeInTheDocument()
     })
   })
 
