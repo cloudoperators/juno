@@ -31,7 +31,7 @@ export interface SignInFormProps extends Omit<FormHTMLAttributes<HTMLFormElement
   /**
    * Error message to display when authentication fails.
    * Pass a string for a custom error message.
-   * Pass `true` to display the default error message "Authentication failed".
+   * Pass `true` to display the default error message "Unable to authenticate the provided credentials.".
    * Pass `false` or omit to hide the error message.
    */
   error?: string | boolean
@@ -69,7 +69,8 @@ export const SignInForm = ({
   children,
   ...props
 }: SignInFormProps): ReactNode => {
-  const errorMessage = error === true ? "Authentication failed" : typeof error === "string" ? error : null
+  const errorMessage =
+    error === true ? "Unable to authenticate the provided credentials." : typeof error === "string" ? error : null
 
   return (
     <form className={`juno-sign-in-form ${className}`} {...props}>
