@@ -3,7 +3,8 @@
   "extends": ["config:best-practices"],
   "enabledManagers": ["npm", "github-actions"],
   "includePaths": ["packages/**", "apps/**", "./package.json", ".github/workflows/**"],
-  "rangeStrategy": "update-lockfile",
+  "rangeStrategy": "pin",
+  "timezone": "Europe/Berlin",
   "respectLatest": false,
   "packageRules": [
     {
@@ -11,15 +12,18 @@
       "matchManagers": ["github-actions"],
       "matchUpdateTypes": ["major", "minor", "patch"],
       "extends": ["helpers:pinGitHubActionDigests"],
-      "minimumReleaseAge": "14 days"
+      "dependencyDashboardApproval": false,
+      "minimumReleaseAge": "14 days",
+      "schedule": ["before 9am on Monday"]
     },
     {
       "groupName": "npm dependencies",
       "matchDatasources": ["npm"],
       "matchFileNames": ["packages/**", "apps/**", "./package.json"],
       "matchUpdateTypes": ["minor", "patch"],
+      "dependencyDashboardApproval": false,
       "minimumReleaseAge": "7 days",
-      "schedule": "every weekend"
+      "schedule": ["before 9am on Monday"]
     },
     {
       "groupName": "npm major updates",
@@ -27,7 +31,8 @@
       "matchFileNames": ["packages/**", "apps/**", "./package.json"],
       "matchUpdateTypes": ["major"],
       "recreateWhen": "never",
-      "minimumReleaseAge": "30 days"
+      "minimumReleaseAge": "30 days",
+      "schedule": ["before 9am on Monday"]
     }
   ],
   "separateMinorPatch": true
