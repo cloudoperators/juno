@@ -93,8 +93,7 @@ Notifications use the same semantic variants as Messages: `info`, `success`,
 ### Auto-Dismiss
 
 Notifications auto-dismiss after a default timeout. Do not rely on auto-dismiss
-alone for `error` or `warning` notifications that require user action — use a
-[Message](#messages) instead.
+alone for `error` or `warning` notifications that require user action — these should stay until acknowledged or actively dismissed. For these cases, a [Message](#messages) may be the better choice.
 
 ### Dismissible
 
