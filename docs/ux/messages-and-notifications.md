@@ -60,15 +60,48 @@ disappears.
 
 ## Notifications
 
-> [!NOTE]
-> Toast Notifications are not yet available. The NotificationsManager component
-> required to display them is not yet implemented. Use Messages in the meantime.
-
 Notifications are transient, dynamic messages that appear independently of the
 page layout — typically as "toasts" in a fixed position on screen. Unlike
 Messages, they are not tied to a specific location in the UI and dismiss
 automatically or on user interaction.
 
-Notifications are suited for communicating events that occur asynchronously or
-outside the user's current focus — for example, the result of a background
-operation.
+Use Notifications to:
+
+- Confirm the result of a background or asynchronous operation
+- Communicate events that occur outside the user's current focus
+- Provide low-interruption feedback that does not require user action
+
+Do not use Notifications for persistent errors or warnings that require user
+attention or action. Use a [Message](#messages) placed close to the relevant
+content instead.
+
+### Toast and NotificationManager
+
+Juno provides two components for notifications:
+
+**`NotificationManager`** handles all notification lifecycle — timers,
+auto-dismiss, queuing, and screen position. Place it once near the root of your
+application.
+
+**`Toast`** is the presentational component rendered by `NotificationManager`.
+Do not use `Toast` directly — trigger notifications via the `toast()` API
+instead.
+
+Notifications use the same semantic variants as Messages: `info`, `success`,
+`warning`, `error`, and `danger`.
+
+### Auto-Dismiss
+
+Notifications auto-dismiss after a default timeout. Do not rely on auto-dismiss
+alone for `error` or `warning` notifications that require user action — use a
+[Message](#messages) instead.
+
+### Dismissible
+
+By default, notifications include a close button. Dismissibility can be
+configured globally on `NotificationManager` or overridden per notification.
+
+### Multiple Notifications
+
+`NotificationManager` supports displaying multiple notifications simultaneously.
+Additional notifications queue and appear as others close.
