@@ -26,7 +26,7 @@ A Modal is likely not the most suitable solution if the task…
 - can easily be completed at any time inline in the natural flow of the current page or view
 - contains excessively large or long content that would be better handled on a separate page or view
 - is triggered by a parent task that already runs in a Modal (never stack Modals)
-- is not a task but a simple, non-essential notification or message — use Message or Notification (TBD) instead
+- is not a task but a simple, non-essential notification or message — use Message or Notification instead
 - requires many different action buttons at the bottom. Consider using a menu of options and then using a Modal only to confirm the selected action.
 
 ## Modal Anatomy
