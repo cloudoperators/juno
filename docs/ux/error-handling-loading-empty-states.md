@@ -29,7 +29,7 @@ The user is trying to access a route or URL which requires authentication withou
 
 #### What To Do
 
-Redirect to login page, remember where user wanted to go and redirect once authenticated.
+Redirect to the Sign In page, remember where user wanted to go and redirect once authenticated.
 
 **See the [HTTP Error Code Reference](#http-error-code-reference) for specific codes, titles, and messages.**
 
