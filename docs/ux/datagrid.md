@@ -64,7 +64,12 @@ All of the above elements are optional in the sense that none of them will be re
 
 ## Filter and Sort Persistence on Navigation
 
-By default, filters and sorting applied in a DataGrid header should **not** persist when a user navigates away from the view and returns. Users generally do not expect state they configured in one session or context to still be active when they come back — stale filters can hide data and cause confusion that is hard to diagnose.
+ There is no one default policy for whether filters and sorting in a DataGrid header should persist when users navigate — it ultimately depends on the user's goal, the navigation model, and the entities displayed in the DataGrid. 
+
+Generally, users do not expect state they configured in one session or context to still be active when they come back — stale filters can hide data and cause confusion that is hard to diagnose. However, there are cases where persisting filters and sorting may provide value and reduce frustration for users: when the grid is part of a continuous task or navigation flow (e.g. drilling through a folder/file hierarchy or returning via browser back/forward).
+
+If persistence is implemented, make sure the active state is clearly communicated — active filter pills and any sort indicator must always be visible so the user is never left wondering why data appears to be missing or unexpectedly ordered.
+
 
 An exception applies when the DataGrid is used as a **navigation mechanism**, such as browsing a folder or file structure. In this case, persisting filters and sorting is appropriate because the user is operating within a continuous navigational context, and clearing their configuration on each step would be disruptive and counterproductive.
 
