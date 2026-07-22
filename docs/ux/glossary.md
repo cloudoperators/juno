@@ -55,7 +55,7 @@ A dialog overlay that interrupts the current workflow to focus the user's attent
 A variant within a theme defining its visual appearance for a specific context or preference — such as light, dark, or high contrast. See also: Theme.
 
 **Notification**
-A transient, dynamic message that appears independently of the page layout — typically as a "toast" — to inform users of events occurring outside their current focus. Not yet available; requires the NotificationsManager component. See also: Message.
+A transient, dynamic message that appears independently of the page layout — typically as a "toast" — to inform users of events occurring outside their current focus. See also: Message.
 
 **Overflow Menu**
 A contextual menu triggered by a three-dot icon (⋮), used to surface additional actions for a specific item when displaying them inline would cause clutter or make them appear more important or often used than they actually are.

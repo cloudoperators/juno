@@ -74,15 +74,13 @@ A user has initiated an action, such as creating, updating, or deleting an item 
 ### What To Do
 
 - Render as much as possible, keep app as a whole functional and responsive.
-- Give user feedback with as much detail as possible using Messages (use Notifications once NotificationManager is implemented).
+- Give user feedback with as much detail as possible using Messages or Notifications.
 - Do not interfere with or block other, potentially later initiated user actions.
 - Provide shortcuts/links to retry where and if possible.
 
 > **TODO:** Resolve open question: avoid blocking UI elements such as modals waiting for async action to complete, vs. keeping modal open with entered data when creation fails.
 
 > **TODO:** If async/transient state persists, show busy state ("Creating"). If too long, timeout, or positive result not to expect, change to static error state.
-
-> **TODO:** Concept and implement NotificationsManager.
 
 ## Validation Errors
 
