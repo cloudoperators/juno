@@ -70,7 +70,11 @@ export const SignInForm = ({
   ...props
 }: SignInFormProps): ReactNode => {
   const errorMessage =
-    error === true ? "Unable to authenticate the provided credentials." : typeof error === "string" ? error : null
+    error === true
+      ? "Authentication failed. Verify your credentials and try again."
+      : typeof error === "string"
+        ? error
+        : null
 
   return (
     <form className={`juno-sign-in-form ${className}`} {...props}>
