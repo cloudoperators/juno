@@ -19,6 +19,8 @@ Patterns and rules for handling errors consistently across our applications.
 - Render a dedicated error page
 - Render PageHeader (and, if possible, show main / top-level navigation as open if parent route exists), if not possible show at least navigation, otherwise provide at least link to "home"
 
+**See the [HTTP Error Code Reference](#http-error-code-reference) for specific codes, titles, and messages.**
+
 ## Authentication/Authorization Errors
 
 ### Unauthenticated (not logged in, 401)
@@ -27,7 +29,9 @@ The user is trying to access a route or URL which requires authentication withou
 
 #### What To Do
 
-Redirect to login page, remember where user wanted to go and redirect once authenticated.
+Redirect to the Sign In page, remember where the user wanted to go, and redirect once authenticated. Show an authentication error message on the Sign In page.
+
+**See the [HTTP Error Code Reference](#http-error-code-reference) for specific codes, titles, and messages.**
 
 ### (Page level) Unauthorized (Forbidden, 403)
 
@@ -35,7 +39,9 @@ The user is authenticated and trying to see a page they are not authorized to se
 
 #### What To Do
 
-Show Error page, navigation should reflect current route/url, but we inform them they are not authorized to see what's here.
+Show an error page where breadcrumb and page title reflect the current route/URL, include the SideNav if applicable, and display an informational Message (see [HTTP Error Code Reference](#http-error-code-reference)) explaining the user is not authorized to access this resource.
+
+**See the [HTTP Error Code Reference](#http-error-code-reference) for specific codes, titles, and messages.**
 
 ### Authorized content, unauthorized action
 
@@ -54,6 +60,8 @@ A single component fails to render and/or does not receive the expected API data
 
 - Render as much of the page/view as possible,
 - Give feedback in the scope/context of the affected component.
+
+**See the [HTTP Error Code Reference](#http-error-code-reference) for specific codes, titles, and messages.**
 
 > **TODO:** Identify components prone to such errors, design and implement loading, empty, error states. (A good and most urgent candidate is DataGrid.)
 
@@ -106,6 +114,8 @@ A user has initiated an action, such as creating, updating, or deleting an item 
 
 - Provide manual retry option
 
+**See the [HTTP Error Code Reference](#http-error-code-reference) for specific codes, titles, and messages.**
+
 ## General Error Handling Rules
 
 ### Use Tight Error Boundaries
@@ -127,6 +137,25 @@ Make sure errors can be perceived by all users
 ### Handle Errors Consistently
 
 Stick to these outlines as much as possible, use patterns as provided by Juno UI components, ensure in-app consistency
+
+## HTTP Error Code Reference
+
+The table below maps common HTTP error codes to their recommended title, message, and handling strategy. Handling references correspond to the error categories described above.
+
+| Code | Title                   | Message                                                                                           | Handling                                                                                     |
+| ---- | ----------------------- | ------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| 400  | Bad Request             | The request could not be processed due to invalid syntax. Try again.                              | Handle individually; see Component/Rendering/API Errors or Operation/Action/CRUD Errors      |
+| 401  | Authentication Required | Authentication failed. Verify your credentials and try again.                                     | See Unauthenticated — redirect to Sign In with auth error message                            |
+| 403  | Access Denied           | You do not have the required permissions to access this resource.                                 | See Unauthorized — breadcrumb, page title, side navigation (if applicable), and info Message |
+| 404  | Page Not Found          | The requested URL does not exist or may have moved. Check the URL or return to the [home page](). | See "BIG" Errors — numeric error page with title and description                             |
+| 408  | Request Timeout         | The request did not return a complete result in time. Check your connection and try again.        | Handle individually; see Component/Rendering/API Errors or Network and Connectivity Errors   |
+| 409  | Conflict                | —                                                                                                 | Handle individually in the context where it occurred                                         |
+| 429  | Too Many Requests       | —                                                                                                 | Handle individually in the context where it occurred                                         |
+| 500  | Internal Server Error   | An internal error occurred. Try again.                                                            | See "BIG" Errors — numeric error page with title and description                             |
+| 502  | Bad Gateway             | The server returned an invalid response. Try again.                                               | See "BIG" Errors — numeric error page with title and description                             |
+| 503  | Service Unavailable     | The service is temporarily unavailable. Try again later.                                          | See "BIG" Errors — numeric error page with title and description                             |
+| 504  | Gateway Timeout         | A server did not respond in time. Check your connection and try again.                            | See "BIG" Errors — numeric error page with title and description                             |
+| XXX  | Unknown Error           | An unexpected error occurred. Try again.                                                          | See "BIG" Errors — generic error page                                                        |
 
 # Diagram
 
