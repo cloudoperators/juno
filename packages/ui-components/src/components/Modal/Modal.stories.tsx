@@ -91,9 +91,9 @@ export const Default: Story = {
     },
   },
   args: {
-    title: "Maintenance Mode Enabled for 'cluster-eu-1'",
+    title: "Maintenance Mode Enabled",
     children:
-      "Automated alerts and health checks for this cluster have been suspended. Turn off maintenance mode to resume normal monitoring.",
+      "Automated alerts and health checks for cluster 'prod-eu-west-1' have been suspended. Turn off maintenance mode to resume normal monitoring.",
   },
 }
 
@@ -107,7 +107,7 @@ export const SimpleConfirmNonDestructiveAction: Story = {
     },
   },
   args: {
-    title: "Assign Role to user@example.com",
+    title: "Assign Role",
     children:
       "Assign the role Operator to user@example.com? This will grant access to all resources in the selected project.",
     cancelButtonLabel: "Cancel",
@@ -125,7 +125,7 @@ export const ConfirmDesctructiveActionLowRisk: Story = {
     },
   },
   args: {
-    title: "Delete Snapshot 'snap-20240115'",
+    title: "Delete Snapshot",
     children: "Snapshot 'snap-20240115' will be permanently deleted and cannot be recovered.",
     confirmButtonVariant: "primary-danger",
     confirmButtonLabel: "Delete Snapshot",
@@ -173,7 +173,7 @@ export const ConfirmDesctructiveActionMediumRisk: Story = {
     },
   },
   args: {
-    title: "Remove User 'jsmith'",
+    title: "Remove User",
     confirmButtonVariant: "primary-danger",
     confirmButtonLabel: "Remove User",
   },
@@ -223,7 +223,7 @@ export const ConfirmDestructiveActionHighRisk: Story = {
     },
   },
   args: {
-    title: "Delete Project 'production-eu'",
+    title: "Delete Project",
     confirmButtonVariant: "primary-danger",
     confirmButtonLabel: "Delete Project",
   },
@@ -240,7 +240,7 @@ export const SimpleConfirmDialogWithDisabledButtons: Story = {
     },
   },
   args: {
-    title: "Assign Role to user@example.com",
+    title: "Assign Role",
     children:
       "Assign the role Operator to user@example.com? This will grant access to all resources in the selected project.",
     cancelButtonLabel: "Cancel",
