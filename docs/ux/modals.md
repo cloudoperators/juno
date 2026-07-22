@@ -64,7 +64,7 @@ The title should represent the action or fact that is to be confirmed. Reference
 
 Confirmation Modals should not carry an additional Message element in the body.
 
-When the action affects multiple items or entities, the number and type of the items should be reflected.
+When the action affects multiple items or entities, the number and type of the items should be reflected in the message body.
 
 ### Destructive Actions and Confirmation of Destructive Actions
 
