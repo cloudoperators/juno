@@ -62,6 +62,14 @@ More specifically, these are any combination of the following elements. Each ele
 
 All of the above elements are optional in the sense that none of them will be required for any given DataGrid. However, if you find yourself in a situation where none of the above options is needed or desired, reconsider whether using a DataGrid is the right choice to display the given data. This case can occur, but it is rare. In most cases a simple list is then a more appropriate option to display the data.
 
+## Filter and Sort Persistence on Navigation
+
+By default, filters and sorting applied in a DataGrid header should **not** persist when a user navigates away from the view and returns. Users generally do not expect state they configured in one session or context to still be active when they come back — stale filters can hide data and cause confusion that is hard to diagnose.
+
+An exception applies when the DataGrid is used as a **navigation mechanism**, such as browsing a folder or file structure. In this case, persisting filters and sorting is appropriate because the user is operating within a continuous navigational context, and clearing their configuration on each step would be disruptive and counterproductive.
+
+If persistence is implemented, make sure the active state is clearly communicated — active filter pills and any sort indicator must always be visible so the user is never left wondering why data appears to be missing or unexpectedly ordered.
+
 ## Column Order, Structure, and Layout
 
 - Columns should be ordered by relevance and scannability: the most identifying information (name, ID, title) should appear in the leftmost columns.
