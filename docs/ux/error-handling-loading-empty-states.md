@@ -142,20 +142,20 @@ Stick to these outlines as much as possible, use patterns as provided by Juno UI
 
 The table below maps common HTTP error codes to their recommended title, message, and handling strategy. Handling references correspond to the error categories described above.
 
-| Code | Title                   | Message                                                                                           | Handling                                                                                      |
-|------|-------------------------|---------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
-| 400  | Bad Request             | The request could not be processed due to invalid syntax. Try again.                              | Handle individually; see Component/Rendering/API Errors or Operation/Action/CRUD Errors       |
-| 401  | Authentication Required | Authentication failed. Verify your credentials and try again.                                     | See Unauthenticated — redirect to Sign In with auth error message                             |
-| 403  | Access Denied           | You do not have the required permissions to access this resource.                                 | See Unauthorized — breadcrumb, page title, side navigation (if applicable), and info Message  |
-| 404  | Page Not Found          | The requested URL does not exist or may have moved. Check the URL or return to the [home page](). | See "BIG" Errors — numeric error page with title and description                              |
-| 408  | Request Timeout         | The request did not return a complete result in time. Check your connection and try again.        | Handle individually; see Component/Rendering/API Errors or Network and Connectivity Errors    |
-| 409  | Conflict                | —                                                                                                 | Handle individually in the context where it occurred                                          |
-| 429  | Too Many Requests       | —                                                                                                 | Handle individually in the context where it occurred                                          |
-| 500  | Internal Server Error   | An internal error occurred. Try again.                                                            | See "BIG" Errors — numeric error page with title and description                              |
-| 502  | Bad Gateway             | The server returned an invalid response. Try again.                                               | See "BIG" Errors — numeric error page with title and description                              |
-| 503  | Service Unavailable     | The service is temporarily unavailable. Try again later.                                          | See "BIG" Errors — numeric error page with title and description                              |
-| 504  | Gateway Timeout         | A server did not respond in time. Check your connection and try again.                            | See "BIG" Errors — numeric error page with title and description                              |
-| XXX  | Unknown Error           | An unexpected error occurred. Try again.                                                          | See "BIG" Errors — generic error page                                                         |
+| Code | Title                   | Message                                                                                           | Handling                                                                                     |
+| ---- | ----------------------- | ------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| 400  | Bad Request             | The request could not be processed due to invalid syntax. Try again.                              | Handle individually; see Component/Rendering/API Errors or Operation/Action/CRUD Errors      |
+| 401  | Authentication Required | Authentication failed. Verify your credentials and try again.                                     | See Unauthenticated — redirect to Sign In with auth error message                            |
+| 403  | Access Denied           | You do not have the required permissions to access this resource.                                 | See Unauthorized — breadcrumb, page title, side navigation (if applicable), and info Message |
+| 404  | Page Not Found          | The requested URL does not exist or may have moved. Check the URL or return to the [home page](). | See "BIG" Errors — numeric error page with title and description                             |
+| 408  | Request Timeout         | The request did not return a complete result in time. Check your connection and try again.        | Handle individually; see Component/Rendering/API Errors or Network and Connectivity Errors   |
+| 409  | Conflict                | —                                                                                                 | Handle individually in the context where it occurred                                         |
+| 429  | Too Many Requests       | —                                                                                                 | Handle individually in the context where it occurred                                         |
+| 500  | Internal Server Error   | An internal error occurred. Try again.                                                            | See "BIG" Errors — numeric error page with title and description                             |
+| 502  | Bad Gateway             | The server returned an invalid response. Try again.                                               | See "BIG" Errors — numeric error page with title and description                             |
+| 503  | Service Unavailable     | The service is temporarily unavailable. Try again later.                                          | See "BIG" Errors — numeric error page with title and description                             |
+| 504  | Gateway Timeout         | A server did not respond in time. Check your connection and try again.                            | See "BIG" Errors — numeric error page with title and description                             |
+| XXX  | Unknown Error           | An unexpected error occurred. Try again.                                                          | See "BIG" Errors — generic error page                                                        |
 
 # Diagram
 
