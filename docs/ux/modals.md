@@ -58,19 +58,19 @@ When the user has to make a decision and the action can't be just cancelled or t
 
 ### General Confirmation Modals
 
-General Confirmation Modals that only confrim acknowledgement of a fact or state shpuld only have one button labelled "Close", "OK", or some similar generic wording.
+General Confirmation Modals that only confirm acknowledgement of a fact or state should only have one button labelled "Close", "OK", or some similar generic wording.
 
 The title should represent the action or fact that is to be confirmed. Reference the name or other identifying property of the affected entity in the Modal body, not the title.
 
 Confirmation Modals should not carry an additional Message element in the body.
 
-When the action affects mutliple items or entities, the number and type of the items should be reflected.
+When the action affects multiple items or entities, the number and type of the items should be reflected.
 
 ### Destructive Actions and Confirmation of Destructive Actions
 
 Modals may be used for destructive tasks, such as deleting an entity, or for confirming such tasks when triggered inline. In this case, the primary button must be styled as `primary-danger` (red).
 
-The Modal title should reflect the action clearly. To re-assure users they are not going to destroy or delete items they didn't mean to delete, reference the affected item by name or identifier in the Modal body. If multiple items are affected, state the number and type in the Modal body.
+The Modal title should reflect the action clearly. To reassure users they are not going to destroy or delete items they didn't mean to delete, reference the affected item by name or identifier in the Modal body. If multiple items are affected, state the number and type in the Modal body.
 
 Modals confirming destructive Actions should NOT have a Danger Message in the Modal body.
 
