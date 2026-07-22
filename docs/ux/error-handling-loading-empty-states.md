@@ -39,7 +39,7 @@ The user is authenticated and trying to see a page they are not authorized to se
 
 #### What To Do
 
-Show Error page, navigation should reflect current route/url, but we inform them they are not authorized to see what's here.
+Show an error page where breadcrumb and page title reflect the current route/URL, include the SideNav if applicable, and display an informational Message (see [HTTP Error Code Reference](#http-error-code-reference)) explaining the user is not authorized to access this resource.
 
 **See the [HTTP Error Code Reference](#http-error-code-reference) for specific codes, titles, and messages.**
 
