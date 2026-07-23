@@ -62,6 +62,18 @@ More specifically, these are any combination of the following elements. Each ele
 
 All of the above elements are optional in the sense that none of them will be required for any given DataGrid. However, if you find yourself in a situation where none of the above options is needed or desired, reconsider whether using a DataGrid is the right choice to display the given data. This case can occur, but it is rare. In most cases a simple list is then a more appropriate option to display the data.
 
+## Filter and Sort Persistence on Navigation
+
+There is no one default policy for whether filters and sorting in a DataGrid header should persist when users navigate — it ultimately depends on the user's goal, the navigation model, and the entities displayed in the DataGrid.
+
+Generally, users do not expect state they configured in one session or context to still be active when they come back — stale filters can hide data and cause confusion that is hard to diagnose. However, there are cases where persisting filters and sorting may provide value and reduce frustration for users: when the grid is part of a continuous task or navigation flow (e.g. drilling through a folder/file hierarchy or returning via browser back/forward).
+
+If persistence is implemented, make sure the active state is clearly communicated — active filter pills and any sort indicator must always be visible so the user is never left wondering why data appears to be missing or unexpectedly ordered.
+
+An exception applies when the DataGrid is used as a **navigation mechanism**, such as browsing a folder or file structure. In this case, persisting filters and sorting is appropriate because the user is operating within a continuous navigational context, and clearing their configuration on each step would be disruptive and counterproductive.
+
+If persistence is implemented, make sure the active state is clearly communicated — active filter pills and any sort indicator must always be visible so the user is never left wondering why data appears to be missing or unexpectedly ordered.
+
 ## Column Order, Structure, and Layout
 
 - Columns should be ordered by relevance and scannability: the most identifying information (name, ID, title) should appear in the leftmost columns.
