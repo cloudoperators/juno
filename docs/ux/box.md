@@ -2,6 +2,9 @@
 
 # Box
 
+> [!NOTE]
+> The `title` prop, semantic `variant` support, and the Inline Action Box pattern described in this document are not yet implemented. Currently `Box` renders as a plain neutral container only. We will remove this note once implementation is done.
+
 `Box` is a lightweight container component with a subtle border and background. It is intended for annotations, supplementary explanations, and contextual remarks — situations where content needs to be visually set apart from the surrounding layout without the stronger semantic weight of a `Message`.
 
 ## When to Use Box
