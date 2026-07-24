@@ -23,6 +23,10 @@ When no variant is specified, `Box` renders in its default neutral style.
 
 Always choose the variant based on the meaning of the content, not for visual effect. See [Semantic Variants](semantic-variants.md) for guidance on which variant to use in a given situation.
 
+## Title
+
+`Box` accepts an optional `title` prop. Use a title when the content needs a clear label to stand apart from surrounding content, or when the purpose of the Box is not immediately obvious from the content alone. Do not add a title by default — most Boxes are self-explanatory in context.
+
 ## Inline Action Box
 
 The **Inline Action Box** is a pattern built on `Box` for situations where a contextual message or notice needs to offer the user one or more follow-up actions — without interrupting the current flow with a Modal.
@@ -41,25 +45,14 @@ Do not use this pattern as a replacement for a Modal when the action requires us
 
 An Inline Action Box consists of:
 
-1. **Content area** — a short description of the condition or context. Keep it concise.
-2. **Divider** — visually separates the content from the actions below.
-3. **Action area** — one or two buttons, right-aligned. Prefer a single action. If two are present, one should be a secondary or tertiary option (e.g. "Learn more" or "Dismiss").
+1. **Title** (optional) — a short label identifying the condition or context.
+2. **Content area** — a short description of the condition or context. Keep it concise.
+3. **Divider** — visually separates the content from the actions below.
+4. **Action area** — one or two buttons, right-aligned. Prefer a single action. If two are present, one should be a secondary or tertiary option (e.g. "Learn more" or "Dismiss").
 
 ### Variant
 
 Choose a semantic variant that matches the nature of the message in the content area. If the notice is purely informational, the default (no variant) or `info` is appropriate.
-
-### Example Structure
-
-```tsx
-<Box variant="warning">
-  <p>The current configuration has not been saved.</p>
-  <Divider />
-  <Stack distribution="end">
-    <Button variant="primary">Save Configuration</Button>
-  </Stack>
-</Box>
-```
 
 ### Do
 
