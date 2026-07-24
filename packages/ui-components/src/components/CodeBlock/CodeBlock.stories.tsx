@@ -4,8 +4,9 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import React from "react"
+import React, { useCallback } from "react"
 import { CodeBlock, CodeBlockProps } from "./CodeBlock.component"
+import { Icon } from "../Icon"
 import { Tabs } from "../Tabs"
 import { TabList } from "../TabList"
 import { Tab } from "../Tab"
@@ -112,7 +113,7 @@ export const FixedSize: Story = {
   },
   args: {
     size: "small",
-    content: ` -------- BEGIN CERTIFICATE -------- 
+    content: ` -------- BEGIN CERTIFICATE --------
     30818902818100C4A06B7B52F8D17DC1C0
     B47362C64AB799AAE19E245A7559E9CEEC
     7D8AA4DF07CB0B21FDFD763C63A313A668
@@ -209,5 +210,48 @@ export const CodeBlocksWithTabs: StoryObj<TabsTemplateProps> = {
   </div>`,
       },
     ],
+  },
+}
+
+const customFooterContent = `const greeting = "Hello, world!"\nconsole.log(greeting)`
+
+export const CustomCodeBlockFooter: Story = {
+  name: "CodeBlock with Custom Options",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Pass a custom `codeBlockFooter` element to replace the default copy bar. This example adds Download and Copy actions side by side.",
+      },
+    },
+  },
+  render: () => {
+    const handleCopy = useCallback(() => {
+      navigator.clipboard.writeText(customFooterContent).catch(() => {
+        console.warn("Cannot copy text to clipboard")
+      })
+    }, [])
+
+    const handleDownload = useCallback(() => {
+      const blob = new Blob([customFooterContent], { type: "text/plain" })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement("a")
+      a.href = url
+      a.download = "code.txt"
+      a.click()
+      URL.revokeObjectURL(url)
+    }, [])
+
+    return (
+      <CodeBlock
+        content={customFooterContent}
+        codeBlockFooter={
+          <div className="juno-codeblock-bottombar jn:flex jn:justify-end jn:px-3 jn:py-2 jn:border-t jn:border-theme-codeblock-bar jn:gap-2">
+            <Icon icon="download" onClick={handleDownload} />
+            <Icon icon="contentCopy" onClick={handleCopy} />
+          </div>
+        }
+      />
+    )
   },
 }
