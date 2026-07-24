@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useRef, useCallback, useEffect, ReactNode, HTMLAttributes } from "react"
+import React, { useState, useRef, useCallback, useEffect, ReactNode, HTMLAttributes, ReactElement } from "react"
 import { JsonViewer } from "../JsonViewer"
-import { Icon } from "../Icon"
+import { CodeBlockFooter } from "./CodeBlockFooter.component"
 
 const wrapperStyles = `
   jn:bg-theme-code-block
@@ -52,7 +52,7 @@ const codeStyles = `
 const headingStyles = `
   jn:text-sm
   jn:border-b-[1px]
-  jn:border-theme-codeblock-bar 
+  jn:border-theme-codeblock-bar
   jn:h-[3.4375rem]
   jn:flex
 `
@@ -62,22 +62,6 @@ const headingInnerStyles = `
   jn:font-bold
   jn:px-[1.5625rem]
   jn:items-center
-`
-
-const bottomBarStyles = `
-  jn:flex 
-  jn:justify-end 
-  jn:px-3
-  jn:py-2 
-  jn:border-t-[1px]
-  jn:border-theme-codeblock-bar
-`
-
-const copyTextStyles = `
-  jn:font-bold 
-  jn:text-sm 
-  jn:mr-4 
-  jn:mt-1
 `
 
 const jsonViewStyles = {
@@ -117,6 +101,7 @@ export const CodeBlock = ({
   wrap = true,
   size = "auto",
   copy = true,
+  codeBlockFooter,
   lang = "",
   className = "",
   ...props
@@ -171,14 +156,11 @@ export const CodeBlock = ({
         </pre>
       )}
 
-      {copy ? (
-        <div className={`juno-codeblock-bottombar ${bottomBarStyles}`}>
-          <span className={`${copyTextStyles}`}>{isCopied ? "Copied!" : ""}</span>
-          <Icon icon="contentCopy" onClick={handleCopyClick} />
-        </div>
-      ) : (
-        ""
-      )}
+      {codeBlockFooter ? (
+        codeBlockFooter
+      ) : copy ? (
+        <CodeBlockFooter onCopy={handleCopyClick} isCopied={isCopied} />
+      ) : null}
     </div>
   )
 }
@@ -219,6 +201,12 @@ export interface CodeBlockProps extends Omit<HTMLAttributes<HTMLDivElement>, "co
    * @default true
    */
   copy?: boolean
+
+  /**
+   * Optional. Pass a `<CodeBlockFooter />` component (or any element) to replace the default copy bar.
+   * When provided, it takes precedence over the `copy` prop.
+   */
+  codeBlockFooter?: ReactElement
 
   /**
    * Language for the content. "json" will render a structured JsonView. Adds a data-lang attribute.

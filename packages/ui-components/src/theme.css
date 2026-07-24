@@ -412,6 +412,7 @@
   --border-color-theme-card-hover: var(--color-card-border-hover);
 
   --border-color-theme-codeblock-bar: var(--color-codeblock-bar-border);
+  --border-color-theme-codeblock-footer: var(--color-codeblock-footer-border);
   --border-color-theme-codeblock-tab-active: var(--color-text-default);
 
   --border-color-theme-datalist-row: var(--color-datalist-row-border);
@@ -679,6 +680,7 @@
   /* LT CodeBlock */
   --color-codeblock-bg: var(--color-background-lvl-2);
   --color-codeblock-bar-border: var(--color-background-lvl-4);
+  --color-codeblock-footer-border: var(--color-background-lvl-4);
   /* LT Panel */
   --color-panel-bg: rgb(252 252 252 / 0.8);
   /* LT PageHeader */
@@ -934,6 +936,7 @@
   /* DT CodeBlock */
   --color-codeblock-bg: var(--color-background-lvl-2);
   --color-codeblock-bar-border: var(--color-background-lvl-4);
+  --color-codeblock-footer-border: var(--color-background-lvl-4);
   /* DT Panel */
   --color-panel-bg: rgb(from var(--color-juno-grey-blue-11) r g b / 0.75);
   /* DT PageHeader */

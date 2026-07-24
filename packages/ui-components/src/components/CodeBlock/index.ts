@@ -4,3 +4,4 @@
  */
 
 export { CodeBlock } from "./CodeBlock.component"
+export { CodeBlockFooter } from "./CodeBlockFooter.component"
