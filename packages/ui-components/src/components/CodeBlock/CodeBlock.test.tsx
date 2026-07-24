@@ -108,4 +108,21 @@ describe("CodeBlock", () => {
     expect(screen.getByTestId("codeblock")).toBeInTheDocument()
     expect(screen.getByTestId("codeblock")).toHaveAttribute("data-lolol", "code-lang-js")
   })
+
+  test("renders a custom codeBlockFooter when provided", () => {
+    render(<CodeBlock codeBlockFooter={<div data-testid="custom-footer">Custom Footer</div>} />)
+    expect(screen.getByTestId("custom-footer")).toBeInTheDocument()
+    expect(screen.getByTestId("custom-footer")).toHaveTextContent("Custom Footer")
+  })
+
+  test("does not render the default copy button when codeBlockFooter is provided", () => {
+    render(<CodeBlock codeBlockFooter={<div>Custom Footer</div>} />)
+    expect(screen.queryByRole("button", { name: "contentCopy" })).not.toBeInTheDocument()
+  })
+
+  test("codeBlockFooter takes precedence over copy prop", () => {
+    render(<CodeBlock copy={true} codeBlockFooter={<div data-testid="custom-footer">Custom</div>} />)
+    expect(screen.getByTestId("custom-footer")).toBeInTheDocument()
+    expect(screen.queryByRole("button", { name: "contentCopy" })).not.toBeInTheDocument()
+  })
 })

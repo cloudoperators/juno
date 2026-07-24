@@ -404,6 +404,7 @@
     /* LT CodeBlock */
     --color-codeblock-bg: var(--color-background-lvl-2-raw);
     --color-codeblock-bar-border: var(--color-background-lvl-4-raw);
+    --color-codeblock-footer-border: var(--color-background-lvl-4-raw);
     /* LT Panel */
     /* --color-panel-bg-raw: var(--color-white-raw); */
     --color-panel-bg: rgba(252, 252, 252, 0.8);
@@ -647,6 +648,7 @@
     /* DT CodeBlock */
     --color-codeblock-bg: var(--color-background-lvl-2-raw);
     --color-codeblock-bar-border: var(--color-background-lvl-4-raw);
+    --color-codeblock-footer-border: var(--color-background-lvl-4-raw);
     /* DT Panel */
     --color-panel-bg: rgba(var(--color-juno-grey-blue-11-raw), 0.75);
 

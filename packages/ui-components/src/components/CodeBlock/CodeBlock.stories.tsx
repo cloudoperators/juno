@@ -246,7 +246,7 @@ export const CustomCodeBlockFooter: Story = {
       <CodeBlock
         content={customFooterContent}
         codeBlockFooter={
-          <div className="juno-codeblock-bottombar jn:flex jn:justify-end jn:px-3 jn:py-2 jn:border-t jn:border-theme-codeblock-bar jn:gap-2">
+          <div className="juno-codeblock-bottombar jn:flex jn:justify-end jn:px-3 jn:py-2 jn:border-t jn:border-theme-codeblock-footer jn:gap-2">
             <Icon icon="download" onClick={handleDownload} />
             <Icon icon="contentCopy" onClick={handleCopy} />
           </div>
