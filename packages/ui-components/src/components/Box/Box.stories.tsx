@@ -63,7 +63,7 @@ export const InfoBox: Story = {
   },
   args: {
     variant: "info",
-    children: "This is a Info Box.",
+    children: "This is an Info Box.",
   },
 }
 
@@ -71,7 +71,7 @@ export const WarningBox: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Pass `variant="warning"` to render an Info Box.',
+        story: 'Pass `variant="warning"` to render a Warning Box.',
       },
     },
   },
@@ -85,7 +85,7 @@ export const SuccessBox: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Pass `variant="success"` to render an Info Box.',
+        story: 'Pass `variant="success"` to render a Success Box.',
       },
     },
   },
@@ -99,7 +99,7 @@ export const ErrorBox: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Pass `variant="error"` to render an Info Box.',
+        story: 'Pass `variant="error"` to render an Error Box.',
       },
     },
   },
@@ -113,7 +113,7 @@ export const DangerBox: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Pass `variant="danger"` to render an Info Box.',
+        story: 'Pass `variant="danger"` to render a Danger Box.',
       },
     },
   },

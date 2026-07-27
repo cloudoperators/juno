@@ -76,7 +76,7 @@ export interface BoxProps extends HTMLAttributes<HTMLDivElement> {
  * @see {@link BoxProps}
  */
 export const Box = ({ children, title, unpad = false, className = "", variant, ...props }: BoxProps): ReactNode => {
-  const colorStyles = variant ? boxVariantStyles[variant] : boxDefaultStyles
+  const colorStyles = variant ? (boxVariantStyles[variant] ?? boxDefaultStyles) : boxDefaultStyles
   const combinedClassName = `juno-box ${variant ? `juno-box-${variant}` : "juno-box-default"} ${boxBaseStyles} ${colorStyles} ${!unpad ? boxPadding : ""} ${className}`
   return (
     <div className={combinedClassName} {...props}>
