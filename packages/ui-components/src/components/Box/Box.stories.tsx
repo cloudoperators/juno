@@ -16,7 +16,8 @@ const meta: Meta<typeof Box> = {
   argTypes: {
     variant: {
       control: { type: "select" },
-      options: [undefined, "info", "success", "warning", "error", "danger"],
+      options: ["default", "info", "success", "warning", "error", "danger"],
+      mapping: { default: undefined },
     },
   },
 }
