@@ -3,8 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import React from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { Box } from "./index"
+import { Divider } from "../Divider"
+import { ButtonRow } from "../ButtonRow"
+import { Button } from "../Button"
 
 const meta: Meta<typeof Box> = {
   title: "Components/Box",
@@ -33,4 +37,135 @@ export const WithoutPadding: Story = {
     children: "A Box without padding",
     unpad: true,
   },
+}
+
+export const WithTitle: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: "Use the `title` prop to render a bold label above the content.",
+      },
+    },
+  },
+  args: {
+    title: "Box Title",
+    children: "Some content in a Box with a title.",
+  },
+}
+
+export const InfoBox: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Pass `variant="info"` to render an Info Box.',
+      },
+    },
+  },
+  args: {
+    variant: "info",
+    children: "This is a Info Box.",
+  },
+}
+
+export const WarningBox: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Pass `variant="warning"` to render an Info Box.',
+      },
+    },
+  },
+  args: {
+    variant: "warning",
+    children: "This is a Warning Box.",
+  },
+}
+
+export const SuccessBox: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Pass `variant="success"` to render an Info Box.',
+      },
+    },
+  },
+  args: {
+    variant: "success",
+    children: "This is a Success Box.",
+  },
+}
+
+export const ErrorBox: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Pass `variant="error"` to render an Info Box.',
+      },
+    },
+  },
+  args: {
+    variant: "error",
+    children: "This is a Error Box.",
+  },
+}
+
+export const DangerBox: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Pass `variant="danger"` to render an Info Box.',
+      },
+    },
+  },
+  args: {
+    variant: "danger",
+    children: "This is a Danger Box.",
+  },
+}
+
+export const InlineActionBox: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "An Inline Action Box to offer one or more actions in the current context without interrupting the flow or implying urgency.",
+      },
+    },
+  },
+  render: (args) => (
+    <Box title="This is a Inline Action Box" {...args}>
+      <p>
+        Use it to offer one or more actions in the current context without interrupting the flow or implying urgency.
+      </p>
+      <Divider color="jn:border-theme-higher" />
+      <ButtonRow>
+        <Button size="small">Click me</Button>
+      </ButtonRow>
+    </Box>
+  ),
+}
+
+export const InlineInfoActionBox: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "An Inline Action Box to offer one or more actions in the current context without interrupting the flow or implying urgency.",
+      },
+    },
+  },
+  render: (args) => (
+    <Box variant="info" title="This is a Inline Info Action Box" {...args}>
+      <p>
+        Use it to offer one or more actions in the current context without interrupting the flow or implying urgency.
+      </p>
+      <Divider color="jn:border-theme-higher" />
+      <ButtonRow>
+        <Button size="small">Click me</Button>
+        <Button size="small" variant="primary">
+          Click me
+        </Button>
+      </ButtonRow>
+    </Box>
+  ),
 }
