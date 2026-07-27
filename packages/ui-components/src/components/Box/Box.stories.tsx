@@ -13,7 +13,12 @@ import { Button } from "../Button"
 const meta: Meta<typeof Box> = {
   title: "Components/Box",
   component: Box,
-  argTypes: {},
+  argTypes: {
+    variant: {
+      control: { type: "select" },
+      options: [undefined, "info", "success", "warning", "error", "danger"],
+    },
+  },
 }
 
 export default meta
@@ -105,7 +110,7 @@ export const ErrorBox: Story = {
   },
   args: {
     variant: "error",
-    children: "This is a Error Box.",
+    children: "This is an Error Box.",
   },
 }
 
@@ -133,7 +138,7 @@ export const InlineActionBox: Story = {
     },
   },
   render: (args) => (
-    <Box title="This is a Inline Action Box" {...args}>
+    <Box title="This is an Inline Action Box" {...args}>
       <p>
         Use it to offer one or more actions in the current context without interrupting the flow or implying urgency.
       </p>
@@ -154,8 +159,11 @@ export const InlineInfoActionBox: Story = {
       },
     },
   },
+  args: {
+    variant: "info",
+  },
   render: (args) => (
-    <Box variant="info" title="This is a Inline Info Action Box" {...args}>
+    <Box title="This is an Inline Info Action Box" {...args}>
       <p>
         Use it to offer one or more actions in the current context without interrupting the flow or implying urgency.
       </p>
