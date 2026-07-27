@@ -80,8 +80,14 @@ export const Box = ({ children, title, unpad = false, className = "", variant, .
   const combinedClassName = `juno-box ${variant ? `juno-box-${variant}` : "juno-box-default"} ${boxBaseStyles} ${colorStyles} ${!unpad ? boxPadding : ""} ${className}`
   return (
     <div className={combinedClassName} {...props}>
-      {title && <strong className={`juno-box-title ${boxTitleStyles}`}>{title}</strong>}
-      <div>{children}</div>
+      {title ? (
+        <>
+          <strong className={`juno-box-title ${boxTitleStyles}`}>{title}</strong>
+          <div>{children}</div>
+        </>
+      ) : (
+        children
+      )}
     </div>
   )
 }
