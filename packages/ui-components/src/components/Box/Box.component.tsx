@@ -13,6 +13,8 @@ const boxStyles = `
   jn:border-theme-box-default
 `
 
+export type BoxVariantType = "info" | "warning" | "danger" | "error" | "success"
+
 // When adjusting the padding, make sure to update the tests to verify Box variations with and without padding correctly.
 const boxPadding = `
   jn:py-1
@@ -37,6 +39,11 @@ export interface BoxProps extends HTMLAttributes<HTMLDivElement> {
    * @default ""
    */
   className?: string
+
+    /**
+     * Specify an optional semantic variant that determines the appearance of a Box. If not passed, the Box will appear neutral (default).
+     */
+    variant?: BoxVariantType
 }
 
 /**
