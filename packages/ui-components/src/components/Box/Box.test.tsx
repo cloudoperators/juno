@@ -42,12 +42,12 @@ describe("Box Component", () => {
     test("renders a title when the 'title' prop is passed", () => {
       render(<Box data-testid="box" title="My Box Title" />)
       expect(screen.getByTestId("box")).toHaveTextContent("My Box Title")
-      expect(screen.getByTestId("box").querySelector(".juno-box-title")).toBeInTheDocument()
+      expect(screen.getByText("My Box Title")).toHaveClass("juno-box-title")
     })
 
     test("does not render a title element when 'title' is not passed", () => {
       render(<Box data-testid="box" />)
-      expect(screen.getByTestId("box").querySelector(".juno-box-title")).not.toBeInTheDocument()
+      expect(screen.queryByText("My Box Title")).not.toBeInTheDocument()
     })
   })
 
