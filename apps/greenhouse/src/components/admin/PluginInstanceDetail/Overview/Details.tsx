@@ -48,6 +48,14 @@ export const Details: React.FC<DetailsProps> = ({ plugin }) => {
             <DataGridCell>{plugin.spec?.pluginDefinitionRef?.name ?? NO_VALUE_DEFAULT}</DataGridCell>
           </DataGridRow>
           <DataGridRow>
+            <DataGridHeadCell nowrap>Helm Chart</DataGridHeadCell>
+            <DataGridCell>{plugin.status?.helmChart?.name ?? NO_VALUE_DEFAULT}</DataGridCell>
+          </DataGridRow>
+          <DataGridRow>
+            <DataGridHeadCell nowrap>Helm Chart Version</DataGridHeadCell>
+            <DataGridCell>{plugin.status?.helmChart?.version ?? NO_VALUE_DEFAULT}</DataGridCell>
+          </DataGridRow>
+          <DataGridRow>
             <DataGridHeadCell nowrap>Release Name</DataGridHeadCell>
             <DataGridCell>{plugin.spec?.releaseName ?? NO_VALUE_DEFAULT}</DataGridCell>
           </DataGridRow>
