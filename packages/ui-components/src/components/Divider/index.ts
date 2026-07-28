@@ -3,5 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { CodeBlock } from "./CodeBlock.component"
-export { CodeBlockFooter } from "./CodeBlockFooter.component"
+export { Divider } from "./Divider.component"

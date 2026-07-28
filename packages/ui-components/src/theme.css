@@ -276,6 +276,11 @@
   /* Component Background Colors: */
   --background-color-theme-badge-default: var(--color-badge-default-bg);
   --background-color-theme-box-default: var(--color-box-bg);
+  --background-color-theme-box-info: var(--color-box-info-bg);
+  --background-color-theme-box-success: var(--color-box-success-bg);
+  --background-color-theme-box-warning: var(--color-box-warning-bg);
+  --background-color-theme-box-error: var(--color-box-error-bg);
+  --background-color-theme-box-danger: var(--color-box-danger-bg);
 
   /* Side Navigation Background Colors */
   --background-color-theme-sidenav: var(--color-sidenav-background);
@@ -405,13 +410,21 @@
 
   /* Component Border Colors: */
   --border-color-theme-default: var(--color-border-default);
+  --border-color-theme-high: var(--color-border-high);
+  --border-color-theme-higher: var(--color-border-higher);
 
   --border-color-theme-box-default: var(--color-box-border);
+  --border-color-theme-box-info: var(--color-box-info-border);
+  --border-color-theme-box-success: var(--color-box-success-border);
+  --border-color-theme-box-warning: var(--color-box-warning-border);
+  --border-color-theme-box-error: var(--color-box-error-border);
+  --border-color-theme-box-danger: var(--color-box-danger-border);
 
   --border-color-theme-card-default: var(--color-card-border-default);
   --border-color-theme-card-hover: var(--color-card-border-hover);
 
   --border-color-theme-codeblock-bar: var(--color-codeblock-bar-border);
+  --border-color-theme-codeblock-footer: var(--color-codeblock-footer-border);
   --border-color-theme-codeblock-tab-active: var(--color-text-default);
 
   --border-color-theme-datalist-row: var(--color-datalist-row-border);
@@ -523,6 +536,7 @@
   --color-global-bg: var(--color-juno-grey-light-1);
   --color-border-default: var(--color-juno-grey-light-7);
   --color-border-high: var(--color-juno-grey-light-9);
+  --color-border-higher: rgb(183, 183, 183);
   --color-global-text: var(--color-juno-text-default);
   --color-content-area-bg: var(--color-background-lvl-0);
   /* LT FOCUS */
@@ -608,17 +622,24 @@
   --color-icon-severityMedium: var(--color-severity-medium);
   --color-icon-severityLow: var(--color-severity-low);
 
+  /* LT Semantic Background Colors */
+  --color-info-bg: rgb(229, 241, 250);
+  --color-warning-bg: rgb(255, 247, 229);
+  --color-success-bg: rgb(237, 248, 232);
+  --color-danger-bg: rgb(249, 229, 229);
+  --color-error-bg: rgb(249, 229, 229);
+
   /* LT Message */
   --color-message-danger-border: var(--color-danger);
-  --color-message-danger-bg: rgb(249, 229, 229);
+  --color-message-danger-bg: var(--color-danger-bg);
   --color-message-default-border: var(--color-info);
-  --color-message-default-bg: rgb(229, 241, 250);
+  --color-message-default-bg: var(--color-info-bg);
   --color-message-error-border: var(--color-error);
-  --color-message-error-bg: rgb(249, 229, 229);
+  --color-message-error-bg: var(--color-error-bg);
   --color-message-warning-border: var(--color-warning);
-  --color-message-warning-bg: rgb(255, 247, 229);
+  --color-message-warning-bg: var(--color-warning-bg);
   --color-message-success-border: var(--color-success);
-  --color-message-success-bg: rgb(237, 248, 232);
+  --color-message-success-bg: var(--color-success-bg);
 
   /* LT Introbox */
   --color-introbox-bg: var(--color-background-lvl-2);
@@ -679,6 +700,7 @@
   /* LT CodeBlock */
   --color-codeblock-bg: var(--color-background-lvl-2);
   --color-codeblock-bar-border: var(--color-background-lvl-4);
+  --color-codeblock-footer-border: var(--color-background-lvl-4);
   /* LT Panel */
   --color-panel-bg: rgb(252 252 252 / 0.8);
   /* LT PageHeader */
@@ -703,6 +725,16 @@
   /* LT Box */
   --color-box-bg: var(--color-background-lvl-1);
   --color-box-border: var(--color-background-lvl-3);
+  --color-box-info-bg: var(--color-info-bg);
+  --color-box-info-border: var(--color-info);
+  --color-box-success-bg: var(--color-success-bg);
+  --color-box-success-border: var(--color-success);
+  --color-box-warning-bg: var(--color-warning-bg);
+  --color-box-warning-border: var(--color-warning);
+  --color-box-error-bg: var(--color-error-bg);
+  --color-box-error-border: var(--color-error);
+  --color-box-danger-bg: var(--color-danger-bg);
+  --color-box-danger-border: var(--color-danger);
   /* LT SideNavigation */
   --color-sidenavigation-item-active: var(--color-black);
   --color-sidenavigation-item-active-bg: var(--color-background-lvl-0);
@@ -776,6 +808,7 @@
   --color-global-bg: var(--color-juno-grey-blue-10);
   --color-border-default: var(--color-juno-grey-blue-3);
   --color-border-high: var(--color-juno-grey-blue-1);
+  --color-border-higher: rgb(92, 92, 92);
   --color-global-text: var(--color-juno-text-default);
   --color-content-area-bg: var(--color-background-lvl-0);
 
@@ -864,17 +897,24 @@
   --color-icon-severityMedium: var(--color-severity-medium);
   --color-icon-severityLow: var(--color-severity-low);
 
+  /* DT Semantic Background Colors */
+  --color-info-bg: rgb(14, 48, 57);
+  --color-warning-bg: rgb(49, 47, 24);
+  --color-success-bg: rgb(20, 48, 34);
+  --color-danger-bg: rgb(49, 27, 26);
+  --color-error-bg: rgb(49, 27, 26);
+
   /* DT Message */
   --color-message-danger-border: var(--color-danger);
-  --color-message-danger-bg: rgb(49, 27, 26);
+  --color-message-danger-bg: var(--color-danger-bg);
   --color-message-default-border: var(--color-info);
-  --color-message-default-bg: rgb(14, 48, 57);
+  --color-message-default-bg: var(--color-info-bg);
   --color-message-error-border: var(--color-error);
-  --color-message-error-bg: rgb(49, 27, 26);
+  --color-message-error-bg: var(--color-error-bg);
   --color-message-warning-border: var(--color-warning);
-  --color-message-warning-bg: rgb(49, 47, 24);
+  --color-message-warning-bg: var(--color-warning-bg);
   --color-message-success-border: var(--color-success);
-  --color-message-success-bg: rgba(20, 48, 34);
+  --color-message-success-bg: var(--color-success-bg);
   /* DT Introbox */
   --color-introbox-bg: var(--color-background-lvl-2);
   --color-introbox-border: var(--color-accent);
@@ -934,6 +974,7 @@
   /* DT CodeBlock */
   --color-codeblock-bg: var(--color-background-lvl-2);
   --color-codeblock-bar-border: var(--color-background-lvl-4);
+  --color-codeblock-footer-border: var(--color-background-lvl-4);
   /* DT Panel */
   --color-panel-bg: rgb(from var(--color-juno-grey-blue-11) r g b / 0.75);
   /* DT PageHeader */
@@ -958,6 +999,16 @@
   /* DT Box */
   --color-box-bg: var(--color-background-lvl-1);
   --color-box-border: var(--color-background-lvl-3);
+  --color-box-info-bg: var(--color-info-bg);
+  --color-box-info-border: var(--color-info);
+  --color-box-success-bg: var(--color-success-bg);
+  --color-box-success-border: var(--color-success);
+  --color-box-warning-bg: var(--color-warning-bg);
+  --color-box-warning-border: var(--color-warning);
+  --color-box-error-bg: var(--color-error-bg);
+  --color-box-error-border: var(--color-error);
+  --color-box-danger-bg: var(--color-danger-bg);
+  --color-box-danger-border: var(--color-danger);
   /* DT SideNavigation */
   --color-sidenavigation-item-active: var(--color-white);
   --color-sidenavigation-item-active-bg: var(--color-background-lvl-0);

@@ -26,7 +26,7 @@ A Modal is likely not the most suitable solution if the task…
 - can easily be completed at any time inline in the natural flow of the current page or view
 - contains excessively large or long content that would be better handled on a separate page or view
 - is triggered by a parent task that already runs in a Modal (never stack Modals)
-- is not a task but a simple, non-essential notification or message — use Message or Notification (TBD) instead
+- is not a task but a simple, non-essential notification or message — use Message or Notification instead
 - requires many different action buttons at the bottom. Consider using a menu of options and then using a Modal only to confirm the selected action.
 
 ## Modal Anatomy
@@ -58,19 +58,19 @@ When the user has to make a decision and the action can't be just cancelled or t
 
 ### General Confirmation Modals
 
-General Confirmation Modals that only confrim acknowledgement of a fact or state shpuld only have one button labelled "Close", "OK", or some similar generic wording.
+General Confirmation Modals that only confirm acknowledgement of a fact or state should only have one button labelled "Close", "OK", or some similar generic wording.
 
-The title should represent the action or fact that is to be cofirmed, ideally and if possible with refrence to the name or other idientifying property of the affected entity.
+The title should represent the action or fact that is to be confirmed. Reference the name or other identifying property of the affected entity in the Modal body, not the title.
 
-Confirmation Modals should not carry an addiotnal Message element in the body.
+Confirmation Modals should not carry an additional Message element in the body.
 
-When the action affects mutliple items or entities, the number and type of the items should be reflected.
+When the action affects multiple items or entities, the number and type of the items should be reflected in the message body.
 
 ### Destructive Actions and Confirmation of Destructive Actions
 
 Modals may be used for destructive tasks, such as deleting an entity, or for confirming such tasks when triggered inline. In this case, the primary button must be styled as `primary-danger` (red).
 
-As in modals confirming non-destructive actions, the Modal title should reflect the action and identify the affected item to re-assure users they are not going to destroy or delete items they didn't mean to delete. If multiple items are affected, the action, number, and type of items should be stated in the Modal header.
+The Modal title should reflect the action clearly. To reassure users they are not going to destroy or delete items they didn't mean to delete, reference the affected item by name or identifier in the Modal body. If multiple items are affected, state the number and type in the Modal body.
 
 Modals confirming destructive Actions should NOT have a Danger Message in the Modal body.
 
@@ -98,7 +98,9 @@ Some Modals may allow the user to cancel/close or choose from multiple actions. 
 
 Keep Modal content short, descriptive, and concise. Modals are not a good place for long texts.
 
-Each Modal should have a title that clearly reflects the task or action, ideally referencing the affected object(s) or entity in a way that conveys the expected outcome when the user confirms the action. Avoid unnecessary alarmism, use title case for the title, and stick to our [UX Writing and Content Design guidelines](ux-writing-content-design.md).
+Each Modal should have a title that clearly reflects the task or action. Avoid unnecessary alarmism, use title case for the title, and stick to our [UX Writing and Content Design guidelines](ux-writing-content-design.md).
+
+Object names in technical contexts are often long and may be truncated in a Modal title. State the action clearly in the title; reference the affected object by name or identifier in the Modal body instead.
 
 ### Don't
 
@@ -114,12 +116,12 @@ Avoid titles that are vague, alarmist, overly generic, or that fail to indicate 
 
 ### Do
 
-Use titles that clearly state the action and the affected object or entity:
+Use titles that clearly state the action. Identify the affected object in the Modal body:
 
-- "Delete Object 12aB9"
-- "Remove User 'ArnoldS' from Project"
-- "Add Organization 'frontend-devs' to Project"
-- "Revoke API Key 'dev-key-03'"
+- "Delete Object" (body: "Object 12aB9 will be permanently deleted.")
+- "Remove User from Project" (body: "User 'ArnoldS' will be removed from the project.")
+- "Add Organization to Project" (body: "Organization 'frontend-devs' will be added to the project.")
+- "Revoke API Key" (body: "API key 'dev-key-03' will be revoked.")
 
 ## Messages in Modals, Modal Semantics
 
