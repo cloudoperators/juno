@@ -29,6 +29,7 @@ export const mockPluginPresets: MockPluginPresetsResponse = {
       status: {
         readyPlugins: 2,
         totalPlugins: 3,
+        pluginDefinitionVersion: "1.2.3",
         statusConditions: {
           conditions: [
             {

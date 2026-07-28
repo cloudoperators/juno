@@ -30,7 +30,7 @@ const isPluginReady = (plugin: Plugin) => {
   return plugin.status?.statusConditions?.conditions?.some((c) => c.type === "Ready" && c.status === "True") ?? false
 }
 
-const COLUMN_SPAN = 5
+const COLUMN_SPAN = 6
 
 const DataRows = ({ colSpan, plugins }: { colSpan: number; plugins: Plugin[] }) => {
   const navigate = useNavigate({ from: "/admin/clusters/$clusterName" })
@@ -71,6 +71,7 @@ const DataRows = ({ colSpan, plugins }: { colSpan: number; plugins: Plugin[] }) 
             <DataGridCell>{ready ? "Ready" : "Not Ready"}</DataGridCell>
             <DataGridCell>{plugin.metadata?.name || NO_VALUE_DEFAULT}</DataGridCell>
             <DataGridCell>{pluginPresetName || NO_VALUE_DEFAULT}</DataGridCell>
+            <DataGridCell>{plugin.status?.helmChart?.version ?? NO_VALUE_DEFAULT}</DataGridCell>
             <DataGridCell nowrap>
               {canNavigateToDetails && (
                 <PopupMenu onClick={(e) => e.stopPropagation()}>
@@ -121,6 +122,7 @@ export const PluginInstances = () => {
               <DataGridHeadCell>Status</DataGridHeadCell>
               <DataGridHeadCell>Plugin Name</DataGridHeadCell>
               <DataGridHeadCell>PluginPreset</DataGridHeadCell>
+              <DataGridHeadCell nowrap>Helm Chart Version</DataGridHeadCell>
               <DataGridHeadCell></DataGridHeadCell>
             </DataGridRow>
 

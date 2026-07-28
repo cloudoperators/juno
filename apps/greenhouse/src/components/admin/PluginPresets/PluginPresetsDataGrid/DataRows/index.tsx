@@ -65,6 +65,7 @@ export const DataRows = ({ colSpan }: DataRowsProps) => {
           <DataGridCell>
             {preset.spec?.plugin?.pluginDefinitionRef.name || preset.spec?.plugin?.pluginDefinition}
           </DataGridCell>
+          <DataGridCell>{preset.status?.pluginDefinitionVersion ?? "--"}</DataGridCell>
           <DataGridCell>{!isReady(preset) ? getReadyCondition(preset)?.message : ""}</DataGridCell>
           <DataGridCell>{preset.metadata?.labels?.[SUPPORT_GROUP_LABEL]}</DataGridCell>
           <DataGridCell nowrap>

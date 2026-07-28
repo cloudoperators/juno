@@ -33,6 +33,10 @@ export const Details: React.FC<DetailsProps> = ({ pluginPreset }) => (
         <DataGridCell>{pluginPreset.spec?.plugin?.pluginDefinitionRef?.name}</DataGridCell>
       </DataGridRow>
       <DataGridRow>
+        <DataGridHeadCell nowrap>Version</DataGridHeadCell>
+        <DataGridCell>{pluginPreset.status?.pluginDefinitionVersion ?? "--"}</DataGridCell>
+      </DataGridRow>
+      <DataGridRow>
         <DataGridHeadCell nowrap>Release Name</DataGridHeadCell>
         <DataGridCell>{pluginPreset.spec?.plugin?.releaseName ?? "--"}</DataGridCell>
       </DataGridRow>
