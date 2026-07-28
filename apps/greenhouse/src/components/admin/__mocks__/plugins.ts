@@ -39,6 +39,11 @@ export const mockPlugins: MockPluginsResponse = {
             },
           ],
         },
+        helmChart: {
+          name: "plugin-def-1",
+          repository: "https://charts.example.com",
+          version: "1.2.3",
+        },
       },
     },
     {

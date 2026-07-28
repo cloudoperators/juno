@@ -22,13 +22,14 @@ import { LoadingDataRow } from "../../common/LoadingDataRow"
 import { ErrorBoundary } from "../../common/ErrorBoundary"
 import { getErrorDataRowComponent } from "../../common/getErrorDataRow"
 import { Plugin } from "../../types/k8sTypes"
+import { NO_VALUE_DEFAULT } from "../../constants"
 import { fetchPlugins, FETCH_PLUGINS_CACHE_KEY } from "../../api/plugins/fetchPlugins"
 
 const isPluginReady = (plugin: Plugin) => {
   return plugin.status?.statusConditions?.conditions?.some((c) => c.type === "Ready" && c.status === "True") ?? false
 }
 
-const COLUMN_SPAN = 5
+const COLUMN_SPAN = 6
 
 const DataRows = ({ colSpan }: { colSpan: number }) => {
   const { pluginPresetName } = useParams({ from: "/admin/plugin-presets/$pluginPresetName" })
@@ -70,6 +71,7 @@ const DataRows = ({ colSpan }: { colSpan: number }) => {
             <DataGridCell>{plugin.metadata?.name}</DataGridCell>
             <DataGridCell>{plugin.spec?.clusterName}</DataGridCell>
             <DataGridCell>{ready ? "Ready" : "Not Ready"}</DataGridCell>
+            <DataGridCell>{plugin.status?.helmChart?.version ?? NO_VALUE_DEFAULT}</DataGridCell>
             <DataGridCell nowrap>
               <PopupMenu onClick={(e) => e.stopPropagation()}>
                 <PopupMenuOptions>
@@ -117,6 +119,7 @@ export const PluginInstances = () => {
             <DataGridHeadCell>Plugin Name</DataGridHeadCell>
             <DataGridHeadCell>Cluster</DataGridHeadCell>
             <DataGridHeadCell>Status</DataGridHeadCell>
+            <DataGridHeadCell nowrap>Helm Chart Version</DataGridHeadCell>
             <DataGridHeadCell></DataGridHeadCell>
           </DataGridRow>
 

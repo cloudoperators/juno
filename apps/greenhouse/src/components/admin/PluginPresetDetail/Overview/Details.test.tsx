@@ -26,6 +26,9 @@ describe("Details", () => {
           pluginDefinition: "test-plugin-def",
         },
       },
+      status: {
+        pluginDefinitionVersion: "2.0.0",
+      },
     }
 
     render(<Details pluginPreset={mockPluginPreset} />)
@@ -33,5 +36,6 @@ describe("Details", () => {
     expect(screen.getByText("Details")).toBeInTheDocument()
     expect(screen.getByText("test-preset")).toBeInTheDocument()
     expect(screen.getByText("test-plugin-def")).toBeInTheDocument()
+    expect(screen.getByText("2.0.0")).toBeInTheDocument()
   })
 })
