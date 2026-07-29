@@ -81,7 +81,7 @@ If persistence is implemented, make sure the active state is clearly communicate
 - If exists, a column with a checkbox to select items for bulk actions should go first/left.
 - Status and state columns are typically placed near the left as well, since users often scan for status first.
 - Often it makes sense to emphasize the most identifying information, such as name/id, and make it bold. This makes it easier to scan and identify items.
-- Action columns (edit, delete, overflow menus) belong at the far right. In order to avoid noise use Overflow Menus even for single item menus rather than showing a button on each item straightaway.
+- Action columns (edit, delete, overflow menus) belong at the far right. In order to avoid noise, use overflow menus even for single item menus rather than showing a button on each item straightaway. When the last column holds an overflow menu or other small interactive element, set a `min-width` on that column's cells to prevent the column from collapsing and making the element difficult to interact with.
 - Avoid too many columns – If a grid requires horizontal scrolling to show all columns, consider whether some of the data could be moved to a detail view instead.
 
 ## Interacting with DataGrid Rows / Items
@@ -89,7 +89,7 @@ If persistence is implemented, make sure the active state is clearly communicate
 ### Clickable Items / Rows
 
 If clicking a row navigates to a detail view, opens a Panel, or triggers an action, the entire row should be clickable. Visual hover feedback should make this affordance obvious.
-When rows contain nested interactive elements (buttons, links, overflow menus), those elements must not propagate their click events to the row — otherwise the row action fires unintentionally whenever the user interacts with a nested element.
+When rows contain nested interactive elements (buttons, links, overflow menus), each of those elements must explicitly stop click event propagation — call `event.stopPropagation()` on the element's click handler. Without this, the row-level click handler fires unintentionally whenever the user interacts with any nested element.
 
 ### Selecting Rows / Items
 
