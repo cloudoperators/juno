@@ -28,7 +28,7 @@
     "react-dom": "19.2.7",
     "react-error-boundary": "6.1.2",
     "react-markdown": "10.1.0",
-    "remark-gfm": " 4.0.1",
+    "remark-gfm": "4.0.1",
     "shadow-dom-testing-library": "1.13.1",
     "tailwindcss": "4.3.3",
     "vite": "8.0.16",

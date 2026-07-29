@@ -9,18 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as VulnerabilitiesRouteRouteImport } from './routes/vulnerabilities/route'
-import { Route as ServicesRouteRouteImport } from './routes/services/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as VulnerabilitiesIndexRouteImport } from './routes/vulnerabilities/index'
+import { Route as ServicesRouteRouteImport } from './routes/services/route'
+import { Route as VulnerabilitiesRouteRouteImport } from './routes/vulnerabilities/route'
 import { Route as ServicesIndexRouteImport } from './routes/services/index'
 import { Route as ServicesServiceRouteImport } from './routes/services/$service'
+import { Route as VulnerabilitiesIndexRouteImport } from './routes/vulnerabilities/index'
 import { Route as ServicesServiceImagesImageRouteImport } from './routes/services/$service/images/$image'
 import { Route as ServicesServiceImagesImageVersionsVersionRouteImport } from './routes/services/$service/images/$image/versions/$version'
 
-const VulnerabilitiesRouteRoute = VulnerabilitiesRouteRouteImport.update({
-  id: '/vulnerabilities',
-  path: '/vulnerabilities',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesRouteRoute = ServicesRouteRouteImport.update({
@@ -28,15 +28,10 @@ const ServicesRouteRoute = ServicesRouteRouteImport.update({
   path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const VulnerabilitiesRouteRoute = VulnerabilitiesRouteRouteImport.update({
+  id: '/vulnerabilities',
+  path: '/vulnerabilities',
   getParentRoute: () => rootRouteImport,
-} as any)
-const VulnerabilitiesIndexRoute = VulnerabilitiesIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => VulnerabilitiesRouteRoute,
 } as any)
 const ServicesIndexRoute = ServicesIndexRouteImport.update({
   id: '/',
@@ -47,6 +42,11 @@ const ServicesServiceRoute = ServicesServiceRouteImport.update({
   id: '/$service',
   path: '/$service',
   getParentRoute: () => ServicesRouteRoute,
+} as any)
+const VulnerabilitiesIndexRoute = VulnerabilitiesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => VulnerabilitiesRouteRoute,
 } as any)
 const ServicesServiceImagesImageRoute =
   ServicesServiceImagesImageRouteImport.update({
@@ -129,11 +129,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/vulnerabilities': {
-      id: '/vulnerabilities'
-      path: '/vulnerabilities'
-      fullPath: '/vulnerabilities'
-      preLoaderRoute: typeof VulnerabilitiesRouteRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services': {
@@ -143,19 +143,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/vulnerabilities': {
+      id: '/vulnerabilities'
+      path: '/vulnerabilities'
+      fullPath: '/vulnerabilities'
+      preLoaderRoute: typeof VulnerabilitiesRouteRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/vulnerabilities/': {
-      id: '/vulnerabilities/'
-      path: '/'
-      fullPath: '/vulnerabilities/'
-      preLoaderRoute: typeof VulnerabilitiesIndexRouteImport
-      parentRoute: typeof VulnerabilitiesRouteRoute
     }
     '/services/': {
       id: '/services/'
@@ -170,6 +163,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/services/$service'
       preLoaderRoute: typeof ServicesServiceRouteImport
       parentRoute: typeof ServicesRouteRoute
+    }
+    '/vulnerabilities/': {
+      id: '/vulnerabilities/'
+      path: '/'
+      fullPath: '/vulnerabilities/'
+      preLoaderRoute: typeof VulnerabilitiesIndexRouteImport
+      parentRoute: typeof VulnerabilitiesRouteRoute
     }
     '/services/$service/images/$image': {
       id: '/services/$service/images/$image'
