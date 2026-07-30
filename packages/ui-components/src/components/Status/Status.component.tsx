@@ -71,7 +71,7 @@ export const Status = ({
   return (
     <div className={`juno-status ${className}`} {...props}>
       {code && <div className="juno-status-code">{code}</div>}
-      {resolvedSpinner && <Spinner />}
+      {resolvedSpinner && <Spinner variant="primary" />}
       {resolvedTitle && <div className="juno-status-title">{resolvedTitle}</div>}
       {resolvedBody && <div className="juno-status-body">{resolvedBody}</div>}
       {details && <pre className="juno-status-details">{details}</pre>}
