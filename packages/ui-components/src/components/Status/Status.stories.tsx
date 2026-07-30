@@ -38,25 +38,49 @@ export const Default: Story = {
   args: {},
 }
 
-const DataGridWrapper = (args: React.ComponentProps<typeof Status>) => (
-  <DataGrid columns={4}>
-    <DataGridRow>
-      <DataGridHeadCell>Name</DataGridHeadCell>
-      <DataGridHeadCell>Region</DataGridHeadCell>
-      <DataGridHeadCell>Status</DataGridHeadCell>
-      <DataGridHeadCell>Last Updated</DataGridHeadCell>
-    </DataGridRow>
-    <DataGridRow>
-      <DataGridCell colSpan={4}>
-        <Status {...args} />
-      </DataGridCell>
-    </DataGridRow>
-  </DataGrid>
-)
+export const HttpError: Story = {
+  args: { status: "error", code: 404 },
+  parameters: {
+    docs: {
+      description: {
+        story: "Page-level 404 error. Title and body are derived from the HTTP error code reference.",
+      },
+    },
+  },
+}
+
+export const WithDetails: Story = {
+  args: {
+    status: "error",
+    details: `Error: Failed to fetch resource\n  at fetchData (api.ts:42)\n  at async loadServices (services.ts:17)`,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Pass a stack trace or server response via `details` to render it in a scrollable `<pre>` block below the message. Useful for technical users who need the full error context.",
+      },
+    },
+  },
+}
 
 export const DataGridLoading: Story = {
   args: { status: "progress" },
-  render: (args) => <DataGridWrapper {...args} />,
+  render: (args) => (
+    <DataGrid columns={4}>
+      <DataGridRow>
+        <DataGridHeadCell>Name</DataGridHeadCell>
+        <DataGridHeadCell>Region</DataGridHeadCell>
+        <DataGridHeadCell>Status</DataGridHeadCell>
+        <DataGridHeadCell>Last Updated</DataGridHeadCell>
+      </DataGridRow>
+      <DataGridRow>
+        <DataGridCell colSpan={4}>
+          <Status {...args} />
+        </DataGridCell>
+      </DataGridRow>
+    </DataGrid>
+  ),
   parameters: {
     docs: {
       description: {
@@ -68,7 +92,21 @@ export const DataGridLoading: Story = {
 
 export const DataGridError: Story = {
   args: { status: "error" },
-  render: (args) => <DataGridWrapper {...args} />,
+  render: (args) => (
+    <DataGrid columns={4}>
+      <DataGridRow>
+        <DataGridHeadCell>Name</DataGridHeadCell>
+        <DataGridHeadCell>Region</DataGridHeadCell>
+        <DataGridHeadCell>Status</DataGridHeadCell>
+        <DataGridHeadCell>Last Updated</DataGridHeadCell>
+      </DataGridRow>
+      <DataGridRow>
+        <DataGridCell colSpan={4}>
+          <Status {...args} />
+        </DataGridCell>
+      </DataGridRow>
+    </DataGrid>
+  ),
   parameters: {
     docs: {
       description: {
@@ -81,7 +119,21 @@ export const DataGridError: Story = {
 
 export const DataGridEmpty: Story = {
   args: { status: "empty" },
-  render: (args) => <DataGridWrapper {...args} />,
+  render: (args) => (
+    <DataGrid columns={4}>
+      <DataGridRow>
+        <DataGridHeadCell>Name</DataGridHeadCell>
+        <DataGridHeadCell>Region</DataGridHeadCell>
+        <DataGridHeadCell>Status</DataGridHeadCell>
+        <DataGridHeadCell>Last Updated</DataGridHeadCell>
+      </DataGridRow>
+      <DataGridRow>
+        <DataGridCell colSpan={4}>
+          <Status {...args} />
+        </DataGridCell>
+      </DataGridRow>
+    </DataGrid>
+  ),
   parameters: {
     docs: {
       description: {
@@ -94,7 +146,21 @@ export const DataGridEmpty: Story = {
 
 export const DataGridNoMatches: Story = {
   args: { status: "no-matches" },
-  render: (args) => <DataGridWrapper {...args} />,
+  render: (args) => (
+    <DataGrid columns={4}>
+      <DataGridRow>
+        <DataGridHeadCell>Name</DataGridHeadCell>
+        <DataGridHeadCell>Region</DataGridHeadCell>
+        <DataGridHeadCell>Status</DataGridHeadCell>
+        <DataGridHeadCell>Last Updated</DataGridHeadCell>
+      </DataGridRow>
+      <DataGridRow>
+        <DataGridCell colSpan={4}>
+          <Status {...args} />
+        </DataGridCell>
+      </DataGridRow>
+    </DataGrid>
+  ),
   parameters: {
     docs: {
       description: {
