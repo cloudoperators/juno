@@ -5,6 +5,7 @@
 
 import React, { ReactNode } from "react"
 import { Spinner } from "../Spinner"
+import { useDataGridContext } from "../DataGrid/DataGrid.component"
 
 const HTTP_ERRORS: Record<number, { title: string; body: string }> = {
   401: { title: "Authentication Required", body: "Authentication failed. Verify your credentials and try again." },
@@ -48,6 +49,19 @@ export interface StatusProps {
   className?: string
 }
 
+const statusStyles = `
+  jn:flex
+  jn:flex-col
+  jn:items-center
+  jn:text-center
+`
+
+const codeStyles = `
+  jn:text-[13rem]
+  jn:font-bold
+  jn:leading-none
+`
+
 export const Status = ({
   status = "error",
   title,
@@ -59,6 +73,8 @@ export const Status = ({
   className = "",
   ...props
 }: StatusProps) => {
+  const { isDataGrid } = useDataGridContext()
+
   const numericCode = typeof code === "string" ? parseInt(code, 10) : code
   const httpDefaults = numericCode ? HTTP_ERRORS[numericCode] : undefined
   const statusDefaults = status ? STATUS_DEFAULTS[status] : undefined
@@ -69,8 +85,9 @@ export const Status = ({
   const resolvedSpinner = spinner ?? status === "progress"
 
   return (
-    <div className={`juno-status ${className}`} {...props}>
-      {code && <div className="juno-status-code">{code}</div>}
+    <div className={`juno-status ${statusStyles} ${className}`} {...props}>
+      {/* HTTP error codes are not rendered inside a DataGrid */}
+      {code && !isDataGrid && <div className={`juno-status-code ${codeStyles}`}>{code}</div>}
       {resolvedSpinner && <Spinner variant="primary" />}
       {resolvedTitle && <div className="juno-status-title">{resolvedTitle}</div>}
       {resolvedBody && <div className="juno-status-body">{resolvedBody}</div>}
