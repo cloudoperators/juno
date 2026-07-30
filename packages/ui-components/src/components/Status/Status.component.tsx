@@ -8,6 +8,7 @@ import { Spinner } from "../Spinner"
 import { useDataGridContext } from "../DataGrid/DataGrid.component"
 
 const HTTP_ERRORS: Record<number, { title: string; body: string }> = {
+  400: { title: "Bad Request", body: "The request could not be processed due to invalid syntax. Try again." },
   401: { title: "Authentication Required", body: "Authentication failed. Verify your credentials and try again." },
   403: { title: "Access Denied", body: "You do not have the required permissions to access this resource." },
   404: { title: "Page Not Found", body: "The requested URL does not exist or may have moved." },
@@ -30,7 +31,7 @@ const STATUS_DEFAULTS: Record<string, { title: string; body: string }> = {
   "no-matches": { title: "", body: "No items match the current filters. Adjust or clear filters." },
 }
 
-export interface StatusProps {
+export interface StatusProps extends React.HTMLAttributes<HTMLDivElement> {
   /** The status to display. Determines the default copy. Defaults to `"error"`. */
   status?: "progress" | "error" | "empty" | "no-matches"
   /** Optional title. Overrides the per-status default title when set. */
