@@ -6,6 +6,7 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { Status } from "./index"
+import { Button } from "../Button/Button.component"
 import { DataGrid } from "../DataGrid/DataGrid.component"
 import { DataGridRow } from "../DataGridRow/DataGridRow.component"
 import { DataGridCell } from "../DataGridCell/DataGridCell.component"
@@ -90,6 +91,18 @@ export const WithDetails: Story = {
       description: {
         story:
           "Pass a stack trace or server response via `details` to render it in a scrollable `<pre>` block below the message. Useful for technical users who need the full error context.",
+      },
+    },
+  },
+}
+
+export const WithAction: Story = {
+  args: { status: "error" },
+  render: (args) => <Status {...args} action={<Button variant="primary">Retry</Button>} />,
+  parameters: {
+    docs: {
+      description: {
+        story: "Pass any element via the `action` slot — typically a `Button` or a button-styled anchor.",
       },
     },
   },

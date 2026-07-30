@@ -138,7 +138,7 @@ export const Status = ({
           {details}
         </pre>
       )}
-      {action && <div className="juno-status-action">{action}</div>}
+      {action && <div className="juno-status-action jn:mt-4">{action}</div>}
     </div>
   )
 }
