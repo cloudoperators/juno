@@ -30,7 +30,7 @@ const STATUS_DEFAULTS: Record<string, { title: string; body: string }> = {
 }
 
 export interface StatusProps {
-  /** The status to display. Determines the default icon, color, and copy. */
+  /** The status to display. Determines the default copy. Defaults to `"error"`. */
   status?: "progress" | "error" | "empty" | "no-matches"
   /** Optional title. Overrides the per-status default title when set. */
   title?: string
@@ -49,7 +49,7 @@ export interface StatusProps {
 }
 
 export const Status = ({
-  status,
+  status = "error",
   title,
   body,
   spinner,
