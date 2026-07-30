@@ -409,6 +409,7 @@
   --text-color-theme-pageheader-appname-hover: var(--color-pageheader-appname-text-hover);
   --text-color-theme-sidenavigation-item-active: var(--color-sidenavigation-item-active);
   --text-color-theme-status-details: var(--color-status-details-text);
+  --text-color-theme-status-code: var(--color-status-code);
 
   /* Component Border Colors: */
   --border-color-theme-default: var(--color-border-default);
@@ -457,6 +458,7 @@
   --border-color-theme-textinput-default: var(--color-textinput-default-border);
 
   --border-color-theme-sidenav: var(--color-sidenav-border);
+  --border-color-theme-status-details: var(--color-status-details-border);
 
   --padding-xs: 0.25rem;
   --padding-sm: 0.5rem;
@@ -706,6 +708,9 @@
   /* LT Status */
   --color-status-details-bg: var(--color-background-lvl-2);
   --color-status-details-text: var(--color-text-default);
+  --color-status-details-border: var(--color-border-default);
+  --color-status-code: var(--color-text-disabled);
+  /* LT Panel */
   --color-panel-bg: rgb(252 252 252 / 0.8);
   /* LT PageHeader */
   --color-pageheader-background: var(--color-juno-grey-blue-11);
@@ -982,6 +987,8 @@
   /* DT Status */
   --color-status-details-bg: var(--color-background-lvl-2);
   --color-status-details-text: var(--color-text-default);
+  --color-status-details-border: var(--color-border-default);
+  --color-status-code: var(--color-text-disabled);
   /* DT Panel */
   --color-panel-bg: rgb(from var(--color-juno-grey-blue-11) r g b / 0.75);
   /* DT PageHeader */

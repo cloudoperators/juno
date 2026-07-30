@@ -26,8 +26,8 @@ const HTTP_ERRORS: Record<number, { title: string; body: string }> = {
 const STATUS_DEFAULTS: Record<string, { title: string; body: string }> = {
   progress: { title: "Loading…", body: "" },
   error: { title: "Something went wrong", body: "An error occurred. Try again." },
-  empty: { title: "No items", body: "" },
-  "no-matches": { title: "No results", body: "No items match your current filters." },
+  empty: { title: "No items", body: "There are no items to display." },
+  "no-matches": { title: "", body: "No items match the current filters. Adjust or clear filters." },
 }
 
 export interface StatusProps {
@@ -60,6 +60,7 @@ const statusDataGridStyles = `
   jn:min-h-[12.5rem]
   jn:max-h-[18.1875rem]
   jn:justify-center
+  jn:my-2
 `
 
 const detailsDataGridStyles = `
@@ -71,6 +72,18 @@ const codeStyles = `
   jn:text-[12.5rem]
   jn:font-bold
   jn:leading-none
+  jn:text-theme-status-code
+`
+
+const titleStyles = `
+  jn:text-lg
+  jn:leading-[1.5]
+  jn:max-w-[50rem]
+`
+
+const bodyStyles = `
+  jn:leading-[1.5]
+  jn:max-w-[50rem]
 `
 
 const detailsStyles = `
@@ -78,8 +91,14 @@ const detailsStyles = `
   jn:text-xs
   jn:bg-theme-status-details
   jn:text-theme-status-details
+  jn:border
+  jn:border-theme-status-details
   jn:py-0.5
   jn:px-1
+  jn:mt-4
+  jn:w-full
+  jn:max-w-[50rem]
+  jn:overflow-x-auto
 `
 
 export const Status = ({
@@ -112,8 +131,8 @@ export const Status = ({
       {/* suppress rendering HTTP error codes inside a DataGrid: */}
       {code && !isDataGrid && <div className={`juno-status-code ${codeStyles}`}>{code}</div>}
       {resolvedSpinner && <Spinner variant="primary" />}
-      {resolvedTitle && <div className="juno-status-title">{resolvedTitle}</div>}
-      {resolvedBody && <div className="juno-status-body">{resolvedBody}</div>}
+      {resolvedTitle && <strong className={`juno-status-title ${titleStyles}`}>{resolvedTitle}</strong>}
+      {resolvedBody && <div className={`juno-status-body ${bodyStyles}`}>{resolvedBody}</div>}
       {details && (
         <pre className={`juno-status-details ${detailsStyles} ${isDataGrid ? detailsDataGridStyles : ""}`}>
           {details}
