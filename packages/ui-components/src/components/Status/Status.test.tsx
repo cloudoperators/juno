@@ -13,7 +13,17 @@ import { DataGridCell } from "../DataGridCell/DataGridCell.component"
 describe("Status", () => {
   it("renders a Status", () => {
     render(<Status />)
-    expect(document.querySelector(".juno-status")).toBeInTheDocument()
+    expect(screen.getByRole("alert")).toBeInTheDocument()
+  })
+
+  it("renders with role alert for error status", () => {
+    render(<Status status="error" />)
+    expect(screen.getByRole("alert")).toBeInTheDocument()
+  })
+
+  it("renders with role status for non-error statuses", () => {
+    render(<Status status="progress" />)
+    expect(screen.getByRole("status")).toBeInTheDocument()
   })
 
   it("renders a spinner when status is progress", () => {
@@ -45,17 +55,17 @@ describe("Status", () => {
 
   it("renders the default error title with no props", () => {
     render(<Status />)
-    expect(screen.getByText("Something went wrong")).toBeInTheDocument()
+    expect(screen.getByRole("alert")).toHaveTextContent("Something went wrong")
   })
 
   it("renders the default title for the progress status", () => {
     render(<Status status="progress" />)
-    expect(screen.getByText("Loading…")).toBeInTheDocument()
+    expect(screen.getByRole("status")).toHaveTextContent("Loading…")
   })
 
   it("renders the default title for the empty status", () => {
     render(<Status status="empty" />)
-    expect(screen.getByText("No items")).toBeInTheDocument()
+    expect(screen.getByRole("status")).toHaveTextContent("No items")
   })
 
   it("renders title and body from HTTP error code", () => {
@@ -76,13 +86,13 @@ describe("Status", () => {
 
   it("renders details in a pre element", () => {
     render(<Status details="Error: something failed" />)
-    expect(document.querySelector(".juno-status-details")).toBeInTheDocument()
+    expect(screen.getByLabelText("Error details")).toBeInTheDocument()
     expect(screen.getByText("Error: something failed")).toBeInTheDocument()
   })
 
   it("does not render details when not passed", () => {
     render(<Status />)
-    expect(document.querySelector(".juno-status-details")).not.toBeInTheDocument()
+    expect(screen.queryByLabelText("Error details")).not.toBeInTheDocument()
   })
 
   it("renders code outside a DataGrid", () => {
@@ -97,7 +107,7 @@ describe("Status", () => {
 
   it("renders a custom className", () => {
     render(<Status className="my-custom-class" />)
-    expect(document.querySelector(".juno-status")).toHaveClass("my-custom-class")
+    expect(screen.getByRole("alert")).toHaveClass("my-custom-class")
   })
 
   it("passes arbitrary props to the root element", () => {
@@ -128,6 +138,6 @@ describe("Status", () => {
         </DataGridRow>
       </DataGrid>
     )
-    expect(document.querySelector(".juno-status")).toHaveClass("juno-status-datagrid")
+    expect(screen.getByRole("alert")).toHaveClass("juno-status-datagrid")
   })
 })

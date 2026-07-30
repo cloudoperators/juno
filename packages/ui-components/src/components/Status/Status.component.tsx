@@ -123,18 +123,24 @@ export const Status = ({
 
   const resolvedSpinner = spinner ?? status === "progress"
 
+  const role = status === "error" ? "alert" : "status"
+
   return (
     <div
+      role={role}
       className={`juno-status ${isDataGrid ? `juno-status-datagrid ${statusDataGridStyles}` : ""} ${statusStyles} ${className}`}
       {...props}
     >
       {/* suppress rendering HTTP error codes inside a DataGrid: */}
       {code && !isDataGrid && <div className={`juno-status-code ${codeStyles}`}>{code}</div>}
-      {resolvedSpinner && <Spinner variant="primary" />}
+      {resolvedSpinner && <Spinner variant="primary" aria-label={resolvedTitle ?? "Loading"} />}
       {resolvedTitle && <strong className={`juno-status-title ${titleStyles}`}>{resolvedTitle}</strong>}
       {resolvedBody && <div className={`juno-status-body ${bodyStyles}`}>{resolvedBody}</div>}
       {details && (
-        <pre className={`juno-status-details ${detailsStyles} ${isDataGrid ? detailsDataGridStyles : ""}`}>
+        <pre
+          aria-label="Error details"
+          className={`juno-status-details ${detailsStyles} ${isDataGrid ? detailsDataGridStyles : ""}`}
+        >
           {details}
         </pre>
       )}
