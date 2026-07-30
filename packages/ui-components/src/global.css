@@ -381,6 +381,7 @@
   --background-color-theme-required: var(--color-required-bg);
   --background-color-theme-select: var(--color-select-bg);
   --background-color-theme-sidenavigation-item-active: var(--color-sidenavigation-item-active-bg);
+  --background-color-theme-status-details: var(--color-status-details-bg);
   --background-color-theme-switch-handle: var(--color-switch-handle-bg);
   --background-color-theme-switch-handle-checked: var(--color-switch-handle-checked-bg);
   --background-color-theme-tab-navigation-top: var(--color-tabnavigation-top-bg);
@@ -424,6 +425,7 @@
   --text-color-theme-pageheader-appname-default: var(--color-pageheader-appname-text-default);
   --text-color-theme-pageheader-appname-hover: var(--color-pageheader-appname-text-hover);
   --text-color-theme-sidenavigation-item-active: var(--color-sidenavigation-item-active);
+  --text-color-theme-status-details: var(--color-status-details-text);
 
   /* Component Border Colors: */
   --border-color-theme-default: var(--color-border-default);
@@ -726,6 +728,9 @@
   --color-codeblock-bg: var(--color-background-lvl-2);
   --color-codeblock-bar-border: var(--color-background-lvl-4);
   --color-codeblock-footer-border: var(--color-background-lvl-4);
+  /* LT Status */
+  --color-status-details-bg: var(--color-background-lvl-2);
+  --color-status-details-text: var(--color-text-default);
   /* LT Panel */
   --color-panel-bg: rgb(252 252 252 / 0.8);
   /* LT PageHeader */
@@ -986,6 +991,9 @@
   --color-codeblock-bg: var(--color-background-lvl-2);
   --color-codeblock-bar-border: var(--color-background-lvl-4);
   --color-codeblock-footer-border: var(--color-background-lvl-4);
+  /* DT Status */
+  --color-status-details-bg: var(--color-background-lvl-2);
+  --color-status-details-text: var(--color-text-default);
   /* DT Panel */
   --color-panel-bg: rgb(from var(--color-juno-grey-blue-11) r g b / 0.75);
   /* DT PageHeader */

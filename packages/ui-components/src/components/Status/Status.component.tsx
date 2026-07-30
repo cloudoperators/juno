@@ -56,10 +56,30 @@ const statusStyles = `
   jn:text-center
 `
 
+const statusDataGridStyles = `
+  jn:min-h-[12.5rem]
+  jn:max-h-[18.1875rem]
+  jn:justify-center
+`
+
+const detailsDataGridStyles = `
+  jn:min-h-0
+  jn:overflow-y-auto
+`
+
 const codeStyles = `
-  jn:text-[13rem]
+  jn:text-[12.5rem]
   jn:font-bold
   jn:leading-none
+`
+
+const detailsStyles = `
+  jn:text-left
+  jn:text-xs
+  jn:bg-theme-status-details
+  jn:text-theme-status-details
+  jn:py-0.5
+  jn:px-1
 `
 
 export const Status = ({
@@ -85,13 +105,20 @@ export const Status = ({
   const resolvedSpinner = spinner ?? status === "progress"
 
   return (
-    <div className={`juno-status ${statusStyles} ${className}`} {...props}>
-      {/* HTTP error codes are not rendered inside a DataGrid */}
+    <div
+      className={`juno-status ${isDataGrid ? `juno-status-datagrid ${statusDataGridStyles}` : ""} ${statusStyles} ${className}`}
+      {...props}
+    >
+      {/* suppress rendering HTTP error codes inside a DataGrid: */}
       {code && !isDataGrid && <div className={`juno-status-code ${codeStyles}`}>{code}</div>}
       {resolvedSpinner && <Spinner variant="primary" />}
       {resolvedTitle && <div className="juno-status-title">{resolvedTitle}</div>}
       {resolvedBody && <div className="juno-status-body">{resolvedBody}</div>}
-      {details && <pre className="juno-status-details">{details}</pre>}
+      {details && (
+        <pre className={`juno-status-details ${detailsStyles} ${isDataGrid ? detailsDataGridStyles : ""}`}>
+          {details}
+        </pre>
+      )}
       {action && <div className="juno-status-action">{action}</div>}
     </div>
   )

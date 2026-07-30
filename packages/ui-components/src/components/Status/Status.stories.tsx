@@ -34,6 +34,37 @@ const meta: Meta<typeof Status> = {
 export default meta
 type Story = StoryObj<typeof Status>
 
+const longStackTrace = `Error: Failed to fetch resource
+  at fetchData (api.ts:42)
+  at async loadServices (services.ts:17)
+  at async ServiceList.componentDidMount (ServiceList.tsx:88)
+  at async Promise.all (index 0)
+  at async fetchAll (dataLoader.ts:130)
+  at async DataLoader.load (dataLoader.ts:98)
+  at async DataLoader.reload (dataLoader.ts:112)
+  at async AppBootstrap.init (AppBootstrap.ts:54)
+  at async AppBootstrap.run (AppBootstrap.ts:67)
+  at async main (index.ts:12)
+Caused by: NetworkError: net::ERR_CONNECTION_REFUSED
+  at XMLHttpRequest.onload (http.ts:23)
+  at XMLHttpRequest.dispatchEvent (xhr-polyfill.js:14)
+  at EventTarget.dispatchEvent (event-target.js:88)
+  at XMLHttpRequest.send (xhr.ts:201)
+  at HttpClient.request (http-client.ts:77)
+  at HttpClient.get (http-client.ts:92)
+  at fetchData (api.ts:38)
+  at retryWithBackoff (retry.ts:14)
+  at retryWithBackoff (retry.ts:22)
+  at retryWithBackoff (retry.ts:22)
+  at async fetchWithRetry (fetchWithRetry.ts:9)
+  at async ResourceStore.fetch (ResourceStore.ts:61)
+  at async ResourceStore.refresh (ResourceStore.ts:74)
+  at async ResourceStore.initialize (ResourceStore.ts:88)
+  at async App.bootstrap (App.tsx:33)
+  at async App.componentDidMount (App.tsx:44)
+  at async renderWithHooks (react-dom.development.js:14985)
+  at async commitLifeCycles (react-dom.development.js:20663)`
+
 export const Default: Story = {
   args: {},
 }
@@ -52,7 +83,7 @@ export const HttpError: Story = {
 export const WithDetails: Story = {
   args: {
     status: "error",
-    details: `Error: Failed to fetch resource\n  at fetchData (api.ts:42)\n  at async loadServices (services.ts:17)`,
+    details: longStackTrace,
   },
   parameters: {
     docs: {
@@ -166,6 +197,35 @@ export const DataGridNoMatches: Story = {
       description: {
         story:
           'Use `status="no-matches"` inside a `DataGridRow` spanning all columns when items exist but none match the currently applied filters.',
+      },
+    },
+  },
+}
+
+export const DataGridErrorWithDetails: Story = {
+  args: {
+    status: "error",
+    details: longStackTrace,
+  },
+  render: (args) => (
+    <DataGrid columns={4}>
+      <DataGridRow>
+        <DataGridHeadCell>Name</DataGridHeadCell>
+        <DataGridHeadCell>Region</DataGridHeadCell>
+        <DataGridHeadCell>Status</DataGridHeadCell>
+        <DataGridHeadCell>Last Updated</DataGridHeadCell>
+      </DataGridRow>
+      <DataGridRow>
+        <DataGridCell colSpan={4}>
+          <Status {...args} />
+        </DataGridCell>
+      </DataGridRow>
+    </DataGrid>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "DataGrid error state with a stack trace passed via `details`.",
       },
     },
   },

@@ -6,6 +6,9 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import { Status } from "./Status.component"
+import { DataGrid } from "../DataGrid/DataGrid.component"
+import { DataGridRow } from "../DataGridRow/DataGridRow.component"
+import { DataGridCell } from "../DataGridCell/DataGridCell.component"
 
 describe("Status", () => {
   it("renders a Status", () => {
@@ -38,5 +41,31 @@ describe("Status", () => {
   it("renders the spinner with the primary variant", () => {
     render(<Status status="progress" />)
     expect(screen.getByRole("progressbar")).toHaveClass("jn:text-theme-accent")
+  })
+
+  it("does not render a code inside a DataGrid", () => {
+    render(
+      <DataGrid columns={1}>
+        <DataGridRow>
+          <DataGridCell>
+            <Status status="error" code={404} />
+          </DataGridCell>
+        </DataGridRow>
+      </DataGrid>
+    )
+    expect(screen.queryByText("404")).not.toBeInTheDocument()
+  })
+
+  it("adds a datagrid identifier class when rendered inside a DataGrid", () => {
+    render(
+      <DataGrid columns={1}>
+        <DataGridRow>
+          <DataGridCell>
+            <Status />
+          </DataGridCell>
+        </DataGridRow>
+      </DataGrid>
+    )
+    expect(document.querySelector(".juno-status")).toHaveClass("juno-status-datagrid")
   })
 })
