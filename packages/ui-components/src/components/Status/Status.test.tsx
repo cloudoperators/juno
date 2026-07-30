@@ -43,6 +43,68 @@ describe("Status", () => {
     expect(screen.getByRole("progressbar")).toHaveClass("jn:text-theme-accent")
   })
 
+  it("renders the default error title with no props", () => {
+    render(<Status />)
+    expect(screen.getByText("Something went wrong")).toBeInTheDocument()
+  })
+
+  it("renders the default title for the progress status", () => {
+    render(<Status status="progress" />)
+    expect(screen.getByText("Loading…")).toBeInTheDocument()
+  })
+
+  it("renders the default title for the empty status", () => {
+    render(<Status status="empty" />)
+    expect(screen.getByText("No items")).toBeInTheDocument()
+  })
+
+  it("renders title and body from HTTP error code", () => {
+    render(<Status status="error" code={404} />)
+    expect(screen.getByText("Page Not Found")).toBeInTheDocument()
+    expect(screen.getByText("The requested URL does not exist or may have moved.")).toBeInTheDocument()
+  })
+
+  it("overrides default title when title prop is passed", () => {
+    render(<Status status="error" title="Custom title" />)
+    expect(screen.getByText("Custom title")).toBeInTheDocument()
+  })
+
+  it("renders body text", () => {
+    render(<Status body="Please try again." />)
+    expect(screen.getByText("Please try again.")).toBeInTheDocument()
+  })
+
+  it("renders details in a pre element", () => {
+    render(<Status details="Error: something failed" />)
+    expect(document.querySelector(".juno-status-details")).toBeInTheDocument()
+    expect(screen.getByText("Error: something failed")).toBeInTheDocument()
+  })
+
+  it("does not render details when not passed", () => {
+    render(<Status />)
+    expect(document.querySelector(".juno-status-details")).not.toBeInTheDocument()
+  })
+
+  it("renders code outside a DataGrid", () => {
+    render(<Status status="error" code={500} />)
+    expect(screen.getByText("500")).toBeInTheDocument()
+  })
+
+  it("renders the action slot", () => {
+    render(<Status action={<button>Retry</button>} />)
+    expect(screen.getByRole("button", { name: "Retry" })).toBeInTheDocument()
+  })
+
+  it("renders a custom className", () => {
+    render(<Status className="my-custom-class" />)
+    expect(document.querySelector(".juno-status")).toHaveClass("my-custom-class")
+  })
+
+  it("passes arbitrary props to the root element", () => {
+    render(<Status data-testid="my-status" />)
+    expect(screen.getByTestId("my-status")).toBeInTheDocument()
+  })
+
   it("does not render a code inside a DataGrid", () => {
     render(
       <DataGrid columns={1}>
