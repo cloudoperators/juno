@@ -104,6 +104,10 @@ A DataGrid must handle the full range of data states gracefully. Do not render a
 - **Empty (filtered):** Distinguish between "no data exists" and "no data matches your filters" — these suggest different user actions
 - **Error:** Show an error state scoped to the DataGrid with a clear explanation and a retry option where possible. If present, refer users to the Reload/Refresh button described below.
 
+Use the [`Status`](https://cloudoperators.github.io/juno/?path=/docs/components-status--docs) component for all of these states. Place it inside a `DataGridRow` and `DataGridCell` spanning all columns. `Status` automatically adapts its styling to the DataGrid context. See Storybook for usage examples.
+
+![A DataGrid with a generic error rendered using the `Status` compponent](images/status-generic-error-datagrid.png)
+
 ## Re-Loading Data
 
 A DataGrid may have a Reload/Refresh-button in the Header in order to make sure the latest state of the data is displayed and interacted with.
