@@ -14,6 +14,7 @@ import { DataGridHeadCell } from "../DataGridHeadCell/DataGridHeadCell.component
 import { DataGridToolbar } from "../DataGridToolbar/DataGridToolbar.component"
 import { SearchInput } from "../SearchInput/SearchInput.component"
 import { Stack } from "../Stack/Stack.component"
+import { PageHeader } from "../PageHeader/PageHeader.component"
 
 const meta: Meta<typeof Status> = {
   title: "Components/Status",
@@ -37,6 +38,13 @@ const meta: Meta<typeof Status> = {
 
 export default meta
 type Story = StoryObj<typeof Status>
+
+const MockPageContextDecorator = (Story: React.ComponentType) => (
+  <div style={{ minHeight: "600px" }}>
+    <PageHeader applicationName="My App" />
+    <Story />
+  </div>
+)
 
 const longStackTrace = `Error: Failed to fetch resource
   at fetchData (api.ts:42)
@@ -120,6 +128,11 @@ export const Loading: Story = {
       },
     },
   },
+}
+
+export const InPageContext: Story = {
+  decorators: [MockPageContextDecorator],
+  args: { className: "jn:mt-8" },
 }
 
 export const DataGridLoading: Story = {
