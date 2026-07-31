@@ -11,6 +11,9 @@ import { DataGrid } from "../DataGrid/DataGrid.component"
 import { DataGridRow } from "../DataGridRow/DataGridRow.component"
 import { DataGridCell } from "../DataGridCell/DataGridCell.component"
 import { DataGridHeadCell } from "../DataGridHeadCell/DataGridHeadCell.component"
+import { DataGridToolbar } from "../DataGridToolbar/DataGridToolbar.component"
+import { SearchInput } from "../SearchInput/SearchInput.component"
+import { Stack } from "../Stack/Stack.component"
 
 const meta: Meta<typeof Status> = {
   title: "Components/Status",
@@ -109,26 +112,34 @@ export const WithAction: Story = {
 }
 
 export const DataGridLoading: Story = {
-  args: { status: "progress" },
+  args: { status: "progress", title: "Loading Servers …" },
   render: (args) => (
-    <DataGrid columns={4}>
-      <DataGridRow>
-        <DataGridHeadCell>Name</DataGridHeadCell>
-        <DataGridHeadCell>Region</DataGridHeadCell>
-        <DataGridHeadCell>Status</DataGridHeadCell>
-        <DataGridHeadCell>Last Updated</DataGridHeadCell>
-      </DataGridRow>
-      <DataGridRow>
-        <DataGridCell colSpan={4}>
-          <Status {...args} />
-        </DataGridCell>
-      </DataGridRow>
-    </DataGrid>
+    <Stack direction="vertical">
+      <DataGridToolbar>
+        <Stack alignment="center" distribution="end">
+          <SearchInput placeholder="Search Servers …" />
+        </Stack>
+      </DataGridToolbar>
+      <DataGrid columns={4}>
+        <DataGridRow>
+          <DataGridHeadCell>Name</DataGridHeadCell>
+          <DataGridHeadCell>Region</DataGridHeadCell>
+          <DataGridHeadCell>Status</DataGridHeadCell>
+          <DataGridHeadCell>Last Updated</DataGridHeadCell>
+        </DataGridRow>
+        <DataGridRow>
+          <DataGridCell colSpan={4}>
+            <Status {...args} />
+          </DataGridCell>
+        </DataGridRow>
+      </DataGrid>
+    </Stack>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Use `status="progress"` inside a `DataGridRow` spanning all columns while data is being fetched.',
+        story:
+          'Use `status="progress"` inside a `DataGridRow` spanning all columns while data is being fetched. Use the title `title` prop to further qualify the kind of items currently being loaded if possible, otherwise the default title "Loading …" will be rendered.',
       },
     },
   },
@@ -137,19 +148,26 @@ export const DataGridLoading: Story = {
 export const DataGridError: Story = {
   args: { status: "error" },
   render: (args) => (
-    <DataGrid columns={4}>
-      <DataGridRow>
-        <DataGridHeadCell>Name</DataGridHeadCell>
-        <DataGridHeadCell>Region</DataGridHeadCell>
-        <DataGridHeadCell>Status</DataGridHeadCell>
-        <DataGridHeadCell>Last Updated</DataGridHeadCell>
-      </DataGridRow>
-      <DataGridRow>
-        <DataGridCell colSpan={4}>
-          <Status {...args} />
-        </DataGridCell>
-      </DataGridRow>
-    </DataGrid>
+    <Stack direction="vertical">
+      <DataGridToolbar>
+        <Stack alignment="center" distribution="end">
+          <SearchInput placeholder="Search Servers …" />
+        </Stack>
+      </DataGridToolbar>
+      <DataGrid columns={4}>
+        <DataGridRow>
+          <DataGridHeadCell>Name</DataGridHeadCell>
+          <DataGridHeadCell>Region</DataGridHeadCell>
+          <DataGridHeadCell>Status</DataGridHeadCell>
+          <DataGridHeadCell>Last Updated</DataGridHeadCell>
+        </DataGridRow>
+        <DataGridRow>
+          <DataGridCell colSpan={4}>
+            <Status {...args} />
+          </DataGridCell>
+        </DataGridRow>
+      </DataGrid>
+    </Stack>
   ),
   parameters: {
     docs: {
@@ -164,19 +182,26 @@ export const DataGridError: Story = {
 export const DataGridEmpty: Story = {
   args: { status: "empty" },
   render: (args) => (
-    <DataGrid columns={4}>
-      <DataGridRow>
-        <DataGridHeadCell>Name</DataGridHeadCell>
-        <DataGridHeadCell>Region</DataGridHeadCell>
-        <DataGridHeadCell>Status</DataGridHeadCell>
-        <DataGridHeadCell>Last Updated</DataGridHeadCell>
-      </DataGridRow>
-      <DataGridRow>
-        <DataGridCell colSpan={4}>
-          <Status {...args} />
-        </DataGridCell>
-      </DataGridRow>
-    </DataGrid>
+    <Stack direction="vertical">
+      <DataGridToolbar>
+        <Stack alignment="center" distribution="end">
+          <SearchInput placeholder="Search Servers …" />
+        </Stack>
+      </DataGridToolbar>
+      <DataGrid columns={4}>
+        <DataGridRow>
+          <DataGridHeadCell>Name</DataGridHeadCell>
+          <DataGridHeadCell>Region</DataGridHeadCell>
+          <DataGridHeadCell>Status</DataGridHeadCell>
+          <DataGridHeadCell>Last Updated</DataGridHeadCell>
+        </DataGridRow>
+        <DataGridRow>
+          <DataGridCell colSpan={4}>
+            <Status {...args} />
+          </DataGridCell>
+        </DataGridRow>
+      </DataGrid>
+    </Stack>
   ),
   parameters: {
     docs: {
@@ -191,19 +216,26 @@ export const DataGridEmpty: Story = {
 export const DataGridNoMatches: Story = {
   args: { status: "no-matches" },
   render: (args) => (
-    <DataGrid columns={4}>
-      <DataGridRow>
-        <DataGridHeadCell>Name</DataGridHeadCell>
-        <DataGridHeadCell>Region</DataGridHeadCell>
-        <DataGridHeadCell>Status</DataGridHeadCell>
-        <DataGridHeadCell>Last Updated</DataGridHeadCell>
-      </DataGridRow>
-      <DataGridRow>
-        <DataGridCell colSpan={4}>
-          <Status {...args} />
-        </DataGridCell>
-      </DataGridRow>
-    </DataGrid>
+    <Stack direction="vertical">
+      <DataGridToolbar>
+        <Stack alignment="center" distribution="end">
+          <SearchInput placeholder="Search Servers …" />
+        </Stack>
+      </DataGridToolbar>
+      <DataGrid columns={4}>
+        <DataGridRow>
+          <DataGridHeadCell>Name</DataGridHeadCell>
+          <DataGridHeadCell>Region</DataGridHeadCell>
+          <DataGridHeadCell>Status</DataGridHeadCell>
+          <DataGridHeadCell>Last Updated</DataGridHeadCell>
+        </DataGridRow>
+        <DataGridRow>
+          <DataGridCell colSpan={4}>
+            <Status {...args} />
+          </DataGridCell>
+        </DataGridRow>
+      </DataGrid>
+    </Stack>
   ),
   parameters: {
     docs: {
@@ -221,19 +253,26 @@ export const DataGridErrorWithDetails: Story = {
     details: longStackTrace,
   },
   render: (args) => (
-    <DataGrid columns={4}>
-      <DataGridRow>
-        <DataGridHeadCell>Name</DataGridHeadCell>
-        <DataGridHeadCell>Region</DataGridHeadCell>
-        <DataGridHeadCell>Status</DataGridHeadCell>
-        <DataGridHeadCell>Last Updated</DataGridHeadCell>
-      </DataGridRow>
-      <DataGridRow>
-        <DataGridCell colSpan={4}>
-          <Status {...args} />
-        </DataGridCell>
-      </DataGridRow>
-    </DataGrid>
+    <Stack direction="vertical">
+      <DataGridToolbar>
+        <Stack alignment="center" distribution="end">
+          <SearchInput placeholder="Search Servers …" />
+        </Stack>
+      </DataGridToolbar>
+      <DataGrid columns={4}>
+        <DataGridRow>
+          <DataGridHeadCell>Name</DataGridHeadCell>
+          <DataGridHeadCell>Region</DataGridHeadCell>
+          <DataGridHeadCell>Status</DataGridHeadCell>
+          <DataGridHeadCell>Last Updated</DataGridHeadCell>
+        </DataGridRow>
+        <DataGridRow>
+          <DataGridCell colSpan={4}>
+            <Status {...args} />
+          </DataGridCell>
+        </DataGridRow>
+      </DataGrid>
+    </Stack>
   ),
   parameters: {
     docs: {
