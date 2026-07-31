@@ -111,6 +111,17 @@ export const WithAction: Story = {
   },
 }
 
+export const Loading: Story = {
+  args: { status: "progress" },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use `status="progress"` at page or section level while data is being fetched.',
+      },
+    },
+  },
+}
+
 export const DataGridLoading: Story = {
   args: { status: "progress", title: "Loading Servers …" },
   render: (args) => (
