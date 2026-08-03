@@ -24,6 +24,9 @@ const meta: Meta<typeof Status> = {
       control: "select",
       options: ["progress", "error", "empty", "no-matches"],
     },
+    code: {
+      control: { type: "number" },
+    },
     action: { control: false },
   },
   parameters: {

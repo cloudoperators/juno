@@ -99,7 +99,9 @@ const detailsStyles = `
   jn:mt-4
   jn:w-full
   jn:max-w-[50rem]
+  jn:max-h-[30rem]
   jn:overflow-x-auto
+  jn:overflow-y-auto
 `
 
 export const Status = ({
@@ -133,7 +135,8 @@ export const Status = ({
       {...props}
     >
       {/* suppress rendering HTTP error codes inside a DataGrid: */}
-      {code && !isDataGrid && <div className={`juno-status-code ${codeStyles}`}>{code}</div>}
+      {/* explicit null check instead of truthiness — 0 is falsy but a valid (if unusual/non-sensical) value, but still… */}
+      {code != null && !isDataGrid && <div className={`juno-status-code ${codeStyles}`}>{code}</div>}
       {resolvedSpinner && <Spinner variant="primary" aria-label={resolvedTitle ?? "Loading"} />}
       {resolvedTitle && <strong className={`juno-status-title ${titleStyles}`}>{resolvedTitle}</strong>}
       {resolvedBody && <div className={`juno-status-body ${bodyStyles}`}>{resolvedBody}</div>}
