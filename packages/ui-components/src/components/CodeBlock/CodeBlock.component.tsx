@@ -5,7 +5,7 @@
 
 import React, { useState, useRef, useCallback, useEffect, ReactNode, HTMLAttributes } from "react"
 import { JsonViewer } from "../JsonViewer"
-import { CodeBlockFooter } from "./CodeBlockFooter.component"
+import { CodeBlockFooter } from "../CodeBlockFooter"
 
 const wrapperStyles = `
   jn:bg-theme-code-block
@@ -51,16 +51,16 @@ const codeStyles = `
 
 const headingStyles = `
   jn:text-sm
-  jn:border-b-[1px]
+  jn:border-b
   jn:border-theme-codeblock-bar
-  jn:h-[3.4375rem]
+  jn:h-13.75
   jn:flex
 `
 
 const headingInnerStyles = `
   jn:flex
   jn:font-bold
-  jn:px-[1.5625rem]
+  jn:px-6.25
   jn:items-center
 `
 

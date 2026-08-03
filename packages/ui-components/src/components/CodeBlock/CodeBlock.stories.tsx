@@ -223,6 +223,13 @@ export const CustomCodeBlockFooter: Story = {
         story:
           "Pass content into `codeBlockFooter` to add custom actions to the footer bar. Here a Download icon is shown with `copy={false}` to hide the Copy button.",
       },
+      source: {
+        code: `<CodeBlock
+  content={code}
+  copy={false}
+  codeBlockFooter={<Icon icon="download" onClick={handleDownload} />}
+/>`,
+      },
     },
   },
   render: () => {
@@ -253,6 +260,12 @@ export const CustomCodeBlockFooterWithCopy: Story = {
       description: {
         story:
           "Pass content into `codeBlockFooter` and keep `copy={true}` (the default) to show custom actions and the Copy button together in one bar. The tooltip confirmation floats above and does not affect layout.",
+      },
+      source: {
+        code: `<CodeBlock
+  content={code}
+  codeBlockFooter={<Icon icon="download" onClick={handleDownload} />}
+/>`,
       },
     },
   },
