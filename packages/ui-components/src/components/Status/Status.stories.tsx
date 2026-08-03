@@ -89,7 +89,8 @@ export const HttpError: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Page-level 404 error. Title and body are derived from the HTTP error code reference.",
+        story:
+          "Page-level 404 error. Both `title` and `body` will render the correct error title and body for known Http errors by default. These can be overridden when needed.",
       },
     },
   },
