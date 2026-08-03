@@ -14,7 +14,6 @@ jn:bg-dt-background
 jn:text-dt-text
 jn:font-bold
 jn:gap-y-[0.25rem]
-jn:whitespace-nowrap 
 jn:p-2
 jn:col-span-1
 jn:group-[.align-right]:text-right 
