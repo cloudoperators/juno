@@ -33,7 +33,7 @@ const meta: Meta<typeof Status> = {
     docs: {
       description: {
         component:
-          "`Status` is a general-purpose component for communicating non-data states: in progress, error, empty, and no matches. Use it as the default drop-in whenever a component, view, or data container has no local or specific way to handle these states — it covers application-, page-, and section-level states as well as error boundary fallbacks.\n\nWhen used inside a `DataGrid`, wrap `Status` in a `DataGridRow` and `DataGridCell` with the appropriate `colSpan` — `Status` renders a `<div>` only and has no table markup of its own.",
+          "`Status` is a general-purpose component for communicating non-data states: in progress, error, empty, and no matches. Use it as the default drop-in whenever a component, view, or data container has no local or specific way to handle these states — it covers application-, page-, and section-level states as well as error boundary fallbacks.\n\nWhen used inside a `DataGrid`, wrap `Status` in a `DataGridRow` and `DataGridCell` with the appropriate `colSpan` — `Status` renders a `<div>` only and has no table markup of its own.\n\nUsed inside a `DataGrid`, `Status` handles its own sizing and positioning automatically. Outside of `DataGrid` however, the component can not make any assumptions and relies on classes passed in from the outside for correct positioning.",
       },
     },
   },
@@ -135,7 +135,41 @@ export const Loading: Story = {
 
 export const InPageContext: Story = {
   decorators: [MockPageContextDecorator],
-  args: { className: "jn:mt-8" },
+  args: { className: "jn:mt-16" },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "`Status` does not know or care about the context and layout conditions of the surrounding page or component (with the exception of `DataGrid`), so outside of a `DataDrid` postioning has to be handled from the outside for now.",
+      },
+    },
+  },
+}
+
+export const WithCodeInPageContext: Story = {
+  decorators: [MockPageContextDecorator],
+  args: { code: 404 },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "`Status` does not know or care about the context and layout conditions of the surrounding page or component (with the exception of `DataGrid`), so outside of a `DataDrid` postioning has to be handled from the outside for now.",
+      },
+    },
+  },
+}
+
+export const WithStatusInPageContext: Story = {
+  decorators: [MockPageContextDecorator],
+  args: { className: "jn:mt-14", status: "progress" },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "`Status` does not know or care about the context and layout conditions of the surrounding page or component (with the exception of `DataGrid`), so outside of a `DataDrid` postioning has to be handled from the outside for now.",
+      },
+    },
+  },
 }
 
 export const DataGridLoading: Story = {
