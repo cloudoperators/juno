@@ -126,12 +126,14 @@ export const Status = ({
 
   const resolvedSpinner = spinner ?? status === "progress"
 
+  const resolvedTopMargin = isDataGrid ? "" : code != null ? "jn:mt-4" : resolvedSpinner ? "jn:mt-20" : "jn:mt-24"
+
   const role = status === "error" ? "alert" : "status"
 
   return (
     <div
       role={role}
-      className={`juno-status ${isDataGrid ? `juno-status-datagrid ${statusDataGridStyles}` : ""} ${statusStyles} ${className}`}
+      className={`juno-status ${isDataGrid ? `juno-status-datagrid ${statusDataGridStyles}` : `${resolvedTopMargin}`} ${statusStyles} ${className}`}
       {...props}
     >
       {/* suppress rendering HTTP error codes inside a DataGrid: */}

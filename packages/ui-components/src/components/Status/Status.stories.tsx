@@ -33,7 +33,7 @@ const meta: Meta<typeof Status> = {
     docs: {
       description: {
         component:
-          "`Status` is a general-purpose component for communicating non-data states: in progress, error, empty, and no matches. Use it as the default drop-in whenever a component, view, or data container has no local or specific way to handle these states — it covers application-, page-, and section-level states as well as error boundary fallbacks.\n\nWhen used inside a `DataGrid`, wrap `Status` in a `DataGridRow` and `DataGridCell` with the appropriate `colSpan` — `Status` renders a `<div>` only and has no table markup of its own.\n\nUsed inside a `DataGrid`, `Status` handles its own sizing and positioning automatically. Outside of `DataGrid` however, the component can not make any assumptions and relies on classes passed in from the outside for correct positioning.",
+          "`Status` is a general-purpose component for communicating non-data states: in progress, error, empty, and no matches. Use it as the default drop-in whenever a component, view, or data container has no local or specific way to handle these states — it covers application-, page-, and section-level states as well as error boundary fallbacks.\n\nWhen used inside a `DataGrid`, wrap `Status` in a `DataGridRow` and `DataGridCell` with the appropriate `colSpan` — `Status` renders a `<div>` only and has no table markup of its own. Inside a `DataGrid`, `Status` handles its own sizing and positioning automatically.\n\nOutside of a `DataGrid`, `Status` automatically applies a top margin based on what it renders — larger when neither a code nor a spinner is present, smaller for spinner states, minimal when an HTTP error code is shown. These can be overriden using the `className` when needed.",
       },
     },
   },
@@ -135,12 +135,12 @@ export const Loading: Story = {
 
 export const InPageContext: Story = {
   decorators: [MockPageContextDecorator],
-  args: { className: "jn:mt-16" },
+  args: {},
   parameters: {
     docs: {
       description: {
         story:
-          "`Status` does not know or care about the context and layout conditions of the surrounding page or component (with the exception of `DataGrid`), so outside of a `DataDrid` postioning has to be handled from the outside for now.",
+          "Default error state in a page context. `Status` applies a top margin automatically based on its content.",
       },
     },
   },
@@ -153,7 +153,7 @@ export const WithCodeInPageContext: Story = {
     docs: {
       description: {
         story:
-          "`Status` does not know or care about the context and layout conditions of the surrounding page or component (with the exception of `DataGrid`), so outside of a `DataDrid` postioning has to be handled from the outside for now.",
+          "HTTP error with a large code display. The top margin is reduced as the code block provides sufficient visual weight.",
       },
     },
   },
@@ -161,12 +161,11 @@ export const WithCodeInPageContext: Story = {
 
 export const WithStatusInPageContext: Story = {
   decorators: [MockPageContextDecorator],
-  args: { className: "jn:mt-14", status: "progress" },
+  args: { status: "progress" },
   parameters: {
     docs: {
       description: {
-        story:
-          "`Status` does not know or care about the context and layout conditions of the surrounding page or component (with the exception of `DataGrid`), so outside of a `DataDrid` postioning has to be handled from the outside for now.",
+        story: "Progress/loading state in a page context. The top margin is sized to account for the spinner.",
       },
     },
   },
