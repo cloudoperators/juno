@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t}from"./Tab.component-Bsu8TSkS.js";var n=e((()=>{t()}));export{n as t};

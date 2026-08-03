@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{a as t}from"./SideNavigationItem.component-H-9GErU1.js";var n=e((()=>{t()}));export{n as t};
