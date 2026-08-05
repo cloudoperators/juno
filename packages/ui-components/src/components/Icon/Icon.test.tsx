@@ -279,6 +279,14 @@ describe("Icon (typescript)", () => {
     expect(screen.getByRole("img")).toHaveAttribute("alt", "success")
   })
 
+  test("renders checkCircle when calling success (success has been deprecated in favour of checkCircle)", () => {
+    const { container: successContainer } = render(<Icon icon="success" />)
+    const { container: checkCircleContainer } = render(<Icon icon="checkCircle" />)
+    const successPath = successContainer.querySelector("svg path")?.getAttribute("d")
+    const checkCirclePath = checkCircleContainer.querySelector("svg path")?.getAttribute("d")
+    expect(successPath).toEqual(checkCirclePath)
+  })
+
   test("renders a warning icon", () => {
     render(<Icon icon="warning" />)
     expect(screen.getByRole("img")).toBeInTheDocument()
