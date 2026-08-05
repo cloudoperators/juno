@@ -811,7 +811,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
         />
       )
     case KnownIconsEnum.success:
-      // `success` (check_box.svg) has been sundown in favour of `checkCircle` to avoid visual inconsistency.
+      // `success` (check_box.svg) has been deprecated in favour of `checkCircle` to avoid visual inconsistency.
       // The `success` name is kept as a valid alias so existing callers continue to work.
       return (
         <CheckCircle

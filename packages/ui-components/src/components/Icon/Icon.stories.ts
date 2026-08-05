@@ -160,7 +160,7 @@ export const Check: Story = {
 }
 
 export const CheckCircle: Story = {
-  // Note: `success` and `checkCircle` return the same icon. `success` (check_box.svg) has been sundown
+  // Note: `success` and `checkCircle` return the same icon. `success` (check_box.svg) has been deprecated
   // in favour of `checkCircle` to avoid visual inconsistency between two filled checkmark icons.
   args: {
     icon: "checkCircle",
@@ -433,7 +433,7 @@ export const SeverityUnknown: Story = {
 }
 
 export const Success: Story = {
-  // Note: `success` and `checkCircle` return the same icon. `success` (check_box.svg) has been sundown
+  // Note: `success` and `checkCircle` return the same icon. `success` (check_box.svg) has been deprecated
   // in favour of `checkCircle` to avoid visual inconsistency between two filled checkmark icons.
   args: {
     ...Default.args,
