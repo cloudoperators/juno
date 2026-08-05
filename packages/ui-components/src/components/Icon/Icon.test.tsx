@@ -276,12 +276,15 @@ describe("Icon (typescript)", () => {
   test("renders a success icon", () => {
     render(<Icon icon="success" />)
     expect(screen.getByRole("img")).toBeInTheDocument()
-    expect(screen.getByRole("img")).toHaveAttribute("alt", "checkCircle")
+    expect(screen.getByRole("img")).toHaveAttribute("alt", "success")
   })
 
   test("renders checkCircle when calling success (success is an alias for checkCircle)", () => {
-    render(<Icon icon="success" />)
-    expect(screen.getByRole("img")).toHaveAttribute("alt", "checkCircle")
+    const { container: successContainer } = render(<Icon icon="success" />)
+    const { container: checkCircleContainer } = render(<Icon icon="checkCircle" />)
+    const successPath = successContainer.querySelector("svg path")?.getAttribute("d")
+    const checkCirclePath = checkCircleContainer.querySelector("svg path")?.getAttribute("d")
+    expect(successPath).toEqual(checkCirclePath)
   })
 
   test("renders a warning icon", () => {
