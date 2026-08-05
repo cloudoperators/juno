@@ -5,7 +5,7 @@
 
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
-import { CodeBlock } from "./CodeBlock.component"
+import { CodeBlock } from "./index"
 
 describe("CodeBlock", () => {
   test("renders a CodeBlock with content as passed", () => {

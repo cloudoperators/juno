@@ -205,6 +205,9 @@ export interface CodeBlockProps extends Omit<HTMLAttributes<HTMLDivElement>, "co
   /**
    * Optional. Pass content to render inside the footer bar, to the left of the Copy button.
    * Can be combined with `copy={true}` (the default) to show custom actions alongside the Copy button.
+   * **Breaking change:** Previously accepted a full replacement element that replaced the entire footer.
+   * Now injects content *into* the footer — the `CodeBlockFooter` wrapper is always rendered.
+   * Use `copy={false}` to hide the Copy button.
    */
   codeBlockFooter?: ReactNode
 
