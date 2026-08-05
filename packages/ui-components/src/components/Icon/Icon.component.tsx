@@ -48,7 +48,6 @@ import NotificationsOff from "@material-design-icons/svg/outlined/notifications_
 import OpenInBrowser from "@material-design-icons/svg/outlined/open_in_browser.svg"
 import OpenInNew from "@material-design-icons/svg/outlined/open_in_new.svg"
 import Place from "./icons/place.svg"
-import Success from "@material-design-icons/svg/filled/check_box.svg"
 import Search from "@material-design-icons/svg/outlined/search.svg"
 import SeverityLow from "./icons/juno_severity_low.svg"
 import SeverityMedium from "./icons/juno_severity_medium.svg"
@@ -812,12 +811,14 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
         />
       )
     case KnownIconsEnum.success:
+      // `success` (check_box.svg) has been sundown in favour of `checkCircle` to avoid visual inconsistency.
+      // The `success` name is kept as a valid alias so existing callers continue to work.
       return (
-        <Success
+        <CheckCircle
           width={size}
           height={size}
           className={iconClass}
-          alt="success"
+          alt="checkCircle"
           title={title ? title : "Success"}
           role="img"
           {...iconProps}
