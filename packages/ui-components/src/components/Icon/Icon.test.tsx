@@ -279,7 +279,7 @@ describe("Icon (typescript)", () => {
     expect(screen.getByRole("img")).toHaveAttribute("alt", "success")
   })
 
-  test("renders checkCircle when calling success (success is an alias for checkCircle)", () => {
+  test("renders checkCircle when calling success (success has been deprecated in favour of checkCircle)", () => {
     const { container: successContainer } = render(<Icon icon="success" />)
     const { container: checkCircleContainer } = render(<Icon icon="checkCircle" />)
     const successPath = successContainer.querySelector("svg path")?.getAttribute("d")
