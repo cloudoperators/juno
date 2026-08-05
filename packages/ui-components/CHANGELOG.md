@@ -1,5 +1,24 @@
 # @cloudoperators/juno-ui-components
 
+## 9.2.0
+
+### Minor Changes
+
+- cf79a1f: Add `CodeBlockFooter` component and `codeBlockFooter` slot to `CodeBlock`
+  - Extract the copy bar into a standalone `CodeBlockFooter` component (props: `onCopy`, `isCopied`, `className`, `...props` for arbitrary HTML attributes)
+  - Add `codeBlockFooter?: ReactElement` prop to `CodeBlock`: when provided it replaces the default footer, consistent with the `modalFooter` pattern in `Modal`
+  - The existing `copy` prop continues to control the default footer when `codeBlockFooter` is not passed (fully backward-compatible)
+  - Export `CodeBlockFooter` from the package index
+  - Introduce `--color-codeblock-footer-border` / `--border-color-theme-codeblock-footer` CSS variables for the footer border styling
+
+### Patch Changes
+
+- 9e069b7: feat(ui): add `Status` component
+- 0e59fc8: feat(ui): update SignInForm authentication error message
+- 1830872: feat(ui): remove non-breaking whitespace from `DT` component
+- b736c03: feat(ui): update `SignInForm` default authentication error message
+- 3a9760d: feat(ui): add semantic variants to `Box`
+
 ## 9.1.0
 
 ### Minor Changes
