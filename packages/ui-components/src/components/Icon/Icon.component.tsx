@@ -818,7 +818,7 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           width={size}
           height={size}
           className={iconClass}
-          alt="checkCircle"
+          alt="success"
           title={title ? title : "Success"}
           role="img"
           {...iconProps}
