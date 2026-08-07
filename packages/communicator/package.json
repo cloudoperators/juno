@@ -15,8 +15,8 @@
   "source": "src/index.js",
   "module": "build/index.js",
   "engines": {
-    "node": ">=20.19.0",
-    "pnpm": ">=11.20.0"
+    "node": "v26.7.0",
+    "pnpm": "11.20.0"
   },
   "scripts": {
     "test": "vitest run",
