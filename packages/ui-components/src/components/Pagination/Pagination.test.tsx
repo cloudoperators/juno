@@ -376,8 +376,8 @@ describe("Pagination", () => {
     const textinput = screen.getByRole("textbox")
     fireEvent.change(textinput, { target: { value: "22" } })
     await waitFor(() => {
-      const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper") as Element)
-      expect(computedStyle.width).toBe("3.3rem")
+      const wrapper = document.querySelector(".juno-pagination-wrapper") as HTMLElement
+      expect(wrapper.style.width).toBe("3.3rem")
     })
   })
 
@@ -386,8 +386,8 @@ describe("Pagination", () => {
     const textinput = screen.getByRole("textbox")
     fireEvent.change(textinput, { target: { value: "333" } })
     await waitFor(() => {
-      const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper") as Element)
-      expect(computedStyle.width).toBe("3.9rem")
+      const wrapper = document.querySelector(".juno-pagination-wrapper") as HTMLElement
+      expect(wrapper.style.width).toBe("3.9rem")
     })
   })
 
@@ -396,8 +396,8 @@ describe("Pagination", () => {
     const textinput = screen.getByRole("textbox")
     fireEvent.change(textinput, { target: { value: "4444" } })
     await waitFor(() => {
-      const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper") as Element)
-      expect(computedStyle.width).toBe("4.5rem")
+      const wrapper = document.querySelector(".juno-pagination-wrapper") as HTMLElement
+      expect(wrapper.style.width).toBe("4.5rem")
     })
   })
 
@@ -406,8 +406,8 @@ describe("Pagination", () => {
     const textinput = screen.getByRole("textbox")
     fireEvent.change(textinput, { target: { value: "55555" } })
     await waitFor(() => {
-      const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper") as Element)
-      expect(computedStyle.width).toBe("5.1rem")
+      const wrapper = document.querySelector(".juno-pagination-wrapper") as HTMLElement
+      expect(wrapper.style.width).toBe("5.1rem")
     })
   })
 
@@ -416,8 +416,8 @@ describe("Pagination", () => {
     const textinput = screen.getByRole("textbox")
     fireEvent.change(textinput, { target: { value: "777777" } })
     await waitFor(() => {
-      const computedStyle = window.getComputedStyle(document.querySelector(".juno-pagination-wrapper") as Element)
-      expect(computedStyle.width).toBe("5.1rem")
+      const wrapper = document.querySelector(".juno-pagination-wrapper") as HTMLElement
+      expect(wrapper.style.width).toBe("5.1rem")
     })
   })
 

@@ -32,7 +32,7 @@ permissions:
 
 env:
   DEPLOY_PATH: tmp
-  NODE_VERSION: "22.16.0"
+  NODE_VERSION: "22.22.2"
   PREVIEW_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/pr-preview/pr-${{ github.event.pull_request.number }}
 
 jobs:
