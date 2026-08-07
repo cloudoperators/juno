@@ -1,4 +1,0 @@
-import{i as e}from"./preload-helper-usAeo7Bx.js";import{t}from"./react-CSnjoAvk.js";import{t as n}from"./jsx-runtime-O9QVJvLM.js";import{a as r,n as i,o as a,r as o,t as s}from"./TooltipContent.component-B3P4IJz7.js";import{t as c}from"./TooltipTrigger-LuaGriCb.js";var l,u,d,f,p;e((()=>{t(),r(),i(),c(),l=n(),u={title:`Components/Tooltip/TooltipContent`,component:s,argTypes:{},decorators:[e=>(0,l.jsx)(`div`,{className:`jn:my-6 jn:flex jn:justify-center`,children:(0,l.jsxs)(a,{initialOpen:!0,children:[(0,l.jsx)(o,{children:`clickMe`}),(0,l.jsx)(e,{})]})})]},d=e=>(0,l.jsx)(s,{...e,children:`This is a tooltip`}),f={args:{},render:d},f.parameters={...f.parameters,docs:{...f.parameters?.docs,source:{originalSource:`{
-  args: {},
-  render: DefaultTemplate
-}`,...f.parameters?.docs?.source}}},p=[`Default`]}))();export{f as Default,p as __namedExportsOrder,u as default};
