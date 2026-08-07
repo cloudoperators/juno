@@ -1,0 +1,61 @@
+import{n as e,o as t}from"./rolldown-runtime-C0FnF6B9.js";import{t as n}from"./react-C21x__mS.js";import{t as r}from"./jsx-runtime-BdxMnOeJ.js";import{t as i}from"./Icon.component-Mfy7Ncyo.js";import{t as a}from"./Icon-BbM7ub-A.js";import{t as o}from"./Label.component-DOSKHppz.js";import{t as s}from"./Label-DvnYklPU.js";import{n as c,t as l}from"./FormHint.component-CpRixu1s.js";var u,d,f,p,m,h,g,_,v,y,b,x,S,C;function w(){return(w=e((()=>{u=t(n()),s(),a(),c(),d=r(),f=`
+  jn:bg-theme-textinput
+  jn:text-theme-textinput
+  jn:border
+  jn:text-base
+  jn:leading-4
+  jn:px-4
+  jn:h-textinput
+  jn:rounded-3px
+  jn:focus:outline-hidden
+  jn:focus:ring-2
+  jn:focus:ring-theme-focus
+  jn:disabled:opacity-50
+  jn:autofill:bg-theme-textinput-autofill
+  jn:autofill:text-theme-textinput-autofill
+  peer
+`,p=`
+  jn:border-theme-textinput-default
+`,m=`
+  jn:border-theme-error
+`,h=`
+  jn:border-theme-success
+`,g=`
+  jn:pt-[1.125rem] 
+  jn:pb-1
+`,_=`
+  jn:py-4
+`,v=`
+  jn:inline-block
+  jn:relative
+`,y=`
+  jn:peer-autofill:text-theme-textinput-autofill-label
+  jn:pointer-events-none
+  jn:top-2
+  jn:left-[0.9375rem]
+`,b=`
+  jn:inline-flex
+  jn:absolute
+  jn:top-[.4rem]
+  jn:right-3
+`,x=`
+  jn:opacity-50
+`,S=`
+  jn:mt-0
+`,C=({value:e=``,id:t=``,name:n,placeholder:r=``,disabled:a=!1,readOnly:s=!1,required:c=!1,invalid:C=!1,valid:w=!1,autoFocus:T=!1,className:E=``,autoComplete:D=`off`,helptext:O=``,successtext:k=``,errortext:A=``,onChange:j,onFocus:M,onBlur:N,type:ee,label:P,width:F=`full`,wrapperClassName:I=``,...L})=>{let R=e=>typeof e!=`string`||e.trim().length!==0,z=()=>`juno-textinput-`+(0,u.useId)(),B=(0,u.useRef)(null),[V,H]=(0,u.useState)(``),[U,W]=(0,u.useState)(!1),[G,K]=(0,u.useState)(!1),[q,J]=(0,u.useState)(!1);(0,u.useEffect)(()=>{document.hasFocus()&&B.current.contains(document.activeElement)&&W(!0)},[]),(0,u.useEffect)(()=>{H(e)},[e]);let Y=(0,u.useMemo)(()=>C||!!(A&&R(A)),[C,A]),X=(0,u.useMemo)(()=>w||!!(k&&R(k)),[w,k]);(0,u.useEffect)(()=>{K(Y)},[Y]),(0,u.useEffect)(()=>{J(X)},[X]);let Z=e=>{H(e.target.value),j&&j(e)},Q=e=>{W(!0),M&&M(e)},te=e=>{W(!1),N&&N(e)},ne=({disabled:e})=>q||G?(0,d.jsxs)(`div`,{className:`juno-textinput-row-icon-container ${b} ${e?x:``}`,children:[G?(0,d.jsx)(i,{icon:`dangerous`,color:`jn:text-theme-error`}):null,q?(0,d.jsx)(i,{icon:`checkCircle`,color:`jn:text-theme-success`}):null]}):``,$=t||z();return(0,d.jsxs)(`div`,{className:`juno-textinput-outer-wrapper`,children:[(0,d.jsxs)(`span`,{className:`
+          juno-textinput-wrapper 
+          ${v}
+          ${F==`auto`?`jn:inline-block`:`jn:block`}
+          ${F==`auto`?`jn:w-auto`:`jn:w-full`}
+          ${I}
+          `,children:[(0,d.jsx)(`input`,{type:ee,name:n,autoComplete:D,value:V,id:$,ref:B,placeholder:r,disabled:a,readOnly:s,autoFocus:T,onChange:Z,onFocus:Q,onBlur:te,className:`juno-textinput 
+            ${f}
+            ${P?g:_}
+            ${G?`juno-textinput-invalid `+m:``} 
+            ${q?`juno-textinput-valid `+h:``}  
+            ${q||G?``:p} 
+            ${F==`auto`?`jn:w-auto`:`jn:w-full`}
+            ${E}
+          `,...L}),P&&P.length?(0,d.jsx)(o,{text:P,htmlFor:$,className:`${y}`,disabled:a,required:c,floating:!0,minimized:!!(r||U||V&&R(V))}):``,(0,d.jsx)(ne,{disabled:a})]}),A&&R(A)?(0,d.jsx)(l,{text:A,variant:`error`,className:`${S}`}):``,k&&R(k)?(0,d.jsx)(l,{text:k,variant:`success`,className:`${S}`}):``,O&&R(O)?(0,d.jsx)(l,{text:O,className:`${S}`}):``]})};try{C.displayName=`TextInput`,C.__docgenInfo={description:`A controlled Text Input.
+Also covers email, telephone, password, URL derivatives.`,displayName:`TextInput`,filePath:`/home/runner/work/juno/juno/packages/ui-components/src/components/TextInput/TextInput.component.tsx`,methods:[],props:{name:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`Pass a name attribute`,name:`name`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`string`}},value:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`Pass a value`,name:`value`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`string | number`}},id:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`Pass an id`,name:`id`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`string`}},placeholder:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`Pass a placeholder`,name:`placeholder`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`string`}},disabled:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`Render a disabled input`,name:`disabled`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`boolean`}},readOnly:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`Render a readonly input`,name:`readOnly`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`boolean`}},required:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`Whether the field is required`,name:`required`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`boolean`}},invalid:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`Whether the field is invalid`,name:`invalid`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`boolean`}},valid:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`Whether the field is valid`,name:`valid`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`boolean`}},autoFocus:{defaultValue:{value:`false`},declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`Whether the field receives autofocus`,name:`autoFocus`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`boolean`}},className:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`Pass a classname. The class name is applied to the internal input element.`,name:`className`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`string`}},autoComplete:{defaultValue:{value:`off`},declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`Pass a valid autocomplete value. We do not police validity.`,name:`autoComplete`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`string`}},onChange:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`Pass a change handler`,name:`onChange`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`ChangeEventHandler<HTMLInputElement>`}},onFocus:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`Pass a focus handler`,name:`onFocus`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`FocusEventHandler<HTMLInputElement>`}},onBlur:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`Pass a blur handler`,name:`onBlur`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`FocusEventHandler<HTMLInputElement>`}},type:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`Specify the type attribute. Defaults to an input with no type attribute, which in turn will be treateas as type="text" by browsers.`,name:`type`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`enum`,raw:`TextInputType`,value:[{value:`"number"`},{value:`"text"`},{value:`"tel"`},{value:`"url"`},{value:`"email"`},{value:`"password"`}]}},label:{defaultValue:null,declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`The label of the input`,name:`label`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`string`}},helptext:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`A helptext to render to explain meaning and significance of the TextInput`,name:`helptext`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`ReactNode`}},successtext:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`A text to render when the TextInput was successfully validated`,name:`successtext`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`ReactNode`}},errortext:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`A text to render when the TextInput has an error or could not be validated`,name:`errortext`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`ReactNode`}},width:{defaultValue:{value:`full`},declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`The width of the text input. Either 'full' (default) or 'auto'.`,name:`width`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`enum`,raw:`TextInputWidth`,value:[{value:`"auto"`},{value:`"full"`}]}},wrapperClassName:{defaultValue:{value:``},declarations:[{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`}],description:`Pass a custom className to the wrapping element. This can be useful if you must add styling to the outermost wrapping element of this component, e.g. for positioning.`,name:`wrapperClassName`,parent:{fileName:`ui-components/src/components/TextInput/TextInput.component.tsx`,name:`TextInputProps`},required:!1,tags:{},type:{name:`string`}}},tags:{see:`https://cloudoperators.github.io/juno/?path=/docs/forms-textinput--docs
+{@link TextInputProps }`}}}catch{}})))()}export{w as n,C as t};
