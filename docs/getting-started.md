@@ -6,8 +6,8 @@ Welcome to the Juno platform! This guide will help you get set up and start usin
 
 Before you begin, ensure you have the following software installed on your machine:
 
-- **Node.js** (version 18 or higher)
-- **pnpm** (version 8 or higher)
+- **Node.js** (version 22.12.0 or higher)
+- **pnpm** (version 11.20.0 or higher)
 - **Git**
 
 > You can install pnpm globally using:
