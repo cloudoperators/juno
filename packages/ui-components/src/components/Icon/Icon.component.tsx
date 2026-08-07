@@ -186,6 +186,8 @@ export enum KnownIconsEnum {
   // eslint-disable-next-line no-unused-vars
   place = "place",
   // eslint-disable-next-line no-unused-vars
+  schedule = "schedule",
+  // eslint-disable-next-line no-unused-vars
   search = "search",
   // eslint-disable-next-line no-unused-vars
   severityLow = "severityLow",
@@ -242,6 +244,19 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           className={iconClass}
           alt="time"
           title={title ? title : "Time"}
+          role="img"
+          {...iconProps}
+        />
+      )
+    case KnownIconsEnum.schedule:
+      // `schedule` is an alias for `accessTime` — both use the same SVG.
+      return (
+        <AccessTime
+          width={size}
+          height={size}
+          className={iconClass}
+          alt="schedule"
+          title={title ? title : "Schedule"}
           role="img"
           {...iconProps}
         />
