@@ -80,6 +80,8 @@ describe("Icon (typescript)", () => {
     const { container: accessTimeContainer } = render(<Icon icon="accessTime" />)
     const schedulePath = scheduleContainer.querySelector("svg path")?.getAttribute("d")
     const accessTimePath = accessTimeContainer.querySelector("svg path")?.getAttribute("d")
+    expect(schedulePath).toEqual(expect.any(String))
+    expect(accessTimePath).toEqual(expect.any(String))
     expect(schedulePath).toEqual(accessTimePath)
   })
 
