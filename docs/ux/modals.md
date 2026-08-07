@@ -56,6 +56,8 @@ Both should close the Modal without changing the state of the application, effec
 
 When the user has to make a decision and the action can't be just cancelled or the modal closed, both the closing "X"-button and any "Cancel"/"Close"-buttons should be disabled, provided they represent the exact same action.
 
+> **Important:** Since the Modal component does not sync the disabled states of the close-X and Cancel/Close buttons automatically, **always disable both buttons together** when disabling is required. Disabling only one while leaving the other enabled will allow users to bypass the intended restriction.
+
 ### General Confirmation Modals
 
 General Confirmation Modals that only confirm acknowledgement of a fact or state should only have one button labelled "Close", "OK", or some similar generic wording.
