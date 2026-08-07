@@ -198,11 +198,11 @@ export const Select = ({
     return !(typeof value === "string" && value.trim().length === 0)
   }
 
-  const uniqueId = () => "juno-select-" + useId()
+  const generatedId = useId()
+  const helptextId = "juno-select-helptext-" + useId()
   const [isOpen, setIsOpen] = useState(false)
 
-  const theId = id || uniqueId()
-  const helptextId = "juno-select-helptext-" + useId()
+  const theId = id || "juno-select-" + generatedId
 
   const [optionValuesAndLabels, setOptionValuesAndLabels] = useState(new Map<unknown, unknown>())
   const [hasError, setHasError] = useState(false)

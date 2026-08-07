@@ -223,8 +223,9 @@ export const ComboBox = ({
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
-  const theId = id || "juno-combobox-" + useId()
+  const generatedId = useId()
   const helptextId = "juno-combobox-helptext-" + useId()
+  const theId = id || "juno-combobox-" + generatedId
   const [isOpen, setIsOpen] = useState(false)
 
   const [optionValuesAndLabels, setOptionValuesAndLabels] = useState(
