@@ -49,7 +49,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
         with:
-          version: 11.17.0
+          version: 11.20.0
 
       - name: Cache \ store
         uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
@@ -76,7 +76,7 @@ jobs:
   notify-on-success:
     if: needs.release.outputs.published == 'true'
     needs: [release] # List the jobs that should complete successfully
-    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@d32bdb0dd70a9d68177a1370163948b67712dcce # main
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@004c31a8c78afcc1bddf38c0a4fe8689a82a2485 # main
     with:
       title: "JUNO Packages Released Successfully! 🚀"
       body: ${{ needs.release.outputs.publishedPackages }}
@@ -87,7 +87,7 @@ jobs:
   notify-on-failure:
     if: failure()
     needs: [release]
-    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@d32bdb0dd70a9d68177a1370163948b67712dcce # main
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@004c31a8c78afcc1bddf38c0a4fe8689a82a2485 # main
     with:
       title: "🚨 JUNO Packages Release Failed 🚨"
       body: "An error occurred while releasing JUNO Packages for the branch ${{ github.head_ref || github.ref_name }}. Please check the logs for more information. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>"
