@@ -111,6 +111,22 @@ export const IconAsButton: Story = {
   },
 }
 
+export const Access_Time: Story = {
+  // Note: `accessTime` and `schedule` return the same icon. `schedule` is an alias for `accessTime`.
+  args: {
+    ...Default.args,
+    icon: "accessTime",
+  },
+}
+
+export const Schedule: Story = {
+  // Note: `schedule` and `accessTime` return the same icon. `schedule` is an alias for `accessTime`.
+  args: {
+    ...Default.args,
+    icon: "schedule",
+  },
+}
+
 export const Account_Circle: Story = {
   args: {
     ...Default.args,
