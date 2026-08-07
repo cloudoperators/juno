@@ -12,8 +12,8 @@
   ],
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=20.19.0",
-    "pnpm": ">=11.20.0"
+    "node": "v26.7.0",
+    "pnpm": "11.20.0"
   },
   "peerDependencies": {
     "react": "19.2.8",
