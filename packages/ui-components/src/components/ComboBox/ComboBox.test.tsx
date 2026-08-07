@@ -81,26 +81,21 @@ describe("ComboBox", () => {
   })
 
   test("renders options as passed", async () => {
-    await waitFor(() =>
-      render(
-        <AppShellProvider shadowRoot={false}>
-          <ComboBox>
-            <ComboBoxOption value="Option 1">Option 1</ComboBoxOption>
-          </ComboBox>
-        </AppShellProvider>
-      )
+    render(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox>
+          <ComboBoxOption value="Option 1">Option 1</ComboBoxOption>
+        </ComboBox>
+      </AppShellProvider>
     )
     const user = userEvent.setup()
     const cbox = screen.getByRole("combobox")
     const cbutton = screen.getByRole("button")
     expect(cbox).toBeInTheDocument()
     expect(cbutton).toBeInTheDocument()
-    await waitFor(async () => {
-      await user.click(cbutton)
-      expect(screen.getByRole("listbox")).toBeInTheDocument()
-      expect(screen.getByRole("option")).toBeInTheDocument()
-      expect(screen.getByRole("option")).toHaveTextContent("Option 1")
-    })
+    await user.click(cbutton)
+    expect(await screen.findByRole("listbox")).toBeInTheDocument()
+    expect(await screen.findByRole("option")).toHaveTextContent("Option 1")
   })
 
   test("renders an id as passed", async () => {
