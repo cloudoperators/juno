@@ -1,5 +1,18 @@
 # @cloudoperators/juno-ui-components
 
+## 9.3.0
+
+### Minor Changes
+
+- 48dd344: `CodeBlockFooter`: add `children`, `copy` props; replace inline "Copied!" span with a Tooltip on the Copy button
+
+  **Breaking change in `CodeBlock`:** The `codeBlockFooter` prop previously accepted a full replacement element that replaced the entire footer. It now injects content _into_ the footer, to the left of the Copy button — the `CodeBlockFooter` wrapper is always rendered. Use `copy={false}` to hide the Copy button.
+
+### Patch Changes
+
+- 004c31a: chore(docs): add `schedule` alias for for `accessTime` Icon
+- 0a81007: feat(ui): remove `success` icon, return `check circle´ instead when `success` is called
+
 ## 9.2.0
 
 ### Minor Changes
