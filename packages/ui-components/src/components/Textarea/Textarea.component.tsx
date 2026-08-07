@@ -123,7 +123,7 @@ export const Textarea = ({
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
-  const uniqueId = () => "juno-textarea-" + useId()
+  const generatedId = useId()
 
   const ref = useRef<HTMLTextAreaElement>(null)
   const [val, setValue] = useState<string>("")
@@ -189,7 +189,7 @@ export const Textarea = ({
     }
   }
 
-  const theId = id || uniqueId()
+  const theId = id || "juno-textarea-" + generatedId
 
   return (
     <div>
