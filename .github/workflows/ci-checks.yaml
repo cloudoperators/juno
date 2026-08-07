@@ -23,12 +23,12 @@ env:
 
 jobs:
   reuse-compliance:
-    uses: cloudoperators/common/.github/workflows/shared-reuse.yaml@d138f9922c75ed1e1ad3ae3bfb68dd8ae3284dc6 # main
+    uses: cloudoperators/common/.github/workflows/shared-reuse.yaml@ab7fac711675c77ba025bfde04f08175a4476546 # main
 
   license-headers:
     permissions:
       contents: write
-    uses: cloudoperators/common/.github/workflows/shared-license.yaml@d138f9922c75ed1e1ad3ae3bfb68dd8ae3284dc6 # main
+    uses: cloudoperators/common/.github/workflows/shared-license.yaml@ab7fac711675c77ba025bfde04f08175a4476546 # main
     with:
       apply_header: false
 

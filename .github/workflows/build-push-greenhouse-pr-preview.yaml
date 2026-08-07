@@ -181,7 +181,7 @@ jobs:
     if: needs.build-and-push.outputs.image-built == 'true'
     permissions:
       packages: write
-    uses: cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml@d138f9922c75ed1e1ad3ae3bfb68dd8ae3284dc6 # main
+    uses: cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml@ab7fac711675c77ba025bfde04f08175a4476546 # main
     with:
       runs-on: ubuntu-latest
       package: juno-app-greenhouse-pr-preview
@@ -196,7 +196,7 @@ jobs:
       github.event.pull_request.head.repo.full_name == github.repository
     permissions:
       packages: write
-    uses: cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml@d138f9922c75ed1e1ad3ae3bfb68dd8ae3284dc6 # main
+    uses: cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml@ab7fac711675c77ba025bfde04f08175a4476546 # main
     with:
       runs-on: ubuntu-latest
       package: juno-app-greenhouse-pr-preview
