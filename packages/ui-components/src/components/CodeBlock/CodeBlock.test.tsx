@@ -1,11 +1,11 @@
 /*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
-import { CodeBlock } from "."
+import { CodeBlock } from "./index"
 
 describe("CodeBlock", () => {
   test("renders a CodeBlock with content as passed", () => {
@@ -115,13 +115,14 @@ describe("CodeBlock", () => {
     expect(screen.getByTestId("custom-footer")).toHaveTextContent("Custom Footer")
   })
 
-  test("does not render the default copy button when codeBlockFooter is provided", () => {
-    render(<CodeBlock codeBlockFooter={<div>Custom Footer</div>} />)
-    expect(screen.queryByRole("button", { name: "contentCopy" })).not.toBeInTheDocument()
+  test("renders both copy button and custom codeBlockFooter when both are provided", () => {
+    render(<CodeBlock copy={true} codeBlockFooter={<div data-testid="custom-footer">Custom Footer</div>} />)
+    expect(screen.getByTestId("custom-footer")).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: "contentCopy" })).toBeInTheDocument()
   })
 
-  test("codeBlockFooter takes precedence over copy prop", () => {
-    render(<CodeBlock copy={true} codeBlockFooter={<div data-testid="custom-footer">Custom</div>} />)
+  test("does not render the copy button when copy={false}", () => {
+    render(<CodeBlock copy={false} codeBlockFooter={<div data-testid="custom-footer">Custom Footer</div>} />)
     expect(screen.getByTestId("custom-footer")).toBeInTheDocument()
     expect(screen.queryByRole("button", { name: "contentCopy" })).not.toBeInTheDocument()
   })

@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-doop",
-  "version": "2.6.35",
+  "version": "2.6.36",
   "author": "UI-Team",
   "type": "module",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/doop",
@@ -21,9 +21,9 @@
     "@testing-library/react": "16.3.2",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
-    "@vitejs/plugin-react": "6.0.3",
+    "@vitejs/plugin-react": "6.0.4",
     "interweave": "13.1.1",
-    "jsdom": "29.1.1",
+    "jsdom": "30.0.1",
     "react-markdown": "10.1.0",
     "shadow-dom-testing-library": "1.13.1",
     "tailwindcss": "4.3.3",
@@ -47,7 +47,7 @@
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
     "@tanstack/react-router": "1.170.18",
-    "react": "19.2.7",
-    "react-dom": "19.2.7"
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
   }
 }
