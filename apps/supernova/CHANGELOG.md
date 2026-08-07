@@ -1,5 +1,19 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.20.5
+
+### Patch Changes
+
+- f2f7fde: Updated pnpm, storybook and override postcss
+- Updated dependencies [9e069b7]
+- Updated dependencies [0e59fc8]
+- Updated dependencies [1830872]
+- Updated dependencies [b736c03]
+- Updated dependencies [cf79a1f]
+- Updated dependencies [3a9760d]
+  - @cloudoperators/juno-ui-components@9.2.0
+  - @cloudoperators/juno-messages-provider@0.2.48
+
 ## 0.20.4
 
 ### Patch Changes

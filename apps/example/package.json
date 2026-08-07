@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-example",
-  "version": "2.4.22",
+  "version": "2.4.23",
   "author": "UI-Team",
   "type": "module",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/example",
@@ -21,7 +21,7 @@
     "@testing-library/react": "16.3.2",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
-    "@vitejs/plugin-react": "6.0.3",
+    "@vitejs/plugin-react": "6.0.4",
     "jsdom": "30.0.1",
     "shadow-dom-testing-library": "1.13.1",
     "tailwindcss": "4.3.3",
@@ -35,8 +35,8 @@
     "@cloudoperators/juno-url-state-provider": "workspace:*",
     "@tailwindcss/vite": "4.3.3",
     "msw": "2.14.7",
-    "react": "19.2.7",
-    "react-dom": "19.2.7",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
     "zustand": "5.0.14"
   },
   "scripts": {
