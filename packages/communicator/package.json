@@ -16,7 +16,7 @@
   "module": "build/index.js",
   "engines": {
     "node": ">=20.19.0",
-    "pnpm": ">=8.0.0"
+    "pnpm": ">=11.20.0"
   },
   "scripts": {
     "test": "vitest run",
