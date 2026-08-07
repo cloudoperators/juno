@@ -50,13 +50,15 @@ A Modal should have only one primary action. This is the action triggered when t
 ### Redundant Cancel/Close
 
 A Modal has a Close (“X”) button in the top right, and a Cancel/Close button at the bottom. In most cases, these two will do the same thing: Cancel the Modal and close it.
-However, there may be situations where they don't: The Cancel button will actually cancel an ongoing (background) action or process (as in terminating it), while the close-X in the top right will only close the Modal, without the actual process being affected. In order to allow the Modal component to work in these cases as well, the component does not automatically sync the states of the two buttons, e.g. users will have to make sure to disable both buttons individually when needed.
+However, there may be situations where they don't: The Cancel button will actually cancel an ongoing (background) action or process (as in terminating it), while the close-X in the top right will only close the Modal, without the actual process being affected.
 
 Both should close the Modal without changing the state of the application, effectively cancelling any pending actions.
 
-When the user has to make a decision and the action can't be just cancelled or the modal closed, both the closing "X"-button and any "Cancel"/"Close"-buttons should be disabled, provided they represent the exact same action.
+When the user has to make a decision and the action can't be just cancelled or the modal closed, both the closing “X”-button and any “Cancel”/”Close”-buttons should be disabled, provided they represent the exact same action.
 
-> **Important:** Since the Modal component does not sync the disabled states of the close-X and Cancel/Close buttons automatically, **always disable both buttons together** when disabling is required. Disabling only one while leaving the other enabled will allow users to bypass the intended restriction.
+> **When using the built-in footer** (i.e. not passing a custom `modalFooter`), disabling the Cancel/Close button via `disableCancelButton` automatically disables the close-X as well — the component handles this in sync.
+>
+> **When using a custom footer** (passing a custom `modalFooter` prop or custom children to `ModalFooter`), the built-in sync does not apply to your custom buttons. In this case, **always disable both the close-X and any custom Cancel/Close buttons together** by also passing `disableCloseButton` to the Modal. Disabling only one while leaving the other enabled will allow users to bypass the intended restriction.
 
 ### General Confirmation Modals
 
