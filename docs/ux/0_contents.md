@@ -28,13 +28,15 @@
    2. Authentication And Access
       1. [Sign In](sign-in.md)
       2. [UI For Unauthorized Users](ui-for-unauthorized-users.md)
-   3. [DataGrid](datagrid.md)
-   4. Wizard Pattern
-   5. Inline Adding And Deleting Items
-   6. [Modals](modals.md)
-   7. [PopupMenus](popup-and-overflow-menus.md)
-   8. [Messages & Notifications](messages-and-notifications.md)
-   9. [Box](box.md)
+   3. [Navigation](navigation.md)
+      1. [Side Navigation](navigation-side-navigation.md)
+   4. [DataGrid](datagrid.md)
+   5. Wizard Pattern
+   6. Inline Adding And Deleting Items
+   7. [Modals](modals.md)
+   8. [PopupMenus](popup-and-overflow-menus.md)
+   9. [Messages & Notifications](messages-and-notifications.md)
+   10. [Box](box.md)
 5. [Application Design Guidelines](application-design-guidelines.md)
    1. Interaction Guidelines
    2. [UX Writing / Content Guidelines](ux-writing-content-design.md)
@@ -42,5 +44,4 @@
    4. [Transient States And Progress](transient-states-and-progress.md)
 6. Versioning, Deprecation Policy
 7. [Resources](resources.md)
-8. Appendix
-   1. [Terminology/Glossary](glossary.md)
+8. [Terminology/Glossary](glossary.md)

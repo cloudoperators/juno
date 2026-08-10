@@ -1,6 +1,6 @@
 [← Back to Contents Overview](0_contents.md)
 
-# Appendix: Glossary
+# Terminology/Glossary
 
 Key terms used throughout the Juno UX documentation.
 
