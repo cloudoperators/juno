@@ -14,6 +14,7 @@ describe("Status", () => {
   it("renders a Status", () => {
     render(<Status />)
     expect(screen.getByRole("alert")).toBeInTheDocument()
+    expect(screen.getByRole("alert")).toHaveClass("juno-status")
   })
 
   it("renders with role alert for error status", () => {
