@@ -122,7 +122,7 @@ export const TextInput = ({
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
-  const uniqueId = () => "juno-textinput-" + useId()
+  const generatedId = useId()
 
   const ref = useRef<HTMLInputElement | null>(null)
   const [val, setValue] = useState<string | number>("")
@@ -188,7 +188,7 @@ export const TextInput = ({
     }
   }
 
-  const theId = id || uniqueId()
+  const theId = id || "juno-textinput-" + generatedId
 
   return (
     <div className="juno-textinput-outer-wrapper">

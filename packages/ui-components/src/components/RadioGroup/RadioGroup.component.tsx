@@ -99,11 +99,12 @@ export const RadioGroup = ({
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
-  const uniqueId = () => "juno-radiogroup-" + useId()
+  const generatedName = useId()
+  const generatedId = useId()
 
   // Create unique identifiers for use with name and id of the group:
-  const groupName = name || uniqueId()
-  const groupId = id || uniqueId()
+  const groupName = name || "juno-radiogroup-" + generatedName
+  const groupId = id || "juno-radiogroup-" + generatedId
 
   const [selectedValue, setSelectedValue] = useState<string | undefined>(selected)
   const [isValid, setIsValid] = useState<boolean>(false)
