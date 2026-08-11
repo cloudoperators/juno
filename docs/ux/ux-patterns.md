@@ -6,11 +6,15 @@ This chapter describes the most important UX patterns of Juno.
 
 1. Page And User Flow
 2. Authentication And Access
-3. Sign In
-4. [UI For Unauthorized Users](ui-for-unauthorized-users.md)
-5. Displaying and Interacting With Data
+   1. [Sign In](sign-in.md)
+   2. [UI For Unauthorized Users](ui-for-unauthorized-users.md)
+3. [Navigation](navigation.md)
+   1. [Side Navigation](navigation-side-navigation.md)
+4. [DataGrid](datagrid.md)
+5. [Forms](forms.md)
 6. Wizard Pattern
 7. Inline Adding And Deleting Items
 8. [Modals](modals.md)
-9. PopupMenus
-10. Messages & Notifications
+9. [Popup And Overflow Menus](popup-and-overflow-menus.md)
+10. [Messages & Notifications](messages-and-notifications.md)
+11. [Box](box.md)
