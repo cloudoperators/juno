@@ -23,8 +23,8 @@
    1. [Juno Layout](juno-layout.md)
    2. [Embedded ApplicationLayout](embedded-application-layout.md)
    3. [Legacy Application Layout](legacy-application-layout.md)
-4. [UX Patterns](ux-patterns-md)
-   1. [Page And User Flow](page-and-user-flow.md)
+4. [UX Patterns](ux-patterns.md)
+   1. [Page and User Flow](page-and-user-flow.md)
    2. Authentication And Access
       1. [Sign In](sign-in.md)
       2. [UI For Unauthorized Users](ui-for-unauthorized-users.md)
