@@ -250,7 +250,7 @@ describe("IssuesDataRows — risk acceptance", () => {
     const issuesPromise = makeImagesPromise(["CVE-2024-9999"])
     const withRemediation = makeRemediationsPromise(["CVE-2024-9999"])
 
-    const { unmount } = await act(() => renderWithRouter(issuesPromise, withRemediation))
+    const { unmount } = renderWithRouter(issuesPromise, withRemediation)
     expect(screen.queryByText("CVE-2024-9999")).not.toBeInTheDocument()
     unmount()
 

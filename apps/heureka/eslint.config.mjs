@@ -8,7 +8,8 @@ import junoConfigs from "@cloudoperators/juno-config/eslint/vite-react-ts.mjs"
 export default [
   ...junoConfigs,
   {
-    // Config files are not included in tsconfig.json and don't need type-aware linting
+    // Config files are not included in tsconfig.json; ignoring them entirely
+    // avoids "parserOptions.project" errors for files outside the project's include list.
     ignores: ["vite.config.ts", "vitest.config.ts", "vitest.setup.ts", "tailwind.config.ts"],
   },
   {
