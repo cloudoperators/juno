@@ -52,6 +52,13 @@ See [Error Handling, Loading and Empty States](error-handling-loading-empty-stat
 
 When a validation rule spans multiple fields — for example, a password confirmation field — show the error on the dependent field (the one whose value is the problem), not on the field that was filled in first. If the relationship is ambiguous, show the error at section level.
 
+## Conditional and Dependent Fields
+
+When fields are shown or hidden based on other field values, make the change predictable and avoid erasing user input unexpectedly.
+
+- Clearly indicate what triggers additional fields.
+- Avoid clearing a field’s value when it is temporarily hidden; restore it if the field reappears unless clearing is required for correctness and communicated to the user.
+
 ## Submit and Cancel Actions
 
 ### Button Placement and Order
