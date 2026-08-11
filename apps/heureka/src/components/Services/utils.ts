@@ -125,7 +125,9 @@ export const getNormalizedError = (error?: { networkError?: unknown; message?: s
   if (isNil(error)) return undefined
 
   // Extract network errors if they exist
-  const networkErrors = error.networkError as { result?: { errors?: Array<{ message?: string; path?: string[] }> } } | null
+  const networkErrors = error.networkError as {
+    result?: { errors?: Array<{ message?: string; path?: string[] }> }
+  } | null
   const netErrors = networkErrors?.result?.errors
   if (netErrors && netErrors.length > 0) {
     return netErrors

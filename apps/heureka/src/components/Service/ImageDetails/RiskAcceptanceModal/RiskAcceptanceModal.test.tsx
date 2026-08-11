@@ -16,7 +16,19 @@ vi.mock("@cloudoperators/juno-ui-components", async (importActual) => {
   const actual = await importActual<typeof import("@cloudoperators/juno-ui-components")>()
   return {
     ...actual,
-    DateTimePicker: ({ label, onChange, required, invalid, errortext }: { label: string; onChange: (dates: Date[]) => void; required?: boolean; invalid?: boolean; errortext?: string }) => (
+    DateTimePicker: ({
+      label,
+      onChange,
+      required,
+      invalid,
+      errortext,
+    }: {
+      label: string
+      onChange: (dates: Date[]) => void
+      required?: boolean
+      invalid?: boolean
+      errortext?: string
+    }) => (
       <div>
         <label htmlFor="mock-date-input">
           {label}

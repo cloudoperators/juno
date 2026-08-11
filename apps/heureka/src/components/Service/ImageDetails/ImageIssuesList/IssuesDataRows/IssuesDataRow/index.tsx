@@ -68,8 +68,10 @@ export const IssuesDataRow = ({
     setIsExpanded(!isExpanded)
   }
 
-type QueryFilter = { service?: string[]; image?: string[]; vulnerability?: string[] }
-type RemediationsCache = { data?: { Remediations?: { edges?: Array<{ node?: { id?: string } }> | null; totalCount?: number | null } } }
+  type QueryFilter = { service?: string[]; image?: string[]; vulnerability?: string[] }
+  type RemediationsCache = {
+    data?: { Remediations?: { edges?: Array<{ node?: { id?: string } }> | null; totalCount?: number | null } }
+  }
 
   const handleModalConfirm = async (input: RemediationInput): Promise<{ error: string } | void> => {
     setIsSubmitting(true)

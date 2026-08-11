@@ -35,7 +35,9 @@ const cellSeverityClasses = (severity: string) => {
 }
 
 type QueryFilter = { service?: string[]; image?: string[]; vulnerability?: string[] }
-type RemediationsCache = { data?: { Remediations?: { edges?: Array<{ node?: { id?: string } }> | null; totalCount?: number | null } } }
+type RemediationsCache = {
+  data?: { Remediations?: { edges?: Array<{ node?: { id?: string } }> | null; totalCount?: number | null } }
+}
 
 type RemediatedIssueDataRowProps = {
   issue: ImageVulnerability

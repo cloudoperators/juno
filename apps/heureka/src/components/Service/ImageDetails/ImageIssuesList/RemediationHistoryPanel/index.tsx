@@ -157,7 +157,9 @@ export const RemediationHistoryPanel = ({
             return true
           },
         },
-        (old: { data?: { Remediations?: { edges?: Array<{ node?: { id?: string } }> | null; totalCount?: number | null } } }) => {
+        (old: {
+          data?: { Remediations?: { edges?: Array<{ node?: { id?: string } }> | null; totalCount?: number | null } }
+        }) => {
           const edges = old?.data?.Remediations?.edges
           if (!edges) return old
           const newEdges = edges.filter((e) => e?.node?.id !== remediation.remediationId)
