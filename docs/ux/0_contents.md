@@ -35,7 +35,7 @@
    6. Wizard Pattern
    7. Inline Adding And Deleting Items
    8. [Modals](modals.md)
-   9. [PopupMenus](popup-and-overflow-menus.md)
+   9. [Popup And Overflow Menus](popup-and-overflow-menus.md)
    10. [Messages & Notifications](messages-and-notifications.md)
    11. [Box](box.md)
 5. [Application Design Guidelines](application-design-guidelines.md)
