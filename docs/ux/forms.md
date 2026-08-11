@@ -20,7 +20,7 @@ Group related fields together. Present fields in a logical sequence that reflect
 
 ### Required vs. Optional Fields
 
-Mark required fields clearly. Do not rely on colour alone to communicate required state — always use a visible text indicator or label.
+Mark required fields clearly. Do not rely on color alone to communicate required state — always use a visible text indicator or label.
 
 ### Single-Column vs. Two-Column Layouts
 
@@ -70,6 +70,8 @@ Place the primary submit action and any cancel action at the bottom of the form,
 Disabling the submit button until the form is valid can prevent errors, but it can also leave users with no feedback as to why they cannot proceed — particularly if validation errors are not yet visible. Use this pattern only when the form is simple enough that the invalid state is always obvious to the user, or when combined with real-time inline validation that makes the issue immediately apparent.
 
 For longer or more complex forms, prefer keeping the submit button enabled and triggering full validation on submit, surfacing all errors at that point.
+
+**Modal forms:** disable the primary action while required fields are missing/invalid (see [Modals — Form Validation Specifics](modals.md#form-validation-specifics-in-modals)).
 
 ### Destructive Submit Actions
 
