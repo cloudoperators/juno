@@ -31,12 +31,13 @@
    3. [Navigation](navigation.md)
       1. [Side Navigation](navigation-side-navigation.md)
    4. [DataGrid](datagrid.md)
-   5. Wizard Pattern
-   6. Inline Adding And Deleting Items
-   7. [Modals](modals.md)
-   8. [PopupMenus](popup-and-overflow-menus.md)
-   9. [Messages & Notifications](messages-and-notifications.md)
-   10. [Box](box.md)
+   5. [Forms](forms.md)
+   6. Wizard Pattern
+   7. Inline Adding And Deleting Items
+   8. [Modals](modals.md)
+   9. [PopupMenus](popup-and-overflow-menus.md)
+   10. [Messages & Notifications](messages-and-notifications.md)
+   11. [Box](box.md)
 5. [Application Design Guidelines](application-design-guidelines.md)
    1. Interaction Guidelines
    2. [UX Writing / Content Guidelines](ux-writing-content-design.md)
