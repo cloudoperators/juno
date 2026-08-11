@@ -185,7 +185,9 @@ export const RemediationHistoryPanel = ({
       // though other remediations still exist.
       if (vulnerability) {
         const panelFilter = { service: [service], image: [image], vulnerability: [vulnerability] }
-        type PanelCache = { data?: { Remediations?: { edges?: Array<{ node?: { id?: string } }> | null; totalCount?: number | null } } }
+        type PanelCache = {
+          data?: { Remediations?: { edges?: Array<{ node?: { id?: string } }> | null; totalCount?: number | null } }
+        }
         const panelCache = queryClient.getQueryData<PanelCache>(["remediations", panelFilter])
         const remainingEdges = (panelCache?.data?.Remediations?.edges ?? []).filter(
           (e) => e?.node?.id !== remediation.remediationId
@@ -195,7 +197,10 @@ export const RemediationHistoryPanel = ({
           queryClient.setQueriesData(
             {
               predicate: (query) => {
-                const [key, filter] = query.queryKey as [string, { service?: string[]; image?: string[]; vulnerability?: string[] }]
+                const [key, filter] = query.queryKey as [
+                  string,
+                  { service?: string[]; image?: string[]; vulnerability?: string[] },
+                ]
                 if (key !== "remediations") return false
                 if (filter?.service && !filter.service.includes(service)) return false
                 if (filter?.image && !filter.image.includes(image)) return false
@@ -203,7 +208,9 @@ export const RemediationHistoryPanel = ({
                 return true
               },
             },
-            (old: { data?: { Remediations?: { edges?: Array<{ node?: { id?: string } }> | null; totalCount?: number | null } } }) => {
+            (old: {
+              data?: { Remediations?: { edges?: Array<{ node?: { id?: string } }> | null; totalCount?: number | null } }
+            }) => {
               if (!old?.data?.Remediations) return old
               const edges = old.data.Remediations.edges ?? []
               const existingIds = new Set(edges.map((e) => e?.node?.id).filter(Boolean))
