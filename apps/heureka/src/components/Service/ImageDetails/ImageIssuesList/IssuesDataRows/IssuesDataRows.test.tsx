@@ -148,7 +148,7 @@ describe("IssuesDataRows — active/remediated split", () => {
     const issuesPromise = makeImagesPromise(["CVE-2024-1234"])
     const remediationsPromise = makeRemediationsPromise([]) // no remediations
 
-    await act(async () => {
+    act(() => {
       renderWithRouter(issuesPromise, remediationsPromise)
     })
 
@@ -159,7 +159,7 @@ describe("IssuesDataRows — active/remediated split", () => {
     const issuesPromise = makeImagesPromise(["CVE-2024-1234"])
     const remediationsPromise = makeRemediationsPromise(["CVE-2024-1234"]) // this CVE is now remediated
 
-    await act(async () => {
+    act(() => {
       render(
         <Suspense fallback={<div>Loading...</div>}>
           <IssuesDataRows
@@ -184,7 +184,7 @@ describe("IssuesDataRows — active/remediated split", () => {
     const issuesPromise = makeImagesPromise(["CVE-2024-1234", "CVE-2024-5678"])
     const remediationsPromise = makeRemediationsPromise(["CVE-2024-1234"]) // only first one is remediated
 
-    await act(async () => {
+    act(() => {
       renderWithRouter(issuesPromise, remediationsPromise)
     })
 
@@ -199,7 +199,7 @@ describe("IssuesDataRows — active/remediated split", () => {
     const issuesPromise = makeImagesPromise(cves)
     const remediationsPromise = makeRemediationsPromise(cves) // both are remediated
 
-    await act(async () => {
+    act(() => {
       render(
         <Suspense fallback={<div>Loading...</div>}>
           <IssuesDataRows
@@ -223,7 +223,7 @@ describe("IssuesDataRows — risk acceptance", () => {
     const issuesPromise = makeImagesPromise(["CVE-2024-9999"])
     const remediationsPromise = makeRemediationsPromise([])
 
-    await act(async () => {
+    act(() => {
       renderWithRouter(issuesPromise, remediationsPromise)
     })
 
@@ -234,7 +234,7 @@ describe("IssuesDataRows — risk acceptance", () => {
     const issuesPromise = makeImagesPromise(["CVE-2024-9999"])
     const remediationsPromise = makeRemediationsPromise(["CVE-2024-9999"])
 
-    await act(async () => {
+    act(() => {
       renderWithRouter(issuesPromise, remediationsPromise)
     })
 
@@ -247,13 +247,13 @@ describe("IssuesDataRows — risk acceptance", () => {
     const issuesPromise = makeImagesPromise(["CVE-2024-9999"])
     const withRemediation = makeRemediationsPromise(["CVE-2024-9999"])
 
-    const { unmount } = await act(async () => renderWithRouter(issuesPromise, withRemediation))
+    const { unmount } = await act(() => renderWithRouter(issuesPromise, withRemediation))
     expect(screen.queryByText("CVE-2024-9999")).not.toBeInTheDocument()
     unmount()
 
     // Re-render without remediation (reverted)
     const withoutRemediation = makeRemediationsPromise([])
-    await act(async () => {
+    act(() => {
       renderWithRouter(issuesPromise, withoutRemediation)
     })
 
@@ -264,7 +264,7 @@ describe("IssuesDataRows — risk acceptance", () => {
     const issuesPromise = makeImagesPromise(["CVE-2024-9999", "CVE-2024-8888"])
     const remediationsPromise = makeRemediationsPromise(["CVE-2024-9999"])
 
-    await act(async () => {
+    act(() => {
       renderWithRouter(issuesPromise, remediationsPromise)
     })
 

@@ -139,7 +139,7 @@ function renderWithRouter(
 
 describe("RemediatedIssuesDataRows", () => {
   it("renders empty state when there are no remediated vulnerabilities", async () => {
-    await act(async () => {
+    act(() => {
       renderWithRouter(emptyImagesPromise, emptyRemediationsPromise)
     })
     expect(await screen.findByText("No remediated vulnerabilities found!")).toBeInTheDocument()
@@ -149,7 +149,7 @@ describe("RemediatedIssuesDataRows", () => {
     const issuesPromise = makeImagesPromise(["CVE-2024-1234"])
     const remediationsPromise = makeRemediationsPromise(["CVE-2024-1234"])
 
-    await act(async () => {
+    act(() => {
       renderWithRouter(issuesPromise, remediationsPromise)
     })
 
@@ -161,7 +161,7 @@ describe("RemediatedIssuesDataRows", () => {
     const issuesPromise = makeImagesPromise(["CVE-2024-1234"])
     const remediationsPromise = makeRemediationsPromise([]) // remediation was deleted
 
-    await act(async () => {
+    act(() => {
       renderWithRouter(issuesPromise, remediationsPromise)
     })
 
@@ -173,7 +173,7 @@ describe("RemediatedIssuesDataRows", () => {
     const issuesPromise = makeImagesPromise(["CVE-2024-1234", "CVE-2024-5678"])
     const remediationsPromise = makeRemediationsPromise(["CVE-2024-1234"]) // only the first is remediated
 
-    await act(async () => {
+    act(() => {
       renderWithRouter(issuesPromise, remediationsPromise)
     })
 
@@ -189,7 +189,7 @@ describe("RemediatedIssuesDataRows — risk acceptance revert", () => {
     const issuesPromise = makeImagesPromise(["CVE-2024-9999"])
     const remediationsPromise = makeRemediationsPromise(["CVE-2024-9999"])
 
-    await act(async () => {
+    act(() => {
       renderWithRouter(issuesPromise, remediationsPromise)
     })
 
@@ -201,7 +201,7 @@ describe("RemediatedIssuesDataRows — risk acceptance revert", () => {
     // Remediation removed — risk acceptance was reverted
     const remediationsPromise = makeRemediationsPromise([])
 
-    await act(async () => {
+    act(() => {
       renderWithRouter(issuesPromise, remediationsPromise)
     })
 
@@ -214,7 +214,7 @@ describe("RemediatedIssuesDataRows — risk acceptance revert", () => {
     // CVE-2024-9999 reverted (no remediation), CVE-2024-8888 still risk accepted
     const remediationsPromise = makeRemediationsPromise(["CVE-2024-8888"])
 
-    await act(async () => {
+    act(() => {
       renderWithRouter(issuesPromise, remediationsPromise)
     })
 

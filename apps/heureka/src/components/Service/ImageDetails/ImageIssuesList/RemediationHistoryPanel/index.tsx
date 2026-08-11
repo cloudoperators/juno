@@ -100,7 +100,7 @@ const RemediationHistoryTable = ({
             ) : (
               <PopupMenu icon="moreVert" className="whitespace-nowrap ml-auto" disabled={!!revertingId}>
                 <PopupMenuOptions>
-                  <PopupMenuItem label="Revert" onClick={() => handleRevert(r)} disabled={!!revertingId} />
+                  <PopupMenuItem label="Revert" onClick={() => void handleRevert(r)} disabled={!!revertingId} />
                 </PopupMenuOptions>
               </PopupMenu>
             )}
@@ -150,28 +150,26 @@ export const RemediationHistoryPanel = ({
       queryClient.setQueriesData(
         {
           predicate: (query) => {
-            const [key, filter] = query.queryKey as [string, any]
+            const [key, filter] = query.queryKey as [string, { service?: string[]; image?: string[] }]
             if (key !== "remediations") return false
             if (filter?.service && !filter.service.includes(service)) return false
             if (filter?.image && !filter.image.includes(image)) return false
             return true
           },
         },
-
-        (old: any) => {
+        (old: { data?: { Remediations?: { edges?: Array<{ node?: { id?: string } }> | null; totalCount?: number | null } } }) => {
           const edges = old?.data?.Remediations?.edges
           if (!edges) return old
-
-          const newEdges = edges.filter((e: any) => e?.node?.id !== remediation.remediationId)
+          const newEdges = edges.filter((e) => e?.node?.id !== remediation.remediationId)
           if (newEdges.length === edges.length) return old
           return {
             ...old,
             data: {
               ...old.data,
               Remediations: {
-                ...old.data.Remediations,
+                ...(old.data?.Remediations ?? {}),
                 edges: newEdges,
-                totalCount: Math.max(0, (old.data.Remediations.totalCount ?? 1) - 1),
+                totalCount: Math.max(0, (old.data?.Remediations?.totalCount ?? 1) - 1),
               },
             },
           }

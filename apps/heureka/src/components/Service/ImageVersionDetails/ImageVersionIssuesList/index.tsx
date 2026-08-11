@@ -41,7 +41,7 @@ export const ImageVersionIssuesList = ({ issuesPromise, service, image }: ImageV
           <DataGridHeadCell>Description</DataGridHeadCell>
         </DataGridRow>
 
-        {issuesPromise && (
+        {issuesPromise != null && (
           <ErrorBoundary
             displayErrorMessage
             fallbackRender={getErrorDataRowComponent({ colspan: 4 })}

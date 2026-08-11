@@ -38,7 +38,7 @@ const renderComponent = () => {
   const testRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: "/services/",
-    loader: async () => ({
+    loader: () => ({
       servicesPromise: mockServicesPromise,
       filters: mockFilters,
       filterSettings: mockFilterSettings,
@@ -67,7 +67,7 @@ const renderComponent = () => {
 
 describe("Services", () => {
   it("should render correctly", async () => {
-    await act(async () => renderComponent())
+    await act(() => renderComponent())
     expect(await screen.findByText("alpha")).toBeInTheDocument()
   })
 })

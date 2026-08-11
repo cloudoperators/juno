@@ -93,7 +93,7 @@ const VulnerabilitiesTabContent = ({
           <DataGridHeadCell />
         </DataGridRow>
 
-        {issuesPromise && (
+        {issuesPromise != null && (
           <ErrorBoundary
             displayErrorMessage
             fallbackRender={getErrorDataRowComponent({ colspan: 5 })}
@@ -112,7 +112,7 @@ const VulnerabilitiesTabContent = ({
           </ErrorBoundary>
         )}
       </DataGrid>
-      {issuesPromise && (
+      {issuesPromise != null && (
         <ErrorBoundary resetKeys={[issuesPromise]}>
           <Suspense>
             <CursorPagination
@@ -181,7 +181,7 @@ const RemediatedVulnerabilitiesTabContent = ({
             <DataGridHeadCell />
           </DataGridRow>
 
-          {issuesPromise && (
+          {issuesPromise != null && (
             <ErrorBoundary
               displayErrorMessage
               fallbackRender={getErrorDataRowComponent({ colspan: COLUMN_SPAN })}
@@ -201,7 +201,7 @@ const RemediatedVulnerabilitiesTabContent = ({
             </ErrorBoundary>
           )}
         </DataGrid>
-        {issuesPromise && (
+        {issuesPromise != null && (
           <ErrorBoundary resetKeys={[issuesPromise, remediationsPromise]}>
             <Suspense>
               <RemediatedCursorPagination
@@ -241,7 +241,7 @@ export const ImageIssuesList = ({
   const handleTabSelect = useCallback(
     (index: number) => {
       const list: VulnerabilitiesTabValue = index === 1 ? "remediated" : "active"
-      navigate({
+      void navigate({
         to: "/services/$service/images/$image",
         params: { service, image: image.repository },
         search: { vulnerabilitiesList: list, vulRemediations: list === "remediated" ? vulRemediations : undefined },
@@ -252,7 +252,7 @@ export const ImageIssuesList = ({
   )
   const handleRemediationPanelVulnerabilityChange = useCallback(
     (cve: string | null) => {
-      navigate({
+      void navigate({
         to: "/services/$service/images/$image",
         params: { service, image: image.repository },
         search: { vulnerabilitiesList: "remediated", vulRemediations: cve ?? undefined },

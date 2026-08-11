@@ -29,7 +29,7 @@ export const Breadcrumb = () => {
             icon={"icon" in crumb ? crumb.icon : undefined}
             onClick={(e) => {
               e.preventDefault()
-              navigate({
+              void navigate({
                 to: pathname,
               })
             }}

@@ -5,9 +5,10 @@
 
 import { QueryClient } from "@tanstack/react-query"
 import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client"
-import { createRouter, createMemoryHistory, RouterOptions } from "@tanstack/react-router"
+import { createRouter, createMemoryHistory } from "@tanstack/react-router"
 
-export const getTestRouter = ({ routeTree, history }: RouterOptions<any, any, any, any, any>) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const getTestRouter = ({ routeTree, history }: { routeTree: any; history?: any }) => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -33,7 +34,9 @@ export const getTestRouter = ({ routeTree, history }: RouterOptions<any, any, an
   })
 
   const options = {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     routeTree: routeTree,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     history: history || createMemoryHistory(),
     defaultPendingMinMs: 0,
     context: {

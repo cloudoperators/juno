@@ -68,6 +68,9 @@ export const IssuesDataRow = ({
     setIsExpanded(!isExpanded)
   }
 
+type QueryFilter = { service?: string[]; image?: string[]; vulnerability?: string[] }
+type RemediationsCache = { data?: { Remediations?: { edges?: Array<{ node?: { id?: string } }> | null; totalCount?: number | null } } }
+
   const handleModalConfirm = async (input: RemediationInput): Promise<{ error: string } | void> => {
     setIsSubmitting(true)
     try {
@@ -77,7 +80,7 @@ export const IssuesDataRow = ({
         queryClient.setQueriesData(
           {
             predicate: (query) => {
-              const [key, filter] = query.queryKey as [string, any]
+              const [key, filter] = query.queryKey as [string, QueryFilter]
               if (key !== "remediations") return false
               if (filter?.service && !filter.service.includes(service)) return false
               if (filter?.image && !filter.image.includes(image)) return false
@@ -85,12 +88,10 @@ export const IssuesDataRow = ({
               return true
             },
           },
-
-          (old: any) => {
+          (old: RemediationsCache) => {
             if (!old?.data?.Remediations) return old
             const edges = old.data.Remediations.edges ?? []
-
-            if (edges.some((e: any) => e?.node?.id === remediation.id)) return old
+            if (edges.some((e) => e?.node?.id === remediation.id)) return old
             return {
               ...old,
               data: {
@@ -122,7 +123,7 @@ export const IssuesDataRow = ({
         queryClient.setQueriesData(
           {
             predicate: (query) => {
-              const [key, filter] = query.queryKey as [string, any]
+              const [key, filter] = query.queryKey as [string, QueryFilter]
               if (key !== "remediations") return false
               if (filter?.service && !filter.service.includes(service)) return false
               if (filter?.image && !filter.image.includes(image)) return false
@@ -130,12 +131,10 @@ export const IssuesDataRow = ({
               return true
             },
           },
-
-          (old: any) => {
+          (old: RemediationsCache) => {
             if (!old?.data?.Remediations) return old
             const edges = old.data.Remediations.edges ?? []
-
-            if (edges.some((e: any) => e?.node?.id === remediation.id)) return old
+            if (edges.some((e) => e?.node?.id === remediation.id)) return old
             return {
               ...old,
               data: {

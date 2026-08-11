@@ -125,13 +125,13 @@ export const getNormalizedError = (error?: { networkError?: unknown; message?: s
   if (isNil(error)) return undefined
 
   // Extract network errors if they exist
-  const networkErrors = error.networkError as any
+  const networkErrors = error.networkError as { result?: { errors?: Array<{ message?: string; path?: string[] }> } } | null
   const netErrors = networkErrors?.result?.errors
-  if (netErrors && netErrors?.length > 0) {
+  if (netErrors && netErrors.length > 0) {
     return netErrors
-      .map((e: any) => {
+      .map((e) => {
         const path = e.path ? ` (Path: ${e.path.join(" → ")})` : ""
-        return `${e.message}${path}`
+        return `${e.message ?? ""}${path}`
       })
       .join("; ")
   }
@@ -165,12 +165,12 @@ export type ImageVersion = {
 // ComponentInstance is not available in GetImages query but kept for backward compatibility
 export type ComponentInstance = {
   id: string
-  ccrn?: string | ""
-  region?: string | ""
-  cluster?: string | ""
-  namespace?: string | ""
-  pod?: string | ""
-  container?: string | ""
+  ccrn?: string
+  region?: string
+  cluster?: string
+  namespace?: string
+  pod?: string
+  container?: string
 }
 
 export type ServiceImage = {
@@ -304,7 +304,7 @@ function extractVulnerabilitiesFromImageNode(imageNode: ImageNodeFromQuery): Ima
         id: node.id || "",
         severity: node.severity || "",
         name: node.name || "",
-        earliestTargetRemediationDate: node.earliestTargetRemediationDate || "",
+        earliestTargetRemediationDate: (node.earliestTargetRemediationDate as string | null | undefined) || "",
         description: node.description || "",
         sourceUrl: node.sourceUrl || "",
       }
@@ -489,7 +489,7 @@ export const getNormalizedImageVersionDetailsResponse = (
         id: node.id || "",
         severity: node.severity || "",
         name: node.name || "",
-        earliestTargetRemediationDate: node.earliestTargetRemediationDate || "",
+        earliestTargetRemediationDate: (node.earliestTargetRemediationDate as string | null | undefined) || "",
         description: node.description || "",
         sourceUrl: node.sourceUrl || "",
       }
@@ -562,7 +562,7 @@ export const getNormalizedImageVersionDetailsResponse = (
     vulnerabilities,
   }
 
-  const pages = vulnerabilitiesPageInfo?.pages?.filter((edge: any): edge is Page => edge !== null) || []
+  const pages = vulnerabilitiesPageInfo?.pages?.filter((edge): edge is Page => edge !== null) || []
   const pageNumber = vulnerabilitiesPageInfo?.pageNumber || 1
   const hasNoResults = vulnerabilities.length === 0 || !vulnerabilitiesPageInfo
 

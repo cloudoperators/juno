@@ -27,7 +27,7 @@ const makeMockRemediationsPromise = (
     remediationDate: string | null
     expirationDate: string | null
   }>
-): Promise<any> =>
+): Promise<{ data: { Remediations: { edges: Array<{ node: { id: string; type: RemediationTypeValues | null; description: string | null; url: string | null; remediatedBy: string | null; remediationDate: string | null; expirationDate: string | null; service: string; image: string; vulnerability: string } }>; totalCount: number } }; loading: boolean; networkStatus: number; partial: boolean; error: undefined; dataState: "complete" }> =>
   Promise.resolve({
     data: {
       Remediations: {

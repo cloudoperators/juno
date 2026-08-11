@@ -46,8 +46,11 @@ export const RiskAcceptanceModal: React.FC<RiskAcceptanceModalProps> = ({
   service,
   image,
 }) => {
-  const auth = useAuth()
-  const authUserId = auth.status === "authenticated" ? auth.userId || auth.userName : null
+  // useAuth() from @cloudoperators/greenhouse-auth-provider returns a discriminated union without exported types
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+  const auth = useAuth() as any
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  const authUserId = auth.status === "authenticated" ? (auth.userId as string | undefined) || (auth.userName as string | undefined) : null
   const [description, setDescription] = useState<string>("")
   const [manualUserId, setManualUserId] = useState<string>("")
   const [sourceTicket, setSourceTicket] = useState<string>("")
@@ -171,7 +174,7 @@ export const RiskAcceptanceModal: React.FC<RiskAcceptanceModalProps> = ({
           <Stack direction="horizontal" gap="2" distribution="end" className="w-full">
             <Button onClick={handleClose} label={CANCEL_LABEL} disabled={isSubmitting} />
             <Button
-              onClick={handleConfirm}
+              onClick={() => void handleConfirm()}
               label={CONFIRM_LABEL}
               variant="primary"
               disabled={

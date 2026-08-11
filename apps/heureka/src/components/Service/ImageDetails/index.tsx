@@ -51,7 +51,7 @@ export const ImageDetails = ({
   }
 
   const handleVersionClick = (version: string) => {
-    navigate({
+    void navigate({
       to: "/services/$service/images/$image/versions/$version",
       params: {
         service,
