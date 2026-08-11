@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-package-template",
-  "version": "1.1.11",
+  "version": "1.1.12",
   "description": "Package template that will be use to generate new juno packages",
   "author": "UI-Team",
   "source": "src/index.js",
@@ -16,7 +16,7 @@
   ],
   "engines": {
     "node": ">=20.19.0",
-    "pnpm": ">=8.0.0"
+    "pnpm": ">=11.20.0"
   },
   "scripts": {
     "test": "vitest run",
@@ -31,11 +31,11 @@
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
-    "@types/node": "24.12.2",
-    "jsdom": "29.1.1",
+    "@types/node": "24.12.4",
+    "jsdom": "30.0.1",
     "typescript": "6.0.3",
-    "vite": "8.0.10",
+    "vite": "8.0.16",
     "vite-plugin-dts": "4.5.4",
-    "vitest": "4.1.6"
+    "vitest": "4.1.10"
   }
 }

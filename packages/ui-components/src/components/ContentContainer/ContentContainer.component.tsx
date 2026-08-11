@@ -8,6 +8,7 @@ import React, { HTMLAttributes, ReactNode } from "react"
 const baseContainerStyles = `
   jn:flex-col
   jn:grow
+  jn:min-w-0
   jn:bg-[right_top_1rem]
   jn:bg-no-repeat
   jn:bg-theme-content-area-bg

@@ -23,6 +23,14 @@ describe("Details", () => {
         pluginDefinition: "test-plugin-def",
         pluginDefinitionRef: { name: "test-plugin-def" },
         deletionPolicy: "Delete",
+        releaseName: "Release",
+      },
+      status: {
+        helmChart: {
+          name: "my-chart",
+          repository: "https://charts.example.com",
+          version: "3.1.4",
+        },
       },
     }
 
@@ -34,5 +42,8 @@ describe("Details", () => {
     expect(screen.getByText("test-plugin-def")).toBeInTheDocument()
     expect(screen.getAllByText("test-team").length).toBeGreaterThan(0)
     expect(screen.getByText("test-cluster")).toBeInTheDocument()
+    expect(screen.getByText("Release")).toBeInTheDocument()
+    expect(screen.getByText("my-chart")).toBeInTheDocument()
+    expect(screen.getByText("3.1.4")).toBeInTheDocument()
   })
 })

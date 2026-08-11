@@ -119,7 +119,7 @@ export const IntroBox = ({
     >
       <div className={`${introboxBorder}`}></div>
       <div className={`${introboxContent(variant, heroImage)}`}>
-        {title ? <h1 className={`${introboxHeading}`}>{title}</h1> : ""}
+        {title ? <p className={`${introboxHeading}`}>{title}</p> : ""}
         {children ? children : <p>{text}</p>}
       </div>
     </div>

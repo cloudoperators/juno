@@ -102,6 +102,10 @@ const buttonStyles = `
   jn:pr-2
   jn:h-textinput
   jn:w-8
+  jn:inline-flex
+  jn:items-center
+  jn:justify-end
+  jn:leading-none
   jn:border-l-0
   jn:border-y
   jn:border-r
@@ -136,18 +140,27 @@ const menuStyles = `
   jn:bg-theme-background-lvl-1
   jn:w-full
   jn:overflow-y-auto
+  jn:border
+  jn:border-theme-default
+  jn:shadow-theme-default
+  jn:box-border
 `
 
 const iconContainerStyles = `
   jn:absolute
-  jn:top-[.4rem]
+  jn:top-1/2
   jn:right-8
+  jn:inline-flex
+  jn:leading-none
+  jn:translate-y-[-50%]
 `
 
 const centeredIconStyles = `
   jn:absolute
   jn:top-1/2
   jn:left-1/2
+  jn:inline-flex
+  jn:leading-none
   jn:translate-y-[-50%]
   jn:translate-x-[-0.75rem]
 `
@@ -210,8 +223,9 @@ export const ComboBox = ({
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
-  const theId = id || "juno-combobox-" + useId()
+  const generatedId = useId()
   const helptextId = "juno-combobox-helptext-" + useId()
+  const theId = id || "juno-combobox-" + generatedId
   const [isOpen, setIsOpen] = useState(false)
 
   const [optionValuesAndLabels, setOptionValuesAndLabels] = useState(

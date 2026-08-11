@@ -11,8 +11,6 @@ const formSectionBaseStyles = `
 `
 
 const headingStyles = `
-    jn:text-lg
-    jn:font-bold
     jn:mb-4
 `
 
@@ -45,7 +43,7 @@ export interface FormSectionProps extends HTMLAttributes<HTMLElement> {
 export const FormSection = ({ title = "", children, className = "", ...props }: FormSectionProps): ReactNode => {
   return (
     <section className={`juno-form-section ${formSectionBaseStyles} ${className}`} {...props}>
-      {title ? <h1 className={`juno-formsection-heading ${headingStyles}`}>{title}</h1> : null}
+      {title ? <h4 className={`juno-formsection-heading ${headingStyles}`}>{title}</h4> : null}
       {children}
     </section>
   )

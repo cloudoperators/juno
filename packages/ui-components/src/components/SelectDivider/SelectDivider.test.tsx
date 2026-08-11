@@ -19,7 +19,7 @@ describe("SelectDivider", () => {
     expect(screen.getByTestId("select-divider")).toHaveClass("my-class")
   })
 
-  test("renders all pops as passed", () => {
+  test("renders all props as passed", () => {
     render(<SelectDivider data-testid="select-divider" data-lolol="123" />)
     expect(screen.getByTestId("select-divider")).toBeInTheDocument()
     expect(screen.getByTestId("select-divider")).toHaveAttribute("data-lolol", "123")

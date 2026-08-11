@@ -1,11 +1,11 @@
 /*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
 import React, { useState, useRef, useCallback, useEffect, ReactNode, HTMLAttributes } from "react"
 import { JsonViewer } from "../JsonViewer"
-import { Icon } from "../Icon"
+import { CodeBlockFooter } from "../CodeBlockFooter"
 
 const wrapperStyles = `
   jn:bg-theme-code-block
@@ -51,33 +51,17 @@ const codeStyles = `
 
 const headingStyles = `
   jn:text-sm
-  jn:border-b-[1px]
-  jn:border-theme-codeblock-bar 
-  jn:h-[3.4375rem]
+  jn:border-b
+  jn:border-theme-codeblock-bar
+  jn:h-13.75
   jn:flex
 `
 
 const headingInnerStyles = `
   jn:flex
   jn:font-bold
-  jn:px-[1.5625rem]
+  jn:px-6.25
   jn:items-center
-`
-
-const bottomBarStyles = `
-  jn:flex 
-  jn:justify-end 
-  jn:px-3
-  jn:py-2 
-  jn:border-t-[1px]
-  jn:border-theme-codeblock-bar
-`
-
-const copyTextStyles = `
-  jn:font-bold 
-  jn:text-sm 
-  jn:mr-4 
-  jn:mt-1
 `
 
 const jsonViewStyles = {
@@ -117,6 +101,7 @@ export const CodeBlock = ({
   wrap = true,
   size = "auto",
   copy = true,
+  codeBlockFooter,
   lang = "",
   className = "",
   ...props
@@ -171,13 +156,10 @@ export const CodeBlock = ({
         </pre>
       )}
 
-      {copy ? (
-        <div className={`juno-codeblock-bottombar ${bottomBarStyles}`}>
-          <span className={`${copyTextStyles}`}>{isCopied ? "Copied!" : ""}</span>
-          <Icon icon="contentCopy" onClick={handleCopyClick} />
-        </div>
-      ) : (
-        ""
+      {(copy || codeBlockFooter) && (
+        <CodeBlockFooter onCopy={handleCopyClick} isCopied={isCopied} copy={copy}>
+          {codeBlockFooter}
+        </CodeBlockFooter>
       )}
     </div>
   )
@@ -219,6 +201,15 @@ export interface CodeBlockProps extends Omit<HTMLAttributes<HTMLDivElement>, "co
    * @default true
    */
   copy?: boolean
+
+  /**
+   * Optional. Pass content to render inside the footer bar, to the left of the Copy button.
+   * Can be combined with `copy={true}` (the default) to show custom actions alongside the Copy button.
+   * **Breaking change:** Previously accepted a full replacement element that replaced the entire footer.
+   * Now injects content *into* the footer — the `CodeBlockFooter` wrapper is always rendered.
+   * Use `copy={false}` to hide the Copy button.
+   */
+  codeBlockFooter?: ReactNode
 
   /**
    * Language for the content. "json" will render a structured JsonView. Adds a data-lang attribute.

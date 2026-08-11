@@ -4,7 +4,6 @@
  */
 
 import React from "react"
-
 import { KnownIconsEnum } from "../Icon/Icon.component"
 import { BreadcrumbItem, BreadcrumbItemProps } from "./BreadcrumbItem.component"
 
@@ -34,13 +33,14 @@ export const Default = {
   parameters: {
     docs: {
       description: {
-        story: "A default breadcrumb item",
+        story: "A default breadcrumb item without navigation or interaction.",
       },
     },
   },
 
   args: {
     label: "Breadcrumb Item",
+    onClick: undefined,
   },
 }
 
@@ -58,6 +58,7 @@ export const WithIcon = {
   args: {
     icon: "place",
     label: "Breadcrumb Item with Icon",
+    onClick: undefined,
   },
 }
 
@@ -67,7 +68,7 @@ export const Active = {
   parameters: {
     docs: {
       description: {
-        story: "An active item represents the current page.",
+        story: "An active item represents the current page, rendered as a non-interactive span with aria-current.",
       },
     },
   },
@@ -75,6 +76,7 @@ export const Active = {
   args: {
     label: "Active Breadcrumb Item",
     active: true,
+    onClick: undefined,
   },
 }
 
@@ -84,7 +86,7 @@ export const Disabled = {
   parameters: {
     docs: {
       description: {
-        story: "A disabled breadcrumb item.",
+        story: "A disabled breadcrumb item, non-interactive with aria-disabled.",
       },
     },
   },
@@ -92,6 +94,42 @@ export const Disabled = {
   args: {
     label: "Disabled Breadcrumb Item",
     disabled: true,
+    onClick: undefined,
+  },
+}
+
+export const Link = {
+  render: Template,
+
+  parameters: {
+    docs: {
+      description: {
+        story: "A breadcrumb item rendered as a `<a>` with provided href",
+      },
+    },
+  },
+
+  args: {
+    label: "Breadcrumb Link Item",
+    href: "#",
+    onClick: undefined,
+  },
+}
+
+export const Button = {
+  render: Template,
+
+  parameters: {
+    docs: {
+      description: {
+        story: "A breadcrumb item rendered as a `<button>` using `onClick` for interaction.",
+      },
+    },
+  },
+
+  args: {
+    label: "Breadcrumb Button Item",
+    onClick: () => undefined,
   },
 }
 
@@ -101,7 +139,7 @@ export const Home = {
   parameters: {
     docs: {
       description: {
-        story: "Typically the first item in a breadcrumb.",
+        story: "Typically the first item in a breadcrumb with a home icon.",
       },
     },
   },
@@ -109,5 +147,6 @@ export const Home = {
   args: {
     label: "",
     icon: "home",
+    onClick: undefined,
   },
 }

@@ -1,5 +1,11 @@
 # @cloudoperators/juno-template
 
+## 1.1.12
+
+### Patch Changes
+
+- 0e11c6e: Updated jsdom from 26.1.0 to 29.1.1 and updated Node.js engine requirement to >=20.19.0 to match jsdom's requirements.
+
 ## 1.1.11
 
 ### Patch Changes

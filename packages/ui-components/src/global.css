@@ -13,7 +13,7 @@
 @import "./components/TextInput/textinput.css" layer(utilities);
 @import "./components/ThemeToggle/themeToggle.css" layer(utilities);
 @import "./components/DataGridRow/data-grid-row.css" layer(utilities);
-@import "./components/SideNavigationItem/sidenavigationitem.css" layer(utilities);
+@import "./components/SideNavigation/sidenavigation.css" layer(utilities);
 @import "./components/PageFooter/page-footer.css" layer(utilities);
 
 :root,
@@ -359,6 +359,7 @@
 
   --background-color-theme-content-area-bg: var(--color-content-area-bg);
 
+  --background-color-theme-datagridtoolbar: var(--color-datagridtoolbar-bg);
   --background-color-theme-datagridrow-selected: var(--color-datagridrow-selected);
   --background-color-theme-datalistrow-selected: var(--color-datalistrow-selected);
 
@@ -380,6 +381,7 @@
   --background-color-theme-required: var(--color-required-bg);
   --background-color-theme-select: var(--color-select-bg);
   --background-color-theme-sidenavigation-item-active: var(--color-sidenavigation-item-active-bg);
+  --background-color-theme-status-details: var(--color-status-details-bg);
   --background-color-theme-switch-handle: var(--color-switch-handle-bg);
   --background-color-theme-switch-handle-checked: var(--color-switch-handle-checked-bg);
   --background-color-theme-tab-navigation-top: var(--color-tabnavigation-top-bg);
@@ -387,6 +389,11 @@
   --background-color-theme-textinput-autofill: var(--color-textinput-autofill-bg);
   --background-color-theme-topnavigation-item: var(--color-topnavigation-item-bg);
   --background-color-theme-topnavigation-item-active: var(--color-topnavigation-item-active-bg);
+  --border-color-theme-box-info: var(--color-box-info-border);
+  --border-color-theme-box-success: var(--color-box-success-border);
+  --border-color-theme-box-warning: var(--color-box-warning-border);
+  --border-color-theme-box-error: var(--color-box-error-border);
+  --border-color-theme-box-danger: var(--color-box-danger-border);
 
   /* Component Background Colors: */
   --background-color-theme-message-default: var(--color-message-default-bg);
@@ -394,6 +401,11 @@
   --background-color-theme-message-warning: var(--color-message-warning-bg);
   --background-color-theme-message-danger: var(--color-message-danger-bg);
   --background-color-theme-message-error: var(--color-message-error-bg);
+  --background-color-theme-box-info: var(--color-box-info-bg);
+  --background-color-theme-box-success: var(--color-box-success-bg);
+  --background-color-theme-box-warning: var(--color-box-warning-bg);
+  --background-color-theme-box-error: var(--color-box-error-bg);
+  --background-color-theme-box-danger: var(--color-box-danger-bg);
 
   /* Component Text Colors: */
   --text-color-theme-highest: var(--color-text-highest);
@@ -413,15 +425,21 @@
   --text-color-theme-pageheader-appname-default: var(--color-pageheader-appname-text-default);
   --text-color-theme-pageheader-appname-hover: var(--color-pageheader-appname-text-hover);
   --text-color-theme-sidenavigation-item-active: var(--color-sidenavigation-item-active);
+  --text-color-theme-status-details: var(--color-status-details-text);
+  --text-color-theme-status-code: var(--color-status-code);
 
   /* Component Border Colors: */
   --border-color-theme-default: var(--color-border-default);
+  --border-color-theme-high: var(--color-border-high);
+  --border-color-theme-higher: var(--color-border-higher);
 
   --border-color-theme-box-default: var(--color-box-border);
 
   --border-color-theme-card-default: var(--color-card-border-default);
+  --border-color-theme-card-hover: var(--color-card-border-hover);
 
   --border-color-theme-codeblock-bar: var(--color-codeblock-bar-border);
+  --border-color-theme-codeblock-footer: var(--color-codeblock-footer-border);
   --border-color-theme-codeblock-tab-active: var(--color-text-default);
 
   --border-color-theme-datalist-row: var(--color-datalist-row-border);
@@ -452,6 +470,7 @@
   --border-color-theme-textinput-default: var(--color-textinput-default-border);
 
   --border-color-theme-sidenav: var(--color-sidenav-border);
+  --border-color-theme-status-details: var(--color-status-details-border);
 
   --padding-xs: 0.25rem;
   --padding-sm: 0.5rem;
@@ -531,6 +550,8 @@
   /* LT Global */
   --color-global-bg: var(--color-juno-grey-light-1);
   --color-border-default: var(--color-juno-grey-light-7);
+  --color-border-high: var(--color-juno-grey-light-9);
+  --color-border-higher: rgb(183, 183, 183);
   --color-global-text: var(--color-juno-text-default);
   --color-content-area-bg: var(--color-background-lvl-0);
   /* LT FOCUS */
@@ -545,6 +566,19 @@
 
   /* LT Badge */
   --color-badge-default-bg: var(--color-juno-grey-light-3);
+  /* LT Box */
+  --color-box-bg: var(--color-background-lvl-1);
+  --color-box-border: var(--color-background-lvl-3);
+  --color-box-info-bg: var(--color-info-bg);
+  --color-box-info-border: var(--color-info);
+  --color-box-success-bg: var(--color-success-bg);
+  --color-box-success-border: var(--color-success);
+  --color-box-warning-bg: var(--color-warning-bg);
+  --color-box-warning-border: var(--color-warning);
+  --color-box-error-bg: var(--color-error-bg);
+  --color-box-error-border: var(--color-error);
+  --color-box-danger-bg: var(--color-danger-bg);
+  --color-box-danger-border: var(--color-danger);
 
   /* LT Button */
   /* LT Primary Button */
@@ -594,6 +628,10 @@
   --color-button-primary-danger-active-text: var(--color-white);
   --color-button-primary-danger-active-bg: var(--color-juno-primary-danger-5);
 
+  /* LT DataGrid */
+  --color-datagridtoolbar-bg: var(--color-background-lvl-1);
+  --color-datagridrow-selected: var(--color-accent);
+
   /* LT Divider */
   --color-divider-border: var(--color-border-default);
 
@@ -616,17 +654,24 @@
   --color-icon-severityMedium: var(--color-severity-medium);
   --color-icon-severityLow: var(--color-severity-low);
 
+  /* LT Semantic Background Colors */
+  --color-info-bg: rgb(229, 241, 250);
+  --color-warning-bg: rgb(255, 247, 229);
+  --color-success-bg: rgb(237, 248, 232);
+  --color-danger-bg: rgb(249, 229, 229);
+  --color-error-bg: rgb(249, 229, 229);
+
   /* LT Message */
   --color-message-danger-border: var(--color-danger);
-  --color-message-danger-bg: rgb(249, 229, 229);
+  --color-message-danger-bg: var(--color-danger-bg);
   --color-message-default-border: var(--color-info);
-  --color-message-default-bg: rgb(229, 241, 250);
+  --color-message-default-bg: var(--color-info-bg);
   --color-message-error-border: var(--color-error);
-  --color-message-error-bg: rgb(249, 229, 229);
+  --color-message-error-bg: var(--color-error-bg);
   --color-message-warning-border: var(--color-warning);
-  --color-message-warning-bg: rgb(255, 247, 229);
+  --color-message-warning-bg: var(--color-warning-bg);
   --color-message-success-border: var(--color-success);
-  --color-message-success-bg: rgb(237, 248, 232);
+  --color-message-success-bg: var(--color-success-bg);
 
   /* LT Introbox */
   --color-introbox-bg: var(--color-background-lvl-2);
@@ -645,6 +690,7 @@
   /* LT Card */
   --color-card-background-default: var(--color-white);
   --color-card-border-default: var(--color-border-default);
+  --color-card-border-hover: var(--color-border-high);
   /* LT Checkbox */
   --color-checkbox-bg: var(--color-background-lvl-5);
   --color-checkbox-checked-color: var(--color-accent);
@@ -677,14 +723,18 @@
   --color-syntax-highlight-base0E: var(--color-juno-blue-4);
   /* LT bool + collapsed icon */
   --color-syntax-highlight-base0F: var(--color-juno-blue-4); /*  integer value */
-  /* LT DataGrid */
-  --color-datagridrow-selected: var(--color-accent);
   /* LT DataList */
   --color-datalist-row-border: var(--color-background-lvl-1);
   --color-datalistrow-selected: var(--color-accent);
   /* LT CodeBlock */
   --color-codeblock-bg: var(--color-background-lvl-2);
   --color-codeblock-bar-border: var(--color-background-lvl-4);
+  --color-codeblock-footer-border: var(--color-background-lvl-4);
+  /* LT Status */
+  --color-status-details-bg: var(--color-background-lvl-2);
+  --color-status-details-text: var(--color-text-default);
+  --color-status-details-border: var(--color-border-default);
+  --color-status-code: var(--color-text-disabled);
   /* LT Panel */
   --color-panel-bg: rgb(252 252 252 / 0.8);
   /* LT PageHeader */
@@ -706,9 +756,6 @@
   --color-filter-pill-key-bg: var(--color-background-lvl-4);
   /* LT Modal */
   --color-modal-backdrop-bg: rgb(0 0 0 / 0.2);
-  /* LT Box */
-  --color-box-bg: var(--color-background-lvl-1);
-  --color-box-border: var(--color-background-lvl-3);
   /* LT SideNavigation */
   --color-sidenavigation-item-active: var(--color-black);
   --color-sidenavigation-item-active-bg: var(--color-background-lvl-0);
@@ -739,7 +786,7 @@
   ); /* Dark Theme DateTimePicker range background. We need to use a synthetisized solid value based on the current theme's accent color, the way that flatpickr is built here forbids using translucent colors. */
   /* LT Box Shadow */
   --box-shadow-default: 0 1px 2px 0 rgba(34, 54, 73, 0.3);
-  --box-shadow-hover: 0 0 0 1px var(--color-color-shadow, rgba(79, 79, 79, 0.3)), 0 2px 8px 0 rgba(0, 0, 0, 0.3);
+  --box-shadow-hover: 0 0 0 1px var(--color-color-shadow, rgba(79, 79, 79, 0.2)), 0 2px 8px 0 rgba(0, 0, 0, 0.2);
   /* LT PageFooter */
   --color-pagefooter-text: var(--color-text-light);
   --color-pagefooter-background: var(--color-white);
@@ -780,6 +827,8 @@
   /* DT Global */
   --color-global-bg: var(--color-juno-grey-blue-10);
   --color-border-default: var(--color-juno-grey-blue-3);
+  --color-border-high: var(--color-juno-grey-blue-1);
+  --color-border-higher: rgb(92, 92, 92);
   --color-global-text: var(--color-juno-text-default);
   --color-content-area-bg: var(--color-background-lvl-0);
 
@@ -845,7 +894,9 @@
   /* |-- DT Primary Danger Button :active */
   --color-button-primary-danger-active-text: var(--color-white);
   --color-button-primary-danger-active-bg: var(--color-juno-primary-danger-5);
-
+  /* DT DataGrid */
+  --color-datagridtoolbar-bg: var(--color-background-lvl-1);
+  --color-datagridrow-selected: var(--color-accent);
   /* DT Divider */
   --color-divider-border: var(--color-border-default);
 
@@ -868,17 +919,24 @@
   --color-icon-severityMedium: var(--color-severity-medium);
   --color-icon-severityLow: var(--color-severity-low);
 
+  /* DT Semantic Background Colors */
+  --color-info-bg: rgb(14, 48, 57);
+  --color-warning-bg: rgb(49, 47, 24);
+  --color-success-bg: rgb(20, 48, 34);
+  --color-danger-bg: rgb(49, 27, 26);
+  --color-error-bg: rgb(49, 27, 26);
+
   /* DT Message */
   --color-message-danger-border: var(--color-danger);
-  --color-message-danger-bg: rgb(49, 27, 26);
+  --color-message-danger-bg: var(--color-danger-bg);
   --color-message-default-border: var(--color-info);
-  --color-message-default-bg: rgb(14, 48, 57);
+  --color-message-default-bg: var(--color-info-bg);
   --color-message-error-border: var(--color-error);
-  --color-message-error-bg: rgb(49, 27, 26);
+  --color-message-error-bg: var(--color-error-bg);
   --color-message-warning-border: var(--color-warning);
-  --color-message-warning-bg: rgb(49, 47, 24);
+  --color-message-warning-bg: var(--color-warning-bg);
   --color-message-success-border: var(--color-success);
-  --color-message-success-bg: rgb(20, 48, 34);
+  --color-message-success-bg: var(--color-success-bg);
   /* DT Introbox */
   --color-introbox-bg: var(--color-background-lvl-2);
   --color-introbox-border: var(--color-accent);
@@ -896,6 +954,7 @@
   /* DT Card */
   --color-card-background-default: var(--color-juno-grey-blue-10);
   --color-card-border-default: var(--color-border-default);
+  --color-card-border-hover: var(--color-border-high);
   /* DT Checkbox */
   --color-checkbox-bg: var(--color-background-lvl-5);
   --color-checkbox-checked-color: var(--color-accent);
@@ -928,14 +987,19 @@
   --color-syntax-highlight-base0D: var(--color-sap-gold); /* DT expanded icon */
   --color-syntax-highlight-base0E: var(--color-juno-blue-4); /* DT bool + collapsed icon */
   --color-syntax-highlight-base0F: var(--color-juno-blue-4); /* integer value */
-  /* DT DataGrid */
-  --color-datagridrow-selected: var(--color-accent);
+
   /* DT DataList */
   --color-datalist-row-border: var(--color-background-lvl-1);
   --color-datalistrow-selected: var(--color-accent);
   /* DT CodeBlock */
   --color-codeblock-bg: var(--color-background-lvl-2);
   --color-codeblock-bar-border: var(--color-background-lvl-4);
+  --color-codeblock-footer-border: var(--color-background-lvl-4);
+  /* DT Status */
+  --color-status-details-bg: var(--color-background-lvl-2);
+  --color-status-details-text: var(--color-text-default);
+  --color-status-details-border: var(--color-border-default);
+  --color-status-code: var(--color-text-disabled);
   /* DT Panel */
   --color-panel-bg: rgb(from var(--color-juno-grey-blue-11) r g b / 0.75);
   /* DT PageHeader */
@@ -960,6 +1024,16 @@
   /* DT Box */
   --color-box-bg: var(--color-background-lvl-1);
   --color-box-border: var(--color-background-lvl-3);
+  --color-box-info-bg: var(--color-info-bg);
+  --color-box-info-border: var(--color-info);
+  --color-box-success-bg: var(--color-success-bg);
+  --color-box-success-border: var(--color-success);
+  --color-box-warning-bg: var(--color-warning-bg);
+  --color-box-warning-border: var(--color-warning);
+  --color-box-error-bg: var(--color-error-bg);
+  --color-box-error-border: var(--color-error);
+  --color-box-danger-bg: var(--color-danger-bg);
+  --color-box-danger-border: var(--color-danger);
   /* DT SideNavigation */
   --color-sidenavigation-item-active: var(--color-white);
   --color-sidenavigation-item-active-bg: var(--color-background-lvl-0);
@@ -1046,6 +1120,57 @@
 
   a {
     @apply jn:text-theme-link;
+  }
+
+  h1,
+  .juno-h1,
+  h2,
+  .juno-h2,
+  h3,
+  .juno-h3,
+  h4,
+  .juno-h4,
+  h5,
+  .juno-h5,
+  h6,
+  .juno-h6 {
+    @apply jn:font-sans jn:font-bold;
+  }
+
+  h1,
+  .juno-h1 {
+    font-size: 1.69rem;
+    line-height: 1.375;
+  }
+
+  h2,
+  .juno-h2 {
+    font-size: 1.56rem;
+    line-height: 1.375;
+  }
+
+  h3,
+  .juno-h3 {
+    font-size: 1.44rem;
+    line-height: 1.375;
+  }
+
+  h4,
+  .juno-h4 {
+    font-size: 1.28rem;
+    line-height: 1.625;
+  }
+
+  h5,
+  .juno-h5 {
+    font-size: 1.125rem;
+    line-height: 1.625;
+  }
+
+  h6,
+  .juno-h6 {
+    font-size: 1rem;
+    line-height: 1.5;
   }
 
   /* adds pointer cursor to buttons to restore tw3 behavior */

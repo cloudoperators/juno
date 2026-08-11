@@ -21,7 +21,7 @@ import { PortalProvider } from "../PortalProvider/PortalProvider.component"
 import { Button, ButtonProps } from "../Button/"
 
 const meta: Meta<typeof PopupMenu> = {
-  title: "WiP/PopupMenu",
+  title: "Components/PopupMenu",
   component: PopupMenu,
   subcomponents: {
     PopupMenuToggle: PopupMenuToggle as React.ComponentType<unknown>,

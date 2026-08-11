@@ -9,8 +9,9 @@ import { SideNavigationListProps } from "../SideNavigationList"
 
 const sideNavStyles = `
   jn:px-[1.25rem]
-  jn:py-[1rem]
+  jn:py-[1.25rem]
   jn:w-[16rem]
+  jn:shrink-0
   jn:bg-theme-sidenav
   jn:border-r
   jn:border-theme-sidenav
@@ -23,40 +24,19 @@ const sideNavStyles = `
  * @see {@link SideNavigationProps}
  */
 
-export const SideNavigation = ({
-  activeItem = "",
-  ariaLabel,
-  children,
-  className = "",
-  disabled = false,
-  onActiveItemChange,
-  ...props
-}: SideNavigationProps): ReactNode => {
+export const SideNavigation = ({ ariaLabel, children, className = "", ...props }: SideNavigationProps): ReactNode => {
   return (
-    <Navigation
-      activeItem={activeItem}
-      ariaLabel={ariaLabel}
-      className={`juno-sidenavigation ${sideNavStyles} ${className}`}
-      disabled={disabled}
-      onActiveItemChange={onActiveItemChange}
-      {...props}
-    >
+    <Navigation ariaLabel={ariaLabel} className={`juno-sidenavigation ${sideNavStyles} ${className}`} {...props}>
       {children}
     </Navigation>
   )
 }
 
 export interface SideNavigationProps extends HTMLAttributes<HTMLElement> {
-  /** The active navigation item by label */
-  activeItem?: ReactNode
   /** The aria-label of the navigation. Specify when there are more than one elements with an implicit or explicit `role="navigation"` on a page/view. */
   ariaLabel?: string
   /** The children of the Navigation. These should be SideNavigationItem(s) */
   children?: ReactElement<SideNavigationListProps> | ReactElement<SideNavigationListProps>[]
   /** Pass custom classname. */
   className?: string
-  /** Whether the navigation is disabled */
-  disabled?: boolean
-  /** Handler to execute when the active item changes */
-  onActiveItemChange?: (_activeItem: ReactNode) => void
 }

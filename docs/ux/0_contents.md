@@ -23,17 +23,21 @@
    1. [Juno Layout](juno-layout.md)
    2. [Embedded ApplicationLayout](embedded-application-layout.md)
    3. [Legacy Application Layout](legacy-application-layout.md)
-4. [UX Patterns](ux-patterns-md)
-   1. Page And User Flow
+4. [UX Patterns](ux-patterns.md)
+   1. [Page and User Flow](page-and-user-flow.md)
    2. Authentication And Access
       1. [Sign In](sign-in.md)
       2. [UI For Unauthorized Users](ui-for-unauthorized-users.md)
-   3. [DataGrid](datagrid.md)
-   4. Wizard Pattern
-   5. Inline Adding And Deleting Items
-   6. [Modals](modals.md)
-   7. [PopupMenus](popup-and-overflow-menus.md)
-   8. [Messages & Notifications](messages-and-notifications.md)
+   3. [Navigation](navigation.md)
+      1. [Side Navigation](navigation-side-navigation.md)
+   4. [DataGrid](datagrid.md)
+   5. [Forms](forms.md)
+   6. Wizard Pattern
+   7. Inline Adding And Deleting Items
+   8. [Modals](modals.md)
+   9. [Popup And Overflow Menus](popup-and-overflow-menus.md)
+   10. [Messages & Notifications](messages-and-notifications.md)
+   11. [Box](box.md)
 5. [Application Design Guidelines](application-design-guidelines.md)
    1. Interaction Guidelines
    2. [UX Writing / Content Guidelines](ux-writing-content-design.md)
@@ -41,5 +45,4 @@
    4. [Transient States And Progress](transient-states-and-progress.md)
 6. Versioning, Deprecation Policy
 7. [Resources](resources.md)
-8. Appendix
-   1. [Terminology/Glossary](glossary.md)
+8. [Terminology/Glossary](glossary.md)

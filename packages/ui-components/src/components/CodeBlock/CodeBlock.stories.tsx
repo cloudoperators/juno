@@ -1,11 +1,12 @@
 /*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import React from "react"
+import React, { useCallback } from "react"
 import { CodeBlock, CodeBlockProps } from "./CodeBlock.component"
+import { Icon } from "../Icon"
 import { Tabs } from "../Tabs"
 import { TabList } from "../TabList"
 import { Tab } from "../Tab"
@@ -112,7 +113,7 @@ export const FixedSize: Story = {
   },
   args: {
     size: "small",
-    content: ` -------- BEGIN CERTIFICATE -------- 
+    content: ` -------- BEGIN CERTIFICATE --------
     30818902818100C4A06B7B52F8D17DC1C0
     B47362C64AB799AAE19E245A7559E9CEEC
     7D8AA4DF07CB0B21FDFD763C63A313A668
@@ -209,5 +210,78 @@ export const CodeBlocksWithTabs: StoryObj<TabsTemplateProps> = {
   </div>`,
       },
     ],
+  },
+}
+
+const customFooterContent = `const greeting = "Hello, world!"\nconsole.log(greeting)`
+
+export const CustomCodeBlockFooter: Story = {
+  name: "CodeBlock with Custom Footer (no Copy)",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Pass content into `codeBlockFooter` to add custom actions to the footer bar. Here a Download icon is shown with `copy={false}` to hide the Copy button.",
+      },
+      source: {
+        code: `<CodeBlock
+  content={code}
+  copy={false}
+  codeBlockFooter={<Icon icon="download" onClick={handleDownload} />}
+/>`,
+      },
+    },
+  },
+  render: () => {
+    const handleDownload = useCallback(() => {
+      const blob = new Blob([customFooterContent], { type: "text/plain" })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement("a")
+      a.href = url
+      a.download = "code.txt"
+      a.click()
+      URL.revokeObjectURL(url)
+    }, [])
+
+    return (
+      <CodeBlock
+        content={customFooterContent}
+        copy={false}
+        codeBlockFooter={<Icon icon="download" onClick={handleDownload} />}
+      />
+    )
+  },
+}
+
+export const CustomCodeBlockFooterWithCopy: Story = {
+  name: "CodeBlock with Custom Footer and Copy",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Pass content into `codeBlockFooter` and keep `copy={true}` (the default) to show custom actions and the Copy button together in one bar. The tooltip confirmation floats above and does not affect layout.",
+      },
+      source: {
+        code: `<CodeBlock
+  content={code}
+  codeBlockFooter={<Icon icon="download" onClick={handleDownload} />}
+/>`,
+      },
+    },
+  },
+  render: () => {
+    const handleDownload = useCallback(() => {
+      const blob = new Blob([customFooterContent], { type: "text/plain" })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement("a")
+      a.href = url
+      a.download = "code.txt"
+      a.click()
+      URL.revokeObjectURL(url)
+    }, [])
+
+    return (
+      <CodeBlock content={customFooterContent} codeBlockFooter={<Icon icon="download" onClick={handleDownload} />} />
+    )
   },
 }

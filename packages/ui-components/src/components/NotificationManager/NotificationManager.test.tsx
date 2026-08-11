@@ -1,0 +1,255 @@
+/*
+ * SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import * as React from "react"
+import { cleanup, render, screen, waitFor } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
+import { NotificationManager, toast } from "./index"
+
+describe("NotificationManager", () => {
+  const originalSetPointerCapture = (Element.prototype as Partial<Element>).setPointerCapture
+  const originalReleasePointerCapture = (Element.prototype as Partial<Element>).releasePointerCapture
+
+  beforeAll(() => {
+    // jsdom does not implement pointer capture APIs used by Sonner's drag-to-dismiss handler
+    Element.prototype.setPointerCapture = vi.fn()
+    Element.prototype.releasePointerCapture = vi.fn()
+  })
+
+  afterAll(() => {
+    if (originalSetPointerCapture) {
+      Element.prototype.setPointerCapture = originalSetPointerCapture
+    } else {
+      delete (Element.prototype as Partial<Element>).setPointerCapture
+    }
+    if (originalReleasePointerCapture) {
+      Element.prototype.releasePointerCapture = originalReleasePointerCapture
+    } else {
+      delete (Element.prototype as Partial<Element>).releasePointerCapture
+    }
+  })
+
+  afterEach(() => {
+    toast.dismiss()
+    cleanup()
+  })
+
+  test("renders a toaster region", async () => {
+    render(<NotificationManager />)
+
+    await waitFor(() => {
+      expect(screen.getByRole("region", { name: /notifications/i })).toBeInTheDocument()
+    })
+  })
+
+  test("renders semantic custom toast content once with description", async () => {
+    render(<NotificationManager id="semantic-test" />)
+
+    toast.success("Semantic toast title", {
+      toasterId: "semantic-test",
+      description: "Semantic toast description",
+    })
+
+    await waitFor(() => {
+      expect(screen.getByText("Semantic toast title")).toBeInTheDocument()
+      expect(screen.getAllByText("Semantic toast description")).toHaveLength(1)
+    })
+
+    expect(document.querySelector(".juno-toast-success")).toBeInTheDocument()
+  })
+
+  test("dismisses a notification by id", async () => {
+    render(<NotificationManager id="dismiss-test" />)
+
+    const id = toast.info("Dismissable toast", {
+      toasterId: "dismiss-test",
+      duration: 100000,
+    })
+
+    await waitFor(() => {
+      expect(screen.getByText("Dismissable toast")).toBeInTheDocument()
+    })
+
+    toast.dismiss(id)
+
+    await waitFor(() => {
+      expect(screen.queryByText("Dismissable toast")).not.toBeInTheDocument()
+    })
+  })
+
+  test("scopes notifications to matching toasterId", async () => {
+    render(
+      <>
+        <NotificationManager id="manager-a" />
+        <NotificationManager id="manager-b" />
+      </>
+    )
+
+    toast("Only manager A should show this", { toasterId: "manager-a" })
+
+    await waitFor(() => {
+      expect(screen.getAllByText("Only manager A should show this")).toHaveLength(1)
+    })
+
+    toast("Only manager B should show this", { toasterId: "manager-b" })
+
+    await waitFor(() => {
+      expect(screen.getAllByText("Only manager B should show this")).toHaveLength(1)
+    })
+  })
+
+  test("closes toast when close button is clicked", async () => {
+    render(<NotificationManager id="close-btn-test" />)
+
+    toast.info("Close me", { toasterId: "close-btn-test", duration: 100000 })
+
+    await waitFor(() => {
+      expect(screen.getByText("Close me")).toBeInTheDocument()
+    })
+
+    await userEvent.click(screen.getByTitle("Close"))
+
+    await waitFor(() => {
+      expect(screen.queryByText("Close me")).not.toBeInTheDocument()
+    })
+  })
+
+  test("fires onDismiss when close button is clicked", async () => {
+    const handleDismiss = vi.fn()
+    render(<NotificationManager id="ondismiss-test" />)
+
+    toast.info("Dismiss callback toast", {
+      toasterId: "ondismiss-test",
+      duration: 100000,
+      onDismiss: handleDismiss,
+    })
+
+    await waitFor(() => {
+      expect(screen.getByText("Dismiss callback toast")).toBeInTheDocument()
+    })
+
+    await userEvent.click(screen.getByTitle("Close"))
+
+    await waitFor(() => {
+      expect(handleDismiss).toHaveBeenCalledTimes(1)
+    })
+  })
+
+  test("fires onAutoClose after duration expires", async () => {
+    const handleAutoClose = vi.fn()
+    render(<NotificationManager id="autoclose-test" />)
+
+    toast.info("Auto-close toast", {
+      toasterId: "autoclose-test",
+      duration: 100,
+      onAutoClose: handleAutoClose,
+    })
+
+    await waitFor(() => {
+      expect(screen.getByText("Auto-close toast")).toBeInTheDocument()
+    })
+
+    await waitFor(() => expect(handleAutoClose).toHaveBeenCalledTimes(1), { timeout: 2000 })
+  })
+
+  test("toast() without variant renders as info", async () => {
+    render(<NotificationManager id="default-variant-test" />)
+
+    toast("Default variant toast", { toasterId: "default-variant-test" })
+
+    await waitFor(() => {
+      expect(screen.getByText("Default variant toast")).toBeInTheDocument()
+      expect(document.querySelector(".juno-toast-info")).toBeInTheDocument()
+    })
+  })
+
+  test("renders toast with lazy message and description functions", async () => {
+    render(<NotificationManager id="lazy-test" />)
+
+    toast.warning(() => "Lazy title", {
+      toasterId: "lazy-test",
+      description: () => "Lazy description",
+    })
+
+    await waitFor(() => {
+      expect(screen.getByText("Lazy title")).toBeInTheDocument()
+      expect(screen.getByText("Lazy description")).toBeInTheDocument()
+    })
+  })
+
+  test("hides close icon when manager-level dismissible is false", async () => {
+    render(<NotificationManager id="manager-non-dismissible-test" dismissible={false} />)
+
+    toast.info("Non-dismissible toast", {
+      toasterId: "manager-non-dismissible-test",
+      duration: 100000,
+    })
+
+    await waitFor(() => {
+      expect(screen.getByText("Non-dismissible toast")).toBeInTheDocument()
+    })
+
+    expect(screen.queryByTitle("Close")).not.toBeInTheDocument()
+  })
+
+  test("shows close icon when per-toast dismissible overrides manager-level false", async () => {
+    render(<NotificationManager id="per-toast-override-test" dismissible={false} />)
+
+    toast.info("Override toast", {
+      toasterId: "per-toast-override-test",
+      duration: 100000,
+      dismissible: true,
+    })
+
+    await waitFor(() => {
+      expect(screen.getByText("Override toast")).toBeInTheDocument()
+    })
+
+    expect(screen.getByTitle("Close")).toBeInTheDocument()
+  })
+
+  test("hides close icon when per-toast dismissible is false and manager allows dismissal", async () => {
+    render(<NotificationManager id="per-toast-non-dismissible-test" dismissible={true} />)
+
+    toast.info("Per-toast non-dismissible", {
+      toasterId: "per-toast-non-dismissible-test",
+      duration: 100000,
+      dismissible: false,
+    })
+
+    await waitFor(() => {
+      expect(screen.getByText("Per-toast non-dismissible")).toBeInTheDocument()
+    })
+
+    expect(screen.queryByTitle("Close")).not.toBeInTheDocument()
+  })
+
+  test("hides close icon for id-less manager with dismissible={false} and toast() without toasterId", async () => {
+    render(<NotificationManager dismissible={false} />)
+
+    toast.info("No id manager toast", { duration: 100000 })
+
+    await waitFor(() => {
+      expect(screen.getByText("No id manager toast")).toBeInTheDocument()
+    })
+
+    expect(screen.queryByTitle("Close")).not.toBeInTheDocument()
+  })
+
+  test("restores close icon after non-dismissible manager unmounts and dismissible manager mounts", async () => {
+    const { unmount } = render(<NotificationManager dismissible={false} />)
+    unmount()
+
+    render(<NotificationManager dismissible={true} />)
+
+    toast.info("After remount toast", { duration: 100000 })
+
+    await waitFor(() => {
+      expect(screen.getByText("After remount toast")).toBeInTheDocument()
+    })
+
+    expect(screen.getByTitle("Close")).toBeInTheDocument()
+  })
+})

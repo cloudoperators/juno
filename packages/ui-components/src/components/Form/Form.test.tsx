@@ -19,8 +19,8 @@ describe("Form Component Tests", () => {
     test("renders a title", () => {
       render(<Form data-testid="my-form" title="My Form" />)
       expect(screen.getByTestId("my-form")).toBeInTheDocument()
-      expect(screen.getByRole("heading")).toHaveClass("juno-form-heading")
-      expect(screen.getByRole("heading")).toHaveTextContent("My Form")
+      expect(screen.getByRole("heading", { level: 3 })).toHaveClass("juno-form-heading")
+      expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent("My Form")
     })
 
     test("renders without any props", () => {

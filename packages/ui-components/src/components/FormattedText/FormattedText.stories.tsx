@@ -41,6 +41,7 @@ const Template = (args: FormattedTextProps) => (
     <h3>Headline 3</h3>
     <h4>Headline 4</h4>
     <h5>Headline 5</h5>
+    <h6>Headline 6</h6>
     <article>
       <h2>h2: Lorem ipsum dolor sit amet</h2>
       <h3>h3: Sunt in culpa qui officia</h3>
@@ -177,6 +178,7 @@ const Template = (args: FormattedTextProps) => (
         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
         sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
+      <h6>h6: Duis aute irure dolor in reprehenderit</h6>
     </article>
   </FormattedText>
 )

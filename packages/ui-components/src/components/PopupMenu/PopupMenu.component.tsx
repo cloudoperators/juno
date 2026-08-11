@@ -25,6 +25,15 @@ import { PortalProvider } from "../PortalProvider/"
 
 // ----- Styles -----
 
+// Base styles applied to every toggle (default and custom).
+// inline-flex + leading-none collapse the button's line box to its content,
+// so an Icon child sits without descender space below it.
+const baseToggleStyles = `
+  jn:inline-flex
+  jn:items-center
+  jn:leading-none
+`
+
 const defaultToggleStyles = `
   jn:hover:text-theme-accent
   jn:active:text-theme-accent
@@ -42,7 +51,12 @@ const menuStyles = `
   jn:w-max
   jn:rounded
   jn:bg-theme-background-lvl-1
+  jn:border
+  jn:border-theme-default
+  jn:shadow-theme-default
+  jn:focus:outline-hidden
 `
+// Prevent browser default focus outline on the menu panel container (MenuItems). Focus styles are applied at the item level via `data-[active]`.
 
 const itemStyles = `
   jn:text-base
@@ -69,7 +83,11 @@ const smallItemStyles = `
 `
 
 const actionableItemStyles = `
-  jn:hover:bg-theme-background-lvl-3
+  jn:data-[active]:outline-hidden
+  jn:data-[active]:ring-2
+  jn:data-[active]:ring-inset
+  jn:data-[active]:ring-theme-focus
+  jn:data-[active]:bg-theme-background-lvl-3
   jn:cursor-pointer
 `
 
@@ -98,12 +116,19 @@ const sectionTitleStyles = `
 `
 
 const sectionSeparatorStyles = `
-  jn:h-
+  jn:h-px
   jn:bg-theme-background-lvl-3
 `
 
 // Make sure the floating reference wrapper element around the toggle fits snug around the toggle, so the positioning of the menu is correct relative to the visible toggle:
 const floatingReferenceWrapperStyles = `
+  jn:inline-flex
+`
+
+// The outer wrapper must also be a flex container (rather than a default block element),
+// otherwise its inline-flex child sits in an anonymous line box and inherits line-height,
+// reintroducing descender space below the toggle.
+const popupMenuWrapperStyles = `
   jn:inline-flex
 `
 
@@ -247,7 +272,7 @@ const PopupMenu = ({
   const menu = childrenArray.find((child) => isValidElement(child) && child.type === PopupMenuOptions)
 
   return (
-    <HeadlessMenu as="div" className={`juno-popupmenu ${className}`} {...props}>
+    <HeadlessMenu as="div" className={`juno-popupmenu ${popupMenuWrapperStyles} ${className}`} {...props}>
       {/* Update our open state when the open render prop from headless ui menu changes, so we can run the handlers when our tracking state changes: */}
       {({ open, close }) => {
         // Set our tracking open state outside of rendering cycle. Trying to set the state during render will cause an error:
@@ -313,7 +338,7 @@ export const PopupMenuToggle = ({
 }: PopupMenuToggleProps): ReactNode => (
   <MenuButton
     as={as}
-    className={`juno-popupmenu-toggle ${disabled && disabledToggleStyles} ${className}`}
+    className={`juno-popupmenu-toggle ${baseToggleStyles} ${disabled ? disabledToggleStyles : ""} ${className}`}
     disabled={disabled}
     {...props}
   >
@@ -398,7 +423,7 @@ export const PopupMenuSectionHeading = ({
 }: PopupMenuSectionHeadingProps): ReactNode => {
   return (
     <header className={`juno-popupmenu-section-title ${sectionTitleStyles} ${className}`} {...props}>
-      <h1>{label && label.length ? label : children}</h1>
+      {label && label.length ? label : children}
     </header>
   )
 }

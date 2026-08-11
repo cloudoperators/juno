@@ -6,33 +6,55 @@
 import React, { Children, ReactElement, ReactNode, useEffect, useState, MouseEvent } from "react"
 import { Icon } from "../Icon"
 import { SideNavigationItemProps } from "../SideNavigationItem"
+import "../SideNavigation/sidenavigation.css"
 
 const sideNavGroupStyles = `
   jn:flex
-  jn:justify-between 
-  jn:px-[0.5rem]
-  jn:py-[0.1875rem]
+  jn:items-start
+  jn:justify-between
+  jn:pl-[0.5rem]
   jn:text-theme-default
   jn:w-full
   jn:rounded
   jn:border-l-[0.25rem]
   jn:border-transparent
+  jn:text-sm
 `
 
-const disabledStyles = `
-  jn:opacity-50
-  jn:cursor-not-allowed
+const interactiveGroupStyles = `
+  jn:cursor-pointer
+  jn:hover:bg-theme-sidenav-item-hover
+`
+
+const labelContainerStyles = `
+  jn:flex
+  jn:items-center
+  jn:flex-grow
+  jn:min-w-0
+  jn:min-h-[1.875rem]
+`
+
+const labelClampStyles = `
+  jn:text-left
+  jn:line-clamp-2
+  jn:[overflow-wrap:anywhere]
+`
+
+const chevronStyles = `
+  jn:flex
+  jn:items-center
+  jn:min-h-[1.875rem]
 `
 
 export interface SideNavigationGroupProps {
   /** Represents the nested components within the navigation group. */
   children?: ReactElement<SideNavigationItemProps> | ReactElement<SideNavigationItemProps>[]
-  /** Indicates if the navigation group is non-interactive when set to true. */
-  disabled?: boolean
   /** Label displayed for the navigation group. */
   label: ReactNode
-  /** Controls whether the navigation group is expanded by default. */
+  /** Sets the open state of the navigation group. The component owns the open state internally but re-syncs to this prop whenever the parent updates it, so it can be used either as the initial value or to drive the state from the outside. */
   open?: boolean
+  /** Fired when the user clicks the group to toggle it. Receives the next open state. */
+  onToggle?: (_isOpen: boolean) => void
 }
 
 /**
@@ -45,11 +67,12 @@ export interface SideNavigationGroupProps {
  * @see https://cloudoperators.github.io/juno/?path=/docs/navigation-sidenavigation-sidenavigationgroup--docs
  * @see {@link SideNavigationGroupProps}
  **/
+
 export const SideNavigationGroup = ({
   children,
-  disabled = false,
   label = "",
   open = false,
+  onToggle,
 }: SideNavigationGroupProps): ReactNode => {
   const [isOpen, setIsOpen] = useState(open)
 
@@ -59,35 +82,58 @@ export const SideNavigationGroup = ({
   }, [open])
 
   const handleToggleOpen = (e: MouseEvent<HTMLElement>) => {
-    if (disabled) return
     e.stopPropagation() //Prevent event bubbling when expanding/collapsing
-    setIsOpen(!isOpen)
+    const next = !isOpen
+    setIsOpen(next)
+    onToggle?.(next)
   }
 
-  const renderExpandIcon = () =>
-    children && Children.count(children) > 0 ? (
-      <span onClick={handleToggleOpen} role="button" tabIndex={0}>
-        <Icon
-          size="24"
-          className={`
-            juno-sidenavigation-item
-            `}
-          icon={isOpen ? "expandMore" : "chevronRight"}
-        />
+  const hasChildren = !!children && Children.count(children) > 0
+
+  const titleText: string | undefined = typeof label === "string" && label.length > 0 ? label : undefined
+
+  const renderChevron = () =>
+    hasChildren ? (
+      <span className={chevronStyles} aria-hidden="true">
+        <Icon size="24" icon={isOpen ? "expandMore" : "chevronRight"} />
       </span>
     ) : null
 
-  const renderGroup = () => (
-    <div className={`${disabled ? disabledStyles : ""} juno-sidenavigation-group ${sideNavGroupStyles}`}>
-      <span className="font-bold text-sm">{label}</span>
-      {renderExpandIcon()}
-    </div>
+  const renderLabel = () => (
+    <span className={labelContainerStyles}>
+      <span className={`${labelClampStyles}`}>{label}</span>
+    </span>
   )
 
+  const renderGroup = () => {
+    const baseClassName = `juno-sidenavigation-group ${sideNavGroupStyles} ${isOpen ? "juno-sidenavigation-group-open" : ""}`
+
+    if (hasChildren) {
+      return (
+        <button
+          type="button"
+          onClick={handleToggleOpen}
+          aria-expanded={isOpen}
+          className={`${baseClassName} ${interactiveGroupStyles}`}
+          title={titleText}
+        >
+          {renderLabel()}
+          {renderChevron()}
+        </button>
+      )
+    }
+
+    return (
+      <div className={baseClassName} title={titleText}>
+        {renderLabel()}
+      </div>
+    )
+  }
+
   return (
-    <>
+    <li className="juno-sidenavigation-group-element">
       {renderGroup()}
-      {isOpen && children}
-    </>
+      {isOpen && hasChildren && <ul>{children}</ul>}
+    </li>
   )
 }

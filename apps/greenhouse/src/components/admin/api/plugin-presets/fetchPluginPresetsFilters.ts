@@ -29,7 +29,7 @@ const extractPluginPresetFilters = (pluginPresets: PluginPreset[]) => {
   return [
     {
       id: FILTER_IDS.PLUGIN_PRESET_DEFINITION,
-      label: "Plugin Preset Definition",
+      label: "PluginDefinition",
       values: getPluginPresetDefinitionValues(pluginPresets),
     },
     {

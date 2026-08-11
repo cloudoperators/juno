@@ -8,8 +8,6 @@ import { Message } from "../Message"
 import { Stack } from "../Stack"
 
 const signInFormTitleStyles = `
-  jn:text-xl
-  jn:font-bold
   jn:text-theme-highest
   jn:mb-4
 `
@@ -33,7 +31,7 @@ export interface SignInFormProps extends Omit<FormHTMLAttributes<HTMLFormElement
   /**
    * Error message to display when authentication fails.
    * Pass a string for a custom error message.
-   * Pass `true` to display the default error message "Authentication failed".
+   * Pass `true` to display the default error message.
    * Pass `false` or omit to hide the error message.
    */
   error?: string | boolean
@@ -71,11 +69,16 @@ export const SignInForm = ({
   children,
   ...props
 }: SignInFormProps): ReactNode => {
-  const errorMessage = error === true ? "Authentication failed" : typeof error === "string" ? error : null
+  const errorMessage =
+    error === true
+      ? "Authentication failed. Verify your credentials and try again."
+      : typeof error === "string"
+        ? error
+        : null
 
   return (
     <form className={`juno-sign-in-form ${className}`} {...props}>
-      {title !== false && <h1 className={`juno-sign-in-form-heading ${signInFormTitleStyles}`}>{title}</h1>}
+      {title !== false && <h2 className={`juno-sign-in-form-heading ${signInFormTitleStyles}`}>{title}</h2>}
 
       {errorMessage && <Message variant="error" text={errorMessage} className="jn:mb-4" />}
 

@@ -13,6 +13,8 @@ import CustomLogoPortraitPNG from "./custom-logo-placeholders/custom-logo-portra
 import CustomLogoSquarePNG from "./custom-logo-placeholders/custom-logo-square.png"
 import { PageHeader } from "./index"
 import { Button } from "../Button/"
+import { ThemeToggle } from "../ThemeToggle/"
+import { PopupMenu, PopupMenuOptions, PopupMenuItem } from "../PopupMenu/"
 
 type Story = StoryObj<typeof meta>
 
@@ -159,6 +161,57 @@ export const WithCustomLogoPNGPortrait: Story = {
         <span>Jane Doe</span>
         <Button size="small">Log Out</Button>
       </>
+    ),
+  },
+}
+
+export const WithWrappedLogo: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "A 'wrapped' logo is a logo element nested inside a parent (e.g. an `<a>` link, or any other container) rather than passed directly. The size constraints applied by `PageHeader` propagate to descendants, so the inner logo is sized correctly within the fixed-height header regardless of how deeply it is nested.",
+      },
+    },
+  },
+  args: {
+    logo: (
+      <a href="https://example.com" aria-label="Go to homepage">
+        <CustomLogoLandscape alt="" />
+      </a>
+    ),
+    applicationName: "My Awesome App",
+    children: (
+      <>
+        <span>Jane Doe</span>
+        <Button size="small">Log Out</Button>
+      </>
+    ),
+  },
+}
+
+export const WithThemeToggleAndUserMenu: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Visual test for icon alignment: a `ThemeToggle` next to a `PopupMenu` (default icon toggle using `accountCircle`) inside a flex container with `align-items: center`. Both icons should appear vertically centered with no extra space below the user-menu icon.",
+      },
+    },
+  },
+  args: {
+    applicationName: "My Awesome App",
+    children: (
+      <div className="jn:flex jn:items-center jn:gap-2">
+        <ThemeToggle />
+        <PopupMenu icon="accountCircle">
+          <PopupMenuOptions>
+            <PopupMenuItem label="Profile" icon="manageAccounts" />
+            <PopupMenuItem label="Settings" icon="edit" />
+            <PopupMenuItem label="Log Out" icon="exitToApp" />
+          </PopupMenuOptions>
+        </PopupMenu>
+      </div>
     ),
   },
 }

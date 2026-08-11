@@ -9,7 +9,7 @@ import { Details } from "./Details"
 import { PluginPreset } from "../../types/k8sTypes"
 
 describe("Details", () => {
-  it("should render plugin preset details", () => {
+  it("should render PluginPreset details", () => {
     const mockPluginPreset: PluginPreset = {
       metadata: {
         name: "test-preset",
@@ -26,6 +26,9 @@ describe("Details", () => {
           pluginDefinition: "test-plugin-def",
         },
       },
+      status: {
+        pluginDefinitionVersion: "2.0.0",
+      },
     }
 
     render(<Details pluginPreset={mockPluginPreset} />)
@@ -33,5 +36,6 @@ describe("Details", () => {
     expect(screen.getByText("Details")).toBeInTheDocument()
     expect(screen.getByText("test-preset")).toBeInTheDocument()
     expect(screen.getByText("test-plugin-def")).toBeInTheDocument()
+    expect(screen.getByText("2.0.0")).toBeInTheDocument()
   })
 })

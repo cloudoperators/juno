@@ -62,6 +62,22 @@ describe("PageHeader", () => {
     expect(screen.getByRole("img")).toHaveClass("juno-test-logo")
   })
 
+  test("renders a wrapped logo (e.g. nested inside a link) and applies size constraints to all descendants", () => {
+    render(
+      <PageHeader
+        logo={
+          <a href="https://example.com" aria-label="Go to homepage">
+            <CustomLogoComponent />
+          </a>
+        }
+      />
+    )
+    expect(screen.getByRole("link", { name: "Go to homepage" })).toBeInTheDocument()
+    expect(screen.getByTestId("custom-logo")).toBeInTheDocument()
+    const logoContainer = document.querySelector(".juno-pageheader-logo-container")
+    expect(logoContainer).toHaveClass("jn:**:h-7", "jn:**:max-w-xs", "jn:**:object-contain", "jn:**:w-min")
+  })
+
   test("renders a custom className", () => {
     render(<PageHeader className="my-custom-classname" />)
     expect(screen.getByRole("banner")).toBeInTheDocument()

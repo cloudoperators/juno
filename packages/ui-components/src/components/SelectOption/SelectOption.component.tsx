@@ -14,11 +14,11 @@ const optionStyles = `
   jn:pb-[0.5rem]
   jn:pr-3.5
   jn:select-none
-  jn:hover:outline-hidden
-  jn:hover:ring-2
-  jn:hover:ring-inset
-  jn:hover:ring-theme-focus
-  jn:hover:bg-theme-background-lvl-3
+  jn:data-[active]:outline-hidden
+  jn:data-[active]:ring-2
+  jn:data-[active]:ring-inset
+  jn:data-[active]:ring-theme-focus
+  jn:data-[active]:bg-theme-background-lvl-3
 `
 
 const unselectedOptionStyles = `
@@ -91,7 +91,7 @@ export const SelectOption = ({
 
   return (
     <ListboxOption as={Fragment} disabled={disabled} value={value || children}>
-      {({ /*active,*/ selected }) => (
+      {({ selected }) => (
         <li
           className={`
           juno-select-option 

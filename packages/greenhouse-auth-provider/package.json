@@ -17,7 +17,7 @@
   ],
   "engines": {
     "node": ">=20.12.0",
-    "pnpm": ">=8.0.0"
+    "pnpm": ">=11.20.0"
   },
   "peerDependencies": {
     "react": ">=19.0.0"
@@ -26,14 +26,14 @@
     "@cloudoperators/juno-config": "workspace:*",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
-    "@types/node": "24.12.2",
-    "@types/react": "19.2.14",
+    "@types/node": "24.12.4",
+    "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
-    "react": "19.2.5",
+    "react": "19.2.8",
     "typescript": "6.0.3",
-    "vite": "8.0.10",
+    "vite": "8.0.16",
     "vite-plugin-dts": "4.5.4",
-    "vitest": "4.1.6"
+    "vitest": "4.1.10"
   },
   "scripts": {
     "test": "vitest run",

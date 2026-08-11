@@ -46,6 +46,7 @@ const gridTemplate = (
 
 interface DataGridContextType {
   cellVerticalAlignment?: CellVerticalAlignmentType
+  isDataGrid?: boolean
 }
 
 const DataGridContext = createContext<DataGridContextType>({})
@@ -72,6 +73,10 @@ export const DataGrid = ({
 }: DataGridProps): ReactNode => {
   const dataGridConf = {
     cellVerticalAlignment: cellVerticalAlignment,
+    // allows consumer components like Status to detect the DataGrid context.
+    // Note: the context always exists as {} by default, so checking for context presence alone is not sufficient —
+    // isDataGrid: true is the only reliable signal that a DataGrid provider is actually in the tree.
+    isDataGrid: true,
     // selectable: selectable
   }
   return (

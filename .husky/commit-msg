@@ -1,5 +1,19 @@
+#!/usr/bin/env bash
 # SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
 # SPDX-License-Identifier: Apache-2.0
-# .husky/commit
+# .husky/commit-msg
+
+# Load nvm to get node/npx in PATH
+export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+if [ -s "$NVM_DIR/nvm.sh" ]; then
+  . "$NVM_DIR/nvm.sh"
+  # Use the node version from .nvmrc if it exists
+  if [ -f ".nvmrc" ]; then
+    nvm use
+  fi
+fi
+
+# Fallback: add common installation paths
+export PATH="$PATH:/usr/local/bin:$HOME/.local/share/pnpm"
 
 npx --no-install commitlint --edit "$1"

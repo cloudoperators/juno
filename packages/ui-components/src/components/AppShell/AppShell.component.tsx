@@ -41,7 +41,7 @@ export const AppShell = ({
         <>
           {topNavigation && <HeaderContainer fullWidth={fullWidthOrDefault}>{topNavigation}</HeaderContainer>}
           <MainContainer>
-            <MainContainerInner fullWidth={fullWidthOrDefault} className={`${topNavigation ? "jn:mt-15.5" : ""}`}>
+            <MainContainerInner fullWidth={fullWidthOrDefault}>
               {sideNavigation}
               <ContentContainer>{children}</ContentContainer>
             </MainContainerInner>
@@ -53,9 +53,9 @@ export const AppShell = ({
             {pageHeader && typeof pageHeader === "string" ? <PageHeader applicationName={pageHeader} /> : pageHeader}
             {topNavigation}
           </HeaderContainer>
-          {/* Wrap everything except page header and footer and navigations in a main container. Add top margin to MainContainerInner as we are not in embedded mode here. */}
+          {/* Wrap everything except page header and footer and navigations in a main container. */}
           <MainContainer>
-            <MainContainerInner fullWidth={fullWidthOrDefault} className="jn:mt-15.5">
+            <MainContainerInner fullWidth={fullWidthOrDefault}>
               {sideNavigation}
               <ContentContainer>{children}</ContentContainer>
             </MainContainerInner>

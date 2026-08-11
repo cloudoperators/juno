@@ -1,5 +1,128 @@
 # @cloudoperators/juno-ui-components
 
+## 9.2.0
+
+### Minor Changes
+
+- cf79a1f: Add `CodeBlockFooter` component and `codeBlockFooter` slot to `CodeBlock`
+  - Extract the copy bar into a standalone `CodeBlockFooter` component (props: `onCopy`, `isCopied`, `className`, `...props` for arbitrary HTML attributes)
+  - Add `codeBlockFooter?: ReactElement` prop to `CodeBlock`: when provided it replaces the default footer, consistent with the `modalFooter` pattern in `Modal`
+  - The existing `copy` prop continues to control the default footer when `codeBlockFooter` is not passed (fully backward-compatible)
+  - Export `CodeBlockFooter` from the package index
+  - Introduce `--color-codeblock-footer-border` / `--border-color-theme-codeblock-footer` CSS variables for the footer border styling
+
+### Patch Changes
+
+- 9e069b7: feat(ui): add `Status` component
+- 0e59fc8: feat(ui): update SignInForm authentication error message
+- 1830872: feat(ui): remove non-breaking whitespace from `DT` component
+- b736c03: feat(ui): update `SignInForm` default authentication error message
+- 3a9760d: feat(ui): add semantic variants to `Box`
+
+## 9.1.0
+
+### Minor Changes
+
+- 9033fcd: feat(Card): add hover and active states for interactive cards. When rendered as `<a>` or `<button>`, the Card now shows an elevated border on hover (`border-theme-card-hover`) with an enhanced shadow, and an accent border on active. Adds `--color-border-high` and `--color-card-border-hover` CSS variables.
+- aab4de3: feat(SideNavigation): `SideNavigationGroup` and `SideNavigationItem` now accept an `onToggle(isOpen: boolean)` callback that fires whenever the user expands or collapses the section. The existing `open` prop is unchanged — it still controls the initial open state and re-syncs when the parent updates it — so callers can opt into observing toggles without changing any existing code. For `SideNavigationGroup` the entire row triggers the toggle; for `SideNavigationItem` the chevron triggers the toggle while the label keeps its existing navigation behavior.
+
+### Patch Changes
+
+- 21013be: fix(SideNavigationItem): add vertical spacing between items to prevent visual overlap, align expand button, and replace arbitrary Tailwind value with standard scale equivalent
+
+## 9.0.1
+
+### Patch Changes
+
+- 72b2ba6: fix(ui): collapse Icon line-box so icons align reliably inside flex containers, with follow-up fixes in PopupMenu, ComboBox, and Select
+- f5ee711: fix(ui): emit valid HTML in SideNavigation by rendering items/groups as `<li>` and wrapping nested children in `<ul>`. `SideNavigationGroup` is now first-level only and no longer participates in `LevelContext`.
+
+## 9.0.0
+
+### Major Changes
+
+- 96ecfe1: Updated `BreadcrumbItem` with BREAKING CHANGES
+  - Removed Default href="#": This eliminated default navigation behavior, changing <a> to <span> without explicit href.
+  - Structural Updates: Modified DOM structure by eliminating unnecessary <span> wrappers.
+  - Rendering Logic Enhanced: Introduced <button> for onClick without href. Ensured <span> usage for neither href nor onClick.
+  - Accessibility Improvements: Added aria-current="page" for active and aria-disabled for disabled items.
+  - Expanded onClick Type: Now supports both <a> and <button> elements for broader interaction handling.
+
+## 8.1.0
+
+### Minor Changes
+
+- 92319d7: Add base typography styles for `h1`–`h6` aligned with the Juno design system scale.
+
+  Headings rendered inside Juno apps (and inside `FormattedText`) now use a consistent IBM Plex Sans Bold scale: `h1` 1.69rem, `h2` 1.56rem, `h3` 1.44rem, `h4` 1.28rem, `h5` 1.125rem, `h6` 1rem.
+
+  Matching `.juno-h1`–`.juno-h6` utility classes apply the same scale to non-heading elements (e.g. an element with `role="heading"`).
+
+  **Visual change**: `ContentHeading` now uses the h1 scale (1.69rem) instead of `text-lg` (1.125rem). If you relied on the previous size, override with your own classes.
+
+  **Accessibility fixes**: several components previously used `<h1>` for UI labels regardless of context. They now use semantically appropriate elements so screen reader heading navigation reflects real document structure:
+  - `Modal` title: `<h4>` (string title) or `<div role="heading" aria-level={4}>` (ReactNode title); modal header uses `min-height` instead of fixed height, aligns items to the top so long titles wrap without clipping, and the close button stretches to full header height for a larger click target
+  - `Form` title: `<h3>`
+  - `FormSection` title: `<h4>`
+  - `SignInForm` title: `<h2>`
+  - `Message` title: `<strong>` (no longer a heading)
+  - `IntroBox` title: `<p>` (no longer a heading)
+  - `PopupMenuSectionHeading` label: plain text inside `<header>` (no longer a heading)
+
+### Patch Changes
+
+- ba2d9ae: fix(ui): fix and improve Checkbox and Radio layout, markup, and props routing
+- 2a5c77e: Add `border-theme-default` and `shadow-theme-default` to floating menu and overlay components to ensure they are always visually distinct from the page background. This affects the following components: Select, ComboBox, PopupMenu, Tooltip, Toast, DateTimePicker
+- b6f1f3b: fix(ui): fix focus styles for PopupMenu: remove browser default focus outline on the menu panel container (MenuItems), handle focus styles on the item level via Headless UI's `data-active` attribute
+- 2bc74cc: Revert DataGridCell font size back to the default (1rem). The reduced font size (0.875rem) introduced in #1710 was made the default without sufficient consideration; a smaller, opt-in size may be reintroduced as a configurable option in the future.
+- 2bc74cc: SideNavigation polish:
+  - Long labels in `SideNavigationItem` and `SideNavigationGroup` now clamp to two lines and break mid-word, instead of overflowing the sidenav. String labels are exposed as a native `title` tooltip so users can read the full text on hover.
+  - Wrapped labels are left-aligned, and the expand/collapse chevron and optional icon stay aligned with the first line.
+  - `SideNavigationItem` and its expand chevron now show a hover background. The chevron's hover background is suppressed when the item is disabled.
+  - The whole `SideNavigationGroup` row is clickable to expand/collapse, and its children are indented to match nested `SideNavigationItem` children.
+  - Nested `SideNavigationGroup`s (a group inside another group, or inside a `SideNavigationItem`) now indent correctly.
+
+- 84a6051: fix(ui): fix focus styles for Select and ComboBox
+
+## 8.0.0
+
+### Major Changes
+
+- d09aeff: Add NotificationManager (based on the Sonner library and using Toast as a base) and make Toast a purely presentational component. The `autoDismiss` and `autoDismissTimeout` props have been removed from Toast — use NotificationManager with the `toast()` API for notification lifecycle management instead.
+
+### Patch Changes
+
+- 1a99afb: AppShell layout fixes:
+  - Fix SideNavigation being squashed by oversized content in ContentContainer. SideNavigation now keeps its 16rem width and ContentContainer's wide children overflow inside the container instead of expanding the page row.
+  - Remove the top margin from `MainContainerInner` in non-embedded mode. The `HeaderContainer` is sticky (in flow), so the extra margin was over-compensating; content now sits directly below the header. Apps relying on the previous spacing may see a small upward shift.
+  - Increase `SideNavigation` vertical padding from `1rem` to `1.25rem` so it matches the horizontal padding.
+
+- 0e1f1d6: Fix `PageHeader` logo size constraints not applying to nested logo elements. The logo container now uses the universal-descendant variant so a wrapped logo (e.g. an `<a>` containing an `<svg>`) is sized correctly within the fixed-height header.
+
+## 7.0.0
+
+### Major Changes
+
+- f401418: Fix issues in `SideNavigation`,`SideNavigationItem` and `SideNavigationGroup`:
+  - Removed `disabled` prop from SideNavigation (BREAKING CHANGE)
+  - Removed `activeItem` and `onActiveItemChange` prop from SideNavigation (BREAKING CHANGE)
+  - Removed `disabled` prop from SidenavigationGroup (BREAKING CHANGE)
+  - Fixed multiple issues in all components
+
+## 6.5.0
+
+### Minor Changes
+
+- c29127f: feat(ui): add `DataGrid` header stories
+  feat(docs): filter out `js:`-prefix from classNames in storyabook code examples (everywhere, this is a global storybook setting now for ui-components)
+  BREAKING CHANGE: remove `alignRight` prop (the component now relies purely on composition)
+
+### Patch Changes
+
+- 0e11c6e: Updated jsdom from 26.1.0 to 29.1.1 and updated Node.js engine requirement to >=20.19.0 to match jsdom's requirements.
+- 374c671: Upgrade focus-trap-react to 12.0.2 and node-sass-glob-importer to 5.3.3
+- 44f2140: Add `href`, `onClick` and `disabled` props to Card
+
 ## 6.4.0
 
 ### Minor Changes

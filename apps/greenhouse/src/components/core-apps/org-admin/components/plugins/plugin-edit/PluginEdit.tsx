@@ -29,12 +29,12 @@ import { initPluginFromFormData } from "./initPlugin"
 import { initPluginPreset } from "./initPluginPreset"
 
 /**
- * This Form Component is used to edit a Plugin or Plugin Preset.
+ * This Form Component is used to edit a Plugin or PluginPreset.
  * We hold state for the following partial components:
  * - metadata
  * - pluginSpec
  * - labelSelectors
- * and construct a Plugin or Plugin Preset object from these states on submit / delete.
+ * and construct a Plugin or PluginPreset object from these states on submit / delete.
  */
 
 interface PluginEditProps {
@@ -134,7 +134,7 @@ const PluginEdit: React.FC<PluginEditProps> = (props: PluginEditProps) => {
           })
           return
         })
-      // make sure to set metadata.name to the name of the plugin preset
+      // make sure to set metadata.name to the name of the PluginPreset
       setEditFormData({
         ...editFormData,
         metadata: {
@@ -145,7 +145,7 @@ const PluginEdit: React.FC<PluginEditProps> = (props: PluginEditProps) => {
     }
   }, [editFormData.metadata?.labels])
 
-  const kindName = isPluginPreset ? "Plugin Preset" : "Plugin"
+  const kindName = isPluginPreset ? "PluginPreset" : "Plugin"
 
   const [submitMessage, setSubmitResultMessage] = React.useState<SubmitMessage>({ message: "", ok: false })
   const onSubmit = async () => {
@@ -233,7 +233,7 @@ const PluginEdit: React.FC<PluginEditProps> = (props: PluginEditProps) => {
               <FormRow>
                 <Switch
                   id="switch-plugin-preset"
-                  label="Make Plugin Preset"
+                  label="Make PluginPreset"
                   on={isPluginPreset}
                   onChange={changeIsPluginPreset}
                   onClick={changeIsPluginPreset}

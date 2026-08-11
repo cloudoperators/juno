@@ -24,7 +24,7 @@ const PluginInstanceDetailContent = ({ plugin }: { plugin: Plugin }) => (
         <Tab label="YAML" />
       </TabList>
       <TabPanel>
-        <Container px={false} py>
+        <Container px={false}>
           <Overview plugin={plugin} />
         </Container>
       </TabPanel>

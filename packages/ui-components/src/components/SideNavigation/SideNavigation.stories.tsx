@@ -5,13 +5,14 @@
 
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
+import { action } from "storybook/actions"
 import { SideNavigation } from "./index"
 import { SideNavigationItem } from "../SideNavigationItem/SideNavigationItem.component"
 import { SideNavigationList } from "../SideNavigationList/SideNavigationList.component"
 import { SideNavigationGroup } from "../SideNavigationGroup/SideNavigationGroup.component"
 
 const meta: Meta<typeof SideNavigation> = {
-  title: "Navigation/SideNavigation/SideNavigation",
+  title: "Navigation/SideNavigation/Default",
   component: SideNavigation,
   decorators: [
     (Story) => (
@@ -37,12 +38,12 @@ export const Default: Story = {
   render: (args) => (
     <SideNavigation {...args}>
       <SideNavigationList>
-        <SideNavigationItem label="Home" href="/" />
-        <SideNavigationItem label="Messages">
+        <SideNavigationItem label="Home" href="#" />
+        <SideNavigationItem label="Messages" onToggle={action("onToggle")}>
           <SideNavigationItem label="Inbox" />
           <SideNavigationItem label="Sent Items" />
         </SideNavigationItem>
-        <SideNavigationItem label="Searches" icon="search" />
+        <SideNavigationItem label="Searches" />
       </SideNavigationList>
     </SideNavigation>
   ),
@@ -60,19 +61,17 @@ export const NavigationWithGroups: Story = {
   render: (args) => (
     <SideNavigation {...args}>
       <SideNavigationList>
-        <SideNavigationItem label="Item 1" icon="addCircle" selected={true} href="#" />
-        <SideNavigationItem label="Item 2" icon="addCircle">
-          <SideNavigationItem label="Sub-Child 1" />
-          <SideNavigationItem label="Sub-Child 2">
-            <SideNavigationItem label="Sub-Child 3" />
+        <SideNavigationGroup label="Group 1" open onToggle={action("onToggle")}>
+          <SideNavigationItem label="Grouped-Item 1" />
+          <SideNavigationItem label="Grouped-Item 2" onToggle={action("onToggle")}>
+            <SideNavigationItem label="Grouped-Item 3" />
           </SideNavigationItem>
-        </SideNavigationItem>
-        <SideNavigationItem label="Item 3" href="#" />
-        <SideNavigationGroup label="Group Example">
+        </SideNavigationGroup>
+        <SideNavigationGroup label="Group 2" open onToggle={action("onToggle")}>
           <SideNavigationItem label="Grouped Item 1" />
-          <SideNavigationItem label="Grouped Item 2">
+          <SideNavigationItem label="Grouped Item 2" onToggle={action("onToggle")}>
             <SideNavigationItem label="Sub-Child 1" />
-            <SideNavigationItem label="Sub-Child 2" selected />
+            <SideNavigationItem label="Sub-Child 2" />
           </SideNavigationItem>
         </SideNavigationGroup>
       </SideNavigationList>
@@ -82,34 +81,6 @@ export const NavigationWithGroups: Story = {
     docs: {
       description: {
         story: "Demonstrates a SideNavigation with nested lists and groups, showing hierarchical navigation structure.",
-      },
-    },
-  },
-}
-
-export const InteractiveNavigation: Story = {
-  render: (args) => (
-    <SideNavigation {...args} onActiveItemChange={(item) => console.log("Active item changed:", item)}>
-      <SideNavigationList>
-        <SideNavigationItem label="Dashboard" href="/" />
-        <SideNavigationItem label="Settings" icon="search">
-          <SideNavigationItem label="Profile" />
-          <SideNavigationItem label="Preferences" />
-        </SideNavigationItem>
-        <SideNavigationGroup label="Project Management">
-          <SideNavigationItem label="Overview" />
-          <SideNavigationItem label="Analytics">
-            <SideNavigationItem label="Reports" />
-            <SideNavigationItem label="Statistics" selected />
-          </SideNavigationItem>
-        </SideNavigationGroup>
-      </SideNavigationList>
-    </SideNavigation>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: "An interactive navigation setup that logs active item changes.",
       },
     },
   },

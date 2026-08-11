@@ -10,8 +10,6 @@ const formBaseStyles = `
 `
 
 const formTitleStyles = `
-  jn:text-2xl
-  jn:font-bold
   jn:mb-4
 `
 
@@ -45,7 +43,7 @@ export interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
 export const Form = ({ title = "", className = "", children, ...props }: FormProps): ReactNode => {
   return (
     <form className={`juno-form ${formBaseStyles} ${className}`} {...props}>
-      {title ? <h1 className={`juno-form-heading ${formTitleStyles}`}>{title}</h1> : null}
+      {title ? <h3 className={`juno-form-heading ${formTitleStyles}`}>{title}</h3> : null}
       {children}
     </form>
   )

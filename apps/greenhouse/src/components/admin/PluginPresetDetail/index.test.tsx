@@ -66,7 +66,7 @@ const renderComponent = async (mockPromise: Promise<unknown>) => {
 }
 
 describe("PluginPresetDetail", () => {
-  it("should render plugin preset detail with tabs", async () => {
+  it("should render PluginPreset detail with tabs", async () => {
     const mockPreset = mockPluginPresets.items[0]
     await renderComponent(new Promise((resolve) => resolve(mockPreset)))
 

@@ -60,15 +60,25 @@ const centeredIconStyles = `
   jn:absolute
   jn:top-1/2
   jn:left-1/2
+  jn:inline-flex
+  jn:leading-none
   jn:translate-y-[-50%]
   jn:translate-x-[-0.75rem]
 `
-
-const menuStyles = `
+const menuStylesContainer = `
   jn:rounded
   jn:bg-theme-background-lvl-1
+  jn:border
+  jn:border-theme-default
+  jn:shadow-theme-default
+  jn:box-border
+  jn:overflow-hidden
+`
+
+const menuStyles = `
   jn:w-full
   jn:overflow-y-auto
+  jn:focus:outline-hidden
 `
 
 const truncateStyles = `
@@ -188,11 +198,11 @@ export const Select = ({
     return !(typeof value === "string" && value.trim().length === 0)
   }
 
-  const uniqueId = () => "juno-select-" + useId()
+  const generatedId = useId()
+  const helptextId = "juno-select-helptext-" + useId()
   const [isOpen, setIsOpen] = useState(false)
 
-  const theId = id || uniqueId()
-  const helptextId = "juno-select-helptext-" + useId()
+  const theId = id || "juno-select-" + generatedId
 
   const [optionValuesAndLabels, setOptionValuesAndLabels] = useState(new Map<unknown, unknown>())
   const [hasError, setHasError] = useState(false)
@@ -387,10 +397,10 @@ export const Select = ({
                           >
                             {getDisplayValue(value)}
                           </span>
-                          <span className="jn:flex">
+                          <span className="jn:flex jn:items-center">
                             {isValid ? <Icon icon="checkCircle" color="jn:text-theme-success" /> : ""}
                             {isInvalid ? <Icon icon="dangerous" color="jn:text-theme-error" /> : ""}
-                            <span>
+                            <span className="jn:inline-flex jn:leading-none">
                               <Icon icon={open ? "expandLess" : "expandMore"} />
                             </span>
                           </span>
@@ -411,6 +421,10 @@ export const Select = ({
                   {createPortal(
                     <div
                       ref={refs.setFloating}
+                      className={`
+                          juno-select-menu-container
+                          ${menuStylesContainer}
+                        `}
                       style={{
                         position: strategy,
                         top: y ?? 0,

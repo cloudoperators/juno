@@ -22,11 +22,7 @@ describe("SideNavigationList", () => {
 
     const list = screen.getByRole("list")
     expect(list).toBeInTheDocument()
-    expect(list).toHaveClass("list-none")
-    expect(list).toHaveClass("p-0")
-    expect(list).toHaveClass("m-0")
-    expect(list).toHaveClass("jn:bg-theme-sidenav-list")
-    expect(list).toHaveClass("jn:space-y-[0.25rem]")
+    expect(list).toHaveClass("juno-sidenavigation-list")
   })
 
   test("renders children within the SideNavigationList", () => {

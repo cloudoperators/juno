@@ -19,6 +19,11 @@ const preview = {
         date: /Date$/,
       },
     },
+    docs: {
+      source: {
+        transform: (src) => src.replace(/\bjn:/g, ""),
+      },
+    },
   },
 
   tags: ["autodocs"],

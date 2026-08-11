@@ -67,7 +67,7 @@ describe("Select", () => {
     expect(screen.getByRole("button")).toHaveClass("juno-select-toggle")
   })
 
-  test("renders a default variant select toggle by defgault", async () => {
+  test("renders a default variant select toggle by default", async () => {
     await waitFor(() =>
       render(
         <PortalProvider>
@@ -431,6 +431,9 @@ describe("Select", () => {
     expect(screen.getAllByRole("option")[0]).toHaveTextContent("Option 1")
     expect(screen.getAllByRole("option")[1]).toHaveTextContent("Option 2")
     expect(screen.getAllByRole("option")[2]).toHaveTextContent("Option 3")
+    const menuContainer = screen.getByRole("listbox").closest(".juno-select-menu-container")
+    expect(menuContainer).toBeInTheDocument()
+    expect(menuContainer).toHaveClass("jn:border", "jn:border-theme-default", "jn:shadow-theme-default")
   })
 
   test("changes the selected value as clicked by a user", async () => {

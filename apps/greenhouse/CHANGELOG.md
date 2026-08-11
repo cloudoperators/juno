@@ -1,5 +1,135 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.14.6
+
+### Patch Changes
+
+- f2f7fde: Updated pnpm, storybook and override postcss
+- 5ba36b2: Visualizes PluginDefinition versions in the Greenhouse dashboard so operators can quickly see which version is deployed where. Adds PluginPreset.status.pluginDefinitionVersion to the PluginPreset list and PluginPreset detail, and Plugin.status.helmChart fields to the Plugin instance detail.
+- Updated dependencies [9e069b7]
+- Updated dependencies [f2f7fde]
+- Updated dependencies [0e59fc8]
+- Updated dependencies [1830872]
+- Updated dependencies [b736c03]
+- Updated dependencies [cf79a1f]
+- Updated dependencies [3a9760d]
+  - @cloudoperators/juno-ui-components@9.2.0
+  - @cloudoperators/juno-app-supernova@0.20.5
+  - @cloudoperators/juno-app-heureka@1.1.11
+  - @cloudoperators/juno-app-doop@2.6.36
+  - @cloudoperators/juno-messages-provider@0.2.48
+
+## 0.14.5
+
+### Patch Changes
+
+- Updated dependencies [9033fcd]
+- Updated dependencies [aab4de3]
+- Updated dependencies [21013be]
+  - @cloudoperators/juno-ui-components@9.1.0
+  - @cloudoperators/juno-app-doop@2.6.35
+  - @cloudoperators/juno-app-heureka@1.1.10
+  - @cloudoperators/juno-app-supernova@0.20.4
+  - @cloudoperators/juno-messages-provider@0.2.47
+
+## 0.14.4
+
+### Patch Changes
+
+- Updated dependencies [72b2ba6]
+- Updated dependencies [f5ee711]
+  - @cloudoperators/juno-ui-components@9.0.1
+  - @cloudoperators/juno-app-doop@2.6.34
+  - @cloudoperators/juno-app-heureka@1.1.9
+  - @cloudoperators/juno-app-supernova@0.20.3
+  - @cloudoperators/juno-messages-provider@0.2.46
+
+## 0.14.3
+
+### Patch Changes
+
+- 1f9c710: Fixed `DataGridToolbar` inconsistencies in Admin Area across all tabs:
+  - "Clear all" button placed near selected filter pills
+  - Text "(X ready, X not ready)" and "Last updated: ..." gray colour
+  - `DataGridToolbar` component always used to ensure alignment
+- Updated dependencies [96ecfe1]
+  - @cloudoperators/juno-ui-components@9.0.0
+  - @cloudoperators/juno-app-doop@2.6.33
+  - @cloudoperators/juno-app-heureka@1.1.8
+  - @cloudoperators/juno-app-supernova@0.20.2
+  - @cloudoperators/juno-messages-provider@0.2.45
+
+## 0.14.2
+
+### Patch Changes
+
+- Updated dependencies [ba2d9ae]
+- Updated dependencies [2a5c77e]
+- Updated dependencies [b6f1f3b]
+- Updated dependencies [2bc74cc]
+- Updated dependencies [2bc74cc]
+- Updated dependencies [84a6051]
+- Updated dependencies [92319d7]
+  - @cloudoperators/juno-ui-components@8.1.0
+  - @cloudoperators/juno-app-doop@2.6.32
+  - @cloudoperators/juno-app-heureka@1.1.7
+  - @cloudoperators/juno-app-supernova@0.20.1
+  - @cloudoperators/juno-messages-provider@0.2.44
+
+## 0.14.1
+
+### Patch Changes
+
+- Updated dependencies [110841c]
+- Updated dependencies [1a99afb]
+- Updated dependencies [0e1f1d6]
+- Updated dependencies [d09aeff]
+- Updated dependencies [1c09e1a]
+  - @cloudoperators/juno-app-supernova@0.20.0
+  - @cloudoperators/juno-ui-components@8.0.0
+  - @cloudoperators/juno-app-heureka@1.1.6
+  - @cloudoperators/juno-app-doop@2.6.31
+  - @cloudoperators/juno-messages-provider@0.2.43
+
+## 0.14.0
+
+### Minor Changes
+
+- 354ae24: Show release name in plugin instance detail page
+- f7c7b5c: Add new Clusters dashboard
+
+### Patch Changes
+
+- 85d915e: Fixed typos and spacing issue for PluginPreset and Cluster tabs
+- Updated dependencies [f401418]
+  - @cloudoperators/juno-ui-components@7.0.0
+  - @cloudoperators/juno-app-doop@2.6.30
+  - @cloudoperators/juno-app-heureka@1.1.5
+  - @cloudoperators/juno-app-supernova@0.19.34
+  - @cloudoperators/juno-messages-provider@0.2.42
+
+## 0.13.0
+
+### Minor Changes
+
+- 1042d50: - Add a list of exposed services for all plugins
+  - Updated the plugin instance detail page to display a list of exposed services under `Details`, instead of a separate section.
+
+### Patch Changes
+
+- Updated dependencies [0e11c6e]
+- Updated dependencies [374c671]
+- Updated dependencies [44f2140]
+- Updated dependencies [1ce58f0]
+- Updated dependencies [b2844e4]
+- Updated dependencies [c29127f]
+  - @cloudoperators/juno-url-state-provider@3.0.10
+  - @cloudoperators/juno-messages-provider@0.2.41
+  - @cloudoperators/juno-ui-components@6.5.0
+  - @cloudoperators/juno-app-supernova@0.19.33
+  - @cloudoperators/juno-app-heureka@1.1.4
+  - @cloudoperators/juno-app-doop@2.6.29
+
 ## 0.12.10
 
 ### Patch Changes

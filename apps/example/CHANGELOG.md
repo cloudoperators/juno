@@ -1,5 +1,90 @@
 # @cloudoperators/juno-app-example
 
+## 2.4.23
+
+### Patch Changes
+
+- Updated dependencies [9e069b7]
+- Updated dependencies [0e59fc8]
+- Updated dependencies [1830872]
+- Updated dependencies [b736c03]
+- Updated dependencies [cf79a1f]
+- Updated dependencies [3a9760d]
+  - @cloudoperators/juno-ui-components@9.2.0
+  - @cloudoperators/juno-messages-provider@0.2.48
+
+## 2.4.22
+
+### Patch Changes
+
+- Updated dependencies [9033fcd]
+- Updated dependencies [aab4de3]
+- Updated dependencies [21013be]
+  - @cloudoperators/juno-ui-components@9.1.0
+  - @cloudoperators/juno-messages-provider@0.2.47
+
+## 2.4.21
+
+### Patch Changes
+
+- Updated dependencies [72b2ba6]
+- Updated dependencies [f5ee711]
+  - @cloudoperators/juno-ui-components@9.0.1
+  - @cloudoperators/juno-messages-provider@0.2.46
+
+## 2.4.20
+
+### Patch Changes
+
+- Updated dependencies [96ecfe1]
+  - @cloudoperators/juno-ui-components@9.0.0
+  - @cloudoperators/juno-messages-provider@0.2.45
+
+## 2.4.19
+
+### Patch Changes
+
+- Updated dependencies [ba2d9ae]
+- Updated dependencies [2a5c77e]
+- Updated dependencies [b6f1f3b]
+- Updated dependencies [2bc74cc]
+- Updated dependencies [2bc74cc]
+- Updated dependencies [84a6051]
+- Updated dependencies [92319d7]
+  - @cloudoperators/juno-ui-components@8.1.0
+  - @cloudoperators/juno-messages-provider@0.2.44
+
+## 2.4.18
+
+### Patch Changes
+
+- Updated dependencies [1a99afb]
+- Updated dependencies [0e1f1d6]
+- Updated dependencies [d09aeff]
+  - @cloudoperators/juno-ui-components@8.0.0
+  - @cloudoperators/juno-messages-provider@0.2.43
+
+## 2.4.17
+
+### Patch Changes
+
+- Updated dependencies [f401418]
+  - @cloudoperators/juno-ui-components@7.0.0
+  - @cloudoperators/juno-messages-provider@0.2.42
+
+## 2.4.16
+
+### Patch Changes
+
+- 0e11c6e: Updated jsdom from 26.1.0 to 29.1.1 and updated Node.js engine requirement to >=20.19.0 to match jsdom's requirements.
+- Updated dependencies [0e11c6e]
+- Updated dependencies [374c671]
+- Updated dependencies [44f2140]
+- Updated dependencies [c29127f]
+  - @cloudoperators/juno-url-state-provider@3.0.10
+  - @cloudoperators/juno-messages-provider@0.2.41
+  - @cloudoperators/juno-ui-components@6.5.0
+
 ## 2.4.15
 
 ### Patch Changes

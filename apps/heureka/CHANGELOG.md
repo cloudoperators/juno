@@ -1,5 +1,86 @@
 # heureka
 
+## 1.1.11
+
+### Patch Changes
+
+- f2f7fde: Updated pnpm, storybook and override postcss
+- Updated dependencies [9e069b7]
+- Updated dependencies [0e59fc8]
+- Updated dependencies [1830872]
+- Updated dependencies [b736c03]
+- Updated dependencies [cf79a1f]
+- Updated dependencies [3a9760d]
+  - @cloudoperators/juno-ui-components@9.2.0
+
+## 1.1.10
+
+### Patch Changes
+
+- Updated dependencies [9033fcd]
+- Updated dependencies [aab4de3]
+- Updated dependencies [21013be]
+  - @cloudoperators/juno-ui-components@9.1.0
+
+## 1.1.9
+
+### Patch Changes
+
+- Updated dependencies [72b2ba6]
+- Updated dependencies [f5ee711]
+  - @cloudoperators/juno-ui-components@9.0.1
+
+## 1.1.8
+
+### Patch Changes
+
+- Updated dependencies [96ecfe1]
+  - @cloudoperators/juno-ui-components@9.0.0
+
+## 1.1.7
+
+### Patch Changes
+
+- Updated dependencies [ba2d9ae]
+- Updated dependencies [2a5c77e]
+- Updated dependencies [b6f1f3b]
+- Updated dependencies [2bc74cc]
+- Updated dependencies [2bc74cc]
+- Updated dependencies [84a6051]
+- Updated dependencies [92319d7]
+  - @cloudoperators/juno-ui-components@8.1.0
+
+## 1.1.6
+
+### Patch Changes
+
+- 1c09e1a: Improves UX consistency across the Heureka app by replacing Pill components with Badges in service and image detail views, renaming columns for clarity, ensuring DataGrids show `—` instead of empty cells when no data is available, and replacing DataGrid with the semantic DescriptionList component in service, image, and image version detail pages.
+- Updated dependencies [1a99afb]
+- Updated dependencies [0e1f1d6]
+- Updated dependencies [d09aeff]
+  - @cloudoperators/juno-ui-components@8.0.0
+
+## 1.1.5
+
+### Patch Changes
+
+- Updated dependencies [f401418]
+  - @cloudoperators/juno-ui-components@7.0.0
+
+## 1.1.4
+
+### Patch Changes
+
+- 0e11c6e: Updated jsdom from 26.1.0 to 29.1.1 and updated Node.js engine requirement to >=20.19.0 to match jsdom's requirements.
+- 1ce58f0: Add Mitigate Manually action to vulnerability rows. Users can now mark a CVE as manually mitigated from the popup menu in both the Active and Remediated vulnerability tabs. The CVE moves to the Remediated tab immediately and can be reverted via the Remediation History Panel.
+- b2844e4: Wire Jira ticket to dedicated url field in createRemediation for risk acceptance, replacing the description-prefix workaround. Surface the ticket in a new "Source Ticket" column in the remediations history panel with improved date formatting and empty-value handling.
+- Updated dependencies [0e11c6e]
+- Updated dependencies [374c671]
+- Updated dependencies [44f2140]
+- Updated dependencies [c29127f]
+  - @cloudoperators/juno-url-state-provider@3.0.10
+  - @cloudoperators/juno-ui-components@6.5.0
+
 ## 1.1.3
 
 ### Patch Changes

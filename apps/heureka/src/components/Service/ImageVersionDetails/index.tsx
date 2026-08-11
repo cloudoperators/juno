@@ -4,7 +4,7 @@
  */
 
 import React, { use } from "react"
-import { Stack, Pill, DataGrid, DataGridRow, DataGridHeadCell, DataGridCell } from "@cloudoperators/juno-ui-components"
+import { Stack, Pill, DL, DT, DD } from "@cloudoperators/juno-ui-components"
 import { getNormalizedImageVersionsResponse } from "../../Services/utils"
 import ImageVersionOccurrences from "./ImageVersionOccurrences"
 import { IssueCountsPerSeverityLevel } from "../../common/IssueCountsPerSeverityLevel"
@@ -52,42 +52,44 @@ export const ImageVersionDetails = ({
         Image {imageVersion.repository || imageRepository} - Version {getShortSha256(imageVersion.version)}
       </SectionContentHeading>
 
-      <DataGrid columns={2} gridColumnTemplate="20% auto" className="mb-6">
-        <DataGridRow>
-          <DataGridHeadCell>Details</DataGridHeadCell>
-          <DataGridCell>
-            <Stack gap="1" direction="horizontal" wrap>
-              {imageVersion.tag && (
-                <Pill pillKey="tag" pillKeyLabel="tag" pillValue={imageVersion.tag} pillValueLabel={imageVersion.tag} />
-              )}
+      <DL className="mb-6" alignTerms="left">
+        <DT className="jn:col-span-1">Image Version Details</DT>
+        <DD className="jn:col-span-1">
+          <Stack gap="1" direction="horizontal" wrap>
+            {imageVersion.tag && (
+              <Pill pillKey="tag" pillKeyLabel="tag" pillValue={imageVersion.tag} pillValueLabel={imageVersion.tag} />
+            )}
+            {imageVersion.repository || imageRepository ? (
               <Pill
                 pillKey="repository"
                 pillKeyLabel="repository"
                 pillValue={imageVersion.repository || imageRepository}
                 pillValueLabel={imageVersion.repository || imageRepository}
               />
+            ) : (
+              "—"
+            )}
+            {imageVersion.version ? (
               <Pill
                 pillKey="version"
                 pillKeyLabel="version"
-                pillValue={imageVersion.version || "_"}
-                pillValueLabel={imageVersion.version || "_"}
+                pillValue={imageVersion.version}
+                pillValueLabel={imageVersion.version}
               />
-            </Stack>
-          </DataGridCell>
-        </DataGridRow>
-        <DataGridRow>
-          <DataGridHeadCell>Vulnerabilities Counts</DataGridHeadCell>
-          <DataGridCell>
-            <IssueCountsPerSeverityLevel counts={imageVersion.issueCounts} />
-          </DataGridCell>
-        </DataGridRow>
-        <DataGridRow>
-          <DataGridHeadCell className="whitespace-nowrap">{`Occurrences (${imageVersion.componentInstancesCount || 0})`}</DataGridHeadCell>
-          <DataGridCell>
-            <ImageVersionOccurrences imageVersion={imageVersion} />
-          </DataGridCell>
-        </DataGridRow>
-      </DataGrid>
+            ) : (
+              "—"
+            )}
+          </Stack>
+        </DD>
+        <DT className="jn:col-span-1">Vulnerabilities Counts</DT>
+        <DD className="jn:col-span-1">
+          <IssueCountsPerSeverityLevel counts={imageVersion.issueCounts} />
+        </DD>
+        <DT className="jn:col-span-1 jn:whitespace-nowrap">{`Occurrences (${imageVersion.componentInstancesCount || 0})`}</DT>
+        <DD className="jn:col-span-1">
+          <ImageVersionOccurrences imageVersion={imageVersion} />
+        </DD>
+      </DL>
 
       {/* Second Section: Issues List */}
       {service && selectedImageVersion && imageVersion && (

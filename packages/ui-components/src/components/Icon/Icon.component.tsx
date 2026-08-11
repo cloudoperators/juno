@@ -48,7 +48,6 @@ import NotificationsOff from "@material-design-icons/svg/outlined/notifications_
 import OpenInBrowser from "@material-design-icons/svg/outlined/open_in_browser.svg"
 import OpenInNew from "@material-design-icons/svg/outlined/open_in_new.svg"
 import Place from "./icons/place.svg"
-import Success from "@material-design-icons/svg/filled/check_box.svg"
 import Search from "@material-design-icons/svg/outlined/search.svg"
 import SeverityLow from "./icons/juno_severity_low.svg"
 import SeverityMedium from "./icons/juno_severity_medium.svg"
@@ -71,8 +70,10 @@ Generic Icon component.
 // hover style needs to be revisited. only works if no icon color was passed
 const anchorIconStyles = `
 	jn:text-current
+	jn:inline-flex
+	jn:leading-none
   jn:hover:text-theme-high
-  jn:focus:outline-hidden 
+  jn:focus:outline-hidden
   jn:focus-visible:ring-2
   jn:focus-visible:ring-theme-focus
   jn:focus-visible:ring-offset-1
@@ -83,8 +84,10 @@ const anchorIconStyles = `
 
 // hover style needs to be revisited. only works if no icon color was passed
 const buttonIconStyles = `
+  jn:inline-flex
+  jn:leading-none
   jn:hover:text-theme-high
-  jn:focus:outline-hidden 
+  jn:focus:outline-hidden
   jn:focus-visible:ring-2
   jn:focus-visible:ring-theme-focus
   jn:focus-visible:ring-offset-1
@@ -183,6 +186,8 @@ export enum KnownIconsEnum {
   // eslint-disable-next-line no-unused-vars
   place = "place",
   // eslint-disable-next-line no-unused-vars
+  schedule = "schedule",
+  // eslint-disable-next-line no-unused-vars
   search = "search",
   // eslint-disable-next-line no-unused-vars
   severityLow = "severityLow",
@@ -239,6 +244,19 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           className={iconClass}
           alt="time"
           title={title ? title : "Time"}
+          role="img"
+          {...iconProps}
+        />
+      )
+    case KnownIconsEnum.schedule:
+      // `schedule` is an alias for `accessTime` — both use the same SVG.
+      return (
+        <AccessTime
+          width={size}
+          height={size}
+          className={iconClass}
+          alt="schedule"
+          title={title ? title : "Schedule"}
           role="img"
           {...iconProps}
         />
@@ -808,8 +826,10 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
         />
       )
     case KnownIconsEnum.success:
+      // `success` (check_box.svg) has been deprecated in favour of `checkCircle` to avoid visual inconsistency.
+      // The `success` name is kept as a valid alias so existing callers continue to work.
       return (
-        <Success
+        <CheckCircle
           width={size}
           height={size}
           className={iconClass}
@@ -998,7 +1018,7 @@ export const Icon = forwardRef<HTMLAnchorElement | HTMLButtonElement, IconProps>
 
   /* render an <a> if href was passed, otherwise render button if onClick was passes, otherwise render plain icon: */
   /* if plain icon, add ref to the icon. In the other cases the ref goes on the anchor or button */
-  return href ? anchor : onClick ? button : <span ref={ref}>{icn}</span>
+  return href ? anchor : onClick ? button : <span className="jn:inline-flex jn:leading-none">{icn}</span>
 })
 
 export interface IconProps extends Omit<HTMLProps<HTMLAnchorElement> | HTMLProps<HTMLButtonElement>, "size"> {

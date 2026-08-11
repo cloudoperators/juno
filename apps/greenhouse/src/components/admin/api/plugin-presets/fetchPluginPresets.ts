@@ -10,7 +10,7 @@ import { isReady } from "../../utils"
 
 const applyFilterSettings = (pluginPresets: PluginPreset[], filterSettings?: FilterSettings): PluginPreset[] => {
   if (filterSettings?.selectedFilters) {
-    // filter by plugin preset definition
+    // filter by PluginPreset definition
     const pluginPresetDefinitionValues = filterSettings.selectedFilters
       .filter((f) => f.id === FILTER_IDS.PLUGIN_PRESET_DEFINITION)
       .map((f) => f.value)

@@ -156,15 +156,24 @@ describe("Checkbox", () => {
     expect(onClickSpy).not.toHaveBeenCalled()
   })
 
-  test("renders a custom className as passed", () => {
-    render(<Checkbox data-testid="23" className="my-custom-classname" />)
-    expect(screen.getByTestId("23")).toBeInTheDocument()
-    expect(screen.getByTestId("23")).toHaveClass("my-custom-classname")
+  test("renders a custom className on the native input as passed", () => {
+    render(<Checkbox className="my-custom-classname" />)
+    expect(screen.getByRole("checkbox")).toHaveClass("my-custom-classname")
   })
 
-  test("renders all props as passed", () => {
-    render(<Checkbox id="check-1" data-testid="23" data-lolol={true} />)
+  test("renders a wrapperClassName on the outer wrapper as passed", () => {
+    render(<Checkbox wrapperClassName="my-wrapper-classname" />)
+    expect(document.querySelector(".juno-checkbox")).toHaveClass("my-wrapper-classname")
+  })
+
+  test("forwards arbitrary props to the native input", () => {
+    render(<Checkbox data-testid="23" data-lolol={true} />)
     expect(screen.getByTestId("23")).toBeInTheDocument()
     expect(screen.getByTestId("23")).toHaveAttribute("data-lolol")
+  })
+
+  test("forwards aria-label to the native input", () => {
+    render(<Checkbox aria-label="my-aria-label" />)
+    expect(screen.getByRole("checkbox")).toHaveAttribute("aria-label", "my-aria-label")
   })
 })

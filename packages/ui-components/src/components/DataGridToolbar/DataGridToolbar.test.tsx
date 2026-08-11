@@ -11,6 +11,18 @@ describe("DataGridToolbar", () => {
   test("renders a DataGridToolbar", () => {
     render(<DataGridToolbar data-testid="my-datagridtoolbar" />)
     expect(screen.getByTestId("my-datagridtoolbar")).toBeInTheDocument()
+    expect(screen.getByTestId("my-datagridtoolbar")).toHaveClass("juno-datagrid-toolbar")
+  })
+
+  test("renders children as passed", () => {
+    render(
+      <DataGridToolbar data-testid="my-datagridtoolbar">
+        <button id="my-test-button"></button>
+      </DataGridToolbar>
+    )
+    expect(screen.getByTestId("my-datagridtoolbar")).toBeInTheDocument()
+    expect(screen.getByRole("button")).toBeInTheDocument()
+    expect(screen.getByRole("button")).toHaveAttribute("id", "my-test-button")
   })
 
   test("renders a custom className", () => {
@@ -23,17 +35,5 @@ describe("DataGridToolbar", () => {
     render(<DataGridToolbar data-testid="23" data-lolol={true} />)
     expect(screen.getByTestId("23")).toBeInTheDocument()
     expect(screen.getByTestId("23")).toHaveAttribute("data-lolol")
-  })
-
-  test("applies jn:ml-auto correctly when alignRight true", () => {
-    render(<DataGridToolbar data-testid="my-datagridtoolbar" />)
-    expect(screen.getByTestId("my-datagridtoolbar")).toBeInTheDocument()
-    expect(screen.getByTestId("my-datagridtoolbar").firstChild).toHaveClass("jn:ml-auto")
-  })
-
-  test("doesn't apply jn:ml-auto correctly when alignRight false", () => {
-    render(<DataGridToolbar data-testid="my-datagridtoolbar" alignRight={false} />)
-    expect(screen.getByTestId("my-datagridtoolbar")).toBeInTheDocument()
-    expect(screen.getByTestId("my-datagridtoolbar").firstChild).not.toHaveClass("jn:ml-auto")
   })
 })

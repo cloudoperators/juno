@@ -6,6 +6,8 @@
 
 The DataGrid is the primary pattern for displaying collections of structured data — a list of resources, entities, or items that share a common set of attributes or properties.
 
+![Juno DataGrid](images/DataGrid-fully-featured.png)
+
 ## When to Use a DataGrid
 
 ### Use a DataGrid When:
@@ -25,24 +27,27 @@ The DataGrid is the primary pattern for displaying collections of structured dat
 
 A DataGrid typically consists of:
 
-- **DataGrid Toolbar** (also referred to as **DataGrid Header**)  — sits above the grid items; holds filters, search, bulk actions, and other controls to modify the display of the data or interacting with multiple items
-- **DataGrid Header row** — labels for each column; always present unless the column purpose is self-evident from context, or the data displayed in one or multiple individual cells is synthesized but can not be meaningfully labelled with a single or a few terms
-- **DataGrid rows** (also referred to as **DataGrid Items**) — one row representing an item or entity of the set of data displayed
+- **DataGrid Header**  — sits above the grid items; holds filters, search, bulk actions, and other controls to modify the display of the data or interacting with multiple items. This is a composable pattern, not a single component in itself.
+- **DataGrid Head row** — labels for each column; always present unless the column purpose is self-evident from context, or the data displayed in one or multiple individual cells is synthesized but can not be meaningfully labelled with a single or a few terms
+- **DataGrid rows** (also referred to as **DataGrid Items** or **Elements**) — one row representing an item or entity of the set of data displayed
 - **DataGrid Footer** – optional. Can hold pagination or other, additional controls and/or metadata concerning the set as a whole
 
 ## DataGrid Header / Toolbar
 
-(TODO: Illustration of a fully featured header)
-
 The DataGrid Toolbar holds all the tools necessary for users to modify and customize their view on the dataset, and to interact with multiple items at once by running bulk actions.
+
+![Fully featured Juno DataGrid Header](images/DataGrid-fully-featured-header.png)
 
 More specifically, these are any combination of the following elements. Each element has a designated space in the DataGrid header structure. If an element is not needed, its space remains empty/unused. If none of the elements of a given zone is needed, don't render the zone / empty area at all.
 
-(TODO: Illustration of the fully featured header with overlayed/indicated zones)
+![Juno DataGrid Header zones](images/DataGrid-header-zones.png)
 
-### Zone 1: Bulk Actions, Sorting, Action(s)
+### Zone 1: Predefined Filters (Tabs), Sorting, Action(s)
 
-- Bulk Actions: Actions that can be run on multiple items in the DataGrid at once. Contains a Checkbox to select/deselect all items, and requires a Checkbox on each individual item / row.
+- Predefined Filter Tabs: Tabs placed on the far left of Zone 1 that apply a fixed, pre-configured set of filters to the DataGrid. Each tab represents a meaningful subset of the full data set — for example "All" and "Deleted", or "Active" and "Archived". Predefined filter tabs save users from having to manually configure the same filters repeatedly, and are particularly useful when certain subsets of the data are accessed frequently or represent distinct operational states. Only add predefined filter tabs when the subsets are genuinely useful and contextually meaningful for the typical tasks users perform on the given DataGrid.
+
+> **Do not misuse predefined filter tabs as navigation tabs.** They must always operate on the same set of entities — just filtered differently. If the tabs would show entirely different, unrelated sets of data or entity types, use page-level tabs instead, with each tab containing its own independent DataGrid.
+
 - Sorting: Select to choose what to sort by, and a button to toggle sort direction
 - Other Actions Overflow Menu: Any actions global to the data set other than the primary action
 - Primary Action: The primary, i.e. most likely action for users. If users can create new items in the DataGrid, this can be done using the primary action button
@@ -53,14 +58,25 @@ More specifically, these are any combination of the following elements. Each ele
 - Search: A SearchBox to perform a string-based search on the data and display the matching items. Make sure to manage user expectations as to what exactly will be searched, i.e. if the string entered is only matched against a single or a subset of fields, the placeholder should indicate that (e.g. "Search Description" if only descriptions can be searched)
 - Filter Pills: Each filter that has been configured by the user using the Filter element(s) and that is currently active is displayed here. As a last item, there is a button that allows for clearing all active filters at once.
 
-### Zone 3: DataGrid View/State, Refresh
+### Zone 3: DataGrid View/State, Bulk Actions, Refresh
 
-- Item Count: The number of items of the set that is currently visible as a whole (not only on the current page). If filters or searches are active, the number of matching items and the total number of items in the data set is being displayed.
-- Last Update, Update/Refresh: The date and time of the last refresh of the data displayed, and a button to trigger a refresh.
+- Bulk Actions: Actions that can be run on multiple items in the DataGrid at once. Positioned on the left side of Zone 3. Contains a Checkbox to select/deselect all items, and a menu of available bulk actions. Requires a Checkbox on each individual item / row. Bulk action controls should be disabled until at least one item is selected. The select-all checkbox follows a tri-state model: unchecked when no items are selected, indeterminate when some are, and checked when all are. Clicking the checkbox in the unchecked or indeterminate state selects all items; clicking it in the checked state deselects all.
+- Item Count: The number of items of the set that is currently visible as a whole (not only on the current page), displayed in the center. If filters or searches are active, the number of matching items and the total number of items in the data set is being displayed.
+- Last Update, Update/Refresh: The date and time of the last refresh of the data displayed, and a button to trigger a refresh. Positioned on the right side of Zone 3.
 
 All of the above elements are optional in the sense that none of them will be required for any given DataGrid. However, if you find yourself in a situation where none of the above options is needed or desired, reconsider whether using a DataGrid is the right choice to display the given data. This case can occur, but it is rare. In most cases a simple list is then a more appropriate option to display the data.
 
-(TODO: illustration of one or two non-fully featured headers that reflect typical, real-world use cases)
+## Filter and Sort Persistence on Navigation
+
+There is no one default policy for whether filters and sorting in a DataGrid header should persist when users navigate — it ultimately depends on the user's goal, the navigation model, and the entities displayed in the DataGrid.
+
+Generally, users do not expect state they configured in one session or context to still be active when they come back — stale filters can hide data and cause confusion that is hard to diagnose. However, there are cases where persisting filters and sorting may provide value and reduce frustration for users: when the grid is part of a continuous task or navigation flow (e.g. drilling through a folder/file hierarchy or returning via browser back/forward).
+
+If persistence is implemented, make sure the active state is clearly communicated — active filter pills and any sort indicator must always be visible so the user is never left wondering why data appears to be missing or unexpectedly ordered.
+
+An exception applies when the DataGrid is used as a **navigation mechanism**, such as browsing a folder or file structure. In this case, persisting filters and sorting is appropriate because the user is operating within a continuous navigational context, and clearing their configuration on each step would be disruptive and counterproductive.
+
+If persistence is implemented, make sure the active state is clearly communicated — active filter pills and any sort indicator must always be visible so the user is never left wondering why data appears to be missing or unexpectedly ordered.
 
 ## Column Order, Structure, and Layout
 
@@ -69,7 +85,7 @@ All of the above elements are optional in the sense that none of them will be re
 - If exists, a column with a checkbox to select items for bulk actions should go first/left.
 - Status and state columns are typically placed near the left as well, since users often scan for status first.
 - Often it makes sense to emphasize the most identifying information, such as name/id, and make it bold. This makes it easier to scan and identify items.
-- Action columns (edit, delete, overflow menus) belong at the far right. In order to avoid noise use Overflow Menus even for single item menus rather than showing a button on each item straightaway.
+- Action columns (edit, delete, overflow menus) belong at the far right. In order to avoid noise, use overflow menus even for single item menus rather than showing a button on each item straightaway. When the last column holds an overflow menu or other small interactive element, set a `min-width` on that column's cells to prevent the column from collapsing and making the element difficult to interact with.
 - Avoid too many columns – If a grid requires horizontal scrolling to show all columns, consider whether some of the data could be moved to a detail view instead.
 
 ## Interacting with DataGrid Rows / Items
@@ -77,7 +93,7 @@ All of the above elements are optional in the sense that none of them will be re
 ### Clickable Items / Rows
 
 If clicking a row navigates to a detail view, opens a Panel, or triggers an action, the entire row should be clickable. Visual hover feedback should make this affordance obvious.
-When rows contain nested interactive elements (buttons, links, overflow menus), those elements must not propagate their click events to the row — otherwise the row action fires unintentionally whenever the user interacts with a nested element.
+When rows contain nested interactive elements (buttons, links, overflow menus), each of those elements must explicitly stop click event propagation — call `event.stopPropagation()` on the element's click handler. Without this, the row-level click handler fires unintentionally whenever the user interacts with any nested element.
 
 ### Selecting Rows / Items
 
@@ -92,9 +108,20 @@ A DataGrid must handle the full range of data states gracefully. Do not render a
 - **Empty (filtered):** Distinguish between "no data exists" and "no data matches your filters" — these suggest different user actions
 - **Error:** Show an error state scoped to the DataGrid with a clear explanation and a retry option where possible. If present, refer users to the Reload/Refresh button described below.
 
+Use the [`Status`](https://cloudoperators.github.io/juno/?path=/docs/components-status--docs) component for all of these states. Place it inside a `DataGridRow` and `DataGridCell` spanning all columns. `Status` automatically adapts its styling to the DataGrid context. See Storybook for usage examples.
+
+![A DataGrid with a generic error rendered using the `Status` compponent](images/status-generic-error-datagrid.png)
+
 ## Re-Loading Data
 
-A DataGrid may have a Reload/Refresh-button in the Header / Toolbar in order to make sure the latest state of the data is displayed and interacted with.
+A DataGrid may have a Reload/Refresh-button in the Header in order to make sure the latest state of the data is displayed and interacted with.
+
+## Render Elements Based on User Permissions
+
+When rendering elements in the DataGrid, keep permissions of the user in mind:
+For users that are not allowed to perform any of the available bulk actions for the elements of a given DataGrid, do not render Bulk action elements at all.
+The same goes for the checkboxes on the individual items: If a user has no permission to perform any of the available bulk actions, do not render any checkboxes (and the surrounding cells) for the items.
+If a user is not allowed to create any new items, do not render a "Create […]" button.
 
 ## DataGrid Content and Writing
 

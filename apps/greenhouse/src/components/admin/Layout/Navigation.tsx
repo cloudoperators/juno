@@ -16,6 +16,10 @@ export const navigationItems = [
     label: "Clusters",
     value: "/admin/clusters",
   },
+  {
+    label: "Exposed Services",
+    value: "/admin/exposed-services",
+  },
 ] as const
 
 type NavigationItem = (typeof navigationItems)[number]
