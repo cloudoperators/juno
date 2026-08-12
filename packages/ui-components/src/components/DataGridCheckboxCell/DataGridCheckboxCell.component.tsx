@@ -3,49 +3,35 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ChangeEventHandler, HTMLAttributes, ReactNode } from "react"
-import { Checkbox } from "../Checkbox/Checkbox.component"
+import React, { HTMLAttributes, ReactNode } from "react"
 import { DataGridCell } from "../DataGridCell/DataGridCell.component"
 
 /**
- * `DataGridCheckboxCell` integrates a checkbox within a `DataGrid` cell, ideal for selection-based interactions.
- * It manages the selected state and supports custom behaviors upon state changes.
- * @see https://cloudoperators.github.io/juno/?path=/docs/wip-datagrid-datagridcheckboxcell--docs
+ * `DataGridCheckboxCell` is a `DataGrid` cell pre-configured for holding a `Checkbox` component.
+ * Place a `Checkbox` as a child and wire up selection state and event handlers directly on it.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/components-datagrid-datagridcheckboxcell--docs
  * @see {@link DataGridCheckboxCellProps}
  */
-export const DataGridCheckboxCell = ({
-  selected = false,
-  disabled = false,
-  className = "",
-  onChange,
-  ...props
-}: DataGridCheckboxCellProps): ReactNode => {
+export const DataGridCheckboxCell = ({ className = "", children, ...props }: DataGridCheckboxCellProps): ReactNode => {
   return (
-    <DataGridCell className={`juno-datagrid-checkbox-cell ${className}`} {...props}>
-      <Checkbox disabled={disabled} checked={selected} onChange={onChange} />
+    // Always center vertically regardless of the parent DataGrid's cellVerticalAlignment context.
+    <DataGridCell
+      className={`juno-datagrid-checkbox-cell jn:flex jn:flex-col jn:justify-center ${className}`}
+      {...props}
+    >
+      {children}
     </DataGridCell>
   )
 }
 
-export interface DataGridCheckboxCellProps extends HTMLAttributes<HTMLElement> {
-  /**
-   * Indicates selected state of the associated row.
-   * @default false
-   */
-  selected?: boolean
-
-  /**
-   * Determines if the checkbox is disabled.
-   * @default false
-   */
-  disabled?: boolean
+// Omit onChange: it would silently spread onto the underlying div (a no-op) instead of reaching the Checkbox child, misleading consumers into thinking they're wiring up checkbox state.
+export interface DataGridCheckboxCellProps extends Omit<HTMLAttributes<HTMLElement>, "onChange"> {
+  /** A `Checkbox` component to render inside the cell. */
+  children?: ReactNode
 
   /**
    * Additional class names for styling.
    * @default ""
    */
   className?: string
-
-  /** Event handler for changes in the checkbox's state. */
-  onChange?: ChangeEventHandler<HTMLInputElement>
 }
