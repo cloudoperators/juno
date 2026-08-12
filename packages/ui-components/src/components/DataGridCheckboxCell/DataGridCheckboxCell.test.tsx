@@ -7,6 +7,7 @@ import * as React from "react"
 import { render, screen } from "@testing-library/react"
 import { DataGridCheckboxCell } from "./index"
 import { Checkbox } from "../Checkbox"
+import { DataGrid } from "../DataGrid"
 
 describe("DataGridCheckboxCell", () => {
   test("renders a DataGridCheckboxCell", () => {
@@ -36,5 +37,16 @@ describe("DataGridCheckboxCell", () => {
       </DataGridCheckboxCell>
     )
     expect(screen.getByTestId("child")).toBeInTheDocument()
+  })
+
+  test("always renders vertically centered regardless of parent DataGrid cellVerticalAlignment", () => {
+    render(
+      <DataGrid columns={1} cellVerticalAlignment="top">
+        <DataGridCheckboxCell />
+      </DataGrid>
+    )
+    expect(screen.getByRole("gridcell")).toHaveClass("jn:flex")
+    expect(screen.getByRole("gridcell")).toHaveClass("jn:flex-col")
+    expect(screen.getByRole("gridcell")).toHaveClass("jn:justify-center")
   })
 })

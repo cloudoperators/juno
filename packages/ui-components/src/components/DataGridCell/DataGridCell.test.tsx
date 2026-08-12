@@ -41,4 +41,15 @@ describe("DataGridCell", () => {
     expect(screen.getByRole("gridcell")).not.toHaveClass("jn:flex-col")
     expect(screen.getByRole("gridcell")).not.toHaveClass("jn:justify-center")
   })
+
+  test("verticalAlignment='center' overrides parent DataGrid cellVerticalAlignment='top'", () => {
+    render(
+      <DataGrid columns={1} cellVerticalAlignment="top">
+        <DataGridCell verticalAlignment="center" />
+      </DataGrid>
+    )
+    expect(screen.getByRole("gridcell")).toHaveClass("jn:flex")
+    expect(screen.getByRole("gridcell")).toHaveClass("jn:flex-col")
+    expect(screen.getByRole("gridcell")).toHaveClass("jn:justify-center")
+  })
 })
