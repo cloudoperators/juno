@@ -4,6 +4,7 @@
  */
 
 import { useState, useRef, useEffect, Dispatch, SetStateAction } from "react"
+import { KnownIcons } from "@cloudoperators/juno-ui-components"
 
 export const capitalizeFirstLetter = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1)
@@ -26,7 +27,7 @@ export const getSeverityColor = (severity: string): string => {
   }
 }
 
-export const iconMap: Record<string, string> = {
+export const iconMap: Record<string, KnownIcons> = {
   critical: "severityCritical",
   high: "severityHigh",
   medium: "severityMedium",

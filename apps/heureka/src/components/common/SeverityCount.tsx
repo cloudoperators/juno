@@ -2,6 +2,7 @@
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 import React from "react"
 import { Icon, Tooltip, TooltipTrigger, TooltipContent, KnownIcons, Stack } from "@cloudoperators/juno-ui-components"
