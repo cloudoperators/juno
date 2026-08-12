@@ -57,4 +57,14 @@ describe("DataGridCell", () => {
     expect(screen.getByRole("gridcell")).toHaveClass("jn:flex-col")
     expect(screen.getByRole("gridcell")).toHaveClass("jn:justify-center")
   })
+
+  test("renders nowrap class when nowrap is set", () => {
+    render(<DataGridCell nowrap />)
+    expect(screen.getByRole("gridcell")).toHaveClass("jn:whitespace-nowrap")
+  })
+
+  test("renders colSpan via inline style", () => {
+    render(<DataGridCell colSpan={3} />)
+    expect(screen.getByRole("gridcell")).toHaveStyle({ gridColumn: "span 3 / span 3" })
+  })
 })
