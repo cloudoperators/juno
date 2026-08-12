@@ -160,7 +160,8 @@ describe("IssuesDataRows — active/remediated split", () => {
     const issuesPromise = makeImagesPromise(["CVE-2024-1234"])
     const remediationsPromise = makeRemediationsPromise(["CVE-2024-1234"]) // this CVE is now remediated
 
-    act(() => {
+    // eslint-disable-next-line @typescript-eslint/require-await
+    await act(async () => {
       render(
         <Suspense fallback={<div>Loading...</div>}>
           <IssuesDataRows
@@ -201,7 +202,8 @@ describe("IssuesDataRows — active/remediated split", () => {
     const issuesPromise = makeImagesPromise(cves)
     const remediationsPromise = makeRemediationsPromise(cves) // both are remediated
 
-    act(() => {
+    // eslint-disable-next-line @typescript-eslint/require-await
+    await act(async () => {
       render(
         <Suspense fallback={<div>Loading...</div>}>
           <IssuesDataRows
