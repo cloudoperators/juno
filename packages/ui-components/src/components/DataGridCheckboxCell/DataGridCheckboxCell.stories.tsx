@@ -23,6 +23,14 @@ const meta: Meta<typeof DataGridCheckboxCell> = {
       },
     },
   },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "`DataGridCheckboxCell` is a `DataGrid` cell pre-configured for holding a `Checkbox`. Place a `Checkbox` as a child and wire up selection state and event handlers directly on it. To keep the cell as narrow as its content, use `minContentColumns` on the parent `DataGrid` — the cell itself does not control its own column width.",
+      },
+    },
+  },
 }
 
 export default meta
