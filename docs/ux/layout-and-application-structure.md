@@ -7,3 +7,5 @@ This chapter describes the general rules for standard application layout and str
 1.  [Juno Layout](juno-layout.md)
 2.  [Embedded ApplicationLayout](embedded-application-layout.md)
 3.  [Legacy Application Layout](legacy-application-layout.md)
+4.  Page Layout Elements
+    1.  [Page Footer](page-footer.md)
