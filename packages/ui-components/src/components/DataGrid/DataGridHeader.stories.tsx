@@ -157,6 +157,7 @@ export const WithSearchOnly: Story = {
 export const FullyFeatured: Story = {
   render: () => {
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc")
+    const [selected, setSelected] = useState<Record<string, boolean>>({})
 
     return (
       <>
@@ -250,7 +251,12 @@ export const FullyFeatured: Story = {
           </DataGridRow>
           {servers.map((s) => (
             <DataGridRow key={s.id}>
-              <DataGridCheckboxCell />
+              <DataGridCheckboxCell>
+                <Checkbox
+                  checked={!!selected[s.id]}
+                  onChange={(e) => setSelected((prev) => ({ ...prev, [s.id]: e.target.checked }))}
+                />
+              </DataGridCheckboxCell>
               <DataGridCell>{s.name}</DataGridCell>
               <DataGridCell>{s.region}</DataGridCell>
               <DataGridCell>{s.status}</DataGridCell>
@@ -367,7 +373,12 @@ export const FullyFeatured: Story = {
   </DataGridRow>
   {servers.map((s) => (
     <DataGridRow key={s.id}>
-      <DataGridCheckboxCell />
+      <DataGridCheckboxCell>
+        <Checkbox
+          checked={!!selected[s.id]}
+          onChange={(e) => setSelected((prev) => ({ ...prev, [s.id]: e.target.checked }))}
+        />
+      </DataGridCheckboxCell>
       <DataGridCell>{s.name}</DataGridCell>
       <DataGridCell>{s.region}</DataGridCell>
       <DataGridCell>{s.status}</DataGridCell>
