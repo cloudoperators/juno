@@ -64,6 +64,7 @@ export const Default: Story = {
           <DataGridRow key={item.id}>
             <DataGridCheckboxCell>
               <Checkbox
+                aria-label={`Select ${item.name}`}
                 checked={!!selected[item.id]}
                 onChange={(e) => setSelected((s) => ({ ...s, [item.id]: e.target.checked }))}
               />
@@ -95,7 +96,7 @@ export const Disabled: Story = {
       {items.map((item) => (
         <DataGridRow key={item.id}>
           <DataGridCheckboxCell>
-            <Checkbox disabled />
+            <Checkbox aria-label={`Select ${item.name}`} disabled />
           </DataGridCheckboxCell>
           <DataGridCell>{item.name}</DataGridCell>
           <DataGridCell>{item.status}</DataGridCell>
@@ -124,7 +125,7 @@ export const AlwaysCentered: Story = {
       {items.map((item) => (
         <DataGridRow key={item.id}>
           <DataGridCheckboxCell>
-            <Checkbox />
+            <Checkbox aria-label={`Select ${item.name}`} />
           </DataGridCheckboxCell>
           <DataGridCell>{item.name}</DataGridCell>
           <DataGridCell>

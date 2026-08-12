@@ -253,6 +253,7 @@ export const FullyFeatured: Story = {
             <DataGridRow key={s.id}>
               <DataGridCheckboxCell>
                 <Checkbox
+                  aria-label={`Select ${s.name}`}
                   checked={!!selected[s.id]}
                   onChange={(e) => setSelected((prev) => ({ ...prev, [s.id]: e.target.checked }))}
                 />
@@ -375,6 +376,7 @@ export const FullyFeatured: Story = {
     <DataGridRow key={s.id}>
       <DataGridCheckboxCell>
         <Checkbox
+          aria-label={\`Select \${s.name}\`}
           checked={!!selected[s.id]}
           onChange={(e) => setSelected((prev) => ({ ...prev, [s.id]: e.target.checked }))}
         />
