@@ -94,7 +94,7 @@ export const ImagesDataRow = ({
         />
       </DataGridCell>
       {displayDetailsButton && (
-        <DataGridCell className="cursor-default" onClick={(e) => e.stopPropagation()}>
+        <DataGridCell className="cursor-default" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
           <Button size="small" label="Show Details" onClick={onDetailClick} className="whitespace-nowrap" />
         </DataGridCell>
       )}
