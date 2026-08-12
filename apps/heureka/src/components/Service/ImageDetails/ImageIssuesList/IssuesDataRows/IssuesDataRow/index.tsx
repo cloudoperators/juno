@@ -163,7 +163,7 @@ export const IssuesDataRow = ({
           </Stack>
         </DataGridCell>
         {showFalsePositiveAction && (
-          <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
+          <DataGridCell className="cursor-default interactive" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
             {isSubmitting ? (
               <Spinner variant="primary" size="small" className="ml-auto" />
             ) : (

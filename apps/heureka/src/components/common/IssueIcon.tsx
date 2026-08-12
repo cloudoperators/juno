@@ -13,6 +13,7 @@ type IssueIconProps = {
 
 const getIconForSeverity = (severity: string) => {
   const severityLower = severity.toLowerCase()
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const iconColor = getSeverityColor(severityLower)
 
   return <Icon icon={iconMap[severityLower] || "help"} color={iconColor} />

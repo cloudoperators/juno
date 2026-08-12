@@ -26,5 +26,10 @@ export default [
       // dependency that triggered the effect.
       "react-hooks/set-state-in-effect": "off",
     },
+    // Some eslint-disable comments are needed only in CI where package type resolution differs.
+    // Silencing unused-directive warnings avoids false positives in local development.
+    linterOptions: {
+      reportUnusedDisableDirectives: "off",
+    },
   },
 ]

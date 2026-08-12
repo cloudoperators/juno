@@ -94,7 +94,7 @@ const RemediationHistoryTable = ({
           <DataGridCell>{r.remediatedBy ?? "--"}</DataGridCell>
           <DataGridCell className="min-w-0">{r.description ?? "--"}</DataGridCell>
           <DataGridCell className="min-w-0">{r.type === "risk_accepted" ? (r.url ?? "--") : ""}</DataGridCell>
-          <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
+          <DataGridCell className="cursor-default interactive" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
             {revertingId === r.remediationId ? (
               <Spinner variant="primary" size="small" className="ml-auto" />
             ) : (

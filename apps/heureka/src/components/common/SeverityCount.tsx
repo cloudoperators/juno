@@ -47,7 +47,9 @@ const getSeverityColor = (severity: SeverityCountProps["severity"]): string => {
 }
 
 export const SeverityCount = ({ severity, count, tooltipContent }: SeverityCountProps) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const icon = getSeverityIcon(severity)
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const color = getSeverityColor(severity)
 
   return (

@@ -138,7 +138,7 @@ export const RemediatedIssueDataRow = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link-hover"
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e: React.MouseEvent) => e.stopPropagation()}
               >
                 <Stack gap="1.5" alignment="center">
                   <Icon icon="openInNew" size="16" />
@@ -162,7 +162,7 @@ export const RemediatedIssueDataRow = ({
             {issue.description && needsExpansion && (
               <a
                 href="#"
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent) => {
                   e.stopPropagation()
                   toggleDescription(e)
                 }}
@@ -176,7 +176,7 @@ export const RemediatedIssueDataRow = ({
             )}
           </Stack>
         </DataGridCell>
-        <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
+        <DataGridCell className="cursor-default interactive" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
           {isSubmitting ? (
             <Spinner variant="primary" size="small" className="ml-auto" />
           ) : (

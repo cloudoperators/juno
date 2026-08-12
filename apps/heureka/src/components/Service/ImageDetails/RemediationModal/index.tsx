@@ -200,7 +200,7 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
           <TextInput
             label="User ID"
             value={authUserId ?? form.manualUserId}
-            onChange={(e) => {
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setForm((prev) => ({ ...prev, manualUserId: e.target.value }))
               if (errors.userId) setErrors((prev) => ({ ...prev, userId: "" }))
             }}
@@ -217,7 +217,7 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
             <TextInput
               label="Jira Ticket / Risk Acceptance Source Ticket"
               value={form.sourceTicket}
-              onChange={(e) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setForm((prev) => ({ ...prev, sourceTicket: e.target.value }))
                 if (errors.sourceTicket) setErrors((prev) => ({ ...prev, sourceTicket: "" }))
               }}
@@ -237,7 +237,7 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
           <DateTimePicker
             label="Expiration Date"
             value={form.expirationDate ?? undefined}
-            onChange={(dates) => {
+            onChange={(dates: Date[] | undefined) => {
               setForm((prev) => ({ ...prev, expirationDate: dates?.[0] ?? null }))
               if (errors.expirationDate) setErrors((prev) => ({ ...prev, expirationDate: "" }))
             }}
@@ -253,7 +253,7 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
             label="Description"
             placeholder={descriptionPlaceholder}
             value={form.description}
-            onChange={(e) => {
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
               setForm((prev) => ({ ...prev, description: e.target.value }))
               if (errors.description) setErrors((prev) => ({ ...prev, description: "" }))
             }}

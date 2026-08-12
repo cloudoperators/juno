@@ -46,7 +46,7 @@ export const ImagesDataRow = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:underline text-sm"
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e: React.MouseEvent) => e.stopPropagation()}
                 aria-label={`Open image registry for ${version.repository} (opens in a new tab)`}
                 title={`Open image registry for ${version.repository} (opens in a new tab)`}
               >

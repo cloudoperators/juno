@@ -16,7 +16,9 @@ import { RemediationTypeValues } from "../../../../generated/graphql"
 
 // Mock DateTimePicker so tests can set dates without flatpickr DOM interaction
 vi.mock("@cloudoperators/juno-ui-components", async (importActual) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const actual = await importActual<typeof import("@cloudoperators/juno-ui-components")>()
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return {
     ...actual,
     DateTimePicker: ({

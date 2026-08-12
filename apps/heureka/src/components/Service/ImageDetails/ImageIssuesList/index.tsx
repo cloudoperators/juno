@@ -78,7 +78,7 @@ const VulnerabilitiesTabContent = ({
         <SearchInput
           placeholder="Search for CVE number"
           className="w-96 ml-auto"
-          onSearch={(search) => setSearchTerm(search || "")}
+          onSearch={(search: string | undefined) => setSearchTerm(search || "")}
           onClear={() => {
             setSearchTerm("")
           }}
@@ -168,7 +168,7 @@ const RemediatedVulnerabilitiesTabContent = ({
         <SearchInput
           placeholder="Search for CVE number"
           className="w-96 ml-auto"
-          onSearch={(search) => setSearchTerm(search || "")}
+          onSearch={(search: string | undefined) => setSearchTerm(search || "")}
           onClear={() => setSearchTerm("")}
         />
       </Stack>
