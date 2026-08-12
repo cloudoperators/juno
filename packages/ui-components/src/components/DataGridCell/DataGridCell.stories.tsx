@@ -20,6 +20,10 @@ const meta: Meta<typeof DataGridCell> = {
         type: { summary: "ReactNode" },
       },
     },
+    verticalAlignment: {
+      control: { type: "radio" },
+      options: ["center", "top"],
+    },
   },
 }
 
