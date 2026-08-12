@@ -20,6 +20,11 @@ describe("DataGridCell", () => {
     expect(screen.getByRole("gridcell")).toHaveClass("my-custom-class")
   })
 
+  test("renders arbitrary props", () => {
+    render(<DataGridCell data-testid="my-cell" data-foo="bar" />)
+    expect(screen.getByTestId("my-cell")).toHaveAttribute("data-foo", "bar")
+  })
+
   test("inherits cellVerticalAlignment from parent DataGrid context", () => {
     render(
       <DataGrid columns={1} cellVerticalAlignment="center">

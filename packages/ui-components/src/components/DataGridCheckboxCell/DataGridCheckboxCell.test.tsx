@@ -21,6 +21,11 @@ describe("DataGridCheckboxCell", () => {
     expect(screen.getByRole("gridcell")).toHaveClass("my-custom-class")
   })
 
+  test("renders arbitrary props", () => {
+    render(<DataGridCheckboxCell data-testid="my-checkbox-cell" data-foo="bar" />)
+    expect(screen.getByTestId("my-checkbox-cell")).toHaveAttribute("data-foo", "bar")
+  })
+
   test("renders a Checkbox child", () => {
     render(
       <DataGridCheckboxCell>
