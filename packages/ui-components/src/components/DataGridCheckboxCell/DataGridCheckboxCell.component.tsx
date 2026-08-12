@@ -6,12 +6,6 @@
 import React, { HTMLAttributes, ReactNode } from "react"
 import { DataGridCell } from "../DataGridCell/DataGridCell.component"
 
-const checkboxCellStyles = `
-  jn:flex
-  jn:flex-col
-  jn:justify-center
-`
-
 /**
  * `DataGridCheckboxCell` is a `DataGrid` cell pre-configured for holding a `Checkbox` component.
  * Place a `Checkbox` as a child and wire up selection state and event handlers directly on it.
@@ -21,14 +15,14 @@ const checkboxCellStyles = `
 export const DataGridCheckboxCell = ({ className = "", children, ...props }: DataGridCheckboxCellProps): ReactNode => {
   return (
     // Always center vertically regardless of the parent DataGrid's cellVerticalAlignment context.
-    <DataGridCell className={`juno-datagrid-checkbox-cell ${checkboxCellStyles} ${className}`} {...props}>
+    <DataGridCell className={`juno-datagrid-checkbox-cell ${className}`} verticalAlignment="center" {...props}>
       {children}
     </DataGridCell>
   )
 }
 
-// Omit onChange: it would silently spread onto the underlying div (a no-op) instead of reaching the Checkbox child, misleading consumers into thinking they're wiring up checkbox state.
-export interface DataGridCheckboxCellProps extends Omit<HTMLAttributes<HTMLElement>, "onChange"> {
+// Omit onChange: React's synthetic onChange bubbles, so it would fire when the child Checkbox changes, but the type would be ChangeEventHandler<HTMLDivElement> — misleading consumers into thinking they're wiring up checkbox state. Wire onChange directly on the Checkbox child instead.
+export interface DataGridCheckboxCellProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
   /** A `Checkbox` component to render inside the cell. */
   children?: ReactNode
 
