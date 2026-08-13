@@ -152,8 +152,8 @@ export const VerticalAlignmentOverride: Story = {
       </DataGridRow>
       {items.map((item) => (
         <DataGridRow key={item.id}>
-          <DataGridCell>{item.name}</DataGridCell>
-          <DataGridCell verticalAlignment="top">
+          <DataGridCell verticalAlignment="top">{item.name}</DataGridCell>
+          <DataGridCell>
             This is a longer description for {item.name} that spans multiple lines to demonstrate that top alignment
             works independently of the grid-level setting.
           </DataGridCell>
