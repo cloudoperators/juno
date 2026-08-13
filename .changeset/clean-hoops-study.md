@@ -4,6 +4,6 @@
 
 feat(ui): Streamline `DataGridCheckboxCell` and add `verticalAlignment` prop to `DataGridCell`.
 
-`DataGridCheckboxCell` is now a plain container that centers its child vertically — place a `Checkbox` as a child and wire up state and handlers directly on it. Note: although this is a breaking change to the `DataGridCheckboxCell` API, the component was WIP-labelled and is not known to be used in any application.
+`DataGridCheckboxCell` is now removed completely. As it has been WIP for all the time and there isn't one documented use, we will release this as a minor instead of major, even though it is technically breaking.
 
-`DataGridCell` gains a `verticalAlignment` prop (`"center" | "top"`) that overrides the parent `DataGrid`'s `cellVerticalAlignment` for individual cells.
+`DataGridCell` gets a `verticalAlignment` prop (`"center" | "top"`) that overrides the parent `DataGrid`'s `cellVerticalAlignment` for individual cells.
