@@ -24,6 +24,7 @@ import { MitigateManuallyModal } from "../../../MitigateManuallyModal"
 import { useRouteContext } from "@tanstack/react-router"
 import { createRemediation } from "../../../../../../api/createRemediation"
 import { RemediationInput } from "../../../../../../generated/graphql"
+import type { RemediationsCache, RemediationQueryFilter as QueryFilter } from "../../remediationCacheTypes"
 
 const cellSeverityClasses = (severity: string) => {
   const borderColor = getSeverityColor(severity.toLowerCase())
@@ -70,11 +71,6 @@ export const IssuesDataRow = ({
   const toggleDescription = (e: React.MouseEvent) => {
     e.preventDefault()
     setIsExpanded(!isExpanded)
-  }
-
-  type QueryFilter = { service?: string[]; image?: string[]; vulnerability?: string[] }
-  type RemediationsCache = {
-    data?: { Remediations?: { edges?: Array<{ node?: { id?: string } }> | null; totalCount?: number | null } }
   }
 
   const makeRemediationHandler =

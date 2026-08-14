@@ -344,19 +344,19 @@ export const ImageIssuesList = ({
     setVulnerabilitiesSuccessMessage(
       `Vulnerability ${cveNumber} has been marked as a false positive and moved to the Remediated list.`
     )
-  }, [])
+  }, [setVulnerabilitiesSuccessMessage])
 
   const handleRiskAcceptanceSuccess = useCallback((cveNumber: string) => {
     setVulnerabilitiesSuccessMessage(
       `Vulnerability ${cveNumber} has been accepted as a risk and moved to the Remediated list.`
     )
-  }, [])
+  }, [setVulnerabilitiesSuccessMessage])
 
   const handleMitigateManuallySuccess = useCallback((cveNumber: string) => {
     setVulnerabilitiesSuccessMessage(
       `Vulnerability ${cveNumber} has been manually mitigated and moved to the Remediated list.`
     )
-  }, [])
+  }, [setVulnerabilitiesSuccessMessage])
 
   const handleRemediatedTabRemediationSuccess = useCallback(
     (cveNumber: string, remediationType: RemediationTypeValues) => {
@@ -369,7 +369,7 @@ export const ImageIssuesList = ({
       const text = `Vulnerability ${cveNumber} has been marked as ${remediationTypeLabel}.`
       setRemediatedSuccessMessage(text)
     },
-    []
+    [setRemediatedSuccessMessage]
   )
 
   return (

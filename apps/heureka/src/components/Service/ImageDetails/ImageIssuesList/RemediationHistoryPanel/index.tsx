@@ -29,6 +29,7 @@ import { LoadingDataRow } from "../../../../common/LoadingDataRow"
 import { getErrorDataRowComponent } from "../../../../common/getErrorDataRow"
 import type { RemediatedVulnerability } from "../../../../Services/utils"
 import { useTimedState } from "../../../../../utils"
+import type { RemediationsCache, RemediationQueryFilter } from "../remediationCacheTypes"
 
 type RemediationHistoryPanelProps = {
   service: string
@@ -137,6 +138,9 @@ export const RemediationHistoryPanel = ({
     // staleTime: 0 makes ensureQueryData treat any cached entry as immediately stale, forcing a
     // network request without cancelling in-flight queries (unlike removeQueries).
     return fetchRemediations({ apiClient, queryClient, filter, staleTime: 0 })
+    // refreshKey is intentionally included to force a re-fetch when the parent signals a data
+    // refresh (e.g. after a revert). It is not used inside the memo body by design.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [service, image, vulnerability, apiClient, queryClient, refreshKey])
 
   const handleRevert = async (remediation: RemediatedVulnerability) => {
@@ -150,16 +154,14 @@ export const RemediationHistoryPanel = ({
       queryClient.setQueriesData(
         {
           predicate: (query) => {
-            const [key, filter] = query.queryKey as [string, { service?: string[]; image?: string[] }]
+            const [key, filter] = query.queryKey as [string, RemediationQueryFilter]
             if (key !== "remediations") return false
             if (filter?.service && !filter.service.includes(service)) return false
             if (filter?.image && !filter.image.includes(image)) return false
             return true
           },
         },
-        (old: {
-          data?: { Remediations?: { edges?: Array<{ node?: { id?: string } }> | null; totalCount?: number | null } }
-        }) => {
+        (old: RemediationsCache) => {
           const edges = old?.data?.Remediations?.edges
           if (!edges) return old
           const newEdges = edges.filter((e) => e?.node?.id !== remediation.remediationId)
@@ -185,10 +187,7 @@ export const RemediationHistoryPanel = ({
       // though other remediations still exist.
       if (vulnerability) {
         const panelFilter = { service: [service], image: [image], vulnerability: [vulnerability] }
-        type PanelCache = {
-          data?: { Remediations?: { edges?: Array<{ node?: { id?: string } }> | null; totalCount?: number | null } }
-        }
-        const panelCache = queryClient.getQueryData<PanelCache>(["remediations", panelFilter])
+        const panelCache = queryClient.getQueryData<RemediationsCache>(["remediations", panelFilter])
         const remainingEdges = (panelCache?.data?.Remediations?.edges ?? []).filter(
           (e) => e?.node?.id !== remediation.remediationId
         )

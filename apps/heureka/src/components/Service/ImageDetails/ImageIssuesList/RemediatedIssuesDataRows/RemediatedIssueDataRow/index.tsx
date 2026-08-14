@@ -24,6 +24,7 @@ import { MitigateManuallyModal } from "../../../MitigateManuallyModal"
 import { useRouteContext } from "@tanstack/react-router"
 import { createRemediation } from "../../../../../../api/createRemediation"
 import { RemediationInput, RemediationTypeValues } from "../../../../../../generated/graphql"
+import type { RemediationsCache, RemediationQueryFilter as QueryFilter } from "../../remediationCacheTypes"
 
 const cellSeverityClasses = (severity: string) => {
   const borderColor = getSeverityColor(severity.toLowerCase())
@@ -33,11 +34,6 @@ const cellSeverityClasses = (severity: string) => {
     h-full
     pl-5
   `
-}
-
-type QueryFilter = { service?: string[]; image?: string[]; vulnerability?: string[] }
-type RemediationsCache = {
-  data?: { Remediations?: { edges?: Array<{ node?: { id?: string } }> | null; totalCount?: number | null } }
 }
 
 type RemediatedIssueDataRowProps = {

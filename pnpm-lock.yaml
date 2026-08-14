@@ -536,7 +536,7 @@ importers:
         specifier: 30.0.1
         version: 30.0.1
       postcss:
-        specifier: ^8.5.18
+        specifier: 8.5.23
         version: 8.5.23
       prettier:
         specifier: 3.8.5
