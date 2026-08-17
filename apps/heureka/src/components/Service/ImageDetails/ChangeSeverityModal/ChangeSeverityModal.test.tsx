@@ -65,20 +65,14 @@ vi.mock("@cloudoperators/juno-ui-components", async (importActual) => {
           {label}
           {required ? " *" : ""}
         </label>
-        <select
-          id="mock-select"
-          aria-label={label}
-          onChange={(e) => onChange(e.target.value)}
-        >
+        <select id="mock-select" aria-label={label} onChange={(e) => onChange(e.target.value)}>
           <option value="">-- select --</option>
           {children}
         </select>
         {invalid && errortext ? <span>{errortext}</span> : null}
       </div>
     ),
-    SelectOption: ({ value, label }: { value: string; label: string }) => (
-      <option value={value}>{label}</option>
-    ),
+    SelectOption: ({ value, label }: { value: string; label: string }) => <option value={value}>{label}</option>,
   }
 })
 
