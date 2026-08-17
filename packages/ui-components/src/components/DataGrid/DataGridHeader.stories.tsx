@@ -9,7 +9,6 @@ import { DataGrid } from "./DataGrid.component"
 import { DataGridRow } from "../DataGridRow"
 import { DataGridCell } from "../DataGridCell"
 import { DataGridHeadCell } from "../DataGridHeadCell"
-import { DataGridCheckboxCell } from "../DataGridCheckboxCell"
 import { DataGridToolbar } from "../DataGridToolbar"
 import { Stack } from "../Stack"
 import { Button } from "../Button"
@@ -157,6 +156,7 @@ export const WithSearchOnly: Story = {
 export const FullyFeatured: Story = {
   render: () => {
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc")
+    const [selected, setSelected] = useState<Record<string, boolean>>({})
 
     return (
       <>
@@ -250,7 +250,13 @@ export const FullyFeatured: Story = {
           </DataGridRow>
           {servers.map((s) => (
             <DataGridRow key={s.id}>
-              <DataGridCheckboxCell />
+              <DataGridCell verticalAlignment="center">
+                <Checkbox
+                  aria-label={`Select ${s.name}`}
+                  checked={!!selected[s.id]}
+                  onChange={(e) => setSelected((prev) => ({ ...prev, [s.id]: e.target.checked }))}
+                />
+              </DataGridCell>
               <DataGridCell>{s.name}</DataGridCell>
               <DataGridCell>{s.region}</DataGridCell>
               <DataGridCell>{s.status}</DataGridCell>
@@ -367,7 +373,13 @@ export const FullyFeatured: Story = {
   </DataGridRow>
   {servers.map((s) => (
     <DataGridRow key={s.id}>
-      <DataGridCheckboxCell />
+      <DataGridCell verticalAlignment="center">
+        <Checkbox
+          aria-label={\`Select \${s.name}\`}
+          checked={!!selected[s.id]}
+          onChange={(e) => setSelected((prev) => ({ ...prev, [s.id]: e.target.checked }))}
+        />
+      </DataGridCell>
       <DataGridCell>{s.name}</DataGridCell>
       <DataGridCell>{s.region}</DataGridCell>
       <DataGridCell>{s.status}</DataGridCell>
