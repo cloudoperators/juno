@@ -23,7 +23,7 @@ const filterValueSchema = z.union([z.string(), z.array(z.string()), z.undefined(
 
 const searchSchema = z
   .object({
-    searchTerm: z.string().optional(),
+    searchTerm: z.preprocess((val) => (typeof val === "number" ? val.toString() : val), z.string().optional()),
     violationGroup: z.string().optional(),
   })
   .catchall(filterValueSchema)
