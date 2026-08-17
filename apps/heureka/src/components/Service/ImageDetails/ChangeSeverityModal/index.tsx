@@ -124,17 +124,19 @@ export const ChangeSeverityModal: React.FC<ChangeSeverityModalProps> = ({
         expirationDate: form.expirationDate!.toISOString(),
       }
       const result = await onConfirm(input)
+      if (!isMountedRef.current) return
       if (result?.error) {
         setApiError(result.error)
-      } else if (isMountedRef.current) {
+      } else {
         setForm(EMPTY_FORM)
         onClose()
       }
     } catch (error) {
+      if (!isMountedRef.current) return
       const message = error instanceof Error ? error.message : "Failed to change severity"
       setApiError(message)
     } finally {
-      setIsSubmitting(false)
+      if (isMountedRef.current) setIsSubmitting(false)
     }
   }
 
