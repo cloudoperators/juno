@@ -13,14 +13,14 @@ import { SELECTED_FILTER_PREFIX } from "../../constants"
 import { fetchServices } from "../../api/fetchServices"
 import { fetchServicesFilters } from "../../api/fetchServicesFilters"
 import { extractFilterSettingsFromSearchParams } from "../../components/Services/utils"
-import { filterSearchParamsByPrefix } from "../../utils"
+import { filterSearchParamsByPrefix, optionalStringSchema } from "../../utils"
 
 const filterValueSchema = z.union([z.string(), z.array(z.string()), z.undefined()])
 
 const servicesSearchSchema = z
   .object({
     service: z.string().optional(),
-    searchTerm: z.preprocess((val) => (typeof val === "number" ? val.toString() : val), z.string().optional()),
+    searchTerm: optionalStringSchema,
   })
   .catchall(filterValueSchema)
 

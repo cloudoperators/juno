@@ -3,6 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { z } from "zod"
+
+/** Zod schema for optional URL search params that may be parsed as numbers by TanStack Router. */
+export const optionalStringSchema = z.preprocess(
+  (val) => (val === undefined || val === null ? undefined : typeof val === "string" ? val : String(val as number | boolean)),
+  z.string().optional()
+)
+
 import { AlertItem, SeverityCounts } from "./createAlertsSlice"
 
 export const severityToSemanticName = (severity: any) => {
