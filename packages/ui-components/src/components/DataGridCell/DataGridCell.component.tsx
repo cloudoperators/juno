@@ -15,7 +15,7 @@ const cellBaseStyles = (nowrap: boolean, cellVerticalAlignment: CellVerticalAlig
         ? `
 				jn:justify-center
 				jn:flex
-				jn:flex-col		
+				jn:flex-col
 			`
         : ""
     }
@@ -42,13 +42,13 @@ const cellCustomStyles = (colSpan: number | undefined) => {
  * @see {@link DataGridCellProps}
  */
 export const DataGridCell = forwardRef<HTMLDivElement, DataGridCellProps>(
-  ({ colSpan, nowrap = false, className = "", children, ...props }, ref) => {
+  ({ colSpan, nowrap = false, verticalAlignment, className = "", children, ...props }, ref) => {
     const dataGridContext = useDataGridContext() || {}
-    const cellVerticalAlignment = dataGridContext.cellVerticalAlignment
+    const effectiveVerticalAlignment = verticalAlignment ?? dataGridContext.cellVerticalAlignment
 
     return (
       <div
-        className={`juno-datagrid-cell ${cellBaseStyles(nowrap, cellVerticalAlignment)} ${className}`}
+        className={`juno-datagrid-cell ${cellBaseStyles(nowrap, effectiveVerticalAlignment)} ${className}`}
         style={cellCustomStyles(colSpan)}
         role="gridcell"
         ref={ref}
@@ -71,6 +71,12 @@ export interface DataGridCellProps extends HTMLAttributes<HTMLDivElement> {
    * @default false
    */
   nowrap?: boolean
+
+  /**
+   * Overrides the parent `DataGrid`'s `cellVerticalAlignment` for this cell.
+   * When not set, the cell inherits the grid-level setting.
+   */
+  verticalAlignment?: CellVerticalAlignmentType
 
   /** Components or elements to render within the DataGridCell. */
   children?: ReactNode
