@@ -109,7 +109,8 @@ describe("ChangeSeverityModal", () => {
       expect(screen.getByText(/Vulnerability:/)).toBeInTheDocument()
       expect(screen.getByText("CVE-2024-1234")).toBeInTheDocument()
       expect(screen.getByText(/Current Severity:/)).toBeInTheDocument()
-      expect(screen.getByText(/High/)).toBeInTheDocument()
+      // Current severity label is shown in a dedicated line
+      expect(screen.getAllByText(/High/).length).toBeGreaterThan(0)
     })
 
     it("renders severity dropdown, user ID, expiration date, and description fields", () => {
