@@ -21,6 +21,7 @@ import { getSeverityColor, useTextOverflow } from "../../../../../../utils"
 import { FalsePositiveModal } from "../../../FalsePositiveModal"
 import { RiskAcceptanceModal } from "../../../RiskAcceptanceModal"
 import { MitigateManuallyModal } from "../../../MitigateManuallyModal"
+import { ChangeSeverityModal } from "../../../ChangeSeverityModal"
 import { useRouteContext } from "@tanstack/react-router"
 import { createRemediation } from "../../../../../../api/createRemediation"
 import { RemediationInput } from "../../../../../../generated/graphql"
@@ -45,6 +46,7 @@ type IssuesDataRowProps = {
   onFalsePositiveSuccess?: (cveNumber: string) => void | Promise<void>
   onRiskAcceptanceSuccess?: (cveNumber: string) => void | Promise<void>
   onMitigateManuallySuccess?: (cveNumber: string) => void | Promise<void>
+  onChangeSeveritySuccess?: (cveNumber: string) => void | Promise<void>
 }
 
 export const IssuesDataRow = ({
@@ -55,11 +57,13 @@ export const IssuesDataRow = ({
   onFalsePositiveSuccess,
   onRiskAcceptanceSuccess,
   onMitigateManuallySuccess,
+  onChangeSeveritySuccess,
 }: IssuesDataRowProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isRiskAcceptanceModalOpen, setIsRiskAcceptanceModalOpen] = useState(false)
   const [isMitigateManuallyModalOpen, setIsMitigateManuallyModalOpen] = useState(false)
+  const [isChangeSeverityModalOpen, setIsChangeSeverityModalOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { needsExpansion, textRef } = useTextOverflow(issue?.description || "")
   const { apiClient, queryClient } = useRouteContext({ from: "/services/$service" })
@@ -168,6 +172,7 @@ export const IssuesDataRow = ({
                   <PopupMenuItem label="Mark False Positive" onClick={() => setIsModalOpen(true)} />
                   <PopupMenuItem label="Accept Risk" onClick={() => setIsRiskAcceptanceModalOpen(true)} />
                   <PopupMenuItem label="Mitigate Manually" onClick={() => setIsMitigateManuallyModalOpen(true)} />
+                  <PopupMenuItem label="Change Severity" onClick={() => setIsChangeSeverityModalOpen(true)} />
                 </PopupMenuOptions>
               </PopupMenu>
             )}
@@ -198,6 +203,15 @@ export const IssuesDataRow = ({
             open={isMitigateManuallyModalOpen}
             onClose={() => setIsMitigateManuallyModalOpen(false)}
             onConfirm={makeRemediationHandler(onMitigateManuallySuccess)}
+            vulnerability={issue.name}
+            severity={issue.severity}
+            service={service}
+            image={image}
+          />
+          <ChangeSeverityModal
+            open={isChangeSeverityModalOpen}
+            onClose={() => setIsChangeSeverityModalOpen(false)}
+            onConfirm={makeRemediationHandler(onChangeSeveritySuccess)}
             vulnerability={issue.name}
             severity={issue.severity}
             service={service}

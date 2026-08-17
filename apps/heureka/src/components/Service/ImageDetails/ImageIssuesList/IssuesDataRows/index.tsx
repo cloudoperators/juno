@@ -18,6 +18,7 @@ type IssuesDataRowsProps = {
   onFalsePositiveSuccess: (cveNumber: string) => void | Promise<void>
   onRiskAcceptanceSuccess: (cveNumber: string) => void | Promise<void>
   onMitigateManuallySuccess: (cveNumber: string) => void | Promise<void>
+  onChangeSeveritySuccess: (cveNumber: string) => void | Promise<void>
 }
 
 export const IssuesDataRows = ({
@@ -28,6 +29,7 @@ export const IssuesDataRows = ({
   onFalsePositiveSuccess,
   onRiskAcceptanceSuccess,
   onMitigateManuallySuccess,
+  onChangeSeveritySuccess,
 }: IssuesDataRowsProps) => {
   const { error, data } = use(issuesPromise)
   const remediationsResult = use(remediationsPromise)
@@ -58,6 +60,7 @@ export const IssuesDataRows = ({
       onFalsePositiveSuccess={onFalsePositiveSuccess}
       onRiskAcceptanceSuccess={onRiskAcceptanceSuccess}
       onMitigateManuallySuccess={onMitigateManuallySuccess}
+      onChangeSeveritySuccess={onChangeSeveritySuccess}
     />
   ))
 }

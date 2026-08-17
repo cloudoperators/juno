@@ -124,6 +124,7 @@ function renderWithRouter(
           onFalsePositiveSuccess={() => {}}
           onRiskAcceptanceSuccess={() => {}}
           onMitigateManuallySuccess={() => {}}
+          onChangeSeveritySuccess={() => {}}
         />
       </Suspense>
     ),
@@ -172,6 +173,7 @@ describe("IssuesDataRows — active/remediated split", () => {
             onFalsePositiveSuccess={() => {}}
             onRiskAcceptanceSuccess={() => {}}
             onMitigateManuallySuccess={() => {}}
+          onChangeSeveritySuccess={() => {}}
           />
         </Suspense>
       )
@@ -214,6 +216,7 @@ describe("IssuesDataRows — active/remediated split", () => {
             onFalsePositiveSuccess={() => {}}
             onRiskAcceptanceSuccess={() => {}}
             onMitigateManuallySuccess={() => {}}
+          onChangeSeveritySuccess={() => {}}
           />
         </Suspense>
       )
