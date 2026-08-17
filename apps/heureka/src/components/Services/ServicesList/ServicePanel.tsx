@@ -37,7 +37,7 @@ export const ServicePanel = () => {
   }, [service, currentPageCursor, queryClient, apiClient])
 
   const closeServiceOverviewPanel = useCallback(() => {
-    navigate({
+    void navigate({
       to: "/services",
       search: (prev) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -52,13 +52,13 @@ export const ServicePanel = () => {
       if (service) {
         if (image) {
           // Navigate to image details page
-          navigate({
+          void navigate({
             to: "/services/$service/images/$image",
             params: { service: service, image: image.repository },
           })
         } else {
           // Navigate to service details page (no specific image)
-          navigate({
+          void navigate({
             to: "/services/$service",
             params: { service: service },
           })
@@ -70,7 +70,7 @@ export const ServicePanel = () => {
 
   return (
     <Panel
-      heading={!!service ? `${capitalizeFirstLetter(service)} Overview` : undefined}
+      heading={service ? `${capitalizeFirstLetter(service)} Overview` : undefined}
       opened={!!service}
       onClose={closeServiceOverviewPanel}
       size="large"

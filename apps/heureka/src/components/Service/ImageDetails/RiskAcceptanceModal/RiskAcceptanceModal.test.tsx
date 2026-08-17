@@ -13,10 +13,24 @@ import { RemediationTypeValues } from "../../../../generated/graphql"
 
 // Mock DateTimePicker so tests can set dates without flatpickr DOM interaction
 vi.mock("@cloudoperators/juno-ui-components", async (importActual) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const actual = await importActual<typeof import("@cloudoperators/juno-ui-components")>()
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return {
     ...actual,
-    DateTimePicker: ({ label, onChange, required, invalid, errortext }: any) => (
+    DateTimePicker: ({
+      label,
+      onChange,
+      required,
+      invalid,
+      errortext,
+    }: {
+      label: string
+      onChange: (dates: Date[]) => void
+      required?: boolean
+      invalid?: boolean
+      errortext?: string
+    }) => (
       <div>
         <label htmlFor="mock-date-input">
           {label}
@@ -24,11 +38,11 @@ vi.mock("@cloudoperators/juno-ui-components", async (importActual) => {
         </label>
         <input
           id="mock-date-input"
-          aria-label={label as string}
+          aria-label={label}
           type="date"
-          onChange={(e) => (onChange as Function)?.(e.target.value ? [new Date(e.target.value)] : [])}
+          onChange={(e) => onChange(e.target.value ? [new Date(e.target.value)] : [])}
         />
-        {invalid && errortext ? <span>{errortext as string}</span> : null}
+        {invalid && errortext ? <span>{errortext}</span> : null}
       </div>
     ),
   }
@@ -152,7 +166,7 @@ describe("RiskAcceptanceModal", () => {
       expect(confirmButton).not.toBeDisabled()
     })
 
-    it("does not call onConfirm when confirm button is clicked while disabled", async () => {
+    it("does not call onConfirm when confirm button is clicked while disabled", () => {
       const onConfirm = vi.fn()
       renderModal({ onConfirm })
 

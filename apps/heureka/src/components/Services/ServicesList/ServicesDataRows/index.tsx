@@ -26,7 +26,7 @@ export const ServicesDataRows = ({ servicesPromise }: ServicesDataRowsProps) => 
 
   const goToServiceDetailsPage = useCallback(
     (serviceItem: ServiceType) => {
-      navigate({
+      void navigate({
         to: "/services/$service",
         params: { service: serviceItem.name },
       })

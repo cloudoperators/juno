@@ -24,6 +24,7 @@ import { MitigateManuallyModal } from "../../../MitigateManuallyModal"
 import { useRouteContext } from "@tanstack/react-router"
 import { createRemediation } from "../../../../../../api/createRemediation"
 import { RemediationInput } from "../../../../../../generated/graphql"
+import type { RemediationsCache, RemediationQueryFilter as QueryFilter } from "../../remediationCacheTypes"
 
 const cellSeverityClasses = (severity: string) => {
   const borderColor = getSeverityColor(severity.toLowerCase())
@@ -83,7 +84,7 @@ export const IssuesDataRow = ({
           queryClient.setQueriesData(
             {
               predicate: (query) => {
-                const [key, filter] = query.queryKey as [string, any]
+                const [key, filter] = query.queryKey as [string, QueryFilter]
                 if (key !== "remediations") return false
                 if (filter?.service && !filter.service.includes(service)) return false
                 if (filter?.image && !filter.image.includes(image)) return false
@@ -91,10 +92,10 @@ export const IssuesDataRow = ({
                 return true
               },
             },
-            (old: any) => {
+            (old: RemediationsCache) => {
               if (!old?.data?.Remediations) return old
               const edges = old.data.Remediations.edges ?? []
-              if (edges.some((e: any) => e?.node?.id === remediation.id)) return old
+              if (edges.some((e) => e?.node?.id === remediation.id)) return old
               return {
                 ...old,
                 data: {
@@ -158,7 +159,7 @@ export const IssuesDataRow = ({
           </Stack>
         </DataGridCell>
         {showFalsePositiveAction && (
-          <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
+          <DataGridCell className="cursor-default interactive" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
             {isSubmitting ? (
               <Spinner variant="primary" size="small" className="ml-auto" />
             ) : (

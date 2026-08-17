@@ -46,7 +46,7 @@ export const ImagesDataRow = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:underline text-sm"
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e: React.MouseEvent) => e.stopPropagation()}
                 aria-label={`Open image registry for ${version.repository} (opens in a new tab)`}
                 title={`Open image registry for ${version.repository} (opens in a new tab)`}
               >
@@ -94,7 +94,7 @@ export const ImagesDataRow = ({
         />
       </DataGridCell>
       {displayDetailsButton && (
-        <DataGridCell className="cursor-default" onClick={(e) => e.stopPropagation()}>
+        <DataGridCell className="cursor-default" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
           <Button size="small" label="Show Details" onClick={onDetailClick} className="whitespace-nowrap" />
         </DataGridCell>
       )}

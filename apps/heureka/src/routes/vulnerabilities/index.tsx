@@ -27,7 +27,7 @@ function validateVulnerabilitiesSearch(search: Record<string, unknown>): Vulnera
   const filtered = filterSearchParamsByPrefix(search, Object.keys(vulnerabilitiesSearchSchema.shape), [
     SELECTED_FILTER_PREFIX,
   ])
-  return vulnerabilitiesSearchSchema.parse(filtered) as VulnerabilitiesSearchParams
+  return vulnerabilitiesSearchSchema.parse(filtered)
 }
 
 export const Route = createFileRoute("/vulnerabilities/")({
@@ -38,7 +38,7 @@ export const Route = createFileRoute("/vulnerabilities/")({
     return rest
   },
   shouldReload: false,
-  loader: async ({ context, deps }) => {
+  loader: ({ context, deps }) => {
     const { queryClient, apiClient } = context
     const filterSettings = extractFilterSettingsFromSearchParams(deps)
     // Dispatch both requests in parallel

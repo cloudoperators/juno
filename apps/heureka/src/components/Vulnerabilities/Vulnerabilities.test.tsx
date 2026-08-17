@@ -37,7 +37,7 @@ const renderComponent = () => {
   const testRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: "/vulnerabilities/",
-    loader: async () => ({
+    loader: () => ({
       vulnerabilitiesPromise: mockVulnerabilitiesPromise,
       filters: mockFilters,
       filterSettings: mockFilterSettings,
@@ -64,7 +64,7 @@ const renderComponent = () => {
 
 describe("Vulnerabilities", () => {
   it("should render correctly", async () => {
-    await act(async () => renderComponent())
+    await act(() => renderComponent())
     expect(await screen.findByText("CVE-2024-1234")).toBeInTheDocument()
   })
 })

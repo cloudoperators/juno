@@ -61,8 +61,15 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
   showSourceTicket = false,
   sourceTicketRequired = false,
 }) => {
-  const auth = useAuth()
-  const authUserId = auth.status === "authenticated" ? auth.userId || auth.userName : null
+  // useAuth() from @cloudoperators/greenhouse-auth-provider returns a discriminated union without exported types
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+  const auth = useAuth() as any
+  /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+  const authUserId =
+    auth.status === "authenticated"
+      ? (auth.userId as string | undefined) || (auth.userName as string | undefined)
+      : null
+  /* eslint-enable @typescript-eslint/no-unsafe-member-access */
   const [form, setForm] = useState(EMPTY_FORM)
   const [errors, setErrors] = useState(EMPTY_ERRORS)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -163,7 +170,7 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
           <Stack direction="horizontal" gap="2" distribution="end" className="w-full">
             <Button onClick={handleClose} label="Cancel" disabled={isSubmitting} />
             <Button
-              onClick={handleConfirm}
+              onClick={() => void handleConfirm()}
               label={confirmLabel}
               variant="primary"
               disabled={
@@ -193,7 +200,7 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
           <TextInput
             label="User ID"
             value={authUserId ?? form.manualUserId}
-            onChange={(e) => {
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setForm((prev) => ({ ...prev, manualUserId: e.target.value }))
               if (errors.userId) setErrors((prev) => ({ ...prev, userId: "" }))
             }}
@@ -210,7 +217,7 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
             <TextInput
               label="Jira Ticket / Risk Acceptance Source Ticket"
               value={form.sourceTicket}
-              onChange={(e) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setForm((prev) => ({ ...prev, sourceTicket: e.target.value }))
                 if (errors.sourceTicket) setErrors((prev) => ({ ...prev, sourceTicket: "" }))
               }}
@@ -230,7 +237,7 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
           <DateTimePicker
             label="Expiration Date"
             value={form.expirationDate ?? undefined}
-            onChange={(dates) => {
+            onChange={(dates: Date[] | undefined) => {
               setForm((prev) => ({ ...prev, expirationDate: dates?.[0] ?? null }))
               if (errors.expirationDate) setErrors((prev) => ({ ...prev, expirationDate: "" }))
             }}
@@ -246,7 +253,7 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
             label="Description"
             placeholder={descriptionPlaceholder}
             value={form.description}
-            onChange={(e) => {
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
               setForm((prev) => ({ ...prev, description: e.target.value }))
               if (errors.description) setErrors((prev) => ({ ...prev, description: "" }))
             }}

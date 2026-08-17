@@ -26,10 +26,10 @@ export const Breadcrumb = () => {
           <BreadcrumbItem
             key={i}
             label={crumb?.label}
-            icon={"icon" in crumb ? crumb.icon : undefined}
-            onClick={(e) => {
+            icon={"icon" in crumb ? crumb.icon : undefined} // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+            onClick={(e: React.MouseEvent) => {
               e.preventDefault()
-              navigate({
+              void navigate({
                 to: pathname,
               })
             }}

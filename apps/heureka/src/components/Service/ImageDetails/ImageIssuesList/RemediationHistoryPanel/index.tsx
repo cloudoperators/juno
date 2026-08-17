@@ -29,6 +29,7 @@ import { LoadingDataRow } from "../../../../common/LoadingDataRow"
 import { getErrorDataRowComponent } from "../../../../common/getErrorDataRow"
 import type { RemediatedVulnerability } from "../../../../Services/utils"
 import { useTimedState } from "../../../../../utils"
+import type { RemediationsCache, RemediationQueryFilter } from "../remediationCacheTypes"
 
 type RemediationHistoryPanelProps = {
   service: string
@@ -94,13 +95,13 @@ const RemediationHistoryTable = ({
           <DataGridCell>{r.remediatedBy ?? "--"}</DataGridCell>
           <DataGridCell className="min-w-0">{r.description ?? "--"}</DataGridCell>
           <DataGridCell className="min-w-0">{r.type === "risk_accepted" ? (r.url ?? "--") : ""}</DataGridCell>
-          <DataGridCell className="cursor-default interactive" onClick={(e) => e.stopPropagation()}>
+          <DataGridCell className="cursor-default interactive" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
             {revertingId === r.remediationId ? (
               <Spinner variant="primary" size="small" className="ml-auto" />
             ) : (
               <PopupMenu icon="moreVert" className="whitespace-nowrap ml-auto" disabled={!!revertingId}>
                 <PopupMenuOptions>
-                  <PopupMenuItem label="Revert" onClick={() => handleRevert(r)} disabled={!!revertingId} />
+                  <PopupMenuItem label="Revert" onClick={() => void handleRevert(r)} disabled={!!revertingId} />
                 </PopupMenuOptions>
               </PopupMenu>
             )}
@@ -137,6 +138,9 @@ export const RemediationHistoryPanel = ({
     // staleTime: 0 makes ensureQueryData treat any cached entry as immediately stale, forcing a
     // network request without cancelling in-flight queries (unlike removeQueries).
     return fetchRemediations({ apiClient, queryClient, filter, staleTime: 0 })
+    // refreshKey is intentionally included to force a re-fetch when the parent signals a data
+    // refresh (e.g. after a revert). It is not used inside the memo body by design.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [service, image, vulnerability, apiClient, queryClient, refreshKey])
 
   const handleRevert = async (remediation: RemediatedVulnerability) => {
@@ -150,28 +154,26 @@ export const RemediationHistoryPanel = ({
       queryClient.setQueriesData(
         {
           predicate: (query) => {
-            const [key, filter] = query.queryKey as [string, any]
+            const [key, filter] = query.queryKey as [string, RemediationQueryFilter]
             if (key !== "remediations") return false
             if (filter?.service && !filter.service.includes(service)) return false
             if (filter?.image && !filter.image.includes(image)) return false
             return true
           },
         },
-
-        (old: any) => {
+        (old: RemediationsCache) => {
           const edges = old?.data?.Remediations?.edges
           if (!edges) return old
-
-          const newEdges = edges.filter((e: any) => e?.node?.id !== remediation.remediationId)
+          const newEdges = edges.filter((e) => e?.node?.id !== remediation.remediationId)
           if (newEdges.length === edges.length) return old
           return {
             ...old,
             data: {
               ...old.data,
               Remediations: {
-                ...old.data.Remediations,
+                ...(old.data?.Remediations ?? {}),
                 edges: newEdges,
-                totalCount: Math.max(0, (old.data.Remediations.totalCount ?? 1) - 1),
+                totalCount: Math.max(0, (old.data?.Remediations?.totalCount ?? 1) - 1),
               },
             },
           }
@@ -185,16 +187,19 @@ export const RemediationHistoryPanel = ({
       // though other remediations still exist.
       if (vulnerability) {
         const panelFilter = { service: [service], image: [image], vulnerability: [vulnerability] }
-        const panelCache = queryClient.getQueryData<any>(["remediations", panelFilter])
+        const panelCache = queryClient.getQueryData<RemediationsCache>(["remediations", panelFilter])
         const remainingEdges = (panelCache?.data?.Remediations?.edges ?? []).filter(
-          (e: any) => e?.node?.id !== remediation.remediationId
+          (e) => e?.node?.id !== remediation.remediationId
         )
 
         if (remainingEdges.length > 0) {
           queryClient.setQueriesData(
             {
               predicate: (query) => {
-                const [key, filter] = query.queryKey as [string, any]
+                const [key, filter] = query.queryKey as [
+                  string,
+                  { service?: string[]; image?: string[]; vulnerability?: string[] },
+                ]
                 if (key !== "remediations") return false
                 if (filter?.service && !filter.service.includes(service)) return false
                 if (filter?.image && !filter.image.includes(image)) return false
@@ -202,11 +207,13 @@ export const RemediationHistoryPanel = ({
                 return true
               },
             },
-            (old: any) => {
+            (old: {
+              data?: { Remediations?: { edges?: Array<{ node?: { id?: string } }> | null; totalCount?: number | null } }
+            }) => {
               if (!old?.data?.Remediations) return old
-              const edges: any[] = old.data.Remediations.edges ?? []
-              const existingIds = new Set(edges.map((e: any) => e?.node?.id).filter(Boolean))
-              const missingEdges = remainingEdges.filter((e: any) => e?.node?.id && !existingIds.has(e.node.id))
+              const edges = old.data.Remediations.edges ?? []
+              const existingIds = new Set(edges.map((e) => e?.node?.id).filter(Boolean))
+              const missingEdges = remainingEdges.filter((e) => e?.node?.id && !existingIds.has(e.node?.id))
               if (missingEdges.length === 0) return old
               const newEdges = [...edges, ...missingEdges]
               return {
