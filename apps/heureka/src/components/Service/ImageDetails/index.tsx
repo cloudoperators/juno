@@ -118,9 +118,6 @@ export const ImageDetails = ({
         <DD className="jn:col-span-1">
           <Stack gap="1" direction="horizontal" wrap>
             <Badge text={image.repository} />
-            {image.versionsCount !== undefined && image.versionsCount > 0 && (
-              <Badge text={image.versionsCount.toString()} />
-            )}
           </Stack>
         </DD>
         <DT className="jn:col-span-1">Vulnerabilities Counts</DT>
