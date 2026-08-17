@@ -173,7 +173,7 @@ describe("IssuesDataRows — active/remediated split", () => {
             onFalsePositiveSuccess={() => {}}
             onRiskAcceptanceSuccess={() => {}}
             onMitigateManuallySuccess={() => {}}
-          onChangeSeveritySuccess={() => {}}
+            onChangeSeveritySuccess={() => {}}
           />
         </Suspense>
       )
@@ -216,7 +216,7 @@ describe("IssuesDataRows — active/remediated split", () => {
             onFalsePositiveSuccess={() => {}}
             onRiskAcceptanceSuccess={() => {}}
             onMitigateManuallySuccess={() => {}}
-          onChangeSeveritySuccess={() => {}}
+            onChangeSeveritySuccess={() => {}}
           />
         </Suspense>
       )
