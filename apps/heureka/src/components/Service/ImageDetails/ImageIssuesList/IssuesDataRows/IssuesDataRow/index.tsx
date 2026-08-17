@@ -124,7 +124,9 @@ export const IssuesDataRow = ({
                   edges?: Array<{
                     node?: {
                       vulnerabilities?: {
-                        edges?: Array<{ node?: { name?: string | null; severity?: string | null } | null } | null> | null
+                        edges?: Array<{
+                          node?: { name?: string | null; severity?: string | null } | null
+                        } | null> | null
                       } | null
                     } | null
                   } | null> | null
