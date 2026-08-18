@@ -24,7 +24,8 @@
    2. [Embedded ApplicationLayout](embedded-application-layout.md)
    3. [Legacy Application Layout](legacy-application-layout.md)
    4. Page Layout Elements
-      1. [Page Footer](page-footer.md)
+      1. [Page Header](page-header.md)
+      2. [Page Footer](page-footer.md)
 4. [UX Patterns](ux-patterns.md)
    1. [Page and User Flow](page-and-user-flow.md)
    2. Authentication And Access
