@@ -13,19 +13,19 @@ Most applications include a Side Navigation on the left side of the content area
 The actual page content, adjacent to the Side Navigation where present, is typically structured as follows:
 
 - **Breadcrumb** — shows the user's current position within the application hierarchy. Not required on top-level pages.
-- **Page heading** — identifies the current page or item.
+- **Page Heading** — identifies the current page or item.
 - **Toolbar** — contains page-level actions such as creating a new item, filtering, or searching. Placed at the top of the content area.
-- **Main content** — the primary content of the page.
+- **Main Content** — the primary content of the page.
 
 Some pages use tabs at the top of the content area to switch between entire page views.
 
 ## Types of Pages
 
-Any type of page that is needed can be built using Juno UI-Components. In the context of cloud admin UIs however, some types of page patterns have emerged:
+Any type of page that is needed can be built using Juno UI-Components. In the context of cloud admin UIs, however, some types of page patterns have emerged:
 
 ### List Pages
 
-List pages display a collection of items, typically in a Data Grid. The page-level toolbar may contain actions that apply to the context as a whole. Actions that affect the collection and its elements, such as creating new items, are located in the Data Grid header; also options to search, filter, bulk actions, etc. See [Data Grid](datagrid.md) for more.
+List pages display a collection of items, typically in a Data Grid. The page-level toolbar may contain actions that apply to the page context as a whole. The Data Grid header contains actions that affect the collection and its elements, such as creating new items, searching, filtering, and bulk actions. See [Data Grid](datagrid.md) for more.
 
 ### Detail Pages
 
