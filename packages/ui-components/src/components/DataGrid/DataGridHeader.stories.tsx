@@ -153,8 +153,7 @@ export const WithSearchOnly: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Zone 2 with search only — no filter controls needed. Zone 3 shows item count only, left-aligned.",
+        story: "Zone 2 with search only — no filter controls needed. Zone 3 shows item count only, left-aligned.",
       },
       source: { type: "dynamic" },
     },
@@ -201,7 +200,7 @@ export const FullyFeatured: Story = {
               {/* Zone 2: Filters + Search */}
               <Stack distribution="between" alignment="center">
                 <InputGroup>
-                  <Select width="auto"  label="Filter by" className="jn:min-w-44">
+                  <Select width="auto" label="Filter by" className="jn:min-w-44">
                     <SelectOption value="region" label="Region" />
                     <SelectOption value="status" label="Status" />
                     <SelectOption value="az" label="Availability Zone" />
