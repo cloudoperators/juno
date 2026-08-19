@@ -2,4 +2,4 @@
 "@cloudoperators/juno-ui-components": patch
 ---
 
-Export `Status` component for use
+Export the `Status` component.
