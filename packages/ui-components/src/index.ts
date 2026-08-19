@@ -98,6 +98,7 @@ export { SortButton } from "./components/SortButton/SortButton.component"
 export { Spinner } from "./components/Spinner/Spinner.component"
 export { Stack } from "./components/Stack/Stack.component"
 export { StyleProvider } from "./components/StyleProvider/StyleProvider.component"
+export type { Status } from "./components/Status/Status.component"
 export { Switch } from "./components/Switch/Switch.component"
 export { Tab } from "./components/Tab/Tab.component"
 export { TabList } from "./components/TabList/TabList.component"
@@ -222,7 +223,7 @@ export type {
   StackDistribution,
   StackGap,
 } from "./components/Stack/Stack.component"
-export type { Status, StatusProps } from "./components/Status/Status.component"
+export type { StatusProps } from "./components/Status/Status.component"
 export type { StyleProviderProps, StyleContextProps } from "./components/StyleProvider/StyleProvider.component"
 export type { SwitchProps } from "./components/Switch/Switch.component"
 export type { TabProps } from "./components/Tab/Tab.component"
