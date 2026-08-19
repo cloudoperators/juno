@@ -153,7 +153,7 @@ export const WithSearchOnly: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Zone 2 with search only — no filter controls needed. Zone 3 shows item count only, left-aligned.",
+        story: "Zone 2 with search only — no filter controls needed. Zone 3 shows item count only, centered.",
       },
       source: { type: "dynamic" },
     },
