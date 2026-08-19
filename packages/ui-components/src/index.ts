@@ -222,6 +222,7 @@ export type {
   StackDistribution,
   StackGap,
 } from "./components/Stack/Stack.component"
+export type { Status, StatusProps } from "./components/Status/Status.component"
 export type { StyleProviderProps, StyleContextProps } from "./components/StyleProvider/StyleProvider.component"
 export type { SwitchProps } from "./components/Switch/Switch.component"
 export type { TabProps } from "./components/Tab/Tab.component"
