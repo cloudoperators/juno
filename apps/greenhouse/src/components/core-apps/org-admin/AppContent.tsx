@@ -7,9 +7,7 @@ import React from "react"
 import { useActivePlugin } from "./StoreProvider"
 import { lazy, Suspense } from "react"
 const Clusters = lazy(() => import("./components/clusters/App"))
-const Secrets = lazy(() => import("./components/secrets/App"))
 const Plugins = lazy(() => import("./components/plugins/App"))
-const Teams = lazy(() => import("./components/teams/App"))
 
 // import Plugin from "./Plugin"
 
@@ -22,14 +20,8 @@ const AppContainer = ({ apiEndpoint, auth }: any) => {
     case "clusters":
       ActivePlugin = Clusters
       break
-    case "secrets":
-      ActivePlugin = Secrets
-      break
     case "plugins":
       ActivePlugin = Plugins
-      break
-    case "teams":
-      ActivePlugin = Teams
       break
     default:
       ActivePlugin = Clusters
