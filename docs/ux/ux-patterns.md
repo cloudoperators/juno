@@ -12,7 +12,7 @@ This chapter describes the most important UX patterns of Juno.
    1. [Side Navigation](navigation-side-navigation.md)
 4. [DataGrid](datagrid.md)
 5. [Forms](forms.md)
-6. Wizard Pattern
+6. [Wizard](wizard.md)
 7. Inline Adding And Deleting Items
 8. [Modals](modals.md)
 9. [Popup And Overflow Menus](popup-and-overflow-menus.md)
