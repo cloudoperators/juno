@@ -2,6 +2,9 @@
 
 # Wizard
 
+> [!NOTE]
+> The Wizard pattern is not yet fully implemented. The step indicator component and the Modal variant of the Wizard are currently in design/development. We will remove this note once implementation is complete.
+
 A Wizard guides users through a complex or sequential task by breaking it into discrete, ordered steps. Use it when a task is too complex or long for a single form but has a clear linear sequence.
 
 ## When to Use a Wizard
