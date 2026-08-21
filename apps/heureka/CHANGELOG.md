@@ -1,5 +1,15 @@
 # heureka
 
+## 1.1.13
+
+### Patch Changes
+
+- 142d743: Migrate Heureka ESLint config from `juno-typescript.mjs` to `vite-react-ts.mjs`. Fixes all TypeScript linting violations surfaced by the stricter config: typed cache callbacks, explicit `void` on fire-and-forget navigations, proper async function signatures, and removal of all legacy rule workarounds.
+- Updated dependencies [fbdd98e]
+- Updated dependencies [c295413]
+- Updated dependencies [11f6bc0]
+  - @cloudoperators/juno-ui-components@9.4.0
+
 ## 1.1.12
 
 ### Patch Changes
