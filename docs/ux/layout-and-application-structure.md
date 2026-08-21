@@ -8,4 +8,6 @@ This chapter describes the general rules for standard application layout and str
 2.  [Embedded ApplicationLayout](embedded-application-layout.md)
 3.  [Legacy Application Layout](legacy-application-layout.md)
 4.  Page Layout Elements
-    1.  [Page Footer](page-footer.md)
+    1.  [Page Header](page-header.md)
+    2.  [Page Content Area](page-content-area.md)
+    3.  [Page Footer](page-footer.md)
