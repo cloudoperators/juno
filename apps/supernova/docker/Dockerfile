@@ -3,6 +3,7 @@
 
 # Build on host platform to avoid QEMU emulation issues with native modules
 # Output is platform-independent JavaScript that works in any nginx container
+ARG BUILDPLATFORM
 FROM --platform=$BUILDPLATFORM node:22-alpine as build
 
 LABEL org.opencontainers.image.source=https://github.com/cloudoperators/juno/tree/main/apps/supernova
