@@ -56,7 +56,7 @@ describe("Status", () => {
 
   it("renders the default error title with no props", () => {
     render(<Status />)
-    expect(screen.getByRole("alert")).toHaveTextContent("Something went wrong")
+    expect(screen.getByRole("alert")).toHaveTextContent("Something Went Wrong")
   })
 
   it("renders the default title for the progress status", () => {
@@ -66,7 +66,7 @@ describe("Status", () => {
 
   it("renders the default title for the empty status", () => {
     render(<Status status="empty" />)
-    expect(screen.getByRole("status")).toHaveTextContent("No items")
+    expect(screen.getByRole("status")).toHaveTextContent("No Items")
   })
 
   it("renders title and body from HTTP error code", () => {
