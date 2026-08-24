@@ -1,0 +1,55 @@
+# Test workflow to verify Supernova Docker build without pushing
+name: Test Build Supernova ☀️
+
+on:
+  pull_request:
+    paths:
+      - apps/supernova/docker/Dockerfile
+      - .github/workflows/test-build-supernova-image.yaml
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: "juno-app-supernova"
+  PACKAGE_PATH: "apps/supernova"
+
+jobs:
+  test-build:
+    name: Test build Supernova image (no push)
+    runs-on: [ubuntu-latest]
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+
+      # Add support for more platforms with QEMU (optional)
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@96fe6ef7f33517b61c61be40b68a1882f3264fb8 # v4.2.0
+
+      # Set up BuildKit Docker container builder
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4.2.0
+        with:
+          driver-opts: |
+            image=moby/buildkit:latest
+
+      # Build Docker image for testing (no push)
+      - name: Build Docker image (test only)
+        id: build
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
+        with:
+          context: .
+          file: ${{ env.PACKAGE_PATH }}/docker/Dockerfile
+          push: false
+          load: true
+          tags: ${{ env.IMAGE_NAME }}:test
+          platforms: |
+            linux/amd64
+            linux/arm64
+
+      - name: Test build summary
+        run: |
+          echo "✅ Multi-platform Docker build completed successfully"
+          echo "Image: ${{ env.IMAGE_NAME }}:test"
+          echo "Platforms: linux/amd64, linux/arm64"
