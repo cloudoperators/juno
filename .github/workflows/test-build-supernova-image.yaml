@@ -42,7 +42,6 @@ jobs:
           context: .
           file: ${{ env.PACKAGE_PATH }}/docker/Dockerfile
           push: false
-          load: true
           tags: ${{ env.IMAGE_NAME }}:test
           platforms: |
             linux/amd64
