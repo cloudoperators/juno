@@ -30,6 +30,6 @@ The new item should appear in its editable state, ready for input. There should 
 
 ## Inline Deleting
 
-Where items can be deleted and the user has the necessary permissions, a delete action — typically an icon button — can be placed on each item. On activation, the item is removed.
+Where items can be deleted and the user has the necessary permissions, a delete action — typically an icon button — can be placed on each item. On activation, disable the action while deletion is in progress; remove the item only after the request succeeds, and retain the item while surfacing an error if it fails.
 
 Use the inline delete pattern only for low-criticality deletions where the consequences of accidental deletion are minimal. For higher-criticality actions, add a confirmation step — see [Modals — Destructive Actions](modals.md#destructive-actions-and-confirmation-of-destructive-actions) for guidance on choosing the appropriate confirmation level based on severity.
