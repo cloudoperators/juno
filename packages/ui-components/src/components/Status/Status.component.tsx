@@ -26,15 +26,15 @@ const HTTP_ERRORS: Record<number, { title: string; body: string }> = {
 
 const STATUS_DEFAULTS: Record<string, { title: string; body: string }> = {
   progress: { title: "Loading…", body: "" },
-  error: { title: "Something went wrong", body: "An error occurred. Try again." },
-  empty: { title: "No items", body: "There are no items to display." },
+  error: { title: "Something Went Wrong", body: "An error occurred. Try again." },
+  empty: { title: "No Items", body: "There are no items to display." },
   "no-matches": { title: "", body: "No items match the current filters. Adjust or clear filters." },
 }
 
 export interface StatusProps extends React.HTMLAttributes<HTMLDivElement> {
   /** The status to display. Determines the default copy. Defaults to `"error"`. */
   status?: "progress" | "error" | "empty" | "no-matches"
-  /** Optional title. Overrides the per-status default title when set. */
+  /** Optional title. Overrides the per-status default title when set. Use title case (e.g. "Something Went Wrong", not "Something went wrong"). */
   title?: string
   /** Optional body text. Overrides the per-status default body text when set. */
   body?: string
