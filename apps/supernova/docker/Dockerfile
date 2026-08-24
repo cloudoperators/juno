@@ -1,10 +1,7 @@
 # SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
 # SPDX-License-Identifier: Apache-2.0
 
-# Build on host platform to avoid QEMU emulation issues with native modules
-# Output is platform-independent JavaScript that works in any nginx container
-ARG BUILDPLATFORM
-FROM --platform=$BUILDPLATFORM node:22-alpine as build
+FROM node:22-alpine AS build
 
 LABEL org.opencontainers.image.source=https://github.com/cloudoperators/juno/tree/main/apps/supernova
 LABEL org.opencontainers.image.description="This image contains a standalone runnable version of the Supernova alternative Alertmanager UI. For configuration options see the README here: https://github.com/cloudoperators/juno/tree/main/apps/supernova/docker"
