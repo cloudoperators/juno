@@ -26,7 +26,7 @@ Provide a way to confirm the edit (e.g. a Save button) and a way to cancel it. C
 
 Provide a clearly visible action to add a new item — typically a button at or near the top of the list. The new item is added at the bottom of the list. If the new item is not visible in the current viewport, scroll to bring it into view so users can interact with it immediately.
 
-The new item should appear in its editable state, ready for input.
+The new item should appear in its editable state, ready for input. There should not be more or different info required to create an item than is displayed in the list for existing items.
 
 ## Inline Deleting
 
