@@ -37,7 +37,7 @@
    4. [DataGrid](datagrid.md)
    5. [Forms](forms.md)
    6. [Wizard](wizard.md)
-   7. Inline Adding And Deleting Items
+   7. [Inline Adding, Editing, and Deleting Items](inline-adding-editing-and-deleting.md)
    8. [Modals](modals.md)
    9. [Popup And Overflow Menus](popup-and-overflow-menus.md)
    10. [Messages & Notifications](messages-and-notifications.md)
