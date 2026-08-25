@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Fragment, HTMLAttributes, ReactNode, useContext, useEffect } from "react"
+import React, { HTMLAttributes, ReactNode, useContext, useEffect } from "react"
 import { ListboxOption } from "@headlessui/react"
 import { SelectContext } from "../Select/Select.component"
 import { Icon } from "../Icon"
@@ -90,20 +90,23 @@ export const SelectOption = ({
   }, [value, label, children])
 
   return (
-    <ListboxOption as={Fragment} disabled={disabled} value={value || children}>
-      {({ selected }) => (
-        <li
-          className={`
-          juno-select-option 
-          jn:min-h-10
-          ${optionStyles}
-          ${selected ? "juno-select-option-selected " + selectedOptionStyles : unselectedOptionStyles}
-          ${disabled ? "juno-select-option-disabled jn:opacity-50 jn:cursor-not-allowed" : ""}
-          ${truncateOptions ? "juno-select-option-truncate" : ""}
-          ${className}
-        `}
-          {...props}
-        >
+    <ListboxOption
+      as="li"
+      disabled={disabled}
+      value={value || children}
+      className={({ selected }: { selected: boolean }) => `
+        juno-select-option
+        jn:min-h-10
+        ${optionStyles}
+        ${selected ? "juno-select-option-selected " + selectedOptionStyles : unselectedOptionStyles}
+        ${disabled ? "juno-select-option-disabled jn:opacity-50 jn:cursor-not-allowed" : ""}
+        ${truncateOptions ? "juno-select-option-truncate" : ""}
+        ${className}
+      `}
+      {...props}
+    >
+      {({ selected }: { selected: boolean }) => (
+        <>
           {selected ? <Icon icon="check" size="18" className={selectedIconStyles} /> : ""}
           <span
             className={`
@@ -113,7 +116,7 @@ export const SelectOption = ({
           >
             {children || label || value}
           </span>
-        </li>
+        </>
       )}
     </ListboxOption>
   )
