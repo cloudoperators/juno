@@ -5,7 +5,7 @@
 This chapter describes the most important UX patterns of Juno.
 
 1. [Page and User Flow](page-and-user-flow.md)
-2. Authentication And Access
+2. [Authentication And Access](authentication-and-access.md)
    1. [Sign In](sign-in.md)
    2. [UI For Unauthorized Users](ui-for-unauthorized-users.md)
 3. [Navigation](navigation.md)
