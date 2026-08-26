@@ -29,7 +29,7 @@
       3. [Page Footer](page-footer.md)
 4. [UX Patterns](ux-patterns.md)
    1. [Page and User Flow](page-and-user-flow.md)
-   2. Authentication And Access
+   2. [Authentication And Access](authentication-and-access.md)
       1. [Sign In](sign-in.md)
       2. [UI For Unauthorized Users](ui-for-unauthorized-users.md)
    3. [Navigation](navigation.md)
