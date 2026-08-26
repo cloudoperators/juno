@@ -18,21 +18,21 @@
   "peerDependencies": {
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "zustand": "5.0.14"
+    "zustand": "5.0.15"
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
-    "@types/react": "19.2.17",
-    "@types/react-dom": "19.2.3",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "typescript": "6.0.3",
     "vite": "8.0.16",
     "vite-plugin-dts": "4.5.4",
-    "vitest": "4.1.10",
-    "zustand": "5.0.14"
+    "vitest": "4.1.11",
+    "zustand": "5.0.15"
   },
   "dependencies": {
     "@cloudoperators/juno-ui-components": "workspace:*"
