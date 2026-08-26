@@ -17,20 +17,20 @@
     "@cloudoperators/juno-config": "workspace:*",
     "@tailwindcss/vite": "4.3.3",
     "@tanstack/react-query": "5.100.14",
-    "@tanstack/router-plugin": "1.168.23",
+    "@tanstack/router-plugin": "1.168.34",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
-    "@types/react": "19.2.17",
-    "@types/react-dom": "19.2.3",
-    "@vitejs/plugin-react": "6.0.4",
-    "immer": "11.1.15",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
+    "@vitejs/plugin-react": "6.0.5",
+    "immer": "11.1.18",
     "interweave": "13.1.1",
     "jsdom": "30.0.1",
     "shadow-dom-testing-library": "1.13.1",
     "tailwindcss": "4.3.3",
     "vite": "8.0.16",
-    "vitest": "4.1.10",
-    "zustand": "5.0.14"
+    "vitest": "4.1.11",
+    "zustand": "5.0.15"
   },
   "scripts": {
     "test": "vitest run",
@@ -47,9 +47,9 @@
     "@cloudoperators/juno-messages-provider": "workspace:*",
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
-    "@tanstack/react-router": "1.170.18",
+    "@tanstack/react-router": "1.170.31",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "react-error-boundary": "6.1.2"
+    "react-error-boundary": "6.1.3"
   }
 }
