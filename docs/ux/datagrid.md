@@ -64,6 +64,8 @@ More specifically, these are any combination of the following elements. Each ele
 - Item Count: The number of items of the set that is currently visible as a whole (not only on the current page), displayed in the center. If filters or searches are active, the number of matching items and the total number of items in the data set is being displayed.
 - Last Update, Update/Refresh: The date and time of the last refresh of the data displayed, and a button to trigger a refresh. Positioned on the right side of Zone 3.
 
+When all three elements are present, space-between distribution produces the intended left/center/right layout. When fewer elements are present, the available space is distributed between whichever elements remain — meaning positions will shift. This is an accepted tradeoff of the composition approach. We may revisit later in favor of persistent locations of the individual elements.
+
 All of the above elements are optional in the sense that none of them will be required for any given DataGrid. However, if you find yourself in a situation where none of the above options is needed or desired, reconsider whether using a DataGrid is the right choice to display the given data. This case can occur, but it is rare. In most cases a simple list is then a more appropriate option to display the data.
 
 ## Filter and Sort Persistence on Navigation
