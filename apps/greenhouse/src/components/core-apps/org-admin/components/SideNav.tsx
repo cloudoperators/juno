@@ -10,9 +10,7 @@ import { useActivePlugin, useActions } from "../StoreProvider"
 
 const PLUGINS = [
   { name: "clusters", label: "Clusters" },
-  { name: "teams", label: "Teams" },
   { name: "plugins", label: "Plugins", beta: true },
-  { name: "secrets", label: "Secrets", beta: true },
 ]
 
 const SideNav = () => {
