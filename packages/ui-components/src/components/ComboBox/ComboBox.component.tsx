@@ -261,7 +261,6 @@ export const ComboBox = ({
     ],
     whileElementsMounted: autoUpdate,
   })
-
   // Setup interactions
   const { getReferenceProps, getFloatingProps } = useInteractions([useClick(context), useDismiss(context)])
 
@@ -422,7 +421,7 @@ export const ComboBox = ({
             return (
               <>
                 <div
-                  ref={refs.setReference}
+                  ref={(el) => refs.setReference(el)}
                   className={`
                 juno-combobox-input-wrapper
                 ${inputWrapperStyles}
@@ -518,7 +517,7 @@ export const ComboBox = ({
                 {isOpen &&
                   createPortal(
                     <div
-                      ref={refs.setFloating}
+                      ref={(el) => refs.setFloating(el)}
                       className={`juno-combobox-options ${menuStyles}`}
                       style={{
                         position: strategy,
