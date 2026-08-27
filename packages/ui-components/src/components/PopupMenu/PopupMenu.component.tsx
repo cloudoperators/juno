@@ -249,6 +249,8 @@ const PopupMenu = ({
     middleware: [offset(4), flip(), shift({ padding: 8 })],
     whileElementsMounted: autoUpdate,
   })
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  const { setReference, setFloating } = refs
 
   // Run handlers when our tracking state changes based on changes of the internal headless state, or when the handlers themselves change:
   useEffect(() => {
@@ -291,7 +293,7 @@ const PopupMenu = ({
           <PopupMenuContext.Provider value={{ isOpen, close, menuSize }}>
             {/* Reference element that floating-ui will use for positioning */}
             <div
-              ref={refs.setReference}
+              ref={setReference}
               className={`juno-popupmenu-float-reference-wrapper ${floatingReferenceWrapperStyles}`}
             >
               {/* Render default toggle button if no toggle is passed, but still render an icon if passed: */}
@@ -316,7 +318,7 @@ const PopupMenu = ({
             {/* Render the menu in our portal: */}
             {isOpen && (
               <PortalProvider.Portal>
-                <div ref={refs.setFloating} style={floatingStyles} className="juno-popupmenu-float-content-wrapper">
+                <div ref={setFloating} style={floatingStyles} className="juno-popupmenu-float-content-wrapper">
                   {menu}
                 </div>
               </PortalProvider.Portal>

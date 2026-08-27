@@ -291,6 +291,8 @@ export const Select = ({
       shift(),
     ],
   })
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  const { setReference, setFloating } = refs
 
   // Setup interactions
   const { getReferenceProps, getFloatingProps } = useInteractions([useClick(context), useDismiss(context)])
@@ -359,7 +361,7 @@ export const Select = ({
                 )}
                 <div>
                   <ListboxButton
-                    ref={refs.setReference}
+                    ref={setReference}
                     aria-describedby={helptext ? helptextId : ""}
                     aria-label={ariaLabel || label}
                     as="button"
@@ -420,7 +422,7 @@ export const Select = ({
                   </ListboxButton>
                   {createPortal(
                     <div
-                      ref={refs.setFloating}
+                      ref={setFloating}
                       className={`
                           juno-select-menu-container
                           ${menuStylesContainer}
