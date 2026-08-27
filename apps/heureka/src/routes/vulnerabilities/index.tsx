@@ -10,14 +10,14 @@ import { SELECTED_FILTER_PREFIX } from "../../constants"
 import { fetchVulnerabilities } from "../../api/fetchVulnerabilities"
 import { fetchVulnerabilityFilters } from "../../api/fetchVulnerabilityFilters"
 import { extractFilterSettingsFromSearchParams } from "../../components/Vulnerabilities/utils"
-import { filterSearchParamsByPrefix } from "../../utils"
+import { filterSearchParamsByPrefix, optionalStringSchema } from "../../utils"
 
 const filterValueSchema = z.union([z.string(), z.array(z.string()), z.undefined()])
 
 const vulnerabilitiesSearchSchema = z
   .object({
     vulnerability: z.string().optional(),
-    searchTerm: z.preprocess((val) => (typeof val === "number" ? val.toString() : val), z.string().optional()),
+    searchTerm: optionalStringSchema,
   })
   .catchall(filterValueSchema)
 

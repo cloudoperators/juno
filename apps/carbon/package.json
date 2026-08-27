@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-carbon",
-  "version": "1.0.48",
+  "version": "1.0.49",
   "author": "UI-Team",
   "type": "module",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/template",
@@ -30,23 +30,23 @@
     "@tailwindcss/vite": "4.3.3",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "react-error-boundary": "6.1.2",
-    "zustand": "5.0.14"
+    "react-error-boundary": "6.1.3",
+    "zustand": "5.0.15"
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
     "@tailwindcss/vite": "4.3.3",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
-    "@testing-library/user-event": "14.6.1",
+    "@testing-library/user-event": "14.6.5",
     "@types/node": "24.12.4",
-    "@types/react": "19.2.17",
-    "@types/react-dom": "19.2.3",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
     "@typescript-eslint/eslint-plugin": "8.59.4",
     "@typescript-eslint/parser": "8.59.4",
-    "@vitejs/plugin-react": "6.0.4",
-    "@vitejs/plugin-react-swc": "4.3.2",
-    "@vitest/ui": "4.1.10",
+    "@vitejs/plugin-react": "6.0.5",
+    "@vitejs/plugin-react-swc": "4.3.3",
+    "@vitest/ui": "4.1.11",
     "eslint": "10.3.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-prettier": "5.5.6",
@@ -59,6 +59,6 @@
     "vite": "8.0.16",
     "vite-plugin-svgr": "5.2.0",
     "vite-tsconfig-paths": "6.1.1",
-    "vitest": "4.1.10"
+    "vitest": "4.1.11"
   }
 }

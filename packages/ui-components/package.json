@@ -2,7 +2,7 @@
   "name": "@cloudoperators/juno-ui-components",
   "private": false,
   "source": "src/index.js",
-  "version": "9.3.0",
+  "version": "9.4.0",
   "types": "build/index.d.ts",
   "exports": {
     "./index": "./build/index.js",
@@ -34,10 +34,10 @@
     "@tailwindcss/vite": "4.3.3",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
-    "@testing-library/user-event": "14.6.1",
-    "@types/react": "19.2.17",
-    "@types/react-dom": "19.2.3",
-    "@vitejs/plugin-react": "6.0.4",
+    "@testing-library/user-event": "14.6.5",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
+    "@vitejs/plugin-react": "6.0.5",
     "eslint-plugin-storybook": "10.4.6",
     "flatpickr": "4.6.13",
     "focus-trap-react": "12.0.3",
@@ -53,7 +53,7 @@
     "vite-plugin-glob": "0.3.2",
     "vite-plugin-svgr": "5.2.0",
     "vite-tsconfig-paths": "6.1.1",
-    "vitest": "4.1.10"
+    "vitest": "4.1.11"
   },
   "peerDependencies": {
     "react": "^19.1.0",

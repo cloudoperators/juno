@@ -23,20 +23,21 @@
    1. [Juno Layout](juno-layout.md)
    2. [Embedded ApplicationLayout](embedded-application-layout.md)
    3. [Legacy Application Layout](legacy-application-layout.md)
-   4. Page Layout Elements
+   4. [Page Layout Elements](page-layout-elements.md)
       1. [Page Header](page-header.md)
-      2. [Page Footer](page-footer.md)
+      2. [Page Content Area](page-content-area.md)
+      3. [Page Footer](page-footer.md)
 4. [UX Patterns](ux-patterns.md)
    1. [Page and User Flow](page-and-user-flow.md)
-   2. Authentication And Access
+   2. [Authentication And Access](authentication-and-access.md)
       1. [Sign In](sign-in.md)
       2. [UI For Unauthorized Users](ui-for-unauthorized-users.md)
    3. [Navigation](navigation.md)
       1. [Side Navigation](navigation-side-navigation.md)
    4. [DataGrid](datagrid.md)
    5. [Forms](forms.md)
-   6. Wizard Pattern
-   7. Inline Adding And Deleting Items
+   6. [Wizard](wizard.md)
+   7. [Inline Adding, Editing, and Deleting Items](inline-adding-editing-and-deleting.md)
    8. [Modals](modals.md)
    9. [Popup And Overflow Menus](popup-and-overflow-menus.md)
    10. [Messages & Notifications](messages-and-notifications.md)
@@ -46,6 +47,6 @@
    2. [UX Writing / Content Guidelines](ux-writing-content-design.md)
    3. [Error Handling, Loading And Empty States](error-handling-loading-empty-states.md)
    4. [Transient States And Progress](transient-states-and-progress.md)
-6. Versioning, Deprecation Policy
+6. [Versioning and Deprecation Policy](versioning-and-deprecation-policy.md)
 7. [Resources](resources.md)
 8. [Terminology/Glossary](glossary.md)

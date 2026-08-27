@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-example",
-  "version": "2.4.24",
+  "version": "2.4.25",
   "author": "UI-Team",
   "type": "module",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/example",
@@ -19,15 +19,15 @@
     "@tanstack/react-query": "5.100.14",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
-    "@types/react": "19.2.17",
-    "@types/react-dom": "19.2.3",
-    "@vitejs/plugin-react": "6.0.4",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
+    "@vitejs/plugin-react": "6.0.5",
     "jsdom": "30.0.1",
     "shadow-dom-testing-library": "1.13.1",
     "tailwindcss": "4.3.3",
     "vite": "8.0.16",
     "vite-plugin-svgr": "5.2.0",
-    "vitest": "4.1.10"
+    "vitest": "4.1.11"
   },
   "dependencies": {
     "@cloudoperators/juno-messages-provider": "workspace:*",
@@ -37,7 +37,7 @@
     "msw": "2.14.7",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "zustand": "5.0.14"
+    "zustand": "5.0.15"
   },
   "scripts": {
     "test": "vitest run",
