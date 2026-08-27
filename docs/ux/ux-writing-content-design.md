@@ -184,7 +184,24 @@ You may use an ellipsis to indicate another step will be needed to complete an a
 
 When referring to a button label in copy, use quotation marks and the exact case as in the label:
 
-"Click "Terminate Instance" to proceed."
+“Click “Terminate Instance” to proceed.”
+
+### Confirming Buttons in Modals
+
+For the primary confirming button in a Modal, prefer appending the object type to the verb when the object type is a single, short word: “Delete Image” communicates intent more clearly than a bare “Delete”. If the object type is more than one word or has an unusually high number of syllables, fall back to the verb alone.
+
+Application authors have some flexibility in applying this, but must be consistent within their application — do not use “Delete Image” in one Modal and “Delete” in another for the same type of action.
+
+#### Do
+
+- “Delete Image”
+- “Revoke Key”
+- “Stop Instance”
+
+#### Fall Back to the Verb Alone
+
+- “Delete” (not “Delete Kubernetes Node Pool”)
+- “Stop” (not “Stop Hyperscaler Infrastructure”)
 
 ## Use “Sign in” over “Log in”, and Be Consistent
 

@@ -319,7 +319,7 @@ export const DefaultWithForm: Story = {
     title: "Default Modal Form",
     initialFocus: "#firstname",
     cancelButtonLabel: "Cancel",
-    confirmButtonLabel: "Register now",
+    confirmButtonLabel: "Register Now",
     children: <ReusableForm />,
   },
 }
@@ -338,7 +338,7 @@ export const LargeWithForm: Story = {
     title: "Large Modal Form",
     initialFocus: "#firstname",
     cancelButtonLabel: "Cancel",
-    confirmButtonLabel: "Register now",
+    confirmButtonLabel: "Register Now",
     children: <ReusableForm />,
   },
 }
@@ -357,7 +357,7 @@ export const XLWithForm: Story = {
     title: "XL With Form",
     initialFocus: "#firstname",
     cancelButtonLabel: "Cancel",
-    confirmButtonLabel: "Register now",
+    confirmButtonLabel: "Register Now",
     children: <ReusableForm />,
   },
 }
@@ -376,7 +376,7 @@ export const XXLWithForm: Story = {
     title: "2XL With Form",
     initialFocus: "#firstname",
     cancelButtonLabel: "Cancel",
-    confirmButtonLabel: "Register now",
+    confirmButtonLabel: "Register Now",
     children: <ReusableForm />,
   },
 }
