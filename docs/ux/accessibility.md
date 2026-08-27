@@ -42,3 +42,5 @@ Ensure sufficient colour contrast between text and its background.
 ## Dynamic Content
 
 Content that updates dynamically — notifications, status messages, loading states, errors appearing after form submission — must be communicated to screen reader users. Use `aria-live` regions or the appropriate ARIA roles (`role="alert"` for urgent messages, `role="status"` for non-urgent updates) to ensure dynamic changes are announced. Juno's notification and message components handle this where applicable; custom dynamic content in application code must be handled explicitly.
+
+Add a line to re-trigger github actions.
