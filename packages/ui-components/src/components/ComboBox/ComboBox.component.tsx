@@ -261,9 +261,6 @@ export const ComboBox = ({
     ],
     whileElementsMounted: autoUpdate,
   })
-  // eslint-disable-next-line @typescript-eslint/unbound-method
-  const { setReference, setFloating } = refs
-
   // Setup interactions
   const { getReferenceProps, getFloatingProps } = useInteractions([useClick(context), useDismiss(context)])
 
@@ -424,7 +421,7 @@ export const ComboBox = ({
             return (
               <>
                 <div
-                  ref={setReference}
+                  ref={(el) => refs.setReference(el)}
                   className={`
                 juno-combobox-input-wrapper
                 ${inputWrapperStyles}
@@ -520,7 +517,7 @@ export const ComboBox = ({
                 {isOpen &&
                   createPortal(
                     <div
-                      ref={setFloating}
+                      ref={(el) => refs.setFloating(el)}
                       className={`juno-combobox-options ${menuStyles}`}
                       style={{
                         position: strategy,
