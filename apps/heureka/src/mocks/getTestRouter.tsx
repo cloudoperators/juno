@@ -11,7 +11,9 @@ declare module "@apollo/client" {
   export interface TypeOverrides {
     signatureStyle: "classic"
   }
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace ApolloClient {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace DeclareDefaultOptions {
       interface WatchQuery {
         errorPolicy: "ignore"
