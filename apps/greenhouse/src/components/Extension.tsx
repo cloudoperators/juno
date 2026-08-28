@@ -39,7 +39,9 @@ function Extension({ id, config, appProps, pluginAuth }: ExtensionProps) {
   if (error) {
     return (
       <div>
-        <div>Error loading plugin {config.name}: {error.message}</div>
+        <div>
+          Error loading plugin {config.name}: {error.message}
+        </div>
       </div>
     )
   }

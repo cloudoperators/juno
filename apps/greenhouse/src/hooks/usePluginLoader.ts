@@ -12,10 +12,7 @@ import type { PluginModule } from "@cloudoperators/juno-app-supernova"
 // Cache loaded modules at the module level (persists across component mounts)
 const moduleCache = new Map<string, PluginModule>()
 
-const getApp = async (
-  appName: string,
-  pluginPath?: string
-): Promise<PluginModule | null> => {
+const getApp = async (appName: string, pluginPath?: string): Promise<PluginModule | null> => {
   // Return cached module immediately if available
   if (moduleCache.has(appName)) {
     return moduleCache.get(appName)!
