@@ -21,14 +21,8 @@ WORKDIR /usr/share/nginx/html
 # Copy built app
 COPY --from=build /app/apps/template/build /usr/share/nginx/html/
 
-# Use simple nginx config (no CORS needed - served through Ingress)
-RUN echo 'server {' > /etc/nginx/conf.d/default.conf && \
-    echo '  listen 80;' >> /etc/nginx/conf.d/default.conf && \
-    echo '  location / {' >> /etc/nginx/conf.d/default.conf && \
-    echo '    root /usr/share/nginx/html;' >> /etc/nginx/conf.d/default.conf && \
-    echo '    try_files $uri $uri/ /index.html;' >> /etc/nginx/conf.d/default.conf && \
-    echo '  }' >> /etc/nginx/conf.d/default.conf && \
-    echo '}' >> /etc/nginx/conf.d/default.conf
+# Use default nginx config (serves files from /usr/share/nginx/html/)
+# No custom config needed - default works fine
 
 EXPOSE 80
 
