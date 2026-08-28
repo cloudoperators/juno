@@ -47,13 +47,11 @@ export default defineConfig(({ mode }: { mode: string }): UserConfig => {
         fileName: () => `index.js`,
       },
 
+      // For PoC: Bundle everything including React
+      // Production: Should externalize and use import maps
       rollupOptions: {
-        external: ["react", "react-dom"],
         output: {
-          globals: {
-            react: "React",
-            "react-dom": "ReactDOM",
-          },
+          inlineDynamicImports: true,
         },
       },
     },
