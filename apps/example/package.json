@@ -10,8 +10,8 @@
   },
   "private": true,
   "engines": {
-    "node": ">=20.19.0",
-    "pnpm": ">=11.20.0"
+    "node": "v26.8.1",
+    "pnpm": "11.24.0"
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
