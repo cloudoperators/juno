@@ -4,7 +4,7 @@
 FROM node:22-alpine as build
 
 LABEL org.opencontainers.image.source=https://github.com/cloudoperators/juno/tree/main/apps/template
-LABEL org.opencontainers.image.description="This image contains a standalone runnable version of the Juno Template app."
+LABEL org.opencontainers.image.description="Juno Template plugin - ES module library for external plugin PoC"
 LABEL org.opencontainers.image.licenses=Apache-2.0
 
 WORKDIR /app
