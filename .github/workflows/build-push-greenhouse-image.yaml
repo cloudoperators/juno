@@ -182,7 +182,7 @@ jobs:
     permissions:
       contents: read
     needs: [build-and-push, vulnerability-scan]
-    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@28cdec067caf1e20f0f55a3c69752877850203bb # main
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@96c12820f395b90a24fb9219b79e98ccc8847ae8 # main
     with:
       title: "🚨 JUNO Greenhouse Image Failed 🚨"
       body: |
