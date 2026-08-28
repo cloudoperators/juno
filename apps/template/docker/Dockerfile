@@ -12,7 +12,7 @@ WORKDIR /app
 ADD . .
 RUN npm i -g pnpm
 
-RUN pnpm install && pnpx turbo build:static --filter @cloudoperators/juno-app-template
+RUN pnpm install && pnpx turbo build --filter @cloudoperators/juno-app-template
 
 FROM nginx:alpine
 
