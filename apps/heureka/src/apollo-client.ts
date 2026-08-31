@@ -16,5 +16,13 @@ export const getClient = ({ uri }: ClientOptions) => {
   return new ApolloClient({
     link: new HttpLink({ uri }),
     cache: new InMemoryCache(),
+    defaultOptions: {
+      watchQuery: {
+        errorPolicy: "ignore",
+      },
+      query: {
+        errorPolicy: "all",
+      },
+    },
   })
 }

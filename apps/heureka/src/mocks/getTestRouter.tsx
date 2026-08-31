@@ -7,6 +7,24 @@ import { QueryClient } from "@tanstack/react-query"
 import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client"
 import { createRouter, createMemoryHistory } from "@tanstack/react-router"
 
+declare module "@apollo/client" {
+  export interface TypeOverrides {
+    signatureStyle: "classic"
+  }
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace ApolloClient {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
+    namespace DeclareDefaultOptions {
+      interface WatchQuery {
+        errorPolicy: "ignore"
+      }
+      interface Query {
+        errorPolicy: "all"
+      }
+    }
+  }
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getTestRouter = ({ routeTree, history }: { routeTree: any; history?: any }) => {
   const queryClient = new QueryClient({
