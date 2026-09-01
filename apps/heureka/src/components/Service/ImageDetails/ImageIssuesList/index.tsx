@@ -55,6 +55,7 @@ const VulnerabilitiesTabContent = ({
   onFalsePositiveSuccess,
   onRiskAcceptanceSuccess,
   onMitigateManuallySuccess,
+  onChangeSeveritySuccess,
 }: {
   service: string
   image: ServiceImage
@@ -66,6 +67,7 @@ const VulnerabilitiesTabContent = ({
   onFalsePositiveSuccess: (cveNumber: string) => void | Promise<void>
   onRiskAcceptanceSuccess: (cveNumber: string) => void | Promise<void>
   onMitigateManuallySuccess: (cveNumber: string) => void | Promise<void>
+  onChangeSeveritySuccess: (cveNumber: string) => void | Promise<void>
 }) => {
   return (
     <>
@@ -110,6 +112,7 @@ const VulnerabilitiesTabContent = ({
                 onFalsePositiveSuccess={onFalsePositiveSuccess}
                 onRiskAcceptanceSuccess={onRiskAcceptanceSuccess}
                 onMitigateManuallySuccess={onMitigateManuallySuccess}
+                onChangeSeveritySuccess={onChangeSeveritySuccess}
               />
             </Suspense>
           </ErrorBoundary>
@@ -367,6 +370,15 @@ export const ImageIssuesList = ({
     [setVulnerabilitiesSuccessMessage]
   )
 
+  const handleChangeSeveritySuccess = useCallback(
+    (cveNumber: string) => {
+      setVulnerabilitiesSuccessMessage(
+        `Severity for vulnerability ${cveNumber} has been changed and moved to the Remediated list.`
+      )
+    },
+    [setVulnerabilitiesSuccessMessage]
+  )
+
   const handleRemediatedTabRemediationSuccess = useCallback(
     (cveNumber: string, remediationType: RemediationTypeValues) => {
       const remediationTypeLabel =
@@ -400,6 +412,7 @@ export const ImageIssuesList = ({
             onFalsePositiveSuccess={handleFalsePositiveSuccess}
             onRiskAcceptanceSuccess={handleRiskAcceptanceSuccess}
             onMitigateManuallySuccess={handleMitigateManuallySuccess}
+            onChangeSeveritySuccess={handleChangeSeveritySuccess}
           />
         </TabPanel>
         <TabPanel>
