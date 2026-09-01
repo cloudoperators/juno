@@ -347,3 +347,58 @@ export const WithCustomButtonComponentAsChild: Story = {
     ],
   },
 }
+
+export const OverflowMenuMultipleEntityGroups: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "When a menu contains actions targeting multiple entity types, group actions by entity type and separate groups with a divider. Within each group, sort items alphabetically with the Delete action last. No additional divider is added before Delete within a group — the group dividers already provide visual separation.",
+      },
+    },
+  },
+  args: {
+    children: (
+      <PopupMenuOptions>
+        <PopupMenuSection>
+          <PopupMenuItem label="Edit Bucket" />
+          <PopupMenuItem label="Empty Bucket" />
+          <PopupMenuItem label="Delete Bucket" />
+        </PopupMenuSection>
+        <PopupMenuSectionSeparator />
+        <PopupMenuSection>
+          <PopupMenuItem label="Edit Policy" />
+          <PopupMenuItem label="Delete Policy" />
+        </PopupMenuSection>
+        <PopupMenuSectionSeparator />
+        <PopupMenuSection>
+          <PopupMenuItem label="Suspend Versioning" />
+          <PopupMenuItem label="Delete Version" />
+        </PopupMenuSection>
+      </PopupMenuOptions>
+    ),
+  },
+}
+
+export const OverflowMenuSingleEntityType: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "When all actions in the menu refer to a single entity type, sort items alphabetically and separate the Delete action from the rest with a horizontal divider.",
+      },
+    },
+  },
+  args: {
+    children: (
+      <PopupMenuOptions>
+        <PopupMenuItem label="Copy Item" />
+        <PopupMenuItem label="Download Item" />
+        <PopupMenuItem label="Share Item URL" />
+        <PopupMenuItem label="View Item" />
+        <PopupMenuSectionSeparator />
+        <PopupMenuItem label="Delete Item" />
+      </PopupMenuOptions>
+    ),
+  },
+}
