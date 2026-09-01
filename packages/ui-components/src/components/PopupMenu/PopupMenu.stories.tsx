@@ -87,6 +87,14 @@ const CloseButton: React.FC<ButtonProps> = (props) => {
   return <Button onClick={close} {...props} />
 }
 
+// Icon-only toggle button using the default moreVert icon, no label:
+const IconToggleButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className = "", onClick = undefined, ...props }, ref) => (
+    <Button ref={ref} icon="moreVert" className={className} onClick={onClick} {...props} />
+  )
+)
+IconToggleButton.displayName = "IconToggleButton"
+
 // ----- Stories -----
 
 export const Default: Story = {
@@ -358,8 +366,9 @@ export const OverflowMenuMultipleEntityGroups: Story = {
     },
   },
   args: {
-    children: (
-      <PopupMenuOptions>
+    children: [
+      <PopupMenuToggle as={IconToggleButton} key="t" />,
+      <PopupMenuOptions key="m">
         <PopupMenuSection>
           <PopupMenuItem label="Edit Bucket" />
           <PopupMenuItem label="Empty Bucket" />
@@ -375,8 +384,8 @@ export const OverflowMenuMultipleEntityGroups: Story = {
           <PopupMenuItem label="Suspend Versioning" />
           <PopupMenuItem label="Delete Version" />
         </PopupMenuSection>
-      </PopupMenuOptions>
-    ),
+      </PopupMenuOptions>,
+    ],
   },
 }
 
