@@ -367,7 +367,7 @@ export const OverflowMenuMultipleEntityGroups: Story = {
   },
   args: {
     children: [
-      <PopupMenuToggle as={IconToggleButton} key="t" />,
+      <PopupMenuToggle as={IconToggleButton} key="t" title="More actions" />,
       <PopupMenuOptions key="m">
         <PopupMenuSection>
           <PopupMenuItem label="Edit Bucket" />
@@ -399,15 +399,16 @@ export const OverflowMenuSingleEntityType: Story = {
     },
   },
   args: {
-    children: (
-      <PopupMenuOptions>
+    children: [
+      <PopupMenuToggle as={IconToggleButton} key="t" title="More actions" />,
+      <PopupMenuOptions key="m">
         <PopupMenuItem label="Copy Item" />
         <PopupMenuItem label="Download Item" />
         <PopupMenuItem label="Share Item URL" />
         <PopupMenuItem label="View Item" />
         <PopupMenuSectionSeparator />
         <PopupMenuItem label="Delete Item" />
-      </PopupMenuOptions>
-    ),
+      </PopupMenuOptions>,
+    ],
   },
 }
