@@ -13,6 +13,7 @@ import AddCircle from "@material-design-icons/svg/filled/add_circle.svg"
 import AutoAwesomeMosaic from "@material-design-icons/svg/filled/auto_awesome_mosaic.svg"
 import AutoAwesomeMotion from "@material-design-icons/svg/filled/auto_awesome_motion.svg"
 import Bolt from "@material-design-icons/svg/filled/bolt.svg"
+import Cached from "@material-design-icons/svg/filled/cached.svg"
 import CalendarToday from "@material-design-icons/svg/filled/calendar_today.svg"
 import Cancel from "@material-design-icons/svg/filled/cancel.svg"
 import Check from "@material-design-icons/svg/filled/check.svg"
@@ -113,6 +114,8 @@ export enum KnownIconsEnum {
   autoAwesomeMotion = "autoAwesomeMotion",
   // eslint-disable-next-line no-unused-vars
   bolt = "bolt",
+  // eslint-disable-next-line no-unused-vars
+  cached = "cached",
   // eslint-disable-next-line no-unused-vars
   calendarToday = "calendarToday",
   // eslint-disable-next-line no-unused-vars
@@ -317,6 +320,18 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           className={iconClass}
           alt="bolt"
           title={title ? title : "Bolt"}
+          role="img"
+          {...iconProps}
+        />
+      )
+    case KnownIconsEnum.cached:
+      return (
+        <Cached
+          width={size}
+          height={size}
+          className={iconClass}
+          alt="cached"
+          title={title ? title : "Cached"}
           role="img"
           {...iconProps}
         />
