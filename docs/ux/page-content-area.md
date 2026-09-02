@@ -19,6 +19,32 @@ The actual page content, adjacent to the Side Navigation where present, is typic
 
 Some pages use tabs at the top of the content area to switch between entire page views.
 
+## Page-Level Refresh
+
+Pages that fetch live data should offer a **manual refresh button** so users can explicitly reload all page data on demand. This is an icon-only button using the refresh icon, placed at the **left edge of the toolbar's action group** — to the left of any overflow menu and primary action. Its accessible label and tooltip text is **"Refresh Page"**.
+
+The button always triggers a full re-fetch of all data relevant to the current page.
+
+### Placement
+
+The refresh button appears in the following combinations depending on what other toolbar actions are present:
+
+| Other toolbar actions | Layout (left → right) |
+|---|---|
+| None | `[↻]` |
+| Overflow menu only | `[↻]` `[⋮]` |
+| Primary action only | `[↻]` `[Primary Action]` |
+| Overflow menu + primary action | `[↻]` `[⋮]` `[Primary Action]` |
+
+The refresh button is never placed inside an overflow menu — it must always be directly visible and reachable with a single click.
+
+### In-Progress State
+
+While a refresh is in progress, the button should provide visual feedback and be disabled to prevent duplicate requests. Two options are available:
+
+- **Animated icon** — the refresh icon rotates continuously until the data has loaded. This may require a dedicated `RefreshPageButton` component to handle the animation.
+- **Spinner** — the refresh icon is replaced by a loading spinner for the duration of the refresh.
+
 ## Types of Pages
 
 Any type of page that is needed can be built using Juno UI-Components. In the context of cloud admin UIs, however, some types of page patterns have emerged:
