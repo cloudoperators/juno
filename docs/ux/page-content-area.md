@@ -21,7 +21,9 @@ Some pages use tabs at the top of the content area to switch between entire page
 
 ## Page-Level Refresh
 
-Pages that fetch live data should offer a **manual refresh button** so users can explicitly reload all page data on demand. This is an icon-only button using the refresh icon, placed at the **left edge of the toolbar's action group** — to the left of any overflow menu and primary action. Its accessible label and tooltip text is **"Refresh Page"**.
+Pages that fetch live data should offer a **manual refresh button** so users can explicitly reload all page data on demand. Its accessible label and tooltip text is **"Refresh Page"**.
+
+![Refresh Page button shown next to an overflow menu and a primary action button](images/page-refresh-button.png)
 
 The button always triggers a full re-fetch of all data relevant to the current page.
 
@@ -29,11 +31,11 @@ The button always triggers a full re-fetch of all data relevant to the current p
 
 The refresh button appears in the following combinations depending on what other toolbar actions are present:
 
-| Other toolbar actions | Layout (left → right) |
-|---|---|
-| None | `[↻]` |
-| Overflow menu only | `[↻]` `[⋮]` |
-| Primary action only | `[↻]` `[Primary Action]` |
+| Other toolbar actions          | Layout (left → right)          |
+| ------------------------------ | ------------------------------ |
+| None                           | `[↻]`                          |
+| Overflow menu only             | `[↻]` `[⋮]`                    |
+| Primary action only            | `[↻]` `[Primary Action]`       |
 | Overflow menu + primary action | `[↻]` `[⋮]` `[Primary Action]` |
 
 The refresh button is never placed inside an overflow menu — it must always be directly visible and reachable with a single click.
