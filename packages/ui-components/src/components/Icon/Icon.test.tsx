@@ -115,6 +115,12 @@ describe("Icon (typescript)", () => {
     expect(screen.getByRole("img")).toHaveAttribute("alt", "bolt")
   })
 
+  test("renders a cached icon", () => {
+    render(<Icon icon="cached" />)
+    expect(screen.getByRole("img")).toBeInTheDocument()
+    expect(screen.getByRole("img")).toHaveAttribute("alt", "cached")
+  })
+
   test("renders a cancel icon", () => {
     render(<Icon icon="cancel" />)
     expect(screen.getByRole("img")).toBeInTheDocument()

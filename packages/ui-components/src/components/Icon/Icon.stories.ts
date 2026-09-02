@@ -154,6 +154,13 @@ export const Bolt: Story = {
   },
 }
 
+export const Cached: Story = {
+  args: {
+    ...Default.args,
+    icon: "cached",
+  },
+}
+
 export const Cancel: Story = {
   args: {
     ...Default.args,
