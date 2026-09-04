@@ -16,17 +16,32 @@ type ExtensionProps = {
 }
 
 function Extension({ id, config, appProps, pluginAuth }: ExtensionProps) {
-  const { isLoading, containerRef } = usePluginLoader({
+  // PoC: Hardcode template plugin path
+  // TODO: Replace with dynamic plugin registry (usePluginConfig hook)
+  const pluginPath = config.name === "template" ? "/plugins/template/index.js" : undefined
+
+  const { isLoading, error, containerRef } = usePluginLoader({
     pluginName: config.name,
     config,
     appProps,
     pluginAuth,
+    pluginPath,
   })
 
   if (isLoading) {
     return (
       <div>
         <div>Loading...</div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div>
+        <div>
+          Error loading plugin {config.name}: {error.message}
+        </div>
       </div>
     )
   }

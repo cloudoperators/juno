@@ -41,7 +41,29 @@ function RootComponent() {
     // fetch configs from kubernetes
     getPluginConfigs()
       .then((kubernetesConfig: any) => {
-        receiveConfig(kubernetesConfig)
+        // PoC: Add hardcoded template plugin config
+        const templateConfig = {
+          id: "template",
+          name: "template",
+          displayName: "Template (PoC)",
+          core: false,
+          version: "latest",
+          url: null,
+          weight: 999, // Show at the end
+          navType: "app",
+          navigable: true,
+          props: {
+            id: "template",
+          },
+        }
+
+        // Merge with Kubernetes configs
+        const allConfigs = {
+          ...kubernetesConfig,
+          template: templateConfig,
+        }
+
+        receiveConfig(allConfigs)
       })
       .catch((error: any) => {
         // error fetching configs
