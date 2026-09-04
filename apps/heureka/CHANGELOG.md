@@ -1,5 +1,15 @@
 # heureka
 
+## 1.1.14
+
+### Patch Changes
+
+- 79b2baa: Add "Change Severity" action to vulnerability rows on the image details page. Users can now rescore a vulnerability's severity level by selecting a new severity from a dropdown, alongside the existing False Positive, Accept Risk, and Mitigate Manually actions.
+- d9209cd: fix(heureka): correct numeric searchTerm URL param to string in search box
+- Updated dependencies [1f68296]
+- Updated dependencies [fe3f4e2]
+  - @cloudoperators/juno-ui-components@9.4.1
+
 ## 1.1.13
 
 ### Patch Changes
