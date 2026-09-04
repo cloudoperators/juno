@@ -38,7 +38,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
         with:
-          version: 11.25.0
+          version: 12.2.1
 
       - name: Cache \ store
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
