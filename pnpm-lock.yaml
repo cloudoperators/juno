@@ -934,7 +934,7 @@ importers:
   packages/ui-components:
     dependencies:
       sonner:
-        specifier: ^2.0.7
+        specifier: 2.0.8
         version: 2.0.8(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
     devDependencies:
       '@babel/preset-env':
