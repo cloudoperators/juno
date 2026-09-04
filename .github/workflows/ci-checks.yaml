@@ -45,7 +45,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
         with:
-          version: 11.25.0
+          version: 12.2.1
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -94,7 +94,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
         with:
-          version: 11.25.0
+          version: 12.2.1
 
       - name: Get pnpm store directory
         id: pnpm-cache
