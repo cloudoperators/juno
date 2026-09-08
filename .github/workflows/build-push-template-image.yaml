@@ -1,0 +1,103 @@
+# SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+# SPDX-License-Identifier: Apache-2.0
+
+name: Build Template Plugin 🔧
+
+on:
+  workflow_dispatch: {}
+  pull_request:
+    paths:
+      - apps/template/**
+      - .github/workflows/build-push-template-image.yaml
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: "juno-plugin-template"
+  PACKAGE_PATH: "apps/template"
+  DESCRIPTION: "Juno Template Plugin - External plugin PoC for Greenhouse"
+
+jobs:
+  build-and-push:
+    name: Build and Push Template Plugin Image
+    runs-on: [ubuntu-latest]
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+      security-events: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+
+      - name: Read version from package.json
+        id: read_version
+        working-directory: ${{ env.PACKAGE_PATH }}
+        run: |
+          TEMPLATE_VERSION=$(jq -r '.version' package.json)
+          echo "Template version is $TEMPLATE_VERSION"
+          echo "IMAGE_VERSION=$TEMPLATE_VERSION" >> $GITHUB_OUTPUT
+
+      # Login against a Docker registry
+      - name: Log into registry ${{ env.REGISTRY }}
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Check if the image with this SHA already exists
+      - name: Check if image exists in registry
+        id: check-image
+        continue-on-error: true
+        run: |
+          if docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ github.sha }}; then
+            echo "Image with SHA ${{ github.sha }} already exists in the registry"
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      # Set up Docker Buildx
+      - name: Set up Docker Buildx
+        if: steps.check-image.outputs.exists != 'true'
+        uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4.2.0
+        with:
+          driver-opts: |
+            image=moby/buildkit:latest
+
+      - name: Generate Docker metadata
+        id: meta
+        if: steps.check-image.outputs.exists != 'true'
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{major}}.{{minor}}.{{patch}},value=${{ steps.read_version.outputs.IMAGE_VERSION }}
+            type=sha,enable=true,format=short,prefix=
+            type=raw,value=${{ github.sha }}
+            type=ref,event=pr
+          labels: |
+            org.opencontainers.image.description=${{env.DESCRIPTION}}
+            org.opencontainers.image.title=Juno-Template-Plugin
+            org.opencontainers.image.url=https://github.com/cloudoperators/juno/tree/main/apps/template
+            org.opencontainers.image.source=https://github.com/cloudoperators/juno/tree/main/apps/template
+          annotations: |
+            manifest:org.opencontainers.image.description=${{env.DESCRIPTION}}
+            manifest:org.opencontainers.image.title=Juno-Template-Plugin
+            manifest:org.opencontainers.image.source=https://github.com/cloudoperators/juno/tree/main/apps/template
+            manifest:org.opencontainers.image.url=https://github.com/cloudoperators/juno/tree/main/apps/template
+
+      # Build and push Docker image
+      - name: Build and push Docker image ${{ steps.meta.outputs.tags }}
+        id: build-image
+        if: steps.check-image.outputs.exists != 'true'
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          file: ${{ env.PACKAGE_PATH }}/docker/Dockerfile
+          provenance: false
+
