@@ -1,5 +1,12 @@
 # @cloudoperators/juno-ui-components
 
+## 9.4.1
+
+### Patch Changes
+
+- 1f68296: chore(ui): use consistently title-cased defaults for default error titles in Status component
+- fe3f4e2: feat(ui): add MUI „cached“ icon to `Icon` component
+
 ## 9.4.0
 
 ### Minor Changes
