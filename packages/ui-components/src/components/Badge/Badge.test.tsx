@@ -4,7 +4,7 @@
  */
 
 import * as React from "react"
-import { describe, expect, test } from "vitest"
+import { describe, expect, test, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
 
 import { Badge } from "./"
@@ -28,6 +28,11 @@ describe("Badge component", () => {
       render(<Badge data-testid="badge">Children inside</Badge>)
       expect(screen.getByTestId("badge")).toBeInTheDocument()
       expect(screen.getByTestId("badge")).toHaveTextContent("Children inside")
+    })
+
+    test("renders as a span by default", () => {
+      render(<Badge data-testid="badge" />)
+      expect(screen.getByTestId("badge").tagName).toBe("SPAN")
     })
   })
 
@@ -76,6 +81,37 @@ describe("Badge component", () => {
       render(<Badge data-testid="badge" />)
       expect(screen.getByTestId("badge")).toBeInTheDocument()
       expect(screen.queryByRole("img")).not.toBeInTheDocument()
+    })
+  })
+
+  describe("Interactive", () => {
+    test("renders as a button when interactive is true", () => {
+      render(<Badge interactive data-testid="badge" />)
+      expect(screen.getByTestId("badge").tagName).toBe("BUTTON")
+    })
+
+    test("button has type='button'", () => {
+      render(<Badge interactive data-testid="badge" />)
+      expect(screen.getByTestId("badge")).toHaveAttribute("type", "button")
+    })
+
+    test("renders disabled button", () => {
+      render(<Badge interactive disabled data-testid="badge" />)
+      expect(screen.getByTestId("badge")).toBeDisabled()
+    })
+
+    test("calls onClick when clicked", () => {
+      const onClick = vi.fn()
+      render(<Badge interactive onClick={onClick} data-testid="badge" />)
+      screen.getByTestId("badge").click()
+      expect(onClick).toHaveBeenCalledTimes(1)
+    })
+
+    test("does not call onClick when disabled", () => {
+      const onClick = vi.fn()
+      render(<Badge interactive disabled onClick={onClick} data-testid="badge" />)
+      screen.getByTestId("badge").click()
+      expect(onClick).not.toHaveBeenCalled()
     })
   })
 
