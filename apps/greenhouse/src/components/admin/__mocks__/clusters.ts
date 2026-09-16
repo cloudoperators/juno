@@ -103,14 +103,14 @@ export const mockClusters: MockClusterResponse = {
         annotations: {
           "greenhouse.sap/cluster-connectivity": "oidc",
           "greenhouse.sap/last-applied-propagator":
-            '{"labelKeys":["greenhouse.sap/owned-by","metadata.greenhouse.sap/cluster-type","metadata.greenhouse.sap/region"]}',
+            '{"labelKeys":["greenhouse.sap/owned-by","cluster-type","metadata.greenhouse.sap/region"]}',
         },
         creationTimestamp: "2025-11-25T09:11:53Z",
         labels: {
+          "cluster-type": "sci-k8s-obs",
           "greenhouse.sap/cluster": "obs-eu-de-1",
           "greenhouse.sap/owned-by": "observability",
           "greenhouse.sap/pluginpreset": "true",
-          "metadata.greenhouse.sap/cluster-type": "sci-k8s-obs",
           "metadata.greenhouse.sap/region": "eu-de-1",
           "migration-pending": "true",
         },
