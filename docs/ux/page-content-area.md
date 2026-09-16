@@ -27,6 +27,10 @@ Pages that fetch live data should offer a **manual refresh button** so users can
 
 The button always triggers a full re-fetch of all data relevant to the current page.
 
+> [!NOTE]  
+> This mechanism deals with refrshing ALL page data, and thus is a different one and covers a different scope than the action to refresh the data represented in a single DataGrid. For refreshing DataGrid data, see [Datagrid Zone 3](docs/ux/datagrid.md#zone-3-datagrid-viewstate-bulk-actions-refresh).
+> When a page consists of a Datagrid only and not other data that is likeley to need refreshing, use the in-built DataGrid mechanism.
+
 ### Placement
 
 The refresh button appears in the following combinations depending on what other toolbar actions are present:
