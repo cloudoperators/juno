@@ -17,7 +17,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ClustersDataGrid } from "./index"
 import { mockClusters, MockClusterResponse } from "../../__mocks__/clusters"
 
-const renderComponent = async (mockPromise: Promise<MockClusterResponse | unknown>) => {
+const renderComponent = async (
+  mockPromise: Promise<MockClusterResponse | unknown>,
+  initialPath = "/admin/clusters/"
+) => {
   const rootRoute = createRootRoute({
     component: () => <Outlet />,
   })
@@ -62,7 +65,7 @@ const renderComponent = async (mockPromise: Promise<MockClusterResponse | unknow
       },
     },
     history: createMemoryHistory({
-      initialEntries: ["/admin/clusters/"],
+      initialEntries: [initialPath],
     }),
   })
   return await act(async () => render(<RouterProvider router={router} />))
@@ -82,9 +85,22 @@ describe("ClustersDataGrid", () => {
     expect(screen.getByText("Support Group")).toBeInTheDocument()
 
     // Check for data - verify all 5 presets are rendered
-    expect(screen.getByText("demo")).toBeInTheDocument()
+    // "demo" appears in both the Name and Cluster Type cells for the first cluster
+    expect(screen.getAllByText("demo")).toHaveLength(2)
     expect(screen.getByText("demo-2")).toBeInTheDocument()
     expect(screen.getByText("demo-3")).toBeInTheDocument()
+  })
+
+  it("should filter clusters by cluster type", async () => {
+    await renderComponent(
+      new Promise<MockClusterResponse>((resolve) => resolve(mockClusters)),
+      "/admin/clusters/?f_cluster-type=demo"
+    )
+
+    // Only the cluster with cluster-type label "demo" should be visible
+    expect(screen.getAllByText("demo")).toHaveLength(2) // name cell + cluster type cell
+    expect(screen.queryByText("demo-2")).not.toBeInTheDocument()
+    expect(screen.queryByText("demo-3")).not.toBeInTheDocument()
   })
 
   it("should render the error message while fetching data", async () => {
