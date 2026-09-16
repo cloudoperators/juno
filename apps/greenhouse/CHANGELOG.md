@@ -1,5 +1,20 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.14.9
+
+### Patch Changes
+
+- 2ac8ba1: fix(greenhouse): correct cluster type label key to fix empty cluster type filter
+- Updated dependencies [79b2baa]
+- Updated dependencies [d9209cd]
+- Updated dependencies [1f68296]
+- Updated dependencies [fe3f4e2]
+  - @cloudoperators/juno-app-heureka@1.1.14
+  - @cloudoperators/juno-app-doop@2.6.39
+  - @cloudoperators/juno-app-supernova@0.20.8
+  - @cloudoperators/juno-ui-components@9.4.1
+  - @cloudoperators/juno-messages-provider@0.2.51
+
 ## 0.14.8
 
 ### Patch Changes

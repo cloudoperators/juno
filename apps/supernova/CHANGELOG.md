@@ -1,5 +1,15 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.20.8
+
+### Patch Changes
+
+- d9209cd: fix(heureka): correct numeric searchTerm URL param to string in search box
+- Updated dependencies [1f68296]
+- Updated dependencies [fe3f4e2]
+  - @cloudoperators/juno-ui-components@9.4.1
+  - @cloudoperators/juno-messages-provider@0.2.51
+
 ## 0.20.7
 
 ### Patch Changes
