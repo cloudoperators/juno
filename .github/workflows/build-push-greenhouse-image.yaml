@@ -43,7 +43,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Read version from package.json
         id: read_version
@@ -80,7 +80,7 @@ jobs:
 
       # Set up BuildKit Docker container builder to be able to build MULTI-platform images and export cache
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4.2.0
+        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4.3.0
         with:
           driver-opts: |
             image=moby/buildkit:latest
@@ -167,7 +167,7 @@ jobs:
           skip-setup-trivy: true
 
       - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@5595ccaf912efad79be6eef63a5619ff05969be3 # v4.37.6
+        uses: github/codeql-action/upload-sarif@ff2f1c621b7f889edc0d3c761ac2e6a3f8cdb0dd # v4.37.7
         if: always()
         with:
           sarif_file: trivy-results.sarif
@@ -182,7 +182,7 @@ jobs:
     permissions:
       contents: read
     needs: [build-and-push, vulnerability-scan]
-    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@96c12820f395b90a24fb9219b79e98ccc8847ae8 # main
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@0ae545f35efa3859791b2a6b0a4362f90b833f60 # main
     with:
       title: "🚨 JUNO Greenhouse Image Failed 🚨"
       body: |

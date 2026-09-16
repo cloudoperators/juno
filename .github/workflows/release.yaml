@@ -35,10 +35,10 @@ jobs:
           permission-pull-requests: write
           permission-workflows: write
       - name: Checkout Repo
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup Node.js
-        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: ${{ env.NODE_VERSION }}
           registry-url: "https://registry.npmjs.org"
@@ -49,10 +49,10 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
         with:
-          version: 11.20.0
+          version: 11.25.0
 
       - name: Cache \ store
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.pnpm-store
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -76,7 +76,7 @@ jobs:
   notify-on-success:
     if: needs.release.outputs.published == 'true'
     needs: [release] # List the jobs that should complete successfully
-    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@96c12820f395b90a24fb9219b79e98ccc8847ae8 # main
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@0ae545f35efa3859791b2a6b0a4362f90b833f60 # main
     with:
       title: "JUNO Packages Released Successfully! 🚀"
       body: ${{ needs.release.outputs.publishedPackages }}
@@ -87,7 +87,7 @@ jobs:
   notify-on-failure:
     if: failure()
     needs: [release]
-    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@96c12820f395b90a24fb9219b79e98ccc8847ae8 # main
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@0ae545f35efa3859791b2a6b0a4362f90b833f60 # main
     with:
       title: "🚨 JUNO Packages Release Failed 🚨"
       body: "An error occurred while releasing JUNO Packages for the branch ${{ github.head_ref || github.ref_name }}. Please check the logs for more information. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>"
