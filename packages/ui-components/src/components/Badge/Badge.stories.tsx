@@ -118,57 +118,64 @@ export const ErrorWithIcon: Story = {
 
 // Interactive stories
 
-export const Interactive: Story = {
+export const AsButton: Story = {
   args: {
     text: "Clickable",
-    interactive: true,
+    onClick: () => {},
   },
 }
 
-export const InteractiveDisabled: Story = {
+export const AsButtonDisabled: Story = {
   args: {
     text: "Disabled",
-    interactive: true,
+    onClick: () => {},
     disabled: true,
   },
 }
 
-export const InteractiveInfo: Story = {
+export const AsLink: Story = {
+  args: {
+    text: "Link",
+    href: "#",
+  },
+}
+
+export const AsButtonInfo: Story = {
   args: {
     variant: "info",
     text: "Info",
-    interactive: true,
+    onClick: () => {},
   },
 }
 
-export const InteractiveSuccess: Story = {
+export const AsButtonSuccess: Story = {
   args: {
     variant: "success",
     text: "Success",
-    interactive: true,
+    onClick: () => {},
   },
 }
 
-export const InteractiveWarning: Story = {
+export const AsButtonWarning: Story = {
   args: {
     variant: "warning",
     text: "Warning",
-    interactive: true,
+    onClick: () => {},
   },
 }
 
-export const InteractiveDanger: Story = {
+export const AsButtonDanger: Story = {
   args: {
     variant: "danger",
     text: "Danger",
-    interactive: true,
+    onClick: () => {},
   },
 }
 
-export const InteractiveError: Story = {
+export const AsButtonError: Story = {
   args: {
     variant: "error",
     text: "Error",
-    interactive: true,
+    onClick: () => {},
   },
 }

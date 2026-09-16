@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { HTMLProps, ReactNode } from "react"
+import React, { HTMLAttributes, ReactNode } from "react"
 import { Icon, KnownIcons, KnownIconsEnum } from "../Icon/Icon.component"
 
 export type BadgeVariantType = "default" | "info" | "success" | "warning" | "danger" | "error"
@@ -51,7 +51,7 @@ const badgeActiveVariantStyles: Record<BadgeVariantType, string> = {
 
 const iconStyles = "jn:mr-1 jn:items-center"
 
-export interface BadgeProps extends Omit<HTMLProps<HTMLSpanElement> | HTMLProps<HTMLButtonElement>, "disabled"> {
+export interface BadgeProps extends Omit<HTMLAttributes<HTMLElement>, "disabled"> {
   /**
    * Specify a semantic variant that determines the appearance of the badge.
    * @default "default"
@@ -84,13 +84,12 @@ export interface BadgeProps extends Omit<HTMLProps<HTMLSpanElement> | HTMLProps<
   children?: ReactNode
 
   /**
-   * Renders the badge as a `<button>` with hover, focus, active, and disabled states.
-   * @default false
+   * Renders the badge as an `<a>` element. When combined with `onClick`, `href` takes precedence.
    */
-  interactive?: boolean
+  href?: string
 
   /**
-   * Disables the badge. Only meaningful when `interactive` is `true`.
+   * Disables the badge. Only meaningful when rendered as a `<button>` or `<a>`.
    * @default false
    */
   disabled?: boolean
@@ -115,8 +114,9 @@ const isValidIcon = (icon: string): icon is KnownIcons => {
 /**
  * The `Badge` component visually represents properties or states of an entity.
  * It supports multiple semantic variants, each with distinct styling. An optional
- * icon can be included to further emphasize meaning. Set `interactive` to render
- * the badge as a button with hover, focus, active, and disabled states.
+ * icon can be included to further emphasize meaning. Pass `onClick` to render the
+ * badge as a `<button>`, or `href` to render it as an `<a>` element, with hover,
+ * focus, active, and disabled states applied automatically.
  * @see https://cloudoperators.github.io/juno/?path=/docs/components-badge--docs
  * @see {@link BadgeProps}
  */
@@ -126,19 +126,21 @@ export const Badge = ({
   text = "",
   className = "",
   children,
-  interactive = false,
+  href,
   disabled,
+  onClick,
   ...props
 }: BadgeProps): ReactNode => {
   const iconToRender = getIcon(icon, variant)
   const iconColor = getIconColor(icon, variant)
+  const isInteractive = !!(href || onClick)
 
   const classes = `
     juno-badge
     juno-badge-${variant}
     ${badgeBaseStyles}
-    ${badgeVariantStyles[variant]}
-    ${interactive ? `${badgeInteractiveBaseStyles} ${badgeActiveVariantStyles[variant]}` : ""}
+    ${badgeVariantStyles[variant] ?? badgeVariantStyles["default"]}
+    ${isInteractive ? `${badgeInteractiveBaseStyles} ${badgeActiveVariantStyles[variant] ?? badgeActiveVariantStyles["default"]}` : ""}
     ${className}
   `
 
@@ -149,9 +151,24 @@ export const Badge = ({
     </>
   )
 
-  if (interactive) {
+  if (href) {
     return (
-      <button {...(props as HTMLProps<HTMLButtonElement>)} type="button" className={classes} disabled={disabled}>
+      <a
+        href={disabled ? undefined : href}
+        className={classes}
+        onClick={disabled ? undefined : onClick}
+        aria-disabled={disabled || undefined}
+        tabIndex={disabled ? -1 : undefined}
+        {...props}
+      >
+        {content}
+      </a>
+    )
+  }
+
+  if (onClick) {
+    return (
+      <button type="button" className={classes} onClick={onClick} disabled={disabled} {...props}>
         {content}
       </button>
     )

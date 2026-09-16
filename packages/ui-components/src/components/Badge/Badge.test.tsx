@@ -85,33 +85,45 @@ describe("Badge component", () => {
   })
 
   describe("Interactive", () => {
-    test("renders as a button when interactive is true", () => {
-      render(<Badge interactive data-testid="badge" />)
+    test("renders as a button when onClick is provided", () => {
+      render(<Badge onClick={() => {}} data-testid="badge" />)
       expect(screen.getByTestId("badge").tagName).toBe("BUTTON")
     })
 
     test("button has type='button'", () => {
-      render(<Badge interactive data-testid="badge" />)
+      render(<Badge onClick={() => {}} data-testid="badge" />)
       expect(screen.getByTestId("badge")).toHaveAttribute("type", "button")
     })
 
     test("renders disabled button", () => {
-      render(<Badge interactive disabled data-testid="badge" />)
+      render(<Badge onClick={() => {}} disabled data-testid="badge" />)
       expect(screen.getByTestId("badge")).toBeDisabled()
     })
 
     test("calls onClick when clicked", () => {
       const onClick = vi.fn()
-      render(<Badge interactive onClick={onClick} data-testid="badge" />)
+      render(<Badge onClick={onClick} data-testid="badge" />)
       screen.getByTestId("badge").click()
       expect(onClick).toHaveBeenCalledTimes(1)
     })
 
     test("does not call onClick when disabled", () => {
       const onClick = vi.fn()
-      render(<Badge interactive disabled onClick={onClick} data-testid="badge" />)
+      render(<Badge onClick={onClick} disabled data-testid="badge" />)
       screen.getByTestId("badge").click()
       expect(onClick).not.toHaveBeenCalled()
+    })
+
+    test("renders as an anchor when href is provided", () => {
+      render(<Badge href="https://example.com" data-testid="badge" />)
+      expect(screen.getByTestId("badge").tagName).toBe("A")
+      expect(screen.getByTestId("badge")).toHaveAttribute("href", "https://example.com")
+    })
+
+    test("renders disabled anchor without href", () => {
+      render(<Badge href="https://example.com" disabled data-testid="badge" />)
+      expect(screen.getByTestId("badge")).not.toHaveAttribute("href")
+      expect(screen.getByTestId("badge")).toHaveAttribute("aria-disabled", "true")
     })
   })
 
