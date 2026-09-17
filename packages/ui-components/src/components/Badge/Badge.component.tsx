@@ -51,6 +51,8 @@ const badgeActiveVariantStyles: Record<BadgeVariantType, string> = {
 
 const iconStyles = "jn:mr-1 jn:items-center"
 
+const VALID_ICON_NAMES: Set<KnownIcons> = new Set(Object.values(KnownIconsEnum))
+
 export interface BadgeProps extends Omit<HTMLAttributes<HTMLElement>, "disabled"> {
   /**
    * Specify a semantic variant that determines the appearance of the badge.
@@ -106,10 +108,7 @@ const getIconColor = (icon: boolean | KnownIcons | undefined, variant: BadgeVari
   return
 }
 
-const isValidIcon = (icon: string): icon is KnownIcons => {
-  const validIconNames: Set<KnownIcons> = new Set(Object.values(KnownIconsEnum))
-  return validIconNames.has(icon as KnownIcons)
-}
+const isValidIcon = (icon: string): icon is KnownIcons => VALID_ICON_NAMES.has(icon as KnownIcons)
 
 /**
  * The `Badge` component visually represents properties or states of an entity.
@@ -139,8 +138,8 @@ export const Badge = ({
     juno-badge
     juno-badge-${variant}
     ${badgeBaseStyles}
-    ${badgeVariantStyles[variant] ?? badgeVariantStyles["default"]}
-    ${isInteractive ? `${badgeInteractiveBaseStyles} ${badgeActiveVariantStyles[variant] ?? badgeActiveVariantStyles["default"]}` : ""}
+    ${badgeVariantStyles[variant]}
+    ${isInteractive ? `${badgeInteractiveBaseStyles} ${badgeActiveVariantStyles[variant]}` : ""}
     ${isInteractive && disabled ? "jn:opacity-50 jn:cursor-not-allowed jn:pointer-events-none" : ""}
     ${className}
   `
@@ -148,7 +147,7 @@ export const Badge = ({
   const content = (
     <>
       {iconToRender && <Icon icon={iconToRender} size="1.125rem" className={iconStyles} color={iconColor} />}
-      {children || text}
+      {children ?? text}
     </>
   )
 
