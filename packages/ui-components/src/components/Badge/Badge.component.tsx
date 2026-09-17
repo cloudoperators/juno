@@ -140,7 +140,7 @@ export const Badge = ({
     ${badgeBaseStyles}
     ${badgeVariantStyles[variant]}
     ${isInteractive ? `${badgeInteractiveBaseStyles} ${badgeActiveVariantStyles[variant]}` : ""}
-    ${isInteractive && disabled ? "jn:opacity-50 jn:cursor-not-allowed jn:pointer-events-none" : ""}
+    ${isInteractive && disabled ? "jn:opacity-50 jn:pointer-events-none" : ""}
     ${className}
   `
 

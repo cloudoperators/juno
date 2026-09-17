@@ -48,6 +48,24 @@ describe("Badge component", () => {
       expect(screen.getByTestId("badge")).toBeInTheDocument()
       expect(screen.getByTestId("badge")).toHaveClass("juno-badge-success")
     })
+
+    test(`renders a badge with the warning variant`, () => {
+      render(<Badge variant={"warning"} data-testid="badge" />)
+      expect(screen.getByTestId("badge")).toBeInTheDocument()
+      expect(screen.getByTestId("badge")).toHaveClass("juno-badge-warning")
+    })
+
+    test(`renders a badge with the danger variant`, () => {
+      render(<Badge variant={"danger"} data-testid="badge" />)
+      expect(screen.getByTestId("badge")).toBeInTheDocument()
+      expect(screen.getByTestId("badge")).toHaveClass("juno-badge-danger")
+    })
+
+    test(`renders a badge with the error variant`, () => {
+      render(<Badge variant={"error"} data-testid="badge" />)
+      expect(screen.getByTestId("badge")).toBeInTheDocument()
+      expect(screen.getByTestId("badge")).toHaveClass("juno-badge-error")
+    })
   })
 
   describe("Icons", () => {
