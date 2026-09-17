@@ -140,6 +140,14 @@ export const AsLink: Story = {
   },
 }
 
+export const AsLinkDisabled: Story = {
+  args: {
+    text: "Disabled Link",
+    href: "#",
+    disabled: true,
+  },
+}
+
 export const AsButtonInfo: Story = {
   args: {
     variant: "info",

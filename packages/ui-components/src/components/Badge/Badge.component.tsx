@@ -26,9 +26,9 @@ const badgeInteractiveBaseStyles = `
   jn:focus-visible:ring-theme-focus
   jn:focus-visible:ring-offset-1
   jn:focus-visible:ring-offset-theme-focus
-  jn:disabled:opacity-50
-  jn:disabled:cursor-not-allowed
-  jn:disabled:pointer-events-none
+  jn:active:ring-1
+  jn:active:ring-inset
+  jn:active:text-theme-highest
 `
 
 const badgeVariantStyles: Record<BadgeVariantType, string> = {
@@ -41,12 +41,12 @@ const badgeVariantStyles: Record<BadgeVariantType, string> = {
 }
 
 const badgeActiveVariantStyles: Record<BadgeVariantType, string> = {
-  default: "jn:active:ring-1 jn:active:ring-inset jn:active:ring-current jn:active:text-theme-highest",
-  info: "jn:active:ring-1 jn:active:ring-inset jn:active:ring-theme-accent jn:active:text-theme-highest",
-  success: "jn:active:ring-1 jn:active:ring-inset jn:active:ring-theme-success jn:active:text-theme-highest",
-  warning: "jn:active:ring-1 jn:active:ring-inset jn:active:ring-theme-warning jn:active:text-theme-highest",
-  danger: "jn:active:ring-1 jn:active:ring-inset jn:active:ring-theme-danger jn:active:text-theme-highest",
-  error: "jn:active:ring-1 jn:active:ring-inset jn:active:ring-theme-error jn:active:text-theme-highest",
+  default: "jn:active:ring-current",
+  info: "jn:active:ring-theme-accent",
+  success: "jn:active:ring-theme-success",
+  warning: "jn:active:ring-theme-warning",
+  danger: "jn:active:ring-theme-danger",
+  error: "jn:active:ring-theme-error",
 }
 
 const iconStyles = "jn:mr-1 jn:items-center"
@@ -141,6 +141,7 @@ export const Badge = ({
     ${badgeBaseStyles}
     ${badgeVariantStyles[variant] ?? badgeVariantStyles["default"]}
     ${isInteractive ? `${badgeInteractiveBaseStyles} ${badgeActiveVariantStyles[variant] ?? badgeActiveVariantStyles["default"]}` : ""}
+    ${isInteractive && disabled ? "jn:opacity-50 jn:cursor-not-allowed jn:pointer-events-none" : ""}
     ${className}
   `
 
