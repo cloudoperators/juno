@@ -1,0 +1,86 @@
+# SPDX-FileCopyrightText: 2025 SAP SE or an SAP affiliate company and Juno contributors
+# SPDX-License-Identifier: Apache-2.0
+
+# Test workflow to debug arm64 build failures on ubuntu-24.04
+# This workflow builds but does NOT push images
+
+name: Test Supernova Build - Ubuntu 24.04
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/test-supernova-ubuntu-2404.yaml'
+  workflow_dispatch: {}
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: "juno-app-supernova-test"
+  PACKAGE_PATH: "apps/supernova"
+
+jobs:
+  test-build-ubuntu-2404:
+    name: Test Build on Ubuntu 24.04
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Debug runner and build environment
+        run: |
+          echo "=== Runner Information ==="
+          echo "Runner: $RUNNER_NAME"
+          echo "Runner OS: $RUNNER_OS"
+          echo "Runner arch: $(uname -m)"
+          echo ""
+          echo "=== System Information ==="
+          uname -a
+          cat /etc/os-release
+          echo ""
+          echo "=== QEMU Information ==="
+          qemu-aarch64-static --version 2>/dev/null || echo "QEMU not installed on runner"
+          echo ""
+          echo "=== Docker Information ==="
+          docker --version
+          docker buildx version
+          docker buildx ls
+
+      # Add support for more platforms with QEMU
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@96fe6ef7f33517b61c61be40b68a1882f3264fb8 # v4.2.0
+
+      - name: Debug QEMU after setup
+        run: |
+          echo "=== QEMU after setup ==="
+          docker run --rm --privileged multiarch/qemu-user-static --version || true
+          ls -la /proc/sys/fs/binfmt_misc/ || true
+
+      # Set up BuildKit Docker container builder
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4.3.0
+        with:
+          driver-opts: |
+            image=moby/buildkit:latest
+
+      # Build for both platforms (DO NOT PUSH)
+      - name: Build Docker image (no push)
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
+        with:
+          context: .
+          file: ${{ env.PACKAGE_PATH }}/docker/Dockerfile
+          push: false
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:test-ubuntu-2404
+          platforms: |
+            linux/amd64
+            linux/arm64
+          outputs: type=image,push=false
+
+      - name: Build result
+        if: success()
+        run: echo "✅ Build succeeded on Ubuntu 24.04"
+
+      - name: Build failed
+        if: failure()
+        run: echo "❌ Build failed on Ubuntu 24.04"
