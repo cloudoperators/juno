@@ -124,6 +124,7 @@ describe("Badge component", () => {
       render(<Badge href="https://example.com" disabled data-testid="badge" />)
       expect(screen.getByTestId("badge")).not.toHaveAttribute("href")
       expect(screen.getByTestId("badge")).toHaveAttribute("aria-disabled", "true")
+      expect(screen.getByTestId("badge")).toHaveAttribute("tabindex", "-1")
     })
   })
 
