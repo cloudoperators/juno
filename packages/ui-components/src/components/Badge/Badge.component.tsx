@@ -138,8 +138,8 @@ export const Badge = ({
     juno-badge
     juno-badge-${variant}
     ${badgeBaseStyles}
-    ${badgeVariantStyles[variant]}
-    ${isInteractive ? `${badgeInteractiveBaseStyles} ${badgeActiveVariantStyles[variant]}` : ""}
+    ${badgeVariantStyles[variant] ?? badgeVariantStyles["default"]}
+    ${isInteractive ? `${badgeInteractiveBaseStyles} ${badgeActiveVariantStyles[variant] ?? badgeActiveVariantStyles["default"]}` : ""}
     ${isInteractive && disabled ? "jn:opacity-50 jn:pointer-events-none" : ""}
     ${className}
   `
