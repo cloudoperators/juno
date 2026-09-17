@@ -10,9 +10,6 @@ import { Badge } from "./"
 const meta: Meta<typeof Badge> = {
   title: "Components/Badge",
   component: Badge,
-  parameters: {
-    text: "default",
-  },
   argTypes: {
     icon: {
       options: ["default", ...Object.values(KnownIconsEnum)],
