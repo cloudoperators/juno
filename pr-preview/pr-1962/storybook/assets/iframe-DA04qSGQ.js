@@ -1,1 +1,0 @@
-import{t as e}from"./iframe-Bnyc15XD.js";e();
