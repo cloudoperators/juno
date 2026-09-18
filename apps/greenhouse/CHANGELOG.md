@@ -1,5 +1,17 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.14.10
+
+### Patch Changes
+
+- d550757: Remove legacy core-apps/org-admin code and dependencies
+- Updated dependencies [8869803]
+  - @cloudoperators/juno-ui-components@9.4.2
+  - @cloudoperators/juno-app-doop@2.6.40
+  - @cloudoperators/juno-app-heureka@1.1.15
+  - @cloudoperators/juno-app-supernova@0.20.9
+  - @cloudoperators/juno-messages-provider@0.2.52
+
 ## 0.14.9
 
 ### Patch Changes

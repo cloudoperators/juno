@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 9.4.2
+
+### Patch Changes
+
+- 8869803: feat(ui): improve `FormSection` titles
+
 ## 9.4.1
 
 ### Patch Changes
