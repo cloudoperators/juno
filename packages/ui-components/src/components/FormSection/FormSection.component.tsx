@@ -15,7 +15,7 @@ const titleStyles = `
     jn:leading-relaxed
     jn:font-sans
     jn:font-bold
-    jn:mb-3
+    jn:mb-2
 `
 
 export interface FormSectionProps extends HTMLAttributes<HTMLElement> {
