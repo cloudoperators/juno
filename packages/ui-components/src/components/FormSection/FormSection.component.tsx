@@ -38,7 +38,7 @@ export interface FormSectionProps extends HTMLAttributes<HTMLElement> {
   children?: ReactNode
 
   /**
-   * Additonal CSS classes to apply to the form section's title if present.
+   * Additional CSS classes to apply to the form section's title if present.
    * @default ""
    */
   titleClassName?: string
