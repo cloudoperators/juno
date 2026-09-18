@@ -14,8 +14,8 @@ WORKDIR /juno
 
 # copy all greenhouse apps to /tmp/greenhouse
 ADD . .
-# Pin pnpm version to match package.json packageManager field
-RUN npm i -g pnpm@11.25.0
+# Test with latest pnpm 12.4.2 to see if QEMU issues are resolved
+RUN npm i -g pnpm@12.4.2
 
 RUN pnpm install && pnpx turbo build:static --filter @cloudoperators/juno-app-greenhouse
 
