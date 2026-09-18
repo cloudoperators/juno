@@ -10,8 +10,9 @@ LABEL org.opencontainers.image.licenses=Apache-2.0
 WORKDIR /app
 
 ADD . .
-# Pin pnpm version to match package.json packageManager field
-RUN npm i -g pnpm@11.25.0
+
+# Enable corepack and install pnpm version from package.json packageManager field
+RUN corepack enable && corepack install
 
 RUN pnpm install && pnpx turbo build:static --filter @cloudoperators/juno-app-supernova
 
