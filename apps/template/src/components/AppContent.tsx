@@ -3,9 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
-
-const AppContent: React.FC = () => {
+const AppContent = () => {
   return <p className="text-2xl font-bold">Welcome to the Juno Template App!</p>
 }
 
