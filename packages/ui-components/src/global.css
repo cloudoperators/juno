@@ -15,6 +15,7 @@
 @import "./components/DataGridRow/data-grid-row.css" layer(utilities);
 @import "./components/SideNavigation/sidenavigation.css" layer(utilities);
 @import "./components/PageFooter/page-footer.css" layer(utilities);
+@import "./components/ProgressBar/progressbar.css" layer(utilities);
 
 :root,
 :host {
@@ -462,6 +463,10 @@
   --border-color-theme-switch-default: var(--color-switch-default-border);
   --border-color-theme-switch-hover: var(--color-switch-hover-border);
 
+  /* ProgressBar */
+  --background-color-theme-progressbar: var(--color-progressbar-fill);
+  --border-color-theme-progressbar: var(--color-progressbar-border);
+
   --border-color-theme-tab-navigation-content-bottom: var(--color-tabnavigation-content-bottom-border);
 
   --border-color-theme-tab-active-bottom: var(--color-text-default);
@@ -705,6 +710,9 @@
   --color-required-bg: var(--color-accent);
   /* LT Spinner */
   --color-spinner-primary: var(--color-accent);
+  /* LT ProgressBar */
+  --color-progressbar-fill: var(--color-accent);
+  --color-progressbar-border: var(--color-text-light);
   /* LT Syntax Highlighting */
   --color-syntax-highlight-base00: var(--color-codeblock-bg); /* bg */
   --color-syntax-highlight-base01: var(--color-juno-grey-light-3); /*  ? */
@@ -970,6 +978,9 @@
   --color-required-bg: var(--color-accent);
   /* DT Spinner */
   --color-spinner-primary: var(--color-accent);
+  /* DT ProgressBar */
+  --color-progressbar-fill: var(--color-accent);
+  --color-progressbar-border: var(--color-text-light);
   /* DT Syntax Highlighting */
   --color-syntax-highlight-base00: var(--color-codeblock-bg); /* bg */
   --color-syntax-highlight-base01: var(--color-juno-grey-blue-3); /*  ? */
