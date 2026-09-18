@@ -10,6 +10,7 @@ import { Button } from "../Button/index"
 import { ButtonRow } from "../ButtonRow/index"
 import { Checkbox } from "../Checkbox/index"
 import { Form } from "../Form/index"
+import { FormSection } from "../FormSection/index"
 import { FormRow } from "../FormRow/index"
 import { TextInput } from "../TextInput/index"
 import { Icon } from "../Icon/index"
@@ -269,40 +270,46 @@ export const AutoFocusDialog: Story = {
 
 const ReusableForm = () => (
   <Form>
-    <FormRow>
-      <TextInput label="First Name" id="firstname" />
-    </FormRow>
-    <FormRow>
-      <TextInput label="Last Name" id="lastname" />
-    </FormRow>
-    <FormRow>
-      <TextInput label="Email" id="email" type="email" />
-    </FormRow>
-    <FormRow>
-      <TextInput label="Password" id="password" type="password" />
-    </FormRow>
-    <FormRow>
-      <TextInput label="Retype Password" id="retype-password" type="password" />
-    </FormRow>
-    <FormRow>
-      <Select label="Role">
-        <SelectOption>Private Person</SelectOption>
-        <SelectOption>Small Business</SelectOption>
-      </Select>
-    </FormRow>
-    <FormRow>
-      <ComboBox label="Country">
-        <ComboBoxOption value="germany" key="DE">
-          Germany
-        </ComboBoxOption>
-        <ComboBoxOption value="uk" key="UK">
-          United Kingdom
-        </ComboBoxOption>
-        <ComboBoxOption value="us" key="US">
-          USA
-        </ComboBoxOption>
-      </ComboBox>
-    </FormRow>
+    <FormSection title="Personal Information">
+      <FormRow>
+        <TextInput label="First Name" id="firstname" required />
+      </FormRow>
+      <FormRow>
+        <TextInput label="Last Name" id="lastname" required />
+      </FormRow>
+      <FormRow>
+        <TextInput label="Email" id="email" type="email" required />
+      </FormRow>
+    </FormSection>
+    <FormSection title="Password">
+      <FormRow>
+        <TextInput label="Password" id="password" type="password" required />
+      </FormRow>
+      <FormRow>
+        <TextInput label="Retype Password" id="retype-password" type="password" required />
+      </FormRow>
+    </FormSection>
+    <FormSection title="Additional Information">
+      <FormRow>
+        <Select label="Role">
+          <SelectOption>Private Person</SelectOption>
+          <SelectOption>Small Business</SelectOption>
+        </Select>
+      </FormRow>
+      <FormRow>
+        <ComboBox label="Country">
+          <ComboBoxOption value="germany" key="DE">
+            Germany
+          </ComboBoxOption>
+          <ComboBoxOption value="uk" key="UK">
+            United Kingdom
+          </ComboBoxOption>
+          <ComboBoxOption value="us" key="US">
+            USA
+          </ComboBoxOption>
+        </ComboBox>
+      </FormRow>
+    </FormSection>
   </Form>
 )
 
