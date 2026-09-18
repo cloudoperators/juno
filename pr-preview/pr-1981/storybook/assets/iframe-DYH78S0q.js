@@ -1,1 +1,0 @@
-import{t as e}from"./iframe-DJD50Zab.js";e();
