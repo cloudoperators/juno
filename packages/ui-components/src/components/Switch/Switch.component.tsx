@@ -181,7 +181,7 @@ const renderValidationIcon = (isInvalid: boolean, isValid: boolean, disabled: bo
   const size = "1.125rem"
   const className = `${iconBaseStyles} ${disabled ? "jn:opacity-50" : ""}`
 
-  // NOTE: isValid and isInvalid are purposely seperate states
+  // NOTE: isValid and isInvalid are purposely separate states
   if (isInvalid) {
     return <Icon icon="dangerous" color="jn:text-theme-error" size={size} className={className} />
   }
