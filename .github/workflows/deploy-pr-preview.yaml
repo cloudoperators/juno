@@ -18,13 +18,10 @@ on:
       - reopened
       - synchronize
       - closed
+      - labeled
     paths:
       - "packages/ui-components/**"
       - "apps/example/**"
-  pull_request_target:
-    types:
-      - labeled
-    # Trigger on label addition regardless of paths
 
 # Limit the concurrency of entire workflow
 concurrency: deploy-pr-preview-${{ github.ref }}
