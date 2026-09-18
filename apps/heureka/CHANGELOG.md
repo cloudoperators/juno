@@ -1,5 +1,12 @@
 # heureka
 
+## 1.1.15
+
+### Patch Changes
+
+- Updated dependencies [8869803]
+  - @cloudoperators/juno-ui-components@9.4.2
+
 ## 1.1.14
 
 ### Patch Changes
