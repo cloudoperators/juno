@@ -6,29 +6,6 @@
 /* ProgressBar busy indicator */
 @keyframes juno-progress-busy {
   0%    { margin-left: 0%;   width: 4%; }
-  4.5%  { margin-left: 0%;   width: 4%; }
   50%   { margin-left: 8%;   width: 82%; }
-  95.5% { margin-left: 96%;  width: 4%; }
   100%  { margin-left: 96%;  width: 4%; }
-}
-
-/* ProgressBar simulated (fake) progress: fast start, decelerating, parks near the end */
-@keyframes juno-progress-simulated {
-  0%   { width: 0%; }
-  8%   { width: 40%; }
-  25%  { width: 58%; }
-  50%  { width: 72%; }
-  78%  { width: 83%; }
-  100% { width: 90%; }
-}
-
-.juno-progressbar-simulated-fill {
-  width: 90%;
-  animation: juno-progress-simulated 4s ease-out forwards;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .juno-progressbar-simulated-fill {
-    animation: none;
-  }
 }

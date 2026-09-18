@@ -9,6 +9,8 @@ import "./progressbar.css"
 const progressBarBaseStyles =
   "jn:border jn:border-theme-progressbar jn:rounded-xl jn:h-3 jn:p-[0.125rem] jn:overflow-hidden"
 
+const simulatedSteps = [40, 58, 72, 85, 95]
+
 export interface ProgressBarProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
   /**
    * Fill percentage of the track. Only applies in `determinate` mode.
@@ -19,7 +21,7 @@ export interface ProgressBarProps extends Omit<HTMLAttributes<HTMLDivElement>, "
    * Visual mode of the progress bar.
    * `determinate` fills the track to `value`.
    * `busy` shows an animated indeterminate indicator.
-   * `simulated` runs a fake self-running progress that decelerates through irregular steps and parks near the end, for when the final amount of incoming data is unknown.
+   * `simulated` runs a fake self-running progress that advances through steps separated by randomized delays and parks near the end, for when the final amount of incoming data is unknown.
    * @default "determinate"
    */
   mode?: "determinate" | "busy" | "simulated"
@@ -53,6 +55,23 @@ export const ProgressBar = ({
 }: ProgressBarProps): ReactNode => {
   const clampedValue = Math.min(100, Math.max(0, value))
   const indeterminate = mode === "busy" || mode === "simulated"
+
+  const [simulatedWidth, setSimulatedWidth] = React.useState(0)
+
+  React.useEffect(() => {
+    if (mode !== "simulated") return
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      setSimulatedWidth(simulatedSteps[simulatedSteps.length - 1])
+      return
+    }
+    const timers: ReturnType<typeof setTimeout>[] = []
+    let elapsed = 300
+    simulatedSteps.forEach((target) => {
+      timers.push(setTimeout(() => setSimulatedWidth(target), elapsed))
+      elapsed += 450 + Math.random() * 600
+    })
+    return () => timers.forEach(clearTimeout)
+  }, [mode])
   return (
     <div
       role="progressbar"
@@ -69,7 +88,10 @@ export const ProgressBar = ({
           style={{ width: "4%", animation: "juno-progress-busy 1.1s ease-in-out infinite alternate" }}
         />
       ) : mode === "simulated" ? (
-        <div className="juno-progressbar-simulated-fill jn:h-full jn:rounded-xl jn:bg-theme-progressbar" />
+        <div
+          className="juno-progressbar-simulated-fill jn:h-full jn:rounded-xl jn:bg-theme-progressbar jn:transition-[width] jn:duration-300 jn:ease-out jn:motion-reduce:transition-none"
+          style={{ width: `${simulatedWidth}%` }}
+        />
       ) : (
         clampedValue > 0 && (
           <div

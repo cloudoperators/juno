@@ -4,8 +4,8 @@
  */
 
 import * as React from "react"
-import { describe, expect, test } from "vitest"
-import { render, screen } from "@testing-library/react"
+import { describe, expect, test, vi } from "vitest"
+import { act, render, screen } from "@testing-library/react"
 import { ProgressBar } from "./"
 
 describe("ProgressBar component", () => {
@@ -97,5 +97,16 @@ describe("ProgressBar component", () => {
   test("does not set aria-valuenow in simulated mode", () => {
     render(<ProgressBar mode="simulated" value={50} />)
     expect(screen.getByRole("progressbar")).not.toHaveAttribute("aria-valuenow")
+  })
+
+  test("advances the simulated fill to the parked value over time", () => {
+    vi.useFakeTimers()
+    const { container } = render(<ProgressBar mode="simulated" />)
+    act(() => {
+      vi.advanceTimersByTime(10000)
+    })
+    const fill = container.querySelector(".juno-progressbar-simulated-fill") as HTMLElement
+    expect(fill.style.width).toBe("95%")
+    vi.useRealTimers()
   })
 })

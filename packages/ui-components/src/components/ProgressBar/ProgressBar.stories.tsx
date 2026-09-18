@@ -24,18 +24,6 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {
-  args: {
-    value: 0,
-  },
-}
-
-export const Quarter: Story = {
-  args: {
-    value: 25,
-  },
-}
-
 export const Half: Story = {
   args: {
     value: 50,
@@ -57,12 +45,5 @@ export const Busy: Story = {
 export const Simulated: Story = {
   args: {
     mode: "simulated",
-  },
-}
-
-export const Playground: Story = {
-  args: {
-    value: 50,
-    mode: "determinate",
   },
 }

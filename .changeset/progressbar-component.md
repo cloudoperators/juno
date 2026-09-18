@@ -6,8 +6,9 @@ feat(ProgressBar): add ProgressBar component
 
 Adds a `ProgressBar` with a `mode` prop offering three modes: `determinate`
 (clamped `value` 0-100), `busy` (animated indeterminate indicator), and
-`simulated` (a fake self-running progress that decelerates through irregular
-steps and parks near the end, for when the final amount of incoming data is
+`simulated` (a fake self-running progress that advances through steps separated
+by randomized delays and parks near the end, so each run looks like data
+trickling in at an uneven pace, for when the final amount of incoming data is
 unknown). The determinate fill uses an eased `width` transition so value jumps
 animate smoothly, with universal browser support.
 
