@@ -13,6 +13,10 @@ const meta: Meta<typeof ProgressBar> = {
     value: {
       control: { type: "range", min: 0, max: 100, step: 1 },
     },
+    mode: {
+      control: { type: "select" },
+      options: ["determinate", "busy", "simulated"],
+    },
   },
 }
 
@@ -46,13 +50,19 @@ export const Full: Story = {
 
 export const Busy: Story = {
   args: {
-    busy: true,
+    mode: "busy",
+  },
+}
+
+export const Simulated: Story = {
+  args: {
+    mode: "simulated",
   },
 }
 
 export const Playground: Story = {
   args: {
     value: 50,
-    busy: false,
+    mode: "determinate",
   },
 }

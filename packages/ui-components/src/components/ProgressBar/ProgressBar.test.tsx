@@ -71,21 +71,31 @@ describe("ProgressBar component", () => {
     expect(screen.getByTestId("pb")).toHaveAttribute("data-extra", "yes")
   })
 
-  test("renders busy indicator when busy is true", () => {
-    render(<ProgressBar busy />)
+  test("renders busy indicator in busy mode", () => {
+    render(<ProgressBar mode="busy" />)
     expect(screen.getByRole("progressbar").children).toHaveLength(1)
   })
 
-  test("does not set aria-valuenow when busy", () => {
-    render(<ProgressBar busy value={50} />)
+  test("does not set aria-valuenow in busy mode", () => {
+    render(<ProgressBar mode="busy" value={50} />)
     expect(screen.getByRole("progressbar")).not.toHaveAttribute("aria-valuenow")
   })
 
-  test("ignores value fill when busy is true", () => {
-    const { container } = render(<ProgressBar busy={false} value={50} />)
+  test("renders the determinate fill scaled to value", () => {
+    const { container } = render(<ProgressBar value={50} />)
     const fill = container.querySelector("[role='progressbar'] > div")
     expect(fill).toBeInTheDocument()
     const style = (fill as HTMLElement).getAttribute("style")
     expect(style).toContain("width: 50%")
+  })
+
+  test("renders simulated indicator in simulated mode", () => {
+    const { container } = render(<ProgressBar mode="simulated" />)
+    expect(container.querySelector(".juno-progressbar-simulated-fill")).toBeInTheDocument()
+  })
+
+  test("does not set aria-valuenow in simulated mode", () => {
+    render(<ProgressBar mode="simulated" value={50} />)
+    expect(screen.getByRole("progressbar")).not.toHaveAttribute("aria-valuenow")
   })
 })
