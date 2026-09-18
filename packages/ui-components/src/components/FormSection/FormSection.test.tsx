@@ -9,118 +9,124 @@ import { describe, expect, test } from "vitest"
 
 import { FormSection } from "./index"
 
-describe("FormSection Component Tests", () => {
-  describe("Basic Rendering", () => {
-    test("renders a FormSection", () => {
-      render(<FormSection data-testid="my-formsection" />)
-      expect(screen.getByTestId("my-formsection")).toBeInTheDocument()
-    })
-
-    test("renders children as passed", () => {
-      render(
-        <FormSection data-testid="my-formsection">
-          <button></button>
-        </FormSection>
-      )
-      expect(screen.getByRole("button")).toBeInTheDocument()
-    })
-
-    test("renders without any props", () => {
-      render(<FormSection data-testid="my-formsection" />)
-      expect(screen.getByTestId("my-formsection")).toBeInTheDocument()
-    })
-
-    test("renders with null children", () => {
-      render(<FormSection data-testid="my-formsection">{null}</FormSection>)
-      expect(screen.getByTestId("my-formsection")).toBeInTheDocument()
-    })
-
-    test("renders with undefined children", () => {
-      render(<FormSection data-testid="my-formsection">{undefined}</FormSection>)
-      expect(screen.getByTestId("my-formsection")).toBeInTheDocument()
-    })
-
-    test("renders with mixed children types correctly", () => {
-      render(
-        <FormSection data-testid="my-formsection">
-          <div>Div Element</div>
-          {null}
-          <p>Paragraph Element</p>
-        </FormSection>
-      )
-      expect(screen.getByText("Div Element")).toBeInTheDocument()
-      expect(screen.queryByText("False Element")).not.toBeInTheDocument()
-      expect(screen.getByText("Paragraph Element")).toBeInTheDocument()
-    })
+describe("FormSection", () => {
+  test("renders a FormSection", () => {
+    render(<FormSection data-testid="my-formsection" />)
+    expect(screen.getByTestId("my-formsection")).toBeInTheDocument()
+    expect(screen.getByTestId("my-formsection")).toHaveClass("juno-form-section")
   })
 
-  describe("Title Handling", () => {
-    test("renders a title", () => {
-      render(<FormSection data-testid="my-form-section" title="My Form Section" />)
-      expect(screen.getByTestId("my-form-section")).toBeInTheDocument()
-      expect(screen.getByRole("heading")).toHaveClass("juno-formsection-heading")
-      expect(screen.getByRole("heading")).toHaveTextContent("My Form Section")
-    })
-
-    test("renders a title as h4", () => {
-      render(<FormSection title="My Section" />)
-      expect(screen.getByRole("heading", { level: 4 })).toBeInTheDocument()
-      expect(screen.getByRole("heading", { level: 4 })).toHaveClass("juno-formsection-heading")
-      expect(screen.getByRole("heading", { level: 4 })).toHaveTextContent("My Section")
-    })
-
-    test("does not render a title when title prop is not provided", () => {
-      render(<FormSection data-testid="my-form-section" />)
-      const titleElement = screen.queryByRole("heading")
-      expect(titleElement).not.toBeInTheDocument()
-    })
-
-    test("renders with an empty string title", () => {
-      render(<FormSection data-testid="my-formsection" title="" />)
-      expect(screen.getByTestId("my-formsection")).toBeInTheDocument()
-      const titleElement = screen.queryByRole("heading")
-      expect(titleElement).not.toBeInTheDocument()
-    })
-
-    test("renders with a long string title", () => {
-      const longTitle = "A".repeat(1000)
-      render(<FormSection data-testid="my-formsection" title={longTitle} />)
-      const titleElement = screen.getByText(longTitle)
-      expect(titleElement).toBeInTheDocument()
-    })
-
-    test("renders with special characters in title", () => {
-      const specialTitle = "!@#$%^&*()_+=-[]{}|;:'\",.<>?/"
-      render(<FormSection data-testid="my-formsection" title={specialTitle} />)
-      const titleElement = screen.getByText(specialTitle)
-      expect(titleElement).toBeInTheDocument()
-    })
-
-    test("renders a heading element only if title is provided", () => {
-      const { rerender } = render(<FormSection data-testid="my-formsection" title={undefined} />)
-      expect(screen.queryByRole("heading")).not.toBeInTheDocument()
-
-      rerender(<FormSection data-testid="my-formsection" title="Title" />)
-      expect(screen.getByRole("heading")).toBeInTheDocument()
-    })
+  test("renders a section HTML element", () => {
+    render(<FormSection data-testid="my-formsection" />)
+    expect(screen.getByTestId("my-formsection").tagName).toBe("SECTION")
   })
 
-  describe("Props Handling", () => {
-    test("renders a custom className", () => {
-      render(<FormSection data-testid="my-formsection" className="my-custom-class" />)
-      expect(screen.getByTestId("my-formsection")).toBeInTheDocument()
-      expect(screen.getByTestId("my-formsection")).toHaveClass("my-custom-class")
-    })
+  test("renders children as passed", () => {
+    render(
+      <FormSection data-testid="my-formsection">
+        <button></button>
+      </FormSection>
+    )
+    expect(screen.getByRole("button")).toBeInTheDocument()
+  })
 
-    test("renders all props as passed", () => {
-      render(<FormSection data-testid="23" data-lolol={true} />)
-      expect(screen.getByTestId("23")).toBeInTheDocument()
-      expect(screen.getByTestId("23")).toHaveAttribute("data-lolol")
-    })
+  test("renders with null children", () => {
+    render(<FormSection data-testid="my-formsection">{null}</FormSection>)
+    expect(screen.getByTestId("my-formsection")).toBeInTheDocument()
+  })
 
-    test("renders section HTML element with classnames", () => {
-      const { container } = render(<FormSection data-testid="my-form-section" />)
-      expect(container.firstChild).toHaveClass("juno-form-section")
-    })
+  test("renders with undefined children", () => {
+    render(<FormSection data-testid="my-formsection">{undefined}</FormSection>)
+    expect(screen.getByTestId("my-formsection")).toBeInTheDocument()
+  })
+
+  test("renders with mixed children types correctly", () => {
+    render(
+      <FormSection data-testid="my-formsection">
+        <div>Div Element</div>
+        {null}
+        <p>Paragraph Element</p>
+      </FormSection>
+    )
+    expect(screen.getByText("Div Element")).toBeInTheDocument()
+    expect(screen.getByText("Paragraph Element")).toBeInTheDocument()
+  })
+
+  test("renders a title", () => {
+    render(<FormSection title="My Form Section" />)
+    expect(screen.getByRole("region", { name: "My Form Section" })).toBeInTheDocument()
+    expect(screen.getByText("My Form Section")).toHaveClass("juno-form-section-title")
+  })
+
+  test("renders title as a paragraph element, not a heading", () => {
+    render(<FormSection title="My Section" />)
+    expect(screen.queryByRole("heading")).not.toBeInTheDocument()
+    expect(screen.getByText("My Section").tagName).toBe("P")
+  })
+
+  test("section has aria-labelledby pointing to the title's id when title is present", () => {
+    render(<FormSection title="My Section" />)
+    const section = screen.getByRole("region", { name: "My Section" })
+    const titleEl = screen.getByText("My Section")
+    expect(section).toHaveAttribute("aria-labelledby", titleEl.id)
+  })
+
+  test("section does not have aria-labelledby when no title is provided", () => {
+    render(<FormSection data-testid="my-form-section" />)
+    expect(screen.getByTestId("my-form-section")).not.toHaveAttribute("aria-labelledby")
+  })
+
+  test("section does not have aria-labelledby when title is an empty string", () => {
+    render(<FormSection data-testid="my-formsection" title="" />)
+    expect(screen.getByTestId("my-formsection")).not.toHaveAttribute("aria-labelledby")
+  })
+
+  test("does not render a title element when title prop is not provided", () => {
+    const { container } = render(<FormSection data-testid="my-form-section" />)
+    expect(container.querySelector(".juno-form-section-title")).not.toBeInTheDocument()
+  })
+
+  test("does not render a title element when title is an empty string", () => {
+    const { container } = render(<FormSection data-testid="my-formsection" title="" />)
+    expect(container.querySelector(".juno-form-section-title")).not.toBeInTheDocument()
+  })
+
+  test("renders a title element only if title is provided", () => {
+    const { container, rerender } = render(<FormSection data-testid="my-formsection" title={undefined} />)
+    expect(container.querySelector(".juno-form-section-title")).not.toBeInTheDocument()
+
+    rerender(<FormSection data-testid="my-formsection" title="Title" />)
+    expect(screen.getByRole("region", { name: "Title" })).toBeInTheDocument()
+  })
+
+  test("renders a custom className", () => {
+    render(<FormSection data-testid="my-formsection" className="my-custom-class" />)
+    expect(screen.getByTestId("my-formsection")).toHaveClass("my-custom-class")
+  })
+
+  test("renders custom className after internal class names on the section element", () => {
+    render(<FormSection data-testid="my-formsection" className="my-custom-class" />)
+    expect(screen.getByTestId("my-formsection").className).toMatch(/juno-form-section.*my-custom-class/s)
+  })
+
+  test("renders custom titleClassName after internal class names on the title element", () => {
+    render(<FormSection title="My Section" titleClassName="my-title-class" />)
+    expect(screen.getByText("My Section").className).toMatch(/juno-form-section-title.*my-title-class/s)
+  })
+
+  test("renders all props as passed", () => {
+    render(<FormSection data-testid="23" data-lolol={true} />)
+    expect(screen.getByTestId("23")).toBeInTheDocument()
+    expect(screen.getByTestId("23")).toHaveAttribute("data-lolol")
+  })
+
+  test("applies titleClassName to the title element", () => {
+    render(<FormSection title="My Section" titleClassName="my-title-class" />)
+    expect(screen.getByText("My Section")).toHaveClass("my-title-class")
+  })
+
+  test("titleClassName does not affect the section element", () => {
+    render(<FormSection data-testid="my-formsection" title="My Section" titleClassName="my-title-class" />)
+    expect(screen.getByTestId("my-formsection")).not.toHaveClass("my-title-class")
   })
 })

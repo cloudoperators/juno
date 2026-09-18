@@ -6,7 +6,7 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
-import { FormSection } from "../FormSection/FormSection.component"
+import { FormSection } from "."
 import { TextInput } from "../TextInput/TextInput.component"
 import { FormRow } from "../FormRow/FormRow.component"
 
@@ -42,6 +42,21 @@ export const Default: Story = {
 export const WithTitle: Story = {
   args: {
     title: "Form Section With Title",
+    children: [
+      <FormRow key="1">
+        <TextInput label="Address Line 1" />
+      </FormRow>,
+      <FormRow key="2">
+        <TextInput label="Address Line 2" />
+      </FormRow>,
+    ],
+  },
+}
+
+export const WithCustomStyledTitle: Story = {
+  args: {
+    title: "Custom Styled Title",
+    titleClassName: "jn:text-base jn:font-normal jn:italic jn:text-theme-light",
     children: [
       <FormRow key="1">
         <TextInput label="Address Line 1" />
