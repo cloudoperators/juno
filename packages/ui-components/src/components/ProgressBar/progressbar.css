@@ -1,0 +1,11 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/* ProgressBar busy indicator */
+@keyframes juno-progress-busy {
+  0%    { margin-left: 0%;   width: 4%; }
+  50%   { margin-left: 8%;   width: 82%; }
+  100%  { margin-left: 96%;  width: 4%; }
+}
