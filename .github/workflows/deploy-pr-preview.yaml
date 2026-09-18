@@ -50,7 +50,7 @@ jobs:
       - name: Check for preview label
         id: check-label
         run: |
-          if [[ "${{ contains(github.event.pull_request.labels.*.name, 'ui-preview') }}" == "true" ]]; then
+          if [[ "${{ contains(github.event.pull_request.labels.*.name, 'ui-pr-preview') }}" == "true" ]]; then
             echo "result=true" >> $GITHUB_OUTPUT
           else
             echo "result=false" >> $GITHUB_OUTPUT
