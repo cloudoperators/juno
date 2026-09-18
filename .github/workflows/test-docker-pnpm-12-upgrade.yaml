@@ -1,10 +1,10 @@
 # SPDX-FileCopyrightText: 2025 SAP SE or an SAP affiliate company and Juno contributors
 # SPDX-License-Identifier: Apache-2.0
 
-# Test workflow to verify Docker builds work with pnpm@11.25.0 in Dockerfiles
-# while the monorepo uses pnpm@12.4.2
+# Test workflow to verify Docker builds work using corepack to read pnpm version
+# from package.json packageManager field
 
-name: Test Docker Multi-Arch with pnpm 12 Monorepo
+name: Test Docker Multi-Arch with Corepack
 
 on:
   pull_request:
@@ -36,11 +36,11 @@ jobs:
           echo "=== Monorepo pnpm version ==="
           grep "packageManager" package.json
           echo ""
-          echo "=== Supernova Dockerfile pnpm version ==="
-          grep "pnpm@" apps/supernova/docker/Dockerfile
+          echo "=== Supernova Dockerfile uses corepack ==="
+          grep "corepack" apps/supernova/docker/Dockerfile
           echo ""
-          echo "=== Greenhouse Dockerfile pnpm version ==="
-          grep "pnpm@" apps/greenhouse/docker/Dockerfile
+          echo "=== Greenhouse Dockerfile uses corepack ==="
+          grep "corepack" apps/greenhouse/docker/Dockerfile
 
       # Add support for more platforms with QEMU
       - name: Set up QEMU
@@ -82,11 +82,11 @@ jobs:
         run: |
           echo "✅ Success! Docker builds work with:"
           echo "  - Monorepo using pnpm 12.4.2"
-          echo "  - Dockerfiles pinned to pnpm@11.25.0"
+          echo "  - Dockerfiles using corepack to read from package.json"
           echo "  - Multi-arch builds (amd64 + arm64) succeed without QEMU segfaults"
 
       - name: Build failed
         if: failure()
         run: |
           echo "❌ Build failed!"
-          echo "This means the Dockerfile pnpm pinning may not be sufficient."
+          echo "Check if corepack is properly reading the pnpm version from package.json."
