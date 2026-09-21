@@ -24,7 +24,7 @@
   "license": "Apache-2.0",
   "engines": {
     "node": ">=20.19.0",
-    "pnpm": ">=8.0.0"
+    "pnpm": ">=11.25.0"
   },
   "scripts": {
     "build": "vite build",
@@ -37,13 +37,13 @@
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
-    "jsdom": "29.1.1",
+    "jsdom": "30.0.1",
     "juri-cutlery": "1.0.0",
     "lz-string": "1.5.0",
     "typescript": "6.0.3",
-    "vite": "8.0.16",
+    "vite": "8.2.2",
     "vite-plugin-dts": "4.5.4",
-    "vitest": "4.1.10"
+    "vitest": "4.1.11"
   },
   "babel": {
     "presets": [
@@ -52,6 +52,6 @@
   },
   "dependencies": {
     "history": "5.3.0",
-    "query-string": "9.5.1"
+    "query-string": "9.5.0"
   }
 }

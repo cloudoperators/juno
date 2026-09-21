@@ -25,7 +25,7 @@ export const ImageVersionsList = ({ versions, service, imageRepository }: ImageV
   const hasMoreVersions = versions.length > VERSIONS_INITIAL
 
   const handleVersionClick = (version: string) => {
-    navigate({
+    void navigate({
       to: "/services/$service/images/$image/versions/$version",
       params: {
         service,

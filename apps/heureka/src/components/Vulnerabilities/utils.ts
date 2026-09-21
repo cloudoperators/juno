@@ -10,9 +10,9 @@ import { isEmpty, omit } from "../../utils"
 
 const DEFAULT_COUNT = 0
 
-export function getActiveVulnerabilityFilter(filterSettings: FilterSettings) {
-  const filter: any = {}
-  filterSettings.selectedFilters?.forEach((f: any) => {
+export function getActiveVulnerabilityFilter(filterSettings: FilterSettings): Record<string, string[]> {
+  const filter: Record<string, string[]> = {}
+  filterSettings.selectedFilters?.forEach((f) => {
     if (f.name && f.value) {
       filter[f.name] = [f.value]
     }
@@ -47,9 +47,9 @@ export const getNormalizedFilters = (data: GetVulnerabilityFiltersQuery | undefi
         values: filter?.values?.filter((value) => value !== null) || [],
       }))
 
-export function sanitizeFilterSettings(filters: any, filterSettings: FilterSettings) {
+export function sanitizeFilterSettings(filters: { filterName: string }[], filterSettings: FilterSettings) {
   // Only keep filters that are supported by the backend
-  const supported = filters.map((f: any) => f.filterName)
+  const supported = filters.map((f) => f.filterName)
   return {
     ...filterSettings,
     selectedFilters: filterSettings.selectedFilters?.filter((f) => supported.includes(f.name)),
@@ -127,7 +127,7 @@ export function getNormalizedVulnerabilitiesResponse(data: unknown): NormalizedV
       return {
         name: edge?.node?.name || "",
         severity: edge?.node?.severity || "",
-        earliestTargetRemediationDate: edge?.node?.earliestTargetRemediationDate || "",
+        earliestTargetRemediationDate: (edge?.node?.earliestTargetRemediationDate as string | null | undefined) || "",
         sourceUrl: edge?.node?.sourceUrl || "",
         description: edge?.node?.description || "",
         servicesCount: edge?.node?.services?.totalCount || DEFAULT_COUNT,
@@ -136,7 +136,15 @@ export function getNormalizedVulnerabilitiesResponse(data: unknown): NormalizedV
       }
     }) || []
 
-  const counts = (typedData?.Vulnerabilities as any)?.counts
+  type VulnerabilitiesCounts = {
+    total?: number | null
+    critical?: number | null
+    high?: number | null
+    medium?: number | null
+    low?: number | null
+    none?: number | null
+  }
+  const counts = (typedData?.Vulnerabilities as { counts?: VulnerabilitiesCounts } | undefined)?.counts
 
   const totalVulnerabilities = counts?.total || DEFAULT_COUNT
   return {

@@ -1,5 +1,60 @@
 # @cloudoperators/juno-ui-components
 
+## 9.4.1
+
+### Patch Changes
+
+- 1f68296: chore(ui): use consistently title-cased defaults for default error titles in Status component
+- fe3f4e2: feat(ui): add MUI „cached“ icon to `Icon` component
+
+## 9.4.0
+
+### Minor Changes
+
+- fbdd98e: feat(ui): Streamline `DataGridCheckboxCell` and add `verticalAlignment` prop to `DataGridCell`.
+
+  `DataGridCheckboxCell` is now removed completely. As it has been WIP for all the time and there isn't one documented use, we will release this as a minor instead of major, even though it is technically breaking.
+
+  `DataGridCell` gets a `verticalAlignment` prop (`"center" | "top"`) that overrides the parent `DataGrid`'s `cellVerticalAlignment` for individual cells.
+
+### Patch Changes
+
+- c295413: feat(ui): add `aria-expanded` attribute to `SideNavigationItem` expand button
+- 11f6bc0: Export the `Status` component.
+
+## 9.3.0
+
+### Minor Changes
+
+- 48dd344: `CodeBlockFooter`: add `children`, `copy` props; replace inline "Copied!" span with a Tooltip on the Copy button
+
+  **Breaking change in `CodeBlock`:** The `codeBlockFooter` prop previously accepted a full replacement element that replaced the entire footer. It now injects content _into_ the footer, to the left of the Copy button — the `CodeBlockFooter` wrapper is always rendered. Use `copy={false}` to hide the Copy button.
+
+### Patch Changes
+
+- 004c31a: chore(docs): add `schedule` alias for for `accessTime` Icon
+- 93b60e6: Fix rules of hooks violation using ´useId`: Only Call Hooks at the Top Level (1589)
+- 0a81007: feat(ui): remove `success` icon, return `check circle´ instead when `success` is called
+
+## 9.2.0
+
+### Minor Changes
+
+- cf79a1f: Add `CodeBlockFooter` component and `codeBlockFooter` slot to `CodeBlock`
+  - Extract the copy bar into a standalone `CodeBlockFooter` component (props: `onCopy`, `isCopied`, `className`, `...props` for arbitrary HTML attributes)
+  - Add `codeBlockFooter?: ReactElement` prop to `CodeBlock`: when provided it replaces the default footer, consistent with the `modalFooter` pattern in `Modal`
+  - The existing `copy` prop continues to control the default footer when `codeBlockFooter` is not passed (fully backward-compatible)
+  - Export `CodeBlockFooter` from the package index
+  - Introduce `--color-codeblock-footer-border` / `--border-color-theme-codeblock-footer` CSS variables for the footer border styling
+
+### Patch Changes
+
+- 9e069b7: feat(ui): add `Status` component
+- 0e59fc8: feat(ui): update SignInForm authentication error message
+- 1830872: feat(ui): remove non-breaking whitespace from `DT` component
+- b736c03: feat(ui): update `SignInForm` default authentication error message
+- 3a9760d: feat(ui): add semantic variants to `Box`
+
 ## 9.1.0
 
 ### Minor Changes

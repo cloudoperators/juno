@@ -200,6 +200,28 @@ describe("SideNavigationItem", () => {
     expect(screen.getByText("Inbox")).toBeInTheDocument()
   })
 
+  it("renders expand button with aria-expanded=false when collapsed", () => {
+    render(
+      <SideNavigationItem label="Messages">
+        <SideNavigationItem label="Inbox" />
+      </SideNavigationItem>
+    )
+    // The expand button has no visible text; its accessible name comes from aria-label (set to
+    // "Expand section" / "Collapse section" depending on isOpen). The `expanded` option queries
+    // aria-expanded, which mirrors that same isOpen state.
+    expect(screen.getByRole("button", { expanded: false, name: /expand section/i })).toBeInTheDocument()
+  })
+
+  it("renders expand button with aria-expanded=true when expanded", () => {
+    render(
+      <SideNavigationItem label="Messages">
+        <SideNavigationItem label="Inbox" />
+      </SideNavigationItem>
+    )
+    fireEvent.click(screen.getByRole("button", { expanded: false, name: /expand section/i }))
+    expect(screen.getByRole("button", { expanded: true, name: /collapse section/i })).toBeInTheDocument()
+  })
+
   it("re-syncs internal state when the open prop changes", () => {
     const { rerender } = render(
       <SideNavigationItem label="Messages">

@@ -63,7 +63,7 @@ export const Service = () => {
         <ServiceImages
           imagesPromise={imagesPromise}
           onImageItemClick={(image) => {
-            navigate({
+            void navigate({
               to: "/services/$service/images/$image",
               params: { service, image: image.repository },
             })

@@ -1,5 +1,67 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.14.9
+
+### Patch Changes
+
+- 2ac8ba1: fix(greenhouse): correct cluster type label key to fix empty cluster type filter
+- Updated dependencies [79b2baa]
+- Updated dependencies [d9209cd]
+- Updated dependencies [1f68296]
+- Updated dependencies [fe3f4e2]
+  - @cloudoperators/juno-app-heureka@1.1.14
+  - @cloudoperators/juno-app-doop@2.6.39
+  - @cloudoperators/juno-app-supernova@0.20.8
+  - @cloudoperators/juno-ui-components@9.4.1
+  - @cloudoperators/juno-messages-provider@0.2.51
+
+## 0.14.8
+
+### Patch Changes
+
+- Updated dependencies [fbdd98e]
+- Updated dependencies [142d743]
+- Updated dependencies [c295413]
+- Updated dependencies [11f6bc0]
+  - @cloudoperators/juno-ui-components@9.4.0
+  - @cloudoperators/juno-app-heureka@1.1.13
+  - @cloudoperators/juno-app-doop@2.6.38
+  - @cloudoperators/juno-app-supernova@0.20.7
+  - @cloudoperators/juno-messages-provider@0.2.50
+
+## 0.14.7
+
+### Patch Changes
+
+- Updated dependencies [48dd344]
+- Updated dependencies [004c31a]
+- Updated dependencies [93b60e6]
+- Updated dependencies [0a81007]
+  - @cloudoperators/juno-ui-components@9.3.0
+  - @cloudoperators/juno-app-doop@2.6.37
+  - @cloudoperators/juno-app-heureka@1.1.12
+  - @cloudoperators/juno-app-supernova@0.20.6
+  - @cloudoperators/juno-messages-provider@0.2.49
+
+## 0.14.6
+
+### Patch Changes
+
+- f2f7fde: Updated pnpm, storybook and override postcss
+- 5ba36b2: Visualizes PluginDefinition versions in the Greenhouse dashboard so operators can quickly see which version is deployed where. Adds PluginPreset.status.pluginDefinitionVersion to the PluginPreset list and PluginPreset detail, and Plugin.status.helmChart fields to the Plugin instance detail.
+- Updated dependencies [9e069b7]
+- Updated dependencies [f2f7fde]
+- Updated dependencies [0e59fc8]
+- Updated dependencies [1830872]
+- Updated dependencies [b736c03]
+- Updated dependencies [cf79a1f]
+- Updated dependencies [3a9760d]
+  - @cloudoperators/juno-ui-components@9.2.0
+  - @cloudoperators/juno-app-supernova@0.20.5
+  - @cloudoperators/juno-app-heureka@1.1.11
+  - @cloudoperators/juno-app-doop@2.6.36
+  - @cloudoperators/juno-messages-provider@0.2.48
+
 ## 0.14.5
 
 ### Patch Changes

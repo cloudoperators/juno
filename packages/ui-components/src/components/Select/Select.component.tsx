@@ -198,11 +198,11 @@ export const Select = ({
     return !(typeof value === "string" && value.trim().length === 0)
   }
 
-  const uniqueId = () => "juno-select-" + useId()
+  const generatedId = useId()
+  const helptextId = "juno-select-helptext-" + useId()
   const [isOpen, setIsOpen] = useState(false)
 
-  const theId = id || uniqueId()
-  const helptextId = "juno-select-helptext-" + useId()
+  const theId = id || "juno-select-" + generatedId
 
   const [optionValuesAndLabels, setOptionValuesAndLabels] = useState(new Map<unknown, unknown>())
   const [hasError, setHasError] = useState(false)
@@ -291,7 +291,6 @@ export const Select = ({
       shift(),
     ],
   })
-
   // Setup interactions
   const { getReferenceProps, getFloatingProps } = useInteractions([useClick(context), useDismiss(context)])
 
@@ -359,7 +358,7 @@ export const Select = ({
                 )}
                 <div>
                   <ListboxButton
-                    ref={refs.setReference}
+                    ref={(el) => refs.setReference(el)}
                     aria-describedby={helptext ? helptextId : ""}
                     aria-label={ariaLabel || label}
                     as="button"
@@ -420,7 +419,7 @@ export const Select = ({
                   </ListboxButton>
                   {createPortal(
                     <div
-                      ref={refs.setFloating}
+                      ref={(el) => refs.setFloating(el)}
                       className={`
                           juno-select-menu-container
                           ${menuStylesContainer}

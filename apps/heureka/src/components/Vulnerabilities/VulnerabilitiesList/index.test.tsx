@@ -19,7 +19,7 @@ const renderComponent = () => {
   const testRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: "/vulnerabilities/",
-    loader: async () => ({
+    loader: () => ({
       vulnerabilitiesPromise: mockVulnerabilitiesPromise,
     }),
     component: () => (

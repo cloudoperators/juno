@@ -129,6 +129,7 @@ export const SideNavigationItem = ({
         type="button"
         onClick={handleToggleOpen}
         aria-label={isOpen ? "Collapse section" : "Expand section"}
+        aria-expanded={isOpen}
         disabled={disabled}
         className="expand-icon jn:ml-0.5"
       >

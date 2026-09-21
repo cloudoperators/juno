@@ -116,8 +116,8 @@ export const SecretText = ({
     return !(typeof str === "string" && str.trim().length === 0)
   }
 
-  const uniqueId = () => "juno-secrettext-" + useId()
-  const theId = id || uniqueId()
+  const generatedId = useId()
+  const theId = id || "juno-secrettext-" + generatedId
 
   const [isRevealed, setIsRevealed] = useState(false)
   const [val, setVal] = useState("")

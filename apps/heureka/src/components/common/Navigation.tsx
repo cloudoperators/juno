@@ -62,7 +62,7 @@ export const Navigation = () => {
     const previouslyVisitedPath = Object.keys(visitedPages.current).filter((path) => path.startsWith(link))
     const to = previouslyVisitedPath.length > 0 ? previouslyVisitedPath[0] : link
 
-    navigate({
+    void navigate({
       to,
       params: visitedPages.current[to]?.params ?? {},
       search: visitedPages.current[to]?.search ?? {},

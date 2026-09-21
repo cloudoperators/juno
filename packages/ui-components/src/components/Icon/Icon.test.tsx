@@ -69,6 +69,22 @@ describe("Icon (typescript)", () => {
     expect(screen.getByRole("img")).toHaveAttribute("alt", "time")
   })
 
+  test("renders a schedule icon", () => {
+    render(<Icon icon="schedule" />)
+    expect(screen.getByRole("img")).toBeInTheDocument()
+    expect(screen.getByRole("img")).toHaveAttribute("alt", "schedule")
+  })
+
+  test("renders the same icon for schedule and accessTime (schedule is an alias for accessTime)", () => {
+    const { container: scheduleContainer } = render(<Icon icon="schedule" />)
+    const { container: accessTimeContainer } = render(<Icon icon="accessTime" />)
+    const schedulePath = scheduleContainer.querySelector("svg path")?.getAttribute("d")
+    const accessTimePath = accessTimeContainer.querySelector("svg path")?.getAttribute("d")
+    expect(schedulePath).toEqual(expect.any(String))
+    expect(accessTimePath).toEqual(expect.any(String))
+    expect(schedulePath).toEqual(accessTimePath)
+  })
+
   test("renders an accountCircle icon", () => {
     render(<Icon icon="accountCircle" />)
     expect(screen.getByRole("img")).toBeInTheDocument()
@@ -97,6 +113,12 @@ describe("Icon (typescript)", () => {
     render(<Icon icon="bolt" />)
     expect(screen.getByRole("img")).toBeInTheDocument()
     expect(screen.getByRole("img")).toHaveAttribute("alt", "bolt")
+  })
+
+  test("renders a cached icon", () => {
+    render(<Icon icon="cached" />)
+    expect(screen.getByRole("img")).toBeInTheDocument()
+    expect(screen.getByRole("img")).toHaveAttribute("alt", "cached")
   })
 
   test("renders a cancel icon", () => {
@@ -277,6 +299,14 @@ describe("Icon (typescript)", () => {
     render(<Icon icon="success" />)
     expect(screen.getByRole("img")).toBeInTheDocument()
     expect(screen.getByRole("img")).toHaveAttribute("alt", "success")
+  })
+
+  test("renders checkCircle when calling success (success has been deprecated in favour of checkCircle)", () => {
+    const { container: successContainer } = render(<Icon icon="success" />)
+    const { container: checkCircleContainer } = render(<Icon icon="checkCircle" />)
+    const successPath = successContainer.querySelector("svg path")?.getAttribute("d")
+    const checkCirclePath = checkCircleContainer.querySelector("svg path")?.getAttribute("d")
+    expect(successPath).toEqual(checkCirclePath)
   })
 
   test("renders a warning icon", () => {

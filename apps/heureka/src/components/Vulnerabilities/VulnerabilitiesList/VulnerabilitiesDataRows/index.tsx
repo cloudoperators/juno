@@ -23,7 +23,7 @@ export const VulnerabilitiesDataRows = ({ vulnerabilitiesPromise }: Vulnerabilit
 
   const openVulnerabilityPanel = useCallback(
     (vuln: Vulnerability) => {
-      navigate({
+      void navigate({
         to: "/vulnerabilities",
         search: (prev) => ({ ...prev, vulnerability: vuln.name }),
       })

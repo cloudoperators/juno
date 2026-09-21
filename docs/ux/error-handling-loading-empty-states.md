@@ -2,6 +2,9 @@
 
 # Error And Empty/Loading/Busy State Handling Strategies
 
+> [!NOTE]
+> For all error, loading, empty, and no-matches states that do not have a dedicated local or component-specific solution, use the [`Status`](https://cloudoperators.github.io/juno/?path=/docs/components-status--docs) component. It covers application-, page-, section-, and DataGrid-level states, ships with sensible defaults for all cases described in this document, and is the required default for any situation not handled by a more specific pattern. Full API and usage examples are in Storybook.
+
 # Error State Handling
 
 Patterns and rules for handling errors consistently across our applications.
@@ -62,10 +65,6 @@ A single component fails to render and/or does not receive the expected API data
 - Give feedback in the scope/context of the affected component.
 
 **See the [HTTP Error Code Reference](#http-error-code-reference) for specific codes, titles, and messages.**
-
-> **TODO:** Identify components prone to such errors, design and implement loading, empty, error states. (A good and most urgent candidate is DataGrid.)
-
-> **TODO:** Identify and design error and empty states for affected components.
 
 ## Operation/Action/CRUD errors
 

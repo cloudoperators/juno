@@ -16,7 +16,7 @@ export const VulnerabilitiesFilters = () => {
 
   const handleFilterChange = useCallback(
     (updatedFilterSettings: FilterSettings) => {
-      navigate({
+      void navigate({
         to: "/vulnerabilities",
         search: (prev) => {
           // Get the new filter URL params

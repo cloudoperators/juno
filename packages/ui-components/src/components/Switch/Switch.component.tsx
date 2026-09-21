@@ -181,7 +181,7 @@ const renderValidationIcon = (isInvalid: boolean, isValid: boolean, disabled: bo
   const size = "1.125rem"
   const className = `${iconBaseStyles} ${disabled ? "jn:opacity-50" : ""}`
 
-  // NOTE: isValid and isInvalid are purposely seperate states
+  // NOTE: isValid and isInvalid are purposely separate states
   if (isInvalid) {
     return <Icon icon="dangerous" color="jn:text-theme-error" size={size} className={className} />
   }
@@ -230,7 +230,7 @@ export const Switch = ({
   wrapperClassName = "",
   ...props
 }: SwitchProps): ReactNode => {
-  const generateUniqueId = (): string => "juno-switch-" + useId()
+  const generatedId = useId()
 
   const [isOn, setIsOn] = useState<boolean>(on)
   const [isInvalid, setIsInvalid] = useState<boolean>(false)
@@ -264,7 +264,7 @@ export const Switch = ({
     if (onChange) onChange(event as unknown as ChangeEvent<HTMLButtonElement>)
   }
 
-  const generatedId: string = id || generateUniqueId()
+  const theId: string = id || "juno-switch-" + generatedId
 
   return (
     <div>
@@ -279,7 +279,7 @@ export const Switch = ({
           type="button"
           role="switch"
           name={name}
-          id={generatedId}
+          id={theId}
           aria-checked={isOn}
           disabled={disabled}
           onClick={handleSwitchClick}
@@ -301,7 +301,7 @@ export const Switch = ({
           ></span>
         </button>
 
-        <Label text={label} htmlFor={generatedId} className="jn:ml-2" disabled={disabled} required={required} />
+        <Label text={label} htmlFor={theId} className="jn:ml-2" disabled={disabled} required={required} />
 
         {renderValidationIcon(isInvalid, isValid, disabled)}
       </span>

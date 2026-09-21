@@ -32,6 +32,7 @@ export type AppProps = {
   initialFilters?: InitialFilters
   basePath?: string
   enableHashedRouting?: boolean
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   auth?: EmbeddedAuth | AuthState
 }
 
@@ -65,9 +66,11 @@ const App = (props: AppProps) => {
     routeTree,
     context: { appProps: props, apiClient, queryClient },
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     stringifySearch: encodeV2,
     parseSearch: (searchString) => {
       if (!props.enableHashedRouting) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
         return decodeV2(searchString)
       }
 
@@ -85,6 +88,7 @@ const App = (props: AppProps) => {
       const preHashParams = searchString.indexOf("?", postHashParams + 1)
       const searchStringFromHash = searchString.slice(postHashParams, preHashParams === -1 ? undefined : preHashParams)
 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
       return decodeV2(searchStringFromHash)
     },
   })
@@ -102,7 +106,9 @@ const App = (props: AppProps) => {
                   <AuthProvider
                     embedded={props.embedded && !!props.auth}
                     auth={
+                      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                       props.auth &&
+                      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
                       ("getSnapshot" in props.auth ? props.auth : { getSnapshot: () => props.auth as AuthState })
                     }
                   >

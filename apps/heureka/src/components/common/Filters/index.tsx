@@ -74,7 +74,7 @@ export const Filters = ({ filtersPromise, filterSettings, onFilterChange, search
           className="w-96 ml-auto"
           data-testid="searchbar"
           value={filterSettings.searchTerm}
-          onSearch={(searchTerm) => {
+          onSearch={(searchTerm: string | undefined) => {
             onFilterChange({
               ...filterSettings,
               searchTerm,

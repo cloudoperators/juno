@@ -111,6 +111,14 @@ export const IconAsButton: Story = {
   },
 }
 
+export const Access_Time: Story = {
+  // Note: `accessTime` and `schedule` return the same icon. `schedule` is an alias for `accessTime`.
+  args: {
+    ...Default.args,
+    icon: "accessTime",
+  },
+}
+
 export const Account_Circle: Story = {
   args: {
     ...Default.args,
@@ -146,6 +154,13 @@ export const Bolt: Story = {
   },
 }
 
+export const Cached: Story = {
+  args: {
+    ...Default.args,
+    icon: "cached",
+  },
+}
+
 export const Cancel: Story = {
   args: {
     ...Default.args,
@@ -160,6 +175,8 @@ export const Check: Story = {
 }
 
 export const CheckCircle: Story = {
+  // Note: `success` and `checkCircle` return the same icon. `success` (check_box.svg) has been deprecated
+  // in favour of `checkCircle` to avoid visual inconsistency between two filled checkmark icons.
   args: {
     icon: "checkCircle",
   },
@@ -382,6 +399,14 @@ export const Search: Story = {
   },
 }
 
+export const Schedule: Story = {
+  // Note: `schedule` and `accessTime` return the same icon. `schedule` is an alias for `accessTime`.
+  args: {
+    ...Default.args,
+    icon: "schedule",
+  },
+}
+
 export const SeverityLow: Story = {
   args: {
     ...Default.args,
@@ -431,6 +456,8 @@ export const SeverityUnknown: Story = {
 }
 
 export const Success: Story = {
+  // Note: `success` and `checkCircle` return the same icon. `success` (check_box.svg) has been deprecated
+  // in favour of `checkCircle` to avoid visual inconsistency between two filled checkmark icons.
   args: {
     ...Default.args,
     icon: "success",

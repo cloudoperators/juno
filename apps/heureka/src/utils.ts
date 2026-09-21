@@ -5,6 +5,14 @@
 
 import { useState, useRef, useEffect, Dispatch, SetStateAction } from "react"
 import { KnownIcons } from "@cloudoperators/juno-ui-components"
+import { z } from "zod"
+
+/** Zod schema for optional URL search params that may be parsed as numbers by TanStack Router. */
+export const optionalStringSchema = z.preprocess(
+  (val) =>
+    val === undefined || val === null ? undefined : typeof val === "string" ? val : String(val as number | boolean),
+  z.string().optional()
+)
 
 export const capitalizeFirstLetter = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1)
@@ -65,7 +73,7 @@ export const useTextOverflow = (text: string | null) => {
  */
 
 // Replace _.isEmpty()
-export const isEmpty = (value: any): boolean => {
+export const isEmpty = (value: unknown): boolean => {
   if (value == null) return true
   if (typeof value === "string" || Array.isArray(value)) return value.length === 0
   if (typeof value === "object") return Object.keys(value).length === 0
@@ -73,12 +81,12 @@ export const isEmpty = (value: any): boolean => {
 }
 
 // Replace _.isNil()
-export const isNil = (value: any): value is null | undefined => {
+export const isNil = (value: unknown): value is null | undefined => {
   return value == null
 }
 
 // Replace _.omit()
-export const omit = <T extends Record<string, any>, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> => {
+export const omit = <T extends Record<string, unknown>, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> => {
   const result = { ...obj }
   keys.forEach((key) => {
     delete result[key]

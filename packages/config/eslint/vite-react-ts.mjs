@@ -9,17 +9,16 @@ import tseslint from "typescript-eslint"
 import reactHooks from "eslint-plugin-react-hooks"
 import reactRefresh from "eslint-plugin-react-refresh"
 
-export default [
+export default tseslint.config(
   // Global ignores
   {
     ignores: ["**/build/*", "**/dist/*", "**/vite.config.ts.timestamp-*", "**/storybook-static/*"],
   },
 
   // TypeScript and React configuration
-  // Note: Uses 'extends' (Vite 2026 pattern) instead of spreading configs at top level.
-  // This scopes all rules to TypeScript files only, preventing JS/TS rule conflicts.
-  // The 'files' key ensures configs apply only to .ts/.tsx files from the start,
-  // unlike spreading which applies configs globally then layers file-specific rules.
+  // Uses tseslint.config() to resolve 'extends' at config-creation time so ESLint
+  // never sees the key — required for compatibility with ESLint flat config.
+  // Scopes all rules to TypeScript files only, preventing JS/TS rule conflicts.
   {
     files: ["**/*.{ts,tsx}"],
     extends: [
@@ -45,5 +44,5 @@ export default [
         },
       ],
     },
-  },
-]
+  }
+)

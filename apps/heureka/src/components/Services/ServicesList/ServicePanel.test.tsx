@@ -20,7 +20,7 @@ const renderComponent = () => {
   const testRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: "/services/",
-    loader: async () => ({
+    loader: () => ({
       servicesPromise: mockServicesPromise,
     }),
     component: () => (

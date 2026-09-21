@@ -55,6 +55,7 @@ const VulnerabilitiesTabContent = ({
   onFalsePositiveSuccess,
   onRiskAcceptanceSuccess,
   onMitigateManuallySuccess,
+  onChangeSeveritySuccess,
 }: {
   service: string
   image: ServiceImage
@@ -66,6 +67,7 @@ const VulnerabilitiesTabContent = ({
   onFalsePositiveSuccess: (cveNumber: string) => void | Promise<void>
   onRiskAcceptanceSuccess: (cveNumber: string) => void | Promise<void>
   onMitigateManuallySuccess: (cveNumber: string) => void | Promise<void>
+  onChangeSeveritySuccess: (cveNumber: string) => void | Promise<void>
 }) => {
   return (
     <>
@@ -78,7 +80,7 @@ const VulnerabilitiesTabContent = ({
         <SearchInput
           placeholder="Search for CVE number"
           className="w-96 ml-auto"
-          onSearch={(search) => setSearchTerm(search || "")}
+          onSearch={(search: string | undefined) => setSearchTerm(search || "")}
           onClear={() => {
             setSearchTerm("")
           }}
@@ -95,7 +97,7 @@ const VulnerabilitiesTabContent = ({
           <DataGridHeadCell />
         </DataGridRow>
 
-        {issuesPromise && (
+        {issuesPromise != null && (
           <ErrorBoundary
             displayErrorMessage
             fallbackRender={getErrorDataRowComponent({ colspan: 5 })}
@@ -110,12 +112,13 @@ const VulnerabilitiesTabContent = ({
                 onFalsePositiveSuccess={onFalsePositiveSuccess}
                 onRiskAcceptanceSuccess={onRiskAcceptanceSuccess}
                 onMitigateManuallySuccess={onMitigateManuallySuccess}
+                onChangeSeveritySuccess={onChangeSeveritySuccess}
               />
             </Suspense>
           </ErrorBoundary>
         )}
       </DataGrid>
-      {issuesPromise && (
+      {issuesPromise != null && (
         <ErrorBoundary resetKeys={[issuesPromise]}>
           <Suspense>
             <CursorPagination
@@ -168,7 +171,7 @@ const RemediatedVulnerabilitiesTabContent = ({
         <SearchInput
           placeholder="Search for CVE number"
           className="w-96 ml-auto"
-          onSearch={(search) => setSearchTerm(search || "")}
+          onSearch={(search: string | undefined) => setSearchTerm(search || "")}
           onClear={() => setSearchTerm("")}
         />
       </Stack>
@@ -184,7 +187,7 @@ const RemediatedVulnerabilitiesTabContent = ({
             <DataGridHeadCell />
           </DataGridRow>
 
-          {issuesPromise && (
+          {issuesPromise != null && (
             <ErrorBoundary
               displayErrorMessage
               fallbackRender={getErrorDataRowComponent({ colspan: COLUMN_SPAN })}
@@ -204,7 +207,7 @@ const RemediatedVulnerabilitiesTabContent = ({
             </ErrorBoundary>
           )}
         </DataGrid>
-        {issuesPromise && (
+        {issuesPromise != null && (
           <ErrorBoundary resetKeys={[issuesPromise, remediationsPromise]}>
             <Suspense>
               <RemediatedCursorPagination
@@ -244,7 +247,7 @@ export const ImageIssuesList = ({
   const handleTabSelect = useCallback(
     (index: number) => {
       const list: VulnerabilitiesTabValue = index === 1 ? "remediated" : "active"
-      navigate({
+      void navigate({
         to: "/services/$service/images/$image",
         params: { service, image: image.repository },
         search: { vulnerabilitiesList: list, vulRemediations: list === "remediated" ? vulRemediations : undefined },
@@ -255,7 +258,7 @@ export const ImageIssuesList = ({
   )
   const handleRemediationPanelVulnerabilityChange = useCallback(
     (cve: string | null) => {
-      navigate({
+      void navigate({
         to: "/services/$service/images/$image",
         params: { service, image: image.repository },
         search: { vulnerabilitiesList: "remediated", vulRemediations: cve ?? undefined },
@@ -340,23 +343,41 @@ export const ImageIssuesList = ({
     },
   })
 
-  const handleFalsePositiveSuccess = useCallback((cveNumber: string) => {
-    setVulnerabilitiesSuccessMessage(
-      `Vulnerability ${cveNumber} has been marked as a false positive and moved to the Remediated list.`
-    )
-  }, [])
+  const handleFalsePositiveSuccess = useCallback(
+    (cveNumber: string) => {
+      setVulnerabilitiesSuccessMessage(
+        `Vulnerability ${cveNumber} has been marked as a false positive and moved to the Remediated list.`
+      )
+    },
+    [setVulnerabilitiesSuccessMessage]
+  )
 
-  const handleRiskAcceptanceSuccess = useCallback((cveNumber: string) => {
-    setVulnerabilitiesSuccessMessage(
-      `Vulnerability ${cveNumber} has been accepted as a risk and moved to the Remediated list.`
-    )
-  }, [])
+  const handleRiskAcceptanceSuccess = useCallback(
+    (cveNumber: string) => {
+      setVulnerabilitiesSuccessMessage(
+        `Vulnerability ${cveNumber} has been accepted as a risk and moved to the Remediated list.`
+      )
+    },
+    [setVulnerabilitiesSuccessMessage]
+  )
 
-  const handleMitigateManuallySuccess = useCallback((cveNumber: string) => {
-    setVulnerabilitiesSuccessMessage(
-      `Vulnerability ${cveNumber} has been manually mitigated and moved to the Remediated list.`
-    )
-  }, [])
+  const handleMitigateManuallySuccess = useCallback(
+    (cveNumber: string) => {
+      setVulnerabilitiesSuccessMessage(
+        `Vulnerability ${cveNumber} has been manually mitigated and moved to the Remediated list.`
+      )
+    },
+    [setVulnerabilitiesSuccessMessage]
+  )
+
+  const handleChangeSeveritySuccess = useCallback(
+    (cveNumber: string) => {
+      setVulnerabilitiesSuccessMessage(
+        `Severity for vulnerability ${cveNumber} has been changed and moved to the Remediated list.`
+      )
+    },
+    [setVulnerabilitiesSuccessMessage]
+  )
 
   const handleRemediatedTabRemediationSuccess = useCallback(
     (cveNumber: string, remediationType: RemediationTypeValues) => {
@@ -369,7 +390,7 @@ export const ImageIssuesList = ({
       const text = `Vulnerability ${cveNumber} has been marked as ${remediationTypeLabel}.`
       setRemediatedSuccessMessage(text)
     },
-    []
+    [setRemediatedSuccessMessage]
   )
 
   return (
@@ -391,6 +412,7 @@ export const ImageIssuesList = ({
             onFalsePositiveSuccess={handleFalsePositiveSuccess}
             onRiskAcceptanceSuccess={handleRiskAcceptanceSuccess}
             onMitigateManuallySuccess={handleMitigateManuallySuccess}
+            onChangeSeveritySuccess={handleChangeSeveritySuccess}
           />
         </TabPanel>
         <TabPanel>

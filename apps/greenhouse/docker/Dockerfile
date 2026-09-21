@@ -14,7 +14,9 @@ WORKDIR /juno
 
 # copy all greenhouse apps to /tmp/greenhouse
 ADD . .
-RUN npm i -g pnpm
+
+# Enable corepack and install pnpm version from package.json packageManager field
+RUN corepack enable && corepack install
 
 RUN pnpm install && pnpx turbo build:static --filter @cloudoperators/juno-app-greenhouse
 

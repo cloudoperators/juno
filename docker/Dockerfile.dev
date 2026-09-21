@@ -1,5 +1,6 @@
-FROM node:22-alpine 
+FROM node:22-alpine
 
 RUN npm i -g turbo
-RUN npm i -g pnpm
+# Enable corepack - pnpm version will be read from package.json packageManager field
+RUN corepack enable
 

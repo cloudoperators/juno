@@ -32,3 +32,46 @@ When using a PopupMenu, always make sure:
 - the options in the menu are labelled in a way that leaves no doubt as to what the item will do once clicked
 - the reference to the toggle/item the options/actions refer to is clear (it can be helpful to include the referenced element in the labels of the options/actions ("Edit Item XYZ" rather than "Edit")
 - it is obvious to the user the toggle element is interactive/houses options
+
+## Menu Item Order and Grouping
+
+### Grouping by Entity Type
+
+If a menu contains actions targeting multiple different entity types, group all actions for the same entity type together. Separate groups with a horizontal divider.
+
+### Item Order
+
+Within a menu or within a group, sort items alphabetically — with one exception: the **Delete [Entity]** action is always placed last.
+
+### The Delete Action and Visual Separation
+
+- The **Delete [Entity]** action must always be the last item in its menu or group.
+- **Single-entity menus** (all actions refer to one entity type): separate the Delete action from the rest with a horizontal divider.
+- **Multi-entity menus** (multiple groups): the group dividers already provide visual separation. Do not add an additional divider before the Delete action within a group.
+
+### Examples
+
+**Multiple entity types — page-level overflow menu:**
+
+```
+Edit Bucket
+Empty Bucket
+Delete Bucket
+──────────────
+Edit Policy
+Delete Policy
+──────────────
+Suspend Versioning
+Delete Version
+```
+
+**Single entity type — DataGrid row overflow menu:**
+
+```
+Copy Item
+Download Item
+Share Item URL
+View Item
+──────────────
+Delete Item
+```

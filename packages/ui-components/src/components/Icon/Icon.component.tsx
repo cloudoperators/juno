@@ -13,6 +13,7 @@ import AddCircle from "@material-design-icons/svg/filled/add_circle.svg"
 import AutoAwesomeMosaic from "@material-design-icons/svg/filled/auto_awesome_mosaic.svg"
 import AutoAwesomeMotion from "@material-design-icons/svg/filled/auto_awesome_motion.svg"
 import Bolt from "@material-design-icons/svg/filled/bolt.svg"
+import Cached from "@material-design-icons/svg/filled/cached.svg"
 import CalendarToday from "@material-design-icons/svg/filled/calendar_today.svg"
 import Cancel from "@material-design-icons/svg/filled/cancel.svg"
 import Check from "@material-design-icons/svg/filled/check.svg"
@@ -48,7 +49,6 @@ import NotificationsOff from "@material-design-icons/svg/outlined/notifications_
 import OpenInBrowser from "@material-design-icons/svg/outlined/open_in_browser.svg"
 import OpenInNew from "@material-design-icons/svg/outlined/open_in_new.svg"
 import Place from "./icons/place.svg"
-import Success from "@material-design-icons/svg/filled/check_box.svg"
 import Search from "@material-design-icons/svg/outlined/search.svg"
 import SeverityLow from "./icons/juno_severity_low.svg"
 import SeverityMedium from "./icons/juno_severity_medium.svg"
@@ -114,6 +114,8 @@ export enum KnownIconsEnum {
   autoAwesomeMotion = "autoAwesomeMotion",
   // eslint-disable-next-line no-unused-vars
   bolt = "bolt",
+  // eslint-disable-next-line no-unused-vars
+  cached = "cached",
   // eslint-disable-next-line no-unused-vars
   calendarToday = "calendarToday",
   // eslint-disable-next-line no-unused-vars
@@ -187,6 +189,8 @@ export enum KnownIconsEnum {
   // eslint-disable-next-line no-unused-vars
   place = "place",
   // eslint-disable-next-line no-unused-vars
+  schedule = "schedule",
+  // eslint-disable-next-line no-unused-vars
   search = "search",
   // eslint-disable-next-line no-unused-vars
   severityLow = "severityLow",
@@ -247,6 +251,19 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           {...iconProps}
         />
       )
+    case KnownIconsEnum.schedule:
+      // `schedule` is an alias for `accessTime` — both use the same SVG.
+      return (
+        <AccessTime
+          width={size}
+          height={size}
+          className={iconClass}
+          alt="schedule"
+          title={title ? title : "Schedule"}
+          role="img"
+          {...iconProps}
+        />
+      )
     case KnownIconsEnum.accountCircle:
       return (
         <AccountCircle
@@ -303,6 +320,18 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
           className={iconClass}
           alt="bolt"
           title={title ? title : "Bolt"}
+          role="img"
+          {...iconProps}
+        />
+      )
+    case KnownIconsEnum.cached:
+      return (
+        <Cached
+          width={size}
+          height={size}
+          className={iconClass}
+          alt="cached"
+          title={title ? title : "Cached"}
           role="img"
           {...iconProps}
         />
@@ -812,8 +841,10 @@ const getColoredSizedIcon = ({ icon, color, size, title, iconClassName, ...iconP
         />
       )
     case KnownIconsEnum.success:
+      // `success` (check_box.svg) has been deprecated in favour of `checkCircle` to avoid visual inconsistency.
+      // The `success` name is kept as a valid alias so existing callers continue to work.
       return (
-        <Success
+        <CheckCircle
           width={size}
           height={size}
           className={iconClass}

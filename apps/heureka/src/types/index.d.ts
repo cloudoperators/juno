@@ -7,10 +7,10 @@
 
 declare module "@cloudoperators/juno-app-heureka" {
   export type PluginModule = {
-    mount: (container: HTMLElement, options?: Record<string, any>) => void
+    mount: (container: HTMLElement, options?: Record<string, unknown>) => void
     unmount: () => void
   }
 
-  export function mount(container: HTMLElement, options?: Record<string, any>): void
+  export function mount(container: HTMLElement, options?: Record<string, unknown>): void
   export function unmount(): void
 }

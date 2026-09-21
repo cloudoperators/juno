@@ -10,6 +10,18 @@ const meta: Meta<typeof SecretText> = {
   title: "Forms/SecretText",
   component: SecretText,
   argTypes: {
+    errortext: {
+      control: "text",
+      table: { type: { summary: "ReactNode" } },
+    },
+    helptext: {
+      control: "text",
+      table: { type: { summary: "ReactNode" } },
+    },
+    successtext: {
+      control: "text",
+      table: { type: { summary: "ReactNode" } },
+    },
     onBlur: {
       control: false,
     },

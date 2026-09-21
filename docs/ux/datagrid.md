@@ -42,7 +42,11 @@ More specifically, these are any combination of the following elements. Each ele
 
 ![Juno DataGrid Header zones](images/DataGrid-header-zones.png)
 
-### Zone 1: Sorting, Action(s)
+### Zone 1: Predefined Filters (Tabs), Sorting, Action(s)
+
+- Predefined Filter Tabs: Tabs placed on the far left of Zone 1 that apply a fixed, pre-configured set of filters to the DataGrid. Each tab represents a meaningful subset of the full data set — for example "All" and "Deleted", or "Active" and "Archived". Predefined filter tabs save users from having to manually configure the same filters repeatedly, and are particularly useful when certain subsets of the data are accessed frequently or represent distinct operational states. Only add predefined filter tabs when the subsets are genuinely useful and contextually meaningful for the typical tasks users perform on the given DataGrid.
+
+> **Do not misuse predefined filter tabs as navigation tabs.** They must always operate on the same set of entities — just filtered differently. If the tabs would show entirely different, unrelated sets of data or entity types, use page-level tabs instead, with each tab containing its own independent DataGrid.
 
 - Sorting: Select to choose what to sort by, and a button to toggle sort direction
 - Other Actions Overflow Menu: Any actions global to the data set other than the primary action
@@ -59,6 +63,8 @@ More specifically, these are any combination of the following elements. Each ele
 - Bulk Actions: Actions that can be run on multiple items in the DataGrid at once. Positioned on the left side of Zone 3. Contains a Checkbox to select/deselect all items, and a menu of available bulk actions. Requires a Checkbox on each individual item / row. Bulk action controls should be disabled until at least one item is selected. The select-all checkbox follows a tri-state model: unchecked when no items are selected, indeterminate when some are, and checked when all are. Clicking the checkbox in the unchecked or indeterminate state selects all items; clicking it in the checked state deselects all.
 - Item Count: The number of items of the set that is currently visible as a whole (not only on the current page), displayed in the center. If filters or searches are active, the number of matching items and the total number of items in the data set is being displayed.
 - Last Update, Update/Refresh: The date and time of the last refresh of the data displayed, and a button to trigger a refresh. Positioned on the right side of Zone 3.
+
+When all three elements are present, space-between distribution produces the intended left/center/right layout. When fewer elements are present, the available space is distributed between whichever elements remain — meaning positions will shift. This is an accepted tradeoff of the composition approach. We may revisit later in favor of persistent locations of the individual elements.
 
 All of the above elements are optional in the sense that none of them will be required for any given DataGrid. However, if you find yourself in a situation where none of the above options is needed or desired, reconsider whether using a DataGrid is the right choice to display the given data. This case can occur, but it is rare. In most cases a simple list is then a more appropriate option to display the data.
 
@@ -103,6 +109,10 @@ A DataGrid must handle the full range of data states gracefully. Do not render a
 - **Empty (no data):** Communicate that there is nothing to show, and suggest a next step where possible (e.g. "No items yet. Create one to get started." or "No results match your current filters.")
 - **Empty (filtered):** Distinguish between "no data exists" and "no data matches your filters" — these suggest different user actions
 - **Error:** Show an error state scoped to the DataGrid with a clear explanation and a retry option where possible. If present, refer users to the Reload/Refresh button described below.
+
+Use the [`Status`](https://cloudoperators.github.io/juno/?path=/docs/components-status--docs) component for all of these states. Place it inside a `DataGridRow` and `DataGridCell` spanning all columns. `Status` automatically adapts its styling to the DataGrid context. See Storybook for usage examples.
+
+![A DataGrid with a generic error rendered using the `Status` compponent](images/status-generic-error-datagrid.png)
 
 ## Re-Loading Data
 

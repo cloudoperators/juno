@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
 import { AppShell, AppShellProvider, Container } from "@cloudoperators/juno-ui-components"
 import AppContent from "./components/AppContent"
 import styles from "./styles.css?inline"

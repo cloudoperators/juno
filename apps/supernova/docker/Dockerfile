@@ -1,16 +1,18 @@
 # SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
 # SPDX-License-Identifier: Apache-2.0
 
-FROM node:22-alpine as build
+FROM node:22-alpine AS build
 
 LABEL org.opencontainers.image.source=https://github.com/cloudoperators/juno/tree/main/apps/supernova
 LABEL org.opencontainers.image.description="This image contains a standalone runnable version of the Supernova alternative Alertmanager UI. For configuration options see the README here: https://github.com/cloudoperators/juno/tree/main/apps/supernova/docker"
 LABEL org.opencontainers.image.licenses=Apache-2.0
 
-WORKDIR /app  
+WORKDIR /app
 
 ADD . .
-RUN npm i -g pnpm
+
+# Enable corepack and install pnpm version from package.json packageManager field
+RUN corepack enable && corepack install
 
 RUN pnpm install && pnpx turbo build:static --filter @cloudoperators/juno-app-supernova
 

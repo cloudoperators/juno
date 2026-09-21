@@ -3,30 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import junoConfigs from "@cloudoperators/juno-config/eslint/juno-typescript.mjs"
-
-const customRulesConfig = {
-  rules: {
-    "no-unused-vars": [
-      "error",
-      {
-        argsIgnorePattern: "^_",
-        varsIgnorePattern: "^_",
-      },
-    ],
-  },
-}
+import junoConfigs from "@cloudoperators/juno-config/eslint/vite-react-ts.mjs"
 
 export default [
   ...junoConfigs,
   {
-    ...customRulesConfig,
-  },
-  {
-    files: ["**/*.test.js"],
-    languageOptions: { sourceType: "module" },
-  },
-  {
-    ignores: ["setupTests.js", "appProps.template.ts"],
+    ignores: ["vite.config.ts", "vitest.config.ts"],
   },
 ]

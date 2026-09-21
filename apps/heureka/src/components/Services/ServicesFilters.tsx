@@ -16,7 +16,7 @@ export const ServicesFilters = () => {
 
   const handleFilterChange = useCallback(
     (updatedFilterSettings: FilterSettings) => {
-      navigate({
+      void navigate({
         to: "/services",
         search: (prev) => {
           const newFilterParams = getFiltersForUrl(updatedFilterSettings)

@@ -28,19 +28,19 @@ const meta: Meta<typeof ComboBox> = {
       },
     },
     errortext: {
-      control: false,
+      control: "text",
       table: {
         type: { summary: "ReactNode" },
       },
     },
     helptext: {
-      control: false,
+      control: "text",
       table: {
         type: { summary: "ReactNode" },
       },
     },
     successtext: {
-      control: false,
+      control: "text",
       table: {
         type: { summary: "ReactNode" },
       },

@@ -13,14 +13,13 @@ import AlertsTab from "../components/alerts/AlertsTab"
 import { ACTIVE_FILTERS_PREFIX, PAUSED_FILTERS_PREFIX } from "../constants"
 import { convertUrlStateToAppState, getFiltersForUrl } from "../lib/urlStateUtils"
 import { useGlobalsActions, useFilterActions, useGlobalsInitialFiltersApplied } from "../components/StoreProvider"
-import { isObjectWithKeys } from "../lib/utils"
-import { filterSearchParamsByPrefix } from "../lib/utils"
+import { isObjectWithKeys, filterSearchParamsByPrefix, optionalStringSchema } from "../lib/utils"
 
 const filterValueSchema = z.union([z.string(), z.array(z.string()), z.undefined()])
 
 const searchSchema = z
   .object({
-    searchTerm: z.string().optional(),
+    searchTerm: optionalStringSchema,
     showDetailsFor: z.string().optional(),
     predefinedFilter: z.string().optional(),
   })

@@ -9,7 +9,6 @@ import { DataGrid } from "./DataGrid.component"
 import { DataGridRow } from "../DataGridRow"
 import { DataGridCell } from "../DataGridCell"
 import { DataGridHeadCell } from "../DataGridHeadCell"
-import { DataGridCheckboxCell } from "../DataGridCheckboxCell"
 import { DataGridToolbar } from "../DataGridToolbar"
 import { Stack } from "../Stack"
 import { Button } from "../Button"
@@ -137,17 +136,24 @@ export const WithFiltersSearchAndState: Story = {
 
 export const WithSearchOnly: Story = {
   render: () => (
-    <DataGridToolbar>
-      <Stack distribution="end" alignment="center">
-        <SearchInput placeholder="Search servers…" />
-      </Stack>
-    </DataGridToolbar>
+    <Stack direction="vertical">
+      <DataGridToolbar>
+        <Stack distribution="end" alignment="center">
+          <SearchInput placeholder="Search servers…" />
+        </Stack>
+      </DataGridToolbar>
+      <DataGridToolbar>
+        {/* Zone 3: Item count only */}
+        <Stack distribution="center" alignment="center" className="jn:text-sm">
+          <span>Showing 4 servers</span>
+        </Stack>
+      </DataGridToolbar>
+    </Stack>
   ),
   parameters: {
     docs: {
       description: {
-        story:
-          "Zone 2 with search only — no filter controls needed. Use this when the dataset doesn't require structured filtering.",
+        story: "Zone 2 with search only — no filter controls needed. Zone 3 shows item count only, centered.",
       },
       source: { type: "dynamic" },
     },
@@ -157,6 +163,7 @@ export const WithSearchOnly: Story = {
 export const FullyFeatured: Story = {
   render: () => {
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc")
+    const [selected, setSelected] = useState<Record<string, boolean>>({})
 
     return (
       <>
@@ -165,7 +172,7 @@ export const FullyFeatured: Story = {
           <Stack distribution="end" alignment="center" gap="2" className="jn:pb-2">
             <Stack gap="2">
               <Stack gap="0.5">
-                <Select width="auto" className="jn:min-w-40">
+                <Select width="auto" label="Sort by" className="jn:min-w-40">
                   <SelectOption value="name" label="Name" />
                   <SelectOption value="status" label="Status" />
                   <SelectOption value="region" label="Region" />
@@ -193,7 +200,7 @@ export const FullyFeatured: Story = {
               {/* Zone 2: Filters + Search */}
               <Stack distribution="between" alignment="center">
                 <InputGroup>
-                  <Select width="auto" className="jn:min-w-44">
+                  <Select width="auto" label="Filter by" className="jn:min-w-44">
                     <SelectOption value="region" label="Region" />
                     <SelectOption value="status" label="Status" />
                     <SelectOption value="az" label="Availability Zone" />
@@ -250,7 +257,13 @@ export const FullyFeatured: Story = {
           </DataGridRow>
           {servers.map((s) => (
             <DataGridRow key={s.id}>
-              <DataGridCheckboxCell />
+              <DataGridCell verticalAlignment="center">
+                <Checkbox
+                  aria-label={`Select ${s.name}`}
+                  checked={!!selected[s.id]}
+                  onChange={(e) => setSelected((prev) => ({ ...prev, [s.id]: e.target.checked }))}
+                />
+              </DataGridCell>
               <DataGridCell>{s.name}</DataGridCell>
               <DataGridCell>{s.region}</DataGridCell>
               <DataGridCell>{s.status}</DataGridCell>
@@ -284,7 +297,7 @@ export const FullyFeatured: Story = {
   <Stack distribution="end" alignment="center" gap="2" className="pb-2">
     <Stack gap="2">
       <Stack gap="0.5">
-        <Select width="auto" className="min-w-40">
+        <Select width="auto" label="Sort by" className="min-w-40">
           <SelectOption value="name" label="Name" />
           <SelectOption value="status" label="Status" />
           <SelectOption value="region" label="Region" />
@@ -311,7 +324,7 @@ export const FullyFeatured: Story = {
     <Stack direction="vertical" gap="2">
       <Stack distribution="between" alignment="center">
         <InputGroup>
-          <Select width="auto" className="min-w-44">
+          <Select width="auto" label="Filter by" className="min-w-44">
             <SelectOption value="region" label="Region" />
             <SelectOption value="status" label="Status" />
             <SelectOption value="az" label="Availability Zone" />
@@ -367,7 +380,13 @@ export const FullyFeatured: Story = {
   </DataGridRow>
   {servers.map((s) => (
     <DataGridRow key={s.id}>
-      <DataGridCheckboxCell />
+      <DataGridCell verticalAlignment="center">
+        <Checkbox
+          aria-label={\`Select \${s.name}\`}
+          checked={!!selected[s.id]}
+          onChange={(e) => setSelected((prev) => ({ ...prev, [s.id]: e.target.checked }))}
+        />
+      </DataGridCell>
       <DataGridCell>{s.name}</DataGridCell>
       <DataGridCell>{s.region}</DataGridCell>
       <DataGridCell>{s.status}</DataGridCell>

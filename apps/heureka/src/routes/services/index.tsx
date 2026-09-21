@@ -13,14 +13,14 @@ import { SELECTED_FILTER_PREFIX } from "../../constants"
 import { fetchServices } from "../../api/fetchServices"
 import { fetchServicesFilters } from "../../api/fetchServicesFilters"
 import { extractFilterSettingsFromSearchParams } from "../../components/Services/utils"
-import { filterSearchParamsByPrefix } from "../../utils"
+import { filterSearchParamsByPrefix, optionalStringSchema } from "../../utils"
 
 const filterValueSchema = z.union([z.string(), z.array(z.string()), z.undefined()])
 
 const servicesSearchSchema = z
   .object({
     service: z.string().optional(),
-    searchTerm: z.string().optional(),
+    searchTerm: optionalStringSchema,
   })
   .catchall(filterValueSchema)
 
@@ -28,7 +28,7 @@ export type ServicesSearchParams = z.infer<typeof servicesSearchSchema>
 
 function validateServicesSearch(search: Record<string, unknown>): ServicesSearchParams {
   const filtered = filterSearchParamsByPrefix(search, Object.keys(servicesSearchSchema.shape), [SELECTED_FILTER_PREFIX])
-  return servicesSearchSchema.parse(filtered) as ServicesSearchParams
+  return servicesSearchSchema.parse(filtered)
 }
 
 export const Route = createFileRoute("/services/")({
@@ -77,7 +77,7 @@ function RouteComponent() {
       const initialFilters = getInitialFilters(appProps.initialFilters)
 
       if (initialFilters.length > 0) {
-        navigate({
+        void navigate({
           to: "/services",
           search: getFiltersForUrl({
             searchTerm: "",

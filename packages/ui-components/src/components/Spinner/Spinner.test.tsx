@@ -62,25 +62,22 @@ describe("Spinner", () => {
   test("renders a small Spinner", () => {
     render(<Spinner id="spinner" size="small" />)
     const spinner = document.getElementById("spinner")
-    const spinnerstyles = window.getComputedStyle(spinner!)
-    expect(spinnerstyles.height).toBe("1rem")
-    expect(spinnerstyles.width).toBe("1rem")
+    expect(spinner!.style.height).toBe("1rem")
+    expect(spinner!.style.width).toBe("1rem")
   })
 
   test("renders a large Spinner", () => {
     render(<Spinner id="spinner" size="large" />)
     const spinner = document.getElementById("spinner")
-    const spinnerstyles = window.getComputedStyle(spinner!)
-    expect(spinnerstyles.height).toBe("3rem")
-    expect(spinnerstyles.width).toBe("3rem")
+    expect(spinner!.style.height).toBe("3rem")
+    expect(spinner!.style.width).toBe("3rem")
   })
 
   test("renders a custom sized Spinner", () => {
     render(<Spinner id="spinner" size="8rem" />)
     const spinner = document.getElementById("spinner")
-    const spinnerstyles = window.getComputedStyle(spinner!)
-    expect(spinnerstyles.height).toBe("8rem")
-    expect(spinnerstyles.width).toBe("8rem")
+    expect(spinner!.style.height).toBe("8rem")
+    expect(spinner!.style.width).toBe("8rem")
   })
 
   test("renders a custom className", () => {

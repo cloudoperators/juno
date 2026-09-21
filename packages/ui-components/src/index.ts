@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -24,7 +24,6 @@ export { Checkbox } from "./components/Checkbox/Checkbox.component"
 export { CheckboxGroup } from "./components/CheckboxGroup/CheckboxGroup.component"
 export { Code } from "./components/Code/Code.component"
 export { CodeBlock } from "./components/CodeBlock/CodeBlock.component"
-export { CodeBlockFooter } from "./components/CodeBlock/CodeBlockFooter.component"
 export { ComboBox } from "./components/ComboBox/ComboBox.component"
 export { ComboBoxOption } from "./components/ComboBoxOption/ComboBoxOption.component"
 export { ContentHeading } from "./components/ContentHeading/ContentHeading.component"
@@ -99,6 +98,7 @@ export { SortButton } from "./components/SortButton/SortButton.component"
 export { Spinner } from "./components/Spinner/Spinner.component"
 export { Stack } from "./components/Stack/Stack.component"
 export { StyleProvider } from "./components/StyleProvider/StyleProvider.component"
+export { Status } from "./components/Status/Status.component"
 export { Switch } from "./components/Switch/Switch.component"
 export { Tab } from "./components/Tab/Tab.component"
 export { TabList } from "./components/TabList/TabList.component"
@@ -135,7 +135,6 @@ export type { CheckboxProps } from "./components/Checkbox/Checkbox.component"
 export type { CheckboxGroupProps, CheckboxGroupContextProps } from "./components/CheckboxGroup/CheckboxGroup.component"
 export type { CodeProps } from "./components/Code/Code.component"
 export type { CodeBlockProps } from "./components/CodeBlock/CodeBlock.component"
-export type { CodeBlockFooterProps } from "./components/CodeBlock/CodeBlockFooter.component"
 export type { ComboBoxProps, ComboBoxWidth, ComboBoxContextType } from "./components/ComboBox/ComboBox.component"
 export type { ComboBoxOptionProps } from "./components/ComboBoxOption/ComboBoxOption.component"
 export type { ContentHeadingProps } from "./components/ContentHeading/ContentHeading.component"
@@ -224,6 +223,7 @@ export type {
   StackDistribution,
   StackGap,
 } from "./components/Stack/Stack.component"
+export type { StatusProps } from "./components/Status/Status.component"
 export type { StyleProviderProps, StyleContextProps } from "./components/StyleProvider/StyleProvider.component"
 export type { SwitchProps } from "./components/Switch/Switch.component"
 export type { TabProps } from "./components/Tab/Tab.component"

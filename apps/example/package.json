@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-app-example",
-  "version": "2.4.22",
+  "version": "2.4.26",
   "author": "UI-Team",
   "type": "module",
   "repository": "https://github.com/cloudoperators/juno/tree/main/apps/example",
@@ -11,21 +11,21 @@
   "private": true,
   "engines": {
     "node": ">=20.19.0",
-    "pnpm": ">=8.0.0"
+    "pnpm": ">=11.25.0"
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
     "@tailwindcss/vite": "4.3.3",
-    "@tanstack/react-query": "5.100.14",
+    "@tanstack/react-query": "5.102.8",
     "@testing-library/jest-dom": "6.9.1",
-    "@testing-library/react": "16.3.2",
-    "@types/react": "19.2.17",
-    "@types/react-dom": "19.2.3",
-    "@vitejs/plugin-react": "6.0.3",
-    "jsdom": "29.1.1",
-    "shadow-dom-testing-library": "1.13.1",
+    "@testing-library/react": "16.3.3",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.5",
+    "@vitejs/plugin-react": "6.1.1",
+    "jsdom": "30.0.1",
+    "shadow-dom-testing-library": "1.14.1",
     "tailwindcss": "4.3.3",
-    "vite": "8.0.16",
+    "vite": "8.2.2",
     "vite-plugin-svgr": "5.2.0",
     "vitest": "4.1.11"
   },
@@ -34,10 +34,10 @@
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
     "@tailwindcss/vite": "4.3.3",
-    "msw": "2.14.7",
-    "react": "19.2.7",
-    "react-dom": "19.2.7",
-    "zustand": "5.0.14"
+    "msw": "2.15.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "zustand": "5.0.15"
   },
   "scripts": {
     "test": "vitest run",

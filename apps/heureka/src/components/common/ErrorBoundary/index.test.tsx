@@ -19,7 +19,7 @@ const ComponentThatThrows = () => {
 const CustomFallback = ({ error }: FallbackProps) => <div>Custom fallback: {(error as Error)?.message}</div>
 
 describe("ErrorBoundary", () => {
-  let consoleSpy: any
+  let consoleSpy: ReturnType<typeof vi.spyOn>
 
   beforeEach(() => {
     // mock console.error to suppress the error message being printed to the console
@@ -28,6 +28,7 @@ describe("ErrorBoundary", () => {
 
   afterEach(() => {
     // restore console.error to its original implementation
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     consoleSpy.mockRestore()
   })
 
