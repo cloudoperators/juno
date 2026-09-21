@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteRouteImport } from './routes/admin/route'
-import { Route as OrgAdminRouteImport } from './routes/org-admin'
 import { Route as ExtensionIdSplatRouteImport } from './routes/$extensionId.$'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminClustersRouteRouteImport } from './routes/admin/clusters/route'
@@ -34,11 +33,6 @@ const IndexRoute = IndexRouteImport.update({
 const AdminRouteRoute = AdminRouteRouteImport.update({
   id: '/admin',
   path: '/admin',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OrgAdminRoute = OrgAdminRouteImport.update({
-  id: '/org-admin',
-  path: '/org-admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExtensionIdSplatRoute = ExtensionIdSplatRouteImport.update({
@@ -119,7 +113,6 @@ const AdminPluginPresetsPluginPresetNamePluginInstancesPluginInstanceRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
-  '/org-admin': typeof OrgAdminRoute
   '/admin/clusters': typeof AdminClustersRouteRouteWithChildren
   '/admin/plugin-presets': typeof AdminPluginPresetsRouteRouteWithChildren
   '/$extensionId/$': typeof ExtensionIdSplatRoute
@@ -136,7 +129,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/org-admin': typeof OrgAdminRoute
   '/$extensionId/$': typeof ExtensionIdSplatRoute
   '/admin/exposed-services': typeof AdminExposedServicesRoute
   '/admin': typeof AdminIndexRoute
@@ -151,7 +143,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
-  '/org-admin': typeof OrgAdminRoute
   '/admin/clusters': typeof AdminClustersRouteRouteWithChildren
   '/admin/plugin-presets': typeof AdminPluginPresetsRouteRouteWithChildren
   '/$extensionId/$': typeof ExtensionIdSplatRoute
@@ -171,7 +162,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
-    | '/org-admin'
     | '/admin/clusters'
     | '/admin/plugin-presets'
     | '/$extensionId/$'
@@ -188,7 +178,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/org-admin'
     | '/$extensionId/$'
     | '/admin/exposed-services'
     | '/admin'
@@ -202,7 +191,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/admin'
-    | '/org-admin'
     | '/admin/clusters'
     | '/admin/plugin-presets'
     | '/$extensionId/$'
@@ -221,7 +209,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRouteRoute: typeof AdminRouteRouteWithChildren
-  OrgAdminRoute: typeof OrgAdminRoute
   ExtensionIdSplatRoute: typeof ExtensionIdSplatRoute
 }
 
@@ -239,13 +226,6 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/org-admin': {
-      id: '/org-admin'
-      path: '/org-admin'
-      fullPath: '/org-admin'
-      preLoaderRoute: typeof OrgAdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$extensionId/$': {
@@ -441,7 +421,6 @@ const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRouteRoute: AdminRouteRouteWithChildren,
-  OrgAdminRoute: OrgAdminRoute,
   ExtensionIdSplatRoute: ExtensionIdSplatRoute,
 }
 export const routeTree = rootRouteImport

@@ -18,6 +18,7 @@ on:
       - reopened
       - synchronize
       - closed
+      - labeled
     paths:
       - "packages/ui-components/**"
       - "apps/example/**"
@@ -36,6 +37,22 @@ env:
   PREVIEW_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/pr-preview/pr-${{ github.event.pull_request.number }}
 
 jobs:
+  check-preview-label:
+    # Check if preview label is present
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    outputs:
+      has-preview-label: ${{ steps.check-label.outputs.result }}
+    steps:
+      - name: Check for preview label
+        id: check-label
+        run: |
+          if [[ "${{ contains(github.event.pull_request.labels.*.name, 'ui-pr-preview') }}" == "true" ]]; then
+            echo "result=true" >> $GITHUB_OUTPUT
+          else
+            echo "result=false" >> $GITHUB_OUTPUT
+          fi
+
   run-detect-changes:
     # skip if the PR is from a forked repository
     if: github.event.pull_request.head.repo.full_name == github.repository
@@ -47,7 +64,7 @@ jobs:
   build-deploy:
     # skip if the PR is from a forked repository
     if: github.event.pull_request.head.repo.full_name == github.repository
-    needs: [run-detect-changes]
+    needs: [check-preview-label, run-detect-changes]
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -57,8 +74,9 @@ jobs:
         id: compile-envs
         run: |
           # setup ENVs for each app to preview
-          echo "IS_STORYBOOK_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}" >> $GITHUB_ENV
-          echo "IS_EXAMPLE_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'example') || contains(needs.run-detect-changes.outputs.changes, 'ui-components') }}" >> $GITHUB_ENV
+          # Build if either files changed OR preview label is present
+          echo "IS_STORYBOOK_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'ui-components') || needs.check-preview-label.outputs.has-preview-label == 'true' }}" >> $GITHUB_ENV
+          echo "IS_EXAMPLE_CHANGED=${{ contains(needs.run-detect-changes.outputs.changes, 'example') || contains(needs.run-detect-changes.outputs.changes, 'ui-components') || needs.check-preview-label.outputs.has-preview-label == 'true' }}" >> $GITHUB_ENV
 
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         if: github.event.action != 'closed'
@@ -69,7 +87,7 @@ jobs:
         if: github.event.action != 'closed'
         uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
         with:
-          version: 11.25.0
+          package_json_file: package.json
 
       - name: Get pnpm store directory
         if: github.event.action != 'closed'

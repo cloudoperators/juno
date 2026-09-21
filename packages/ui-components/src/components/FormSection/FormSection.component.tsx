@@ -3,15 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { HTMLAttributes, ReactNode } from "react"
+import React, { HTMLAttributes, ReactNode, useId } from "react"
 
 const formSectionBaseStyles = `
     jn:mb-8
     jn:last:mb-0
 `
 
-const headingStyles = `
-    jn:mb-4
+const titleStyles = `
+    jn:text-lg
+    jn:leading-relaxed
+    jn:font-sans
+    jn:font-bold
+    jn:mb-2
 `
 
 export interface FormSectionProps extends HTMLAttributes<HTMLElement> {
@@ -32,6 +36,12 @@ export interface FormSectionProps extends HTMLAttributes<HTMLElement> {
    * This can include form elements and other React nodes.
    */
   children?: ReactNode
+
+  /**
+   * Additional CSS classes to apply to the form section's title if present.
+   * @default ""
+   */
+  titleClassName?: string
 }
 
 /**
@@ -40,10 +50,25 @@ export interface FormSectionProps extends HTMLAttributes<HTMLElement> {
  * @see https://cloudoperators.github.io/juno/?path=/docs/forms-formsection--docs
  * @see {@link FormSectionProps}
  */
-export const FormSection = ({ title = "", children, className = "", ...props }: FormSectionProps): ReactNode => {
+export const FormSection = ({
+  title = "",
+  children,
+  className = "",
+  titleClassName = "",
+  ...props
+}: FormSectionProps): ReactNode => {
+  const titleId = useId()
   return (
-    <section className={`juno-form-section ${formSectionBaseStyles} ${className}`} {...props}>
-      {title ? <h4 className={`juno-formsection-heading ${headingStyles}`}>{title}</h4> : null}
+    <section
+      aria-labelledby={title ? titleId : undefined}
+      className={`juno-form-section ${formSectionBaseStyles} ${className}`}
+      {...props}
+    >
+      {title ? (
+        <p id={titleId} className={`juno-form-section-title ${titleStyles} ${titleClassName}`}>
+          {title}
+        </p>
+      ) : null}
       {children}
     </section>
   )
