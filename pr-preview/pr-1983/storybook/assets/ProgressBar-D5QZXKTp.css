@@ -1,0 +1,1 @@
+@keyframes juno-progress-busy{0%{width:4%;margin-left:0%}50%{width:82%;margin-left:8%}to{width:4%;margin-left:96%}}.juno-progressbar-busy-fill{width:4%;animation:1.1s ease-in-out infinite alternate juno-progress-busy}
