@@ -9,3 +9,14 @@
   50%   { margin-left: 8%;   width: 82%; }
   100%  { margin-left: 96%;  width: 4%; }
 }
+
+/*
+ * Busy fill consumes the keyframe above via a class rule instead of an inline
+ * style, matching the Juno convention (see DateTimePicker `fpFadeInDown`).
+ * No `prefers-reduced-motion` guard: in `busy` mode the bar is indeterminate,
+ * so this gentle 1.1s loop is the only progress signal and stays running.
+ */
+.juno-progressbar-busy-fill {
+  width: 4%;
+  animation: juno-progress-busy 1.1s ease-in-out infinite alternate;
+}

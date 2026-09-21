@@ -60,45 +60,44 @@ export const ProgressBar = ({
 
   React.useEffect(() => {
     if (mode !== "simulated") return
+    setSimulatedWidth(0)
     if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
       setSimulatedWidth(simulatedSteps[simulatedSteps.length - 1])
       return
     }
     const timers: ReturnType<typeof setTimeout>[] = []
-    let elapsed = 300
+    // Nudge the bar to a small value almost immediately so the user gets instant
+    // feedback that work has started, before the first real step at ~2.7s.
+    timers.push(setTimeout(() => setSimulatedWidth(7), 200))
+    let elapsed = 2700
     simulatedSteps.forEach((target) => {
       timers.push(setTimeout(() => setSimulatedWidth(target), elapsed))
-      elapsed += 450 + Math.random() * 600
+      elapsed += 4050 + Math.random() * 5400
     })
     return () => timers.forEach(clearTimeout)
   }, [mode])
   return (
     <div
+      {...props}
       role="progressbar"
       aria-valuenow={indeterminate ? undefined : clampedValue}
       aria-valuemin={0}
       aria-valuemax={100}
       aria-label={ariaLabel}
       className={`juno-progressbar ${progressBarBaseStyles} ${width} ${className}`}
-      {...props}
     >
       {mode === "busy" ? (
-        <div
-          className="jn:h-full jn:rounded-xl jn:bg-theme-progressbar"
-          style={{ width: "4%", animation: "juno-progress-busy 1.1s ease-in-out infinite alternate" }}
-        />
+        <div className="juno-progressbar-busy-fill jn:h-full jn:rounded-xl jn:bg-theme-progressbar" />
       ) : mode === "simulated" ? (
         <div
           className="juno-progressbar-simulated-fill jn:h-full jn:rounded-xl jn:bg-theme-progressbar jn:transition-[width] jn:duration-300 jn:ease-out jn:motion-reduce:transition-none"
           style={{ width: `${simulatedWidth}%` }}
         />
       ) : (
-        clampedValue > 0 && (
-          <div
-            className="jn:h-full jn:rounded-xl jn:bg-theme-progressbar jn:transition-[width] jn:duration-300 jn:ease-out jn:motion-reduce:transition-none"
-            style={{ width: `${clampedValue}%`, minWidth: "0.5rem" }}
-          />
-        )
+        <div
+          className="jn:h-full jn:rounded-xl jn:bg-theme-progressbar jn:transition-[width] jn:duration-300 jn:ease-out jn:motion-reduce:transition-none"
+          style={{ width: `${clampedValue}%` }}
+        />
       )}
     </div>
   )

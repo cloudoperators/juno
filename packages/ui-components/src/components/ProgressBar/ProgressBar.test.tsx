@@ -41,9 +41,12 @@ describe("ProgressBar component", () => {
     expect(screen.getByRole("progressbar")).toHaveAttribute("aria-label", "File upload progress")
   })
 
-  test("does not render fill div when value is 0", () => {
-    render(<ProgressBar value={0} />)
-    expect(screen.getByRole("progressbar").children).toHaveLength(0)
+  test("renders the fill div with width 0% when value is 0", () => {
+    const { container } = render(<ProgressBar value={0} />)
+    const el = screen.getByRole("progressbar")
+    expect(el.children).toHaveLength(1)
+    const fill = container.querySelector("[role='progressbar'] > div") as HTMLElement
+    expect(fill.style.width).toBe("0%")
   })
 
   test("renders fill div when value is greater than 0", () => {
@@ -72,8 +75,9 @@ describe("ProgressBar component", () => {
   })
 
   test("renders busy indicator in busy mode", () => {
-    render(<ProgressBar mode="busy" />)
+    const { container } = render(<ProgressBar mode="busy" />)
     expect(screen.getByRole("progressbar").children).toHaveLength(1)
+    expect(container.querySelector(".juno-progressbar-busy-fill")).toBeInTheDocument()
   })
 
   test("does not set aria-valuenow in busy mode", () => {
@@ -99,14 +103,34 @@ describe("ProgressBar component", () => {
     expect(screen.getByRole("progressbar")).not.toHaveAttribute("aria-valuenow")
   })
 
+  test("nudges the simulated fill to a small value almost immediately", () => {
+    vi.useFakeTimers()
+    const { container } = render(<ProgressBar mode="simulated" />)
+    act(() => {
+      vi.advanceTimersByTime(300)
+    })
+    const fill = container.querySelector(".juno-progressbar-simulated-fill") as HTMLElement
+    expect(fill.style.width).toBe("7%")
+    vi.useRealTimers()
+  })
+
   test("advances the simulated fill to the parked value over time", () => {
     vi.useFakeTimers()
     const { container } = render(<ProgressBar mode="simulated" />)
     act(() => {
-      vi.advanceTimersByTime(10000)
+      vi.advanceTimersByTime(60000)
     })
     const fill = container.querySelector(".juno-progressbar-simulated-fill") as HTMLElement
     expect(fill.style.width).toBe("95%")
     vi.useRealTimers()
+  })
+
+  test("parks the simulated fill at the end value immediately when reduced motion is preferred", () => {
+    const matchMedia = vi.fn().mockReturnValue({ matches: true })
+    vi.stubGlobal("matchMedia", matchMedia)
+    const { container } = render(<ProgressBar mode="simulated" />)
+    const fill = container.querySelector(".juno-progressbar-simulated-fill") as HTMLElement
+    expect(fill.style.width).toBe("95%")
+    vi.unstubAllGlobals()
   })
 })
