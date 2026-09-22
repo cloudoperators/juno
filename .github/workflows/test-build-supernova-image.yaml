@@ -1,0 +1,122 @@
+# Test workflow for PR #1984 - Testing GitHub Actions upgrades
+# This workflow tests the Supernova build process without pushing images
+
+name: Test Build Supernova ☀️ (PR Test)
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/test-build-supernova-image.yaml'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: "juno-app-supernova"
+  PACKAGE_PATH: "apps/supernova"
+  DESCRIPTION: "This image contains a standalone runnable version of the Supernova alternative Alertmanager UI. For configuration options see the README here: https://github.com/cloudoperators/juno/tree/main/apps/supernova/docker"
+
+jobs:
+  test-build:
+    name: Test build Supernova image (no push)
+    runs-on: [ubuntu-latest]
+    permissions:
+      contents: read
+      packages: read
+      # This is used to complete the identity challenge
+      # with sigstore/fulcio when running outside of PRs.
+      id-token: write
+      security-events: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Read version from CHANGELOG.md
+        id: read_version
+        working-directory: ${{ env.PACKAGE_PATH }}
+        run: |
+          # Extract the first version number that appears after "## "
+          LAST_VERSION=$(grep -m 1 -oP '(?<=## )\d+\.\d+\.\d+' CHANGELOG.md)
+          echo "Latest version is $LAST_VERSION"
+          echo "IMAGE_VERSION=$LAST_VERSION" >> $GITHUB_ENV
+
+      # This action enables you to SIGN and VERIFY container images using cosign
+      # https://github.com/sigstore/cosign-installer
+      - name: Install cosign
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
+
+      # Add support for more platforms with QEMU (optional)
+      # QEMU is a generic and open source machine & userspace emulator and virtualizer.
+      # TESTING: This uses the upgraded version from PR #1984
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@96fe6ef7f33517b61c61be40b68a1882f3264fb8 # v4.3.0
+
+      # Set up BuildKit Docker container builder to be able to build MULTI-platform images and export cache
+      # https://github.com/docker/setup-buildx-action
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4.3.0
+        with:
+          driver-opts: |
+            image=moby/buildkit:latest
+
+      # Extract metadata (tags, labels) for Docker
+      # https://github.com/docker/metadata-action
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
+          tags: |
+            # Use the version from the VERSION file
+            type=raw,value=${{ env.IMAGE_VERSION }},prefix=
+            # Optionally include semver tags
+            type=semver,pattern={{major}}.{{minor}},prefix=
+            # Additional Useful Tags
+            type=raw,value=${{ github.sha }}
+            type=sha,enable=true,format=short,prefix=
+            type=edge,branch=master
+          labels: |
+            org.opencontainers.image.title=Supernova UI
+            org.opencontainers.image.description=${{env.DESCRIPTION}}
+            org.opencontainers.image.url=https://github.com/cloudoperators/juno/tree/main/apps/supernova
+            org.opencontainers.image.source=https://github.com/cloudoperators/juno/tree/main/apps/supernova
+            org.opencontainers.image.documentation=https://github.com/cloudoperators/juno/tree/main/apps/supernova
+          annotations: |
+            manifest:org.opencontainers.image.title=Supernova UI
+            manifest:org.opencontainers.image.description=${{env.DESCRIPTION}}
+            manifest:org.opencontainers.image.url="https://github.com/cloudoperators/juno/tree/main/apps/supernova"
+            manifest:org.opencontainers.image.source="https://github.com/cloudoperators/juno/tree/main/apps/supernova"
+            manifest:org.opencontainers.image.documentation=https://github.com/cloudoperators/juno/tree/main/apps/supernova
+
+      # Build Docker image with Buildx (NO PUSH for testing)
+      # https://github.com/docker/build-push-action
+      - name: Build Docker image (test only, no push)
+        id: build
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
+        with:
+          context: .
+          file: ${{ env.PACKAGE_PATH }}/docker/Dockerfile
+          push: false
+          # remove untagged images produced for multi platform builds
+          provenance: false
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms: |
+            linux/amd64
+            linux/arm64
+          # Load the image into Docker for local testing
+          load: false
+          # Use cache to speed up builds
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Test build summary
+        run: |
+          echo "✅ Successfully built Supernova image for PR testing"
+          echo "Image ID: ${{ steps.build.outputs.imageid }}"
+          echo "Image Digest: ${{ steps.build.outputs.digest }}"
+          echo ""
+          echo "This was a test build only - no image was pushed to registry"
+          echo "Testing upgrades from PR #1984:"
+          echo "  - docker/setup-qemu-action@v4.3.0"
