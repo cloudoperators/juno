@@ -1,1 +1,0 @@
-import{t as e}from"./iframe-JMKW-2LA.js";e();
