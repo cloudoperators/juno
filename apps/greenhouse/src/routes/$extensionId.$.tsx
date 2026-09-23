@@ -34,8 +34,8 @@ function RouteComponent() {
 
 function ErrorComponent({ error }: ErrorComponentProps) {
   const { addMessage, removeMessage } = useActions()
-  const normalizedError = error instanceof Error ? error : new Error(String(error))
   useEffect(() => {
+    const normalizedError = error instanceof Error ? error : new Error(String(error))
     const messageId = addMessage({
       variant: "error",
       text: normalizedError.message,
@@ -43,7 +43,7 @@ function ErrorComponent({ error }: ErrorComponentProps) {
     })
 
     return () => removeMessage(messageId)
-  }, [addMessage, removeMessage, normalizedError])
+  }, [addMessage, removeMessage, error])
 
   return null
 }

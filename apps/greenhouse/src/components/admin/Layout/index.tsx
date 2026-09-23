@@ -15,8 +15,13 @@ type LayoutProps = {
   error?: unknown
 }
 
-export const Layout = ({ error }: LayoutProps | ErrorComponentProps) => {
-  const normalizedError = error ? (error instanceof Error ? error : new Error(String(error))) : undefined
+export const Layout = (props: LayoutProps | ErrorComponentProps) => {
+  const hasError = 'error' in props && props.error !== undefined
+  const normalizedError = hasError
+    ? props.error instanceof Error
+      ? props.error
+      : new Error(String(props.error))
+    : undefined
 
   return (
     <>
@@ -28,7 +33,7 @@ export const Layout = ({ error }: LayoutProps | ErrorComponentProps) => {
             <Messages />
             {/* If an error from a sub-route reaches this layout, display it inline
                 while keeping the navigation and breadcrumb visible for context. */}
-            {normalizedError ? <ErrorMessage error={normalizedError} /> : <Outlet />}
+            {hasError ? <ErrorMessage error={normalizedError!} /> : <Outlet />}
           </Stack>
         </MessagesProvider>
       </Container>
