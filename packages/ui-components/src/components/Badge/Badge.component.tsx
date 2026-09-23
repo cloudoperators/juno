@@ -3,7 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { HTMLAttributes, ReactNode } from "react"
+import React, {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  forwardRef,
+  MouseEventHandler,
+  ReactNode,
+  Ref,
+} from "react"
 import { Icon, KnownIcons, KnownIconsEnum } from "../Icon/Icon.component"
 
 export type BadgeVariantType = "default" | "info" | "success" | "warning" | "danger" | "error"
@@ -20,6 +27,7 @@ const badgeBaseStyles = `
 `
 
 const badgeInteractiveBaseStyles = `
+  jn:cursor-pointer
   jn:hover:text-theme-highest
   jn:focus:outline-hidden
   jn:focus-visible:ring-2
@@ -53,7 +61,7 @@ const iconStyles = "jn:mr-1 jn:items-center"
 
 const VALID_ICON_NAMES: Set<KnownIcons> = new Set(Object.values(KnownIconsEnum))
 
-export interface BadgeProps extends Omit<HTMLAttributes<HTMLElement>, "disabled"> {
+export interface BadgeProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "disabled"> {
   /**
    * Specify a semantic variant that determines the appearance of the badge.
    * @default "default"
@@ -91,6 +99,11 @@ export interface BadgeProps extends Omit<HTMLAttributes<HTMLElement>, "disabled"
   href?: string
 
   /**
+   * Click handler. Passing it renders the badge as a `<button>`, unless `href` is set.
+   */
+  onClick?: MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
+
+  /**
    * Disables the badge. Only meaningful when rendered as a `<button>` or `<a>`.
    * @default false
    */
@@ -119,22 +132,16 @@ const isValidIcon = (icon: string): icon is KnownIcons => VALID_ICON_NAMES.has(i
  * @see https://cloudoperators.github.io/juno/?path=/docs/components-badge--docs
  * @see {@link BadgeProps}
  */
-export const Badge = ({
-  variant = "default",
-  icon = false,
-  text = "",
-  className = "",
-  children,
-  href,
-  disabled,
-  onClick,
-  ...props
-}: BadgeProps): ReactNode => {
-  const iconToRender = getIcon(icon, variant)
-  const iconColor = getIconColor(icon, variant)
-  const isInteractive = !!(href || onClick)
+export const Badge = forwardRef<HTMLButtonElement | HTMLAnchorElement, BadgeProps>(
+  (
+    { variant = "default", icon = false, text = "", className = "", children, href, disabled, onClick, ...props },
+    ref
+  ): ReactNode => {
+    const iconToRender = getIcon(icon, variant)
+    const iconColor = getIconColor(icon, variant)
+    const isInteractive = !!(href || onClick)
 
-  const classes = `
+    const classes = `
     juno-badge
     juno-badge-${variant}
     ${badgeBaseStyles}
@@ -144,39 +151,50 @@ export const Badge = ({
     ${className}
   `
 
-  const content = (
-    <>
-      {iconToRender && <Icon icon={iconToRender} size="1.125rem" className={iconStyles} color={iconColor} />}
-      {children ?? text}
-    </>
-  )
+    const content = (
+      <>
+        {iconToRender && <Icon icon={iconToRender} size="1.125rem" className={iconStyles} color={iconColor} />}
+        {children ?? text}
+      </>
+    )
 
-  if (href) {
+    if (href) {
+      return (
+        <a
+          href={disabled ? undefined : href}
+          className={classes}
+          onClick={disabled ? undefined : onClick}
+          aria-disabled={disabled || undefined}
+          tabIndex={disabled ? -1 : undefined}
+          ref={ref as Ref<HTMLAnchorElement>}
+          {...props}
+        >
+          {content}
+        </a>
+      )
+    }
+
+    if (onClick) {
+      return (
+        <button
+          {...(props as ButtonHTMLAttributes<HTMLButtonElement>)}
+          type="button"
+          className={classes}
+          onClick={onClick}
+          disabled={disabled}
+          ref={ref as Ref<HTMLButtonElement>}
+        >
+          {content}
+        </button>
+      )
+    }
+
     return (
-      <a
-        href={disabled ? undefined : href}
-        className={classes}
-        onClick={disabled ? undefined : onClick}
-        aria-disabled={disabled || undefined}
-        tabIndex={disabled ? -1 : undefined}
-        {...props}
-      >
+      <span className={classes} {...props}>
         {content}
-      </a>
+      </span>
     )
   }
+)
 
-  if (onClick) {
-    return (
-      <button type="button" className={classes} onClick={onClick} disabled={disabled} {...props}>
-        {content}
-      </button>
-    )
-  }
-
-  return (
-    <span className={classes} {...props}>
-      {content}
-    </span>
-  )
-}
+Badge.displayName = "Badge"
