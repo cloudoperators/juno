@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect } from "react"
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, ErrorComponentProps } from "@tanstack/react-router"
 import { useActions } from "@cloudoperators/juno-messages-provider"
 import { usePlugin } from "../components/StoreProvider"
 import { useAuth } from "../components/AuthProvider"
@@ -32,9 +32,9 @@ function RouteComponent() {
   return <Extension id={extensionId} config={appConfig} appProps={appProps} pluginAuth={pluginAuth} />
 }
 
-function ErrorComponent({ error }: { error: Error }) {
+function ErrorComponent({ error }: ErrorComponentProps) {
   const { addMessage, removeMessage } = useActions()
-  const normalizedError = error instanceof Error ? error : new Error("Unknown error")
+  const normalizedError = error instanceof Error ? error : new Error(String(error))
   useEffect(() => {
     const messageId = addMessage({
       variant: "error",
