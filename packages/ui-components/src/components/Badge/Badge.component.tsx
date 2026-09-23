@@ -3,14 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, {
-  AnchorHTMLAttributes,
-  ButtonHTMLAttributes,
-  forwardRef,
-  MouseEventHandler,
-  ReactNode,
-  Ref,
-} from "react"
+import React, { AnchorHTMLAttributes, ButtonHTMLAttributes, forwardRef, MouseEventHandler, ReactNode, Ref } from "react"
 import { Icon, KnownIcons, KnownIconsEnum } from "../Icon/Icon.component"
 
 export type BadgeVariantType = "default" | "info" | "success" | "warning" | "danger" | "error"
