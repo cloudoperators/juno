@@ -59,9 +59,7 @@ export const ProgressBar = ({
 
   // Indeterminate modes expose no value range at all, so screen readers announce
   // "busy" rather than a bogus 0-100 scale with no current value.
-  const rangeAttrs = indeterminate
-    ? {}
-    : { "aria-valuenow": clampedValue, "aria-valuemin": 0, "aria-valuemax": 100 }
+  const rangeAttrs = indeterminate ? {} : { "aria-valuenow": clampedValue, "aria-valuemin": 0, "aria-valuemax": 100 }
 
   const [simulatedWidth, setSimulatedWidth] = React.useState(0)
 
