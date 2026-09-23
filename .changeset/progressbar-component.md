@@ -10,9 +10,9 @@ Adds a `ProgressBar` with a `mode` prop offering three modes: `determinate`
 parks near the end, for when the final amount of incoming data is unknown).
 Determinate value changes animate smoothly.
 
-Accessibility: uses `role="progressbar"` with `aria-valuemin`/`aria-valuemax`.
-The `determinate` mode exposes `aria-valuenow`; `busy` and `simulated` omit it
-to signal an unknown value to assistive technology. Under
+Accessibility: uses `role="progressbar"`. The `determinate` mode exposes
+`aria-valuenow` alongside `aria-valuemin`/`aria-valuemax`; `busy` and `simulated`
+omit all three to signal an unknown value to assistive technology. Under
 `prefers-reduced-motion: reduce` the determinate value transition is disabled
 and the simulated animation parks statically at its end value; the `busy`
 indicator keeps its gentle, non-flashing loop, since in that indeterminate

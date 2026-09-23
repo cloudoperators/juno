@@ -133,4 +133,26 @@ describe("ProgressBar component", () => {
     expect(fill.style.width).toBe("95%")
     vi.unstubAllGlobals()
   })
+
+  test("clamps a non-finite value to 0", () => {
+    const { container } = render(<ProgressBar value={NaN} />)
+    const el = screen.getByRole("progressbar")
+    expect(el).toHaveAttribute("aria-valuenow", "0")
+    const fill = container.querySelector("[role='progressbar'] > div") as HTMLElement
+    expect(fill.style.width).toBe("0%")
+  })
+
+  test("omits aria-valuemin and aria-valuemax in busy mode", () => {
+    render(<ProgressBar mode="busy" />)
+    const el = screen.getByRole("progressbar")
+    expect(el).not.toHaveAttribute("aria-valuemin")
+    expect(el).not.toHaveAttribute("aria-valuemax")
+  })
+
+  test("omits aria-valuemin and aria-valuemax in simulated mode", () => {
+    render(<ProgressBar mode="simulated" />)
+    const el = screen.getByRole("progressbar")
+    expect(el).not.toHaveAttribute("aria-valuemin")
+    expect(el).not.toHaveAttribute("aria-valuemax")
+  })
 })

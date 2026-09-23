@@ -53,15 +53,33 @@ export const ProgressBar = ({
   className = "",
   ...props
 }: ProgressBarProps): ReactNode => {
-  const clampedValue = Math.min(100, Math.max(0, value))
+  const safeValue = Number.isFinite(value) ? value : 0
+  const clampedValue = Math.min(100, Math.max(0, safeValue))
   const indeterminate = mode === "busy" || mode === "simulated"
 
+  // Indeterminate modes expose no value range at all, so screen readers announce
+  // "busy" rather than a bogus 0-100 scale with no current value.
+  const rangeAttrs = indeterminate
+    ? {}
+    : { "aria-valuenow": clampedValue, "aria-valuemin": 0, "aria-valuemax": 100 }
+
   const [simulatedWidth, setSimulatedWidth] = React.useState(0)
+
+  // Precompute the step delays once so the randomized pacing stays stable across
+  // re-renders and StrictMode's double-invoked effect, keeping the run deterministic.
+  const stepDelays = React.useMemo(() => {
+    let elapsed = 2700
+    return simulatedSteps.map((target) => {
+      const at = elapsed
+      elapsed += 4050 + Math.random() * 5400
+      return { target, at }
+    })
+  }, [])
 
   React.useEffect(() => {
     if (mode !== "simulated") return
     setSimulatedWidth(0)
-    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches) {
       setSimulatedWidth(simulatedSteps[simulatedSteps.length - 1])
       return
     }
@@ -69,20 +87,19 @@ export const ProgressBar = ({
     // Nudge the bar to a small value almost immediately so the user gets instant
     // feedback that work has started, before the first real step at ~2.7s.
     timers.push(setTimeout(() => setSimulatedWidth(7), 200))
-    let elapsed = 2700
-    simulatedSteps.forEach((target) => {
-      timers.push(setTimeout(() => setSimulatedWidth(target), elapsed))
-      elapsed += 4050 + Math.random() * 5400
+    stepDelays.forEach(({ target, at }) => {
+      timers.push(setTimeout(() => setSimulatedWidth(target), at))
     })
-    return () => timers.forEach(clearTimeout)
-  }, [mode])
+    return () => {
+      timers.forEach(clearTimeout)
+      setSimulatedWidth(0)
+    }
+  }, [mode, stepDelays])
   return (
     <div
       {...props}
       role="progressbar"
-      aria-valuenow={indeterminate ? undefined : clampedValue}
-      aria-valuemin={0}
-      aria-valuemax={100}
+      {...rangeAttrs}
       aria-label={ariaLabel}
       className={`juno-progressbar ${progressBarBaseStyles} ${width} ${className}`}
     >

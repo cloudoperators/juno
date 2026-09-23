@@ -967,6 +967,7 @@
   /* DT ProgressBar */
   --color-progressbar-fill: var(--color-accent);
   --color-progressbar-border: var(--color-text-light);
+  /* DT Syntax Highlighting */
   --color-syntax-highlight-base00: var(--color-codeblock-bg); /* bg */
   --color-syntax-highlight-base01: var(--color-juno-grey-blue-3); /*  ? */
   --color-syntax-highlight-base02: #bbb; /* lines and boxes */
