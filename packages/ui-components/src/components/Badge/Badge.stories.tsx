@@ -10,6 +10,12 @@ import { Badge } from "./"
 const meta: Meta<typeof Badge> = {
   title: "Components/Badge",
   component: Badge,
+  // Opt non-interactive stories out of the global `argTypesRegex` action injection
+  // (see .storybook/preview.js). Without this, an injected `onClick` spy makes every
+  // badge interactive, rendering it as a `<button>` with a pointer cursor.
+  args: {
+    onClick: undefined,
+  },
   argTypes: {
     icon: {
       options: ["default", ...Object.values(KnownIconsEnum)],
