@@ -129,6 +129,7 @@ If a user is not allowed to create any new items, do not render a "Create […]"
 
 - Column header labels should be nouns or noun phrases, not verbs. Verbs belong in action buttons, not headers.
 - Status values should be consistent and drawn from a defined vocabulary — do not mix "Active / Inactive" in one grid and "Running / Stopped" in another for the same concept.
+- Columns that display boolean values may use visual indicators such as `Badge` or `Pill` to communicate the state more clearly at a glance. Plain text representations (e.g. "Yes / No", "Enabled / Disabled") are equally valid — use visual indicators where the state is particularly important or users scan for it frequently, but plain text is fine when the context makes the value self-explanatory.
 - Identifiers, names, and values that uniquely identify a row item should always be present and clearly visible, even if the grid is heavily filtered or sorted.
 - Columns with content that is self-explanatory, either by itself or by sticking to the guidelines described, do not necessarily need a column header/title. A leftmost column that holds the checkboxes in order to select multiple items for bulk actions does not need a title.
 - See [UX Writing and Content Design](ux-writing-content-design.md) for broader writing guidelines.
