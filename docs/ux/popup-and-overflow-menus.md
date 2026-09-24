@@ -63,13 +63,16 @@ A destructive action permanently destroys an object or data with no possibility 
 **Multiple entity types — page-level overflow menu:**
 
 ```
+View Bucket
 Edit Bucket
 Empty Bucket
 Delete Bucket
 ──────────────
+View Policy
 Edit Policy
 Delete Policy
 ──────────────
+View Version History
 Suspend Versioning
 Delete Version
 ```
@@ -77,10 +80,10 @@ Delete Version
 **Single entity type — DataGrid row overflow menu:**
 
 ```
+View Item Details
 Copy Item
-Download Item
 Share Item URL
-View Item
+Download Item
 ──────────────
 Delete Item
 ```
