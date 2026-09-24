@@ -16,7 +16,7 @@ type LayoutProps = {
 }
 
 export const Layout = (props: LayoutProps | ErrorComponentProps) => {
-  const hasError = 'error' in props && props.error !== undefined
+  const hasError = "error" in props && props.error !== undefined
   const normalizedError = hasError
     ? props.error instanceof Error
       ? props.error
