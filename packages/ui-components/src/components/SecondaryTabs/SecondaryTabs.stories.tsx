@@ -6,8 +6,8 @@
 import React from "react"
 import { Meta, StoryObj } from "@storybook/react-vite"
 import { SecondaryTabs } from "./SecondaryTabs.component"
-import { SecondaryTab } from "../SecondaryTab/SecondaryTab.component"
-import { SecondaryTabPanel } from "../SecondaryTabPanel/SecondaryTabPanel.component"
+import { SecondaryTab } from "./SecondaryTab.component"
+import { SecondaryTabPanel } from "./SecondaryTabPanel.component"
 
 const meta: Meta<typeof SecondaryTabs> = {
   title: "WIP/SecondaryTabs",
@@ -53,9 +53,15 @@ export const Default: Story = {
 export const WithIcons: Story = {
   render: (args) => (
     <SecondaryTabs defaultTab="compute" {...args}>
-      <SecondaryTab value="compute" icon="openInNew">Compute</SecondaryTab>
-      <SecondaryTab value="storage" icon="info">Storage</SecondaryTab>
-      <SecondaryTab value="network" icon="warning">Network</SecondaryTab>
+      <SecondaryTab value="compute" iconLeft="openInNew">
+        Compute
+      </SecondaryTab>
+      <SecondaryTab value="storage" iconLeft="info">
+        Storage
+      </SecondaryTab>
+      <SecondaryTab value="network" iconLeft="warning">
+        Network
+      </SecondaryTab>
       <SecondaryTabPanel value="compute">
         <div className="jn:p-4 jn:text-sm">Compute content</div>
       </SecondaryTabPanel>

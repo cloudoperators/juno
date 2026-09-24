@@ -6,8 +6,8 @@
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
 import { describe, expect, test } from "vitest"
-import { SecondaryTabs } from "../SecondaryTabs/SecondaryTabs.component"
-import { SecondaryTab } from "../SecondaryTab/SecondaryTab.component"
+import { SecondaryTabs } from "./SecondaryTabs.component"
+import { SecondaryTab } from "./SecondaryTab.component"
 import { SecondaryTabPanel } from "./SecondaryTabPanel.component"
 
 const wrap = (props = {}) =>

@@ -8,8 +8,8 @@ import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { describe, expect, test, vi } from "vitest"
 import { SecondaryTabs } from "./SecondaryTabs.component"
-import { SecondaryTab } from "../SecondaryTab/SecondaryTab.component"
-import { SecondaryTabPanel } from "../SecondaryTabPanel/SecondaryTabPanel.component"
+import { SecondaryTab } from "./SecondaryTab.component"
+import { SecondaryTabPanel } from "./SecondaryTabPanel.component"
 
 const renderTabs = (props = {}) =>
   render(

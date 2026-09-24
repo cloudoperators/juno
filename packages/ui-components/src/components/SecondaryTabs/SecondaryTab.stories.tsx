@@ -5,8 +5,11 @@
 
 import React from "react"
 import { Meta, StoryObj } from "@storybook/react-vite"
-import { SecondaryTabs } from "../SecondaryTabs/SecondaryTabs.component"
+import { KnownIconsEnum } from "../Icon/Icon.component"
+import { SecondaryTabs } from "./SecondaryTabs.component"
 import { SecondaryTab } from "./SecondaryTab.component"
+
+const iconOptions = [undefined, ...Object.values(KnownIconsEnum)] as const
 
 const meta: Meta<typeof SecondaryTab> = {
   title: "WIP/SecondaryTab",
@@ -21,8 +24,14 @@ const meta: Meta<typeof SecondaryTab> = {
   argTypes: {
     value: { control: "text" },
     disabled: { control: "boolean" },
-    icon: { control: "text" },
-    iconRight: { control: "text" },
+    iconLeft: {
+      options: iconOptions,
+      control: { type: "select" },
+    },
+    iconRight: {
+      options: iconOptions,
+      control: { type: "select" },
+    },
   },
 }
 
@@ -51,10 +60,27 @@ export const Disabled: Story = {
   },
 }
 
-export const WithIcon: Story = {
+export const WithIconLeft: Story = {
   args: {
     value: "demo",
-    icon: "openInNew",
-    children: "With Icon",
+    iconLeft: "openInNew",
+    children: "With Icon Left",
+  },
+}
+
+export const WithIconRight: Story = {
+  args: {
+    value: "demo",
+    iconRight: "info",
+    children: "With Icon Right",
+  },
+}
+
+export const WithBothIcons: Story = {
+  args: {
+    value: "demo",
+    iconLeft: "openInNew",
+    iconRight: "info",
+    children: "Both Icons",
   },
 }
