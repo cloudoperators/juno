@@ -9,14 +9,11 @@ import { act, render, screen } from "@testing-library/react"
 import { ProgressBar } from "./"
 
 describe("ProgressBar component", () => {
-  test("renders with role progressbar", () => {
+  test("renders with role progressbar and base class", () => {
     render(<ProgressBar />)
-    expect(screen.getByRole("progressbar")).toBeInTheDocument()
-  })
-
-  test("applies juno-progressbar class", () => {
-    render(<ProgressBar />)
-    expect(screen.getByRole("progressbar")).toHaveClass("juno-progressbar")
+    const el = screen.getByRole("progressbar")
+    expect(el).toBeInTheDocument()
+    expect(el).toHaveClass("juno-progressbar")
   })
 
   test("sets aria-valuenow to the provided value", () => {
@@ -42,10 +39,10 @@ describe("ProgressBar component", () => {
   })
 
   test("renders the fill div with width 0% when value is 0", () => {
-    const { container } = render(<ProgressBar value={0} />)
+    render(<ProgressBar value={0} />)
     const el = screen.getByRole("progressbar")
     expect(el.children).toHaveLength(1)
-    const fill = container.querySelector("[role='progressbar'] > div") as HTMLElement
+    const fill = el.firstElementChild as HTMLElement
     expect(fill.style.width).toBe("0%")
   })
 
@@ -69,6 +66,21 @@ describe("ProgressBar component", () => {
     expect(screen.getByRole("progressbar")).toHaveClass("custom-class")
   })
 
+  test("applies juno-progressbar-determinate class by default", () => {
+    render(<ProgressBar />)
+    expect(screen.getByRole("progressbar")).toHaveClass("juno-progressbar-determinate")
+  })
+
+  test("applies juno-progressbar-busy class in busy mode", () => {
+    render(<ProgressBar mode="busy" />)
+    expect(screen.getByRole("progressbar")).toHaveClass("juno-progressbar-busy")
+  })
+
+  test("applies juno-progressbar-simulated class in simulated mode", () => {
+    render(<ProgressBar mode="simulated" />)
+    expect(screen.getByRole("progressbar")).toHaveClass("juno-progressbar-simulated")
+  })
+
   test("spreads additional HTML attributes", () => {
     render(<ProgressBar data-testid="pb" data-extra="yes" />)
     expect(screen.getByTestId("pb")).toHaveAttribute("data-extra", "yes")
@@ -86,11 +98,10 @@ describe("ProgressBar component", () => {
   })
 
   test("renders the determinate fill scaled to value", () => {
-    const { container } = render(<ProgressBar value={50} />)
-    const fill = container.querySelector("[role='progressbar'] > div")
+    render(<ProgressBar value={50} />)
+    const fill = screen.getByRole("progressbar").firstElementChild
     expect(fill).toBeInTheDocument()
-    const style = (fill as HTMLElement).getAttribute("style")
-    expect(style).toContain("width: 50%")
+    expect((fill as HTMLElement).style.width).toBe("50%")
   })
 
   test("renders simulated indicator in simulated mode", () => {
@@ -135,10 +146,10 @@ describe("ProgressBar component", () => {
   })
 
   test("clamps a non-finite value to 0", () => {
-    const { container } = render(<ProgressBar value={NaN} />)
+    render(<ProgressBar value={NaN} />)
     const el = screen.getByRole("progressbar")
     expect(el).toHaveAttribute("aria-valuenow", "0")
-    const fill = container.querySelector("[role='progressbar'] > div") as HTMLElement
+    const fill = el.firstElementChild as HTMLElement
     expect(fill.style.width).toBe("0%")
   })
 

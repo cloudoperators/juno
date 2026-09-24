@@ -99,7 +99,7 @@ export const ProgressBar = ({
       role="progressbar"
       {...rangeAttrs}
       aria-label={ariaLabel}
-      className={`juno-progressbar ${progressBarBaseStyles} ${width} ${className}`}
+      className={`juno-progressbar juno-progressbar-${mode} ${progressBarBaseStyles} ${width} ${className}`}
     >
       {mode === "busy" ? (
         <div className="juno-progressbar-busy-fill jn:h-full jn:rounded-xl jn:bg-theme-progressbar" />
