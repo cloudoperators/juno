@@ -3,7 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { createContext, useContext, useState, useId, Children, isValidElement, HTMLAttributes, ReactNode } from "react"
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useId,
+  Children,
+  isValidElement,
+  HTMLAttributes,
+  ReactNode,
+} from "react"
 
 export interface SecondaryTabsContextType {
   activeTab: string | undefined

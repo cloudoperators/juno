@@ -5,8 +5,8 @@
 
 import React from "react"
 import { Meta, StoryObj } from "@storybook/react-vite"
-import { SecondaryTabs } from "../SecondaryTabs/SecondaryTabs.component"
-import { SecondaryTab } from "../SecondaryTab/SecondaryTab.component"
+import { SecondaryTabs } from "./SecondaryTabs.component"
+import { SecondaryTab } from "./SecondaryTab.component"
 import { SecondaryTabPanel } from "./SecondaryTabPanel.component"
 
 const meta: Meta<typeof SecondaryTabPanel> = {

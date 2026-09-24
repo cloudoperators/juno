@@ -4,7 +4,7 @@
  */
 
 import React, { forwardRef, HTMLAttributes, ReactNode } from "react"
-import { useSecondaryTabsContext } from "../SecondaryTabs/SecondaryTabs.component"
+import { useSecondaryTabsContext } from "./SecondaryTabs.component"
 
 export interface SecondaryTabPanelProps extends HTMLAttributes<HTMLDivElement> {
   /** Must match the `value` of the corresponding `SecondaryTab`. */

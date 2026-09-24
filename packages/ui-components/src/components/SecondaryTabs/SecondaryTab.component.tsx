@@ -6,13 +6,13 @@
 import React, { forwardRef, ButtonHTMLAttributes, ReactNode } from "react"
 import { Icon } from "../Icon/Icon.component"
 import { KnownIcons } from "../Icon/Icon.component.js"
-import { useSecondaryTabsContext } from "../SecondaryTabs/SecondaryTabs.component"
+import { useSecondaryTabsContext } from "./SecondaryTabs.component"
 
 export interface SecondaryTabProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Must match the `value` of the corresponding `SecondaryTabPanel`. */
   value: string
   /** Icon rendered to the left of the label. */
-  icon?: KnownIcons
+  iconLeft?: KnownIcons
   /** Icon rendered to the right of the label. */
   iconRight?: KnownIcons
   children?: ReactNode
@@ -72,7 +72,7 @@ export const SecondaryTab = forwardRef<HTMLButtonElement, SecondaryTabProps>(
   (
     {
       value,
-      icon,
+      iconLeft,
       iconRight,
       disabled: disabledProp,
       onClick,
@@ -97,9 +97,7 @@ export const SecondaryTab = forwardRef<HTMLButtonElement, SecondaryTabProps>(
     const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
       const tablist = e.currentTarget.closest('[role="tablist"]')
       if (tablist) {
-        const enabledTabs = Array.from(
-          tablist.querySelectorAll<HTMLButtonElement>('[role="tab"]:not([disabled])')
-        )
+        const enabledTabs = Array.from(tablist.querySelectorAll<HTMLButtonElement>('[role="tab"]:not([disabled])'))
         const currentIndex = enabledTabs.indexOf(e.currentTarget)
         let nextTab: HTMLButtonElement | null = null
 
@@ -143,7 +141,7 @@ export const SecondaryTab = forwardRef<HTMLButtonElement, SecondaryTabProps>(
         onKeyDown={handleKeyDown}
         className={`juno-secondary-tab ${isActive ? "juno-secondary-tab-active" : ""} ${isDisabled ? "juno-secondary-tab-disabled" : ""} ${tabBaseStyles} ${isActive ? tabActiveStyles : tabDefaultStyles} ${isDisabled ? tabDisabledStyles : ""} ${className}`}
       >
-        {icon && <Icon icon={icon} size="1rem" />}
+        {iconLeft && <Icon icon={iconLeft} size="1rem" />}
         {children}
         {iconRight && <Icon icon={iconRight} size="1rem" />}
       </button>
