@@ -37,8 +37,6 @@ When using a PopupMenu, always make sure:
 
 ### Item Order
 
-Menu positions are not equal: first and last attract the most attention, and the top is the fastest to reach. Alphabetical ordering ignores both — the most important action ends up wherever its name falls in the alphabet, often buried in the middle where users are least likely to notice it. Alphabetical ordering also treats unequal actions as equivalent, deprioritises the actions users need most, and breaks as soon as the interface is translated.
-
 **Do not sort menu items alphabetically.** Order by importance and expected frequency of use instead:
 
 - If a "View [Entity]" or "View Details" action is present, place it first.
