@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { createRootRouteWithContext, Outlet } from "@tanstack/react-router"
+import { createRootRouteWithContext, ErrorComponentProps, Outlet } from "@tanstack/react-router"
 import { Container } from "@cloudoperators/juno-ui-components/index"
 import { Breadcrumb } from "../components/common/Breadcrumb"
 import { Navigation } from "../components/common/Navigation"
@@ -13,16 +13,28 @@ import { ErrorMessage } from "../components/common/ErrorBoundary/ErrorMessage"
 
 export const Route = createRootRouteWithContext<RouteContext>()({
   component: Root,
-  errorComponent: Root,
+  errorComponent: RootError,
 })
 
-function Root({ error }: { error?: Error }) {
+function Root() {
   return (
     <>
       <Navigation />
       <Container py px>
         <Breadcrumb />
-        {error ? <ErrorMessage error={error} /> : <Outlet />}
+        <Outlet />
+      </Container>
+    </>
+  )
+}
+
+function RootError({ error }: ErrorComponentProps) {
+  return (
+    <>
+      <Navigation />
+      <Container py px>
+        <Breadcrumb />
+        <ErrorMessage error={error instanceof Error ? error : new Error(String(error))} />
       </Container>
     </>
   )
