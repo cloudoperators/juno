@@ -1,5 +1,19 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.14.10
+
+### Patch Changes
+
+- d550757: Remove legacy core-apps/org-admin code and dependencies
+- 60fe4fc: Upgraded @tanstack/react-router to v1.170.36 and fixed error handling to accommodate the new ErrorComponentProps type where error is now typed as unknown instead of Error.
+- Updated dependencies [60fe4fc]
+- Updated dependencies [8869803]
+  - @cloudoperators/juno-app-supernova@0.20.9
+  - @cloudoperators/juno-app-heureka@1.1.15
+  - @cloudoperators/juno-app-doop@2.6.40
+  - @cloudoperators/juno-ui-components@9.4.2
+  - @cloudoperators/juno-messages-provider@0.2.52
+
 ## 0.14.9
 
 ### Patch Changes
