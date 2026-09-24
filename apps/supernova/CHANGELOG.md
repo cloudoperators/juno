@@ -1,5 +1,14 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.20.9
+
+### Patch Changes
+
+- 60fe4fc: Upgraded @tanstack/react-router to v1.170.36 and fixed error handling to accommodate the new ErrorComponentProps type where error is now typed as unknown instead of Error.
+- Updated dependencies [8869803]
+  - @cloudoperators/juno-ui-components@9.4.2
+  - @cloudoperators/juno-messages-provider@0.2.52
+
 ## 0.20.8
 
 ### Patch Changes

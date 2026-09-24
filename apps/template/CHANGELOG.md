@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-template
 
+## 2.0.50
+
+### Patch Changes
+
+- 068fe1d: Migrate ESLint config to vite-react-ts preset and modern JSX transform
+- Updated dependencies [8869803]
+  - @cloudoperators/juno-ui-components@9.4.2
+
 ## 2.0.49
 
 ### Patch Changes
