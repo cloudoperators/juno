@@ -378,6 +378,8 @@
   --background-color-theme-switch-handle: var(--color-switch-handle-bg);
   --background-color-theme-switch-handle-checked: var(--color-switch-handle-checked-bg);
   --background-color-theme-tab-navigation-top: var(--color-tabnavigation-top-bg);
+  --background-color-theme-secondary-tabs: var(--color-secondary-tabs-bg);
+  --background-color-theme-secondary-tab-active: var(--color-secondary-tab-bg-active);
   --background-color-theme-textinput: var(--color-textinput-bg);
   --background-color-theme-textinput-autofill: var(--color-textinput-autofill-bg);
   --background-color-theme-topnavigation-item: var(--color-topnavigation-item-bg);
@@ -410,6 +412,10 @@
   --text-color-theme-sidenavigation-item-active: var(--color-sidenavigation-item-active);
   --text-color-theme-status-details: var(--color-status-details-text);
   --text-color-theme-status-code: var(--color-status-code);
+  --text-color-theme-secondary-tab: var(--color-secondary-tab-text);
+  --text-color-theme-secondary-tab-active: var(--color-secondary-tab-text-active);
+  --text-color-theme-secondary-tab-hover: var(--color-secondary-tab-text-hover);
+  --text-color-theme-secondary-tab-disabled: var(--color-secondary-tab-text-disabled);
 
   /* Component Border Colors: */
   --border-color-theme-default: var(--color-border-default);
@@ -453,6 +459,7 @@
   --border-color-theme-tab-navigation-content-bottom: var(--color-tabnavigation-content-bottom-border);
 
   --border-color-theme-tab-active-bottom: var(--color-text-default);
+  --border-color-theme-secondary-tab-active: var(--color-secondary-tab-border-active);
   --border-color-theme-tab-content-inactive-bottom: var(--color-background-lvl-4);
 
   --border-color-theme-textinput-default: var(--color-textinput-default-border);
@@ -722,6 +729,14 @@
   /* LT TabNavigation */
   --color-tabnavigation-top-bg: var(--color-juno-grey-light-5);
   --color-tabnavigation-content-bottom-border: var(--color-background-lvl-4);
+  /* LT SecondaryTabs */
+  --color-secondary-tabs-bg: var(--color-juno-grey-light-3);
+  --color-secondary-tab-bg-active: var(--color-white);
+  --color-secondary-tab-border-active: var(--color-juno-grey-light-9);
+  --color-secondary-tab-text: var(--color-text-default);
+  --color-secondary-tab-text-active: var(--color-text-high);
+  --color-secondary-tab-text-hover: var(--color-text-highest);
+  --color-secondary-tab-text-disabled: var(--color-text-disabled);
   /* LT Filters */
   --color-filters-bg: var(--color-background-lvl-1);
   --color-filter-input-bg: var(--color-background-lvl-0);
@@ -1001,6 +1016,14 @@
   /* DT TabNavigation */
   --color-tabnavigation-top-bg: var(--color-juno-grey-blue-8);
   --color-tabnavigation-content-bottom-border: var(--color-background-lvl-4);
+  /* DT SecondaryTabs */
+  --color-secondary-tabs-bg: var(--color-background-lvl-2);
+  --color-secondary-tab-bg-active: var(--color-background-lvl-0);
+  --color-secondary-tab-border-active: var(--color-border-default);
+  --color-secondary-tab-text: var(--color-text-default);
+  --color-secondary-tab-text-active: var(--color-text-high);
+  --color-secondary-tab-text-hover: var(--color-text-highest);
+  --color-secondary-tab-text-disabled: var(--color-text-disabled);
   /* DT Filters */
   --color-filters-bg: var(--color-background-lvl-1);
   --color-filter-input-bg: var(--color-background-lvl-0);
