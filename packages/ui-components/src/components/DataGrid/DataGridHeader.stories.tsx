@@ -166,8 +166,8 @@ export const FullyFeatured: Story = {
     const [selected, setSelected] = useState<Record<string, boolean>>({})
 
     return (
-      <>
-        <Stack direction="vertical">
+      <Stack direction="vertical" className="juno-pattern-datagrid-outer">
+        <Stack direction="vertical" className="juno-pattern-datagrid-header">
           {/* Zone 1: Sorting + primary action — bare Stack, no background */}
           <Stack distribution="end" alignment="center" gap="2" className="jn:pb-2">
             <Stack gap="2">
@@ -280,129 +280,131 @@ export const FullyFeatured: Story = {
             </DataGridRow>
           ))}
         </DataGrid>
-      </>
+      </Stack>
     )
   },
   parameters: {
     docs: {
       description: {
         story:
-          "Fully featured DataGrid header. Zone 1 (sort, overflow menu, primary action) is a bare `Stack` — no background, no `DataGridToolbar`. Zones 2 and 3 each get their own `DataGridToolbar`. Zone 3 carries bulk actions (checkbox + action menu) on the left, item count in the middle, and last update + refresh on the right. Every zone and every element within it is optional.",
+          "Fully featured DataGrid header. Zone 1 (sort, overflow menu, primary action) is a bare `Stack` — no background, no `DataGridToolbar`. Zones 2 and 3 each get their own `DataGridToolbar`. Zone 3 carries bulk actions (checkbox + action menu) on the left, item count in the middle, and last update + refresh on the right. Every zone and every element within it is optional. All Header zones need to be wrapped in a vertical `Stack`. This Header composition and the associated `DataGrid` then need to be wrapped in another outer vertical `Stack` again.",
       },
       // Keep this source.code in sync with the render function above
       source: {
         code: `
-<Stack direction="vertical">
-  {/* Zone 1 — bare Stack, no background */}
-  <Stack distribution="end" alignment="center" gap="2" className="pb-2">
-    <Stack gap="2">
-      <Stack gap="0.5">
-        <Select width="auto" label="Sort by" className="min-w-40">
-          <SelectOption value="name" label="Name" />
-          <SelectOption value="status" label="Status" />
-          <SelectOption value="region" label="Region" />
-        </Select>
-        <SortButton order={sortOrder} onChange={setSortOrder} />
-      </Stack>
-      <Stack gap="0.5">
-        <PopupMenu>
-          <PopupMenuToggle as={React.Fragment}>
-            <Button icon="moreVert" title="More actions" />
-          </PopupMenuToggle>
-          <PopupMenuOptions>
-            <PopupMenuItem label="Export CSV" />
-            <PopupMenuItem label="Refresh all" />
-          </PopupMenuOptions>
-        </PopupMenu>
-        <Button label="Create Server" variant="primary" className="whitespace-nowrap" />
+<Stack direction="vertical" className="juno-pattern-datagrid-outer">
+  <Stack direction="vertical" className="juno-pattern-datagrid-header">
+    {/* Zone 1 — bare Stack, no background */}
+    <Stack distribution="end" alignment="center" gap="2" className="pb-2">
+      <Stack gap="2">
+        <Stack gap="0.5">
+          <Select width="auto" label="Sort by" className="min-w-40">
+            <SelectOption value="name" label="Name" />
+            <SelectOption value="status" label="Status" />
+            <SelectOption value="region" label="Region" />
+          </Select>
+          <SortButton order={sortOrder} onChange={setSortOrder} />
+        </Stack>
+        <Stack gap="0.5">
+          <PopupMenu>
+            <PopupMenuToggle as={React.Fragment}>
+              <Button icon="moreVert" title="More actions" />
+            </PopupMenuToggle>
+            <PopupMenuOptions>
+              <PopupMenuItem label="Export CSV" />
+              <PopupMenuItem label="Refresh all" />
+            </PopupMenuOptions>
+          </PopupMenu>
+          <Button label="Create Server" variant="primary" className="whitespace-nowrap" />
+        </Stack>
       </Stack>
     </Stack>
+
+    {/* Zone 2 — DataGridToolbar provides background and spacing */}
+    <DataGridToolbar>
+      <Stack direction="vertical" gap="2">
+        <Stack distribution="between" alignment="center">
+          <InputGroup>
+            <Select width="auto" label="Filter by" className="min-w-44">
+              <SelectOption value="region" label="Region" />
+              <SelectOption value="status" label="Status" />
+              <SelectOption value="az" label="Availability Zone" />
+            </Select>
+            <ComboBox>
+              <ComboBoxOption value="eu-west-1" label="eu-west-1" />
+              <ComboBoxOption value="us-east-1" label="us-east-1" />
+              <ComboBoxOption value="ap-south-1" label="ap-south-1" />
+            </ComboBox>
+          </InputGroup>
+          <SearchInput placeholder="Search servers…" />
+        </Stack>
+        <Stack gap="2" wrap>
+          <Pill pillKey="Region" pillValue="eu-west-1" closeable />
+          <Pill pillKey="Status" pillValue="Running" closeable />
+          <Button label="Clear filters" size="xs" />
+        </Stack>
+      </Stack>
+    </DataGridToolbar>
+
+    {/* Zone 3 — separate DataGridToolbar */}
+    <DataGridToolbar>
+      <Stack distribution="between" alignment="center" className="text-sm">
+        <Stack gap="2" alignment="center">
+          <Checkbox />
+          <PopupMenu className="flex items-center">
+            <PopupMenuToggle as={React.Fragment}>
+              <Button size="xs" icon="moreVert" label="Actions" />
+            </PopupMenuToggle>
+            <PopupMenuOptions>
+              <PopupMenuItem label="Download" />
+              <PopupMenuItem label="Delete" />
+            </PopupMenuOptions>
+          </PopupMenu>
+        </Stack>
+        <span className="theme-color-text-light">Showing 2 of 4 servers</span>
+        <Stack gap="2" alignment="center">
+          <span>Last update: 20.05.2026 @09:41</span>
+          <Button label="Update" size="xs" />
+        </Stack>
+      </Stack>
+    </DataGridToolbar>
   </Stack>
 
-  {/* Zone 2 — DataGridToolbar provides background and spacing */}
-  <DataGridToolbar>
-    <Stack direction="vertical" gap="2">
-      <Stack distribution="between" alignment="center">
-        <InputGroup>
-          <Select width="auto" label="Filter by" className="min-w-44">
-            <SelectOption value="region" label="Region" />
-            <SelectOption value="status" label="Status" />
-            <SelectOption value="az" label="Availability Zone" />
-          </Select>
-          <ComboBox>
-            <ComboBoxOption value="eu-west-1" label="eu-west-1" />
-            <ComboBoxOption value="us-east-1" label="us-east-1" />
-            <ComboBoxOption value="ap-south-1" label="ap-south-1" />
-          </ComboBox>
-        </InputGroup>
-        <SearchInput placeholder="Search servers…" />
-      </Stack>
-      <Stack gap="2" wrap>
-        <Pill pillKey="Region" pillValue="eu-west-1" closeable />
-        <Pill pillKey="Status" pillValue="Running" closeable />
-        <Button label="Clear filters" size="xs" />
-      </Stack>
-    </Stack>
-  </DataGridToolbar>
-
-  {/* Zone 3 — separate DataGridToolbar */}
-  <DataGridToolbar>
-    <Stack distribution="between" alignment="center" className="text-sm">
-      <Stack gap="2" alignment="center">
-        <Checkbox />
-        <PopupMenu className="flex items-center">
-          <PopupMenuToggle as={React.Fragment}>
-            <Button size="xs" icon="moreVert" label="Actions" />
-          </PopupMenuToggle>
-          <PopupMenuOptions>
-            <PopupMenuItem label="Download" />
-            <PopupMenuItem label="Delete" />
-          </PopupMenuOptions>
-        </PopupMenu>
-      </Stack>
-      <span className="theme-color-text-light">Showing 2 of 4 servers</span>
-      <Stack gap="2" alignment="center">
-        <span>Last update: 20.05.2026 @09:41</span>
-        <Button label="Update" size="xs" />
-      </Stack>
-    </Stack>
-  </DataGridToolbar>
-</Stack>
-
-<DataGrid columns={6} minContentColumns={[0, 5]}>
-  <DataGridRow>
-    <DataGridHeadCell />
-    <DataGridHeadCell>Name</DataGridHeadCell>
-    <DataGridHeadCell>Region</DataGridHeadCell>
-    <DataGridHeadCell>Status</DataGridHeadCell>
-    <DataGridHeadCell>Availability Zone</DataGridHeadCell>
-    <DataGridHeadCell />
-  </DataGridRow>
-  {servers.map((s) => (
-    <DataGridRow key={s.id}>
-      <DataGridCell verticalAlignment="center">
-        <Checkbox
-          aria-label={\`Select \${s.name}\`}
-          checked={!!selected[s.id]}
-          onChange={(e) => setSelected((prev) => ({ ...prev, [s.id]: e.target.checked }))}
-        />
-      </DataGridCell>
-      <DataGridCell>{s.name}</DataGridCell>
-      <DataGridCell>{s.region}</DataGridCell>
-      <DataGridCell>{s.status}</DataGridCell>
-      <DataGridCell>{s.az}</DataGridCell>
-      <DataGridCell>
-        <PopupMenu>
-          <PopupMenuOptions>
-            <PopupMenuItem label="Edit" />
-            <PopupMenuItem label="Download" />
-            <PopupMenuItem label="Delete" />
-          </PopupMenuOptions>
-        </PopupMenu>
-      </DataGridCell>
+  <DataGrid columns={6} minContentColumns={[0, 5]}>
+    <DataGridRow>
+      <DataGridHeadCell />
+      <DataGridHeadCell>Name</DataGridHeadCell>
+      <DataGridHeadCell>Region</DataGridHeadCell>
+      <DataGridHeadCell>Status</DataGridHeadCell>
+      <DataGridHeadCell>Availability Zone</DataGridHeadCell>
+      <DataGridHeadCell />
     </DataGridRow>
-  ))}
-</DataGrid>
+    {servers.map((s) => (
+      <DataGridRow key={s.id}>
+        <DataGridCell verticalAlignment="center">
+          <Checkbox
+            aria-label={\`Select \${s.name}\`}
+            checked={!!selected[s.id]}
+            onChange={(e) => setSelected((prev) => ({ ...prev, [s.id]: e.target.checked }))}
+          />
+        </DataGridCell>
+        <DataGridCell>{s.name}</DataGridCell>
+        <DataGridCell>{s.region}</DataGridCell>
+        <DataGridCell>{s.status}</DataGridCell>
+        <DataGridCell>{s.az}</DataGridCell>
+        <DataGridCell>
+          <PopupMenu>
+            <PopupMenuOptions>
+              <PopupMenuItem label="Edit" />
+              <PopupMenuItem label="Download" />
+              <PopupMenuItem label="Delete" />
+            </PopupMenuOptions>
+          </PopupMenu>
+        </DataGridCell>
+      </DataGridRow>
+    ))}
+  </DataGrid>
+</Stack>
         `.trim(),
       },
     },
