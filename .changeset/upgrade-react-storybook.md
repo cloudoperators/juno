@@ -2,6 +2,9 @@
 "@cloudoperators/juno-ui-components": patch
 "@cloudoperators/greenhouse-auth-provider": patch
 "@cloudoperators/juno-messages-provider": patch
+"@cloudoperators/juno-communicator": patch
+"@cloudoperators/juno-package-template": patch
+"@cloudoperators/juno-url-state-provider": patch
 "@cloudoperators/juno-app-greenhouse": patch
 "@cloudoperators/juno-app-supernova": patch
 "@cloudoperators/juno-app-template": patch
