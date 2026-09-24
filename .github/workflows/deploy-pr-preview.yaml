@@ -59,8 +59,14 @@ jobs:
       runs-on: ubuntu-latest
 
   build-deploy:
-    # skip if the PR is from a forked repository
-    if: github.event.pull_request.head.repo.full_name == github.repository
+    # Only run if: (files changed in ui-components/example OR label present) OR PR is being closed for cleanup
+    # Note: ui-components and example must match IS_STORYBOOK_CHANGED and IS_EXAMPLE_CHANGED logic below
+    if: |
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      (github.event.action == 'closed' ||
+       contains(needs.run-detect-changes.outputs.changes, 'ui-components') ||
+       contains(needs.run-detect-changes.outputs.changes, 'example') ||
+       needs.check-preview-label.outputs.has-preview-label == 'true')
     needs: [check-preview-label, run-detect-changes]
     runs-on: [ubuntu-latest]
     steps:
