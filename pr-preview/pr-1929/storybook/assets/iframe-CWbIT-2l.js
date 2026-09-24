@@ -1,0 +1,1 @@
+import{t as e}from"./iframe-BuS8172a.js";e();
