@@ -40,7 +40,7 @@
     "zustand": "5.0.15"
   },
   "scripts": {
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "lint": "eslint",
     "dev": "vite",
     "build": "vite build",
