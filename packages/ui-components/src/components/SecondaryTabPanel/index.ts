@@ -1,0 +1,7 @@
+/*
+ * SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+export { SecondaryTabPanel } from "./SecondaryTabPanel.component"
+export type { SecondaryTabPanelProps } from "./SecondaryTabPanel.component"
