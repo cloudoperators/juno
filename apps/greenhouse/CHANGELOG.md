@@ -1,5 +1,49 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.14.11
+
+### Patch Changes
+
+- b2b81a2: chore(deps): upgrade multiple dependencies
+  - @apollo/client: 4.2.12 → 4.3.0
+  - @graphql-codegen/cli: 7.3.1 → 7.4.1
+  - @tanstack/react-query: 5.102.8 → 5.103.1
+  - @typescript-eslint/eslint-plugin: 8.69.0 → 8.70.0
+  - @typescript-eslint/parser: 8.69.0 → 8.70.0
+  - eslint: 10.9.1 → 10.10.0
+  - typescript-eslint: 8.69.0 → 8.70.0
+  - vite: 8.2.2 → 8.3.0
+  - zod: 4.5.4 → 4.6.5
+
+- 824aa2b: chore(deps): upgrade @codemirror packages
+  - @codemirror/state from 6.7.2 to 6.7.6
+  - @codemirror/view from 6.43.10 to 6.43.13
+- 824aa2b: chore(deps): upgrade React, Storybook, and related dependencies
+  - Upgrade React from 19.2.8 to 19.3.0
+  - Upgrade react-dom from 19.2.8 to 19.3.0
+  - Upgrade @types/react from 19.2.18 to 19.3.0
+  - Upgrade @types/react-dom from 19.2.5 to 19.3.0
+  - Upgrade Storybook packages from 10.5.10 to 10.6.0:
+    - @storybook/addon-docs
+    - @storybook/addon-links
+    - @storybook/react-vite
+    - storybook
+    - eslint-plugin-storybook
+  - Upgrade jsdom from 30.0.1 to 30.1.0
+
+- Updated dependencies [b2b81a2]
+- Updated dependencies [fbdc3b9]
+- Updated dependencies [824aa2b]
+  - @cloudoperators/juno-app-heureka@1.1.16
+  - @cloudoperators/juno-app-doop@2.6.41
+  - @cloudoperators/juno-app-supernova@0.20.10
+  - @cloudoperators/juno-ui-components@9.4.3
+  - @cloudoperators/juno-oauth@1.4.12
+  - @cloudoperators/greenhouse-auth-provider@1.0.4
+  - @cloudoperators/juno-k8s-client@1.1.6
+  - @cloudoperators/juno-url-state-provider@3.0.11
+  - @cloudoperators/juno-messages-provider@0.2.53
+
 ## 0.14.10
 
 ### Patch Changes
