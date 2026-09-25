@@ -361,7 +361,7 @@ export const OverflowMenuMultipleEntityGroups: Story = {
     docs: {
       description: {
         story:
-          "When a menu contains actions targeting multiple entity types, group actions by entity type and separate groups with a divider. Within each group, sort items alphabetically with the Delete action last. No additional divider is added before Delete within a group — the group dividers already provide visual separation.",
+          "When a menu contains actions targeting multiple entity types, group actions by entity type and separate groups with a divider. Within each group, place View actions first and order remaining actions by importance and expected frequency of use, with destructive actions last. No additional divider is needed before the Delete action within a group — the group dividers already provide visual separation.",
       },
     },
   },
@@ -370,17 +370,20 @@ export const OverflowMenuMultipleEntityGroups: Story = {
       <PopupMenuToggle as={IconToggleButton} key="t" title="More actions" />,
       <PopupMenuOptions key="m">
         <PopupMenuSection>
+          <PopupMenuItem label="View Bucket" />
           <PopupMenuItem label="Edit Bucket" />
           <PopupMenuItem label="Empty Bucket" />
           <PopupMenuItem label="Delete Bucket" />
         </PopupMenuSection>
         <PopupMenuSectionSeparator />
         <PopupMenuSection>
+          <PopupMenuItem label="View Policy" />
           <PopupMenuItem label="Edit Policy" />
           <PopupMenuItem label="Delete Policy" />
         </PopupMenuSection>
         <PopupMenuSectionSeparator />
         <PopupMenuSection>
+          <PopupMenuItem label="View Version History" />
           <PopupMenuItem label="Suspend Versioning" />
           <PopupMenuItem label="Delete Version" />
         </PopupMenuSection>
@@ -394,7 +397,7 @@ export const OverflowMenuSingleEntityType: Story = {
     docs: {
       description: {
         story:
-          "When all actions in the menu refer to a single entity type, sort items alphabetically and separate the Delete action from the rest with a horizontal divider.",
+          "When all actions in a menu refer to a single entity type, place View actions first, order remaining actions by importance and expected frequency of use, and separate the destructive action from the rest with a horizontal divider.",
       },
     },
   },
@@ -402,10 +405,10 @@ export const OverflowMenuSingleEntityType: Story = {
     children: [
       <PopupMenuToggle as={IconToggleButton} key="t" title="More actions" />,
       <PopupMenuOptions key="m">
+        <PopupMenuItem label="View Item Details" />
         <PopupMenuItem label="Copy Item" />
-        <PopupMenuItem label="Download Item" />
         <PopupMenuItem label="Share Item URL" />
-        <PopupMenuItem label="View Item" />
+        <PopupMenuItem label="Download Item" />
         <PopupMenuSectionSeparator />
         <PopupMenuItem label="Delete Item" />
       </PopupMenuOptions>,
