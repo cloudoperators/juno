@@ -43,14 +43,15 @@ export function extractFilterSettingsFromSearchParams(searchParams: Vulnerabilit
 export const getNormalizedFilters = (data: GetVulnerabilityFiltersQuery | undefined | null): Filter[] =>
   isEmpty(data) || isEmpty(data?.VulnerabilityFilterValues)
     ? []
-    : (Object.entries(data!.VulnerabilityFilterValues!)
+    : Object.entries(data!.VulnerabilityFilterValues!)
         .filter(([key]) => key !== "__typename")
         // v6: Type assertions needed because Object.entries doesn't narrow nullable union types - fallback operators guarantee non-null values
         .map(([_, filter]) => ({
           displayName: (filter?.displayName as string) || "",
           filterName: (filter?.filterName as string) || "",
-          values: ((filter?.values as Array<string | null> | null)?.filter((value) => value !== null) as string[]) || [],
-        })))
+          values:
+            ((filter?.values as Array<string | null> | null)?.filter((value) => value !== null) as string[]) || [],
+        }))
 
 export function sanitizeFilterSettings(filters: { filterName: string }[], filterSettings: FilterSettings) {
   // Only keep filters that are supported by the backend
@@ -156,7 +157,9 @@ export function getNormalizedVulnerabilitiesResponse(data: unknown): NormalizedV
     vulnerabilities,
     totalVulnerabilities,
     // v6: Type predicate required due to stricter null handling - filters out null pages and narrows Array<Page | null> to Array<Page>
-    pages: (typedData?.Vulnerabilities?.pageInfo?.pages?.filter((page): page is NonNullable<typeof page> => page !== null) || []) as Page[],
+    pages: (typedData?.Vulnerabilities?.pageInfo?.pages?.filter(
+      (page): page is NonNullable<typeof page> => page !== null
+    ) || []) as Page[],
     pageNumber: typedData?.Vulnerabilities?.pageInfo?.pageNumber || 1,
     vulnerabilitiesCounts: {
       critical: counts?.critical || DEFAULT_COUNT,

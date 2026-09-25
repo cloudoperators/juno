@@ -399,13 +399,14 @@ export const getFiltersForUrl = (filterSettings: FilterSettings): Record<string,
 export const getNormalizedFilters = (data: GetServiceFiltersQuery | undefined | null): Filter[] =>
   isEmpty(data) || isEmpty(data?.ServiceFilterValues)
     ? []
-    : (Object.entries(data!.ServiceFilterValues!)
+    : Object.entries(data!.ServiceFilterValues!)
         .filter(([key]) => key !== "__typename")
         .map(([_, filter]) => ({
           displayName: (filter?.displayName as string) || "",
           filterName: (filter?.filterName as string) || "",
-          values: ((filter?.values as Array<string | null> | null)?.filter((value) => value !== null) as string[]) || [],
-        })))
+          values:
+            ((filter?.values as Array<string | null> | null)?.filter((value) => value !== null) as string[]) || [],
+        }))
 
 // Extract initial filters from the supplied initialFilters in the appProps
 export const getInitialFilters = (initialFilters?: InitialFilters): SelectedFilter[] =>
@@ -486,9 +487,7 @@ export const getNormalizedImageVersionDetailsResponse = (
 
   // v6: Type predicate required to narrow nullable edges before mapping
   const vulnerabilities: ImageVulnerability[] = vulnerabilitiesEdges
-    .filter(
-      (edge): edge is NonNullable<typeof edge> => edge != null && edge.node != null
-    )
+    .filter((edge): edge is NonNullable<typeof edge> => edge != null && edge.node != null)
     .map((edge) => {
       const node = edge.node
       return {
@@ -531,9 +530,7 @@ export const getNormalizedImageVersionDetailsResponse = (
 
   // v6: Type predicate required to narrow nullable edges before mapping
   const occurrences: ComponentInstance[] = occurrencesEdges
-    .filter(
-      (edge): edge is NonNullable<typeof edge> => edge != null && edge.node != null
-    )
+    .filter((edge): edge is NonNullable<typeof edge> => edge != null && edge.node != null)
     .map((edge) => {
       const node = edge.node
       const ccrn = node.ccrn || ""

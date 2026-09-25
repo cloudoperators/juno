@@ -22,7 +22,7 @@ import type {
   GetRemediationsQuery,
   GetVulnerabilitiesQuery,
   GetImageVersionsQuery,
-} from './graphql'
+} from "./graphql"
 
 // Generic Edge type
 export type Edge<T> = {
@@ -38,33 +38,31 @@ export type Page = {
 }
 
 // Extract Service types from GetServicesQuery
-export type ServiceEdge = NonNullable<NonNullable<GetServicesQuery['Services']>['edges']>[number]
-export type Service = NonNullable<ServiceEdge>['node']
+export type ServiceEdge = NonNullable<NonNullable<GetServicesQuery["Services"]>["edges"]>[number]
+export type Service = NonNullable<ServiceEdge>["node"]
 
 // Extract Vulnerability types from GetVulnerabilitiesQuery
-export type VulnerabilityEdge = NonNullable<NonNullable<GetVulnerabilitiesQuery['Vulnerabilities']>['edges']>[number]
-export type Vulnerability = NonNullable<VulnerabilityEdge>['node']
+export type VulnerabilityEdge = NonNullable<NonNullable<GetVulnerabilitiesQuery["Vulnerabilities"]>["edges"]>[number]
+export type Vulnerability = NonNullable<VulnerabilityEdge>["node"]
 
 // Extract Vulnerability types from GetImageVersionsQuery (nested)
 export type ImageVersionVulnerabilityEdge = NonNullable<
   NonNullable<
-    NonNullable<NonNullable<GetImageVersionsQuery['ImageVersions']>['edges']>[number]
-  >['node']['vulnerabilities']
->['edges'][number]
-export type ImageVersionVulnerability = NonNullable<ImageVersionVulnerabilityEdge>['node']
+    NonNullable<NonNullable<GetImageVersionsQuery["ImageVersions"]>["edges"]>[number]
+  >["node"]["vulnerabilities"]
+>["edges"][number]
+export type ImageVersionVulnerability = NonNullable<ImageVersionVulnerabilityEdge>["node"]
 
 // Extract ComponentInstance types from GetImageVersionsQuery
 export type ComponentInstanceEdge = NonNullable<
-  NonNullable<
-    NonNullable<NonNullable<GetImageVersionsQuery['ImageVersions']>['edges']>[number]
-  >['node']['occurences']
->['edges'][number]
-export type ComponentInstance = NonNullable<ComponentInstanceEdge>['node']
+  NonNullable<NonNullable<NonNullable<GetImageVersionsQuery["ImageVersions"]>["edges"]>[number]>["node"]["occurences"]
+>["edges"][number]
+export type ComponentInstance = NonNullable<ComponentInstanceEdge>["node"]
 
 // Extract Image types from GetImagesQuery
-export type ImageEdge = NonNullable<NonNullable<GetImagesQuery['Images']>['edges']>[number]
-export type Image = NonNullable<ImageEdge>['node']
+export type ImageEdge = NonNullable<NonNullable<GetImagesQuery["Images"]>["edges"]>[number]
+export type Image = NonNullable<ImageEdge>["node"]
 
 // Extract Remediation types from GetRemediationsQuery
-export type RemediationEdge = NonNullable<NonNullable<GetRemediationsQuery['Remediations']>['edges']>[number]
-export type Remediation = NonNullable<RemediationEdge>['node']
+export type RemediationEdge = NonNullable<NonNullable<GetRemediationsQuery["Remediations"]>["edges"]>[number]
+export type Remediation = NonNullable<RemediationEdge>["node"]

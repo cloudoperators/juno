@@ -5,14 +5,17 @@ Upgrade GraphQL Code Generator packages in the heureka app from v5 to v6, follow
 # Changes Made
 
 ## Dependency Updates
+
 - Upgraded `@graphql-codegen/typescript-operations`: 5.1.0 → 6.1.6
 - Upgraded `@graphql-codegen/typescript-react-apollo`: 4.4.2 → 5.0.0
 
 ## Configuration Changes
+
 - **codegen.ts**: Removed `typescript` plugin per v6 migration guide (Breaking Change #1: schema Object types no longer generated)
 - **codegen.ts**: Added `enumType: "const"` config for backward compatibility with existing enum usage
 
 ## Type System Changes
+
 - **Created `src/generated/types.ts`**: Helper file to extract reusable types from operation result types using TypeScript utility types
   - Extracts Service, Image, Vulnerability, Remediation, and other entity types from query results
   - Includes Page type for pagination
@@ -21,6 +24,7 @@ Upgrade GraphQL Code Generator packages in the heureka app from v5 to v6, follow
 ## Code Updates (v6 Stricter Type Handling)
 
 ### Services/utils.ts
+
 - Changed imports from schema types to extracted operation result types
 - Fixed filter logic to use `Object.entries` instead of `omit` to handle `__typename`
 - Added type predicates with `NonNullable` for filtering nullable arrays (7 locations)
@@ -28,6 +32,7 @@ Upgrade GraphQL Code Generator packages in the heureka app from v5 to v6, follow
 - Comments added explaining v6's stricter null handling requirements
 
 ### Vulnerabilities/utils.ts
+
 - Changed imports to use extracted Page type from types helper
 - Added type predicates with `NonNullable` for filtering nullable arrays (2 locations)
 - Fixed Page type casting with explicit type predicate
@@ -35,13 +40,16 @@ Upgrade GraphQL Code Generator packages in the heureka app from v5 to v6, follow
 - Comments added explaining v6 requirements
 
 ### CursorPagination.tsx
+
 - Changed Page import from graphql to types helper
 
 ### Test Files
+
 - **ServicePanel.test.tsx**: Updated mock import pattern
 - **RemediationModal.test.tsx**: Fixed `renderModal` type to avoid literal type inference - uses `Omit` and re-adds `remediationType` with full union type
 
 ### Mock Data (src/mocks/promises.tsx)
+
 - Added missing v6-required fields: `hasNextPage`, `hasPreviousPage`, `isValidPage`, `nextPageAfter` to all `pageInfo` objects
 - Added missing fields to mockImagesPromise: `counts: null` at top level, `vulnerabilities: null` in nodes
 - Added missing fields to mockVulnerabilitiesPromise: `counts: null` at top level, `supportGroups: null` in nodes

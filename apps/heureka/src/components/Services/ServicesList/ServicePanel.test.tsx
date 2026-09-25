@@ -46,9 +46,7 @@ const renderComponent = () => {
 
 describe("ServicePanel", () => {
   beforeEach(() => {
-    vitest
-      .spyOn(fetchImages, "fetchImages")
-      .mockReturnValue(mockImagesPromise)
+    vitest.spyOn(fetchImages, "fetchImages").mockReturnValue(mockImagesPromise)
   })
 
   afterEach(() => {
