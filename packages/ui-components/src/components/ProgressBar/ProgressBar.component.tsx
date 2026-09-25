@@ -102,7 +102,7 @@ export const ProgressBar = ({
       className={`juno-progressbar juno-progressbar-${mode} ${progressBarBaseStyles} ${width} ${className}`}
     >
       {mode === "busy" ? (
-        <div className="juno-progressbar-busy-fill jn:h-full jn:rounded-xl jn:bg-theme-progressbar" />
+        <div className="juno-progressbar-busy-fill jn:h-full jn:rounded-xl  jn:bg-theme-progressbar" />
       ) : mode === "simulated" ? (
         <div
           className="juno-progressbar-simulated-fill jn:h-full jn:rounded-xl jn:bg-theme-progressbar jn:transition-[width] jn:duration-300 jn:ease-out jn:motion-reduce:transition-none"
