@@ -122,11 +122,11 @@ const getSearchStyles = (variant: "rounded" | "hero" | "default"): string => {
 const getIconWrapperStyles = (variant: "rounded" | "hero" | "default"): string => {
   switch (variant) {
     case "rounded":
-      return "jn:absolute jn:inline-flex jn:right-3 jn:top-1"
+      return "jn:absolute jn:inline-flex jn:items-center jn:right-3 jn:top-1/2 jn:-translate-y-1/2"
     case "hero":
-      return "jn:absolute jn:inline-flex jn:right-5"
+      return "jn:absolute jn:inline-flex jn:items-center jn:right-5 jn:top-1/2 jn:-translate-y-1/2"
     default:
-      return "jn:absolute jn:inline-flex jn:right-3 jn:top-2"
+      return "jn:absolute jn:inline-flex jn:items-center jn:right-3 jn:top-1/2 jn:-translate-y-1/2"
   }
 }
 
