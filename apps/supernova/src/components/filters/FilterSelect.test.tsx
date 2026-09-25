@@ -175,7 +175,7 @@ describe("FilterSelect", () => {
       expect(comboboxWrapper).toBeInTheDocument()
 
       // Verify it contains the ComboBox
-      const combobox = comboboxWrapper?.querySelector('.juno-combobox-wrapper')
+      const combobox = comboboxWrapper?.querySelector(".juno-combobox-wrapper")
       expect(combobox).toBeInTheDocument()
 
       // The component uses comboBoxKey state and a container ref to restore focus
