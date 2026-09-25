@@ -47,9 +47,7 @@ const FilterSelect = () => {
   useEffect(() => {
     if (comboBoxKey > 0 && comboBoxContainerRef.current) {
       const timeoutId = setTimeout(() => {
-        const input = comboBoxContainerRef.current?.querySelector(
-          'input[role="combobox"]'
-        ) as HTMLInputElement
+        const input = comboBoxContainerRef.current?.querySelector('input[role="combobox"]') as HTMLInputElement
         if (input) {
           input.focus()
         }
