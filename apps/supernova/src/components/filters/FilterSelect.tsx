@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react"
+import React, { useState, useEffect, useRef } from "react"
 
 import {
   Button,
@@ -36,11 +36,26 @@ const FilterSelect = () => {
   const [comboBoxQuery, setComboBoxQuery] = useState("")
   const [displayLimit, setDisplayLimit] = useState(ITEMS_PER_PAGE)
   const [comboBoxKey, setComboBoxKey] = useState(0) // Key to force ComboBox re-render
+  const comboBoxContainerRef = useRef<HTMLDivElement>(null)
   const { addActiveFilter, loadFilterLabelValues, clearFilters, setSearchTerm } = useFilterActions()
   const filterLabels = useFilterLabels()
   const filterLabelValues = useFilterLabelValues()
   const activeFilters = useActiveFilters()
   const searchTerm = useSearchTerm()
+
+  // Refocus the ComboBox input after remount (when comboBoxKey changes)
+  useEffect(() => {
+    if (comboBoxKey > 0 && comboBoxContainerRef.current) {
+      const timeoutId = setTimeout(() => {
+        const input = comboBoxContainerRef.current?.querySelector('input[role="combobox"]') as HTMLInputElement
+        if (input) {
+          input.focus()
+        }
+      }, 50)
+
+      return () => clearTimeout(timeoutId)
+    }
+  }, [comboBoxKey])
 
   const handleFilterLabelChange = (value: any) => {
     setFilterLabel(value)
@@ -143,18 +158,20 @@ const FilterSelect = () => {
             <SelectOption value={filter} label={humanizeString(filter)} key={filter} />
           ))}
         </Select>
-        <ComboBox
-          key={comboBoxKey}
-          value={filterValue}
-          name="filterValue"
-          onChange={(value: string) => handleFilterValueChange(value)}
-          onInputChange={handleComboBoxInputChange}
-          disabled={filterLabelValues[filterLabel] ? false : true}
-          loading={filterLabelValues[filterLabel]?.isLoading}
-          className="filter-value-select w-96 bg-theme-background-lvl-0"
-        >
-          {renderFilterOptions()}
-        </ComboBox>
+        <div ref={comboBoxContainerRef}>
+          <ComboBox
+            key={comboBoxKey}
+            value={filterValue}
+            name="filterValue"
+            onChange={(value: string) => handleFilterValueChange(value)}
+            onInputChange={handleComboBoxInputChange}
+            disabled={filterLabelValues[filterLabel] ? false : true}
+            loading={filterLabelValues[filterLabel]?.isLoading}
+            className="filter-value-select w-96 bg-theme-background-lvl-0"
+          >
+            {renderFilterOptions()}
+          </ComboBox>
+        </div>
       </InputGroup>
       {renderClearButton()}
       <SearchInput
