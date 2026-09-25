@@ -10,7 +10,7 @@
     {
       "groupName": "github actions",
       "matchManagers": ["github-actions"],
-      "matchUpdateTypes": ["major", "minor", "patch"],
+      "matchUpdateTypes": ["major", "minor", "patch", "digest"],
       "extends": ["helpers:pinGitHubActionDigests"],
       "dependencyDashboardApproval": false,
       "minimumReleaseAge": "14 days",
