@@ -10,8 +10,11 @@ import { Badge } from "./"
 const meta: Meta<typeof Badge> = {
   title: "Components/Badge",
   component: Badge,
-  parameters: {
-    text: "default",
+  // Opt non-interactive stories out of the global `argTypesRegex` action injection
+  // (see .storybook/preview.js). Without this, an injected `onClick` spy makes every
+  // badge interactive, rendering it as a `<button>` with a pointer cursor.
+  args: {
+    onClick: undefined,
   },
   argTypes: {
     icon: {
@@ -113,5 +116,77 @@ export const ErrorWithIcon: Story = {
     variant: "error",
     text: "Error",
     icon: true,
+  },
+}
+
+// Interactive stories
+
+export const AsButton: Story = {
+  args: {
+    text: "Clickable",
+    onClick: () => {},
+  },
+}
+
+export const AsButtonDisabled: Story = {
+  args: {
+    text: "Disabled",
+    onClick: () => {},
+    disabled: true,
+  },
+}
+
+export const AsLink: Story = {
+  args: {
+    text: "Link",
+    href: "#",
+  },
+}
+
+export const AsLinkDisabled: Story = {
+  args: {
+    text: "Disabled Link",
+    href: "#",
+    disabled: true,
+  },
+}
+
+export const AsButtonInfo: Story = {
+  args: {
+    variant: "info",
+    text: "Info",
+    onClick: () => {},
+  },
+}
+
+export const AsButtonSuccess: Story = {
+  args: {
+    variant: "success",
+    text: "Success",
+    onClick: () => {},
+  },
+}
+
+export const AsButtonWarning: Story = {
+  args: {
+    variant: "warning",
+    text: "Warning",
+    onClick: () => {},
+  },
+}
+
+export const AsButtonDanger: Story = {
+  args: {
+    variant: "danger",
+    text: "Danger",
+    onClick: () => {},
+  },
+}
+
+export const AsButtonError: Story = {
+  args: {
+    variant: "error",
+    text: "Error",
+    onClick: () => {},
   },
 }

@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { HTMLAttributes, ReactNode } from "react"
+import React, { AnchorHTMLAttributes, ButtonHTMLAttributes, forwardRef, MouseEventHandler, ReactNode, Ref } from "react"
 import { Icon, KnownIcons, KnownIconsEnum } from "../Icon/Icon.component"
+
+export type BadgeVariantType = "default" | "info" | "success" | "warning" | "danger" | "error"
 
 const badgeBaseStyles = `
   jn:inline-flex
@@ -17,7 +19,20 @@ const badgeBaseStyles = `
   jn:items-center
 `
 
-const badgeVariantStyles = {
+const badgeInteractiveBaseStyles = `
+  jn:cursor-pointer
+  jn:hover:text-theme-highest
+  jn:focus:outline-hidden
+  jn:focus-visible:ring-2
+  jn:focus-visible:ring-theme-focus
+  jn:focus-visible:ring-offset-1
+  jn:focus-visible:ring-offset-theme-focus
+  jn:active:ring-1
+  jn:active:ring-inset
+  jn:active:text-theme-highest
+`
+
+const badgeVariantStyles: Record<BadgeVariantType, string> = {
   default: "jn:bg-theme-badge-default",
   info: "jn:bg-theme-info/25",
   success: "jn:bg-theme-success/25",
@@ -26,11 +41,20 @@ const badgeVariantStyles = {
   error: "jn:bg-theme-error/25",
 }
 
+const badgeActiveVariantStyles: Record<BadgeVariantType, string> = {
+  default: "jn:active:ring-current",
+  info: "jn:active:ring-theme-accent",
+  success: "jn:active:ring-theme-success",
+  warning: "jn:active:ring-theme-warning",
+  danger: "jn:active:ring-theme-danger",
+  error: "jn:active:ring-theme-error",
+}
+
 const iconStyles = "jn:mr-1 jn:items-center"
 
-export type BadgeVariantType = "default" | "info" | "success" | "warning" | "danger" | "error"
+const VALID_ICON_NAMES: Set<KnownIcons> = new Set(Object.values(KnownIconsEnum))
 
-export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
+export interface BadgeProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "disabled"> {
   /**
    * Specify a semantic variant that determines the appearance of the badge.
    * @default "default"
@@ -61,59 +85,109 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
    * precedence over the `text` property.
    */
   children?: ReactNode
+
+  /**
+   * Renders the badge as an `<a>` element. When combined with `onClick`, `href` takes precedence.
+   */
+  href?: string
+
+  /**
+   * Click handler. Passing it renders the badge as a `<button>`, unless `href` is set.
+   */
+  onClick?: MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
+
+  /**
+   * Disables the badge. Only meaningful when rendered as a `<button>` or `<a>`.
+   * @default false
+   */
+  disabled?: boolean
 }
 
-const getVariantStyle = (variant: BadgeVariantType): string => badgeVariantStyles[variant] || badgeVariantStyles.default
-
-// Get icon based on the provided variant or icon string
 const getIcon = (icon: boolean | KnownIcons | undefined, variant: BadgeVariantType): KnownIcons | undefined => {
   if (typeof icon === "string" && isValidIcon(icon)) return icon
   if (icon === true) return variant
   return
 }
 
-// Get icon colour based on the variant
 const getIconColor = (icon: boolean | KnownIcons | undefined, variant: BadgeVariantType): string | undefined => {
   if (icon === true) return `jn:text-theme-${variant}`
   return
 }
 
-// Determine if a given string corresponds to a known icon
-const isValidIcon = (icon: string): icon is KnownIcons => {
-  const validIconNames: Set<KnownIcons> = new Set(Object.values(KnownIconsEnum))
-  return validIconNames.has(icon as KnownIcons)
-}
+const isValidIcon = (icon: string): icon is KnownIcons => VALID_ICON_NAMES.has(icon as KnownIcons)
 
 /**
  * The `Badge` component visually represents properties or states of an entity.
  * It supports multiple semantic variants, each with distinct styling. An optional
- * icon can be included to further emphasize meaning.
+ * icon can be included to further emphasize meaning. Pass `onClick` to render the
+ * badge as a `<button>`, or `href` to render it as an `<a>` element, with hover,
+ * focus, active, and disabled states applied automatically.
  * @see https://cloudoperators.github.io/juno/?path=/docs/components-badge--docs
  * @see {@link BadgeProps}
  */
-export const Badge = ({
-  variant = "default",
-  icon = false,
-  text = "",
-  className = "",
-  children,
-  ...props
-}: BadgeProps): ReactNode => {
-  const iconToRender = getIcon(icon, variant)
-  const iconColor = getIconColor(icon, variant)
+export const Badge = forwardRef<HTMLButtonElement | HTMLAnchorElement, BadgeProps>(
+  (
+    { variant = "default", icon = false, text = "", className = "", children, href, disabled, onClick, ...props },
+    ref
+  ): ReactNode => {
+    const iconToRender = getIcon(icon, variant)
+    const iconColor = getIconColor(icon, variant)
+    const isInteractive = !!(href || onClick)
 
-  return (
-    <span
-      className={`
-        juno-badge
-        juno-badge-${variant}
-        ${badgeBaseStyles}
-        ${getVariantStyle(variant)}
-        ${className}`}
-      {...props}
-    >
-      {iconToRender && <Icon icon={iconToRender} size="1.125rem" className={iconStyles} color={iconColor} />}
-      {children || text}
-    </span>
-  )
-}
+    const classes = `
+    juno-badge
+    juno-badge-${variant}
+    ${badgeBaseStyles}
+    ${badgeVariantStyles[variant] ?? badgeVariantStyles["default"]}
+    ${isInteractive ? `${badgeInteractiveBaseStyles} ${badgeActiveVariantStyles[variant] ?? badgeActiveVariantStyles["default"]}` : ""}
+    ${isInteractive && disabled ? "jn:opacity-50 jn:pointer-events-none" : ""}
+    ${className}
+  `
+
+    const content = (
+      <>
+        {iconToRender && <Icon icon={iconToRender} size="1.125rem" className={iconStyles} color={iconColor} />}
+        {children ?? text}
+      </>
+    )
+
+    if (href) {
+      return (
+        <a
+          href={disabled ? undefined : href}
+          className={classes}
+          onClick={disabled ? undefined : onClick}
+          aria-disabled={disabled || undefined}
+          tabIndex={disabled ? -1 : undefined}
+          ref={ref as Ref<HTMLAnchorElement>}
+          {...props}
+        >
+          {content}
+        </a>
+      )
+    }
+
+    if (onClick) {
+      return (
+        <button
+          {...(props as ButtonHTMLAttributes<HTMLButtonElement>)}
+          type="button"
+          className={classes}
+          onClick={onClick}
+          disabled={disabled}
+          ref={ref as Ref<HTMLButtonElement>}
+        >
+          {content}
+        </button>
+      )
+    }
+
+    return (
+      <span className={classes} {...props}>
+        {content}
+      </span>
+    )
+  }
+)
+
+Badge.displayName = "Badge"
