@@ -14,6 +14,7 @@ export default defineConfig(({ mode }: { mode: string }): UserConfig => {
 
     define: {
       "process.env": {},
+      "process.env.NODE_ENV": JSON.stringify(mode === "production" ? "production" : "development"),
     },
 
     plugins: [tailwindcss(), react(), tsconfigPaths()],
@@ -44,6 +45,14 @@ export default defineConfig(({ mode }: { mode: string }): UserConfig => {
         entry: "src/index.tsx",
         formats: ["es"],
         fileName: () => `index.js`,
+      },
+
+      // For PoC: Bundle everything including React
+      // Production: Should externalize and use import maps
+      rollupOptions: {
+        output: {
+          inlineDynamicImports: true,
+        },
       },
     },
   }

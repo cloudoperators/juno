@@ -12,24 +12,43 @@ import type { PluginModule } from "@cloudoperators/juno-app-supernova"
 // Cache loaded modules at the module level (persists across component mounts)
 const moduleCache = new Map<string, PluginModule>()
 
-const getApp = async (appName: string): Promise<PluginModule | null> => {
+const getApp = async (appName: string, pluginPath?: string): Promise<PluginModule | null> => {
   // Return cached module immediately if available
   if (moduleCache.has(appName)) {
     return moduleCache.get(appName)!
   }
 
-  // Load the module
   let module: PluginModule | null = null
-  switch (appName) {
-    case "supernova":
-      module = await import("@cloudoperators/juno-app-supernova")
-      break
-    case "doop":
-      module = await import("@cloudoperators/juno-app-doop")
-      break
-    case "heureka":
-      module = await import("@cloudoperators/juno-app-heureka")
-      break
+
+  // Try loading from plugin path (relative path = same origin via Ingress, no CORS!)
+  if (pluginPath) {
+    try {
+      console.log(`Loading plugin ${appName} from ${pluginPath}`)
+      // @vite-ignore allows dynamic import of paths/URLs
+      module = await import(/* @vite-ignore */ pluginPath)
+      console.log(`Successfully loaded plugin ${appName}`)
+    } catch (error) {
+      console.error(`Failed to load plugin ${appName} from ${pluginPath}:`, error)
+      // Continue to fallback logic
+    }
+  }
+
+  // Fallback to bundled apps (backward compatibility)
+  if (!module) {
+    switch (appName) {
+      case "supernova":
+        module = await import("@cloudoperators/juno-app-supernova")
+        break
+      case "doop":
+        module = await import("@cloudoperators/juno-app-doop")
+        break
+      case "heureka":
+        module = await import("@cloudoperators/juno-app-heureka")
+        break
+      default:
+        console.warn(`Unknown plugin: ${appName}, no fallback available`)
+        return null
+    }
   }
 
   // Cache it for next time
@@ -45,22 +64,27 @@ type UsePluginLoaderParams = {
   config: any
   appProps: AppProps
   pluginAuth: AuthStore
+  pluginPath?: string // NEW: Path to load plugin from (relative = same origin, absolute = external CDN)
 }
 
 type UsePluginLoaderResult = {
   isLoading: boolean
+  error: Error | null // NEW: Track loading errors
   containerRef: React.RefObject<HTMLDivElement | null>
 }
 
 /**
  * Custom hook to handle plugin loading and mounting
  * Loads plugins dynamically with caching and handles mount/unmount lifecycle
+ * Supports both bundled plugins and remote plugins
+ * Remote plugins use relative paths (same origin via Ingress) - no CORS needed!
  */
 export function usePluginLoader({
   pluginName,
   config,
   appProps,
   pluginAuth,
+  pluginPath, // NEW
 }: UsePluginLoaderParams): UsePluginLoaderResult {
   const router = useRouter()
   const containerRef = useRef<HTMLDivElement>(null)
@@ -69,6 +93,7 @@ export function usePluginLoader({
   const cachedModule = moduleCache.get(pluginName)
   const [app, setApp] = useState<PluginModule | null>(cachedModule || null)
   const [isLoading, setIsLoading] = useState(!cachedModule) // Only show loading if not cached
+  const [error, setError] = useState<Error | null>(null) // NEW
 
   // Load the plugin module dynamically (only if not already loaded)
   useEffect(() => {
@@ -80,8 +105,9 @@ export function usePluginLoader({
 
     const loadApp = async () => {
       setIsLoading(true)
+      setError(null)
       try {
-        const appModule = await getApp(pluginName)
+        const appModule = await getApp(pluginName, pluginPath) // Pass pluginPath
         if (!cancelled) {
           setApp(appModule)
           setIsLoading(false)
@@ -89,8 +115,9 @@ export function usePluginLoader({
       } catch (error) {
         if (!cancelled) {
           setIsLoading(false)
+          setError(error instanceof Error ? error : new Error(String(error)))
+          console.error(`Error loading plugin ${pluginName}:`, error)
         }
-        throw error
       }
     }
 
@@ -99,7 +126,7 @@ export function usePluginLoader({
     return () => {
       cancelled = true
     }
-  }, [pluginName, cachedModule])
+  }, [pluginName, pluginPath, cachedModule])
 
   // Mount the app once it's loaded
   useEffect(() => {
@@ -107,20 +134,29 @@ export function usePluginLoader({
       return
     }
 
-    app.mount(containerRef.current, {
-      props: {
-        ...config.props,
-        embedded: true,
-        basePath: `${router.basepath === "/" ? "" : router.basepath}/${config.id}`,
-        enableHashedRouting: appProps?.enableHashedRouting || false,
-        auth: pluginAuth,
-      },
-    })
+    try {
+      app.mount(containerRef.current, {
+        props: {
+          ...config.props,
+          embedded: true,
+          basePath: `${router.basepath === "/" ? "" : router.basepath}/${config.id}`,
+          enableHashedRouting: appProps?.enableHashedRouting || false,
+          auth: pluginAuth,
+        },
+      })
+    } catch (error) {
+      console.error(`Error mounting plugin ${pluginName}:`, error)
+      setError(error instanceof Error ? error : new Error(String(error)))
+    }
 
     return () => {
-      app.unmount()
+      try {
+        app.unmount()
+      } catch (error) {
+        console.error(`Error unmounting plugin ${pluginName}:`, error)
+      }
     }
   }, [app, config, router, pluginAuth, appProps])
 
-  return { isLoading, containerRef }
+  return { isLoading, error, containerRef }
 }
