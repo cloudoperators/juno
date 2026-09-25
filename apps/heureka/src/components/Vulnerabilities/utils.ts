@@ -2,11 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Filter, FilterSettings } from "../common/Filters/types"
-import { GetVulnerabilityFiltersQuery, Page, GetVulnerabilitiesQuery } from "../../generated/graphql"
+import { GetVulnerabilityFiltersQuery, GetVulnerabilitiesQuery } from "../../generated/graphql"
+// v6: Import extracted types from types helper
+import type { Page } from "../../generated/types"
 import { SELECTED_FILTER_PREFIX } from "../../constants"
 import { VulnerabilitiesSearchParams } from "../../routes/vulnerabilities"
 import { IssuesCountsType } from "../types"
-import { isEmpty, omit } from "../../utils"
+import { isEmpty } from "../../utils"
 
 const DEFAULT_COUNT = 0
 
@@ -41,11 +43,14 @@ export function extractFilterSettingsFromSearchParams(searchParams: Vulnerabilit
 export const getNormalizedFilters = (data: GetVulnerabilityFiltersQuery | undefined | null): Filter[] =>
   isEmpty(data) || isEmpty(data?.VulnerabilityFilterValues)
     ? []
-    : Object.values(omit(data!.VulnerabilityFilterValues!, ["__typename"])).map((filter) => ({
-        displayName: filter?.displayName || "",
-        filterName: filter?.filterName || "",
-        values: filter?.values?.filter((value) => value !== null) || [],
-      }))
+    : (Object.entries(data!.VulnerabilityFilterValues!)
+        .filter(([key]) => key !== "__typename")
+        // v6: Type assertions needed because Object.entries doesn't narrow nullable union types - fallback operators guarantee non-null values
+        .map(([_, filter]) => ({
+          displayName: (filter?.displayName as string) || "",
+          filterName: (filter?.filterName as string) || "",
+          values: ((filter?.values as Array<string | null> | null)?.filter((value) => value !== null) as string[]) || [],
+        })))
 
 export function sanitizeFilterSettings(filters: { filterName: string }[], filterSettings: FilterSettings) {
   // Only keep filters that are supported by the backend
@@ -150,7 +155,8 @@ export function getNormalizedVulnerabilitiesResponse(data: unknown): NormalizedV
   return {
     vulnerabilities,
     totalVulnerabilities,
-    pages: typedData?.Vulnerabilities?.pageInfo?.pages?.filter((edge) => edge !== null) || [],
+    // v6: Type predicate required due to stricter null handling - filters out null pages and narrows Array<Page | null> to Array<Page>
+    pages: (typedData?.Vulnerabilities?.pageInfo?.pages?.filter((page): page is NonNullable<typeof page> => page !== null) || []) as Page[],
     pageNumber: typedData?.Vulnerabilities?.pageInfo?.pageNumber || 1,
     vulnerabilitiesCounts: {
       critical: counts?.critical || DEFAULT_COUNT,
@@ -179,7 +185,8 @@ export function getNormalizedVulnerabilityServicesResponse(data: unknown): Norma
   return {
     services,
     totalServices,
-    pages: pageInfo?.pages?.filter((edge) => edge !== null) || [],
+    // v6: Type predicate required due to stricter null handling - filters out null pages and narrows Array<Page | null> to Array<Page>
+    pages: (pageInfo?.pages?.filter((page): page is NonNullable<typeof page> => page !== null) || []) as Page[],
     pageNumber: pageInfo?.pageNumber || 1,
   }
 }

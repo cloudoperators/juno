@@ -6,7 +6,8 @@
 import React, { use, useCallback } from "react"
 import { Pagination, Stack } from "@cloudoperators/juno-ui-components"
 import { ApolloQueryResult } from "@apollo/client"
-import { Page } from "../../generated/graphql"
+// v6: Import extracted types from types helper
+import type { Page } from "../../generated/types"
 
 type CursorPaginationProps<T> = {
   dataPromise: Promise<ApolloQueryResult<T>>
