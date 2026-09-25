@@ -3,21 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { isEmpty, isNil, omit } from "../../utils"
+import { isEmpty, isNil } from "../../utils"
 import {
-  Edge,
   GetServicesQuery,
-  Page,
-  Service,
-  ServiceEdge,
   ServiceFilter,
   GetServiceFiltersQuery,
   GetImagesQuery,
   GetRemediationsQuery,
   GetImageVersionsQuery,
-  VulnerabilityEdge,
-  ComponentInstanceEdge,
 } from "../../generated/graphql"
+// v6: Import extracted types from types helper
+import type { ServiceEdge, Service, Page } from "../../generated/types"
 import { Filter, FilterSettings, SelectedFilter, ServiceFilterReduced } from "../common/Filters/types"
 import { ServiceType } from "../types"
 import { IssuesCountsType } from "../types"
@@ -57,7 +53,7 @@ export const getNormalizedServicesResponse = (data: unknown): NormalizedServices
       ? []
       : servicesEdges
           .filter((edge) => edge !== null)
-          .map((edge?: Edge): ServiceType => {
+          .map((edge?: ServiceEdge): ServiceType => {
             const node: Service | undefined = edge?.node
             const service: ServiceType = {
               id: node?.id?.toString() || "",
@@ -85,7 +81,8 @@ export const getNormalizedServicesResponse = (data: unknown): NormalizedServices
 
   return {
     pageNumber: pageInfo?.pageNumber || 1,
-    pages: pageInfo?.pages?.filter((edge) => edge !== null) || [],
+    // v6: Type predicate required due to stricter null handling - filters out null pages and narrows Array<Page | null> to Array<Page>
+    pages: (pageInfo?.pages?.filter((page): page is NonNullable<typeof page> => page !== null) || []) as Page[],
     servicesIssuesCount: {
       critical: typedData?.Services?.issueCounts?.critical || 0,
       high: typedData?.Services?.issueCounts?.high || 0,
@@ -214,11 +211,13 @@ export const getNormalizedImagesResponse = (
   type VersionEdge = NonNullable<NonNullable<NonNullable<NonNullable<ImageEdge>["node"]>["versions"]>["edges"]>[0]
 
   const imagesEdges = data.Images.edges
+  // v6: Type predicate required to narrow nullable edges before mapping
   const images: ServiceImage[] = (imagesEdges || [])
     .filter((edge): edge is NonNullable<ImageEdge> => edge !== null && edge.node !== null)
     .map((edge) => {
       const image = edge.node
       const versionsEdges = image.versions?.edges || []
+      // v6: Type predicate required to narrow nullable version edges before mapping
       const versions: ImageVersion[] = versionsEdges
         .filter(
           (versionEdge): versionEdge is NonNullable<VersionEdge> => versionEdge !== null && versionEdge.node !== null
@@ -253,7 +252,8 @@ export const getNormalizedImagesResponse = (
   return {
     totalImages: data.Images.totalCount || 0,
     pageNumber: pageInfo?.pageNumber || 1,
-    pages: pageInfo?.pages?.filter((edge): edge is Page => edge !== null) || [],
+    // v6: Type predicate required due to stricter null handling - filters out null pages and narrows Array<Page | null> to Array<Page>
+    pages: (pageInfo?.pages?.filter((page): page is NonNullable<typeof page> => page !== null) || []) as Page[],
     images,
     totalCount: hasNoResults ? 0 : images.length,
   }
@@ -298,6 +298,7 @@ type VulnerabilityEdgeFromQuery =
 
 function extractVulnerabilitiesFromImageNode(imageNode: ImageNodeFromQuery): ImageVulnerability[] {
   const edges = imageNode?.vulnerabilities?.edges || []
+  // v6: Type predicate required to narrow nullable edges before mapping
   return edges
     .filter((edge): edge is NonNullable<VulnerabilityEdgeFromQuery> => edge !== null && edge?.node != null)
     .map((edge) => {
@@ -398,11 +399,14 @@ export const getFiltersForUrl = (filterSettings: FilterSettings): Record<string,
 export const getNormalizedFilters = (data: GetServiceFiltersQuery | undefined | null): Filter[] =>
   isEmpty(data) || isEmpty(data?.ServiceFilterValues)
     ? []
-    : Object.values(omit(data!.ServiceFilterValues!, ["__typename"])).map((filter) => ({
-        displayName: filter?.displayName || "",
-        filterName: filter?.filterName || "",
-        values: filter?.values?.filter((value) => value !== null) || [],
-      }))
+    : Object.entries(data!.ServiceFilterValues!)
+        .filter(([key]) => key !== "__typename")
+        .map(([_, filter]) => ({
+          displayName: (filter?.displayName as string) || "",
+          filterName: (filter?.filterName as string) || "",
+          values:
+            ((filter?.values as Array<string | null> | null)?.filter((value) => value !== null) as string[]) || [],
+        }))
 
 // Extract initial filters from the supplied initialFilters in the appProps
 export const getInitialFilters = (initialFilters?: InitialFilters): SelectedFilter[] =>
@@ -481,11 +485,10 @@ export const getNormalizedImageVersionDetailsResponse = (
   const occurrencesEdges = imageVersionNode.occurences?.edges || []
   const vulnerabilitiesPageInfo = imageVersionNode.vulnerabilities?.pageInfo
 
+  // v6: Type predicate required to narrow nullable edges before mapping
   const vulnerabilities: ImageVulnerability[] = vulnerabilitiesEdges
-    .filter(
-      (edge: VulnerabilityEdge | null | undefined): edge is VulnerabilityEdge => edge != null && edge.node != null
-    )
-    .map((edge: VulnerabilityEdge) => {
+    .filter((edge): edge is NonNullable<typeof edge> => edge != null && edge.node != null)
+    .map((edge) => {
       const node = edge.node
       return {
         id: node.id || "",
@@ -525,12 +528,10 @@ export const getNormalizedImageVersionDetailsResponse = (
     return result
   }
 
+  // v6: Type predicate required to narrow nullable edges before mapping
   const occurrences: ComponentInstance[] = occurrencesEdges
-    .filter(
-      (edge: ComponentInstanceEdge | null | undefined): edge is ComponentInstanceEdge =>
-        edge != null && edge.node != null
-    )
-    .map((edge: ComponentInstanceEdge) => {
+    .filter((edge): edge is NonNullable<typeof edge> => edge != null && edge.node != null)
+    .map((edge) => {
       const node = edge.node
       const ccrn = node.ccrn || ""
       const parsed = parseCcrn(ccrn)
@@ -611,6 +612,7 @@ export const getNormalizedRemediationsResponse = (
     }
   }
 
+  // v6: Type predicate required to narrow nullable edges before mapping
   const remediatedVulnerabilities: RemediatedVulnerability[] = data.Remediations.edges
     .filter((edge): edge is NonNullable<typeof edge> => edge !== null && edge.node !== null)
     .map((edge) => {
@@ -624,9 +626,9 @@ export const getNormalizedRemediationsResponse = (
         image: node.image || null,
         vulnerability: node.vulnerability || null,
         vulnerabilityId: null,
-        remediationDate: node.remediationDate != null ? String(node.remediationDate) : null,
+        remediationDate: node.remediationDate != null ? (node.remediationDate as string) : null,
         remediatedBy: node.remediatedBy?.trim() || null,
-        expirationDate: node.expirationDate != null ? String(node.expirationDate) : null,
+        expirationDate: node.expirationDate != null ? (node.expirationDate as string) : null,
         url: node.url?.trim() || null,
       }
     })
