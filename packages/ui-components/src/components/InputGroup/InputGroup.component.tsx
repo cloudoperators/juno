@@ -82,7 +82,7 @@ export const InputGroup = ({
   const inputGroupClassName = getClassNames("juno-input-group", variant, disabled)
 
   return (
-    <Stack className={`juno-input-group ${inputGroupClassName} ${className}`} {...props}>
+    <Stack role="group" className={`juno-input-group ${inputGroupClassName} ${className}`} {...props}>
       {modifiedChildren}
     </Stack>
   )

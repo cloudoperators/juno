@@ -7,7 +7,7 @@ import * as React from "react"
 import { render, screen } from "@testing-library/react"
 import { describe, expect, test } from "vitest"
 
-import { InputGroup } from "./InputGroup.component"
+import { InputGroup } from "./index"
 import { Button } from "../Button/Button.component"
 import { TextInput } from "../TextInput/TextInput.component"
 
@@ -15,12 +15,13 @@ describe("InputGroup", () => {
   describe("Basic Rendering", () => {
     test("renders an InputGroup", () => {
       render(<InputGroup />)
-      expect(document.querySelector(".juno-input-group")).toBeInTheDocument()
+      expect(screen.getByRole("group")).toBeInTheDocument()
+      expect(screen.getByRole("group")).toHaveClass("juno-input-group")
     })
 
     test("renders without children", () => {
       render(<InputGroup />)
-      expect(document.querySelector(".juno-input-group")).toBeInTheDocument()
+      expect(screen.getByRole("group")).toBeInTheDocument()
       expect(screen.queryByRole("button")).not.toBeInTheDocument()
       expect(screen.queryByRole("textbox")).not.toBeInTheDocument()
     })
@@ -32,7 +33,7 @@ describe("InputGroup", () => {
           <TextInput value="some value" />
         </InputGroup>
       )
-      expect(document.querySelector(".juno-input-group")).toBeInTheDocument()
+      expect(screen.getByRole("group")).toBeInTheDocument()
       expect(screen.getByRole("button")).toBeInTheDocument()
       expect(screen.getByRole("button")).toHaveTextContent("A Button")
       expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -106,14 +107,15 @@ describe("InputGroup", () => {
   describe("Class and Props Handling", () => {
     test("renders a className as passed", () => {
       render(<InputGroup className="my-class" />)
-      expect(document.querySelector(".juno-input-group")).toBeInTheDocument()
-      expect(document.querySelector(".juno-input-group")).toHaveClass("my-class")
+      expect(screen.getByRole("group")).toBeInTheDocument()
+      expect(screen.getByRole("group")).toHaveClass("juno-input-group")
+      expect(screen.getByRole("group")).toHaveClass("my-class")
     })
 
     test("renders all props as passed", () => {
       render(<InputGroup data-test="my-prop" />)
-      expect(document.querySelector(".juno-input-group")).toBeInTheDocument()
-      expect(document.querySelector(".juno-input-group")).toHaveAttribute("data-test", "my-prop")
+      expect(screen.getByRole("group")).toBeInTheDocument()
+      expect(screen.getByRole("group")).toHaveAttribute("data-test", "my-prop")
     })
 
     test("allows custom attributes to be passed to children", () => {
