@@ -102,8 +102,8 @@ export { Status } from "./components/Status/Status.component"
 export { Switch } from "./components/Switch/Switch.component"
 export { Tab } from "./components/Tab/Tab.component"
 export { TabList } from "./components/TabList/TabList.component"
-export { TabNavigation } from "./components/TabNavigation/TabNavigation.component"
-export { TabNavigationItem } from "./components/TabNavigationItem/TabNavigationItem.component"
+export { TabBar, TabNavigation } from "./components/TabBar/TabBar.component"
+export { TabBarItem, TabNavigationItem } from "./components/TabBarItem/TabBarItem.component"
 export { TabPanel } from "./components/TabPanel/TabPanel.component"
 export { Textarea } from "./components/Textarea/Textarea.component"
 export { Tabs } from "./components/Tabs/Tabs.component"
@@ -229,11 +229,14 @@ export type { SwitchProps } from "./components/Switch/Switch.component"
 export type { TabProps } from "./components/Tab/Tab.component"
 export type { TabListProps } from "./components/TabList/TabList.component"
 export type {
+  TabBarProps,
+  TabBarAppearance,
+  TabBarContextType,
   TabNavigationProps,
   TabNavigationContextType,
   TabStyle,
-} from "./components/TabNavigation/TabNavigation.component"
-export type { TabNavigationItemProps } from "./components/TabNavigationItem/TabNavigationItem.component"
+} from "./components/TabBar/TabBar.component"
+export type { TabBarItemProps, TabNavigationItemProps } from "./components/TabBarItem/TabBarItem.component"
 export type { TabPanelProps } from "./components/TabPanel/TabPanel.component"
 export type { TextareaProps } from "./components/Textarea/Textarea.component"
 export type { TabsProps, TabsContextType, TabsVariant } from "./components/Tabs/Tabs.component"
