@@ -1,1 +1,0 @@
-import{t as e}from"./iframe-BOZPiN_U.js";e();
