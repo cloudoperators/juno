@@ -30,6 +30,8 @@ const meta: Meta<typeof Badge> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+export const Default: Story = {}
+
 export const WithDefaultIcon: Story = {
   args: {
     text: "With Icon",
@@ -122,6 +124,13 @@ export const ErrorWithIcon: Story = {
 // Interactive stories
 
 export const AsButton: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: "Renders the badge as a `<button>` element. Pass `onClick` to make a badge interactive.",
+      },
+    },
+  },
   args: {
     text: "Clickable",
     onClick: () => {},
@@ -129,6 +138,13 @@ export const AsButton: Story = {
 }
 
 export const AsButtonDisabled: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: "A disabled button badge. The button is inert and visually dimmed.",
+      },
+    },
+  },
   args: {
     text: "Disabled",
     onClick: () => {},
@@ -137,6 +153,13 @@ export const AsButtonDisabled: Story = {
 }
 
 export const AsLink: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: "Renders the badge as an `<a>` element. Pass `href` to make a badge a navigable link.",
+      },
+    },
+  },
   args: {
     text: "Link",
     href: "#",
@@ -144,6 +167,14 @@ export const AsLink: Story = {
 }
 
 export const AsLinkDisabled: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A disabled anchor badge. The `href` is stripped, `aria-disabled` and `tabIndex={-1}` are applied, and `role="link"` is preserved so screen readers still announce it as a link.',
+      },
+    },
+  },
   args: {
     text: "Disabled Link",
     href: "#",
@@ -187,6 +218,30 @@ export const AsButtonError: Story = {
   args: {
     variant: "error",
     text: "Error",
+    onClick: () => {},
+  },
+}
+
+export const AsLinkInfo: Story = {
+  args: {
+    variant: "info",
+    text: "Info",
+    href: "#",
+  },
+}
+
+export const AsLinkDanger: Story = {
+  args: {
+    variant: "danger",
+    text: "Danger",
+    href: "#",
+  },
+}
+
+export const AsButtonWithIcon: Story = {
+  args: {
+    text: "Clickable",
+    icon: true,
     onClick: () => {},
   },
 }

@@ -14,7 +14,7 @@ describe("Badge component", () => {
     test("renders with default props", () => {
       render(<Badge data-testid="badge" />)
       expect(screen.getByTestId("badge")).toBeInTheDocument()
-      expect(screen.getByTestId("badge")).toHaveClass("juno-badge-default")
+      expect(screen.getByTestId("badge")).toHaveClass("juno-badge", "juno-badge-default")
       expect(screen.queryByRole("img")).not.toBeInTheDocument()
     })
 
@@ -116,6 +116,7 @@ describe("Badge component", () => {
     test("renders disabled button", () => {
       render(<Badge onClick={() => {}} disabled data-testid="badge" />)
       expect(screen.getByTestId("badge")).toBeDisabled()
+      expect(screen.getByTestId("badge")).toHaveClass("juno-badge-disabled")
     })
 
     test("calls onClick when clicked", () => {
@@ -143,6 +144,7 @@ describe("Badge component", () => {
       expect(screen.getByTestId("badge")).not.toHaveAttribute("href")
       expect(screen.getByTestId("badge")).toHaveAttribute("aria-disabled", "true")
       expect(screen.getByTestId("badge")).toHaveAttribute("tabindex", "-1")
+      expect(screen.getByTestId("badge")).toHaveClass("juno-badge-disabled")
     })
   })
 
