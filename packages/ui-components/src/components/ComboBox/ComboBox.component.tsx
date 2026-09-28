@@ -221,7 +221,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboBoxProps>(
       width = "full",
       wrapperClassName = "",
       ...props
-    }: ComboBoxProps,
+    },
     ref
   ): ReactNode => {
     const isNotEmptyString = (str: ReactNode) => {
@@ -469,12 +469,12 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboBoxProps>(
                       placeholder={!isLoading && !hasError ? placeholder : ""}
                       displayValue={(val) => displayValue(val)} // Headless-UI expects a callback here
                       className={`
-                  juno-combobox-input
-                  ${inputStyles}
+                  juno-combobox-input 
+                  ${inputStyles} 
                   ${label && isNotEmptyString(label) ? withLabelInputStyles : noLabelInputStyles}
                   ${disabled ? disabledInputStyles : ""}
-                  ${isInvalid ? "juno-combobox-invalid " + invalidStyles : ""}
-                  ${isValid ? "juno-combobox-valid " + validStyles : ""}
+                  ${isInvalid ? "juno-combobox-invalid " + invalidStyles : ""} 
+                  ${isValid ? "juno-combobox-valid " + validStyles : ""}  
                   ${isValid || isInvalid ? "jn:pr-16" : "jn:pr-8 " + defaultBorderStyles}
                   ${isLoading ? "juno-combobox-loading jn:cursor-not-allowed" : ""}
                   ${hasError ? "juno-combobox-error jn:cursor-not-allowed" : ""}
