@@ -8,7 +8,7 @@ const preview = {
   parameters: {
     options: {
       storySort: {
-        order: ["Components", "Forms", "Layout", "*", "WiP", "Internal"],
+        order: ["Components", "Forms", "Layout", "*", "WiP", "Internal", "Deprecated"],
         method: "alphabetical",
       },
     },
