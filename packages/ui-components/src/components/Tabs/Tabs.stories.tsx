@@ -22,7 +22,7 @@ interface TabsStoryProps {
 }
 
 const meta: Meta<TabsStoryProps> = {
-  title: "Layout/Tabs/Tabs",
+  title: "Deprecated/Tabs/Tabs",
   component: Tabs,
   argTypes: {
     variant: {

@@ -32,6 +32,7 @@ const iconStyles = `
 `
 
 /**
+ * @deprecated Tab is deprecated and may be removed in any of the next major releases. Use react-tabs directly instead.
  * A Tab Component representing an individual Tab inside a wrapping TabList inside a wrapping Tabs component. Not to be used standalone outside of the mentioned parent components.
  * @see https://cloudoperators.github.io/juno/?path=/docs/layout-tabs-tab--docs
  * @see {@link TabProps}
