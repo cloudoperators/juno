@@ -1,5 +1,6 @@
 ---
 "@cloudoperators/juno-app-supernova": patch
+"@cloudoperators/juno-ui-components": patch
 ---
 
-fix(supernova): restore focus to filter ComboBox after selection
+refactor(ui-components): add forwardRef to ComboBox component
