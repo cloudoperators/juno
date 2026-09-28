@@ -5,7 +5,7 @@
 
 import React from "react"
 import { render, screen, cleanup, waitFor } from "@testing-library/react"
-import { TabBarItem } from "./index"
+import { TabBarItem, TabNavigationItem } from "./index"
 import { TabBar } from "../TabBar/index"
 
 const mockOnClick = vi.fn()
@@ -114,5 +114,35 @@ describe("TabBarItem", () => {
   test("renders all props as passed", () => {
     render(<TabBarItem data-testid="tab-bar-item" data-lol="lol-1-2-3" />)
     expect(screen.getByTestId("tab-bar-item")).toHaveAttribute("data-lol", "lol-1-2-3")
+  })
+})
+
+describe("TabNavigationItem (deprecated alias)", () => {
+  afterEach(() => {
+    cleanup()
+    vi.clearAllMocks()
+  })
+
+  test("renders a TabNavigationItem using the deprecated alias", () => {
+    render(
+      <TabBar>
+        <TabNavigationItem data-testid="tab-nav-item" label="Item" />
+      </TabBar>
+    )
+    expect(screen.getByTestId("tab-nav-item")).toBeInTheDocument()
+    expect(screen.getByTestId("tab-nav-item")).toHaveClass("juno-tabbar-item")
+  })
+
+  test("emits a deprecation warning when rendered", async () => {
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {})
+    await waitFor(() =>
+      render(
+        <TabBar>
+          <TabNavigationItem label="Item" />
+        </TabBar>
+      )
+    )
+    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining("TabNavigationItem is deprecated"))
+    warnSpy.mockRestore()
   })
 })
