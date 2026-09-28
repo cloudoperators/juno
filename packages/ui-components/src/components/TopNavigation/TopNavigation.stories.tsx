@@ -45,7 +45,7 @@ export const Disabled: Story = {
   parameters: {
     docs: {
       description: {
-        story: "All navigation items can be disabled by passing `disabled` to the `TabNavigation`.",
+        story: "All navigation items can be disabled by passing `disabled` to the `TopNavigation`.",
       },
     },
   },
