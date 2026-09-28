@@ -584,4 +584,14 @@ describe("ComboBox", () => {
     expect(screen.getByRole("combobox")).toBeInTheDocument()
     expect(screen.getByRole("combobox")).toHaveAttribute("data-lolo", "1234")
   })
+
+  test("forwards ref to the input element", () => {
+    const ref = React.createRef<HTMLInputElement>()
+    render(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox ref={ref} />
+      </AppShellProvider>
+    )
+    expect(ref.current).toBe(screen.getByRole("combobox"))
+  })
 })
