@@ -7,7 +7,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite"
 import { TabPanel } from "./index"
 
 const meta: Meta<typeof TabPanel> = {
-  title: "Layout/Tabs/TabPanel",
+  title: "Deprecated/Tabs/TabPanel",
   component: TabPanel,
   argTypes: {
     children: {

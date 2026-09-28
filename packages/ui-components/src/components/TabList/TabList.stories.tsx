@@ -9,7 +9,7 @@ import { TabList } from "./TabList.component"
 import { Tab } from "../Tab/Tab.component"
 
 const meta: Meta<typeof TabList> = {
-  title: "Layout/Tabs/TabList",
+  title: "Deprecated/Tabs/TabList",
   component: TabList,
   argTypes: {
     children: {

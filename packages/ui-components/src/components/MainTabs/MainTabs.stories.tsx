@@ -20,7 +20,7 @@ interface MainTabsStoryProps extends MainTabsProps {
 }
 
 const meta: Meta<MainTabsStoryProps> = {
-  title: "Layout/Tabs/MainTabs",
+  title: "Deprecated/Tabs/MainTabs",
   component: MainTabs,
   argTypes: {
     children: {

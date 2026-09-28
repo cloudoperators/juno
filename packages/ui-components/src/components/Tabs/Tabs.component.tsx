@@ -5,6 +5,7 @@
 
 import React, { createContext, ReactNode, useContext, useEffect, useState } from "react"
 import { Tabs as ReactTabs } from "react-tabs"
+import { withDeprecationWarning } from "../withDeprecationWarning/index"
 
 export interface TabsContextType {
   variant?: TabsVariant
@@ -14,6 +15,7 @@ const TabsContext = createContext<TabsContextType>({})
 export const useTabsContext = () => useContext(TabsContext)
 
 /**
+ * @deprecated Tabs is deprecated and may be removed in any of the next major releases. Use react-tabs directly instead.
  * A Tabs component.
  * The parent wrapping TabList, Tab, and TabPanel subcomponents.
  * For a navigation that looks like tabs, but runs onClick handlers or contains hrefs, use TabNavigation instead.
@@ -22,7 +24,7 @@ export const useTabsContext = () => useContext(TabsContext)
  * @see {@link TabsProps}
  */
 
-export const Tabs = ({
+export const TabsBase = ({
   children,
   defaultIndex,
   // The prop `selectedIndex` is marked as required in `UncontrolledTabs`, but its value is `undefined`.
@@ -64,7 +66,15 @@ export const Tabs = ({
   )
 }
 
-Tabs.tabsRole = "Tabs"
+TabsBase.tabsRole = "Tabs"
+
+export const Tabs = Object.assign(
+  withDeprecationWarning(
+    TabsBase,
+    "Tabs is deprecated and may be removed in any of the next major releases. Use react-tabs directly instead."
+  ),
+  { tabsRole: "Tabs" }
+)
 
 export type TabsVariant = "main" | "content" | "codeblocks"
 

@@ -8,7 +8,7 @@ import { Tab } from "./index"
 import { KnownIconsEnum } from "../Icon/Icon.component"
 
 const meta: Meta<typeof Tab> = {
-  title: "Layout/Tabs/Tab",
+  title: "Deprecated/Tabs/Tab",
   component: Tab,
   argTypes: {
     icon: {
