@@ -96,7 +96,7 @@ const FilterSelect = () => {
           searchTerm: value.target.value.trim(),
         }),
       })
-    }, 500)
+    }, 0)
 
     // clear timeout if we have a new value
     return () => clearTimeout(debouncedSearchTerm)
