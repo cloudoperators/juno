@@ -18,6 +18,8 @@ export type TabStyle = TabBarAppearance
 
 export interface TabBarContextType {
   appearance: TabBarAppearance
+  /** @deprecated Use appearance instead */
+  tabStyle?: TabBarAppearance
 }
 
 /** @deprecated Use TabBarContextType instead */
@@ -47,7 +49,7 @@ export const TabBar = ({
 }: TabBarProps): ReactNode => {
   const resolvedAppearance = appearance ?? tabStyle ?? "main"
   return (
-    <TabBarContext.Provider value={{ appearance: resolvedAppearance }}>
+    <TabBarContext.Provider value={{ appearance: resolvedAppearance, tabStyle: resolvedAppearance }}>
       <Navigation
         activeItem={activeItem}
         ariaLabel={ariaLabel}

@@ -6,7 +6,7 @@
 import React from "react"
 import { render, screen, cleanup, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { TabBar } from "./index"
+import { TabBar, TabNavigation } from "./index"
 import { TabBarItem } from "../TabBarItem/index"
 
 const mockOnActiveItemChange = vi.fn()
@@ -213,5 +213,36 @@ describe("TabBar", () => {
   test("renders all other props", async () => {
     await waitFor(() => render(<TabBar data-lolol="13" />))
     expect(screen.getByRole("navigation")).toHaveAttribute("data-lolol", "13")
+  })
+})
+
+describe("TabNavigation (deprecated alias)", () => {
+  afterEach(() => {
+    cleanup()
+    vi.clearAllMocks()
+  })
+
+  test("renders a TabNavigation using the deprecated alias", async () => {
+    await waitFor(() => render(<TabNavigation />))
+    expect(screen.getByRole("navigation")).toBeInTheDocument()
+    expect(screen.getByRole("navigation")).toHaveClass("juno-tabbar")
+  })
+
+  test("emits a deprecation warning when rendered", async () => {
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {})
+    await waitFor(() => render(<TabNavigation />))
+    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining("TabNavigation is deprecated"))
+    warnSpy.mockRestore()
+  })
+
+  test("renders the correct appearance via the deprecated tabStyle prop", async () => {
+    await waitFor(() =>
+      render(
+        <TabNavigation tabStyle="content">
+          <TabBarItem label="Item 1" />
+        </TabNavigation>
+      )
+    )
+    expect(screen.getByRole("navigation")).toHaveClass("juno-tabbar-content")
   })
 })
