@@ -133,7 +133,7 @@ export interface AuthData {
   /** Raw token data (decoded JWT payload) */
   raw: IdTokenData
   /** Refresh token (if available) */
-  refreshToken?: string
+  refreshToken?: string | null
   /** Parsed and processed token data */
   parsed: ParsedTokenData
 }
