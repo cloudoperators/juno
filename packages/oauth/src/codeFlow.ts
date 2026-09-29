@@ -3,20 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { TokenResponse, OidcStateData, FlowResponse } from "./types"
 import { getOidcConfig } from "./oidcConfig"
 import { decodeIDToken } from "./tokenHelpers"
 import { searchParams } from "./oidcState"
 import { paramsToUrl } from "./utils"
-
-interface TokenResponse {
-  access_token: string
-  token_type: string
-  expires_in?: number
-  refresh_token?: string
-  scope?: string
-  id_token?: string
-  [key: string]: unknown // Optional: allows unexpected fields
-}
 
 interface ExchangeCodeParams {
   tokenEndpoint: string
@@ -62,7 +53,21 @@ export const exchangeCode = async ({
   return data
 }
 
-const buildRequestUrl = async ({ issuerURL, clientID, oidcState, params, callbackURL }: Record<string, any>) => {
+interface CodeFlowParams {
+  issuerURL: string
+  clientID: string
+  oidcState: OidcStateData
+  params?: Record<string, string>
+  callbackURL?: string
+}
+
+const buildRequestUrl = async ({
+  issuerURL,
+  clientID,
+  oidcState,
+  params,
+  callbackURL,
+}: CodeFlowParams): Promise<string> => {
   const config = await getOidcConfig(issuerURL)
 
   let scope = "openid email profile offline_access"
@@ -77,7 +82,7 @@ const buildRequestUrl = async ({ issuerURL, clientID, oidcState, params, callbac
     scope,
     state: oidcState.key,
     nonce: oidcState.nonce,
-    code_challenge: oidcState.challenge,
+    code_challenge: oidcState.challenge || "",
     code_challenge_method: "S256",
     ...params,
   })
@@ -85,8 +90,14 @@ const buildRequestUrl = async ({ issuerURL, clientID, oidcState, params, callbac
   return config.authorization_endpoint + "?" + urlParams
 }
 
-const handleResponse = async ({ issuerURL, clientID, oidcState }: Record<string, any>) => {
-  if (!searchParams) return null
+interface HandleResponseParams {
+  issuerURL: string
+  clientID: string
+  oidcState: OidcStateData
+}
+
+const handleResponse = async ({ issuerURL, clientID, oidcState }: HandleResponseParams): Promise<FlowResponse> => {
+  if (!searchParams) throw new Error("no search params available")
 
   const code = searchParams.get("code")
   const error = searchParams.get("error")
@@ -108,7 +119,6 @@ const handleResponse = async ({ issuerURL, clientID, oidcState }: Record<string,
 
   const tokenData = decodeIDToken(data.id_token)
   if (!tokenData) throw new Error("bad format of id_token")
-  if (!tokenData) throw new Error("bad format of id_token")
 
   return {
     tokenData,
@@ -117,13 +127,19 @@ const handleResponse = async ({ issuerURL, clientID, oidcState }: Record<string,
   }
 }
 
-const refreshToken = async ({ issuerURL, clientID, refreshToken }: Record<string, any>) => {
+interface RefreshTokenParams {
+  issuerURL: string
+  clientID: string
+  refreshToken: string
+}
+
+const refreshToken = async ({ issuerURL, clientID, refreshToken }: RefreshTokenParams): Promise<FlowResponse> => {
   if (!issuerURL) throw new Error("issuerURL is required")
   if (!clientID) throw new Error("clientID is required")
 
   const config = await getOidcConfig(issuerURL)
 
-  const body: any = {
+  const body: Record<string, string> = {
     grant_type: "refresh_token",
     refresh_token: refreshToken,
     client_id: clientID,
@@ -133,7 +149,7 @@ const refreshToken = async ({ issuerURL, clientID, refreshToken }: Record<string
     .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(body[k])}`)
     .join("&")
 
-  const data = await fetch(config.token_endpoint, {
+  const data: TokenResponse = await fetch(config.token_endpoint, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -141,7 +157,7 @@ const refreshToken = async ({ issuerURL, clientID, refreshToken }: Record<string
     body: formBody,
   }).then((r) => r.json())
 
-  if (data?.error) throw new Error(data.error)
+  if ("error" in data && data.error) throw new Error(typeof data.error === "string" ? data.error : "Token refresh failed")
   if (!data?.id_token) throw new Error("bad response, missing id_token")
 
   const tokenData = decodeIDToken(data.id_token)

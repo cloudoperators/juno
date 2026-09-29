@@ -3,12 +3,27 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { OidcStateData, FlowResponse } from "./types"
 import { decodeIDToken } from "./tokenHelpers"
 import { getOidcConfig } from "./oidcConfig"
 import { searchParams } from "./oidcState"
 import { paramsToUrl } from "./utils"
 
-const buildRequestUrl = async ({ issuerURL, clientID, oidcState, callbackURL, params }: Record<string, any>) => {
+interface ImplicitFlowParams {
+  issuerURL: string
+  clientID: string
+  oidcState: OidcStateData
+  callbackURL?: string
+  params?: Record<string, string>
+}
+
+const buildRequestUrl = async ({
+  issuerURL,
+  clientID,
+  oidcState,
+  callbackURL,
+  params,
+}: ImplicitFlowParams): Promise<string> => {
   const config = await getOidcConfig(issuerURL)
 
   const urlParams = paramsToUrl({
@@ -26,11 +41,10 @@ const buildRequestUrl = async ({ issuerURL, clientID, oidcState, callbackURL, pa
 
 /**
  * Handle the implicit flow response (id token flow)
- * @param {object} params
- * @returns {Promise} resolves to token data
+ * @returns Promise resolves to token data or null
  */
 // eslint-disable-next-line @typescript-eslint/require-await
-const handleResponse = async () => {
+const handleResponse = async (): Promise<FlowResponse | null> => {
   if (!searchParams) return null
 
   const idToken = searchParams.get("id_token")

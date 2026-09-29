@@ -37,7 +37,7 @@ describe("buildRequestUrl", () => {
       buildRequestUrl({
         issuerURL: "http://issuer.com",
         clientID: "12345",
-        oidcState: {},
+        oidcState: { key: "test-key", nonce: "test-nonce" },
       })
     ).toBeInstanceOf(Promise)
   })
@@ -136,7 +136,7 @@ describe("handleResponse", () => {
       handleResponse({
         issuerURL: "http://issuer.com",
         clientID: "12345",
-        oidcState: {},
+        oidcState: { key: "test-key", nonce: "test-nonce" },
       })
     ).rejects.toThrow("bad response, missing code param")
   })
@@ -148,7 +148,7 @@ describe("handleResponse", () => {
       handleResponse({
         issuerURL: "http://issuer.com",
         clientID: "12345",
-        oidcState: {},
+        oidcState: { key: "test-key", nonce: "test-nonce" },
       })
     ).rejects.toThrow("unsupported_response_type")
   })
@@ -157,9 +157,10 @@ describe("handleResponse", () => {
     oidcState.setSearchParams(new URLSearchParams("code=test"))
 
     await expect(
+      // @ts-expect-error - Testing missing required parameter
       handleResponse({
         issuerURL: "http://issuer.com",
-        oidcState: {},
+        oidcState: { key: "test-key", nonce: "test-nonce" },
       })
     ).rejects.toThrow("clientID is required")
   })
@@ -171,7 +172,7 @@ describe("handleResponse", () => {
       await handleResponse({
         issuerURL: "http://issuer.com",
         clientID: "test",
-        oidcState: {},
+        oidcState: { key: "test-key", nonce: "test-nonce" },
       })
 
       expect(getOidcConfig).toHaveBeenCalledWith("http://issuer.com")
@@ -184,6 +185,8 @@ describe("handleResponse", () => {
         issuerURL: "http://issuer.com",
         clientID: "test",
         oidcState: {
+          key: "test-key",
+          nonce: "test-nonce",
           verifier: "12345",
         },
       })
@@ -204,10 +207,10 @@ describe("handleResponse", () => {
       const data = await handleResponse({
         issuerURL: "http://issuer.com",
         clientID: "test",
-        oidcState: {},
+        oidcState: { key: "test-key", nonce: "test-nonce" },
       })
 
-      expect(data!.tokenData).toEqual(expect.objectContaining(testTokenData))
+      expect(data.tokenData).toEqual(expect.objectContaining(testTokenData))
     })
   })
 })
