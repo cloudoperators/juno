@@ -47,7 +47,7 @@ export const TabBar = ({
   tabStyle,
   ...props
 }: TabBarProps): ReactNode => {
-  const resolvedAppearance = appearance ?? tabStyle ?? "main"
+  const resolvedAppearance = appearance || tabStyle || "main"
   return (
     <TabBarContext.Provider value={{ appearance: resolvedAppearance, tabStyle: resolvedAppearance }}>
       <Navigation
