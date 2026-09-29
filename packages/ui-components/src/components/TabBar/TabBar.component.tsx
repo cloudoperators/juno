@@ -53,7 +53,7 @@ export const TabBar = ({
       <Navigation
         activeItem={activeItem}
         ariaLabel={ariaLabel}
-        className={`juno-tabbar juno-tabbar-${resolvedAppearance} ${tabBarStyles} ${className}`}
+        className={`juno-tabbar juno-tabbar-${resolvedAppearance} ${disabled ? "juno-tabbar-disabled" : ""} ${tabBarStyles} ${className}`}
         disabled={disabled}
         onActiveItemChange={onActiveItemChange}
         {...props}
