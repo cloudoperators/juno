@@ -5,7 +5,8 @@
 
 /**
  * This function generates a random string based on Math.random
- * @returns {string} random string
+ * @param length - Length of the random string (default: 60)
+ * @returns random string
  */
 export function randomString(length: number = 60): string {
   let result = ""
@@ -20,18 +21,18 @@ export function randomString(length: number = 60): string {
 }
 
 /**
- *
- * @param {object} props
+ * Encode a value as base64 JSON string
+ * @param props - Value to encode
  * @returns base64 encoded json string
  */
-export const encodeBase64Json = (props: any): string => window.btoa(JSON.stringify({ ...props }))
+export const encodeBase64Json = (props: unknown): string => window.btoa(JSON.stringify(props))
 
 /**
- *
- * @param {string} string, base64 encoded json string
- * @returns {object} json
+ * Decode a base64 encoded JSON string
+ * @param string - base64 encoded json string
+ * @returns Decoded value or null if decoding fails
  */
-export const decodeBase64Json = (string: string): any => {
+export const decodeBase64Json = (string: string): unknown => {
   try {
     return JSON.parse(window.atob(string))
   } catch (_) {
@@ -39,8 +40,13 @@ export const decodeBase64Json = (string: string): any => {
   }
 }
 
-export const paramsToUrl = (params: any = {}): string => {
+/**
+ * Convert an object to URL search parameters string
+ * @param params - Object with string, number, or boolean values
+ * @returns URL-encoded search parameters string
+ */
+export const paramsToUrl = (params: Record<string, string | number | boolean> = {}): string => {
   const urlParams = new URLSearchParams()
-  Object.keys(params).forEach((k) => urlParams.set(k, params[k]))
+  Object.keys(params).forEach((k) => urlParams.set(k, String(params[k])))
   return urlParams.toString()
 }

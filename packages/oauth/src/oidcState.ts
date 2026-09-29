@@ -44,7 +44,7 @@ if (!stateString) {
 if (stateString) {
   // return if state exists
   // decode catches parse errors and returns null
-  state = decodeBase64Json(stateString)
+  state = decodeBase64Json(stateString) as OidcState | null
   window.sessionStorage.removeItem(state!.key)
 }
 
