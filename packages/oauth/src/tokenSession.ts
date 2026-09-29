@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { IdTokenData, ParsedTokenData, TokenSessionParams, TokenSessionInstance } from "./types"
 import { parseIdTokenData, decodeIDToken } from "./tokenHelpers"
 
 interface AuthData {
@@ -12,9 +13,11 @@ interface AuthData {
   parsed: ReturnType<typeof parseIdTokenData>
 }
 
-export const composeAuthData = (token: string, options: any): { authData: AuthData | null; error: Error | null } => {
-  let tokenData: Record<string, unknown>
-  let parsedData: unknown
+export const composeAuthData = (
+  token: string,
+  options?: Record<string, unknown>
+): { authData: AuthData | null; error: Error | null } => {
+  let tokenData: IdTokenData
 
   try {
     tokenData = decodeIDToken(token)
@@ -27,6 +30,7 @@ export const composeAuthData = (token: string, options: any): { authData: AuthDa
   // extend tokenData with the options
   tokenData = { ...tokenData, ...options }
 
+  let parsedData: ParsedTokenData
   try {
     parsedData = parseIdTokenData(tokenData)
   } catch (e) {
@@ -45,26 +49,6 @@ export const composeAuthData = (token: string, options: any): { authData: AuthDa
     },
     error: null,
   }
-}
-
-interface TokenSessionState {
-  auth: AuthData | null
-  error: unknown
-  loggedIn: boolean
-  isProcessing: boolean
-}
-
-interface TokenSessionReturnType {
-  login: () => void
-  logout: () => void
-  currentState: () => TokenSessionState
-}
-
-interface TokenSessionParams {
-  token: string
-  options?: Record<string, any>
-  initialLogin?: boolean
-  onUpdate: (_state: TokenSessionState) => void
 }
 
 /**
@@ -98,7 +82,7 @@ interface TokenSessionParams {
  *   },
  * });
  */
-export default function tokenSession(params: TokenSessionParams): TokenSessionReturnType {
+export default function tokenSession(params: TokenSessionParams): TokenSessionInstance {
   const { token, onUpdate, initialLogin, options } = params || {}
 
   const { authData, error } = composeAuthData(token, options)
