@@ -63,6 +63,11 @@ describe("TabBar", () => {
     expect(screen.getByRole("button", { name: "Item 2" })).toHaveAttribute("aria-disabled", "true")
   })
 
+  test("renders a disabled class when disabled", () => {
+    render(<TabBar disabled />)
+    expect(screen.getByRole("navigation")).toHaveClass("juno-tabbar-disabled")
+  })
+
   test("renders an active tab as passed by label", async () => {
     await waitFor(() =>
       render(
@@ -72,9 +77,9 @@ describe("TabBar", () => {
         </TabBar>
       )
     )
-    expect(screen.getByRole("button", { name: "Item 1" })).not.toHaveAttribute("aria-selected")
+    expect(screen.getByRole("button", { name: "Item 1" })).not.toHaveAttribute("aria-current")
     expect(screen.getByRole("button", { name: "Item 1" })).not.toHaveClass("juno-navigation-item-active")
-    expect(screen.getByRole("button", { name: "Item 2" })).toHaveAttribute("aria-selected", "true")
+    expect(screen.getByRole("button", { name: "Item 2" })).toHaveAttribute("aria-current", "true")
     expect(screen.getByRole("button", { name: "Item 2" })).toHaveClass("juno-navigation-item-active")
   })
 
@@ -87,8 +92,8 @@ describe("TabBar", () => {
         </TabBar>
       )
     )
-    expect(screen.getByRole("button", { name: "Item 1" })).not.toHaveAttribute("aria-selected")
-    expect(screen.getByRole("button", { name: "Item 2" })).toHaveAttribute("aria-selected", "true")
+    expect(screen.getByRole("button", { name: "Item 1" })).not.toHaveAttribute("aria-current")
+    expect(screen.getByRole("button", { name: "Item 2" })).toHaveAttribute("aria-current", "true")
     expect(screen.getByRole("button", { name: "Item 2" })).toHaveClass("juno-navigation-item-active")
   })
 
@@ -101,8 +106,8 @@ describe("TabBar", () => {
         </TabBar>
       )
     )
-    expect(screen.getByRole("button", { name: "Item 1" })).not.toHaveAttribute("aria-selected")
-    expect(screen.getByRole("button", { name: "Item 2" })).toHaveAttribute("aria-selected", "true")
+    expect(screen.getByRole("button", { name: "Item 1" })).not.toHaveAttribute("aria-current")
+    expect(screen.getByRole("button", { name: "Item 2" })).toHaveAttribute("aria-current", "true")
   })
 
   test("rerenders the active item as passed to the parent", async () => {
@@ -139,11 +144,11 @@ describe("TabBar", () => {
     )
     const tab1 = screen.getByRole("button", { name: "Item 1" })
     const tab2 = screen.getByRole("button", { name: "Item 2" })
-    expect(tab1).toHaveAttribute("aria-selected", "true")
-    expect(tab2).not.toHaveAttribute("aria-selected")
+    expect(tab1).toHaveAttribute("aria-current", "true")
+    expect(tab2).not.toHaveAttribute("aria-current")
     await waitFor(() => userEvent.click(tab2))
-    expect(tab1).not.toHaveAttribute("aria-selected")
-    expect(tab2).toHaveAttribute("aria-selected", "true")
+    expect(tab1).not.toHaveAttribute("aria-current")
+    expect(tab2).toHaveAttribute("aria-current", "true")
   })
 
   test("executes a handler as passed when the selected tab changes", async () => {
