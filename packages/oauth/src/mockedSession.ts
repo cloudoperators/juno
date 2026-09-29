@@ -5,7 +5,7 @@
 
 import type { SessionState, MockedSessionParams, MockedSessionInstance, IdTokenData } from "./types"
 import { parseIdTokenData } from "./tokenHelpers"
-import { decodeBase64Json } from "./utils"
+import { decodeBase64Json, encodeBase64Json } from "./utils"
 
 const DEFAULT_MOCKED_TOKEN: IdTokenData = {
   iss: "https://auth.mock",
@@ -42,7 +42,7 @@ export const mockedAuthData = (tokenData?: string | IdTokenData) => {
     ...parsedTokenData,
   }
   return {
-    JWT: btoa(JSON.stringify(token)),
+    JWT: encodeBase64Json(token),
     raw: token,
     refreshToken: "MOCK",
     parsed: parseIdTokenData(token),

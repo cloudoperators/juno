@@ -22,19 +22,33 @@ export function randomString(length: number = 60): string {
 
 /**
  * Encode a value as base64 JSON string
+ * Handles unicode characters properly using TextEncoder
  * @param props - Value to encode
  * @returns base64 encoded json string
  */
-export const encodeBase64Json = (props: unknown): string => window.btoa(JSON.stringify(props))
+export const encodeBase64Json = (props: unknown): string => {
+  const jsonString = JSON.stringify(props)
+  // Use TextEncoder to handle unicode characters properly
+  const bytes = new TextEncoder().encode(jsonString)
+  // Convert bytes to binary string for btoa
+  const binaryString = Array.from(bytes, (byte) => String.fromCharCode(byte)).join("")
+  return window.btoa(binaryString)
+}
 
 /**
  * Decode a base64 encoded JSON string
+ * Handles unicode characters properly using TextDecoder
  * @param string - base64 encoded json string
  * @returns Decoded value or null if decoding fails
  */
 export const decodeBase64Json = (string: string): unknown => {
   try {
-    return JSON.parse(window.atob(string))
+    const binaryString = window.atob(string)
+    // Convert binary string to bytes
+    const bytes = Uint8Array.from(binaryString, (char) => char.charCodeAt(0))
+    // Use TextDecoder to handle unicode characters properly
+    const jsonString = new TextDecoder().decode(bytes)
+    return JSON.parse(jsonString)
   } catch (_) {
     return null
   }
