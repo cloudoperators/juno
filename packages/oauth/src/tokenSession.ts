@@ -3,12 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type {
-  IdTokenData,
-  ParsedTokenData,
-  TokenSessionParams,
-  TokenSessionInstance,
-} from "./types"
+import type { IdTokenData, ParsedTokenData, TokenSessionParams, TokenSessionInstance } from "./types"
 import { parseIdTokenData, decodeIDToken } from "./tokenHelpers"
 
 interface AuthData {

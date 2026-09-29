@@ -310,7 +310,7 @@ const oidcSession = (params: OidcSessionParams): OidcSessionInstance => {
     // Update to logged-out state (must have auth: null)
     | (Partial<{ error: string | null; isProcessing: boolean }> & { loggedIn: false; auth: null })
     // Update only error/isProcessing without touching loggedIn/auth
-    | Partial<Pick<SessionState, 'error' | 'isProcessing'>>
+    | Partial<Pick<SessionState, "error" | "isProcessing">>
 
   const update = (newState: SessionStateUpdate) => {
     state = { ...state, ...newState }
