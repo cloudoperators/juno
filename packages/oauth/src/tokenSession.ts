@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { IdTokenData, ParsedTokenData } from "./types"
 import { parseIdTokenData, decodeIDToken } from "./tokenHelpers"
 
 interface AuthData {
@@ -13,8 +14,7 @@ interface AuthData {
 }
 
 export const composeAuthData = (token: string, options: any): { authData: AuthData | null; error: Error | null } => {
-  let tokenData: Record<string, unknown>
-  let parsedData: unknown
+  let tokenData: IdTokenData
 
   try {
     tokenData = decodeIDToken(token)
@@ -27,6 +27,7 @@ export const composeAuthData = (token: string, options: any): { authData: AuthDa
   // extend tokenData with the options
   tokenData = { ...tokenData, ...options }
 
+  let parsedData: ParsedTokenData
   try {
     parsedData = parseIdTokenData(tokenData)
   } catch (e) {

@@ -3,15 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { IdTokenData, ParsedTokenData } from "./types"
 import { decodeBase64Json } from "./utils"
+
 /**
  * Extract auth data from id_token
- * @param {string} idToken JWT
- * @returns {object} json
+ * @param idToken - JWT token string
+ * @returns Decoded token data
  */
-export function decodeIDToken(idToken: string): any {
+export function decodeIDToken(idToken: string): IdTokenData {
   const [_head, tokenData, _signature] = idToken.split(".")
-  return decodeBase64Json(tokenData)
+  return decodeBase64Json(tokenData) as IdTokenData
 }
 
 const capitalize = (str: string): string => {
@@ -38,23 +40,24 @@ const extractNameFromEmail = (email: string): EmailName | null | undefined => {
     let lastName = emailName.substring(index + 1)
     firstName = firstName
       .split("-")
-      .map((t: any) => capitalize(t))
+      .map((t: string) => capitalize(t))
       .join("-")
     lastName = lastName
       .split(".")
-      .map((t: any) => capitalize(t))
+      .map((t: string) => capitalize(t))
       .join(" ")
     return { firstName, lastName }
   } catch (_) {
     console.info("(OAUTH) could not determine first and last names")
   }
 }
+
 /**
- *
- * @param {object} tokenData
- * @returns {object} parsed data
+ * Parse and process ID token data into user information
+ * @param tokenData - Raw ID token payload
+ * @returns Parsed token data with user information
  */
-export function parseIdTokenData(tokenData: any): any {
+export function parseIdTokenData(tokenData: IdTokenData): ParsedTokenData {
   const email = tokenData.mail || tokenData.email || ""
   const loginName = tokenData.login_name || tokenData.name || tokenData.subject || tokenData.sub || ""
   let firstName = tokenData.first_name
@@ -67,14 +70,14 @@ export function parseIdTokenData(tokenData: any): any {
   const regex = new RegExp("^[c,d,i,s,p,C,D,I,S,P][0-9]+$")
   const userId = tokenData?.sub?.match(regex) ? tokenData.sub : null
 
-  const parsedData: any = {
+  const parsedData: ParsedTokenData = {
     loginName,
     email,
-    firstName,
-    lastName,
+    firstName: firstName || "",
+    lastName: lastName || "",
     fullName: `${firstName} ${lastName}`,
-    expiresAt: tokenData.exp * 1000,
-    expiresAtDate: new Date(tokenData.exp * 1000),
+    expiresAt: (tokenData.exp || 0) * 1000,
+    expiresAtDate: new Date((tokenData.exp || 0) * 1000),
     groups: tokenData.groups,
     userId: userId,
     avatarUrl: {
@@ -85,7 +88,7 @@ export function parseIdTokenData(tokenData: any): any {
   }
 
   if (Array.isArray(tokenData.groups)) {
-    tokenData.groups.forEach((item: any) => {
+    tokenData.groups.forEach((item: string) => {
       if (item.startsWith("organization:")) {
         parsedData.organizations = parsedData.organizations || []
         parsedData.organizations.push(item.substring("organization:".length))
@@ -104,7 +107,6 @@ export function parseIdTokenData(tokenData: any): any {
       }
     })
   }
-  // groups: ["organization:test-org", "team:test-team-1", "team:test-team-2"],
 
   return parsedData
 }
