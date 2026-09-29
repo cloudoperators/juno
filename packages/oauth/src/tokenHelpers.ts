@@ -13,7 +13,14 @@ import { decodeBase64Json } from "./utils"
  */
 export function decodeIDToken(idToken: string): IdTokenData {
   const [_head, tokenData, _signature] = idToken.split(".")
-  return decodeBase64Json(tokenData) as IdTokenData
+  const decoded = decodeBase64Json(tokenData)
+
+  // Validate decoded payload is an object before returning
+  if (!decoded || typeof decoded !== "object") {
+    throw new Error("bad format of id_token")
+  }
+
+  return decoded as IdTokenData
 }
 
 const capitalize = (str: string): string => {
