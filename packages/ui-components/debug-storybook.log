@@ -1,3 +1,0 @@
-[09:07:09.746] [INFO] storybook v10.6.0
-[09:07:09.748] [ERROR] × Port must be a valid number from 1 to 65535, received "--ci".
-  → at port
