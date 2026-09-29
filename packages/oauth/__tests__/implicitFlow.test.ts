@@ -29,7 +29,7 @@ describe("buildRequestUrl", () => {
       buildRequestUrl({
         issuerURL: "http://issuer.com",
         clientID: "12345",
-        oidcState: {},
+        oidcState: { key: "test-key", nonce: "test-nonce" },
       })
     ).toBeInstanceOf(Promise)
   })
