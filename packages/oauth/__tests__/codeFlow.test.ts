@@ -201,6 +201,30 @@ describe("handleResponse", () => {
       )
     })
 
+    test("uses custom callbackURL in token exchange", async () => {
+      oidcState.setSearchParams(new URLSearchParams("code=12345678"))
+
+      await handleResponse({
+        issuerURL: "http://issuer.com",
+        clientID: "test",
+        oidcState: {
+          key: "test-key",
+          nonce: "test-nonce",
+          verifier: "12345",
+          callbackURL: "https://custom-callback.com",
+        },
+      })
+
+      expect(globalThis.fetch).toHaveBeenCalledWith(
+        "https://issuer.com/token",
+        expect.objectContaining({
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          method: "POST",
+          body: "grant_type=authorization_code&code=12345678&redirect_uri=https%3A%2F%2Fcustom-callback.com&client_id=test&code_verifier=12345",
+        })
+      )
+    })
+
     test("fetch returns token data", async () => {
       oidcState.setSearchParams(new URLSearchParams("code=123456789"))
 
