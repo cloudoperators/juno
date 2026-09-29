@@ -5,6 +5,7 @@
 
 import React from "react"
 import { render, screen, cleanup, waitFor } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 import { TabBarItem, TabNavigationItem } from "./index"
 import { TabBar } from "../TabBar/index"
 
@@ -57,7 +58,7 @@ describe("TabBarItem", () => {
     render(<TabBarItem active />)
     expect(screen.getByRole("button")).toHaveClass("juno-tabbar-item")
     expect(screen.getByRole("button")).toHaveClass("juno-navigation-item-active")
-    expect(screen.getByRole("button")).toHaveAttribute("aria-selected", "true")
+    expect(screen.getByRole("button")).toHaveAttribute("aria-current", "true")
   })
 
   test("rerenders the active attribute", () => {
@@ -73,9 +74,7 @@ describe("TabBarItem", () => {
         <TabBarItem data-testid="tab-bar-item" onClick={mockOnClick} />
       </TabBar>
     )
-    await waitFor(() => {
-      screen.getByTestId("tab-bar-item").click()
-    })
+    await userEvent.click(screen.getByTestId("tab-bar-item"))
     expect(mockOnClick).toHaveBeenCalled()
   })
 
