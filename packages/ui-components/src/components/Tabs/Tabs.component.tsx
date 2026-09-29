@@ -18,7 +18,7 @@ export const useTabsContext = () => useContext(TabsContext)
  * @deprecated Tabs is deprecated and may be removed in any of the next major releases. Use react-tabs directly instead.
  * A Tabs component.
  * The parent wrapping TabList, Tab, and TabPanel subcomponents.
- * For a navigation that looks like tabs, but runs onClick handlers or contains hrefs, use TabNavigation instead.
+ * For a navigation that looks like tabs, but runs onClick handlers or contains hrefs, use TabBar instead.
  * Tabs are used to provide a tabbed section within the content area when combining static content and tabbed content on the same page. You will probably want to use a 'Container' (px=false) inside the TabPanels to get nice padding.
  * @see https://cloudoperators.github.io/juno/?path=/docs/layout-tabs-tabs--docs
  * @see {@link TabsProps}
