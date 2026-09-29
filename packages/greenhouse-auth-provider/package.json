@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
-    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/jest-dom": "7.0.1",
     "@testing-library/react": "16.3.3",
     "@types/node": "24.13.5",
     "@types/react": "19.3.0",

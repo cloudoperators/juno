@@ -54,7 +54,7 @@
   /* Prevent double borders for adjacent buttons of the same type */
   .juno-button-default + .juno-button-default,
   .juno-button-primary + .juno-button-primary,
-  .juno-button-default-primary-danger + .juno-button-primary-danger,
+  .juno-button-primary-danger + .juno-button-primary-danger,
   .juno-button-subdued + .juno-button-subdued {
     border-left: 0;
   }
