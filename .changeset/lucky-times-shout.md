@@ -2,4 +2,4 @@
 "@cloudoperators/juno-app-supernova": patch
 ---
 
-fix(supernova): restore focus to filter ComboBox after selection
+fix(supernova): use controlled ComboBox pattern for filter selection with proper state synchronization
