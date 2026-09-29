@@ -594,4 +594,172 @@ describe("ComboBox", () => {
     )
     expect(ref.current).toBe(screen.getByRole("combobox"))
   })
+
+  test("clears search query and notifies parent when Enter is pressed", async () => {
+    const user = userEvent.setup()
+    const mockOnInputChange = vi.fn()
+
+    render(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox onInputChange={mockOnInputChange}>
+          <ComboBoxOption value="option1" label="Option 1" />
+        </ComboBox>
+      </AppShellProvider>
+    )
+
+    const input = screen.getByRole("combobox")
+
+    // Type a non-matching search term
+    await user.type(input, "random")
+
+    // Clear the mock to only check the Enter key call
+    mockOnInputChange.mockClear()
+
+    // Press Enter
+    await user.keyboard("{Enter}")
+
+    // Should notify parent with empty value
+    await waitFor(() => {
+      expect(mockOnInputChange).toHaveBeenCalledWith(
+        expect.objectContaining({ target: expect.objectContaining({ value: "" }) })
+      )
+    })
+  })
+
+  test("clears internal state when controlled value prop becomes empty", async () => {
+    const { rerender } = render(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox value="option1">
+          <ComboBoxOption value="option1" label="Option 1" />
+          <ComboBoxOption value="option2" label="Option 2" />
+        </ComboBox>
+      </AppShellProvider>
+    )
+
+    const input = screen.getByRole("combobox")
+    // When controlled with value="option1", it shows the value
+    expect(input).toHaveValue("option1")
+
+    // Rerender updates the same component instance with new props (simulating what supernova does)
+    // Update value prop to empty (simulating what supernova does after selection)
+    rerender(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox value="">
+          <ComboBoxOption value="option1" label="Option 1" />
+          <ComboBoxOption value="option2" label="Option 2" />
+        </ComboBox>
+      </AppShellProvider>
+    )
+
+    // Should clear the value
+    await waitFor(() => {
+      expect(input).toHaveValue("")
+    })
+  })
+
+  test("updates displayed value when controlled value prop changes to a new value", async () => {
+    const { rerender } = render(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox value="option1">
+          <ComboBoxOption value="option1" label="Option 1" />
+          <ComboBoxOption value="option2" label="Option 2" />
+        </ComboBox>
+      </AppShellProvider>
+    )
+
+    const input = screen.getByRole("combobox")
+    expect(input).toHaveValue("option1")
+
+    // Rerender updates the same component instance with new props
+    // Update value prop to a different value
+    rerender(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox value="option2">
+          <ComboBoxOption value="option1" label="Option 1" />
+          <ComboBoxOption value="option2" label="Option 2" />
+        </ComboBox>
+      </AppShellProvider>
+    )
+
+    // Should update to the new value
+    await waitFor(() => {
+      expect(input).toHaveValue("option2")
+    })
+  })
+
+  test("uncontrolled combobox: select option and it remains visible in the display", async () => {
+    const user = userEvent.setup()
+    const mockOnChange = vi.fn()
+
+    render(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox onChange={mockOnChange}>
+          <ComboBoxOption value="option1" label="Option 1" />
+          <ComboBoxOption value="option2" label="Option 2" />
+          <ComboBoxOption value="option3" label="Option 3" />
+        </ComboBox>
+      </AppShellProvider>
+    )
+
+    const input = screen.getByRole("combobox")
+    expect(input).toHaveValue("")
+
+    // Click to open dropdown
+    await user.click(input)
+    await waitFor(() => expect(screen.getByRole("listbox")).toBeInTheDocument())
+
+    // Select an option
+    await user.click(screen.getByRole("option", { name: "Option 2" }))
+
+    // onChange should be called
+    expect(mockOnChange).toHaveBeenCalledWith("option2")
+
+    // Dropdown should close
+    await waitFor(() => expect(screen.queryByRole("listbox")).not.toBeInTheDocument())
+
+    // The selected value should remain visible in uncontrolled mode (displays the label)
+    expect(input).toHaveValue("Option 2")
+  })
+
+  test("uncontrolled combobox: clears search query and notifies parent when Enter is pressed with random string", async () => {
+    const user = userEvent.setup()
+    const mockOnInputChange = vi.fn()
+    const mockOnChange = vi.fn()
+
+    render(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox onChange={mockOnChange} onInputChange={mockOnInputChange}>
+          <ComboBoxOption value="option1" label="Option 1" />
+          <ComboBoxOption value="option2" label="Option 2" />
+        </ComboBox>
+      </AppShellProvider>
+    )
+
+    const input = screen.getByRole("combobox")
+
+    // Type a random non-matching string
+    await user.type(input, "random")
+
+    // Clear the mock to only check the Enter key call
+    mockOnInputChange.mockClear()
+
+    // Press Enter
+    await user.keyboard("{Enter}")
+
+    // Should notify parent with empty value to clear their filter state
+    await waitFor(() => {
+      expect(mockOnInputChange).toHaveBeenCalledWith(
+        expect.objectContaining({ target: expect.objectContaining({ value: "" }) })
+      )
+    })
+
+    // onChange should NOT be called (no selection was made)
+    expect(mockOnChange).not.toHaveBeenCalled()
+
+    // Dropdown should be closed
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument()
+
+    // Input should be empty after Enter
+    expect(input).toHaveValue("")
+  })
 })

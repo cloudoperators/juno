@@ -302,6 +302,11 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboBoxProps>(
 
     useEffect(() => {
       setSelectedValue(value)
+      // Clear query and close dropdown when value is cleared externally
+      if (!value) {
+        setQuery("")
+        setIsOpen(false)
+      }
     }, [value])
 
     useEffect(() => {
@@ -324,6 +329,9 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboBoxProps>(
       const stringValue = value || ""
       setSelectedValue(stringValue)
 
+      // Clear the search query after selection
+      setQuery("")
+
       if (stringValue) {
         setIsOpen(false)
       }
@@ -334,6 +342,24 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboBoxProps>(
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
       setQuery(event?.target?.value)
       onInputChange && onInputChange(event)
+    }
+
+    // Handle Enter key press to clear search query when no option is selected
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === "Enter" && isOpen) {
+        // Only clear if dropdown is still open (meaning no selection was made)
+        // If a selection was made, handleChange already closed the dropdown and cleared the query
+        setQuery("")
+        setIsOpen(false)
+        // Notify parent to clear their search query state
+        if (onInputChange) {
+          const syntheticEvent = {
+            target: { value: "" },
+            currentTarget: { value: "" },
+          } as ChangeEvent<HTMLInputElement>
+          onInputChange(syntheticEvent)
+        }
+      }
     }
 
     const handleFocus = (event: FocusEvent<HTMLInputElement>) => {
@@ -466,6 +492,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboBoxProps>(
                       onBlur={handleBlur}
                       onChange={handleInputChange}
                       onFocus={handleFocus}
+                      onKeyDown={handleKeyDown}
                       placeholder={!isLoading && !hasError ? placeholder : ""}
                       displayValue={(val) => displayValue(val)} // Headless-UI expects a callback here
                       className={`

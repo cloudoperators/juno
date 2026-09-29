@@ -35,24 +35,11 @@ const FilterSelect = () => {
   const [filterValue, setFilterValue] = useState("")
   const [comboBoxQuery, setComboBoxQuery] = useState("")
   const [displayLimit, setDisplayLimit] = useState(ITEMS_PER_PAGE)
-  const [comboBoxKey, setComboBoxKey] = useState(0) // Key to force ComboBox re-render
-  const comboBoxRef = useRef<HTMLInputElement>(null)
   const { addActiveFilter, loadFilterLabelValues, clearFilters, setSearchTerm } = useFilterActions()
   const filterLabels = useFilterLabels()
   const filterLabelValues = useFilterLabelValues()
   const activeFilters = useActiveFilters()
   const searchTerm = useSearchTerm()
-
-  // Refocus the ComboBox input after remount (when comboBoxKey changes)
-  useEffect(() => {
-    if (comboBoxKey > 0) {
-      const timeoutId = setTimeout(() => {
-        comboBoxRef.current?.focus()
-      }, 50)
-
-      return () => clearTimeout(timeoutId)
-    }
-  }, [comboBoxKey])
 
   const handleFilterLabelChange = (value: any) => {
     setFilterLabel(value)
@@ -64,8 +51,11 @@ const FilterSelect = () => {
     }
   }
 
+  // Handler for changes in the filter value ComboBox.
   const handleFilterValueChange = (value: string) => {
-    setFilterValue(value) // update the filter value state to trigger re-render on ComboBox
+    // Set filterValue to trigger ComboBox value prop change
+    setFilterValue(value)
+
     if (filterLabel.trim() !== "" && value.trim() !== "") {
       addActiveFilter(filterLabel, value) // add the filter to the active filters
 
@@ -75,16 +65,15 @@ const FilterSelect = () => {
         search: (prev) => addFilter({ ...prev }, `${ACTIVE_FILTERS_PREFIX}${filterLabel}`, value),
       })
     }
-    // Clear the search query after selection and force ComboBox re-render
+    // Clear the search query after selection
     setComboBoxQuery("")
-    setComboBoxKey((prev) => prev + 1) // Force ComboBox to remount and clear internal state
-    // TODO: remove this after ComboBox supports resetting its value after onChange
-    // set timeout to allow ComboBox to update its value after onChange
+    // Clear filter value after a tick to trigger ComboBox to clear
     setTimeout(() => {
       setFilterValue("")
     }, 0)
   }
 
+  // Handler for changes in the search input field.
   const handleSearchChange = (value: any) => {
     // debounce setSearchTerm to avoid unnecessary re-renders
     const debouncedSearchTerm = setTimeout(() => {
@@ -102,6 +91,7 @@ const FilterSelect = () => {
     return () => clearTimeout(debouncedSearchTerm)
   }
 
+  // Handler for changes in the ComboBox's text input value.
   const handleComboBoxInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComboBoxQuery(e.target.value)
     setDisplayLimit(ITEMS_PER_PAGE) // reset display limit when search query changes
@@ -156,8 +146,6 @@ const FilterSelect = () => {
           ))}
         </Select>
         <ComboBox
-          ref={comboBoxRef}
-          key={comboBoxKey}
           value={filterValue}
           name="filterValue"
           onChange={(value: string) => handleFilterValueChange(value)}
