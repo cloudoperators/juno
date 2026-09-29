@@ -104,3 +104,23 @@ export const WithChildren: Story = {
     ],
   },
 }
+
+export const ContentAppearance: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `appearance="content"` for a TabBar inside page content. Inactive items show a darkened bottom border to visually distinguish them from the active item.',
+      },
+    },
+  },
+  args: {
+    appearance: "content",
+    children: [
+      <TabBarItem label="Item 1" key="item-1" active></TabBarItem>,
+      <TabBarItem label="Item 2" key="item-2"></TabBarItem>,
+      <TabBarItem label="Item 3" key="item-3"></TabBarItem>,
+      <TabBarItem label="Disabled Item" key="item-4" disabled></TabBarItem>,
+    ],
+  },
+}
