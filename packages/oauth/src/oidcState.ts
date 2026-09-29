@@ -46,8 +46,20 @@ if (!stateString) {
 if (stateString) {
   // return if state exists
   // decode catches parse errors and returns null
-  state = decodeBase64Json(stateString) as OidcStateData | null
-  window.sessionStorage.removeItem(state!.key)
+  const decodedState = decodeBase64Json(stateString)
+  if (
+    decodedState &&
+    typeof decodedState === "object" &&
+    "key" in decodedState &&
+    typeof decodedState.key === "string" &&
+    "nonce" in decodedState &&
+    typeof decodedState.nonce === "string"
+  ) {
+    state = decodedState as OidcStateData
+    window.sessionStorage.removeItem(state.key)
+  } else {
+    state = null
+  }
 }
 
 export const hasValidState = (): boolean => !!state
