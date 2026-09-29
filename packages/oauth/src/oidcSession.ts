@@ -3,6 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type {
+  FlowType,
+  AuthData,
+  SessionState,
+  OidcSessionParams,
+  OidcSessionInstance,
+  OidcConfig,
+  OidcStateData,
+  IdTokenData,
+} from "./types"
 import { parseIdTokenData } from "./tokenHelpers"
 import * as implicitFlowHandler from "./implicitFlow"
 import * as codeFlowHandler from "./codeFlow"
@@ -13,18 +23,41 @@ import { OAuthError } from "./OAuthError"
 
 // define flow types
 export const FLOW_TYPE = {
-  IMPLICIT: "implicit",
-  CODE: "code",
+  IMPLICIT: "implicit" as const,
+  CODE: "code" as const,
 }
 
 // the state is determined when the lib is loaded
 const isOidcResponse = hasValidState()
 
+// Flow handler interface
+interface FlowHandler {
+  buildRequestUrl: (_params: {
+    issuerURL: string
+    clientID: string
+    oidcState: OidcStateData
+    callbackURL?: string
+    params?: Record<string, string>
+  }) => Promise<string>
+  handleResponse: (_params: { issuerURL: string; clientID: string; oidcState: OidcStateData }) => Promise<{
+    tokenData: IdTokenData
+    idToken: string
+    refreshToken?: string | null | undefined
+  } | null>
+}
+
 // returns the correct flow handler
-const oidcFlowHandler = (flowType: any) => {
+const oidcFlowHandler = (flowType: FlowType): FlowHandler => {
   if (flowType === FLOW_TYPE.IMPLICIT) return implicitFlowHandler
   else if (flowType === FLOW_TYPE.CODE) return codeFlowHandler
-  throw new Error("no flow handler for " + flowType)
+  throw new Error("no flow handler for " + String(flowType))
+}
+
+interface CreateOidcRequestParams {
+  issuerURL: string
+  clientID: string
+  flowType: FlowType
+  requestParams?: string | Record<string, string>
 }
 
 //############################## REQUEST #################################
@@ -34,7 +67,7 @@ const createOidcRequest = async ({
   clientID,
   flowType,
   requestParams,
-}: Record<string, any>): Promise<any> => {
+}: CreateOidcRequestParams): Promise<void> => {
   try {
     // create state props and store them in the SessionStorage
     // to use them after the redirect back from the ID provider
@@ -53,7 +86,7 @@ const createOidcRequest = async ({
     if (requestParams) {
       const params = typeof requestParams === "string" ? JSON.parse(requestParams) : requestParams
       const newUrl = new URL(url)
-      Object.keys(params).forEach((k) => newUrl.searchParams.append(k, params[k]))
+      Object.keys(params).forEach((k) => newUrl.searchParams.append(k, String(params[k])))
       url = newUrl.href
     }
 
@@ -69,9 +102,14 @@ const createOidcRequest = async ({
   }
 }
 
+interface HandleOidcResponseParams {
+  issuerURL: string
+  clientID: string
+}
+
 //################################ RESPONSE #################################
 // handle the response from ID provider
-const handleOidcResponse = async ({ issuerURL, clientID }: Record<string, any>): Promise<any> => {
+const handleOidcResponse = async ({ issuerURL, clientID }: HandleOidcResponseParams): Promise<AuthData | null> => {
   const oidcState = getResponseState()
   // no oidc state presented or it does not match the stored one -> return null
   if (!oidcState) {
@@ -80,19 +118,28 @@ const handleOidcResponse = async ({ issuerURL, clientID }: Record<string, any>):
   }
 
   try {
-    const handler = oidcFlowHandler(oidcState.flowType)
-    const { tokenData, idToken, refreshToken }: any = await handler.handleResponse({
+    const handler = oidcFlowHandler(oidcState.flowType as FlowType)
+    const response = await handler.handleResponse({
       issuerURL,
       clientID,
       oidcState,
     })
 
+    // implicitFlow can return null if searchParams is not available
+    // This shouldn't happen here since we validated state, but we handle it for type safety
+    if (!response) {
+      console.warn("(OAUTH) No response from flow handler")
+      return null
+    }
+
+    const { tokenData, idToken, refreshToken } = response
+
     if (oidcState.nonce && tokenData?.nonce !== oidcState.nonce) throw new Error("compromised id token content")
 
-    const authData = {
+    const authData: AuthData = {
       JWT: idToken,
       raw: tokenData,
-      refreshToken,
+      refreshToken: refreshToken || undefined,
       parsed: parseIdTokenData(tokenData),
     }
 
@@ -111,8 +158,20 @@ const handleOidcResponse = async ({ issuerURL, clientID }: Record<string, any>):
   }
 }
 
+interface RefreshOidcTokenParams {
+  issuerURL: string
+  clientID: string
+  flowType: FlowType
+  refreshToken: string
+}
+
 // Refresh token works only for the code flow!
-const refreshOidcToken = async ({ issuerURL, clientID, flowType, refreshToken }: Record<string, any>): Promise<any> => {
+const refreshOidcToken = async ({
+  issuerURL,
+  clientID,
+  flowType,
+  refreshToken,
+}: RefreshOidcTokenParams): Promise<AuthData | null> => {
   if (flowType !== FLOW_TYPE.CODE) return null
   try {
     const {
@@ -128,7 +187,7 @@ const refreshOidcToken = async ({ issuerURL, clientID, flowType, refreshToken }:
     return {
       JWT: idToken,
       raw: tokenData,
-      refreshToken: newRefreshToken,
+      refreshToken: newRefreshToken || undefined,
       parsed: parseIdTokenData(tokenData),
     }
   } catch (error: unknown) {
@@ -141,12 +200,17 @@ const refreshOidcToken = async ({ issuerURL, clientID, flowType, refreshToken }:
   }
 }
 
+interface OidcLogoutParams {
+  issuerURL: string
+  silent?: boolean
+}
+
 // This function removes cached token from storage.
 // We use iframe for ending oidc session in id provider
 // if we don't want user to leave current page
-function oidcLogout({ issuerURL, silent }: any): void {
+function oidcLogout({ issuerURL, silent }: OidcLogoutParams): void {
   getOidcConfig(issuerURL).then(
-    (config: any) => {
+    (config: OidcConfig) => {
       if (!config.end_session_endpoint) {
         console.warn(
           'WARNING: (OAUTH) Id provider does not offer an endpoint for logout. Checked: "end_session_endpoint"'
@@ -173,11 +237,11 @@ function oidcLogout({ issuerURL, silent }: any): void {
 }
 
 /**
- *
- * @param {object} params
- * @returns {object} contains login, logout, refresh, currentState
+ * Create an OIDC session for authentication
+ * @param params - Session configuration parameters
+ * @returns Session instance with login, logout, refresh methods
  */
-const oidcSession = (params: any): any => {
+const oidcSession = (params: OidcSessionParams): OidcSessionInstance => {
   const { issuerURL, clientID, initialLogin, refresh, onUpdate, requestParams, _callbackURL, ...unknownProps } =
     params || {}
   let { flowType } = params || {}
@@ -202,16 +266,9 @@ const oidcSession = (params: any): any => {
     )
   }
 
-  interface OidcState {
-    auth: any
-    error: any
-    isProcessing: boolean
-    loggedIn: any
-  }
-
   // initialize state
   // this state is updated on every change on the auth status
-  let state: OidcState = { auth: null, error: null, isProcessing: false, loggedIn: false }
+  let state: SessionState = { auth: null, error: null, isProcessing: false, loggedIn: false }
 
   let refreshTimer: NodeJS.Timeout
   // this function re-creates a refresh timer if a refreshToken is presented
@@ -219,7 +276,9 @@ const oidcSession = (params: any): any => {
     // clear refresh timer every time the auth date gets updated
     clearTimeout(refreshTimer)
 
-    if (!state?.auth?.refreshToken) return
+    // TypeScript discriminated union requires checking loggedIn to narrow the type.
+    // When loggedIn is true, TypeScript knows state.auth is AuthData (not null).
+    if (!state.loggedIn || !state.auth?.refreshToken) return
 
     const expiresAt = state.auth?.parsed?.expiresAt
 
@@ -234,7 +293,8 @@ const oidcSession = (params: any): any => {
   let expirationTimer: NodeJS.Timeout
   const updateExpirationTimer = () => {
     clearTimeout(expirationTimer)
-    const expiresAt = state.auth?.parsed?.expiresAt
+    if (!state.loggedIn) return
+    const expiresAt = state.auth.parsed?.expiresAt
     if (expiresAt) {
       const expiresIn = expiresAt - Date.now() - 5000
       console.info("(OAUTH) logout token in", Math.floor(expiresIn / 1000), "seconds")
@@ -243,19 +303,36 @@ const oidcSession = (params: any): any => {
   }
 
   // define update method which updates the state and calls the callback function
-  const update = (newState: any) => {
+  // Define a type-safe update parameter that enforces the discriminated union
+  type SessionStateUpdate =
+    // Update to logged-in state (must have auth)
+    | (Partial<{ error: string | null; isProcessing: boolean }> & { loggedIn: true; auth: AuthData })
+    // Update to logged-out state (must have auth: null)
+    | (Partial<{ error: string | null; isProcessing: boolean }> & { loggedIn: false; auth: null })
+    // Update only error/isProcessing without touching loggedIn/auth
+    | Partial<Pick<SessionState, 'error' | 'isProcessing'>>
+
+  const update = (newState: SessionStateUpdate) => {
     state = { ...state, ...newState }
     if (onUpdate) onUpdate({ ...state })
 
-    if (refresh && state?.auth?.refreshToken) updateRefresher()
-    else if (state?.auth?.parsed?.expiresAt) updateExpirationTimer()
+    // TypeScript discriminated union requires checking loggedIn to narrow the type.
+    // When loggedIn is true, TypeScript knows state.auth is AuthData (not null).
+    if (refresh && state.loggedIn && state.auth?.refreshToken) updateRefresher()
+    else if (state.loggedIn && state.auth?.parsed?.expiresAt) updateExpirationTimer()
   }
 
   // handle new data from odic response
-  const receiveNewData = async (promise: Promise<any>) => {
+  const receiveNewData = async (promise: Promise<AuthData | null>) => {
     try {
       const data = await promise
-      update({ auth: data, error: null, loggedIn: !!data, isProcessing: false })
+      if (data) {
+        // Logged in with auth data
+        update({ auth: data, error: null, loggedIn: true, isProcessing: false })
+      } else {
+        // No auth data received
+        update({ auth: null, error: null, loggedIn: false, isProcessing: false })
+      }
     } catch (error: unknown) {
       update({
         auth: null,
@@ -269,7 +346,8 @@ const oidcSession = (params: any): any => {
   // refresh function
   const refreshAuth = () => {
     if (!refresh) return
-    const refreshToken = state?.auth?.refreshToken
+    if (!state.loggedIn) return
+    const refreshToken = state.auth.refreshToken
     if (refreshToken) {
       console.info("(OAUTH) refresh token now")
       const promise = refreshOidcToken({
@@ -293,7 +371,7 @@ const oidcSession = (params: any): any => {
     )
   }
 
-  const logout = (options: any) => {
+  const logout = (options?: { resetOIDCSession?: boolean; silent?: boolean }) => {
     console.info("(OAUTH) logout")
     update({ auth: null, error: null, loggedIn: false, isProcessing: false })
     if (options?.resetOIDCSession) oidcLogout({ issuerURL, silent: options?.silent === true })

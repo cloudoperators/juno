@@ -3,7 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { IdTokenData, ParsedTokenData } from "./types"
+import type {
+  IdTokenData,
+  ParsedTokenData,
+  TokenSessionParams,
+  TokenSessionInstance,
+} from "./types"
 import { parseIdTokenData, decodeIDToken } from "./tokenHelpers"
 
 interface AuthData {
@@ -13,7 +18,10 @@ interface AuthData {
   parsed: ReturnType<typeof parseIdTokenData>
 }
 
-export const composeAuthData = (token: string, options: any): { authData: AuthData | null; error: Error | null } => {
+export const composeAuthData = (
+  token: string,
+  options?: Record<string, unknown>
+): { authData: AuthData | null; error: Error | null } => {
   let tokenData: IdTokenData
 
   try {
@@ -48,26 +56,6 @@ export const composeAuthData = (token: string, options: any): { authData: AuthDa
   }
 }
 
-interface TokenSessionState {
-  auth: AuthData | null
-  error: unknown
-  loggedIn: boolean
-  isProcessing: boolean
-}
-
-interface TokenSessionReturnType {
-  login: () => void
-  logout: () => void
-  currentState: () => TokenSessionState
-}
-
-interface TokenSessionParams {
-  token: string
-  options?: Record<string, any>
-  initialLogin?: boolean
-  onUpdate: (_state: TokenSessionState) => void
-}
-
 /**
  * Creates a token-based session where the provided token is validated, parsed,
  * and extended with the specified options. The resulting authentication state
@@ -99,7 +87,7 @@ interface TokenSessionParams {
  *   },
  * });
  */
-export default function tokenSession(params: TokenSessionParams): TokenSessionReturnType {
+export default function tokenSession(params: TokenSessionParams): TokenSessionInstance {
   const { token, onUpdate, initialLogin, options } = params || {}
 
   const { authData, error } = composeAuthData(token, options)

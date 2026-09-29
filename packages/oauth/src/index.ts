@@ -19,6 +19,7 @@ export type {
   OidcConfig,
   OidcSessionParams,
   OidcSessionInstance,
+  TokenSessionState,
   TokenSessionParams,
   TokenSessionInstance,
   MockedSessionParams,

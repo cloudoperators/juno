@@ -3,9 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { SessionState, MockedSessionParams, MockedSessionInstance, IdTokenData } from "./types"
 import { parseIdTokenData } from "./tokenHelpers"
+import { decodeBase64Json } from "./utils"
 
-const DEFAULT_MOCKED_TOKEN = {
+const DEFAULT_MOCKED_TOKEN: IdTokenData = {
   iss: "https://auth.mock",
   sub: "3ksXP1FQq7j9125Q6ayY",
   aud: "mock-dev-env",
@@ -19,31 +21,35 @@ const DEFAULT_MOCKED_TOKEN = {
   preferred_username: "Jane Doe",
 }
 
-export const mockedAuthData = (tokenData: any = undefined) => {
-  try {
-    if (typeof tokenData === "string") {
-      tokenData = JSON.parse(atob(tokenData))
+export const mockedAuthData = (tokenData?: string | IdTokenData) => {
+  let parsedTokenData: Partial<IdTokenData> = {}
+
+  if (typeof tokenData === "string") {
+    try {
+      parsedTokenData = decodeBase64Json(tokenData) as IdTokenData
+    } catch (_) {
+      console.warn("WARNING: (OAUTH MOCK) Could not parse token data")
+      parsedTokenData = {}
     }
-  } catch (_) {
-    console.warn(`WARNING: (OAUTH MOCK) Could not parse token data: ${tokenData}`)
-    tokenData = {}
+  } else if (tokenData && typeof tokenData === "object") {
+    parsedTokenData = tokenData
   }
 
-  const token = {
+  const token: IdTokenData = {
     ...DEFAULT_MOCKED_TOKEN,
     exp: Math.floor(Date.now() / 1000) + 8 * 3600,
     iat: Math.floor(Date.now() / 1000),
-    ...tokenData,
+    ...parsedTokenData,
   }
   return {
-    JWT: btoa(token),
+    JWT: btoa(JSON.stringify(token)),
     raw: token,
     refreshToken: "MOCK",
     parsed: parseIdTokenData(token),
   }
 }
 
-export default function mockedSession(params: any = {}): any {
+export default function mockedSession(params: MockedSessionParams): MockedSessionInstance {
   const { token, initialLogin, onUpdate, ...unknownProps } = params || {}
 
   if (typeof onUpdate !== "function") {
@@ -59,7 +65,7 @@ export default function mockedSession(params: any = {}): any {
   }
 
   let authData = mockedAuthData(token)
-  let state: Record<string, any> = { auth: null, error: null, loggedIn: false, isProcessing: false }
+  let state: SessionState = { auth: null, error: null, loggedIn: false, isProcessing: false }
 
   const login = () => {
     state = { auth: authData, error: null, loggedIn: true, isProcessing: false }

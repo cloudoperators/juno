@@ -285,6 +285,21 @@ export interface OidcSessionInstance {
 }
 
 /**
+ * Token session state (simpler than SessionState, no discriminated union)
+ */
+export interface TokenSessionState {
+  auth: {
+    JWT: string
+    raw: Record<string, unknown>
+    refreshToken: string
+    parsed: ParsedTokenData
+  } | null
+  error: unknown
+  loggedIn: boolean
+  isProcessing: boolean
+}
+
+/**
  * Token session configuration parameters
  */
 export interface TokenSessionParams {
@@ -295,7 +310,7 @@ export interface TokenSessionParams {
   /** Whether to trigger login immediately */
   initialLogin?: boolean
   /** Callback function called on auth state updates */
-  onUpdate: (_state: SessionState) => void
+  onUpdate: (_state: TokenSessionState) => void
 }
 
 /**
@@ -307,15 +322,15 @@ export interface TokenSessionInstance {
   /** Trigger logout */
   logout: () => void
   /** Get current session state */
-  currentState: () => SessionState
+  currentState: () => TokenSessionState
 }
 
 /**
  * Mocked session configuration parameters
  */
 export interface MockedSessionParams {
-  /** Mock token data (string or object) */
-  token?: string | Record<string, unknown>
+  /** Mock token data (base64 string or IdTokenData object) */
+  token?: string | IdTokenData
   /** Whether to trigger login immediately */
   initialLogin?: boolean
   /** Callback function called on auth state updates */
