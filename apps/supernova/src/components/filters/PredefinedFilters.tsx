@@ -5,7 +5,7 @@
 
 import React from "react"
 
-import { Stack, TabNavigation, TabNavigationItem } from "@cloudoperators/juno-ui-components"
+import { Stack, TabBar, TabBarItem } from "@cloudoperators/juno-ui-components"
 import { useNavigate } from "@tanstack/react-router"
 import { useActivePredefinedFilter, usePredefinedFilters } from "../StoreProvider"
 import SilenceScheduled from "../silences/SilenceScheduled"
@@ -40,11 +40,11 @@ const PredefinedFilters = () => {
     return (
       predefinedFilters &&
       activePredefinedFilter && (
-        <TabNavigation activeItem={activePredefinedFilter} onActiveItemChange={handleTabSelect}>
+        <TabBar activeItem={activePredefinedFilter} onActiveItemChange={handleTabSelect}>
           {predefinedFilters?.map((filter: any) => (
-            <TabNavigationItem key={filter.name} value={filter.name} label={filter.displayName} />
+            <TabBarItem key={filter.name} value={filter.name} label={filter.displayName} />
           ))}
-        </TabNavigation>
+        </TabBar>
       )
     )
   }
