@@ -6,4 +6,23 @@
 import oidcSession from "./oidcSession"
 import mockedSession from "./mockedSession"
 import tokenSession from "./tokenSession"
+
 export { oidcSession, mockedSession, tokenSession }
+
+// Export types for consumers
+export type {
+  AuthData,
+  ParsedTokenData,
+  IdTokenData,
+  SessionState,
+  FlowType,
+  OidcConfig,
+  OidcSessionParams,
+  OidcSessionInstance,
+  TokenSessionParams,
+  TokenSessionInstance,
+  MockedSessionParams,
+  MockedSessionInstance,
+  TokenResponse,
+  OidcStateData,
+} from "./types"
