@@ -31,6 +31,11 @@ describe("SecondaryTab", () => {
       expect(screen.getByRole("tab")).toHaveClass("juno-secondary-tab")
     })
 
+    test("has juno-secondary-tab-active class when active", () => {
+      wrap()
+      expect(screen.getByRole("tab")).toHaveClass("juno-secondary-tab-active")
+    })
+
     test("has aria-selected true when active", () => {
       wrap()
       expect(screen.getByRole("tab")).toHaveAttribute("aria-selected", "true")
@@ -77,9 +82,14 @@ describe("SecondaryTab", () => {
   })
 
   describe("Disabled state", () => {
-    test("is disabled when disabled prop is passed", () => {
+    test("has aria-disabled when disabled prop is passed", () => {
       wrap({ disabled: true })
-      expect(screen.getByRole("tab")).toBeDisabled()
+      expect(screen.getByRole("tab")).toHaveAttribute("aria-disabled", "true")
+    })
+
+    test("has tabIndex -1 when disabled", () => {
+      wrap({ disabled: true })
+      expect(screen.getByRole("tab")).toHaveAttribute("tabindex", "-1")
     })
   })
 })

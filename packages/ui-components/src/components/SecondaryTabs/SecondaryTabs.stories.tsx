@@ -10,7 +10,7 @@ import { SecondaryTab } from "./SecondaryTab.component"
 import { SecondaryTabPanel } from "./SecondaryTabPanel.component"
 
 const meta: Meta<typeof SecondaryTabs> = {
-  title: "WIP/SecondaryTabs",
+  title: "WIP/SecondaryTabs/SecondaryTabs",
   component: SecondaryTabs,
   argTypes: {
     activeTab: { control: "text" },
@@ -32,6 +32,13 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: "Basic tab strip with three tabs and corresponding panels.",
+      },
+    },
+  },
   render: (args) => (
     <SecondaryTabs defaultTab="overview" {...args}>
       <SecondaryTab value="overview">Overview</SecondaryTab>
@@ -51,6 +58,13 @@ export const Default: Story = {
 }
 
 export const WithIcons: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: "Tabs with icons rendered to the left of each label.",
+      },
+    },
+  },
   render: (args) => (
     <SecondaryTabs defaultTab="compute" {...args}>
       <SecondaryTab value="compute" iconLeft="openInNew">
@@ -76,6 +90,13 @@ export const WithIcons: Story = {
 }
 
 export const AllDisabled: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: "All tabs disabled via the parent `disabled` prop.",
+      },
+    },
+  },
   render: (args) => (
     <SecondaryTabs defaultTab="overview" disabled {...args}>
       <SecondaryTab value="overview">Overview</SecondaryTab>
@@ -86,6 +107,13 @@ export const AllDisabled: Story = {
 }
 
 export const SingleTabDisabled: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: "One tab disabled individually. Keyboard navigation skips it.",
+      },
+    },
+  },
   render: (args) => (
     <SecondaryTabs defaultTab="overview" {...args}>
       <SecondaryTab value="overview">Overview</SecondaryTab>
@@ -104,6 +132,13 @@ export const SingleTabDisabled: Story = {
 }
 
 export const Controlled: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: "Controlled mode: active tab driven by the `activeTab` prop.",
+      },
+    },
+  },
   args: {
     activeTab: "details",
   },

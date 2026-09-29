@@ -96,7 +96,7 @@ describe("SecondaryTabs", () => {
     test("disables all tabs when disabled prop is set", () => {
       renderTabs({ disabled: true, defaultTab: undefined })
       screen.getAllByRole("tab").forEach((tab) => {
-        expect(tab).toBeDisabled()
+        expect(tab).toHaveAttribute("aria-disabled", "true")
       })
     })
 

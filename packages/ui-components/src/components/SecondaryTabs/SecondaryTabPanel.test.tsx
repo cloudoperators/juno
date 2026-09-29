@@ -64,6 +64,11 @@ describe("SecondaryTabPanel", () => {
       expect(screen.getByRole("tabpanel")).toHaveClass("my-class")
     })
 
+    test("forwards additional props", () => {
+      wrap({ "data-custom": "val" })
+      expect(screen.getByRole("tabpanel")).toHaveAttribute("data-custom", "val")
+    })
+
     test("forwards ref to div element", () => {
       const ref = React.createRef<HTMLDivElement>()
       render(

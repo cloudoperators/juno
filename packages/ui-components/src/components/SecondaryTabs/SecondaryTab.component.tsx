@@ -20,6 +20,8 @@ export interface SecondaryTabProps extends ButtonHTMLAttributes<HTMLButtonElemen
   disabled?: boolean
   /** @default "" */
   className?: string
+  /** Managed by roving tabindex; consumer value is ignored. */
+  tabIndex?: number
 }
 
 const tabBaseStyles = `
@@ -49,8 +51,9 @@ const tabDefaultStyles = `
   jn:bg-transparent
   jn:border-transparent
   jn:text-theme-secondary-tab
-  jn:hover:text-theme-secondary-tab-hover
 `
+
+const tabHoverStyles = `jn:hover:text-theme-secondary-tab-hover`
 
 const tabActiveStyles = `
   jn:cursor-default
@@ -62,6 +65,7 @@ const tabActiveStyles = `
 const tabDisabledStyles = `
   jn:cursor-not-allowed
   jn:opacity-50
+  jn:text-theme-secondary-tab-disabled
 `
 
 /**
@@ -90,6 +94,7 @@ export const SecondaryTab = forwardRef<HTMLButtonElement, SecondaryTabProps>(
     const isDisabled = disabledProp ?? contextDisabled
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (isDisabled) return
       setActiveTab(value)
       onClick?.(e)
     }
@@ -97,7 +102,9 @@ export const SecondaryTab = forwardRef<HTMLButtonElement, SecondaryTabProps>(
     const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
       const tablist = e.currentTarget.closest('[role="tablist"]')
       if (tablist) {
-        const enabledTabs = Array.from(tablist.querySelectorAll<HTMLButtonElement>('[role="tab"]:not([disabled])'))
+        const enabledTabs = Array.from(
+          tablist.querySelectorAll<HTMLButtonElement>('[role="tab"]:not([aria-disabled="true"])')
+        )
         const currentIndex = enabledTabs.indexOf(e.currentTarget)
         let nextTab: HTMLButtonElement | null = null
 
@@ -132,14 +139,14 @@ export const SecondaryTab = forwardRef<HTMLButtonElement, SecondaryTabProps>(
         {...rest}
         role="tab"
         aria-selected={isActive}
+        aria-disabled={isDisabled ? true : undefined}
         aria-controls={`${tabsId}-tabpanel-${value}`}
         id={`${tabsId}-tab-${value}`}
         data-value={value}
-        disabled={isDisabled}
-        tabIndex={isActive ? 0 : -1}
+        tabIndex={isActive && !isDisabled ? 0 : -1}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
-        className={`juno-secondary-tab ${isActive ? "juno-secondary-tab-active" : ""} ${isDisabled ? "juno-secondary-tab-disabled" : ""} ${tabBaseStyles} ${isActive ? tabActiveStyles : tabDefaultStyles} ${isDisabled ? tabDisabledStyles : ""} ${className}`}
+        className={`juno-secondary-tab ${isActive ? "juno-secondary-tab-active" : ""} ${isDisabled ? "juno-secondary-tab-disabled" : ""} ${tabBaseStyles} ${isActive ? tabActiveStyles : `${tabDefaultStyles} ${!isDisabled ? tabHoverStyles : ""}`} ${isDisabled ? tabDisabledStyles : ""} ${className}`}
       >
         {iconLeft && <Icon icon={iconLeft} size="1rem" />}
         {children}
