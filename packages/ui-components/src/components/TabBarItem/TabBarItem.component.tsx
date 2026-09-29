@@ -48,7 +48,8 @@ export const TabBarItem = ({
   ...props
 }: TabBarItemProps): ReactNode => {
   const tabBarContext = useContext(TabBarContext)
-  const { appearance } = tabBarContext || {}
+  const { appearance, tabStyle } = tabBarContext || {}
+  const resolvedAppearance = appearance || tabStyle
   return (
     <NavigationItem
       active={active}
@@ -56,14 +57,14 @@ export const TabBarItem = ({
       ariaLabel={ariaLabel}
       className={`
         juno-tabbar-item
-        ${appearance ? "juno-tabbar-" + appearance + "-item" : ""}
+        ${resolvedAppearance ? "juno-tabbar-" + resolvedAppearance + "-item" : ""}
         ${tabBarItemStyles}
         ${className}
       `}
       disabled={disabled}
       href={href}
       icon={icon}
-      inactiveItemStyles={`${appearance === "content" ? "jn:border-theme-tab-content-inactive-bottom" : "jn:border-transparent"}`}
+      inactiveItemStyles={`${resolvedAppearance === "content" ? "jn:border-theme-tab-content-inactive-bottom" : "jn:border-transparent"}`}
       label={label}
       onClick={onClick}
       value={value}
