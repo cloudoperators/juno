@@ -58,15 +58,7 @@ const tablistStyles = `
  */
 export const SecondaryTabs = forwardRef<HTMLDivElement, SecondaryTabsProps>(
   (
-    {
-      activeTab: activeTabProp,
-      defaultTab,
-      onTabChange,
-      disabled = false,
-      children,
-      className = "",
-      ...props
-    },
+    { activeTab: activeTabProp, defaultTab, onTabChange, disabled = false, children, className = "", ...props },
     ref
   ) => {
     const tabsId = useId()
