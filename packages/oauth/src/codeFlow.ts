@@ -14,6 +14,7 @@ interface ExchangeCodeParams {
   code: string
   verifier?: string
   clientID: string
+  callbackURL?: string
 }
 
 export const exchangeCode = async ({
@@ -21,13 +22,14 @@ export const exchangeCode = async ({
   code,
   verifier,
   clientID,
+  callbackURL,
 }: ExchangeCodeParams): Promise<TokenResponse> => {
   if (!clientID) throw new Error("clientID is required")
 
   const body: Record<string, string> = {
     grant_type: "authorization_code",
     code,
-    redirect_uri: window.location.origin,
+    redirect_uri: callbackURL || window.location.origin,
     client_id: clientID,
   }
 
@@ -109,11 +111,15 @@ const handleResponse = async ({ issuerURL, clientID, oidcState }: HandleResponse
   const config = await getOidcConfig(issuerURL)
   if (!config) throw new Error("could not load oidc config, issuerURL: " + issuerURL)
 
+  // Retrieve callbackURL from the persisted OIDC state
+  const callbackURL = typeof oidcState.callbackURL === "string" ? oidcState.callbackURL : undefined
+
   const data = await exchangeCode({
     tokenEndpoint: config.token_endpoint,
     code,
     verifier: oidcState.verifier,
     clientID,
+    callbackURL,
   })
   if (!data?.id_token || typeof data.id_token !== "string") throw new Error("bad response, missing id_token")
 

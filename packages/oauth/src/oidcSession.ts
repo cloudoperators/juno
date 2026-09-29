@@ -39,7 +39,11 @@ interface FlowHandler {
     callbackURL?: string
     params?: Record<string, string>
   }) => Promise<string>
-  handleResponse: (_params: { issuerURL: string; clientID: string; oidcState: OidcStateData }) => Promise<{
+  handleResponse: (_params: {
+    issuerURL: string
+    clientID: string
+    oidcState: OidcStateData
+  }) => Promise<{
     tokenData: IdTokenData
     idToken: string
     refreshToken?: string | null | undefined
@@ -74,7 +78,10 @@ const createOidcRequest = async ({
     // create state props and store them in the SessionStorage
     // to use them after the redirect back from the ID provider
     // for code flow we use pkce and without secret!
-    const oidcState = await createRequestState({ flowType }, { pkce: flowType === FLOW_TYPE.CODE })
+    const oidcState = await createRequestState(
+      { flowType, callbackURL },
+      { pkce: flowType === FLOW_TYPE.CODE }
+    )
     const handler = oidcFlowHandler(flowType)
 
     // make the actual request
