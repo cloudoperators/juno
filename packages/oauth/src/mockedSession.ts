@@ -26,7 +26,11 @@ export const mockedAuthData = (tokenData?: string | IdTokenData) => {
 
   if (typeof tokenData === "string") {
     try {
-      parsedTokenData = decodeBase64Json(tokenData) as IdTokenData
+      const decoded = decodeBase64Json(tokenData)
+      if (!decoded || typeof decoded !== "object" || Array.isArray(decoded)) {
+        throw new Error("Invalid mock token data")
+      }
+      parsedTokenData = decoded
     } catch (_) {
       console.warn("WARNING: (OAUTH MOCK) Could not parse token data")
       parsedTokenData = {}
