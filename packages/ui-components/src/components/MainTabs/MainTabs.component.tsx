@@ -8,8 +8,6 @@ import { Tabs } from "../Tabs/index"
 
 /**
  * @deprecated MainTabs is deprecated and may be removed in any of the next major releases. Use react-tabs directly instead.
- * `MainTabs` represents primary tab navigation at the content area's top, for complete content switching.
- * Ideal for major interface tabbing; use `Tabs` for partial content areas.
  * @see https://cloudoperators.github.io/juno/?path=/docs/layout-tabs-maintabs--docs
  * @see {@link MainTabsProps}
  */
