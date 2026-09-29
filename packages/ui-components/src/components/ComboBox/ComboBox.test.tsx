@@ -620,9 +620,9 @@ describe("ComboBox", () => {
 
     // Should notify parent with empty value
     await waitFor(() => {
-      expect(mockOnInputChange).toHaveBeenCalledWith(
-        expect.objectContaining({ target: expect.objectContaining({ value: "" }) })
-      )
+      expect(mockOnInputChange).toHaveBeenCalled()
+      const call = mockOnInputChange.mock.calls[0]
+      expect(call[0]).toMatchObject({ target: { value: "" } })
     })
   })
 
@@ -748,9 +748,9 @@ describe("ComboBox", () => {
 
     // Should notify parent with empty value to clear their filter state
     await waitFor(() => {
-      expect(mockOnInputChange).toHaveBeenCalledWith(
-        expect.objectContaining({ target: expect.objectContaining({ value: "" }) })
-      )
+      expect(mockOnInputChange).toHaveBeenCalled()
+      const call = mockOnInputChange.mock.calls[0]
+      expect(call[0]).toMatchObject({ target: { value: "" } })
     })
 
     // onChange should NOT be called (no selection was made)
