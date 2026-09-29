@@ -157,7 +157,8 @@ const refreshToken = async ({ issuerURL, clientID, refreshToken }: RefreshTokenP
     body: formBody,
   }).then((r) => r.json())
 
-  if ("error" in data && data.error) throw new Error(typeof data.error === "string" ? data.error : "Token refresh failed")
+  if ("error" in data && data.error)
+    throw new Error(typeof data.error === "string" ? data.error : "Token refresh failed")
   if (!data?.id_token) throw new Error("bad response, missing id_token")
 
   const tokenData = decodeIDToken(data.id_token)
