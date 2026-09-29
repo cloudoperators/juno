@@ -263,7 +263,7 @@ export interface OidcSessionParams {
   /** OAuth flow type to use */
   flowType?: FlowType
   /** Callback function called on auth state updates */
-  onUpdate?: (state: SessionState) => void
+  onUpdate?: (_state: SessionState) => void
   /** Additional request parameters */
   requestParams?: string | Record<string, string>
   /** Internal: callback URL override */
@@ -277,7 +277,7 @@ export interface OidcSessionInstance {
   /** Initiate login flow */
   login: () => void
   /** Logout user */
-  logout: (options?: { resetOIDCSession?: boolean; silent?: boolean }) => void
+  logout: (_options?: { resetOIDCSession?: boolean; silent?: boolean }) => void
   /** Manually refresh token */
   refresh: () => void
   /** Get current session state */
@@ -295,7 +295,7 @@ export interface TokenSessionParams {
   /** Whether to trigger login immediately */
   initialLogin?: boolean
   /** Callback function called on auth state updates */
-  onUpdate: (state: SessionState) => void
+  onUpdate: (_state: SessionState) => void
 }
 
 /**
@@ -319,7 +319,7 @@ export interface MockedSessionParams {
   /** Whether to trigger login immediately */
   initialLogin?: boolean
   /** Callback function called on auth state updates */
-  onUpdate: (state: SessionState) => void
+  onUpdate: (_state: SessionState) => void
 }
 
 /**
