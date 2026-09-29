@@ -19,6 +19,7 @@ describe("oidcSession", () => {
       issuerURL: "http://dummy.com",
       refresh: true,
       requestParams: { organization: "Test" },
+      // @ts-expect-error - Testing unknown options
       unknown: true,
       test: "test",
     })
@@ -32,6 +33,7 @@ describe("oidcSession", () => {
       oidcSession({
         clientID: "test",
         issuerURL: "http://dummy.com",
+        // @ts-expect-error - Testing invalid type
         onUpdate: true,
       })
     }).toThrow("(OAUTH) onUpdate should be a function")
@@ -39,12 +41,14 @@ describe("oidcSession", () => {
 
   test("issuerURL is required", () => {
     expect(() => {
+      // @ts-expect-error - Testing missing required parameter
       oidcSession({ clientID: "test" })
     }).toThrow()
   })
 
   test("clientID is required", () => {
     expect(() => {
+      // @ts-expect-error - Testing missing required parameter
       oidcSession({ issuerURL: "http://dummy.com" })
     }).toThrow()
   })
@@ -58,6 +62,7 @@ describe("oidcSession", () => {
       oidcSession({
         issuerURL: "http://dummy.com",
         clientID: "test",
+        // @ts-expect-error - Testing invalid flowType
         flowType: "something",
       })
     }).toThrow("(OAUTH) flowType something is not supported!")
