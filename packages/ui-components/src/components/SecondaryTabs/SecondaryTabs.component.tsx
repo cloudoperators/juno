@@ -12,6 +12,7 @@ import React, {
   isValidElement,
   HTMLAttributes,
   ReactNode,
+  forwardRef,
 } from "react"
 
 export interface SecondaryTabsContextType {
@@ -55,47 +56,58 @@ const tablistStyles = `
  * children are rendered after the pill container but stay within the same context.
  * @see {@link SecondaryTabsProps}
  */
-export const SecondaryTabs = ({
-  activeTab: activeTabProp,
-  defaultTab,
-  onTabChange,
-  disabled = false,
-  children,
-  className = "",
-  ...props
-}: SecondaryTabsProps) => {
-  const tabsId = useId()
-  const isControlled = activeTabProp !== undefined
-  const [internalTab, setInternalTab] = useState<string | undefined>(defaultTab)
+export const SecondaryTabs = forwardRef<HTMLDivElement, SecondaryTabsProps>(
+  (
+    {
+      activeTab: activeTabProp,
+      defaultTab,
+      onTabChange,
+      disabled = false,
+      children,
+      className = "",
+      ...props
+    },
+    ref
+  ) => {
+    const tabsId = useId()
+    const isControlled = activeTabProp !== undefined
+    const [internalTab, setInternalTab] = useState<string | undefined>(defaultTab)
 
-  const activeTab = isControlled ? activeTabProp : internalTab
+    const activeTab = isControlled ? activeTabProp : internalTab
 
-  const setActiveTab = (value: string) => {
-    if (!isControlled) setInternalTab(value)
-    onTabChange?.(value)
-  }
-
-  const tabs: ReactNode[] = []
-  const panels: ReactNode[] = []
-
-  Children.forEach(children, (child) => {
-    if (!isValidElement(child)) return
-    const displayName = (child.type as { displayName?: string })?.displayName
-    if (displayName === "SecondaryTab") {
-      tabs.push(child)
-    } else {
-      panels.push(child)
+    const setActiveTab = (value: string) => {
+      if (!isControlled) setInternalTab(value)
+      onTabChange?.(value)
     }
-  })
 
-  return (
-    <SecondaryTabsContext.Provider value={{ activeTab, setActiveTab, disabled, tabsId }}>
-      <div {...props} role="tablist" className={`juno-secondary-tabs ${tablistStyles} ${className}`}>
-        {tabs}
-      </div>
-      {panels}
-    </SecondaryTabsContext.Provider>
-  )
-}
+    const tabs: ReactNode[] = []
+    const panels: ReactNode[] = []
+
+    Children.forEach(children, (child) => {
+      if (!isValidElement(child)) return
+      const displayName = (child.type as { displayName?: string })?.displayName
+      if (displayName === "SecondaryTab") {
+        tabs.push(child)
+      } else {
+        panels.push(child)
+      }
+    })
+
+    return (
+      <SecondaryTabsContext.Provider value={{ activeTab, setActiveTab, disabled, tabsId }}>
+        <div
+          ref={ref}
+          {...props}
+          role="tablist"
+          aria-orientation="horizontal"
+          className={`juno-secondary-tabs ${tablistStyles} ${className}`}
+        >
+          {tabs}
+        </div>
+        {panels}
+      </SecondaryTabsContext.Provider>
+    )
+  }
+)
 
 SecondaryTabs.displayName = "SecondaryTabs"

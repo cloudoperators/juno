@@ -10,7 +10,7 @@ import { SecondaryTab } from "./SecondaryTab.component"
 import { SecondaryTabPanel } from "./SecondaryTabPanel.component"
 
 const meta: Meta<typeof SecondaryTabPanel> = {
-  title: "WIP/SecondaryTabPanel",
+  title: "WIP/SecondaryTabs/SecondaryTabPanel",
   component: SecondaryTabPanel,
   decorators: [
     (Story) => (
