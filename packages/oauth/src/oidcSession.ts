@@ -58,6 +58,7 @@ interface CreateOidcRequestParams {
   clientID: string
   flowType: FlowType
   requestParams?: string | Record<string, string>
+  callbackURL?: string
 }
 
 //############################## REQUEST #################################
@@ -67,6 +68,7 @@ const createOidcRequest = async ({
   clientID,
   flowType,
   requestParams,
+  callbackURL,
 }: CreateOidcRequestParams): Promise<void> => {
   try {
     // create state props and store them in the SessionStorage
@@ -80,6 +82,7 @@ const createOidcRequest = async ({
       issuerURL,
       clientID,
       oidcState,
+      callbackURL,
     })
 
     // add additional search params
@@ -242,7 +245,7 @@ function oidcLogout({ issuerURL, silent }: OidcLogoutParams): void {
  * @returns Session instance with login, logout, refresh methods
  */
 const oidcSession = (params: OidcSessionParams): OidcSessionInstance => {
-  const { issuerURL, clientID, initialLogin, refresh, onUpdate, requestParams, _callbackURL, ...unknownProps } =
+  const { issuerURL, clientID, initialLogin, refresh, onUpdate, requestParams, callbackURL, ...unknownProps } =
     params || {}
   let { flowType } = params || {}
   if (!issuerURL || !clientID) {
@@ -365,7 +368,7 @@ const oidcSession = (params: OidcSessionParams): OidcSessionInstance => {
 
   const login = () => {
     update({ isProcessing: true })
-    createOidcRequest({ issuerURL, clientID, flowType, requestParams }).then(
+    createOidcRequest({ issuerURL, clientID, flowType, requestParams, callbackURL }).then(
       () => {},
       () => {}
     )

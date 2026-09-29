@@ -266,8 +266,8 @@ export interface OidcSessionParams {
   onUpdate?: (_state: SessionState) => void
   /** Additional request parameters */
   requestParams?: string | Record<string, string>
-  /** Internal: callback URL override */
-  _callbackURL?: string
+  /** Callback URL override for OAuth redirect */
+  callbackURL?: string
 }
 
 /**
