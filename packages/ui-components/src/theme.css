@@ -683,7 +683,7 @@
   --color-spinner-primary: var(--color-accent);
   /* LT ProgressBar */
   --color-progressbar-fill: var(--color-accent);
-  --color-progressbar-border: var(--color-text-light);
+  --color-progressbar-border: var(--color-border-high);
   /* LT Syntax Highlighting */
   --color-syntax-highlight-base00: var(--color-codeblock-bg); /* bg */
   --color-syntax-highlight-base01: var(--color-juno-grey-light-3); /*  ? */
@@ -966,7 +966,7 @@
   --color-spinner-primary: var(--color-accent);
   /* DT ProgressBar */
   --color-progressbar-fill: var(--color-accent);
-  --color-progressbar-border: var(--color-text-light);
+  --color-progressbar-border: var(--color-border-high);
   /* DT Syntax Highlighting */
   --color-syntax-highlight-base00: var(--color-codeblock-bg); /* bg */
   --color-syntax-highlight-base01: var(--color-juno-grey-blue-3); /*  ? */

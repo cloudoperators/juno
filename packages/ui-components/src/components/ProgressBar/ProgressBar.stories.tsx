@@ -20,9 +20,6 @@ const meta: Meta<typeof ProgressBar> = {
     "aria-label": {
       control: { type: "text" },
     },
-    width: {
-      control: { type: "text" },
-    },
     className: {
       control: { type: "text" },
     },
@@ -62,7 +59,6 @@ export const Playground: Story = {
     value: 50,
     mode: "determinate",
     "aria-label": "Progress",
-    width: "jn:w-44",
     className: "",
   },
 }

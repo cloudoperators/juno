@@ -29,10 +29,6 @@ export interface ProgressBarProps extends Omit<HTMLAttributes<HTMLDivElement>, "
    * @default "Progress"
    */
   "aria-label"?: string
-  /** Tailwind width class to apply to the track.
-   * @default "jn:w-44"
-   */
-  width?: string
   /** Add custom class names. */
   className?: string
 }
@@ -49,7 +45,6 @@ export const ProgressBar = ({
   value = 0,
   mode = "determinate",
   "aria-label": ariaLabel = "Progress",
-  width = "jn:w-44",
   className = "",
   ...props
 }: ProgressBarProps): ReactNode => {
@@ -63,16 +58,17 @@ export const ProgressBar = ({
 
   const [simulatedWidth, setSimulatedWidth] = React.useState(0)
 
-  // Precompute the step delays once so the randomized pacing stays stable across
-  // re-renders and StrictMode's double-invoked effect, keeping the run deterministic.
-  const stepDelays = React.useMemo(() => {
+  // useRef with a one-time init guard prevents React 18 StrictMode's double-invocation
+  // from calling Math.random() twice — the second pass sees the ref already set and skips it.
+  const stepDelaysRef = React.useRef<{ target: number; at: number }[] | null>(null)
+  if (!stepDelaysRef.current) {
     let elapsed = 2700
-    return simulatedSteps.map((target) => {
+    stepDelaysRef.current = simulatedSteps.map((target) => {
       const at = elapsed
       elapsed += 4050 + Math.random() * 5400
       return { target, at }
     })
-  }, [])
+  }
 
   React.useEffect(() => {
     if (mode !== "simulated") return
@@ -85,21 +81,21 @@ export const ProgressBar = ({
     // Nudge the bar to a small value almost immediately so the user gets instant
     // feedback that work has started, before the first real step at ~2.7s.
     timers.push(setTimeout(() => setSimulatedWidth(7), 200))
-    stepDelays.forEach(({ target, at }) => {
+    stepDelaysRef.current!.forEach(({ target, at }) => {
       timers.push(setTimeout(() => setSimulatedWidth(target), at))
     })
     return () => {
       timers.forEach(clearTimeout)
       setSimulatedWidth(0)
     }
-  }, [mode, stepDelays])
+  }, [mode])
   return (
     <div
       {...props}
       role="progressbar"
       {...rangeAttrs}
       aria-label={ariaLabel}
-      className={`juno-progressbar juno-progressbar-${mode} ${progressBarBaseStyles} ${width} ${className}`}
+      className={`juno-progressbar juno-progressbar-${mode} ${progressBarBaseStyles} ${className}`}
     >
       {mode === "busy" ? (
         <div className="juno-progressbar-busy-fill jn:h-full jn:bg-theme-progressbar" />
@@ -110,7 +106,7 @@ export const ProgressBar = ({
         />
       ) : (
         <div
-          className="jn:h-full jn:rounded-xl jn:bg-theme-progressbar jn:transition-[width] jn:duration-300 jn:ease-out jn:motion-reduce:transition-none"
+          className="juno-progressbar-determinate-fill jn:h-full jn:rounded-xl jn:bg-theme-progressbar jn:transition-[width] jn:duration-300 jn:ease-out jn:motion-reduce:transition-none"
           style={{ width: `${clampedValue}%` }}
         />
       )}
