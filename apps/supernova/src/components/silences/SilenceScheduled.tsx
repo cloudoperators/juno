@@ -292,7 +292,7 @@ function renderSilenceScheduledModal(
                   }}
                 >
                   {silenceTemplates?.map((option: any) => (
-                    <SelectOption key={option.id} label={option.title} value={option.id} />
+                    <SelectOption key={option.id} id={option.id} label={option.title} value={option.id} />
                   ))}
                 </Select>
               </FormRow>
