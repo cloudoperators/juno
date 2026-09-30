@@ -13,5 +13,5 @@ chore(deps): upgrade Babel presets to version 8.x with explicit configuration
 - Updated all Babel configs for Babel 8 compatibility
 
 **@cloudoperators/juno-url-state-provider:**
-- Removed unused Babel config and `@babel/preset-env` dependency (leftover from Jest → Vitest migration)
+- Removed unused Babel configuration (leftover from Jest → Vitest migration)
 - Vitest uses Vite's built-in esbuild transformer, not Babel
