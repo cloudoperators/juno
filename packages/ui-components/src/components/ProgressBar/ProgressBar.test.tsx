@@ -104,6 +104,11 @@ describe("ProgressBar component", () => {
     expect((fill as HTMLElement).style.width).toBe("50%")
   })
 
+  test("renders the determinate fill with juno-progressbar-determinate-fill class", () => {
+    const { container } = render(<ProgressBar value={50} />)
+    expect(container.querySelector(".juno-progressbar-determinate-fill")).toBeInTheDocument()
+  })
+
   test("renders simulated indicator in simulated mode", () => {
     const { container } = render(<ProgressBar mode="simulated" />)
     expect(container.querySelector(".juno-progressbar-simulated-fill")).toBeInTheDocument()
