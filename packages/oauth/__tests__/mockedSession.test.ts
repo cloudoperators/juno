@@ -12,11 +12,13 @@ describe("mockedSession", () => {
   // onUpdate,
   test("throw error on missing onUpdate callback", () => {
     expect(() => {
+      // @ts-expect-error - Testing missing required parameter
       mockedSession()
     }).toThrow()
   })
 
   test("warn if unknown options", () => {
+    // @ts-expect-error - Testing unknown options
     mockedSession({ onUpdate: () => null, test: "test", test2: "test" })
 
     expect(globalThis.console.warn).toHaveBeenLastCalledWith(

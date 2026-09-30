@@ -15,7 +15,8 @@ const config: CodegenConfig = {
 
   generates: {
     "src/generated/graphql.ts": {
-      plugins: ["typescript", "typescript-operations", "typescript-react-apollo"],
+      // v6 migration: typescript-operations now works independently (removed typescript plugin)
+      plugins: ["typescript-operations", "typescript-react-apollo"],
       config: {
         withHooks: false,
         withHOC: false,
@@ -25,6 +26,8 @@ const config: CodegenConfig = {
         withResultType: false,
         withMutationFn: false,
         withMutationOptionsType: false,
+        // v6 default changed to string literals - generate const objects for backward compatibility
+        enumType: "const",
       },
     },
   },

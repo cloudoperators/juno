@@ -5,9 +5,9 @@
 
 import { ApolloQueryResult } from "@apollo/client"
 import {
-  GetImagesQuery,
   GetServiceFiltersQuery,
   GetServicesQuery,
+  GetImagesQuery,
   GetVulnerabilitiesQuery,
   GetVulnerabilityFiltersQuery,
   SeverityValues,
@@ -48,7 +48,7 @@ export const mockServicesPromise: Promise<ApolloQueryResult<GetServicesQuery>> =
   networkStatus: 7,
   error: undefined,
   partial: false,
-  dataState: "complete" as const,
+  dataState: "complete",
 })
 
 // This mock simulates the response for service filters query
@@ -64,14 +64,15 @@ export const mockFiltersPromise: Promise<ApolloQueryResult<GetServiceFiltersQuer
   networkStatus: 7,
   error: undefined,
   partial: false,
-  dataState: "complete" as const,
+  dataState: "complete",
 })
 
 // This mock simulates the response for images query
-export const mockImagesPromise: Promise<ApolloQueryResult<GetImagesQuery>> = Promise.resolve({
+export const mockImagesPromise = Promise.resolve({
   data: {
     Images: {
       totalCount: 1,
+      counts: null,
       edges: [
         {
           node: {
@@ -100,13 +101,18 @@ export const mockImagesPromise: Promise<ApolloQueryResult<GetImagesQuery>> = Pro
               ],
               __typename: "ComponentVersionConnection",
             },
+            vulnerabilities: null,
             __typename: "Image",
           },
           __typename: "ImageEdge",
         },
       ],
       pageInfo: {
+        hasNextPage: null,
+        hasPreviousPage: null,
+        isValidPage: null,
         pageNumber: 1,
+        nextPageAfter: null,
         pages: [],
         __typename: "PageInfo",
       },
@@ -117,13 +123,14 @@ export const mockImagesPromise: Promise<ApolloQueryResult<GetImagesQuery>> = Pro
   networkStatus: 7,
   error: undefined,
   partial: false,
-  dataState: "complete" as const,
-})
+  dataState: "complete",
+}) satisfies Promise<ApolloQueryResult<GetImagesQuery>>
 
 // This mock simulates the response for vulnerabilities query
-export const mockVulnerabilitiesPromise: Promise<ApolloQueryResult<GetVulnerabilitiesQuery>> = Promise.resolve({
+export const mockVulnerabilitiesPromise = Promise.resolve({
   data: {
     Vulnerabilities: {
+      counts: null,
       edges: [
         {
           node: {
@@ -137,9 +144,18 @@ export const mockVulnerabilitiesPromise: Promise<ApolloQueryResult<GetVulnerabil
             services: {
               totalCount: 5,
               edges: [{ node: { ccrn: "alpha" } }, { node: { ccrn: "beta" } }],
-              pageInfo: { pageNumber: 1, pages: [], __typename: "PageInfo" },
+              pageInfo: {
+                hasNextPage: null,
+                hasPreviousPage: null,
+                isValidPage: null,
+                pageNumber: 1,
+                nextPageAfter: null,
+                pages: [],
+                __typename: "PageInfo",
+              },
               __typename: "ServiceConnection",
             },
+            supportGroups: null,
             __typename: "Vulnerability",
           },
           __typename: "VulnerabilityEdge",
@@ -155,16 +171,33 @@ export const mockVulnerabilitiesPromise: Promise<ApolloQueryResult<GetVulnerabil
             services: {
               totalCount: 3,
               edges: [{ node: { ccrn: "gamma" } }],
-              pageInfo: { pageNumber: 1, pages: [], __typename: "PageInfo" },
+              pageInfo: {
+                hasNextPage: null,
+                hasPreviousPage: null,
+                isValidPage: null,
+                pageNumber: 1,
+                nextPageAfter: null,
+                pages: [],
+                __typename: "PageInfo",
+              },
               __typename: "ServiceConnection",
             },
+            supportGroups: null,
             __typename: "Vulnerability",
           },
           __typename: "VulnerabilityEdge",
         },
       ],
       totalCount: 2,
-      pageInfo: { pageNumber: 1, pages: [], __typename: "PageInfo" },
+      pageInfo: {
+        hasNextPage: null,
+        hasPreviousPage: null,
+        isValidPage: null,
+        pageNumber: 1,
+        nextPageAfter: null,
+        pages: [],
+        __typename: "PageInfo",
+      },
       __typename: "VulnerabilityConnection",
     },
   },
@@ -172,8 +205,8 @@ export const mockVulnerabilitiesPromise: Promise<ApolloQueryResult<GetVulnerabil
   networkStatus: 7,
   error: undefined,
   partial: false,
-  dataState: "complete" as const,
-})
+  dataState: "complete",
+}) satisfies Promise<ApolloQueryResult<GetVulnerabilitiesQuery>>
 
 // This mock simulates the response for vulnerability filters query
 export const mockVulnerabilityFiltersPromise: Promise<ApolloQueryResult<GetVulnerabilityFiltersQuery>> =

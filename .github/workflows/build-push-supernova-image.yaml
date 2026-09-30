@@ -75,7 +75,7 @@ jobs:
       # Add support for more platforms with QEMU (optional)
       # QEMU is a generic and open source machine & userspace emulator and virtualizer.
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@96fe6ef7f33517b61c61be40b68a1882f3264fb8 # v4.2.0
+        uses: docker/setup-qemu-action@1f40c72289eff860ee54a304f1438e3cff362e0a # v4.3.0
 
       # Set up BuildKit Docker container builder to be able to build MULTI-platform images and export cache
       # https://github.com/docker/setup-buildx-action
@@ -186,7 +186,7 @@ jobs:
           skip-setup-trivy: true
 
       - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@ff2f1c621b7f889edc0d3c761ac2e6a3f8cdb0dd # v4.37.7
+        uses: github/codeql-action/upload-sarif@cdf488f595d80d6e07e03d4674febd5ab45fa938 # v4.37.9
         if: always()
         with:
           sarif_file: trivy-results.sarif
@@ -201,7 +201,7 @@ jobs:
     permissions:
       contents: read
     needs: [build-and-push, vulnerability-scan]
-    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@0ae545f35efa3859791b2a6b0a4362f90b833f60 # main
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@5cacb59856fa112604bb50bd0de94356c56d2c82 # main
     with:
       title: "🚨 JUNO Supernova Image Failed 🚨"
       body: |

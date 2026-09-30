@@ -11,11 +11,14 @@ import { NotificationManager, toast } from "./index"
 describe("NotificationManager", () => {
   const originalSetPointerCapture = (Element.prototype as Partial<Element>).setPointerCapture
   const originalReleasePointerCapture = (Element.prototype as Partial<Element>).releasePointerCapture
+  const originalFocus = HTMLElement.prototype.focus.bind(HTMLElement.prototype)
 
   beforeAll(() => {
     // jsdom does not implement pointer capture APIs used by Sonner's drag-to-dismiss handler
     Element.prototype.setPointerCapture = vi.fn()
     Element.prototype.releasePointerCapture = vi.fn()
+    // Mock focus method to prevent errors in React 19.3 with Sonner's focus restoration
+    HTMLElement.prototype.focus = vi.fn()
   })
 
   afterAll(() => {
@@ -29,6 +32,7 @@ describe("NotificationManager", () => {
     } else {
       delete (Element.prototype as Partial<Element>).releasePointerCapture
     }
+    HTMLElement.prototype.focus = originalFocus
   })
 
   afterEach(() => {

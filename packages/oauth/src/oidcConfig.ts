@@ -3,20 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-type OidcConfig = Record<string, any>
+import type { OidcConfig, CachedConfig } from "./types"
 
-interface CachedConfig {
-  time: number
-  config: OidcConfig
-}
-
-let oidcConfig: Record<any, CachedConfig> = {}
+let oidcConfig: Record<string, CachedConfig> = {}
 const cacheDuration = 5 * 60 * 60 * 1000
 
-export async function getOidcConfig(issuerURL: any): Promise<OidcConfig> {
+export async function getOidcConfig(issuerURL: string | URL): Promise<OidcConfig> {
   // throw an error if no issuerURL is provided
   if (!issuerURL) throw new Error("No issuerURL provided")
-  const cachedConfig = oidcConfig[issuerURL]
+
+  const issuerKey = String(issuerURL)
+  const cachedConfig = oidcConfig[issuerKey]
 
   // return cached config if it exists and is less than 5 minutes old
   if (cachedConfig?.time && cachedConfig?.time > Date.now() - cacheDuration) return cachedConfig.config
@@ -28,12 +25,12 @@ export async function getOidcConfig(issuerURL: any): Promise<OidcConfig> {
   // double slashes from the path
   url.pathname = (url.pathname + "/.well-known/openid-configuration").replace(/\/\/+/g, "/")
 
-  return fetch(url).then((r) => {
-    oidcConfig[issuerURL] = {
-      config: r.json(),
+  return fetch(url).then(async (r) => {
+    oidcConfig[issuerKey] = {
+      config: await r.json(),
       time: Date.now(),
     }
-    return oidcConfig[issuerURL].config
+    return oidcConfig[issuerKey].config
   })
 }
 

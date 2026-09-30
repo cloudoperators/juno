@@ -67,7 +67,13 @@ const defaultProps = {
   expirationHelptext: "When this should expire.",
 }
 
-const renderModal = (props: Partial<typeof defaultProps> & Record<string, unknown> = {}) =>
+// Omit remediationType from Partial to avoid literal type inference, then re-add as optional with full union type
+const renderModal = (
+  props: Partial<Omit<typeof defaultProps, "remediationType">> & { remediationType?: RemediationTypeValues } & Record<
+      string,
+      unknown
+    > = {}
+) =>
   render(
     <AuthProvider embedded auth={mockAuth}>
       <PortalProvider>

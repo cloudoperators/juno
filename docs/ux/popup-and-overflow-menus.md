@@ -35,32 +35,42 @@ When using a PopupMenu, always make sure:
 
 ## Menu Item Order and Grouping
 
-### Grouping by Entity Type
-
-If a menu contains actions targeting multiple different entity types, group all actions for the same entity type together. Separate groups with a horizontal divider.
-
 ### Item Order
 
-Within a menu or within a group, sort items alphabetically — with one exception: the **Delete [Entity]** action is always placed last.
+**Do not sort menu items alphabetically.** Order by importance and expected frequency of use instead:
 
-### The Delete Action and Visual Separation
+- If a "View [Entity]" or "View Details" action is present, place it first.
+- Place the most important and most frequently needed actions near the top.
+- Place destructive actions last, separated by a divider (see below).
+- When in doubt about ordering in a specific case, consult your UX team.
 
-- The **Delete [Entity]** action must always be the last item in its menu or group.
-- **Single-entity menus** (all actions refer to one entity type): separate the Delete action from the rest with a horizontal divider.
-- **Multi-entity menus** (multiple groups): the group dividers already provide visual separation. Do not add an additional divider before the Delete action within a group.
+### Grouping
+
+If a menu contains actions targeting multiple entity types, group actions for the same entity type together and separate groups with a horizontal divider. Only introduce grouping when it genuinely aids scanning — for shorter menus (about 4–5 items), dividers usually add visual noise without benefit.
+
+### Destructive Actions
+
+A destructive action permanently destroys an object or data with no possibility of recovery — **Delete** and **Wipe** are destructive; **Remove**, **Revoke**, and **Disable** are not.
+
+- Destructive actions must always be the last item in their menu or group.
+- **Single-entity menus**: separate the destructive action from the preceding items with a horizontal divider.
+- **Multi-entity menus**: group dividers already provide visual separation; do not add an additional divider before the destructive action within a group.
 
 ### Examples
 
 **Multiple entity types — page-level overflow menu:**
 
 ```
+View Bucket
 Edit Bucket
 Empty Bucket
 Delete Bucket
 ──────────────
+View Policy
 Edit Policy
 Delete Policy
 ──────────────
+View Version History
 Suspend Versioning
 Delete Version
 ```
@@ -68,10 +78,10 @@ Delete Version
 **Single entity type — DataGrid row overflow menu:**
 
 ```
+View Item Details
 Copy Item
-Download Item
 Share Item URL
-View Item
+Download Item
 ──────────────
 Delete Item
 ```
