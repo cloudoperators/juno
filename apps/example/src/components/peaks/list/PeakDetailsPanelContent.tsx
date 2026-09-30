@@ -30,7 +30,7 @@ const PeakDetailPanelContent: React.FC<PeakDetailPanelContentProps> = ({ openDet
       <Stack direction="horizontal" gap={DEFAULT_SMALL_APP_MARGIN} className="justify-center mt-auto p-8">
         <Button
           variant="primary"
-          onClick={(e) => {
+          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             e.preventDefault()
             openDetailPageWithPeak(peakDetails.id?.toString())
           }}
