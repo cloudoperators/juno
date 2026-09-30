@@ -583,4 +583,99 @@ describe("ComboBox", () => {
     expect(screen.getByRole("combobox")).toBeInTheDocument()
     expect(screen.getByRole("combobox")).toHaveAttribute("data-lolo", "1234")
   })
+
+  test("clears internal state when controlled value prop becomes empty", async () => {
+    const { rerender } = render(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox value="option1">
+          <ComboBoxOption value="option1" label="Option 1" />
+          <ComboBoxOption value="option2" label="Option 2" />
+        </ComboBox>
+      </AppShellProvider>
+    )
+
+    const input = screen.getByRole("combobox")
+    // When controlled with value="option1", it shows the value
+    expect(input).toHaveValue("option1")
+
+    // Rerender updates the same component instance with new props (simulating what supernova does)
+    // Update value prop to empty (simulating what supernova does after selection)
+    rerender(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox value="">
+          <ComboBoxOption value="option1" label="Option 1" />
+          <ComboBoxOption value="option2" label="Option 2" />
+        </ComboBox>
+      </AppShellProvider>
+    )
+
+    // Should clear the value
+    await waitFor(() => {
+      expect(input).toHaveValue("")
+    })
+  })
+
+  test("updates displayed value when controlled value prop changes to a new value", async () => {
+    const { rerender } = render(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox value="option1">
+          <ComboBoxOption value="option1" label="Option 1" />
+          <ComboBoxOption value="option2" label="Option 2" />
+        </ComboBox>
+      </AppShellProvider>
+    )
+
+    const input = screen.getByRole("combobox")
+    expect(input).toHaveValue("option1")
+
+    // Rerender updates the same component instance with new props
+    // Update value prop to a different value
+    rerender(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox value="option2">
+          <ComboBoxOption value="option1" label="Option 1" />
+          <ComboBoxOption value="option2" label="Option 2" />
+        </ComboBox>
+      </AppShellProvider>
+    )
+
+    // Should update to the new value
+    await waitFor(() => {
+      expect(input).toHaveValue("option2")
+    })
+  })
+
+  test("uncontrolled combobox: select option and it remains visible in the display", async () => {
+    const user = userEvent.setup()
+    const mockOnChange = vi.fn()
+
+    render(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox onChange={mockOnChange}>
+          <ComboBoxOption value="option1" label="Option 1" />
+          <ComboBoxOption value="option2" label="Option 2" />
+          <ComboBoxOption value="option3" label="Option 3" />
+        </ComboBox>
+      </AppShellProvider>
+    )
+
+    const input = screen.getByRole("combobox")
+    expect(input).toHaveValue("")
+
+    // Click to open dropdown
+    await user.click(input)
+    await waitFor(() => expect(screen.getByRole("listbox")).toBeInTheDocument())
+
+    // Select an option
+    await user.click(screen.getByRole("option", { name: "Option 2" }))
+
+    // onChange should be called
+    expect(mockOnChange).toHaveBeenCalledWith("option2")
+
+    // Dropdown should close
+    await waitFor(() => expect(screen.queryByRole("listbox")).not.toBeInTheDocument())
+
+    // The selected value should remain visible in uncontrolled mode (displays the label)
+    expect(input).toHaveValue("Option 2")
+  })
 })
