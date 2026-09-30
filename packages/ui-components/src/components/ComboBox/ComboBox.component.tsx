@@ -297,6 +297,11 @@ export const ComboBox = ({
 
   useEffect(() => {
     setSelectedValue(value)
+    // Clear query and close dropdown when value is cleared externally
+    if (!value) {
+      setQuery("")
+      setIsOpen(false)
+    }
   }, [value])
 
   useEffect(() => {
@@ -318,6 +323,9 @@ export const ComboBox = ({
   const handleChange = (value: string | null) => {
     const stringValue = value || ""
     setSelectedValue(stringValue)
+
+    // Clear the search query after selection
+    setQuery("")
 
     if (stringValue) {
       setIsOpen(false)
