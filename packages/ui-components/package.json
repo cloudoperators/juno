@@ -41,7 +41,7 @@
     "eslint-plugin-storybook": "10.6.0",
     "flatpickr": "4.6.13",
     "focus-trap-react": "12.0.3",
-    "jsdom": "30.1.0",
+    "jsdom": "30.1.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-tabs": "6.1.1",
