@@ -32,7 +32,7 @@ const iconStyles = `
 `
 
 /**
- * @deprecated Tab is deprecated and may be removed in any of the next major releases. Use TabBar in combination with react-tabs directly if you want to keep the react-tabs internal logic.
+ * @deprecated Tab is deprecated and may be removed in any of the next major releases. Once TabBar is refactored to being representational-only, you will be able to use TabBar in combination with react-tabs directly if you want to keep the react-tabs internal logic.
  * A Tab Component representing an individual Tab inside a wrapping TabList inside a wrapping Tabs component. Not to be used standalone outside of the mentioned parent components.
  * @see https://cloudoperators.github.io/juno/?path=/docs/layout-tabs-tab--docs
  * @see {@link TabProps}
