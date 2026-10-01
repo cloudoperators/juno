@@ -7,7 +7,7 @@ import React, { HTMLAttributes, ReactNode } from "react"
 import { Tabs } from "../Tabs/index"
 
 /**
- * @deprecated MainTabs is deprecated and may be removed in any of the next major releases. Use TabBar in combination with react-tabs directly if you want to keep the react-tabs internal logic.
+ * @deprecated MainTabs is deprecated and may be removed in any of the next major releases. Once TabBar is refactored to being representational-only, you will be able to use TabBar in combination with react-tabs directly if you want to keep the react-tabs internal logic.
  * @see https://cloudoperators.github.io/juno/?path=/docs/layout-tabs-maintabs--docs
  * @see {@link MainTabsProps}
  */
