@@ -4,14 +4,10 @@
  */
 
 import React, { HTMLAttributes, ReactNode } from "react"
-import { Tabs } from "../Tabs/index"
+import { TabsBase } from "../Tabs/Tabs.component"
+import { withDeprecationWarning } from "../withDeprecationWarning/index"
 
-/**
- * @deprecated MainTabs is deprecated and may be removed in any of the next major releases. Once TabBar is refactored to being representational-only, you will be able to use TabBar in combination with react-tabs directly if you want to keep the react-tabs internal logic.
- * @see https://cloudoperators.github.io/juno/?path=/docs/layout-tabs-maintabs--docs
- * @see {@link MainTabsProps}
- */
-export const MainTabs = ({
+export const MainTabsBase = ({
   children,
   defaultIndex,
   selectedIndex,
@@ -20,7 +16,7 @@ export const MainTabs = ({
   ...props
 }: MainTabsProps): ReactNode => {
   return (
-    <Tabs
+    <TabsBase
       defaultIndex={defaultIndex}
       selectedIndex={selectedIndex}
       onSelect={onSelect}
@@ -29,7 +25,7 @@ export const MainTabs = ({
       {...props}
     >
       {children}
-    </Tabs>
+    </TabsBase>
   )
 }
 
@@ -60,3 +56,13 @@ export interface MainTabsProps extends Omit<HTMLAttributes<HTMLElement>, "onSele
    */
   className?: string
 }
+
+/**
+ * @deprecated MainTabs is deprecated and may be removed in any of the next major releases. Once TabBar is refactored to being representational-only, you will be able to use TabBar in combination with react-tabs directly if you want to keep the react-tabs internal logic.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-tabs-maintabs--docs
+ * @see {@link MainTabsProps}
+ */
+export const MainTabs = withDeprecationWarning(
+  MainTabsBase,
+  "MainTabs is deprecated and may be removed in any of the next major releases. Use react-tabs directly instead."
+)
