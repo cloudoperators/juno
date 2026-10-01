@@ -4,8 +4,8 @@
  */
 
 import * as React from "react"
-import { describe, expect, test, vi } from "vitest"
-import { act, render, screen } from "@testing-library/react"
+import { describe, expect, test } from "vitest"
+import { render, screen } from "@testing-library/react"
 import { ProgressBar } from "./"
 
 describe("ProgressBar component", () => {
@@ -76,11 +76,6 @@ describe("ProgressBar component", () => {
     expect(screen.getByRole("progressbar")).toHaveClass("juno-progressbar-busy")
   })
 
-  test("applies juno-progressbar-simulated class in simulated mode", () => {
-    render(<ProgressBar mode="simulated" />)
-    expect(screen.getByRole("progressbar")).toHaveClass("juno-progressbar-simulated")
-  })
-
   test("spreads additional HTML attributes", () => {
     render(<ProgressBar data-testid="pb" data-extra="yes" />)
     expect(screen.getByTestId("pb")).toHaveAttribute("data-extra", "yes")
@@ -109,47 +104,6 @@ describe("ProgressBar component", () => {
     expect(container.querySelector(".juno-progressbar-determinate-fill")).toBeInTheDocument()
   })
 
-  test("renders simulated indicator in simulated mode", () => {
-    const { container } = render(<ProgressBar mode="simulated" />)
-    expect(container.querySelector(".juno-progressbar-simulated-fill")).toBeInTheDocument()
-  })
-
-  test("does not set aria-valuenow in simulated mode", () => {
-    render(<ProgressBar mode="simulated" value={50} />)
-    expect(screen.getByRole("progressbar")).not.toHaveAttribute("aria-valuenow")
-  })
-
-  test("nudges the simulated fill to a small value almost immediately", () => {
-    vi.useFakeTimers()
-    const { container } = render(<ProgressBar mode="simulated" />)
-    act(() => {
-      vi.advanceTimersByTime(300)
-    })
-    const fill = container.querySelector(".juno-progressbar-simulated-fill") as HTMLElement
-    expect(fill.style.width).toBe("7%")
-    vi.useRealTimers()
-  })
-
-  test("advances the simulated fill to the parked value over time", () => {
-    vi.useFakeTimers()
-    const { container } = render(<ProgressBar mode="simulated" />)
-    act(() => {
-      vi.advanceTimersByTime(60000)
-    })
-    const fill = container.querySelector(".juno-progressbar-simulated-fill") as HTMLElement
-    expect(fill.style.width).toBe("95%")
-    vi.useRealTimers()
-  })
-
-  test("parks the simulated fill at the end value immediately when reduced motion is preferred", () => {
-    const matchMedia = vi.fn().mockReturnValue({ matches: true })
-    vi.stubGlobal("matchMedia", matchMedia)
-    const { container } = render(<ProgressBar mode="simulated" />)
-    const fill = container.querySelector(".juno-progressbar-simulated-fill") as HTMLElement
-    expect(fill.style.width).toBe("95%")
-    vi.unstubAllGlobals()
-  })
-
   test("clamps a non-finite value to 0", () => {
     render(<ProgressBar value={NaN} />)
     const el = screen.getByRole("progressbar")
@@ -160,13 +114,6 @@ describe("ProgressBar component", () => {
 
   test("omits aria-valuemin and aria-valuemax in busy mode", () => {
     render(<ProgressBar mode="busy" />)
-    const el = screen.getByRole("progressbar")
-    expect(el).not.toHaveAttribute("aria-valuemin")
-    expect(el).not.toHaveAttribute("aria-valuemax")
-  })
-
-  test("omits aria-valuemin and aria-valuemax in simulated mode", () => {
-    render(<ProgressBar mode="simulated" />)
     const el = screen.getByRole("progressbar")
     expect(el).not.toHaveAttribute("aria-valuemin")
     expect(el).not.toHaveAttribute("aria-valuemax")

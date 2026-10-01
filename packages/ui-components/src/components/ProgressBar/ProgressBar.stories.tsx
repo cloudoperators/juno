@@ -15,7 +15,7 @@ const meta: Meta<typeof ProgressBar> = {
     },
     mode: {
       control: { type: "select" },
-      options: ["determinate", "busy", "simulated"],
+      options: ["determinate", "busy"],
     },
     "aria-label": {
       control: { type: "text" },
@@ -45,12 +45,6 @@ export const Full: Story = {
 export const Busy: Story = {
   args: {
     mode: "busy",
-  },
-}
-
-export const Simulated: Story = {
-  args: {
-    mode: "simulated",
   },
 }
 
