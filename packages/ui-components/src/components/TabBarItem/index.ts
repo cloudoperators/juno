@@ -3,4 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { TabNavigation } from "./TabNavigation.component"
+export { TabBarItem, TabNavigationItem } from "./TabBarItem.component"

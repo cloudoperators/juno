@@ -20,8 +20,16 @@ interface MainTabsStoryProps extends MainTabsProps {
 }
 
 const meta: Meta<MainTabsStoryProps> = {
-  title: "Layout/Tabs/MainTabs",
+  title: "Deprecated/Tabs/MainTabs",
   component: MainTabs,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "`MainTabs` is deprecated and may be removed in any of the next major releases. Once `TabBar` is refactored to being representational-only, you will be able to use `TabBar` in combination with `react-tabs` directly if you want to keep the `react-tabs` internal logic.",
+      },
+    },
+  },
   argTypes: {
     children: {
       control: false,

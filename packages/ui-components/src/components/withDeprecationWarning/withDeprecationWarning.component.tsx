@@ -14,6 +14,8 @@ function withDeprecationWarning<T extends object>(WrappedComponent: ComponentTyp
     return <WrappedComponent {...props} />
   }
 
+  ComponentWithDeprecationWarning.displayName = `Deprecated(${WrappedComponent.displayName ?? WrappedComponent.name})`
+
   return ComponentWithDeprecationWarning
 }
 

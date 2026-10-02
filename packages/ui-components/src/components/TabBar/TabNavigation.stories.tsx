@@ -6,11 +6,19 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { TabNavigation } from "./index"
-import { TabNavigationItem } from "../TabNavigationItem/index"
+import { TabNavigationItem } from "../TabBarItem/index"
 
 const meta: Meta<typeof TabNavigation> = {
-  title: "Navigation/TabNavigation/TabNavigation",
+  title: "Deprecated/TabNavigation/TabNavigation",
   component: TabNavigation,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "`TabNavigation` has been renamed to `TabBar`. Please use `<TabBar>` and `<TabBarItem>` going forward. `TabNavigation` will be removed in a future major release.",
+      },
+    },
+  },
   argTypes: {
     children: {
       control: false,
@@ -40,13 +48,6 @@ export const Default: Story = {
 }
 
 export const Disabled: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: "All navigation items can be disabled by passing `disabled` to the `TabNavigation`.",
-      },
-    },
-  },
   args: {
     disabled: true,
     children: [
@@ -59,14 +60,6 @@ export const Disabled: Story = {
 }
 
 export const WithValues: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "When needed, navigation items can take a `value` prop as a technical identifier that is different form the human-readable `label`. You may use any of the provided props as an identifier to set an active item on the parent. Alternatively, an individual `SideNavigationItem` can be set to `active`. When both an individual item is set to active and an aciveItem is set on the parent, the latter will win.",
-      },
-    },
-  },
   args: {
     activeItem: "item-3",
     children: [
@@ -74,33 +67,6 @@ export const WithValues: Story = {
       <TabNavigationItem label="Item 2" key="i-2" value="item-2"></TabNavigationItem>,
       <TabNavigationItem label="Item 3" key="i-3" value="item-3"></TabNavigationItem>,
       <TabNavigationItem label="Item 4" key="i-4" value="item-4"></TabNavigationItem>,
-    ],
-  },
-}
-
-export const WithChildren: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: "Alternatively, navigation items can render children passed to them.",
-      },
-    },
-  },
-  args: {
-    activeItem: "item-1",
-    children: [
-      <TabNavigationItem key="i-1" value="item-1">
-        Item 1
-      </TabNavigationItem>,
-      <TabNavigationItem key="i-2" value="item-2">
-        Item 2
-      </TabNavigationItem>,
-      <TabNavigationItem key="i-3" value="item-3">
-        Item 3
-      </TabNavigationItem>,
-      <TabNavigationItem key="i-4" value="item-4">
-        Item 4
-      </TabNavigationItem>,
     ],
   },
 }

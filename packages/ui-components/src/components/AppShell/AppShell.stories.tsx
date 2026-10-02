@@ -12,8 +12,8 @@ import { SideNavigation } from "../SideNavigation/index"
 import { SideNavigationItem } from "../SideNavigationItem/index"
 import { TopNavigation } from "../TopNavigation/index"
 import { TopNavigationItem } from "../TopNavigationItem/index"
-import { TabNavigation } from "../TabNavigation/index"
-import { TabNavigationItem } from "../TabNavigationItem/index"
+import { TabBar } from "../TabBar/index"
+import { TabBarItem } from "../TabBarItem/index"
 import { ContentHeading } from "../ContentHeading/index"
 import { Container } from "../Container/index"
 
@@ -236,16 +236,16 @@ export const WithSideAndTopNavigation: Story = {
   },
 }
 
-export const WithTabNavigation: Story = {
+export const WithTabBar: Story = {
   render: Template,
   parameters: {},
   args: {
     children: [
-      <TabNavigation key="1">
-        <TabNavigationItem label="Item 1" active />
-        <TabNavigationItem label="Item 2" />
-        <TabNavigationItem label="Item 3" />
-      </TabNavigation>,
+      <TabBar key="1">
+        <TabBarItem label="Item 1" active />
+        <TabBarItem label="Item 2" />
+        <TabBarItem label="Item 3" />
+      </TabBar>,
       <ContentHeading key="2">My Page</ContentHeading>,
     ],
   },
