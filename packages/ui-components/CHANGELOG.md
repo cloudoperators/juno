@@ -1,5 +1,67 @@
 # @cloudoperators/juno-ui-components
 
+## 9.5.0
+
+### Minor Changes
+
+- 414e9f1: feat(ProgressBar): add ProgressBar component
+
+  Adds a new `ProgressBar` component with two modes:
+  - `determinate` — fills the track to a `value` between 0 and 100
+  - `busy` — animated indeterminate indicator for when progress is unknown
+
+  The component always fills its parent container. Accessibility: uses
+  `role="progressbar"` with `aria-valuenow/min/max` in determinate mode.
+  Respects `prefers-reduced-motion`.
+
+### Patch Changes
+
+- b2b81a2: chore(deps): upgrade multiple dependencies
+  - @apollo/client: 4.2.12 → 4.3.0
+  - @graphql-codegen/cli: 7.3.1 → 7.4.1
+  - @tanstack/react-query: 5.102.8 → 5.103.1
+  - @typescript-eslint/eslint-plugin: 8.69.0 → 8.70.0
+  - @typescript-eslint/parser: 8.69.0 → 8.70.0
+  - eslint: 10.9.1 → 10.10.0
+  - typescript-eslint: 8.69.0 → 8.70.0
+  - vite: 8.2.2 → 8.3.0
+  - zod: 4.5.4 → 4.6.5
+
+- dd1c36c: fix(ui): add role="group" to InputGroup, fix CSS typo, improve tests
+- fbdc3b9: fix SearchInput vertical icon alignment
+- 703c792: chore(deps): remove all unused Babel configurations and dependencies
+
+  **@cloudoperators/juno-ui-components:**
+  - Removed `@babel/preset-env` and `@babel/preset-react` dependencies (no longer needed)
+  - Removed `babel.config.json` - Vitest uses Vite's built-in esbuild transformer
+  - Removed `.storybook/.babelrc` - Storybook 10.6.0 uses Vite's Oxc transformer via @vitejs/plugin-react 6.1.1
+  - All builds, tests, and Storybook verified working without Babel
+
+  **@cloudoperators/juno-url-state-provider:**
+  - Removed unused Babel configuration (leftover from Jest → Vitest migration)
+  - Vitest uses Vite's built-in esbuild transformer
+
+  Both packages now rely entirely on Vite's modern transformers (esbuild and Oxc) instead of Babel.
+
+- 824aa2b: chore(deps): upgrade React, Storybook, and related dependencies
+  - Upgrade React from 19.2.8 to 19.3.0
+  - Upgrade react-dom from 19.2.8 to 19.3.0
+  - Upgrade @types/react from 19.2.18 to 19.3.0
+  - Upgrade @types/react-dom from 19.2.5 to 19.3.0
+  - Upgrade Storybook packages from 10.5.10 to 10.6.0:
+    - @storybook/addon-docs
+    - @storybook/addon-links
+    - @storybook/react-vite
+    - storybook
+    - eslint-plugin-storybook
+  - Upgrade jsdom from 30.0.1 to 30.1.0
+
+- 51999d2: chore(deps): upgrade vite-plugin-dts to 5.1.1
+  - Upgraded vite-plugin-dts from 4.5.4 to 5.1.1 across all affected packages
+  - Removed unused vite-plugin-svgr from the Heureka app (no SVG imports found)
+  - This major vite-plugin-dts upgrade has no breaking changes affecting current usage
+  - vite-plugin-dts v5 requires Vite 3+, which is satisfied by Vite 8.3.0
+
 ## 9.4.2
 
 ### Patch Changes
