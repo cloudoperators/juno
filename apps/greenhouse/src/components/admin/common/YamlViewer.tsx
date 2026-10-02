@@ -9,7 +9,7 @@ import { EditorState } from "@codemirror/state"
 import { yaml } from "@codemirror/lang-yaml"
 import { foldGutter, foldKeymap } from "@codemirror/language"
 import { oneDark } from "@codemirror/theme-one-dark"
-import yamlParser from "js-yaml"
+import { dump } from "js-yaml"
 import { ErrorMessage } from "../common/ErrorBoundary/ErrorMessage"
 
 interface YamlViewerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "value"> {
@@ -53,7 +53,7 @@ export default function YamlViewer({ value, className = "", ...props }: YamlView
 
   const { yamlContent, error } = useMemo(() => {
     try {
-      const yamlString = yamlParser.dump(value, {
+      const yamlString = dump(value, {
         indent: 2,
         lineWidth: -1,
         noRefs: true,
