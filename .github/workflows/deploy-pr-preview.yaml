@@ -146,14 +146,14 @@ jobs:
               BUILD_OUTCOME="${!OUTCOME_VAR}"  # Get the value of the environment variable
               echo "==BUILD_OUTCOME=="
               echo $BUILD_OUTCOME
-              echo "==="              
+              echo "==="
               if [ "$BUILD_OUTCOME" == "success" ]; then
                 echo "<li><a href='./${component}/index.html' target="_blank">${component^} <span style='color:green;'>✓ Success</span></a></li>" >> ${{ env.DEPLOY_PATH }}/index.html
               else
                 echo "<li>${component^} <span style='color:red;'>✗ Failed</span></li>" >> ${{ env.DEPLOY_PATH }}/index.html
               fi
             fi
-          done  
+          done
 
           echo "</ul></body></html>" >> ${{ env.DEPLOY_PATH }}/index.html
 
@@ -162,5 +162,5 @@ jobs:
           source-dir: ${{ env.DEPLOY_PATH }}/
           preview-branch: gh-pages
           umbrella-dir: pr-preview
-          action: auto
+          action: ${{ github.event.action == 'labeled' && 'deploy' || 'auto' }}
           qr-code: false
