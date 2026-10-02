@@ -10,7 +10,6 @@
 "@cloudoperators/juno-app-template": patch
 "@cloudoperators/juno-app-example": patch
 "@cloudoperators/juno-app-heureka": patch
-"@cloudoperators/juno-app-carbon": patch
 "@cloudoperators/juno-app-doop": patch
 ---
 
