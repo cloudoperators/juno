@@ -27,7 +27,6 @@ export const scopes = [
   "deps",
   "docs",
   "doop",
-  "example",
   "heureka",
   "infra",
   "juno",
