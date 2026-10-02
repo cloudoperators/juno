@@ -5,6 +5,7 @@
 
 import { describe, it, expect, vi, beforeEach } from "vitest"
 import tokenSession, { composeAuthData } from "../src/tokenSession"
+import type { TokenSessionInstance, TokenSessionState } from "../src/types"
 import { testIdToken } from "./__utils__/idTokenMock"
 import * as tokenHelpers from "../src/tokenHelpers"
 
@@ -52,7 +53,7 @@ describe("composeAuthData", () => {
 })
 
 describe("tokenSession", () => {
-  let onUpdateMock: any
+  let onUpdateMock: (_state: TokenSessionState) => void
   beforeEach(() => {
     onUpdateMock = vi.fn()
   })
@@ -63,7 +64,7 @@ describe("tokenSession", () => {
   })
 
   it("should initialize the session with correct default state", () => {
-    const session = tokenSession({ token: testIdToken, onUpdate: onUpdateMock })
+    const session: TokenSessionInstance = tokenSession({ token: testIdToken, onUpdate: onUpdateMock })
 
     expect(session.currentState()).toEqual({
       auth: null,
@@ -76,15 +77,20 @@ describe("tokenSession", () => {
 
   it("should initialize if initialLogin boolean set", () => {
     const options = { anySpecialAttribute: "miau" }
-    const session = tokenSession({ token: testIdToken, options, initialLogin: true, onUpdate: onUpdateMock })
+    const session: TokenSessionInstance = tokenSession({
+      token: testIdToken,
+      options,
+      initialLogin: true,
+      onUpdate: onUpdateMock,
+    })
 
     expect(onUpdateMock).toHaveBeenCalledWith(
       expect.objectContaining({
         auth: expect.objectContaining({
           JWT: testIdToken,
-          raw: expect.objectContaining({ anySpecialAttribute: "miau" }),
+          raw: expect.objectContaining({ anySpecialAttribute: "miau" }) as unknown,
           refreshToken: "TOKEN",
-        }),
+        }) as unknown,
         error: null,
         loggedIn: true,
         isProcessing: false,
@@ -100,7 +106,7 @@ describe("tokenSession", () => {
   })
 
   it("should log in and set correctly the state", () => {
-    const { login } = tokenSession({
+    const { login }: TokenSessionInstance = tokenSession({
       token: testIdToken,
       onUpdate: onUpdateMock,
     })
@@ -110,7 +116,7 @@ describe("tokenSession", () => {
         auth: expect.objectContaining({
           JWT: testIdToken,
           refreshToken: "TOKEN",
-        }),
+        }) as unknown,
         error: null,
         loggedIn: true,
         isProcessing: false,
@@ -119,7 +125,7 @@ describe("tokenSession", () => {
   })
 
   it("should log out and reset the state", () => {
-    const { logout } = tokenSession({
+    const { logout }: TokenSessionInstance = tokenSession({
       token: testIdToken,
       onUpdate: onUpdateMock,
     })
@@ -137,7 +143,7 @@ describe("tokenSession", () => {
       throw new Error("This is not a valid token error message")
     })
 
-    const { currentState } = tokenSession({
+    const { currentState }: TokenSessionInstance = tokenSession({
       token: "invalidToken",
       onUpdate: onUpdateMock,
       initialLogin: true,

@@ -26,8 +26,9 @@ export async function getOidcConfig(issuerURL: string | URL): Promise<OidcConfig
   url.pathname = (url.pathname + "/.well-known/openid-configuration").replace(/\/\/+/g, "/")
 
   return fetch(url).then(async (r) => {
+    const config = (await r.json()) as OidcConfig
     oidcConfig[issuerKey] = {
-      config: await r.json(),
+      config,
       time: Date.now(),
     }
     return oidcConfig[issuerKey].config

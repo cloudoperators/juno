@@ -7,6 +7,7 @@ import { beforeEach, describe, expect, test } from "vitest"
 import "./__utils__/globalsMock"
 
 import oidcSession from "../src/oidcSession"
+import type { OidcSessionInstance } from "../src/types"
 
 describe("oidcSession", () => {
   test("should be a function", () => {
@@ -69,7 +70,7 @@ describe("oidcSession", () => {
   })
 
   describe("returned result", () => {
-    let session: any = undefined
+    let session: OidcSessionInstance
     beforeEach(() => {
       session = oidcSession({ clientID: "test", issuerURL: "http://dummy.com" })
     })
