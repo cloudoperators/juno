@@ -23,7 +23,6 @@ export const scopes = [
   "ci",
   "apps",
   "core",
-  "carbon",
   "greenhouse",
   "deps",
   "docs",
