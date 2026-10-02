@@ -8,6 +8,16 @@
   "respectLatest": false,
   "packageRules": [
     {
+      "description": "Do not pin engines - they should remain as ranges for forward compatibility",
+      "matchDepTypes": ["engines"],
+      "enabled": false
+    },
+    {
+      "description": "Do not pin peerDependencies - they must be ranges for consumer compatibility",
+      "matchDepTypes": ["peerDependencies"],
+      "rangeStrategy": "widen"
+    },
+    {
       "groupName": "github actions",
       "matchManagers": ["github-actions"],
       "matchUpdateTypes": ["major", "minor", "patch", "digest"],
