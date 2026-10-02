@@ -51,7 +51,7 @@ export const exchangeCode = async ({
     throw new Error(`Token exchange failed: ${response.statusText}`)
   }
 
-  const data: TokenResponse = await response.json()
+  const data = (await response.json()) as TokenResponse
   return data
 }
 
@@ -155,13 +155,13 @@ const refreshToken = async ({ issuerURL, clientID, refreshToken }: RefreshTokenP
     .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(body[k])}`)
     .join("&")
 
-  const data: TokenResponse = await fetch(config.token_endpoint, {
+  const data = (await fetch(config.token_endpoint, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     body: formBody,
-  }).then((r) => r.json())
+  }).then((r) => r.json())) as TokenResponse
 
   if ("error" in data && data.error)
     throw new Error(typeof data.error === "string" ? data.error : "Token refresh failed")
