@@ -1,0 +1,22 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+@keyframes juno-progress-busy {
+  0%   { clip-path: inset(0 80% 0 0%  round 9999px); }
+  50%  { clip-path: inset(0 10% 0 8%  round 9999px); }
+  100% { clip-path: inset(0 0%  0 80% round 9999px); }
+}
+
+/*
+ * clip-path: inset() with round 9999px creates a pill that grows/shrinks
+ * without scaleX — border-radius stays uncompressed at all sizes.
+ * No prefers-reduced-motion guard: in busy mode the animation is the
+ * only progress signal and must keep running.
+ */
+.juno-progressbar-busy-fill {
+  width: 100%;
+  will-change: clip-path;
+  animation: juno-progress-busy 1.1s ease-in-out infinite alternate;
+}
