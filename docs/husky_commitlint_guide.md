@@ -56,7 +56,6 @@ The following scopes are permitted for commits:
 - **deps**: Dependency management
 - **docs**: Docs related
 - **doop**: Changes in the doop app
-- **example**: Changes to the example app
 - **heureka**: Changes in the heureka
 - **infra**: Infrastructure-related changes
 - **juno**: Juno-specific changes
