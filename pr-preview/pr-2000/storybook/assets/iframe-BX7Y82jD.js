@@ -1,1 +1,0 @@
-import{t as e}from"./iframe-Ndetei4g.js";e();
