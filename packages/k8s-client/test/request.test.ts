@@ -282,6 +282,9 @@ describe("request", () => {
       globalThis.window = undefined!
 
       for (const method of methods) {
+        // Clear mock to verify each method creates an agent
+        MockedAgent.mockClear()
+
         const options: Record<string, unknown> = {
           ignoreSsl: true,
           headers: { Authorization: "Bearer token" },
