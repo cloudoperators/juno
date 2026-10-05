@@ -18,7 +18,8 @@ describe("parseIdTokenData", () => {
   test("should convert oidc token data without groups and login_name", () => {
     const data = parseIdTokenData({
       aud: "12a34b5c-6d78-9e1f-g345-67h89ijkl123",
-      sub: "P123456",
+      sub: "CgdQMTIzNDU2EgNzY2k", // base64 encoded opaque identifier
+      name: "P123456", // SAP employee ID in name claim
       mail: "dona.moore@example.com",
       iss: "https://my-tenant.accounts.ondemand.com",
       last_name: "Moore",
@@ -43,7 +44,8 @@ describe("parseIdTokenData", () => {
   test("should extract organization and teams", () => {
     const data = parseIdTokenData({
       aud: "12a34b5c-6d78-9e1f-g345-67h89ijkl123",
-      sub: "P123456",
+      sub: "CgdQMTIzNDU2EgNzY2k", // base64 encoded opaque identifier
+      name: "P123456", // SAP employee ID in name claim
       mail: "dona.moore@example.com",
       iss: "https://my-tenant.accounts.ondemand.com",
       last_name: "Moore",
@@ -66,7 +68,8 @@ describe("parseIdTokenData", () => {
   test("should extract support groups, teams, organizations and roles from groups", () => {
     const data = parseIdTokenData({
       aud: "12a34b5c-6d78-9e1f-g345-67h89ijkl123",
-      sub: "P123456",
+      sub: "CgdQMTIzNDU2EgNzY2k", // base64 encoded opaque identifier
+      name: "P123456", // SAP employee ID in name claim
       mail: "dona.moore@example.com",
       iss: "https://my-tenant.accounts.ondemand.com",
       last_name: "Moore",
@@ -97,7 +100,8 @@ describe("parseIdTokenData", () => {
   test("should convert oidc token data including groups and login_name", () => {
     const data = parseIdTokenData({
       aud: "12a34b5c-6d78-9e1f-g345-67h89ijkl123",
-      sub: "P123456",
+      sub: "CgdQMTIzNDU2EgNzY2k", // base64 encoded opaque identifier
+      name: "P123456", // SAP employee ID in name claim
       mail: "dona.moore@example.com",
       iss: "https://my-tenant.accounts.ondemand.com",
       last_name: "Moore",
@@ -128,11 +132,11 @@ describe("parseIdTokenData", () => {
     )
   })
 
-  test("should map valid userId from sub", () => {
-    const data = parseIdTokenData({ sub: "P123456" })
+  test("should map userId from name claim with valid format", () => {
+    const data = parseIdTokenData({ sub: "opaque-id-123", name: "P123456" })
     expect(data).toEqual(
       expect.objectContaining({
-        userId: "P123456",
+        userId: "P123456", // From name claim
       })
     )
   })
@@ -146,6 +150,60 @@ describe("parseIdTokenData", () => {
     expect(data2).toEqual(expect.objectContaining({ userId: null }))
     expect(data3).toEqual(expect.objectContaining({ userId: null }))
     expect(data4).toEqual(expect.objectContaining({ userId: null }))
+  })
+
+  test("shouldn't map invalid userId from malformed name claim", () => {
+    const data1 = parseIdTokenData({ name: "A123456" }) // Invalid prefix
+    const data2 = parseIdTokenData({ name: "DD1456" }) // Double prefix
+    const data3 = parseIdTokenData({ name: "123456" }) // No prefix
+    const data4 = parseIdTokenData({ name: "d" }) // Only prefix, no number
+    const data5 = parseIdTokenData({ name: ",123456" }) // Comma prefix
+    expect(data1).toEqual(expect.objectContaining({ userId: null }))
+    expect(data2).toEqual(expect.objectContaining({ userId: null }))
+    expect(data3).toEqual(expect.objectContaining({ userId: null }))
+    expect(data4).toEqual(expect.objectContaining({ userId: null }))
+    expect(data5).toEqual(expect.objectContaining({ userId: null }))
+  })
+
+  test("should use name claim for userId when sub is base64 encoded", () => {
+    // Real-world case: auth provider base64-encodes sub, but name has the employee ID
+    const data = parseIdTokenData({
+      sub: "CgdEMTIzNDU2EgNzY2k", // base64 encoded (opaque identifier)
+      name: "D123456", // SAP employee ID - this is the userId
+      email: "test.user@example.com",
+      preferred_username: "Test User",
+    })
+    expect(data).toEqual(
+      expect.objectContaining({
+        userId: "D123456", // From name claim (employee ID)
+        loginName: "D123456",
+      })
+    )
+  })
+
+  test("should not use sub claim for userId", () => {
+    // sub is opaque per OIDC spec, should not be used as userId even if it matches pattern
+    const data = parseIdTokenData({
+      sub: "P123456", // Valid format but sub is opaque
+      // name is not provided
+    })
+    expect(data).toEqual(
+      expect.objectContaining({
+        userId: null, // No name claim, so userId is null
+      })
+    )
+  })
+
+  test("should reject comma-prefixed employee IDs", () => {
+    // Regex should not match IDs with comma prefix like ,123456
+    const data = parseIdTokenData({
+      name: ",123456", // Invalid - has comma prefix
+    })
+    expect(data).toEqual(
+      expect.objectContaining({
+        userId: null, // Comma-prefixed ID should not match
+      })
+    )
   })
 
   test("should accept mail property for email", () => {

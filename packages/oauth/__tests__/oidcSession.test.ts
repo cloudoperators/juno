@@ -69,6 +69,17 @@ describe("oidcSession", () => {
     }).toThrow("(OAUTH) flowType something is not supported!")
   })
 
+  test("flowType does not cause warning when provided", () => {
+    // Regression test: flowType should not appear in unknownProps warning
+    oidcSession({
+      clientID: "test",
+      issuerURL: "http://dummy.com",
+      flowType: "code",
+    })
+    // console.warn should not have been called with flowType in the message
+    expect(globalThis.console.warn).not.toHaveBeenCalled()
+  })
+
   describe("returned result", () => {
     let session: OidcSessionInstance
     beforeEach(() => {
