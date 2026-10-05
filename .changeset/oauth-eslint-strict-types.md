@@ -2,4 +2,4 @@
 "@cloudoperators/juno-oauth": patch
 ---
 
-chore(oauth): enable strict TypeScript ESLint rules
+feat(oauth): migrate to vite-ts ESLint config for TypeScript-only packages
