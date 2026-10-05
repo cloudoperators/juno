@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import junoConfigs from "@cloudoperators/juno-config/eslint/vite-react-ts.mjs"
+import junoConfigs from "@cloudoperators/juno-config/eslint/vite-ts.mjs"
 
 export default [
   ...junoConfigs,
