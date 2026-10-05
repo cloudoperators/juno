@@ -42,6 +42,10 @@ More specifically, these are any combination of the following elements. Each ele
 
 ![Juno DataGrid Header zones](images/DataGrid-header-zones.png)
 
+### Zone Structure and Visual Treatment
+
+Zone 1 has no distinct background — it sits above the toolbar area as a plain, unframed row of controls (predefined filter tabs, sorting, overflow menu, primary action). Zones 2 and 3 each have their own distinct toolbar background and padding, and are visually separate blocks, not merged into a single band. Zone 2 holds filter and search controls (filter inputs, search, active filter pills); Zone 3 holds DataGrid state controls (bulk actions, item count, last update and refresh).
+
 ### Zone 1: Predefined Filters (Tabs), Sorting, Action(s)
 
 - Predefined Filter Tabs: Tabs placed on the far left of Zone 1 that apply a fixed, pre-configured set of filters to the DataGrid. Each tab represents a meaningful subset of the full data set — for example "All" and "Deleted", or "Active" and "Archived". Predefined filter tabs save users from having to manually configure the same filters repeatedly, and are particularly useful when certain subsets of the data are accessed frequently or represent distinct operational states. Only add predefined filter tabs when the subsets are genuinely useful and contextually meaningful for the typical tasks users perform on the given DataGrid.
