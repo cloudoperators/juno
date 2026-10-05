@@ -13,6 +13,10 @@
     }
   },
   "private": true,
+  "engines": {
+    "node": ">=20.19.0",
+    "pnpm": ">=11.25.0"
+  },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
     "@tailwindcss/vite": "4.3.3",
