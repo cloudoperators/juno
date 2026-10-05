@@ -152,6 +152,19 @@ describe("parseIdTokenData", () => {
     expect(data4).toEqual(expect.objectContaining({ userId: null }))
   })
 
+  test("shouldn't map invalid userId from malformed name claim", () => {
+    const data1 = parseIdTokenData({ name: "A123456" }) // Invalid prefix
+    const data2 = parseIdTokenData({ name: "DD1456" }) // Double prefix
+    const data3 = parseIdTokenData({ name: "123456" }) // No prefix
+    const data4 = parseIdTokenData({ name: "d" }) // Only prefix, no number
+    const data5 = parseIdTokenData({ name: ",123456" }) // Comma prefix
+    expect(data1).toEqual(expect.objectContaining({ userId: null }))
+    expect(data2).toEqual(expect.objectContaining({ userId: null }))
+    expect(data3).toEqual(expect.objectContaining({ userId: null }))
+    expect(data4).toEqual(expect.objectContaining({ userId: null }))
+    expect(data5).toEqual(expect.objectContaining({ userId: null }))
+  })
+
   test("should use name claim for userId when sub is base64 encoded", () => {
     // Real-world case: auth provider base64-encodes sub, but name has the employee ID
     const data = parseIdTokenData({
