@@ -69,14 +69,6 @@ const renderModal = (props: Partial<typeof defaultProps> & Record<string, unknow
   )
 
 describe("RiskAcceptanceModal", () => {
-  beforeEach(() => {
-    vi.clearAllMocks()
-  })
-
-  // ---------------------------------------------------------------------------
-  // Rendering
-  // ---------------------------------------------------------------------------
-
   describe("rendering", () => {
     it("renders with title and vulnerability details when open", () => {
       renderModal()
@@ -135,10 +127,6 @@ describe("RiskAcceptanceModal", () => {
     })
   })
 
-  // ---------------------------------------------------------------------------
-  // Validation
-  // ---------------------------------------------------------------------------
-
   describe("validation", () => {
     it("confirm button becomes enabled only once all required fields are filled", async () => {
       const user = userEvent.setup()
@@ -175,10 +163,6 @@ describe("RiskAcceptanceModal", () => {
       expect(onConfirm).not.toHaveBeenCalled()
     })
   })
-
-  // ---------------------------------------------------------------------------
-  // Interactions
-  // ---------------------------------------------------------------------------
 
   describe("interactions", () => {
     it("calls onClose when Cancel is clicked", async () => {

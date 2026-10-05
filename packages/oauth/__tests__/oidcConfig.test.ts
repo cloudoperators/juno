@@ -2,7 +2,7 @@
  * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
  * SPDX-License-Identifier: Apache-2.0
  */
-import { describe, expect, vi, it } from "vitest"
+import { describe, expect, vi, it, beforeEach } from "vitest"
 
 import { getOidcConfig, resetCache } from "../src/oidcConfig"
 
@@ -35,6 +35,11 @@ export function matchURL(expected: string) {
 }
 
 describe("getOidcConfig", () => {
+  beforeEach(() => {
+    mockFetch.mockClear()
+    resetCache()
+  })
+
   it("should throw if issuerURL is bad", async () => {
     await expect(getOidcConfig("bad")).rejects.toThrow()
   })
@@ -51,16 +56,12 @@ describe("getOidcConfig", () => {
   })
 
   it("should cache the result", async () => {
-    vi.clearAllMocks()
-    resetCache()
     await getOidcConfig("https://test.com")
     await getOidcConfig("https://test.com")
     expect(mockFetch).toHaveBeenCalledTimes(1)
   })
 
   it("should cache the result for 5 minutes", async () => {
-    vi.clearAllMocks()
-    resetCache()
     await getOidcConfig("https://test.com")
     const now = Date.now() + 5 * 60 * 60 * 1000
     const dateNowSpy = vi.spyOn(Date, "now").mockImplementation(() => now)
@@ -70,8 +71,6 @@ describe("getOidcConfig", () => {
   })
 
   it("should preserve the URL pathname", async () => {
-    vi.clearAllMocks()
-    resetCache()
     await getOidcConfig("https://test.com/with/path")
     expect(mockFetch).toHaveBeenLastCalledWith(matchURL("https://test.com/with/path/.well-known/openid-configuration"))
   })

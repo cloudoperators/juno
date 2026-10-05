@@ -14,7 +14,6 @@ import { SideNavigation } from "../SideNavigation/SideNavigation.component"
 describe("AppShell", () => {
   afterEach(() => {
     cleanup()
-    vi.clearAllMocks()
   })
 
   test("renders an app shell", () => {

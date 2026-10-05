@@ -46,7 +46,6 @@ const renderShell = ({ filtersPromise, filterSettings, onFilterChange }: Filters
 describe("Filters", () => {
   afterEach(() => {
     cleanup()
-    vi.clearAllMocks()
   })
 
   it.skip("renders the component with search, select and combobox", async () => {

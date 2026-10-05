@@ -13,7 +13,6 @@ const mockOnClick = vi.fn()
 describe("TabNavigationItem", () => {
   afterEach(() => {
     cleanup()
-    vi.clearAllMocks()
   })
 
   test("renders a TabNavigationItem", () => {

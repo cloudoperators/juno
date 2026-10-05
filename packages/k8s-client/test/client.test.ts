@@ -54,8 +54,6 @@ describe("k8sClient", () => {
   const mockedHttps = vi.mocked(https)
 
   beforeEach(() => {
-    vi.clearAllMocks()
-
     // Set up default successful response
     mockFetch.mockResolvedValue(createMockResponse({ success: true }))
     vi.stubGlobal("fetch", mockFetch)

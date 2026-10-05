@@ -76,10 +76,6 @@ const renderComponent = async (onReconcile?: () => void, mockPatch?: any, onErro
 }
 
 describe("ReconcileButton", () => {
-  beforeEach(() => {
-    vi.clearAllMocks()
-  })
-
   it("should render the button with correct label", async () => {
     await renderComponent()
     const button = screen.getByRole("button", { name: "Reconcile" })

@@ -19,7 +19,6 @@ const mockOnYearChange = vi.fn()
 describe("DateTimePicker", () => {
   afterEach(() => {
     cleanup()
-    vi.clearAllMocks()
   })
 
   test("renders a DateTimePicker", async () => {

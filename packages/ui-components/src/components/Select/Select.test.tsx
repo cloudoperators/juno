@@ -50,7 +50,6 @@ const ControlledSelectParent = ({ children, ...props }: SelectProps) => {
 describe("Select", () => {
   afterEach(() => {
     cleanup()
-    vi.clearAllMocks()
   })
 
   test("renders a Select toggle", async () => {
