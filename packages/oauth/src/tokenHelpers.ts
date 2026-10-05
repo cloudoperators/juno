@@ -75,7 +75,7 @@ export function parseIdTokenData(tokenData: IdTokenData): ParsedTokenData {
     lastName = lastName || userName?.lastName
   }
   const regex = new RegExp("^[c,d,i,s,p,C,D,I,S,P][0-9]+$")
-  // Use the name claim for userId (SAP employee ID like D063222)
+  // Use the name claim for userId (SAP employee ID like D123456)
   // The sub claim is an opaque identifier per OIDC spec, not a user ID
   const userId = tokenData?.name?.match?.(regex) ? tokenData.name : null
 

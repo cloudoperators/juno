@@ -155,15 +155,15 @@ describe("parseIdTokenData", () => {
   test("should use name claim for userId when sub is base64 encoded", () => {
     // Real-world case: auth provider base64-encodes sub, but name has the employee ID
     const data = parseIdTokenData({
-      sub: "CgdEMDYzMjIyEgNzY2k", // base64 encoded (opaque identifier)
-      name: "D063222", // SAP employee ID - this is the userId
+      sub: "CgdEMTIzNDU2EgNzY2k", // base64 encoded (opaque identifier)
+      name: "D123456", // SAP employee ID - this is the userId
       email: "a.reuschenbach.puncernau@sap.com",
       preferred_username: "Arturo Reuschenbach Puncernau",
     })
     expect(data).toEqual(
       expect.objectContaining({
-        userId: "D063222", // From name claim (employee ID)
-        loginName: "D063222",
+        userId: "D123456", // From name claim (employee ID)
+        loginName: "D123456",
       })
     )
   })
