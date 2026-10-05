@@ -34,14 +34,6 @@ describe("usePluginLoader", () => {
     },
   }
 
-  beforeEach(() => {
-    vi.clearAllMocks()
-  })
-
-  afterEach(() => {
-    vi.clearAllMocks()
-  })
-
   test("returns loading state initially", () => {
     const { result } = renderHook(() =>
       usePluginLoader({
