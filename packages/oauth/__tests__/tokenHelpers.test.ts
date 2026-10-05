@@ -181,6 +181,18 @@ describe("parseIdTokenData", () => {
     )
   })
 
+  test("should reject comma-prefixed employee IDs", () => {
+    // Regex should not match IDs with comma prefix like ,123456
+    const data = parseIdTokenData({
+      name: ",123456", // Invalid - has comma prefix
+    })
+    expect(data).toEqual(
+      expect.objectContaining({
+        userId: null, // Comma-prefixed ID should not match
+      })
+    )
+  })
+
   test("should accept mail property for email", () => {
     const data = parseIdTokenData({
       mail: "dona.moore@example.com",
