@@ -25,3 +25,7 @@ act_*.json
 .claude
 claude.md
 .mcp.json
+
+# Vitest output directories (v5+)
+.vitest/
+.vitest-attachments/

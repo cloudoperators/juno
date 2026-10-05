@@ -100,10 +100,6 @@ const renderPanel = (vulnerability: string | null = null) => {
 }
 
 describe("RemediationHistoryPanel", () => {
-  beforeEach(() => {
-    vi.clearAllMocks()
-  })
-
   it("renders without crashing when vulnerability is null (panel closed)", () => {
     renderPanel(null)
     expect(screen.queryByText("Revert False Positive")).not.toBeInTheDocument()

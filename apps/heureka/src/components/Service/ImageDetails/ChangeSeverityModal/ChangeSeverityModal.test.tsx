@@ -98,10 +98,6 @@ const renderModal = (props: Partial<typeof defaultProps> & Record<string, unknow
   )
 
 describe("ChangeSeverityModal", () => {
-  beforeEach(() => {
-    vi.clearAllMocks()
-  })
-
   describe("rendering", () => {
     it("renders title and vulnerability details when open", () => {
       renderModal()

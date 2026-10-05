@@ -53,10 +53,6 @@ const renderFilterSelect = (storeOptions = {}) => {
 }
 
 describe("FilterSelect", () => {
-  beforeEach(() => {
-    vi.clearAllMocks()
-  })
-
   describe("Display limit behavior", () => {
     it("should initialize with ITEMS_PER_PAGE display limit constant", () => {
       const { container } = renderFilterSelect()

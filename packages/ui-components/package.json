@@ -51,7 +51,7 @@
     "vite-plugin-glob": "0.3.2",
     "vite-plugin-svgr": "5.2.0",
     "vite-tsconfig-paths": "6.1.1",
-    "vitest": "4.1.11"
+    "vitest": "5.0.0"
   },
   "peerDependencies": {
     "react": "^19.1.0",

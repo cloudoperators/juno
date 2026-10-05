@@ -14,7 +14,6 @@ const mockOnActiveItemChange = vi.fn()
 describe("TabNavigation", () => {
   afterEach(() => {
     cleanup()
-    vi.clearAllMocks()
   })
 
   test("renders a TabNavigation", async () => {

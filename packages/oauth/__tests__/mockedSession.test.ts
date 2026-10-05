@@ -59,10 +59,6 @@ describe("mockedSession", () => {
     const onUpdate = vi.fn()
     const session = mockedSession({ onUpdate, initialLogin: true })
 
-    afterEach(() => {
-      vi.clearAllMocks()
-    })
-
     test("session's current state is defined", () => {
       expect(session.currentState()).toBeDefined()
     })
@@ -114,10 +110,6 @@ describe("mockedSession", () => {
 
     describe("custom token", () => {
       const onUpdate = vi.fn()
-
-      afterEach(() => {
-        vi.clearAllMocks()
-      })
 
       beforeEach(() => {
         mockedSession({

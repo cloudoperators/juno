@@ -17,11 +17,6 @@ const mockOnReveal = vi.fn()
 const mockOnToggle = vi.fn()
 
 describe("SecretText", () => {
-  afterEach(() => {
-    // Clear all mocks after each test
-    vi.clearAllMocks()
-  })
-
   test("renders a SecretText component", () => {
     render(<SecretText />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()

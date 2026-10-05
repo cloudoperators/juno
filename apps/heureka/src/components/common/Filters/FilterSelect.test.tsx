@@ -31,10 +31,6 @@ const mockFiltersPromise = Promise.resolve([
 const mockOnChange = vi.fn()
 
 describe("FiltersSelect", () => {
-  afterEach(() => {
-    vi.clearAllMocks()
-  })
-
   it.skip("should render the component with filter select dropdown", async () => {
     render(
       <AppShellProvider shadowRoot={false}>

@@ -82,15 +82,7 @@ const renderModal = (
     </AuthProvider>
   )
 
-// ---------------------------------------------------------------------------
-// RemediationModal — shared behaviour
-// ---------------------------------------------------------------------------
-
 describe("RemediationModal", () => {
-  beforeEach(() => {
-    vi.clearAllMocks()
-  })
-
   describe("rendering", () => {
     it("renders title and vulnerability details when open", () => {
       renderModal()
@@ -250,10 +242,6 @@ describe("RemediationModal", () => {
     })
   })
 })
-
-// ---------------------------------------------------------------------------
-// Wrapper smoke tests — verify each wrapper passes the right type and title
-// ---------------------------------------------------------------------------
 
 const wrapperProps = {
   open: true,

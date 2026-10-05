@@ -4,16 +4,11 @@
  */
 
 import { broadcast, watch, get, onGet } from "./index"
-import { describe, it, vi, afterEach, expect } from "vitest"
+import { describe, it, vi, expect } from "vitest"
 
 globalThis.console.warn = vi.fn()
 globalThis.console.error = vi.fn()
 describe("Communicator", () => {
-  afterEach(() => {
-    vi.clearAllMocks()
-  })
-
-  // ################ BROADCAST #####################
   describe("broadcast", () => {
     it("create new broadcast channel", () => {
       const callback = vi.fn()
@@ -42,7 +37,6 @@ describe("Communicator", () => {
     })
   })
 
-  // ################## WATCH ###################
   describe("watch", () => {
     it("watch for events", () => {
       const callback = vi.fn()
@@ -62,7 +56,6 @@ describe("Communicator", () => {
     })
   })
 
-  // ############### GET ##################
   describe("get", () => {
     it("execute callback", () => {
       const callback = vi.fn()
@@ -72,7 +65,6 @@ describe("Communicator", () => {
     })
   })
 
-  // ############### ON GET ##################
   describe("onGet", () => {
     it("returns a function", () => {
       const cancel = onGet("TEST", () => null)
