@@ -101,7 +101,7 @@ describe("mockedSession", () => {
       session.logout()
       session.login()
       expect(onUpdate).toHaveBeenLastCalledWith({
-        auth: expect.anything(),
+        auth: expect.anything() as unknown,
         error: null,
         loggedIn: true,
         isProcessing: false,
@@ -132,10 +132,10 @@ describe("mockedSession", () => {
               email_verified: true,
               groups: ["test1", "test2"],
               name: "D123456",
-            }),
-            parsed: expect.anything(),
-            JWT: expect.anything(),
-            refreshToken: expect.anything(),
+            }) as unknown,
+            parsed: expect.anything() as unknown,
+            JWT: expect.anything() as unknown,
+            refreshToken: expect.anything() as unknown,
           },
           loggedIn: true,
           error: null,

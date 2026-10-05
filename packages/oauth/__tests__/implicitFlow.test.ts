@@ -9,6 +9,7 @@ import config from "./__utils__/oidcConfigMock"
 import { testIdToken, testTokenData } from "./__utils__/idTokenMock"
 
 import { buildRequestUrl, handleResponse } from "../src/implicitFlow"
+import type { FlowResponse } from "../src/types"
 
 import * as oidcState from "../src/oidcState"
 
@@ -106,9 +107,9 @@ describe("handleResponse", () => {
   test("should return token data", async () => {
     oidcState.setSearchParams(new URLSearchParams("id_token=" + testIdToken))
 
-    await handleResponse().then(({ tokenData, idToken }: any) => {
-      expect(tokenData).toEqual(expect.objectContaining(testTokenData))
-      expect(idToken).toEqual(testIdToken)
+    await handleResponse().then((response: FlowResponse | null) => {
+      expect(response?.tokenData).toEqual(expect.objectContaining(testTokenData))
+      expect(response?.idToken).toEqual(testIdToken)
     })
   })
 })
