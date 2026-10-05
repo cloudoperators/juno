@@ -88,8 +88,7 @@ const createOidcRequest = async ({
 
     // add additional search params
     if (requestParams) {
-      const parsed: unknown =
-        typeof requestParams === "string" ? JSON.parse(requestParams) : requestParams
+      const parsed: unknown = typeof requestParams === "string" ? JSON.parse(requestParams) : requestParams
       const params = RequestParamsSchema.parse(parsed)
       const newUrl = new URL(url)
       Object.keys(params).forEach((k) => newUrl.searchParams.append(k, String(params[k])))
