@@ -28,13 +28,13 @@ Single-column is the recommended default. A two-column layout may be appropriate
 
 ### Labels and IDs
 
- Most Juno form controls accept a `label` prop that renders a visible label with its association handled internally. Use this prop rather than placing a standalone `Label` component alongside an input. `SearchInput` and `NativeSelect` are exceptions: supply a unique `id` and associate a standalone `Label` with it manually if desired.
+Most Juno form controls accept a `label` prop that renders a visible label with its association handled internally. Use this prop rather than placing a standalone `Label` component alongside an input. `SearchInput` and `NativeSelect` are exceptions: supply a unique `id` and associate a standalone `Label` with it manually if desired.
 
 Most form controls auto-generate an ID when none is provided, but `SearchInput` and `NativeSelect` do not. For these, supply a unique explicit `id` when needed for labelling, automated testing, or analytics targeting. Form serialization uses the control's `name`, not its `id`.
 
 ### Grouped Inputs
 
-Use `RadioGroup` to wrap a set of related radio buttons, and `CheckboxGroup` for a set of related checkboxes. These components apply the correct ARIA grouping roles and provide group-level `label`, `helptext`, `errortext`, and `successtext` props. Always pass a `label` to give the group an accessible name.
+Use `RadioGroup` to wrap a set of related radio buttons, and `CheckboxGroup` for a set of related checkboxes. These components apply the correct ARIA grouping roles and provide group-level `label`, `helptext`, `errortext`, and `successtext` props. Always pass a `label` and an equivalent `aria-label` to give the group an accessible name.
 
 ### Input Types
 
