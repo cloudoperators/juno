@@ -26,7 +26,8 @@
     "vitest": "4.1.11"
   },
   "dependencies": {
-    "oauth-pkce": "0.0.7"
+    "oauth-pkce": "0.0.7",
+    "zod": "^4.6.5"
   },
   "scripts": {
     "test": "vitest run",

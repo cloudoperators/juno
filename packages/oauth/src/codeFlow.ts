@@ -8,6 +8,7 @@ import { getOidcConfig } from "./oidcConfig"
 import { decodeIDToken } from "./tokenHelpers"
 import { searchParams } from "./oidcState"
 import { paramsToUrl } from "./utils"
+import { TokenResponseSchema } from "./schemas"
 
 interface ExchangeCodeParams {
   tokenEndpoint: string
@@ -51,7 +52,8 @@ export const exchangeCode = async ({
     throw new Error(`Token exchange failed: ${response.statusText}`)
   }
 
-  const data = (await response.json()) as TokenResponse
+  const json: unknown = await response.json()
+  const data: TokenResponse = TokenResponseSchema.parse(json)
   return data
 }
 
@@ -155,13 +157,20 @@ const refreshToken = async ({ issuerURL, clientID, refreshToken }: RefreshTokenP
     .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(body[k])}`)
     .join("&")
 
-  const data = (await fetch(config.token_endpoint, {
+  const response = await fetch(config.token_endpoint, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     body: formBody,
-  }).then((r) => r.json())) as TokenResponse
+  })
+
+  if (!response.ok) {
+    throw new Error(`Token refresh failed: ${response.statusText}`)
+  }
+
+  const json: unknown = await response.json()
+  const data: TokenResponse = TokenResponseSchema.parse(json)
 
   if ("error" in data && data.error)
     throw new Error(typeof data.error === "string" ? data.error : "Token refresh failed")

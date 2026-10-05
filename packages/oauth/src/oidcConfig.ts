@@ -4,6 +4,7 @@
  */
 
 import type { OidcConfig, CachedConfig } from "./types"
+import { OidcConfigSchema } from "./schemas"
 
 let oidcConfig: Record<string, CachedConfig> = {}
 const cacheDuration = 5 * 60 * 60 * 1000
@@ -26,7 +27,11 @@ export async function getOidcConfig(issuerURL: string | URL): Promise<OidcConfig
   url.pathname = (url.pathname + "/.well-known/openid-configuration").replace(/\/\/+/g, "/")
 
   return fetch(url).then(async (r) => {
-    const config = (await r.json()) as OidcConfig
+    if (!r.ok) {
+      throw new Error(`Failed to fetch OIDC config: ${r.statusText}`)
+    }
+    const json: unknown = await r.json()
+    const config: OidcConfig = OidcConfigSchema.parse(json)
     oidcConfig[issuerKey] = {
       config,
       time: Date.now(),
