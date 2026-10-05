@@ -247,9 +247,18 @@ function oidcLogout({ issuerURL, silent }: OidcLogoutParams): void {
  * @returns Session instance with login, logout, refresh methods
  */
 const oidcSession = (params: OidcSessionParams): OidcSessionInstance => {
-  const { issuerURL, clientID, initialLogin, refresh, onUpdate, requestParams, callbackURL, ...unknownProps } =
-    params || {}
-  let { flowType } = params || {}
+  const {
+    issuerURL,
+    clientID,
+    initialLogin,
+    refresh,
+    flowType: flowTypeParam,
+    onUpdate,
+    requestParams,
+    callbackURL,
+    ...unknownProps
+  } = params || {}
+  let flowType = flowTypeParam
   if (!issuerURL || !clientID) {
     throw new Error("(OAUTH) issuerURL and clientID are required")
   }
