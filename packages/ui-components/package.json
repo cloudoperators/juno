@@ -45,13 +45,13 @@
     "react-tabs": "6.1.1",
     "storybook": "10.6.0",
     "tailwindcss": "4.3.3",
-    "typescript": "6.0.3",
+    "typescript": "7.0.2",
     "vite": "8.3.0",
     "vite-plugin-dts": "5.1.1",
     "vite-plugin-glob": "0.3.2",
     "vite-plugin-svgr": "5.2.0",
     "vite-tsconfig-paths": "6.1.1",
-    "vitest": "4.1.11"
+    "vitest": "5.0.0"
   },
   "peerDependencies": {
     "react": "^19.1.0",
