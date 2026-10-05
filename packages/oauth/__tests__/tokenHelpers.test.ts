@@ -157,8 +157,8 @@ describe("parseIdTokenData", () => {
     const data = parseIdTokenData({
       sub: "CgdEMTIzNDU2EgNzY2k", // base64 encoded (opaque identifier)
       name: "D123456", // SAP employee ID - this is the userId
-      email: "a.reuschenbach.puncernau@sap.com",
-      preferred_username: "Arturo Reuschenbach Puncernau",
+      email: "test.user@example.com",
+      preferred_username: "Test User",
     })
     expect(data).toEqual(
       expect.objectContaining({
