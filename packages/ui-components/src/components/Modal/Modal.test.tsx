@@ -16,7 +16,6 @@ const mockOnCancel = vi.fn()
 describe("Modal", () => {
   afterEach(() => {
     cleanup()
-    vi.clearAllMocks()
   })
 
   test("renders a Modal", async () => {

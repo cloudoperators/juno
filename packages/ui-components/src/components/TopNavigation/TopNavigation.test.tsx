@@ -13,7 +13,6 @@ const mockOnActiveItemChange = vi.fn()
 describe("TopNavigation", () => {
   afterEach(() => {
     cleanup()
-    vi.clearAllMocks()
   })
 
   test("render a TopNavigation", () => {

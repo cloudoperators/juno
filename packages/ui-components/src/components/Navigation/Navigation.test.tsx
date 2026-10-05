@@ -12,7 +12,6 @@ import { NavigationItem } from "../NavigationItem/index"
 describe("Navigation", () => {
   afterEach(() => {
     cleanup()
-    vi.clearAllMocks()
   })
 
   test("renders a Navigation", () => {

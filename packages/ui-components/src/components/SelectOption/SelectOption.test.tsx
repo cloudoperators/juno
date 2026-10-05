@@ -30,7 +30,6 @@ globalThis.console.warn = vi.fn()
 describe("SelectOption", () => {
   afterEach(() => {
     cleanup()
-    vi.clearAllMocks()
   })
 
   test("renders a SelectOption", async () => {
