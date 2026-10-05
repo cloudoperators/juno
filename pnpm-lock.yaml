@@ -795,7 +795,7 @@ importers:
         specifier: 0.0.7
         version: 0.0.7
       zod:
-        specifier: ^4.6.5
+        specifier: 4.6.5
         version: 4.6.5
     devDependencies:
       '@cloudoperators/juno-config':
