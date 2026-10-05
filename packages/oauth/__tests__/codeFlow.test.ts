@@ -22,7 +22,11 @@ const mockIdTokenResponse = {
   ok: true,
   statusText: "OK",
   json: () => {
-    return { id_token: testIdToken }
+    return {
+      access_token: "mock_access_token",
+      token_type: "Bearer",
+      id_token: testIdToken,
+    }
   },
 }
 vi.stubGlobal("fetch", vi.fn().mockResolvedValue(mockIdTokenResponse))

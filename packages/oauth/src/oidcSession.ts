@@ -20,6 +20,7 @@ import * as codeFlowHandler from "./codeFlow"
 import { hasValidState, createState as createRequestState, getState as getResponseState } from "./oidcState"
 import { getOidcConfig } from "./oidcConfig"
 import { OAuthError } from "./OAuthError"
+import { RequestParamsSchema } from "./schemas"
 
 // define flow types
 export const FLOW_TYPE = {
@@ -87,7 +88,8 @@ const createOidcRequest = async ({
 
     // add additional search params
     if (requestParams) {
-      const params = typeof requestParams === "string" ? JSON.parse(requestParams) : requestParams
+      const parsed: unknown = typeof requestParams === "string" ? JSON.parse(requestParams) : requestParams
+      const params = RequestParamsSchema.parse(parsed)
       const newUrl = new URL(url)
       Object.keys(params).forEach((k) => newUrl.searchParams.append(k, String(params[k])))
       url = newUrl.href

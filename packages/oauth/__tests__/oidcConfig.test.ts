@@ -9,7 +9,11 @@ import { getOidcConfig, resetCache } from "../src/oidcConfig"
 const mockResponse = {
   ok: true,
   statusText: "OK",
-  json: async () => {},
+  json: () =>
+    Promise.resolve({
+      authorization_endpoint: "https://test.com/authorize",
+      token_endpoint: "https://test.com/token",
+    }),
 } as Response
 const mockFetch = vi.fn().mockResolvedValue(mockResponse)
 vi.stubGlobal("fetch", mockFetch)

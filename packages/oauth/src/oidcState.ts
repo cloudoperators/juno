@@ -5,11 +5,13 @@
 
 import type { OidcStateData } from "./types"
 import { encodeBase64Json, decodeBase64Json, randomString } from "./utils"
-// @ts-ignore - oauth-pkce is a CommonJS module
 import getPkceImport from "oauth-pkce"
 
 // Handle both ESM and CJS imports - Vite 8 changed CommonJS interop
-const getPkce = typeof getPkceImport === "function" ? getPkceImport : (getPkceImport as any)?.default || getPkceImport
+const getPkce =
+  typeof getPkceImport === "function"
+    ? getPkceImport
+    : (getPkceImport as { default?: typeof getPkceImport })?.default || getPkceImport
 
 // PKCE callback type from oauth-pkce library
 type PkceCallback = (_error: Error | null, _result: { verifier: string; challenge: string }) => void
