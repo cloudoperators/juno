@@ -26,19 +26,21 @@ const httpUrl = "http://apiEndpoint.com"
 describe("request", () => {
   let mockFetch: ReturnType<typeof vi.fn>
   const mockedHttps = vi.mocked(https)
+  // Type the Agent mock properly for easy access to mock methods
+  const MockedAgent = mockedHttps.Agent as unknown as ReturnType<typeof vi.fn>
   let originalWindow: typeof globalThis.window
 
   beforeEach(() => {
-    vi.clearAllMocks()
     mockFetch = vi.fn()
     mockFetch.mockResolvedValue({ status: 200 })
     vi.stubGlobal("fetch", mockFetch)
     // Capture original window value
     originalWindow = globalThis.window
+    // Clear the https.Agent mock
+    MockedAgent.mockClear()
   })
 
   afterEach(() => {
-    vi.clearAllMocks()
     // Restore window if it was modified
     if (typeof globalThis.window === "undefined") {
       globalThis.window = originalWindow
@@ -245,6 +247,10 @@ describe("request", () => {
 
     test("should handle mixed requests with different SSL settings", async () => {
       globalThis.window = undefined!
+
+      // Clear mock to start fresh for this test
+      MockedAgent.mockClear()
+
       // First request with SSL verification (default)
       await request("GET", testUrl, {
         headers: { Accept: "application/json" },
@@ -259,14 +265,15 @@ describe("request", () => {
       expect(mockedHttps.Agent).toHaveBeenCalledWith({
         rejectUnauthorized: false,
       })
+      expect(mockedHttps.Agent).toHaveBeenCalledTimes(1)
 
-      // Third request back to SSL verification
-      vi.clearAllMocks()
+      // Third request back to SSL verification (shouldn't call Agent again)
       await request("GET", testUrl, {
         ignoreSsl: false,
         headers: { "Content-Type": "application/json" },
       })
-      expect(mockedHttps.Agent).not.toHaveBeenCalled()
+      // Agent should still have been called only once (from second request)
+      expect(mockedHttps.Agent).toHaveBeenCalledTimes(1)
     })
 
     test("should work with all HTTP methods and ignoreSsl", async () => {
@@ -275,8 +282,6 @@ describe("request", () => {
       globalThis.window = undefined!
 
       for (const method of methods) {
-        vi.clearAllMocks()
-
         const options: Record<string, unknown> = {
           ignoreSsl: true,
           headers: { Authorization: "Bearer token" },
