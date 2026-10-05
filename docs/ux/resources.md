@@ -18,12 +18,6 @@ Live documentation of Juno UI Components including component variants, props, an
 
 https://cloudoperators.github.io/juno/
 
-## Example App
-
-An example app, illustrating common UX patterns:
-
-https://github.com/cloudoperators/juno/tree/main/apps/example
-
 ## Figma
 
 TODO

@@ -71,6 +71,7 @@ export { PageFooter } from "./components/PageFooter/PageFooter.component"
 export { PageHeader } from "./components/PageHeader/PageHeader.component"
 export { Pagination } from "./components/Pagination/Pagination.component"
 export { Pill } from "./components/Pill/Pill.component"
+export { ProgressBar } from "./components/ProgressBar/ProgressBar.component"
 export {
   PopupMenu,
   PopupMenuToggle,
@@ -190,6 +191,7 @@ export type { PageFooterProps } from "./components/PageFooter/PageFooter.compone
 export type { PageHeaderProps } from "./components/PageHeader/PageHeader.component"
 export type { PaginationProps } from "./components/Pagination/Pagination.component"
 export type { PillProps } from "./components/Pill/Pill.component"
+export type { ProgressBarProps } from "./components/ProgressBar/ProgressBar.component"
 export type {
   PopupMenuProps,
   PopupMenuContextType,

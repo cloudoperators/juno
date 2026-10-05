@@ -25,7 +25,6 @@ Juno includes various applications that showcase the use of its tools and librar
 - [Heureka](https://github.com/cloudoperators/juno/tree/main/apps/heureka): dashboard for security and compliance management
 - [Doop](https://github.com/cloudoperators/juno/tree/main/apps/doop): displays policy violations as reported by Gatekeeper
 - [App template](https://github.com/cloudoperators/juno/tree/main/apps/template): an app template for Juno applications
-- [Example app](https://github.com/cloudoperators/juno/tree/main/apps/example): an example application containing some best practice ux pattern examples (in progress)
 
 ### Libraries
 

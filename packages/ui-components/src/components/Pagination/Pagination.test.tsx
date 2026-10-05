@@ -31,7 +31,6 @@ window.ResizeObserver = ResizeObserver
 describe("Pagination", () => {
   afterEach(() => {
     cleanup()
-    vi.clearAllMocks()
   })
 
   test("renders a Pagination", () => {

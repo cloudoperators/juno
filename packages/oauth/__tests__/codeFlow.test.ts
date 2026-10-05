@@ -37,7 +37,7 @@ describe("buildRequestUrl", () => {
       buildRequestUrl({
         issuerURL: "http://issuer.com",
         clientID: "12345",
-        oidcState: {},
+        oidcState: { key: "test-key", nonce: "test-nonce" },
       })
     ).toBeInstanceOf(Promise)
   })
@@ -136,7 +136,7 @@ describe("handleResponse", () => {
       handleResponse({
         issuerURL: "http://issuer.com",
         clientID: "12345",
-        oidcState: {},
+        oidcState: { key: "test-key", nonce: "test-nonce" },
       })
     ).rejects.toThrow("bad response, missing code param")
   })
@@ -148,7 +148,7 @@ describe("handleResponse", () => {
       handleResponse({
         issuerURL: "http://issuer.com",
         clientID: "12345",
-        oidcState: {},
+        oidcState: { key: "test-key", nonce: "test-nonce" },
       })
     ).rejects.toThrow("unsupported_response_type")
   })
@@ -157,9 +157,10 @@ describe("handleResponse", () => {
     oidcState.setSearchParams(new URLSearchParams("code=test"))
 
     await expect(
+      // @ts-expect-error - Testing missing required parameter
       handleResponse({
         issuerURL: "http://issuer.com",
-        oidcState: {},
+        oidcState: { key: "test-key", nonce: "test-nonce" },
       })
     ).rejects.toThrow("clientID is required")
   })
@@ -171,7 +172,7 @@ describe("handleResponse", () => {
       await handleResponse({
         issuerURL: "http://issuer.com",
         clientID: "test",
-        oidcState: {},
+        oidcState: { key: "test-key", nonce: "test-nonce" },
       })
 
       expect(getOidcConfig).toHaveBeenCalledWith("http://issuer.com")
@@ -184,6 +185,8 @@ describe("handleResponse", () => {
         issuerURL: "http://issuer.com",
         clientID: "test",
         oidcState: {
+          key: "test-key",
+          nonce: "test-nonce",
           verifier: "12345",
         },
       })
@@ -198,16 +201,40 @@ describe("handleResponse", () => {
       )
     })
 
+    test("uses custom callbackURL in token exchange", async () => {
+      oidcState.setSearchParams(new URLSearchParams("code=12345678"))
+
+      await handleResponse({
+        issuerURL: "http://issuer.com",
+        clientID: "test",
+        oidcState: {
+          key: "test-key",
+          nonce: "test-nonce",
+          verifier: "12345",
+          callbackURL: "https://custom-callback.com",
+        },
+      })
+
+      expect(globalThis.fetch).toHaveBeenCalledWith(
+        "https://issuer.com/token",
+        expect.objectContaining({
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          method: "POST",
+          body: "grant_type=authorization_code&code=12345678&redirect_uri=https%3A%2F%2Fcustom-callback.com&client_id=test&code_verifier=12345",
+        })
+      )
+    })
+
     test("fetch returns token data", async () => {
       oidcState.setSearchParams(new URLSearchParams("code=123456789"))
 
       const data = await handleResponse({
         issuerURL: "http://issuer.com",
         clientID: "test",
-        oidcState: {},
+        oidcState: { key: "test-key", nonce: "test-nonce" },
       })
 
-      expect(data!.tokenData).toEqual(expect.objectContaining(testTokenData))
+      expect(data.tokenData).toEqual(expect.objectContaining(testTokenData))
     })
   })
 })

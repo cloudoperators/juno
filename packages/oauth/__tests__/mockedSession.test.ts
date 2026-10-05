@@ -12,11 +12,13 @@ describe("mockedSession", () => {
   // onUpdate,
   test("throw error on missing onUpdate callback", () => {
     expect(() => {
+      // @ts-expect-error - Testing missing required parameter
       mockedSession()
     }).toThrow()
   })
 
   test("warn if unknown options", () => {
+    // @ts-expect-error - Testing unknown options
     mockedSession({ onUpdate: () => null, test: "test", test2: "test" })
 
     expect(globalThis.console.warn).toHaveBeenLastCalledWith(
@@ -56,10 +58,6 @@ describe("mockedSession", () => {
   describe("session", () => {
     const onUpdate = vi.fn()
     const session = mockedSession({ onUpdate, initialLogin: true })
-
-    afterEach(() => {
-      vi.clearAllMocks()
-    })
 
     test("session's current state is defined", () => {
       expect(session.currentState()).toBeDefined()
@@ -112,10 +110,6 @@ describe("mockedSession", () => {
 
     describe("custom token", () => {
       const onUpdate = vi.fn()
-
-      afterEach(() => {
-        vi.clearAllMocks()
-      })
 
       beforeEach(() => {
         mockedSession({

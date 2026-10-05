@@ -57,7 +57,6 @@ CustomToggle.displayName = "CustomToggle"
 describe("PopupMenu", () => {
   afterEach(() => {
     cleanup()
-    vi.clearAllMocks()
   })
 
   // ----- MENU PARENT: -----

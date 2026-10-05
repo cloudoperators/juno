@@ -35,7 +35,6 @@ window.ResizeObserver = ResizeObserver
 describe("ComboBox", () => {
   afterEach(() => {
     cleanup()
-    vi.clearAllMocks()
   })
 
   test("renders a ComboBox", async () => {
