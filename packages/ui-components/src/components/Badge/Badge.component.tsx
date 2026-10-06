@@ -138,8 +138,8 @@ export const Badge = forwardRef<HTMLButtonElement | HTMLAnchorElement, BadgeProp
     juno-badge
     juno-badge-${variant}
     ${badgeBaseStyles}
-    ${badgeVariantStyles[variant]}
-    ${isInteractive ? `${badgeInteractiveBaseStyles} ${badgeActiveVariantStyles[variant]}` : ""}
+    ${badgeVariantStyles[variant] ?? badgeVariantStyles["default"]}
+    ${isInteractive ? `${badgeInteractiveBaseStyles} ${badgeActiveVariantStyles[variant] ?? badgeActiveVariantStyles["default"]}` : ""}
     ${isInteractive && disabled ? "juno-badge-disabled jn:opacity-50 jn:pointer-events-none" : ""}
     ${className}
   `
@@ -171,12 +171,12 @@ export const Badge = forwardRef<HTMLButtonElement | HTMLAnchorElement, BadgeProp
     if (onClick) {
       return (
         <button
-          {...(props as ButtonHTMLAttributes<HTMLButtonElement>)}
           type="button"
           className={classes}
           onClick={onClick}
           disabled={disabled}
           ref={ref as Ref<HTMLButtonElement>}
+          {...(props as ButtonHTMLAttributes<HTMLButtonElement>)}
         >
           {content}
         </button>
