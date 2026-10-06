@@ -7,7 +7,7 @@ export interface TabBarContextType {
     /** @deprecated Use appearance instead */
     tabStyle?: TabBarAppearance;
 }
-/** @deprecated Use TabBarContextType instead */
+/** @deprecated Use TabBarContextType instead. Can be removed when TabNavigation is removed. */
 export type TabNavigationContextType = TabBarContextType;
 export declare const TabBarContext: React.Context<TabBarContextType | undefined>;
 /** @deprecated Use TabBarContext instead */
@@ -37,10 +37,6 @@ export interface TabBarProps extends HTMLAttributes<HTMLElement> {
     /** @deprecated Use appearance instead */
     tabStyle?: TabBarAppearance;
 }
-/** @deprecated Use TabBarProps instead */
+/** @deprecated Use TabBarProps instead. Can be removed when TabNavigation is removed. */
 export type TabNavigationProps = TabBarProps;
-/**
- * @deprecated TabNavigation is deprecated and may be removed in any of the next major releases. Use TabBar instead.
- */
-export declare const TabNavigation: React.FC<TabBarProps>;
 //# sourceMappingURL=TabBar.component.d.ts.map

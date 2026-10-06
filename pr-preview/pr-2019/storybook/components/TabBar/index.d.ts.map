@@ -1,1 +1,1 @@
-{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/components/TabBar/index.ts"],"names":[],"mappings":"AAKA,OAAO,EAAE,MAAM,EAAE,aAAa,EAAE,MAAM,oBAAoB,CAAA"}
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/components/TabBar/index.ts"],"names":[],"mappings":"AAKA,OAAO,EAAE,MAAM,EAAE,MAAM,oBAAoB,CAAA;AAE3C,OAAO,EAAE,aAAa,EAAE,MAAM,4BAA4B,CAAA"}

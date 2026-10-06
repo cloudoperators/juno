@@ -1,4 +1,4 @@
-import { default as React, HTMLAttributes, MouseEventHandler, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { HTMLAttributes, MouseEventHandler, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
 import { KnownIcons } from '../Icon/Icon.component.js';
 /**
  * An individual TabBar item. Use wrapped in a `<TabBar>` parent component.
@@ -28,10 +28,6 @@ export interface TabBarItemProps extends HTMLAttributes<HTMLElement> {
     /** An optional technical identifier. If not passed, the label is used. NOTE: If value is passed, it MUST be used when setting the activeItem prop on the parent TabBar. */
     value?: string;
 }
-/** @deprecated Use TabBarItemProps instead */
+/** @deprecated Use TabBarItemProps instead. Can be removed when TabNavigationItem is removed. */
 export type TabNavigationItemProps = TabBarItemProps;
-/**
- * @deprecated TabNavigationItem is deprecated and may be removed in any of the next major releases. Use TabBarItem instead.
- */
-export declare const TabNavigationItem: React.FC<TabBarItemProps>;
 //# sourceMappingURL=TabBarItem.component.d.ts.map

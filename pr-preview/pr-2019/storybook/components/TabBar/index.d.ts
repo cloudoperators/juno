@@ -1,2 +1,3 @@
-export { TabBar, TabNavigation } from './TabBar.component';
+export { TabBar } from './TabBar.component';
+export { TabNavigation } from './TabNavigation.deprecated';
 //# sourceMappingURL=index.d.ts.map
