@@ -14,6 +14,7 @@ const mockOnClick = vi.fn()
 describe("TopNavigationItem", () => {
   afterEach(() => {
     cleanup()
+    mockOnClick.mockReset()
   })
 
   test("renders a TopNavigationItem", async () => {

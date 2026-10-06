@@ -103,8 +103,12 @@ export { Status } from "./components/Status/Status.component"
 export { Switch } from "./components/Switch/Switch.component"
 export { Tab } from "./components/Tab/Tab.component"
 export { TabList } from "./components/TabList/TabList.component"
-export { TabNavigation } from "./components/TabNavigation/TabNavigation.component"
-export { TabNavigationItem } from "./components/TabNavigationItem/TabNavigationItem.component"
+export { TabBar } from "./components/TabBar/TabBar.component"
+// Remove the next line when TabNavigation is removed:
+export { TabNavigation } from "./components/TabBar/TabNavigation.deprecated"
+export { TabBarItem } from "./components/TabBarItem/TabBarItem.component"
+// Remove the next line when TabNavigationItem is removed:
+export { TabNavigationItem } from "./components/TabBarItem/TabNavigationItem.deprecated"
 export { TabPanel } from "./components/TabPanel/TabPanel.component"
 export { Textarea } from "./components/Textarea/Textarea.component"
 export { Tabs } from "./components/Tabs/Tabs.component"
@@ -231,11 +235,17 @@ export type { SwitchProps } from "./components/Switch/Switch.component"
 export type { TabProps } from "./components/Tab/Tab.component"
 export type { TabListProps } from "./components/TabList/TabList.component"
 export type {
-  TabNavigationProps,
-  TabNavigationContextType,
-  TabStyle,
-} from "./components/TabNavigation/TabNavigation.component"
-export type { TabNavigationItemProps } from "./components/TabNavigationItem/TabNavigationItem.component"
+  TabBarProps,
+  TabBarAppearance,
+  TabBarContextType,
+  TabNavigationProps, // Can be removed when TabNavigation is removed
+  TabNavigationContextType, // Can be removed when TabNavigation is removed
+  TabStyle, // Can be removed when TabNavigation is removed
+} from "./components/TabBar/TabBar.component"
+export type {
+  TabBarItemProps,
+  TabNavigationItemProps, // Can be removed when TabNavigationItem is removed
+} from "./components/TabBarItem/TabBarItem.component"
 export type { TabPanelProps } from "./components/TabPanel/TabPanel.component"
 export type { TextareaProps } from "./components/Textarea/Textarea.component"
 export type { TabsProps, TabsContextType, TabsVariant } from "./components/Tabs/Tabs.component"

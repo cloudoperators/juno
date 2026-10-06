@@ -100,9 +100,9 @@ export const NavigationItem = ({
         <a
           aria-disabled={navigationDisabled || disabled ? true : undefined}
           aria-label={ariaLabel && ariaLabel.length ? ariaLabel : undefined}
-          aria-selected={isActive ? true : undefined}
+          aria-current={isActive ? true : undefined}
           className={`
-            juno-navigation-item 
+            juno-navigation-item
             ${itemStyles}
             ${
               navigationRole
@@ -127,9 +127,9 @@ export const NavigationItem = ({
         <button
           aria-disabled={navigationDisabled || disabled ? true : undefined}
           aria-label={ariaLabel && ariaLabel.length ? ariaLabel : undefined}
-          aria-selected={isActive ? true : undefined}
+          aria-current={isActive ? true : undefined}
           className={`
-            juno-navigation-item 
+            juno-navigation-item
             ${itemStyles}
             ${
               navigationRole

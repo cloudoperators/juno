@@ -5,6 +5,7 @@
 
 import React, { createContext, ReactNode, useContext, useEffect, useState } from "react"
 import { Tabs as ReactTabs } from "react-tabs"
+import { withDeprecationWarning } from "../withDeprecationWarning/index"
 
 export interface TabsContextType {
   variant?: TabsVariant
@@ -14,15 +15,16 @@ const TabsContext = createContext<TabsContextType>({})
 export const useTabsContext = () => useContext(TabsContext)
 
 /**
+ * @deprecated Tabs is deprecated and may be removed in any of the next major releases. Once TabBar is refactored to being representational-only, you will be able to use TabBar in combination with react-tabs directly if you want to keep the react-tabs internal logic.
  * A Tabs component.
  * The parent wrapping TabList, Tab, and TabPanel subcomponents.
- * For a navigation that looks like tabs, but runs onClick handlers or contains hrefs, use TabNavigation instead.
+ * For a navigation that looks like tabs, but runs onClick handlers or contains hrefs, use TabBar instead.
  * Tabs are used to provide a tabbed section within the content area when combining static content and tabbed content on the same page. You will probably want to use a 'Container' (px=false) inside the TabPanels to get nice padding.
  * @see https://cloudoperators.github.io/juno/?path=/docs/layout-tabs-tabs--docs
  * @see {@link TabsProps}
  */
 
-export const Tabs = ({
+export const TabsBase = ({
   children,
   defaultIndex,
   // The prop `selectedIndex` is marked as required in `UncontrolledTabs`, but its value is `undefined`.
@@ -64,7 +66,15 @@ export const Tabs = ({
   )
 }
 
-Tabs.tabsRole = "Tabs"
+TabsBase.tabsRole = "Tabs"
+
+export const Tabs = Object.assign(
+  withDeprecationWarning(
+    TabsBase,
+    "Tabs is deprecated and may be removed in any of the next major releases. Use react-tabs directly instead."
+  ),
+  { tabsRole: "Tabs" }
+)
 
 export type TabsVariant = "main" | "content" | "codeblocks"
 

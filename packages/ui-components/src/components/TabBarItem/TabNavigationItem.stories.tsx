@@ -5,13 +5,21 @@
 
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import { TabNavigation } from "../TabNavigation/index"
+import { TabNavigation } from "../TabBar/index"
 import { TabNavigationItem } from "./index"
 import { KnownIconsEnum } from "../Icon/Icon.component"
 
 const meta: Meta<typeof TabNavigationItem> = {
-  title: "Navigation/TabNavigation/TabNavigationItem",
+  title: "Deprecated/TabNavigation/TabNavigationItem",
   component: TabNavigationItem,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "`TabNavigationItem` has been renamed to `TabBarItem`. Please use `<TabBar>` and `<TabBarItem>` going forward. `TabNavigationItem` will be removed in a future major release.",
+      },
+    },
+  },
   argTypes: {
     icon: {
       options: [null, ...Object.keys(KnownIconsEnum)],
@@ -64,12 +72,5 @@ export const AsLink: Story = {
   args: {
     label: "Item as Link",
     href: "https://www.sap.com",
-  },
-}
-
-export const WithChildren: Story = {
-  args: {
-    value: "itm-1",
-    children: "Item 1",
   },
 }

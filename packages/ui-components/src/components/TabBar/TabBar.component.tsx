@@ -1,0 +1,87 @@
+/*
+ * SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import React, { createContext, HTMLAttributes, ReactNode } from "react"
+import { Navigation } from "../Navigation/Navigation.component"
+
+const tabBarStyles = `
+  jn:flex
+`
+
+export type TabBarAppearance = "main" | "content"
+
+/** @deprecated Use TabBarAppearance instead. Can be removed when TabNavigation is removed. */
+export type TabStyle = TabBarAppearance
+
+export interface TabBarContextType {
+  appearance: TabBarAppearance
+  /** @deprecated Use appearance instead. Can be removed when TabNavigation is removed. */
+  tabStyle?: TabBarAppearance
+}
+
+/** @deprecated Use TabBarContextType instead. Can be removed when TabNavigation is removed. */
+export type TabNavigationContextType = TabBarContextType
+
+export const TabBarContext = createContext<TabBarContextType | undefined>(undefined)
+
+/** @deprecated Use TabBarContext instead */
+export const TabNavigationContext = TabBarContext
+
+/**
+ * An all-purpose bar of tab-shaped items for navigation or filtering.
+ * Use to wrap `<TabBarItem>` elements. For tabs with corresponding tab panels, use a tabbed content library such as react-tabs directly.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/navigation-tabbar-tabbar--docs
+ * @see {@link TabBarProps}
+ */
+export const TabBar = ({
+  activeItem,
+  ariaLabel,
+  children,
+  className = "",
+  disabled = false,
+  onActiveItemChange,
+  appearance,
+  tabStyle, // Can be removed when TabNavigation is removed
+  ...props
+}: TabBarProps): ReactNode => {
+  const resolvedAppearance = appearance || tabStyle || "main" // `|| tabStyle` can be removed when TabNavigation is removed
+  return (
+    <TabBarContext.Provider value={{ appearance: resolvedAppearance }}>
+      <Navigation
+        activeItem={activeItem}
+        ariaLabel={ariaLabel}
+        className={`juno-tabbar juno-tabbar-${resolvedAppearance} ${disabled ? "juno-tabbar-disabled" : ""} ${tabBarStyles} ${className}`}
+        disabled={disabled}
+        onActiveItemChange={onActiveItemChange}
+        {...props}
+      >
+        {children}
+      </Navigation>
+    </TabBarContext.Provider>
+  )
+}
+
+export interface TabBarProps extends HTMLAttributes<HTMLElement> {
+  /** The label of the selected tab. The `activeItem` prop set on the parent will override any `active` prop set on a child. */
+  activeItem?: ReactNode
+  /** The aria-label of the navigation. Specify when there are more than one elements with an implicit or explicit `role="navigation"` on a page/view. */
+  ariaLabel?: string
+  /** The child `<TabBarItem>` elements to render. */
+  children?: ReactNode
+  /** A custom className */
+  className?: string
+  /** Whether the tab bar is disabled. If `true`, all child items will be disabled. */
+  disabled?: boolean
+  /** A handler to execute when the active tab changes */
+  // eslint-disable-next-line no-unused-vars
+  onActiveItemChange?: (activeItem: ReactNode) => void
+  /** The visual appearance of the TabBar. Use `main` as the first child in an AppShell. Use `content` for tabs inside page content — adds a darkened bottom border on inactive tabs. */
+  appearance?: TabBarAppearance
+  /** @deprecated Use appearance instead. Can be removed when TabNavigation is removed. */
+  tabStyle?: TabBarAppearance
+}
+
+/** @deprecated Use TabBarProps instead. Can be removed when TabNavigation is removed. */
+export type TabNavigationProps = TabBarProps
