@@ -5,7 +5,6 @@
 
 import React, { createContext, HTMLAttributes, ReactNode } from "react"
 import { Navigation } from "../Navigation/Navigation.component"
-import { withDeprecationWarning } from "../withDeprecationWarning/index"
 
 const tabBarStyles = `
   jn:flex
@@ -22,7 +21,7 @@ export interface TabBarContextType {
   tabStyle?: TabBarAppearance
 }
 
-/** @deprecated Use TabBarContextType instead */
+/** @deprecated Use TabBarContextType instead. Can be removed when TabNavigation is removed. */
 export type TabNavigationContextType = TabBarContextType
 
 export const TabBarContext = createContext<TabBarContextType | undefined>(undefined)
@@ -84,13 +83,5 @@ export interface TabBarProps extends HTMLAttributes<HTMLElement> {
   tabStyle?: TabBarAppearance
 }
 
-/** @deprecated Use TabBarProps instead */
+/** @deprecated Use TabBarProps instead. Can be removed when TabNavigation is removed. */
 export type TabNavigationProps = TabBarProps
-
-/**
- * @deprecated TabNavigation is deprecated and may be removed in any of the next major releases. Use TabBar instead.
- */
-export const TabNavigation = withDeprecationWarning(
-  TabBar,
-  "TabNavigation is deprecated and may be removed in any of the next major releases. Use TabBar instead."
-)

@@ -7,7 +7,6 @@ import React, { HTMLAttributes, MouseEventHandler, ReactNode, useContext } from 
 import { NavigationItem } from "../NavigationItem/index"
 import { TabBarContext } from "../TabBar/TabBar.component"
 import { KnownIcons } from "../Icon/Icon.component.js"
-import { withDeprecationWarning } from "../withDeprecationWarning/index"
 
 const tabBarItemStyles = `
   jn:flex
@@ -98,13 +97,5 @@ export interface TabBarItemProps extends HTMLAttributes<HTMLElement> {
   value?: string
 }
 
-/** @deprecated Use TabBarItemProps instead */
+/** @deprecated Use TabBarItemProps instead. Can be removed when TabNavigationItem is removed. */
 export type TabNavigationItemProps = TabBarItemProps
-
-/**
- * @deprecated TabNavigationItem is deprecated and may be removed in any of the next major releases. Use TabBarItem instead.
- */
-export const TabNavigationItem = withDeprecationWarning(
-  TabBarItem,
-  "TabNavigationItem is deprecated and may be removed in any of the next major releases. Use TabBarItem instead."
-)

@@ -3,4 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { TabBarItem, TabNavigationItem } from "./TabBarItem.component"
+export { TabBarItem } from "./TabBarItem.component"
+// Remove the next line when TabNavigationItem is removed:
+export { TabNavigationItem } from "./TabNavigationItem.deprecated"

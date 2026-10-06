@@ -103,8 +103,12 @@ export { Status } from "./components/Status/Status.component"
 export { Switch } from "./components/Switch/Switch.component"
 export { Tab } from "./components/Tab/Tab.component"
 export { TabList } from "./components/TabList/TabList.component"
-export { TabBar, TabNavigation } from "./components/TabBar/TabBar.component"
-export { TabBarItem, TabNavigationItem } from "./components/TabBarItem/TabBarItem.component"
+export { TabBar } from "./components/TabBar/TabBar.component"
+// Remove the next line when TabNavigation is removed:
+export { TabNavigation } from "./components/TabBar/TabNavigation.deprecated"
+export { TabBarItem } from "./components/TabBarItem/TabBarItem.component"
+// Remove the next line when TabNavigationItem is removed:
+export { TabNavigationItem } from "./components/TabBarItem/TabNavigationItem.deprecated"
 export { TabPanel } from "./components/TabPanel/TabPanel.component"
 export { Textarea } from "./components/Textarea/Textarea.component"
 export { Tabs } from "./components/Tabs/Tabs.component"
@@ -234,11 +238,14 @@ export type {
   TabBarProps,
   TabBarAppearance,
   TabBarContextType,
-  TabNavigationProps,
-  TabNavigationContextType,
+  TabNavigationProps, // Can be removed when TabNavigation is removed
+  TabNavigationContextType, // Can be removed when TabNavigation is removed
   TabStyle,
 } from "./components/TabBar/TabBar.component"
-export type { TabBarItemProps, TabNavigationItemProps } from "./components/TabBarItem/TabBarItem.component"
+export type {
+  TabBarItemProps,
+  TabNavigationItemProps, // Can be removed when TabNavigationItem is removed
+} from "./components/TabBarItem/TabBarItem.component"
 export type { TabPanelProps } from "./components/TabPanel/TabPanel.component"
 export type { TextareaProps } from "./components/Textarea/Textarea.component"
 export type { TabsProps, TabsContextType, TabsVariant } from "./components/Tabs/Tabs.component"
