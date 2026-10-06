@@ -1,10 +1,10 @@
 import { default as React, HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
 export type TabBarAppearance = "main" | "content";
-/** @deprecated Use TabBarAppearance instead */
+/** @deprecated Use TabBarAppearance instead. Can be removed when TabNavigation is removed. */
 export type TabStyle = TabBarAppearance;
 export interface TabBarContextType {
     appearance: TabBarAppearance;
-    /** @deprecated Use appearance instead */
+    /** @deprecated Use appearance instead. Can be removed when TabNavigation is removed. */
     tabStyle?: TabBarAppearance;
 }
 /** @deprecated Use TabBarContextType instead. Can be removed when TabNavigation is removed. */
@@ -34,7 +34,7 @@ export interface TabBarProps extends HTMLAttributes<HTMLElement> {
     onActiveItemChange?: (activeItem: ReactNode) => void;
     /** The visual appearance of the TabBar. Use `main` as the first child in an AppShell. Use `content` for tabs inside page content — adds a darkened bottom border on inactive tabs. */
     appearance?: TabBarAppearance;
-    /** @deprecated Use appearance instead */
+    /** @deprecated Use appearance instead. Can be removed when TabNavigation is removed. */
     tabStyle?: TabBarAppearance;
 }
 /** @deprecated Use TabBarProps instead. Can be removed when TabNavigation is removed. */
