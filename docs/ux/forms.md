@@ -26,6 +26,33 @@ Mark required fields clearly. Do not rely on color alone to communicate required
 
 Single-column is the recommended default. A two-column layout may be appropriate when fields are short and closely related — for example, a "First Name" / "Last Name" pair.
 
+### Labels and IDs
+
+Most Juno form controls accept a `label` prop that renders a visible label with its association handled internally. Use this prop rather than placing a standalone `Label` component alongside an input. `SearchInput` and `NativeSelect` are exceptions: supply a unique `id` and associate a standalone `Label` with it manually if desired.
+
+Most form controls auto-generate an ID when none is provided, but `SearchInput` and `NativeSelect` do not. For these, supply a unique explicit `id` when needed for labelling, automated testing, or analytics targeting. Form serialization uses the control's `name`, not its `id`.
+
+### Grouped Inputs
+
+Use `RadioGroup` to wrap a set of related radio buttons, and `CheckboxGroup` for a set of related checkboxes. These components apply the correct ARIA grouping roles and provide group-level `label`, `helptext`, `errortext`, and `successtext` props. Always pass a `label` and an equivalent `aria-label` to give the group an accessible name.
+
+### Input Types
+
+Use the appropriate `type` prop on `TextInput` for the kind of data expected. Prefer `email`, `tel`, `url`, `number`, or `password` over the default `text` where applicable — this enables browser features such as spellcheck suppression, input format validation, and the correct virtual keyboard on touch devices.
+
+## Communicating Expectations
+
+Communicate constraints and requirements before the user encounters an error. All major input components accept a `helptext` prop that renders a helper message below the field. A standalone `FormHint` (in its default `help` variant) can also be placed inside a `FormRow` when a component does not expose a `helptext` prop or when the hint requires richer content such as a link.
+
+- **Per-field hints** — use `helptext` to describe format requirements, allowed values, or constraints the user needs before they begin typing.
+- **Group-level hints** — use the `helptext` prop on `RadioGroup` or `CheckboxGroup` to give the group context once rather than repeating it on each option.
+- **Complex requirements** — for fields with multi-part requirements such as password complexity, list all constraints upfront in `helptext`. Revealing them one by one as each constraint fails is disorienting.
+- **Placeholder text** — acceptable for example values that illustrate format (e.g., `user@example.com`) but never the sole source of instruction, since it disappears as soon as the user starts typing. Always pair with a visible `label`.
+
+### Autocomplete
+
+`TextInput` disables browser autocomplete by default (`autoComplete="off"`). For fields where browser autofill is beneficial — such as email, name, address, or password fields — set the `autoComplete` prop explicitly to the appropriate value.
+
 ## Validation
 
 ### When to Validate
@@ -103,3 +130,11 @@ Distinguish between validation errors and server-side errors:
 - **Server-side errors** — the request failed for a reason outside the user's input (e.g. a network error, a conflict, or a server fault). Show an error message at the top of the form or, for modal forms, inside the modal. The message should explain what went wrong and, where possible, what the user can do — for example, whether retrying is likely to help.
 
 See [Messages & Notifications](messages-and-notifications.md) for guidance on which component to use for submission feedback.
+
+## Switches and Checkboxes
+
+Use `Switch` for settings that take effect immediately, without a form submission step — for example, toggling a feature on or off inline. Use `Checkbox` (or `CheckboxGroup`) for choices that are part of a form the user submits explicitly. Do not use `Switch` inside a form that has a separate submit action.
+
+## Further Reading
+
+For a comprehensive reference on accessible forms — including labelling, grouping, and error notification — see the [W3C WAI Forms Tutorial](https://www.w3.org/WAI/tutorials/forms/).
