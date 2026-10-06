@@ -1,5 +1,43 @@
 # @cloudoperators/juno-oauth
 
+## 1.5.0
+
+### Minor Changes
+
+- 00d3f33: feat(oauth): add runtime validation with Zod and migrate to vite-ts ESLint config
+
+  Introduces runtime validation for OAuth/OIDC responses using Zod schemas, addressing type safety at external API boundaries. Also migrates the package to use the new vite-ts.mjs ESLint configuration designed for TypeScript-only packages.
+
+  **Runtime Validation:**
+  - Added Zod schemas for TokenResponse and OidcConfig validation
+  - Validates token endpoint responses before type assertions
+  - Validates OIDC discovery configuration responses
+  - Provides clear error messages when API responses are malformed
+
+  **ESLint Migration:**
+  - Introduced new vite-ts.mjs config for pure TypeScript packages
+  - Migrated OAuth from vite-react-ts.mjs to vite-ts.mjs
+  - Maintains strict type-aware linting without unnecessary React dependencies
+
+### Patch Changes
+
+- b2b81a2: chore(deps): upgrade multiple dependencies
+  - @apollo/client: 4.2.12 → 4.3.0
+  - @graphql-codegen/cli: 7.3.1 → 7.4.1
+  - @tanstack/react-query: 5.102.8 → 5.103.1
+  - @typescript-eslint/eslint-plugin: 8.69.0 → 8.70.0
+  - @typescript-eslint/parser: 8.69.0 → 8.70.0
+  - eslint: 10.9.1 → 10.10.0
+  - typescript-eslint: 8.69.0 → 8.70.0
+  - vite: 8.2.2 → 8.3.0
+  - zod: 4.5.4 → 4.6.5
+
+- 51999d2: chore(deps): upgrade vite-plugin-dts to 5.1.1
+  - Upgraded vite-plugin-dts from 4.5.4 to 5.1.1 across all affected packages
+  - Removed unused vite-plugin-svgr from the Heureka app (no SVG imports found)
+  - This major vite-plugin-dts upgrade has no breaking changes affecting current usage
+  - vite-plugin-dts v5 requires Vite 3+, which is satisfied by Vite 8.3.0
+
 ## 1.4.11
 
 ### Patch Changes
