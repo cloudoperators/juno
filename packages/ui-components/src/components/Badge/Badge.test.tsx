@@ -11,7 +11,7 @@ import { Badge } from "./"
 
 describe("Badge component", () => {
   describe("Basic rendering", () => {
-    test("renders with default props", () => {
+    test("renders a badge", () => {
       render(<Badge data-testid="badge" />)
       expect(screen.getByTestId("badge")).toBeInTheDocument()
       expect(screen.getByTestId("badge")).toHaveClass("juno-badge", "juno-badge-default")
@@ -28,6 +28,16 @@ describe("Badge component", () => {
       render(<Badge data-testid="badge">Children inside</Badge>)
       expect(screen.getByTestId("badge")).toBeInTheDocument()
       expect(screen.getByTestId("badge")).toHaveTextContent("Children inside")
+    })
+
+    test("renders children over text when both are provided", () => {
+      render(
+        <Badge text="text content" data-testid="badge">
+          children content
+        </Badge>
+      )
+      expect(screen.getByTestId("badge")).toHaveTextContent("children content")
+      expect(screen.getByTestId("badge")).not.toHaveTextContent("text content")
     })
 
     test("renders as a span by default", () => {

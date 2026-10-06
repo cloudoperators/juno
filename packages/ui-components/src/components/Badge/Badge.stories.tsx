@@ -32,6 +32,12 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {}
 
+export const WithChildren: Story = {
+  args: {
+    children: "Children content",
+  },
+}
+
 export const WithDefaultIcon: Story = {
   args: {
     text: "With Icon",

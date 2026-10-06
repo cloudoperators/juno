@@ -50,7 +50,7 @@ const badgeActiveVariantStyles: Record<BadgeVariantType, string> = {
   error: "jn:active:ring-theme-error",
 }
 
-const iconStyles = "jn:mr-1 jn:items-center"
+const iconStyles = "jn:mr-1"
 
 const VALID_ICON_NAMES: Set<KnownIcons> = new Set(Object.values(KnownIconsEnum))
 
@@ -105,7 +105,7 @@ export interface BadgeProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>
 
 const getIcon = (icon: boolean | KnownIcons | undefined, variant: BadgeVariantType): KnownIcons | undefined => {
   if (typeof icon === "string" && isValidIcon(icon)) return icon
-  if (icon === true) return variant
+  if (icon === true && isValidIcon(variant)) return variant
   return
 }
 
