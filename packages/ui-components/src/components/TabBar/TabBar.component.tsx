@@ -12,12 +12,12 @@ const tabBarStyles = `
 
 export type TabBarAppearance = "main" | "content"
 
-/** @deprecated Use TabBarAppearance instead */
+/** @deprecated Use TabBarAppearance instead. Can be removed when TabNavigation is removed. */
 export type TabStyle = TabBarAppearance
 
 export interface TabBarContextType {
   appearance: TabBarAppearance
-  /** @deprecated Use appearance instead */
+  /** @deprecated Use appearance instead. Can be removed when TabNavigation is removed. */
   tabStyle?: TabBarAppearance
 }
 
@@ -43,12 +43,12 @@ export const TabBar = ({
   disabled = false,
   onActiveItemChange,
   appearance,
-  tabStyle,
+  tabStyle, // Can be removed when TabNavigation is removed
   ...props
 }: TabBarProps): ReactNode => {
-  const resolvedAppearance = appearance || tabStyle || "main"
+  const resolvedAppearance = appearance || tabStyle || "main" // `|| tabStyle` can be removed when TabNavigation is removed
   return (
-    <TabBarContext.Provider value={{ appearance: resolvedAppearance, tabStyle: resolvedAppearance }}>
+    <TabBarContext.Provider value={{ appearance: resolvedAppearance }}>
       <Navigation
         activeItem={activeItem}
         ariaLabel={ariaLabel}
@@ -79,7 +79,7 @@ export interface TabBarProps extends HTMLAttributes<HTMLElement> {
   onActiveItemChange?: (activeItem: ReactNode) => void
   /** The visual appearance of the TabBar. Use `main` as the first child in an AppShell. Use `content` for tabs inside page content — adds a darkened bottom border on inactive tabs. */
   appearance?: TabBarAppearance
-  /** @deprecated Use appearance instead */
+  /** @deprecated Use appearance instead. Can be removed when TabNavigation is removed. */
   tabStyle?: TabBarAppearance
 }
 

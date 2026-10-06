@@ -14,6 +14,7 @@ const mockOnClick = vi.fn()
 describe("NavigationItem", () => {
   afterEach(() => {
     cleanup()
+    mockOnClick.mockReset()
   })
 
   test("renders a NavigationItem button by default even if no context exists", () => {

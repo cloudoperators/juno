@@ -26,6 +26,7 @@ const meta: Meta<typeof TabNavigation> = {
     onActiveItemChange: {
       control: false,
     },
+    // Can be removed when TabNavigation is removed:
     tabStyle: {
       options: ["main", "content"],
       control: { type: "radio" },

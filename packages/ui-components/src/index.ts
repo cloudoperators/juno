@@ -240,7 +240,7 @@ export type {
   TabBarContextType,
   TabNavigationProps, // Can be removed when TabNavigation is removed
   TabNavigationContextType, // Can be removed when TabNavigation is removed
-  TabStyle,
+  TabStyle, // Can be removed when TabNavigation is removed
 } from "./components/TabBar/TabBar.component"
 export type {
   TabBarItemProps,

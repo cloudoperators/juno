@@ -187,6 +187,7 @@ describe("TabBar", () => {
     expect(screen.getByRole("navigation")).toHaveClass("juno-tabbar-content")
   })
 
+  // Can be removed when TabNavigation is removed:
   test("renders content appearance as passed via deprecated tabStyle prop", async () => {
     await waitFor(() =>
       render(
@@ -198,6 +199,7 @@ describe("TabBar", () => {
     expect(screen.getByRole("navigation")).toHaveClass("juno-tabbar-content")
   })
 
+  // Can be removed when TabNavigation is removed:
   test("appearance prop takes precedence over tabStyle", async () => {
     await waitFor(() =>
       render(
@@ -240,6 +242,7 @@ describe("TabNavigation (deprecated alias)", () => {
     warnSpy.mockRestore()
   })
 
+  // Can be removed when TabNavigation is removed:
   test("renders the correct appearance via the deprecated tabStyle prop", async () => {
     await waitFor(() =>
       render(

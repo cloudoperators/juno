@@ -96,6 +96,7 @@ describe("TabBarItem", () => {
     expect(screen.getByRole("button", { name: "Item 1" })).toHaveClass("juno-tabbar-content-item")
   })
 
+  // Can be removed when TabNavigation is removed:
   test("renders content appearance items as passed to the parent TabBar via deprecated tabStyle prop", () => {
     render(
       <TabBar tabStyle="content">

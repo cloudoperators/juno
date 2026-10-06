@@ -47,8 +47,8 @@ export const TabBarItem = ({
   ...props
 }: TabBarItemProps): ReactNode => {
   const tabBarContext = useContext(TabBarContext)
-  const { appearance, tabStyle } = tabBarContext || {}
-  const resolvedAppearance = appearance || tabStyle
+  const { appearance } = tabBarContext || {}
+  const resolvedAppearance = appearance
   return (
     <NavigationItem
       active={active}
