@@ -1,0 +1,21 @@
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { default as React } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { CodeBlock, CodeBlockProps } from './CodeBlock.component';
+import { Tab } from '../Tab';
+interface TabsTemplateProps {
+    tabs: React.ComponentProps<typeof Tab>[];
+    codeBlocks: CodeBlockProps[];
+}
+declare const meta: Meta<typeof CodeBlock>;
+export default meta;
+type Story = StoryObj<typeof meta>;
+export declare const Default: Story;
+export declare const DefaultWithChildren: Story;
+export declare const DefaultWithHeading: Story;
+export declare const FixedSize: Story;
+export declare const NonWrappingCodeBlock: Story;
+export declare const JSONView: Story;
+export declare const CodeBlocksWithTabs: StoryObj<TabsTemplateProps>;
+export declare const CustomCodeBlockFooter: Story;
+export declare const CustomCodeBlockFooterWithCopy: Story;
+//# sourceMappingURL=CodeBlock.stories.d.ts.map
