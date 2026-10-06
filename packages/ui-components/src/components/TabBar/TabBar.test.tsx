@@ -213,7 +213,6 @@ describe("TabBar", () => {
     expect(screen.getByRole("navigation")).not.toHaveClass("juno-tabbar-content")
   })
 
-  // Can be removed when TabNavigation is removed:
   test("provides appearance in context", () => {
     let ctx: TabBarContextType | undefined
     const Consumer = () => {
