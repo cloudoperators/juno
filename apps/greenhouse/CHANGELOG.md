@@ -1,5 +1,24 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.14.12
+
+### Patch Changes
+
+- 8e22aa1: Release packages that failed to publish due to invalid changeset flags
+
+  These packages were version bumped in PR #2000 but failed to publish to npm due to invalid flags in the release script. This patch changeset ensures they will be properly published in the next release cycle with the corrected publish command.
+
+- Updated dependencies [8e22aa1]
+  - @cloudoperators/greenhouse-auth-provider@1.0.5
+  - @cloudoperators/juno-app-doop@2.6.42
+  - @cloudoperators/juno-app-heureka@1.1.17
+  - @cloudoperators/juno-app-supernova@0.20.11
+  - @cloudoperators/juno-k8s-client@1.1.7
+  - @cloudoperators/juno-messages-provider@0.2.54
+  - @cloudoperators/juno-oauth@1.5.1
+  - @cloudoperators/juno-ui-components@9.5.1
+  - @cloudoperators/juno-url-state-provider@3.0.12
+
 ## 0.14.11
 
 ### Patch Changes

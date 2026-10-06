@@ -1,5 +1,13 @@
 # @cloudoperators/juno-url-state-provider
 
+## 3.0.12
+
+### Patch Changes
+
+- 8e22aa1: Release packages that failed to publish due to invalid changeset flags
+
+  These packages were version bumped in PR #2000 but failed to publish to npm due to invalid flags in the release script. This patch changeset ensures they will be properly published in the next release cycle with the corrected publish command.
+
 ## 3.0.11
 
 ### Patch Changes

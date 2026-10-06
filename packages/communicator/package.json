@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-communicator",
-  "version": "2.2.27",
+  "version": "2.2.28",
   "description": "Send and receive across tabs",
   "author": "UI-Team",
   "type": "module",
