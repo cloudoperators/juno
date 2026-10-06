@@ -1,11 +1,5 @@
-import { HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
-/**
- * `MainTabs` represents primary tab navigation at the content area's top, for complete content switching.
- * Ideal for major interface tabbing; use `Tabs` for partial content areas.
- * @see https://cloudoperators.github.io/juno/?path=/docs/layout-tabs-maintabs--docs
- * @see {@link MainTabsProps}
- */
-export declare const MainTabs: ({ children, defaultIndex, selectedIndex, onSelect, className, ...props }: MainTabsProps) => ReactNode;
+import { default as React, HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+export declare const MainTabsBase: ({ children, defaultIndex, selectedIndex, onSelect, className, ...props }: MainTabsProps) => ReactNode;
 export interface MainTabsProps extends Omit<HTMLAttributes<HTMLElement>, "onSelect"> {
     /**
      * All the child elements of MainTabs: Tab(s) inside a TabList and TabPanel(s).
@@ -29,4 +23,10 @@ export interface MainTabsProps extends Omit<HTMLAttributes<HTMLElement>, "onSele
      */
     className?: string;
 }
+/**
+ * @deprecated MainTabs is deprecated and may be removed in any of the next major releases. Once TabBar is refactored to being representational-only, you will be able to use TabBar in combination with react-tabs directly if you want to keep the react-tabs internal logic.
+ * @see https://cloudoperators.github.io/juno/?path=/docs/layout-tabs-maintabs--docs
+ * @see {@link MainTabsProps}
+ */
+export declare const MainTabs: React.FC<MainTabsProps>;
 //# sourceMappingURL=MainTabs.component.d.ts.map
