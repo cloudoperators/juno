@@ -48,7 +48,12 @@ export const TabBar = ({
 }: TabBarProps): ReactNode => {
   const resolvedAppearance = appearance || tabStyle || "main" // `|| tabStyle` can be removed when TabNavigation is removed
   return (
-    <TabBarContext.Provider value={{ appearance: resolvedAppearance }}>
+    <TabBarContext.Provider
+      value={{
+        appearance: resolvedAppearance,
+        tabStyle: resolvedAppearance /* tabStyle can be removed when TabNavigation is removed */,
+      }}
+    >
       <Navigation
         activeItem={activeItem}
         ariaLabel={ariaLabel}
