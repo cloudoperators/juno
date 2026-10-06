@@ -1,1 +1,0 @@
-import{n as e}from"./rolldown-runtime-C0FnF6B9.js";import{r as t}from"./Navigation.component-CRrnHW7j.js";function n(){return(n=e((()=>{t()})))()}export{n as t};
