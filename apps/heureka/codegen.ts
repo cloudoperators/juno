@@ -4,13 +4,10 @@
  */
 
 import { CodegenConfig } from "@graphql-codegen/cli"
-import * as dotenv from "dotenv"
-
-// Load environment variables from .env file
-dotenv.config()
+import codegenSettings from "./codegen.config.json"
 
 const config: CodegenConfig = {
-  schema: process.env.API_ENDPOINT,
+  schema: codegenSettings.apiEndpoint,
   documents: "src/**/*.graphql",
 
   generates: {

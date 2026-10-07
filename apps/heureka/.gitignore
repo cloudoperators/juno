@@ -1,6 +1,7 @@
 dist
 dist-ssr
 appProps.json
+codegen.config.json
 *.local
 
 # dependencies
