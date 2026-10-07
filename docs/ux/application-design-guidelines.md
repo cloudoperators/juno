@@ -4,7 +4,7 @@
 
 This chapter contains fundamental guidelines regarding the design of Juno applications in order to ensure consistency beyond merely visual aspects.
 
-1.  Interaction Guidelines
+1.  [Interaction Guidelines](interaction-guidelines.md)
 2.  [UX Writing / Content Guidelines](ux-writing-content-design.md)
 3.  [Error Handling, Loading And Empty States](error-handling-loading-empty-states.md)
 4.  [Transient States And Progress](transient-states-and-progress.md)
