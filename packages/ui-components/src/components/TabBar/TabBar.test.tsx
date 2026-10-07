@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { useContext } from "react"
 import { render, screen, cleanup, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { TabBar, TabNavigation } from "./index"
+import { TabBarContext, TabBarContextType } from "./TabBar.component"
 import { TabBarItem } from "../TabBarItem/index"
 
 const mockOnActiveItemChange = vi.fn()
@@ -210,6 +211,50 @@ describe("TabBar", () => {
     )
     expect(screen.getByRole("navigation")).toHaveClass("juno-tabbar-main")
     expect(screen.getByRole("navigation")).not.toHaveClass("juno-tabbar-content")
+  })
+
+  test("provides appearance in context", () => {
+    let ctx: TabBarContextType | undefined
+    const Consumer = () => {
+      ctx = useContext(TabBarContext)
+      return null
+    }
+    render(
+      <TabBar appearance="content">
+        <Consumer />
+      </TabBar>
+    )
+    expect(ctx?.appearance).toBe("content")
+  })
+
+  // Can be removed when TabNavigation is removed:
+  test("provides tabStyle in context equal to appearance for backwards compat", () => {
+    let ctx: TabBarContextType | undefined
+    const Consumer = () => {
+      ctx = useContext(TabBarContext)
+      return null
+    }
+    render(
+      <TabBar appearance="content">
+        <Consumer />
+      </TabBar>
+    )
+    expect(ctx?.tabStyle).toBe("content")
+  })
+
+  // Can be removed when TabNavigation is removed:
+  test("provides tabStyle in context when set via deprecated tabStyle prop", () => {
+    let ctx: TabBarContextType | undefined
+    const Consumer = () => {
+      ctx = useContext(TabBarContext)
+      return null
+    }
+    render(
+      <TabBar tabStyle="content">
+        <Consumer />
+      </TabBar>
+    )
+    expect(ctx?.tabStyle).toBe("content")
   })
 
   test("renders a custom className as passed", async () => {
