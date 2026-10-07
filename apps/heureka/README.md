@@ -72,9 +72,11 @@ We use [MockServiceWorker](https://mswjs.io/) (MSW) to intercept GraphQL request
    ```bash
    cd apps/heureka
    ```
-2. Create `codegen.config.json` file if you haven't already and change configurations accordingly:
-   ```bash
-   cp codegen.config.template.json codegen.config.json
+2. Update `codegen.config.json` with your GraphQL API endpoint:
+   ```json
+   {
+     "apiEndpoint": "https://your-api-endpoint.com/query"
+   }
    ```
 3. Update GraphQL types from the latest GraphQL schema:
    ```bash
