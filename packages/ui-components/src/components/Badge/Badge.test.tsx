@@ -156,6 +156,13 @@ describe("Badge component", () => {
       expect(screen.getByTestId("badge")).toHaveAttribute("tabindex", "-1")
       expect(screen.getByTestId("badge")).toHaveClass("juno-badge-disabled")
     })
+
+    test("does not call onClick when anchor is disabled", () => {
+      const onClick = vi.fn()
+      render(<Badge href="https://example.com" onClick={onClick} disabled data-testid="badge" />)
+      screen.getByTestId("badge").click()
+      expect(onClick).not.toHaveBeenCalled()
+    })
   })
 
   describe("Additional Props", () => {
