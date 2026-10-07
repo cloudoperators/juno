@@ -4,17 +4,17 @@
  */
 
 import * as React from "react"
-import { describe, expect, test } from "vitest"
+import { describe, expect, test, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
 
 import { Badge } from "./"
 
 describe("Badge component", () => {
   describe("Basic rendering", () => {
-    test("renders with default props", () => {
+    test("renders a badge", () => {
       render(<Badge data-testid="badge" />)
       expect(screen.getByTestId("badge")).toBeInTheDocument()
-      expect(screen.getByTestId("badge")).toHaveClass("juno-badge-default")
+      expect(screen.getByTestId("badge")).toHaveClass("juno-badge", "juno-badge-default")
       expect(screen.queryByRole("img")).not.toBeInTheDocument()
     })
 
@@ -29,6 +29,21 @@ describe("Badge component", () => {
       expect(screen.getByTestId("badge")).toBeInTheDocument()
       expect(screen.getByTestId("badge")).toHaveTextContent("Children inside")
     })
+
+    test("renders children over text when both are provided", () => {
+      render(
+        <Badge text="text content" data-testid="badge">
+          children content
+        </Badge>
+      )
+      expect(screen.getByTestId("badge")).toHaveTextContent("children content")
+      expect(screen.getByTestId("badge")).not.toHaveTextContent("text content")
+    })
+
+    test("renders as a span by default", () => {
+      render(<Badge data-testid="badge" />)
+      expect(screen.getByTestId("badge").tagName).toBe("SPAN")
+    })
   })
 
   describe("Variants", () => {
@@ -42,6 +57,24 @@ describe("Badge component", () => {
       render(<Badge variant={"success"} data-testid="badge" />)
       expect(screen.getByTestId("badge")).toBeInTheDocument()
       expect(screen.getByTestId("badge")).toHaveClass("juno-badge-success")
+    })
+
+    test(`renders a badge with the warning variant`, () => {
+      render(<Badge variant={"warning"} data-testid="badge" />)
+      expect(screen.getByTestId("badge")).toBeInTheDocument()
+      expect(screen.getByTestId("badge")).toHaveClass("juno-badge-warning")
+    })
+
+    test(`renders a badge with the danger variant`, () => {
+      render(<Badge variant={"danger"} data-testid="badge" />)
+      expect(screen.getByTestId("badge")).toBeInTheDocument()
+      expect(screen.getByTestId("badge")).toHaveClass("juno-badge-danger")
+    })
+
+    test(`renders a badge with the error variant`, () => {
+      render(<Badge variant={"error"} data-testid="badge" />)
+      expect(screen.getByTestId("badge")).toBeInTheDocument()
+      expect(screen.getByTestId("badge")).toHaveClass("juno-badge-error")
     })
   })
 
@@ -76,6 +109,59 @@ describe("Badge component", () => {
       render(<Badge data-testid="badge" />)
       expect(screen.getByTestId("badge")).toBeInTheDocument()
       expect(screen.queryByRole("img")).not.toBeInTheDocument()
+    })
+  })
+
+  describe("Interactive", () => {
+    test("renders as a button when onClick is provided", () => {
+      render(<Badge onClick={() => {}} data-testid="badge" />)
+      expect(screen.getByTestId("badge").tagName).toBe("BUTTON")
+    })
+
+    test("button has type='button'", () => {
+      render(<Badge onClick={() => {}} data-testid="badge" />)
+      expect(screen.getByTestId("badge")).toHaveAttribute("type", "button")
+    })
+
+    test("renders disabled button", () => {
+      render(<Badge onClick={() => {}} disabled data-testid="badge" />)
+      expect(screen.getByTestId("badge")).toBeDisabled()
+      expect(screen.getByTestId("badge")).toHaveClass("juno-badge-disabled")
+    })
+
+    test("calls onClick when clicked", () => {
+      const onClick = vi.fn()
+      render(<Badge onClick={onClick} data-testid="badge" />)
+      screen.getByTestId("badge").click()
+      expect(onClick).toHaveBeenCalledTimes(1)
+    })
+
+    test("does not call onClick when disabled", () => {
+      const onClick = vi.fn()
+      render(<Badge onClick={onClick} disabled data-testid="badge" />)
+      screen.getByTestId("badge").click()
+      expect(onClick).not.toHaveBeenCalled()
+    })
+
+    test("renders as an anchor when href is provided", () => {
+      render(<Badge href="https://example.com" data-testid="badge" />)
+      expect(screen.getByTestId("badge").tagName).toBe("A")
+      expect(screen.getByTestId("badge")).toHaveAttribute("href", "https://example.com")
+    })
+
+    test("renders disabled anchor without href", () => {
+      render(<Badge href="https://example.com" disabled data-testid="badge" />)
+      expect(screen.getByTestId("badge")).not.toHaveAttribute("href")
+      expect(screen.getByTestId("badge")).toHaveAttribute("aria-disabled", "true")
+      expect(screen.getByTestId("badge")).toHaveAttribute("tabindex", "-1")
+      expect(screen.getByTestId("badge")).toHaveClass("juno-badge-disabled")
+    })
+
+    test("does not call onClick when anchor is disabled", () => {
+      const onClick = vi.fn()
+      render(<Badge href="https://example.com" onClick={onClick} disabled data-testid="badge" />)
+      screen.getByTestId("badge").click()
+      expect(onClick).not.toHaveBeenCalled()
     })
   })
 
