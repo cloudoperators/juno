@@ -16,7 +16,7 @@ Avoid surprise. An interaction that does something unexpected erodes trust in th
 
 Every action that triggers a process or a state change must be acknowledged by the UI. Do not leave users guessing whether their action was registered.
 
-- Indicate loading or processing states visually — see [Transient States And Progress](transient-states-and-progress.md)
+- Indicate loading or processing states visually and, where feasible, via appropriate ARIA announcements — see [Transient States And Progress](transient-states-and-progress.md) and [Accessibility](accessibility.md)
 - On success, reflect the updated state immediately; if the result is not visible in the current view, use a toast notification — see [Messages and Notifications](messages-and-notifications.md)
 - On failure, surface a clear, actionable error message — see [Error Handling, Loading And Empty States](error-handling-loading-empty-states.md)
 
@@ -53,7 +53,7 @@ Never improve a pattern in one place while leaving other instances of the same p
 
 ## Disabled States
 
-Use disabled states sparingly and purposefully. If an element is disabled, users should be able to understand why — from context or from a tooltip.
+Use disabled states sparingly and purposefully. If an element is disabled, users should be able to understand why — from context, a tooltip, or where feasible an appropriate ARIA attribute.
 
 For guidance on when to disable, when to omit, and when to render fully functional elements, see [UI Elements for Non-Authorized Users](ui-for-unauthorized-users.md).
 
