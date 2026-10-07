@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
 import { ServicesList } from "./ServicesList"
 import { AllServicesIssuesCount } from "./AllServicesIssuesCount"
 import { ServicesFilters } from "./ServicesFilters"

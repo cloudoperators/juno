@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import { ComponentProps } from "react"
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { createMemoryHistory, createRootRoute, createRoute, Outlet, RouterProvider } from "@tanstack/react-router"
@@ -23,7 +23,7 @@ const mockIssue: ImageVulnerability = {
   sourceUrl: "https://nvd.nist.gov/vuln/detail/CVE-2024-1234",
 }
 
-function renderWithRouter(props: Partial<React.ComponentProps<typeof RemediatedIssueDataRow>> = {}) {
+function renderWithRouter(props: Partial<ComponentProps<typeof RemediatedIssueDataRow>> = {}) {
   const rootRoute = createRootRoute({ component: () => <Outlet /> })
   const testRoute = createRoute({
     getParentRoute: () => rootRoute,

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import { FC } from "react"
 import { RemediationInput, RemediationTypeValues } from "../../../../generated/graphql"
 import { RemediationModal } from "../RemediationModal"
 
@@ -17,7 +17,7 @@ type RiskAcceptanceModalProps = {
   image: string
 }
 
-export const RiskAcceptanceModal: React.FC<RiskAcceptanceModalProps> = (props) => (
+export const RiskAcceptanceModal: FC<RiskAcceptanceModalProps> = (props) => (
   <RemediationModal
     {...props}
     title="Accept Risk"

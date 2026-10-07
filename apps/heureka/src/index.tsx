@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import { createElement } from "react"
 import { createRoot, Root } from "react-dom/client"
 import App, { AppProps } from "./App"
 
@@ -15,7 +15,7 @@ type Options = {
 
 export const mount = (container: HTMLElement, options: Options = {}) => {
   root = createRoot(container)
-  root.render(React.createElement(App, options?.props))
+  root.render(createElement(App, options?.props))
 }
 
 export const unmount = () => root?.unmount()
