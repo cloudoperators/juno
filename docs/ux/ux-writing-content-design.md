@@ -211,7 +211,7 @@ Use “Sign in”, just as recommended by SAP Fiori content guidelines. Make sur
 
 When a field or data point has no value — because it was not set, is not available, or is unknown — **render two hyphens separated by a space as a visual placeholder: `- -`**
 
-**Do not** use an en dash (–) or em dash (—). Although they look similar at small sizes, some editors and formatters (including Markdown-aware tools and Prettier) automatically convert adjacent double hyphens into a dash. The space between the hyphens prevents this substitution.
+**Do not** use an en dash (–) or em dash (—). Many code and text editors apply "smart" typography automatically, substituting `--` with an en dash as you type. The space between the hyphens prevents this substitution.
 
 ### Do
 
