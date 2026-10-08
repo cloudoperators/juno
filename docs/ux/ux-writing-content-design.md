@@ -227,13 +227,13 @@ When a field or data point has no value — because it was not set, is not avail
 
 ### Names as Identifiers: Fall Back to the ID
 
-For fields that act as the primary identifier of an item — the **Name** in a DataGrid, a **detail view page title**, and **breadcrumb segments** — do not render `- -` when the name is missing or not set. Instead, display the item's **ID**.
+For fields that serve as a human-readable, human-assigned name for an item — the **Name column** in a DataGrid, a **detail view page title**, and **breadcrumb segments** — do not render `- -` when the name is missing or not set. Instead, display the item's **ID**.
 
 The ID is the next best thing to identify, reference, or communicate about an item: it remains unique, stable, and actionable even when a human-readable name is absent. Rendering `- -` in these positions is ambiguous and prevents the user from distinguishing between items or sharing a link meaningfully.
 
-Apply this wherever the name is the primary means of identifying an item:
+Apply this wherever a human-readable name is the primary means of identifying an item:
 
-- **Name column in a DataGrid** — show the ID in place of the name
+- **Name column in a DataGrid** — show the ID in place of the name, unless the DataGrid already has a dedicated ID column visible. If an ID column is already present, use `- -` instead — the item is already identifiable, and repeating the ID in the name column would be redundant and confusing.
 - **Detail view page title** — use the ID as the title
 - **Breadcrumb segment** — use the ID as the segment label
 
