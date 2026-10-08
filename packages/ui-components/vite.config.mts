@@ -37,7 +37,6 @@ export default defineConfig({
       exclude: ["./__tests__/**/*.test.ts", "vitest.setup.ts"],
       include: ["src/**/*.ts", "src/**/*.tsx", "types/**/*.d.ts"],
       insertTypesEntry: true,
-      outDir: "build",
       tsconfigPath: "./tsconfig.json",
       copyDtsFiles: true,
       compilerOptions: {

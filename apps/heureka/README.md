@@ -63,9 +63,6 @@ cd apps/heureka
 pnpx turbo test
 ```
 
-** Note **
-We use [MockServiceWorker](https://mswjs.io/) (MSW) to intercept GraphQL requests during testing. To mock any GraphQL query or mutation, you need to provide a handler for it in the `src/mocks/handlers.ts` file.
-
 ## How to update GraphQL types?
 
 1. Go to app directory:

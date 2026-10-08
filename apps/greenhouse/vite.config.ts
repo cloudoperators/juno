@@ -8,7 +8,7 @@ import svgr from "vite-plugin-svgr"
 import tailwindcss from "@tailwindcss/vite"
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite"
 
-export default ({ mode }) => {
+export default ({ mode }: { mode: string }) => {
   const sharedConfig = {
     root: "./",
 

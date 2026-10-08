@@ -8,9 +8,9 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["vitest/globals"],
+    "types": ["vitest/globals", "node"],
     "resolveJsonModule": true
   },
-  "include": ["./src/**/*.ts", "./types/**/*.ts", "vitest.setup.ts"],
+  "include": ["src/**/*.ts", "types/**/*.ts", "*.config.ts", "*.setup.ts"],
   "exclude": ["node_modules", "build"]
 }

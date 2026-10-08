@@ -8,12 +8,16 @@ import globals from "globals"
 import tseslint from "typescript-eslint"
 import reactHooks from "eslint-plugin-react-hooks"
 import reactRefresh from "eslint-plugin-react-refresh"
+import buildConfig from "./build-config.mjs"
 
 export default tseslint.config(
   // Global ignores
   {
     ignores: ["**/build/*", "**/dist/*", "**/vite.config.ts.timestamp-*", "**/storybook-static/*"],
   },
+
+  // Build configuration files (vite.config.ts, vitest.config.ts)
+  ...buildConfig,
 
   // TypeScript and React configuration
   // Uses tseslint.config() to resolve 'extends' at config-creation time so ESLint

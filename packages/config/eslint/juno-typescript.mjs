@@ -8,6 +8,8 @@ import pluginJs from "@eslint/js"
 import tseslint from "typescript-eslint"
 import pluginReactConfig from "eslint-plugin-react/configs/recommended.js"
 import { fixupConfigRules } from "@eslint/compat"
+import buildConfig from "./build-config.mjs"
+
 export default [
   {
     settings: {
@@ -31,6 +33,9 @@ export default [
     files: ["**/*.test.js", "**/*.config.js", "__tests__/**", "test/__mocks__/**"],
     languageOptions: { sourceType: "commonjs" },
   },
+
+  // Build configuration files (vite.config.ts, vitest.config.ts)
+  ...buildConfig,
 
   pluginJs.configs.recommended,
   ...tseslint.configs.recommendedTypeCheckedOnly,
