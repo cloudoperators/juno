@@ -6,10 +6,10 @@
 import junoConfigs from "@cloudoperators/juno-config/eslint/juno-typescript.mjs"
 
 export default [
+  { ignores: ["**/routeTree.gen.ts"] },
   ...junoConfigs,
   {
     files: ["**/*.ts", "**/*.mjs", "**/*.tsx"],
-    languageOptions: { sourceType: "module" },
     rules: {
       "@typescript-eslint/no-unsafe-assignment": "off",
       "@typescript-eslint/no-unsafe-call": "off",
@@ -25,8 +25,5 @@ export default [
       "react/prop-types": "off",
       "no-unused-vars": "off",
     },
-  },
-  {
-    ignores: ["setupTests.js", "appProps.template.ts", "**/routeTree.gen.ts"],
   },
 ]

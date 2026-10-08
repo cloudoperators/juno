@@ -28,7 +28,7 @@ export default defineConfig(({ mode }: { mode: string }): UserConfig => {
     server: {
       host: "0.0.0.0",
       port: parseInt(process.env.PORT || "3000"),
-      allowedHosts: true,
+      allowedHosts: true as const,
     },
   }
 

@@ -6,12 +6,16 @@
 import js from "@eslint/js"
 import globals from "globals"
 import tseslint from "typescript-eslint"
+import buildConfig from "./build-config.mjs"
 
 export default tseslint.config(
   // Global ignores
   {
     ignores: ["**/build/*", "**/dist/*", "**/vite.config.ts.timestamp-*"],
   },
+
+  // Build configuration files (vite.config.ts, vitest.config.ts)
+  ...buildConfig,
 
   // TypeScript-only configuration (no React)
   // Uses tseslint.config() to resolve 'extends' at config-creation time so ESLint

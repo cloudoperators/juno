@@ -5,9 +5,4 @@
 
 import junoConfigs from "@cloudoperators/juno-config/eslint/vite-ts.mjs"
 
-export default [
-  ...junoConfigs,
-  {
-    ignores: ["vitest.config.ts", "vite.config.ts"],
-  },
-]
+export default [...junoConfigs]

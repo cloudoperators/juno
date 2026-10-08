@@ -12,12 +12,12 @@
     "resolveJsonModule": true
   },
   "include": [
-    "./src/**/*.ts",
-    "./__tests__/**/*.test.ts",
-    "./types/**/*.ts",
-    "./src/**/*.tsx",
-    "vitest.setup.ts",
-    "src/superstate.js"
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "types/**/*.ts",
+    "src/superstate.js",
+    "*.config.ts",
+    "*.setup.ts"
   ],
   "exclude": ["node_modules", "build"]
 }

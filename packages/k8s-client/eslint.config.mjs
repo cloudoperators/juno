@@ -23,6 +23,5 @@ export default [
       "@typescript-eslint/no-unsafe-return": "off",
       "@typescript-eslint/no-redundant-type-constituents": "off",
     },
-    ignores: ["vitest.config.ts", "vite.config.ts"],
   },
 ]

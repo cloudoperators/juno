@@ -30,7 +30,6 @@ header:
 
   paths-ignore:
     - "**/routeTree.gen.ts"
-    - "**/mockServiceWorker.js"
     - "**/generated/**"
     
   comment: on-failure
