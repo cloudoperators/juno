@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import { ReactNode } from "react"
 import { render, screen, fireEvent } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { PortalProvider } from "@cloudoperators/juno-ui-components"
@@ -55,7 +55,7 @@ vi.mock("@cloudoperators/juno-ui-components", async (importActual) => {
     }: {
       label: string
       onChange: (value?: string | number | string[]) => void
-      children?: React.ReactNode
+      children?: ReactNode
       required?: boolean
       invalid?: boolean
       errortext?: string

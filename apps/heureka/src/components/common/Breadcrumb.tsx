@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import { MouseEvent } from "react"
 import { Breadcrumb as BreadcrumbContainer, BreadcrumbItem } from "@cloudoperators/juno-ui-components"
 import { isMatch, useMatches, useNavigate } from "@tanstack/react-router"
 
@@ -27,7 +27,7 @@ export const Breadcrumb = () => {
             key={i}
             label={crumb?.label}
             icon={"icon" in crumb ? crumb.icon : undefined} // eslint-disable-line @typescript-eslint/no-unsafe-assignment
-            onClick={(e: React.MouseEvent) => {
+            onClick={(e: MouseEvent) => {
               e.preventDefault()
               void navigate({
                 to: pathname,

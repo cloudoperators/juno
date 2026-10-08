@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
 import { Pill, Stack } from "@cloudoperators/juno-ui-components"
 import { SelectedFilter } from "./types"
 
