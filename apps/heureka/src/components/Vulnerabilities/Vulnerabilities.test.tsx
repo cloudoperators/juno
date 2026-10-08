@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
 import { render, screen, act } from "@testing-library/react"
 import { createMemoryHistory, createRootRoute, createRoute, Outlet, RouterProvider } from "@tanstack/react-router"
 import { PortalProvider } from "@cloudoperators/juno-ui-components/index"

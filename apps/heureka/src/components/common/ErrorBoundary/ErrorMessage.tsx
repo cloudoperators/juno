@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
 import { Icon, Stack } from "@cloudoperators/juno-ui-components"
 
 function getErrorInfo(error: unknown): { name: string; message: string } {

@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
 import { Stack, InputGroup, Select, ComboBox } from "@cloudoperators/juno-ui-components/index"
 
 export type PlaceHolderFilterSelectProps = {

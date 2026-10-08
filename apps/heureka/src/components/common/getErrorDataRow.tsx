@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
 import { FallbackProps } from "react-error-boundary"
 import { Stack } from "@cloudoperators/juno-ui-components/index"
 import { EmptyDataGridRow } from "./EmptyDataGridRow"

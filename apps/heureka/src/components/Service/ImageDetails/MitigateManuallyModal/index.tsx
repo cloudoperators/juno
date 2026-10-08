@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import { FC } from "react"
 import { RemediationInput, RemediationTypeValues } from "../../../../generated/graphql"
 import { RemediationModal } from "../RemediationModal"
 
@@ -17,7 +17,7 @@ type MitigateManuallyModalProps = {
   image: string
 }
 
-export const MitigateManuallyModal: React.FC<MitigateManuallyModalProps> = (props) => (
+export const MitigateManuallyModal: FC<MitigateManuallyModalProps> = (props) => (
   <RemediationModal
     {...props}
     title="Mitigate Manually"

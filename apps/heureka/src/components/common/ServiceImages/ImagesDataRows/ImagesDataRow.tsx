@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import { MouseEvent, MouseEventHandler } from "react"
 import { ServiceImage } from "../../../Services/utils"
 import { DataGridRow, DataGridCell, Button, Icon, Stack } from "@cloudoperators/juno-ui-components"
 import { SeverityCount } from "../../SeverityCount"
@@ -12,8 +12,8 @@ type ImagesDataRowProps = {
   version: ServiceImage
   selected: boolean
   displayDetailsButton?: boolean
-  onItemClick: React.MouseEventHandler<HTMLDivElement>
-  onDetailClick: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
+  onItemClick: MouseEventHandler<HTMLDivElement>
+  onDetailClick: MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
 }
 
 export const ImagesDataRow = ({
@@ -46,7 +46,7 @@ export const ImagesDataRow = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:underline text-sm"
-                onClick={(e: React.MouseEvent) => e.stopPropagation()}
+                onClick={(e: MouseEvent) => e.stopPropagation()}
                 aria-label={`Open image registry for ${version.repository} (opens in a new tab)`}
                 title={`Open image registry for ${version.repository} (opens in a new tab)`}
               >
@@ -94,7 +94,7 @@ export const ImagesDataRow = ({
         />
       </DataGridCell>
       {displayDetailsButton && (
-        <DataGridCell className="cursor-default" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
+        <DataGridCell className="cursor-default" onClick={(e: MouseEvent) => e.stopPropagation()}>
           <Button size="small" label="Show Details" onClick={onDetailClick} className="whitespace-nowrap" />
         </DataGridCell>
       )}

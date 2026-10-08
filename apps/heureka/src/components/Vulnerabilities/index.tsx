@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
 import { VulnerabilitiesList } from "./VulnerabilitiesList"
 import { VulnerabilitiesFilters } from "./VulnerabilitiesFilters"
 import { AllVulnerabilitiesCount } from "./AllVulnerabilitiesCount"
