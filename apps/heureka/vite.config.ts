@@ -11,6 +11,10 @@ import tsconfigPaths from "vite-tsconfig-paths"
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite"
 
 export default defineConfig(({ mode }: { mode: string }): UserConfig => {
+  // In library mode, disable autoCodeSplitting since the host app handles routing
+  // and we need all imports to respect the external configuration
+  const isLibraryMode = mode !== "static"
+
   const sharedConfig = {
     root: "./",
 
@@ -20,7 +24,7 @@ export default defineConfig(({ mode }: { mode: string }): UserConfig => {
 
     plugins: [
       tailwindcss(),
-      TanStackRouterVite({ target: "react", autoCodeSplitting: true }),
+      TanStackRouterVite({ target: "react", autoCodeSplitting: !isLibraryMode }),
       react(),
       tsconfigPaths(),
     ],
@@ -44,7 +48,7 @@ export default defineConfig(({ mode }: { mode: string }): UserConfig => {
     }
   }
 
-  // Default is a library
+  // Default is a library - externalize shared dependencies for embedding in greenhouse
   return {
     ...sharedConfig,
     build: {
@@ -54,6 +58,21 @@ export default defineConfig(({ mode }: { mode: string }): UserConfig => {
         entry: "src/index.tsx",
         formats: ["es"],
         fileName: () => `index.js`,
+      },
+      rollupOptions: {
+        external: (id) => {
+          // Externalize react and its subpaths
+          if (id === "react" || id.startsWith("react/") || id === "react-dom" || id.startsWith("react-dom/")) {
+            return true
+          }
+          // Externalize Juno packages and their subpaths (e.g., /index)
+          if (id.startsWith("@cloudoperators/juno-ui-components")) return true
+          if (id.startsWith("@cloudoperators/juno-url-state-provider")) return true
+          // Externalize TanStack packages
+          if (id.startsWith("@tanstack/react-router")) return true
+          if (id.startsWith("@tanstack/react-query")) return true
+          return false
+        },
       },
     },
   }
