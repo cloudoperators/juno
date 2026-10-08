@@ -678,4 +678,148 @@ describe("ComboBox", () => {
     // The selected value should remain visible in uncontrolled mode (displays the label)
     expect(input).toHaveValue("Option 2")
   })
+
+  test("uncontrolled combobox: query resets after selecting a filtered option", async () => {
+    const user = userEvent.setup()
+
+    render(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox>
+          <ComboBoxOption value="apple">Apple</ComboBoxOption>
+          <ComboBoxOption value="banana">Banana</ComboBoxOption>
+          <ComboBoxOption value="cherry">Cherry</ComboBoxOption>
+        </ComboBox>
+      </AppShellProvider>
+    )
+
+    const input = screen.getByRole("combobox")
+
+    // Type a search that excludes Apple and Cherry (only Banana contains "ban")
+    await user.type(input, "ban")
+    await waitFor(() => {
+      expect(screen.getByRole("listbox")).toBeInTheDocument()
+      expect(screen.queryByRole("option", { name: "Apple" })).not.toBeInTheDocument()
+      expect(screen.getByRole("option", { name: "Banana" })).toBeInTheDocument()
+      expect(screen.queryByRole("option", { name: "Cherry" })).not.toBeInTheDocument()
+    })
+
+    // Select Banana - this triggers setQuery("") in handleChange
+    await user.click(screen.getByRole("option", { name: "Banana" }))
+
+    // Dropdown should close and show selected value
+    await waitFor(() => {
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument()
+      expect(input).toHaveValue("Banana")
+    })
+
+    // Clear input value and click to reopen dropdown
+    // If setQuery("") wasn't called in handleChange, the old filter "ban" would still be active
+    await user.clear(input)
+    await user.click(input)
+
+    // All options should be visible because query was reset to "" when Banana was selected
+    await waitFor(() => {
+      expect(screen.getByRole("listbox")).toBeInTheDocument()
+      expect(screen.getByRole("option", { name: "Apple" })).toBeInTheDocument()
+      expect(screen.getByRole("option", { name: "Banana" })).toBeInTheDocument()
+      expect(screen.getByRole("option", { name: "Cherry" })).toBeInTheDocument()
+    })
+  })
+
+  test("honors explicitly cleared controlled value over defaultValue", async () => {
+    const { rerender } = render(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox value="option1" defaultValue="option1">
+          <ComboBoxOption value="option1" label="Option 1" />
+          <ComboBoxOption value="option2" label="Option 2" />
+        </ComboBox>
+      </AppShellProvider>
+    )
+
+    const input = screen.getByRole("combobox")
+    expect(input).toHaveValue("option1")
+
+    // Explicitly clear the controlled value while defaultValue is still nonempty
+    rerender(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox value="" defaultValue="option1">
+          <ComboBoxOption value="option1" label="Option 1" />
+          <ComboBoxOption value="option2" label="Option 2" />
+        </ComboBox>
+      </AppShellProvider>
+    )
+
+    // Should show empty value, not fall back to defaultValue
+    await waitFor(() => {
+      expect(input).toHaveValue("")
+    })
+  })
+
+  test("resets query and restores all options when controlled value is cleared after filtering", async () => {
+    const user = userEvent.setup()
+    const { rerender } = render(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox value="">
+          <ComboBoxOption value="apple">Apple</ComboBoxOption>
+          <ComboBoxOption value="banana">Banana</ComboBoxOption>
+          <ComboBoxOption value="cherry">Cherry</ComboBoxOption>
+        </ComboBox>
+      </AppShellProvider>
+    )
+
+    const input = screen.getByRole("combobox")
+    const toggle = screen.getByRole("button")
+
+    // Type a query that filters to only one option
+    await user.type(input, "ban")
+    await waitFor(() => {
+      expect(screen.getByRole("listbox")).toBeInTheDocument()
+      expect(screen.queryByRole("option", { name: "Apple" })).not.toBeInTheDocument()
+      expect(screen.getByRole("option", { name: "Banana" })).toBeInTheDocument()
+      expect(screen.queryByRole("option", { name: "Cherry" })).not.toBeInTheDocument()
+    })
+
+    // Select the filtered option
+    await user.click(screen.getByRole("option", { name: "Banana" }))
+
+    // Simulate controlled component setting the value
+    rerender(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox value="banana">
+          <ComboBoxOption value="apple">Apple</ComboBoxOption>
+          <ComboBoxOption value="banana">Banana</ComboBoxOption>
+          <ComboBoxOption value="cherry">Cherry</ComboBoxOption>
+        </ComboBox>
+      </AppShellProvider>
+    )
+
+    await waitFor(() => {
+      expect(input).toHaveValue("Banana")
+    })
+
+    // Now clear the controlled value (simulating what supernova does)
+    rerender(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox value="">
+          <ComboBoxOption value="apple">Apple</ComboBoxOption>
+          <ComboBoxOption value="banana">Banana</ComboBoxOption>
+          <ComboBoxOption value="cherry">Cherry</ComboBoxOption>
+        </ComboBox>
+      </AppShellProvider>
+    )
+
+    // Value should be cleared and query should be reset
+    await waitFor(() => {
+      expect(input).toHaveValue("")
+    })
+
+    // Reopen the dropdown using the toggle button and verify all options are present (query was reset)
+    await user.click(toggle)
+    await waitFor(() => {
+      expect(screen.getByRole("listbox")).toBeInTheDocument()
+      expect(screen.getByRole("option", { name: "Apple" })).toBeInTheDocument()
+      expect(screen.getByRole("option", { name: "Banana" })).toBeInTheDocument()
+      expect(screen.getByRole("option", { name: "Cherry" })).toBeInTheDocument()
+    })
+  })
 })

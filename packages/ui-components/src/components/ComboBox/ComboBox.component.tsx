@@ -17,6 +17,7 @@ import React, {
   HTMLAttributes,
   FocusEventHandler,
   ChangeEventHandler,
+  useRef,
 } from "react"
 import { Combobox, ComboboxInput, ComboboxOptions, ComboboxButton } from "@headlessui/react"
 import {
@@ -239,6 +240,12 @@ export const ComboBox = ({
   const [isInvalid, setIsInvalid] = useState(false)
   const [isValid, setIsValid] = useState(false)
 
+  // Track if component has ever received a controlled value prop (including empty string after a value)
+  const [isControlled, setIsControlled] = useState(value !== "")
+
+  // Use a ref to track the previous value to detect when it changes from truthy to falsy
+  const previousValue = useRef(value)
+
   // Floating UI setup
   const { x, y, strategy, refs, context } = useFloating({
     open: isOpen,
@@ -296,13 +303,23 @@ export const ComboBox = ({
   )
 
   useEffect(() => {
-    setSelectedValue(value)
-    // Clear query and close dropdown when value is cleared externally
-    if (!value) {
-      setQuery("")
-      setIsOpen(false)
+    // If we receive a non-empty value, mark as controlled
+    if (value !== "") {
+      setIsControlled(true)
     }
+    setSelectedValue(value)
+    // Clear query when value transitions from truthy to falsy (explicit clearing)
+    if (!value && previousValue.current) {
+      setQuery("")
+    }
+    previousValue.current = value
   }, [value])
+
+  // Determine the effective value to pass to Headless UI
+  // In controlled mode (component received a non-empty value at some point),
+  // honor the current value even if it's empty string
+  // In uncontrolled mode, fall back to defaultValue when selectedValue is empty
+  const effectiveValue = isControlled ? selectedValue : selectedValue || defaultValue
 
   useEffect(() => {
     setHasError(error)
@@ -414,12 +431,12 @@ export const ComboBox = ({
           disabled={disabled || isLoading || hasError}
           name={name}
           onChange={handleChange}
-          value={selectedValue || defaultValue}
+          value={effectiveValue}
           as="div"
           {...props}
         >
           {({ open }) => {
-            // Update our open state when Headless UI updates it
+            // Synchronize our open state with Headless UI's open state
             useEffect(() => {
               if (open !== isOpen) {
                 setIsOpen(open)
