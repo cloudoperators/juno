@@ -246,6 +246,9 @@ export const ComboBox = ({
   // Use a ref to track the previous value to detect when it changes from truthy to falsy
   const previousValue = useRef(value ?? "")
 
+  // Ref to the input element for programmatic blur (works in shadow DOM unlike getElementById)
+  const inputRef = useRef<HTMLInputElement>(null)
+
   // Floating UI setup
   const { x, y, strategy, refs, context } = useFloating({
     open: isOpen,
@@ -313,13 +316,11 @@ export const ComboBox = ({
       setQuery("")
       // Blur the input to close Headless UI's Combobox properly
       // This ensures aria-expanded syncs correctly with the actual open state
-      const inputElement = document.getElementById(theId)
-      if (inputElement) {
-        inputElement.blur()
-      }
+      // Use ref instead of getElementById to work within shadow DOM
+      inputRef.current?.blur()
     }
     previousValue.current = value ?? ""
-  }, [value, theId])
+  }, [value])
 
   // Determine the effective value to pass to Headless UI
   // In controlled mode (value prop was supplied), honor it even if empty string
@@ -481,6 +482,7 @@ export const ComboBox = ({
                   )}
 
                   <ComboboxInput<OptionValuesAndLabelsKey>
+                    ref={inputRef}
                     autoComplete="off"
                     aria-label={ariaLabel || label}
                     aria-describedby={helptext ? helptextId : ""}
