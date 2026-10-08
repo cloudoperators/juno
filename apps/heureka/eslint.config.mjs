@@ -6,12 +6,8 @@
 import junoConfigs from "@cloudoperators/juno-config/eslint/vite-react-ts.mjs"
 
 export default [
+  { ignores: ["**/routeTree.gen.ts"] },
   ...junoConfigs,
-  {
-    // Config files are not included in tsconfig.json; ignoring them entirely
-    // avoids "parserOptions.project" errors for files outside the project's include list.
-    ignores: ["vite.config.ts", "vitest.config.ts", "vitest.setup.ts", "tailwind.config.ts"],
-  },
   {
     rules: {
       // TanStack Router file-based routes require exporting both Route and the component from the

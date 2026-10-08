@@ -6,14 +6,10 @@
 import junoConfigs from "@cloudoperators/juno-config/eslint/juno-typescript.mjs"
 
 export default [
+  { ignores: ["**/routeTree.gen.ts"] },
   ...junoConfigs,
   {
     files: ["**/*.ts", "**/*.tsx"],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.json"], // Ensure this points to your tsconfig.json
-      },
-    },
     // TODO: We need to make all of this checks on again, step by step
     rules: {
       "@typescript-eslint/no-unsafe-assignment": "off",
@@ -29,6 +25,5 @@ export default [
       "react/prop-types": "off",
       "react/jsx-no-comment-textnodes": "off",
     },
-    ignores: ["vitest.config.ts", "vite.config.ts", "tailwind.config.ts", "**/routeTree.gen.ts"],
   },
 ]

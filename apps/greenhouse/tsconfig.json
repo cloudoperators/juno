@@ -14,8 +14,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["vitest/globals", "@testing-library/jest-dom", "@types/react"]
+    "types": ["vitest/globals", "@testing-library/jest-dom", "@types/react", "node"]
   },
-  "include": ["./src/**/*.ts", "./types/**/*.ts", "./src/**/*.tsx", "vitest.setup.ts", "public/appProps.js"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "types/**/*.ts", "*.config.ts", "*.setup.ts"],
   "exclude": ["node_modules", "build"]
 }
