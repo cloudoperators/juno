@@ -214,7 +214,7 @@ export const ComboBox = ({
   successtext = "",
   truncateOptions = false,
   valid = false,
-  value = "",
+  value,
   valueLabel,
   width = "full",
   wrapperClassName = "",
@@ -233,18 +233,18 @@ export const ComboBox = ({
     new Map<OptionValuesAndLabelsKey, OptionValuesAndLabelsValue>()
   )
   const [query, setQuery] = useState("")
-  const [selectedValue, setSelectedValue] = useState(value)
+  const [selectedValue, setSelectedValue] = useState(value ?? "")
   const [isLoading, setIsLoading] = useState(false)
   const [hasError, setHasError] = useState(false)
   const [hasFocus, setFocus] = useState(false)
   const [isInvalid, setIsInvalid] = useState(false)
   const [isValid, setIsValid] = useState(false)
 
-  // Track if component has ever received a controlled value prop (including empty string after a value)
-  const [isControlled, setIsControlled] = useState(value !== "")
+  // Track if component is in controlled mode (value prop was explicitly supplied, even if empty)
+  const [isControlled, setIsControlled] = useState(value !== undefined)
 
   // Use a ref to track the previous value to detect when it changes from truthy to falsy
-  const previousValue = useRef(value)
+  const previousValue = useRef(value ?? "")
 
   // Floating UI setup
   const { x, y, strategy, refs, context } = useFloating({
@@ -303,21 +303,20 @@ export const ComboBox = ({
   )
 
   useEffect(() => {
-    // If we receive a non-empty value, mark as controlled
-    if (value !== "") {
+    // If value prop is supplied (not undefined), mark as controlled
+    if (value !== undefined) {
       setIsControlled(true)
     }
-    setSelectedValue(value)
+    setSelectedValue(value ?? "")
     // Clear query when value transitions from truthy to falsy (explicit clearing)
     if (!value && previousValue.current) {
       setQuery("")
     }
-    previousValue.current = value
+    previousValue.current = value ?? ""
   }, [value])
 
   // Determine the effective value to pass to Headless UI
-  // In controlled mode (component received a non-empty value at some point),
-  // honor the current value even if it's empty string
+  // In controlled mode (value prop was supplied), honor it even if empty string
   // In uncontrolled mode, fall back to defaultValue when selectedValue is empty
   const effectiveValue = isControlled ? selectedValue : selectedValue || defaultValue
 

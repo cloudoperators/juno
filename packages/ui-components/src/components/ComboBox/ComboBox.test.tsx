@@ -755,6 +755,21 @@ describe("ComboBox", () => {
     })
   })
 
+  test("honors initially empty controlled value over defaultValue", () => {
+    render(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox value="" defaultValue="option1">
+          <ComboBoxOption value="option1" label="Option 1" />
+          <ComboBoxOption value="option2" label="Option 2" />
+        </ComboBox>
+      </AppShellProvider>
+    )
+
+    const input = screen.getByRole("combobox")
+    // Should show empty value because value="" was explicitly supplied, not defaultValue
+    expect(input).toHaveValue("")
+  })
+
   test("resets query and restores all options when controlled value is cleared after filtering", async () => {
     const user = userEvent.setup()
     const { rerender } = render(
