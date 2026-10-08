@@ -35,7 +35,6 @@ const FilterSelect = () => {
   const [filterValue, setFilterValue] = useState("")
   const [comboBoxQuery, setComboBoxQuery] = useState("")
   const [displayLimit, setDisplayLimit] = useState(ITEMS_PER_PAGE)
-  const [comboBoxKey, setComboBoxKey] = useState(0) // Key to force ComboBox re-render
   const { addActiveFilter, loadFilterLabelValues, clearFilters, setSearchTerm } = useFilterActions()
   const filterLabels = useFilterLabels()
   const filterLabelValues = useFilterLabelValues()
@@ -63,11 +62,8 @@ const FilterSelect = () => {
         search: (prev) => addFilter({ ...prev }, `${ACTIVE_FILTERS_PREFIX}${filterLabel}`, value),
       })
     }
-    // Clear the search query after selection and force ComboBox re-render
+    // Clear the search query after selection
     setComboBoxQuery("")
-    setComboBoxKey((prev) => prev + 1) // Force ComboBox to remount and clear internal state
-    // TODO: remove this after ComboBox supports resetting its value after onChange
-    // set timeout to allow ComboBox to update its value after onChange
     setTimeout(() => {
       setFilterValue("")
     }, 0)
@@ -144,7 +140,6 @@ const FilterSelect = () => {
           ))}
         </Select>
         <ComboBox
-          key={comboBoxKey}
           value={filterValue}
           name="filterValue"
           onChange={(value: string) => handleFilterValueChange(value)}
