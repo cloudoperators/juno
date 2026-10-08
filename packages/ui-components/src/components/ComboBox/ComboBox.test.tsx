@@ -770,6 +770,43 @@ describe("ComboBox", () => {
     expect(input).toHaveValue("")
   })
 
+  test("closes dropdown when controlled value is cleared while menu is open", async () => {
+    const user = userEvent.setup()
+    const { rerender } = render(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox value="option1">
+          <ComboBoxOption value="option1" label="Option 1" />
+          <ComboBoxOption value="option2" label="Option 2" />
+        </ComboBox>
+      </AppShellProvider>
+    )
+
+    const input = screen.getByRole("combobox")
+
+    // Open the dropdown while value is set
+    await user.click(input)
+    await waitFor(() => {
+      expect(screen.getByRole("listbox")).toBeInTheDocument()
+    })
+
+    // Clear the controlled value while menu is open
+    rerender(
+      <AppShellProvider shadowRoot={false}>
+        <ComboBox value="">
+          <ComboBoxOption value="option1" label="Option 1" />
+          <ComboBoxOption value="option2" label="Option 2" />
+        </ComboBox>
+      </AppShellProvider>
+    )
+
+    // Dropdown should close and aria-expanded should be false
+    await waitFor(() => {
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument()
+      expect(input).toHaveAttribute("aria-expanded", "false")
+      expect(input).toHaveValue("")
+    })
+  })
+
   test("resets query and restores all options when controlled value is cleared after filtering", async () => {
     const user = userEvent.setup()
     const { rerender } = render(
