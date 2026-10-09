@@ -26,6 +26,7 @@
    4. [Page Layout Elements](page-layout-elements.md)
       1. [Page Header](page-header.md)
       2. [Page Content Area](page-content-area.md)
+         1. [Page-Level Actions](page-level-actions.md)
       3. [Page Footer](page-footer.md)
 4. [UX Patterns](ux-patterns.md)
    1. [Page and User Flow](page-and-user-flow.md)
