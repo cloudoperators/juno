@@ -311,8 +311,9 @@ export const ComboBox = ({
       setIsControlled(true)
     }
     setSelectedValue(value ?? "")
-    // Clear query and close dropdown when value transitions from truthy to falsy (explicit clearing)
-    if (!value && previousValue.current) {
+    // Clear query and close dropdown when value is explicitly cleared to ""
+    // Use value === "" instead of !value to distinguish intentional reset from prop removal (undefined)
+    if (value === "" && previousValue.current) {
       clearQueryWithEvent()
       // Blur the input to close Headless UI's Combobox properly
       // This ensures aria-expanded syncs correctly with the actual open state
