@@ -1,5 +1,33 @@
 # @cloudoperators/juno-ui-components
 
+## 9.6.0
+
+### Minor Changes
+
+- b36e805: feat(Badge): add interactive states. Pass `onClick` to render the badge as a `<button>`, or `href` to render it as an `<a>` element. Both support hover, focus, `:active`, and disabled states, and show a pointer cursor. Use `disabled` to disable the element. Disabled anchors have `href` removed, `aria-disabled="true"`, and `tabIndex="-1"` set automatically. Standard anchor attributes (`target`, `rel`, etc.) are typed and forwarded, and a `ref` can be forwarded to the underlying element.
+
+  fix(Badge): guard icon rendering — `icon={true}` now validates the variant name before passing it to `<Icon>`, preventing a silent no-op on unknown variants. Remove a no-op `items-center` utility from the icon className.
+
+- 324f81a: feat(ui): rename TabNavigation → TabBar, deprecate old Tabs components
+  - `TabBar` and `TabBarItem` replace `TabNavigation` and `TabNavigationItem`. The old names are kept as deprecated aliases and will be removed in a future major release.
+  - The `tabStyle` prop on `TabBar` is deprecated; use `appearance` instead.
+  - `Tabs`, `TabList`, `Tab`, `TabPanel`, and `MainTabs` are deprecated and will be removed in a future major release. Use `react-tabs` directly instead.
+  - Storybook: deprecated components moved to a new top-level `Deprecated` section.
+  - Active navigation items now use `aria-current="true"` instead of `aria-selected="true"`.
+    Any CSS selectors or tests targeting `[aria-selected="true"]` on active items must be updated.
+
+### Patch Changes
+
+- b7ef8b8: fix(ui): improve ComboBox search query state management
+  - Clear search query after option selection to prevent stale search terms
+  - Clear query and close dropdown when controlled value prop becomes empty
+  - Add comprehensive tests for controlled and uncontrolled scenarios
+  - Use ref instead of getElementById for blur to work in shadow DOM
+
+  **Breaking change note:** When both `value=""` and `defaultValue` are provided, the ComboBox now shows empty instead of falling back to `defaultValue`. This is the correct behavior since `defaultValue` is documented as uncontrolled-mode only, but consumers relying on the previous fallback behavior should update their code to not pass `value=""` if they want `defaultValue` to apply.
+
+- a455f60: fix(ui): populate tabStyle in TabBarContext value for backwards compatibility
+
 ## 9.5.1
 
 ### Patch Changes
