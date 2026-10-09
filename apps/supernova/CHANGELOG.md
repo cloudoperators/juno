@@ -1,5 +1,17 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.20.12
+
+### Patch Changes
+
+- 324f81a: feat(supernova): rename TabNavigation → TabBar
+- Updated dependencies [b36e805]
+- Updated dependencies [b7ef8b8]
+- Updated dependencies [a455f60]
+- Updated dependencies [324f81a]
+  - @cloudoperators/juno-ui-components@9.6.0
+  - @cloudoperators/juno-messages-provider@0.2.55
+
 ## 0.20.11
 
 ### Patch Changes
