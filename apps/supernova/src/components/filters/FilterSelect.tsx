@@ -64,6 +64,7 @@ const FilterSelect = () => {
     }
     // Clear the search query after selection
     setComboBoxQuery("")
+    // Defer reset to next tick so React renders the selected value before clearing
     setTimeout(() => {
       setFilterValue("")
     }, 0)
