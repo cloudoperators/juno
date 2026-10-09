@@ -56,6 +56,29 @@ const tabBarItemButtonInactiveStyles = `
   jn:hover:text-theme-tab-button-hover
 `
 
+const tabBarItemContentStyles = `
+  jn:flex
+  jn:items-center
+  jn:text-theme-default
+  jn:font-bold
+  jn:py-[0.875rem]
+  jn:px-[1.5625rem]
+  jn:focus-visible:outline-hidden
+  jn:focus-visible:ring-2
+  jn:focus-visible:ring-theme-focus
+`
+
+const tabBarActiveContentItemStyles = `
+  jn:text-theme-high
+  jn:font-bold
+`
+
+const tabBarItemContentWrapperStyles = `
+  jn:border-b-[3px]
+  jn:border-theme-tab-content-inactive-bottom
+  jn:has-[.juno-navigation-item-active]:border-theme-tab-active-bottom
+`
+
 /**
  * An individual TabBar item. Use wrapped in a `<TabBar>` parent component.
  * @see https://cloudoperators.github.io/juno/?path=/docs/navigation-tabbar-tabbaritem--docs
@@ -74,19 +97,19 @@ export const TabBarItem = ({
   value = "",
   ...props
 }: TabBarItemProps): ReactNode => {
-  const tabBarContext = useContext(TabBarContext)
-  const { appearance } = tabBarContext || {}
+  const { appearance } = useContext(TabBarContext) || {}
   const resolvedAppearance = appearance
   const isButtons = resolvedAppearance === "buttons"
+  const isContent = resolvedAppearance === "content"
   return (
     <NavigationItem
       active={active}
-      activeItemStyles={isButtons ? tabBarItemButtonActiveStyles : tabBarActiveItemStyles}
+      activeItemStyles={isButtons ? tabBarItemButtonActiveStyles : isContent ? tabBarActiveContentItemStyles : tabBarActiveItemStyles}
       ariaLabel={ariaLabel}
       className={`
         juno-tabbar-item
         ${resolvedAppearance ? "juno-tabbar-" + resolvedAppearance + "-item" : ""}
-        ${isButtons ? tabBarItemButtonStyles : tabBarItemStyles}
+        ${isButtons ? tabBarItemButtonStyles : isContent ? tabBarItemContentStyles : tabBarItemStyles}
         ${className}
       `}
       disabled={disabled}
@@ -95,11 +118,14 @@ export const TabBarItem = ({
       inactiveItemStyles={
         isButtons
           ? tabBarItemButtonInactiveStyles
-          : `${resolvedAppearance === "content" ? "jn:border-theme-tab-content-inactive-bottom" : "jn:border-transparent"}`
+          : isContent
+          ? ""
+          : "jn:border-transparent"
       }
       label={label}
       onClick={onClick}
       value={value}
+      wrapperClassName={isContent ? tabBarItemContentWrapperStyles : ""}
       {...props}
     >
       {children}
