@@ -17,6 +17,7 @@ import React, {
   HTMLAttributes,
   FocusEventHandler,
   ChangeEventHandler,
+  useRef,
 } from "react"
 import { Combobox, ComboboxInput, ComboboxOptions, ComboboxButton } from "@headlessui/react"
 import {
@@ -213,7 +214,7 @@ export const ComboBox = ({
   successtext = "",
   truncateOptions = false,
   valid = false,
-  value = "",
+  value,
   valueLabel,
   width = "full",
   wrapperClassName = "",
@@ -232,12 +233,22 @@ export const ComboBox = ({
     new Map<OptionValuesAndLabelsKey, OptionValuesAndLabelsValue>()
   )
   const [query, setQuery] = useState("")
-  const [selectedValue, setSelectedValue] = useState(value)
+  const [selectedValue, setSelectedValue] = useState(value ?? "")
   const [isLoading, setIsLoading] = useState(false)
   const [hasError, setHasError] = useState(false)
   const [hasFocus, setFocus] = useState(false)
   const [isInvalid, setIsInvalid] = useState(false)
   const [isValid, setIsValid] = useState(false)
+
+  // Determine if component is in controlled mode (value prop was explicitly supplied, even if empty)
+  // Computed inline - always accurate, zero cost, no ratchet behavior
+  const isControlled = value !== undefined
+
+  // Use a ref to track the previous value to detect when it changes from truthy to falsy
+  const previousValue = useRef(value ?? "")
+
+  // Ref to the input element for programmatic blur (works in shadow DOM unlike getElementById)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   // Floating UI setup
   const { x, y, strategy, refs, context } = useFloating({
@@ -296,8 +307,23 @@ export const ComboBox = ({
   )
 
   useEffect(() => {
-    setSelectedValue(value)
+    setSelectedValue(value ?? "")
+    // Clear query and close dropdown when value is explicitly cleared to ""
+    // Use value === "" instead of !value to distinguish intentional reset from prop removal (undefined)
+    if (value === "" && previousValue.current) {
+      clearQueryWithEvent()
+      // Blur the input to close Headless UI's Combobox properly
+      // This ensures aria-expanded syncs correctly with the actual open state
+      // Use ref instead of getElementById to work within shadow DOM
+      inputRef.current?.blur()
+    }
+    previousValue.current = value ?? ""
   }, [value])
+
+  // Determine the effective value to pass to Headless UI
+  // In controlled mode (value prop was supplied), honor it even if empty string
+  // In uncontrolled mode, fall back to defaultValue when selectedValue is empty
+  const effectiveValue = isControlled ? selectedValue : selectedValue || defaultValue
 
   useEffect(() => {
     setHasError(error)
@@ -319,6 +345,9 @@ export const ComboBox = ({
     const stringValue = value || ""
     setSelectedValue(stringValue)
 
+    // Clear the search query after selection and notify parent
+    clearQueryWithEvent()
+
     if (stringValue) {
       setIsOpen(false)
     }
@@ -329,6 +358,23 @@ export const ComboBox = ({
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event?.target?.value)
     onInputChange && onInputChange(event)
+  }
+
+  // Helper to clear query and notify parent via onInputChange
+  // This keeps internal and external state in sync for consumers that maintain their own search state
+  const clearQueryWithEvent = () => {
+    setQuery("")
+    if (inputRef.current && onInputChange) {
+      // Set the input's value directly
+      inputRef.current.value = ""
+      // Create a real Event object which has all standard methods (preventDefault, stopPropagation, etc.)
+      // Override read-only properties to match React's synthetic event structure
+      const event = new Event("input", { bubbles: true, cancelable: true })
+      Object.defineProperty(event, "target", { value: inputRef.current })
+      Object.defineProperty(event, "currentTarget", { value: inputRef.current })
+      Object.defineProperty(event, "nativeEvent", { value: event })
+      onInputChange(event as unknown as ChangeEvent<HTMLInputElement>)
+    }
   }
 
   const handleFocus = (event: FocusEvent<HTMLInputElement>) => {
@@ -406,12 +452,12 @@ export const ComboBox = ({
           disabled={disabled || isLoading || hasError}
           name={name}
           onChange={handleChange}
-          value={selectedValue || defaultValue}
+          value={effectiveValue}
           as="div"
           {...props}
         >
           {({ open }) => {
-            // Update our open state when Headless UI updates it
+            // Synchronize our open state with Headless UI's open state
             useEffect(() => {
               if (open !== isOpen) {
                 setIsOpen(open)
@@ -451,6 +497,7 @@ export const ComboBox = ({
                   )}
 
                   <ComboboxInput<OptionValuesAndLabelsKey>
+                    ref={inputRef}
                     autoComplete="off"
                     aria-label={ariaLabel || label}
                     aria-describedby={helptext ? helptextId : ""}
