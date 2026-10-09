@@ -14,7 +14,7 @@ The actual page content, adjacent to the Side Navigation where present, is typic
 
 - **Breadcrumb** — shows the user's current position within the application hierarchy. Not required on top-level pages.
 - **Page Heading** — identifies the current page or item.
-- **Toolbar** — contains page-level actions such as creating a new item, filtering, or searching. Placed at the top of the content area. See [Page-Level Actions](page-level-actions.md) for composition and placement rules.
+- **Toolbar** — contains page-level actions such as creating a new item, view more details, etc. Placed at the top of the content area. See [Page-Level Actions](page-level-actions.md) for composition and placement rules.
 - **Main Content** — the primary content of the page.
 
 Some pages use tabs at the top of the content area to switch between entire page views.
