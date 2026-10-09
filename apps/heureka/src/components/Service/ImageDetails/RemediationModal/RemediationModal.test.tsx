@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import { ReactElement } from "react"
 import { render, screen, fireEvent } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { PortalProvider } from "@cloudoperators/juno-ui-components"
@@ -252,7 +252,7 @@ const wrapperProps = {
   image: "my-image",
 }
 
-const renderWrapper = (ui: React.ReactElement) =>
+const renderWrapper = (ui: ReactElement) =>
   render(
     <AuthProvider embedded auth={mockAuth}>
       <PortalProvider>{ui}</PortalProvider>

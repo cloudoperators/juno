@@ -7,7 +7,6 @@
 // suppressions and have no effect in local development where types resolve correctly.
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import React from "react"
 import { Icon, Tooltip, TooltipTrigger, TooltipContent, KnownIcons, Stack } from "@cloudoperators/juno-ui-components"
 
 type SeverityCountProps = {

@@ -207,6 +207,40 @@ Application authors have some flexibility in applying this, but must be consiste
 
 Use “Sign in”, just as recommended by SAP Fiori content guidelines. Make sure to use "sign in" consistently.
 
+## Rendering Empty or Unknown Values
+
+When a field or data point has no value — because it was not set, is not available, or is unknown — **render two hyphens separated by a space as a visual placeholder: `- -`**
+
+**Do not** use an en dash (–) or em dash (—). Many code and text editors apply "smart" typography automatically, substituting `--` with an en dash as you type. The space between the hyphens prevents this substitution.
+
+### Do
+
+`- -`
+
+### Don't
+
+`–` or `—` (en/em dash — visually similar, but semantically wrong and easily introduced by tooling)
+
+`--` (adjacent hyphens — may be silently transformed by formatters)
+
+`N/A` or `n/a` (avoid unless firmly established convention in the given context)
+
+### Names as Identifiers: Fall Back to the ID
+
+For fields that serve as a human-readable, human-assigned name for an item — the **Name column** in a DataGrid, a **detail view page title**, and **breadcrumb segments** — do not render `- -` when the name is missing or not set. Instead, display the item's **ID**.
+
+The ID is the next best thing to identify, reference, or communicate about an item: it remains unique, stable, and actionable even when a human-readable name is absent. Rendering `- -` in these positions is ambiguous and prevents the user from distinguishing between items or sharing a link meaningfully.
+
+Apply this wherever a human-readable name is the primary means of identifying an item:
+
+- **Name column in a DataGrid** — show the ID in place of the name, unless the DataGrid already has a dedicated ID column visible. If an ID column is already present, use `- -` instead — the item is already identifiable, and repeating the ID in the name column would be redundant and confusing.
+- **Detail view page title** — use the ID as the title
+- **Breadcrumb segment** — use the ID as the segment label
+
+Display the ID as-is, without additional decoration beyond what would normally apply to a name in that position.
+
+**Exception: verbatim metadata display.** When rendering an item's raw metadata fields — for example, in a definition list (`<dl>`) that shows all properties of an item as-is — do **not** substitute the ID for the name. Use `- -` as per the rule above. The purpose of verbatim metadata display is to accurately reflect what is stored: substituting the ID would misrepresent the data by implying a name exists when it does not.
+
 ## Errors and Error Messages
 
 No exclamation marks. We're talking to professionals, there is no reason to be alarmistic about anything. Never use double or triple punctuations.

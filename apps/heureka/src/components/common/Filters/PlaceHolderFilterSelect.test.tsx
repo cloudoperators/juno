@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
 import { render, screen } from "@testing-library/react"
 import { AppShellProvider } from "@cloudoperators/juno-ui-components/index"
 import { PlaceHolderFilterSelect, PlaceHolderFilterSelectProps } from "./PlaceHolderFilterSelect"

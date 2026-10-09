@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
 import { DataGridRow, DataGridCell, Badge, Stack } from "@cloudoperators/juno-ui-components"
 import { SeverityCount } from "../../../common/SeverityCount"
 import { ServiceType } from "../../../types"

@@ -7,7 +7,7 @@
 // and has no effect in local development where types resolve correctly.
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import React from "react"
+import { FC } from "react"
 import { Icon } from "@cloudoperators/juno-ui-components"
 import { getSeverityColor, iconMap } from "../../utils"
 
@@ -22,6 +22,6 @@ const getIconForSeverity = (severity: string) => {
   return <Icon icon={iconMap[severityLower] || "help"} color={iconColor} />
 }
 
-export const IssueIcon: React.FC<IssueIconProps> = ({ severity }) => {
+export const IssueIcon: FC<IssueIconProps> = ({ severity }) => {
   return getIconForSeverity(severity)
 }
