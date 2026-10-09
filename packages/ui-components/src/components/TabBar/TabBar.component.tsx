@@ -10,7 +10,13 @@ const tabBarStyles = `
   jn:flex
 `
 
-export type TabBarAppearance = "main" | "content"
+const tabBarButtonsStyles = `
+  jn:bg-theme-tab-buttons
+  jn:rounded-[0.25rem]
+  jn:p-[0.125rem]
+`
+
+export type TabBarAppearance = "main" | "content" | "buttons"
 
 /** @deprecated Use TabBarAppearance instead. Can be removed when TabNavigation is removed. */
 export type TabStyle = TabBarAppearance
@@ -57,7 +63,7 @@ export const TabBar = ({
       <Navigation
         activeItem={activeItem}
         ariaLabel={ariaLabel}
-        className={`juno-tabbar juno-tabbar-${resolvedAppearance} ${disabled ? "juno-tabbar-disabled" : ""} ${tabBarStyles} ${className}`}
+        className={`juno-tabbar juno-tabbar-${resolvedAppearance} ${disabled ? "juno-tabbar-disabled" : ""} ${tabBarStyles} ${resolvedAppearance === "buttons" ? tabBarButtonsStyles : ""} ${className}`}
         disabled={disabled}
         onActiveItemChange={onActiveItemChange}
         {...props}
@@ -82,7 +88,7 @@ export interface TabBarProps extends HTMLAttributes<HTMLElement> {
   /** A handler to execute when the active tab changes */
   // eslint-disable-next-line no-unused-vars
   onActiveItemChange?: (activeItem: ReactNode) => void
-  /** The visual appearance of the TabBar. Use `main` as the first child in an AppShell. Use `content` for tabs inside page content — adds a darkened bottom border on inactive tabs. */
+  /** The visual appearance of the TabBar. Use `main` as the first child in an AppShell. Use `content` for tabs inside page content — adds a darkened bottom border on inactive tabs. Use `buttons` for a pill-style segmented control. */
   appearance?: TabBarAppearance
   /** @deprecated Use appearance instead. Can be removed when TabNavigation is removed. */
   tabStyle?: TabBarAppearance

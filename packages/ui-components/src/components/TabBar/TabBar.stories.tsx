@@ -19,7 +19,7 @@ const meta: Meta<typeof TabBar> = {
       control: false,
     },
     appearance: {
-      options: ["main", "content"],
+      options: ["main", "content", "buttons"],
       control: { type: "radio" },
     },
   },
@@ -116,6 +116,26 @@ export const ContentAppearance: Story = {
   },
   args: {
     appearance: "content",
+    children: [
+      <TabBarItem label="Item 1" key="item-1" active></TabBarItem>,
+      <TabBarItem label="Item 2" key="item-2"></TabBarItem>,
+      <TabBarItem label="Item 3" key="item-3"></TabBarItem>,
+      <TabBarItem label="Disabled Item" key="item-4" disabled></TabBarItem>,
+    ],
+  },
+}
+
+export const ButtonsAppearance: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `appearance="buttons"` for a pill-style segmented control. Items are displayed as buttons with a shared background container.',
+      },
+    },
+  },
+  args: {
+    appearance: "buttons",
     children: [
       <TabBarItem label="Item 1" key="item-1" active></TabBarItem>,
       <TabBarItem label="Item 2" key="item-2"></TabBarItem>,

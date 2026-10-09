@@ -28,6 +28,34 @@ const tabBarActiveItemStyles = `
   jn:border-theme-tab-active-bottom
 `
 
+const tabBarItemButtonStyles = `
+  jn:rounded-[0.1875rem]
+  jn:px-[0.625rem]
+  jn:py-[0.4375rem]
+  jn:text-sm
+  jn:font-bold
+  jn:leading-[1.4]
+  jn:border
+  jn:transition-colors
+  jn:duration-150
+  jn:focus-visible:outline-hidden
+  jn:focus-visible:ring-2
+  jn:focus-visible:ring-theme-focus
+  jn:focus-visible:ring-offset-1
+`
+
+const tabBarItemButtonActiveStyles = `
+  jn:bg-theme-tab-button-active
+  jn:text-theme-tab-button-active
+  jn:border-theme-tab-button-active
+`
+
+const tabBarItemButtonInactiveStyles = `
+  jn:text-theme-tab-button
+  jn:border-transparent
+  jn:hover:text-theme-tab-button-hover
+`
+
 /**
  * An individual TabBar item. Use wrapped in a `<TabBar>` parent component.
  * @see https://cloudoperators.github.io/juno/?path=/docs/navigation-tabbar-tabbaritem--docs
@@ -49,21 +77,26 @@ export const TabBarItem = ({
   const tabBarContext = useContext(TabBarContext)
   const { appearance } = tabBarContext || {}
   const resolvedAppearance = appearance
+  const isButtons = resolvedAppearance === "buttons"
   return (
     <NavigationItem
       active={active}
-      activeItemStyles={tabBarActiveItemStyles}
+      activeItemStyles={isButtons ? tabBarItemButtonActiveStyles : tabBarActiveItemStyles}
       ariaLabel={ariaLabel}
       className={`
         juno-tabbar-item
         ${resolvedAppearance ? "juno-tabbar-" + resolvedAppearance + "-item" : ""}
-        ${tabBarItemStyles}
+        ${isButtons ? tabBarItemButtonStyles : tabBarItemStyles}
         ${className}
       `}
       disabled={disabled}
       href={href}
       icon={icon}
-      inactiveItemStyles={`${resolvedAppearance === "content" ? "jn:border-theme-tab-content-inactive-bottom" : "jn:border-transparent"}`}
+      inactiveItemStyles={
+        isButtons
+          ? tabBarItemButtonInactiveStyles
+          : `${resolvedAppearance === "content" ? "jn:border-theme-tab-content-inactive-bottom" : "jn:border-transparent"}`
+      }
       label={label}
       onClick={onClick}
       value={value}
