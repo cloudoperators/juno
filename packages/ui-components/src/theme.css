@@ -415,7 +415,6 @@
   --text-color-theme-tab-button: var(--color-tab-button-text);
   --text-color-theme-tab-button-active: var(--color-tab-button-text-active);
   --text-color-theme-tab-button-hover: var(--color-tab-button-text-hover);
-  --text-color-theme-tab-button-disabled: var(--color-tab-button-text-disabled);
 
   /* Component Border Colors: */
   --border-color-theme-default: var(--color-border-default);
@@ -743,7 +742,6 @@
   --color-tab-button-text: var(--color-text-default);
   --color-tab-button-text-active: var(--color-text-high);
   --color-tab-button-text-hover: var(--color-text-highest);
-  --color-tab-button-text-disabled: var(--color-text-disabled);
   /* LT Filters */
   --color-filters-bg: var(--color-background-lvl-1);
   --color-filter-input-bg: var(--color-background-lvl-0);
@@ -1033,7 +1031,6 @@
   --color-tab-button-text: var(--color-text-default);
   --color-tab-button-text-active: var(--color-text-high);
   --color-tab-button-text-hover: var(--color-text-highest);
-  --color-tab-button-text-disabled: var(--color-text-disabled);
   /* DT Filters */
   --color-filters-bg: var(--color-background-lvl-1);
   --color-filter-input-bg: var(--color-background-lvl-0);

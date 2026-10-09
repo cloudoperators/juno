@@ -36,6 +36,7 @@ const tabBarItemButtonStyles = `
   jn:font-bold
   jn:leading-[1.4]
   jn:border
+  jn:cursor-pointer
   jn:transition-colors
   jn:duration-150
   jn:focus-visible:outline-hidden
@@ -98,30 +99,25 @@ export const TabBarItem = ({
   ...props
 }: TabBarItemProps): ReactNode => {
   const { appearance } = useContext(TabBarContext) || {}
-  const resolvedAppearance = appearance
-  const isButtons = resolvedAppearance === "buttons"
-  const isContent = resolvedAppearance === "content"
+  const isButtons = appearance === "buttons"
+  const isContent = appearance === "content"
   return (
     <NavigationItem
       active={active}
-      activeItemStyles={isButtons ? tabBarItemButtonActiveStyles : isContent ? tabBarActiveContentItemStyles : tabBarActiveItemStyles}
+      activeItemStyles={
+        isButtons ? tabBarItemButtonActiveStyles : isContent ? tabBarActiveContentItemStyles : tabBarActiveItemStyles
+      }
       ariaLabel={ariaLabel}
       className={`
         juno-tabbar-item
-        ${resolvedAppearance ? "juno-tabbar-" + resolvedAppearance + "-item" : ""}
+        ${appearance ? "juno-tabbar-" + appearance + "-item" : ""}
         ${isButtons ? tabBarItemButtonStyles : isContent ? tabBarItemContentStyles : tabBarItemStyles}
         ${className}
       `}
       disabled={disabled}
       href={href}
       icon={icon}
-      inactiveItemStyles={
-        isButtons
-          ? tabBarItemButtonInactiveStyles
-          : isContent
-          ? ""
-          : "jn:border-transparent"
-      }
+      inactiveItemStyles={isButtons ? tabBarItemButtonInactiveStyles : isContent ? "" : "jn:border-transparent"}
       label={label}
       onClick={onClick}
       value={value}
