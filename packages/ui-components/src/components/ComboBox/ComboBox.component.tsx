@@ -313,7 +313,7 @@ export const ComboBox = ({
     setSelectedValue(value ?? "")
     // Clear query and close dropdown when value transitions from truthy to falsy (explicit clearing)
     if (!value && previousValue.current) {
-      setQuery("")
+      clearQueryWithEvent()
       // Blur the input to close Headless UI's Combobox properly
       // This ensures aria-expanded syncs correctly with the actual open state
       // Use ref instead of getElementById to work within shadow DOM
@@ -347,8 +347,8 @@ export const ComboBox = ({
     const stringValue = value || ""
     setSelectedValue(stringValue)
 
-    // Clear the search query after selection
-    setQuery("")
+    // Clear the search query after selection and notify parent
+    clearQueryWithEvent()
 
     if (stringValue) {
       setIsOpen(false)
@@ -360,6 +360,23 @@ export const ComboBox = ({
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event?.target?.value)
     onInputChange && onInputChange(event)
+  }
+
+  // Helper to clear query and notify parent via onInputChange
+  // This keeps internal and external state in sync for consumers that maintain their own search state
+  const clearQueryWithEvent = () => {
+    setQuery("")
+    if (inputRef.current && onInputChange) {
+      // Set the input's value directly
+      inputRef.current.value = ""
+      // Create a real Event object which has all standard methods (preventDefault, stopPropagation, etc.)
+      // Override read-only properties to match React's synthetic event structure
+      const event = new Event("input", { bubbles: true, cancelable: true })
+      Object.defineProperty(event, "target", { value: inputRef.current })
+      Object.defineProperty(event, "currentTarget", { value: inputRef.current })
+      Object.defineProperty(event, "nativeEvent", { value: event })
+      onInputChange(event as unknown as ChangeEvent<HTMLInputElement>)
+    }
   }
 
   const handleFocus = (event: FocusEvent<HTMLInputElement>) => {

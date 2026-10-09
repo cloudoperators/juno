@@ -874,4 +874,41 @@ describe("ComboBox", () => {
       expect(screen.getByRole("option", { name: "Cherry" })).toBeInTheDocument()
     })
   })
+
+  test("fires onInputChange with empty value when query is cleared after selection", async () => {
+    // Track values at call time, not by reference
+    const capturedValues: string[] = []
+    const handleInputChange = vi.fn((e: React.ChangeEvent<HTMLInputElement>) => {
+      capturedValues.push(e.target.value)
+    })
+    const handleChange = vi.fn()
+
+    await waitFor(() =>
+      render(
+        <AppShellProvider shadowRoot={false}>
+          <ComboBox onInputChange={handleInputChange} onChange={handleChange}>
+            <ComboBoxOption value="apple">Apple</ComboBoxOption>
+            <ComboBoxOption value="banana">Banana</ComboBoxOption>
+          </ComboBox>
+        </AppShellProvider>
+      )
+    )
+
+    const user = userEvent.setup()
+    const toggle = screen.getByRole("button")
+
+    // Open dropdown using toggle button
+    await waitFor(() => user.click(toggle))
+    expect(screen.getByRole("listbox")).toBeInTheDocument()
+
+    // Select an option (this triggers onChange and should also trigger onInputChange with empty value)
+    await waitFor(async () => {
+      await user.click(screen.getByRole("option", { name: "Apple" }))
+      expect(handleChange).toHaveBeenCalled()
+    })
+
+    // onInputChange should be fired with empty value when query is cleared after selection
+    expect(handleInputChange).toHaveBeenCalled()
+    expect(capturedValues).toContain("")
+  })
 })
