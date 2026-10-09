@@ -20,13 +20,13 @@ Not all slots need to be filled. Valid combinations:
 
 | Page-Level Actions             |
 | ------------------------------ |
+| `[⋮]`                          |
+| `[Primary Action]`             |
+| `[⋮]` `[Primary Action]`       |
 | `[↻]`                          |
 | `[↻]` `[⋮]`                    |
 | `[↻]` `[Primary Action]`       |
 | `[↻]` `[⋮]` `[Primary Action]` |
-| `[⋮]`                          |
-| `[Primary Action]`             |
-| `[⋮]` `[Primary Action]`       |
 
 No other button variants, slots, or orderings are permitted — with one explicit exception covered in the next section.
 
