@@ -18,15 +18,15 @@ The page-level toolbar has a maximum of **three slots**, in fixed left-to-right 
 
 Not all slots need to be filled. Valid combinations:
 
-| Refresh | Overflow | Primary | Valid |
-| ------- | -------- | ------- | ----- |
-| ✓       | —        | —       | ✓     |
-| ✓       | ✓        | —       | ✓     |
-| ✓       | —        | ✓       | ✓     |
-| ✓       | ✓        | ✓       | ✓     |
-| —       | ✓        | —       | ✓     |
-| —       | —        | ✓       | ✓     |
-| —       | ✓        | ✓       | ✓     |
+| Page-Level Actions             |
+| ------------------------------ |
+| `[↻]`                          |
+| `[↻]` `[⋮]`                    |
+| `[↻]` `[Primary Action]`       |
+| `[↻]` `[⋮]` `[Primary Action]` |
+| `[⋮]`                          |
+| `[Primary Action]`             |
+| `[⋮]` `[Primary Action]`       |
 
 No other button variants, slots, or orderings are permitted — with one explicit exception covered in the next section.
 
@@ -74,8 +74,9 @@ For item ordering, grouping, and destructive action placement and divider rules 
 
 - The refresh button is always a directly visible button. It never goes into the overflow menu.
 - It always occupies the leftmost toolbar slot if present.
+- Its accessible label and tooltip text is **"Refresh Page"**.
 - While a refresh is in progress, the button must be disabled and provide visual feedback.
-- Whether a page-level refresh and a DataGrid-level refresh coexist is determined by scope: if they fetch the same data, one suffices; if they cover different scopes, both may be present. This is a per-page decision.
+- Whether a page-level refresh and a DataGrid-level refresh coexist is determined by scope: if they fetch the same data, one suffices; if they cover different scopes, both may be present. This is a per-page decision. When a page consists only of a DataGrid and has no other live data that needs refreshing independently, use the DataGrid's built-in refresh mechanism instead of adding a page-level one.
 
 ---
 
