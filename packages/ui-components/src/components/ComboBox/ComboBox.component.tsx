@@ -240,8 +240,9 @@ export const ComboBox = ({
   const [isInvalid, setIsInvalid] = useState(false)
   const [isValid, setIsValid] = useState(false)
 
-  // Track if component is in controlled mode (value prop was explicitly supplied, even if empty)
-  const [isControlled, setIsControlled] = useState(value !== undefined)
+  // Determine if component is in controlled mode (value prop was explicitly supplied, even if empty)
+  // Computed inline - always accurate, zero cost, no ratchet behavior
+  const isControlled = value !== undefined
 
   // Use a ref to track the previous value to detect when it changes from truthy to falsy
   const previousValue = useRef(value ?? "")
@@ -306,10 +307,6 @@ export const ComboBox = ({
   )
 
   useEffect(() => {
-    // If value prop is supplied (not undefined), mark as controlled
-    if (value !== undefined) {
-      setIsControlled(true)
-    }
     setSelectedValue(value ?? "")
     // Clear query and close dropdown when value is explicitly cleared to ""
     // Use value === "" instead of !value to distinguish intentional reset from prop removal (undefined)
