@@ -113,6 +113,23 @@ describe("TextInput", () => {
     expect(document.querySelector(".juno-label")).toHaveClass("juno-label-minimized")
   })
 
+  test("keeps floating label minimized for type=number when blurring with partial numeric input", async () => {
+    render(<TextInput type="number" label="My Number" />)
+    const input = screen.getByRole("spinbutton")
+    // Focus to minimise the label
+    await act(() => fireEvent.focus(input))
+    // JSDOM does not set validity.badInput for partial numeric input as real browsers do, so we stub
+    // it on the element instance to simulate the browser reporting incomplete input (e.g. '-', '+', 'e')
+    // while value="".
+    Object.defineProperty(input, "validity", {
+      get: () => ({ badInput: true }),
+      configurable: true,
+    })
+    // Blur — this is the exact collision scenario reported: user clicks away after typing e.g. '-'
+    await act(() => fireEvent.blur(input))
+    expect(document.querySelector(".juno-label")).toHaveClass("juno-label-minimized")
+  })
+
   test("renders a disabled input as passed", () => {
     render(<TextInput disabled />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()

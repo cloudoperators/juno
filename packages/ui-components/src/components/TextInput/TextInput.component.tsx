@@ -141,6 +141,7 @@ export const TextInput = ({
 
   useEffect(() => {
     setValue(value)
+    setHasIncompleteInput(false)
   }, [value])
 
   const invalidated = useMemo(
