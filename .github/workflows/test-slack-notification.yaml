@@ -7,23 +7,28 @@ name: Test Slack Notification
 
 on:
   pull_request:
-    branches:
-      - main
-    paths:
-      - '.github/workflows/release.yaml'
-      - '.github/workflows/shared-slack-notification.yaml'
-      - '.github/workflows/test-slack-notification.yaml'
+    types:
+      - opened
+      - synchronize
+      - reopened
   workflow_dispatch:
 
 jobs:
   test-notification:
     runs-on: ubuntu-latest
+    environment: notifications
     steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
       - name: Set test data
         id: data
         run: |
           # Use mock release data to test the notification
-          echo 'data=[{"name":"@cloudoperators/juno-ui-components","version":"3.0.0"},{"name":"@cloudoperators/juno-communicator","version":"2.1.0"}]' >> $GITHUB_OUTPUT
+          TEST_DATA='[{"name":"@cloudoperators/juno-ui-components","version":"3.0.0"},{"name":"@cloudoperators/juno-communicator","version":"2.1.0"}]'
+          echo "data=$TEST_DATA" >> $GITHUB_OUTPUT
 
       - name: Debug test data
         run: |
@@ -33,16 +38,51 @@ jobs:
           echo "GitHub SHA: ${{ github.sha }}"
         env:
           DATA: ${{ steps.data.outputs.data }}
-    outputs:
-      test_data: ${{ steps.data.outputs.data }}
 
-  call-shared-workflow:
-    needs: [test-notification]
-    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@main
-    with:
-      title: "🧪 TEST: JUNO Slack Notification (PR #${{ github.event.pull_request.number || 'manual' }})"
-      body: ${{ needs.test-notification.outputs.test_data }}
-      rich_body: false
-      environment: notifications
-    secrets:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: Debug inputs (simulating shared workflow)
+        run: |
+          echo "Title: JUNO Packages Released Successfully! 🚀"
+          echo "Body: $BODY"
+          echo "Body length: ${#BODY}"
+          echo "Rich body: false"
+        env:
+          BODY: ${{ steps.data.outputs.data }}
+
+      - name: Set Slack Payload
+        env:
+          SECTION_BODY: '{"type":"section","text":{"type":"mrkdwn","text":${{ toJson(steps.data.outputs.data) }}}}'
+        run: |
+          echo "SLACK_PAYLOAD=${SECTION_BODY}" >> $GITHUB_ENV
+
+      - name: Construct Full Slack Payload
+        run: |
+          echo "FULL_PAYLOAD=$(jq -c . <<EOF
+          {
+            "blocks": [
+              {
+                "type": "context",
+                "elements": [
+                  {
+                    "type": "image",
+                    "image_url": "https://raw.githubusercontent.com/cloudoperators/juno/main/assets/logos/JUNO_logo_slack.png",
+                    "alt_text": "cloudoperators/juno"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "🧪 TEST: JUNO Slack Notification (PR #${{ github.event.pull_request.number || 'manual' }})"
+                  }
+                ]
+              },
+              ${{ env.SLACK_PAYLOAD }}
+            ]
+          }
+          EOF
+          )" >> $GITHUB_ENV
+
+      - name: Send test Slack notification
+        uses: slackapi/slack-github-action@dcb1066f776dd043e64d0e8ba94ca15cc7e1875d # v4.0.0
+        with:
+          payload: ${{ env.FULL_PAYLOAD }}
+          webhook-type: incoming-webhook
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
