@@ -54,7 +54,7 @@ const tabBarItemButtonActiveStyles = `
 const tabBarItemButtonInactiveStyles = `
   jn:text-theme-tab-button
   jn:border-transparent
-  jn:hover:text-theme-tab-button-hover
+  jn:not-[[aria-disabled=true]]:hover:text-theme-tab-button-hover
 `
 
 const tabBarItemTabsStyles = `
