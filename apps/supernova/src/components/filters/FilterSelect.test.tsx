@@ -79,14 +79,6 @@ describe("FilterSelect", () => {
       const combobox = container.querySelector('[name="filterValue"]')
       expect(combobox).toBeInTheDocument()
     })
-
-    it("should have comboBoxKey state for forcing remount", () => {
-      const { container } = renderFilterSelect()
-
-      // The ComboBox should have a key prop (implemented via state)
-      // This is tested by verifying the component renders
-      expect(container.querySelector(".filter-value-select")).toBeInTheDocument()
-    })
   })
 
   describe("Informational message rendering", () => {
@@ -121,13 +113,6 @@ describe("FilterSelect", () => {
 
       // The filter label select should have onChange handler
       expect(container.querySelector(".filter-label-select")).toBeInTheDocument()
-    })
-
-    it("should increment comboBoxKey in handleFilterValueChange", () => {
-      const { container } = renderFilterSelect()
-
-      // Verify the component has the onChange handler
-      expect(container.querySelector('[name="filterValue"]')).toBeInTheDocument()
     })
   })
 

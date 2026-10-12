@@ -14,42 +14,10 @@ The actual page content, adjacent to the Side Navigation where present, is typic
 
 - **Breadcrumb** — shows the user's current position within the application hierarchy. Not required on top-level pages.
 - **Page Heading** — identifies the current page or item.
-- **Toolbar** — contains page-level actions such as creating a new item, filtering, or searching. Placed at the top of the content area.
+- **Toolbar** — contains page-level actions such as creating a new item, viewing more details, etc. Placed at the top of the content area. See [Page-Level Actions](page-level-actions.md) for composition and placement rules.
 - **Main Content** — the primary content of the page.
 
 Some pages use tabs at the top of the content area to switch between entire page views.
-
-## Page-Level Refresh
-
-Pages that fetch live data should offer a **manual refresh button** so users can explicitly reload all page data on demand. Its accessible label and tooltip text is **"Refresh Page"**.
-
-![Refresh Page button shown next to an overflow menu and a primary action button](images/page-refresh-button.png)
-
-The button always triggers a full re-fetch of all data relevant to the current page.
-
-> [!NOTE]  
-> This mechanism deals with refrshing ALL page data, and thus is a different one and covers a different scope than the action to refresh the data represented in a single DataGrid. For refreshing DataGrid data, see [Datagrid Zone 3](docs/ux/datagrid.md#zone-3-datagrid-viewstate-bulk-actions-refresh).
-> When a page consists of a Datagrid only and not other data that is likeley to need refreshing, use the in-built DataGrid mechanism.
-
-### Placement
-
-The refresh button appears in the following combinations depending on what other toolbar actions are present:
-
-| Other toolbar actions          | Layout (left → right)          |
-| ------------------------------ | ------------------------------ |
-| None                           | `[↻]`                          |
-| Overflow menu only             | `[↻]` `[⋮]`                    |
-| Primary action only            | `[↻]` `[Primary Action]`       |
-| Overflow menu + primary action | `[↻]` `[⋮]` `[Primary Action]` |
-
-The refresh button is never placed inside an overflow menu — it must always be directly visible and reachable with a single click.
-
-### In-Progress State
-
-While a refresh is in progress, the button should provide visual feedback and be disabled to prevent duplicate requests. Two options are available:
-
-- **Animated icon** — the refresh icon rotates continuously until the data has loaded. This may require a dedicated `RefreshPageButton` component to handle the animation.
-- **Spinner** — the refresh icon is replaced by a loading spinner for the duration of the refresh.
 
 ## Types of Pages
 
