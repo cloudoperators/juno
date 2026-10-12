@@ -3,14 +3,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { createContext, HTMLAttributes, ReactNode } from "react"
+import React, { createContext, HTMLAttributes, ReactNode, useEffect, useRef } from "react"
 import { Navigation } from "../Navigation/Navigation.component"
 
 const tabBarStyles = `
   jn:flex
 `
 
-export type TabBarAppearance = "main" | "content"
+const tabBarButtonsStyles = `
+  jn:bg-theme-tab-buttons
+  jn:rounded-[0.25rem]
+  jn:p-[0.125rem]
+`
+
+/** @deprecated Use `"tabs"` instead. `"content"` remains functional but will be removed in a future major release. */
+export type DeprecatedTabBarAppearance = "content"
+
+export type TabBarAppearance = "main" | "tabs" | "buttons" | DeprecatedTabBarAppearance
 
 /** @deprecated Use TabBarAppearance instead. Can be removed when TabNavigation is removed. */
 export type TabStyle = TabBarAppearance
@@ -47,6 +56,15 @@ export const TabBar = ({
   ...props
 }: TabBarProps): ReactNode => {
   const resolvedAppearance = appearance || tabStyle || "main" // `|| tabStyle` can be removed when TabNavigation is removed
+
+  const warnedDeprecatedContent = useRef(false)
+  useEffect(() => {
+    if (resolvedAppearance === "content" && !warnedDeprecatedContent.current) {
+      warnedDeprecatedContent.current = true
+      console.warn('TabBar: appearance="content" is deprecated. Use appearance="tabs" instead.')
+    }
+  }, [resolvedAppearance])
+
   return (
     <TabBarContext.Provider
       value={{
@@ -57,7 +75,7 @@ export const TabBar = ({
       <Navigation
         activeItem={activeItem}
         ariaLabel={ariaLabel}
-        className={`juno-tabbar juno-tabbar-${resolvedAppearance} ${disabled ? "juno-tabbar-disabled" : ""} ${tabBarStyles} ${className}`}
+        className={`juno-tabbar juno-tabbar-${resolvedAppearance} ${disabled ? "juno-tabbar-disabled" : ""} ${tabBarStyles} ${resolvedAppearance === "buttons" ? tabBarButtonsStyles : ""} ${className}`}
         disabled={disabled}
         onActiveItemChange={onActiveItemChange}
         {...props}
@@ -82,7 +100,7 @@ export interface TabBarProps extends HTMLAttributes<HTMLElement> {
   /** A handler to execute when the active tab changes */
   // eslint-disable-next-line no-unused-vars
   onActiveItemChange?: (activeItem: ReactNode) => void
-  /** The visual appearance of the TabBar. Use `main` as the first child in an AppShell. Use `content` for tabs inside page content — adds a darkened bottom border on inactive tabs. */
+  /** The visual appearance of the TabBar. Defaults to `main`. Use `main` as the first child in an AppShell. Use `tabs` for tabs inside page content — adds a darkened bottom border on inactive tabs. Use `buttons` for a pill-style segmented control. `content` is deprecated — use `tabs` instead. */
   appearance?: TabBarAppearance
   /** @deprecated Use appearance instead. Can be removed when TabNavigation is removed. */
   tabStyle?: TabBarAppearance

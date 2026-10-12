@@ -19,8 +19,11 @@ const meta: Meta<typeof TabBar> = {
       control: false,
     },
     appearance: {
-      options: ["main", "content"],
+      options: ["main", "tabs", "buttons"],
       control: { type: "radio" },
+    },
+    tabStyle: {
+      table: { disable: true },
     },
   },
 }
@@ -105,17 +108,57 @@ export const WithChildren: Story = {
   },
 }
 
-export const ContentAppearance: Story = {
+export const MainAppearance: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Use `appearance="content"` for a TabBar inside page content. Inactive items show a darkened bottom border to visually distinguish them from the active item.',
+          'Use `appearance="main"` for the primary navigation as the first child in an AppShell. Each item carries its own bottom border, highlighted on the active item.',
       },
     },
   },
   args: {
-    appearance: "content",
+    appearance: "main",
+    children: [
+      <TabBarItem label="Item 1" key="item-1" active></TabBarItem>,
+      <TabBarItem label="Item 2" key="item-2"></TabBarItem>,
+      <TabBarItem label="Item 3" key="item-3"></TabBarItem>,
+      <TabBarItem label="Disabled Item" key="item-4" disabled></TabBarItem>,
+    ],
+  },
+}
+
+export const TabsAppearance: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `appearance="tabs"` for a TabBar inside page content. Inactive items show a darkened bottom border to visually distinguish them from the active item.',
+      },
+    },
+  },
+  args: {
+    appearance: "tabs",
+    children: [
+      <TabBarItem label="Item 1" key="item-1" active></TabBarItem>,
+      <TabBarItem label="Item 2" key="item-2"></TabBarItem>,
+      <TabBarItem label="Item 3" key="item-3"></TabBarItem>,
+      <TabBarItem label="Disabled Item" key="item-4" disabled></TabBarItem>,
+    ],
+  },
+}
+
+export const ButtonsAppearance: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `appearance="buttons"` for a pill-style segmented control. Items are displayed as buttons with a shared background container.',
+      },
+    },
+  },
+  args: {
+    appearance: "buttons",
     children: [
       <TabBarItem label="Item 1" key="item-1" active></TabBarItem>,
       <TabBarItem label="Item 2" key="item-2"></TabBarItem>,

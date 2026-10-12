@@ -87,13 +87,43 @@ describe("TabBarItem", () => {
     expect(screen.getByRole("button", { name: "Item 1" })).toHaveClass("juno-tabbar-main-item")
   })
 
-  test("renders content appearance items as passed to the parent TabBar via appearance prop", () => {
+  test("renders main appearance items as passed to the parent TabBar via appearance prop", () => {
+    render(
+      <TabBar appearance="main">
+        <TabBarItem label="Item 1" />
+      </TabBar>
+    )
+    expect(screen.getByRole("button", { name: "Item 1" })).toHaveClass("juno-tabbar-main-item")
+  })
+
+  test("renders tabs appearance items as passed to the parent TabBar via appearance prop", () => {
+    render(
+      <TabBar appearance="tabs">
+        <TabBarItem label="Item 1" />
+      </TabBar>
+    )
+    expect(screen.getByRole("button", { name: "Item 1" })).toHaveClass("juno-tabbar-tabs-item")
+  })
+
+  test("renders buttons appearance items as passed to the parent TabBar via appearance prop", () => {
+    render(
+      <TabBar appearance="buttons">
+        <TabBarItem label="Item 1" />
+      </TabBar>
+    )
+    expect(screen.getByRole("button", { name: "Item 1" })).toHaveClass("juno-tabbar-buttons-item")
+  })
+
+  // Can be removed when the deprecated "content" appearance is removed:
+  test("still renders the deprecated content appearance items via appearance prop", () => {
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {})
     render(
       <TabBar appearance="content">
         <TabBarItem label="Item 1" />
       </TabBar>
     )
     expect(screen.getByRole("button", { name: "Item 1" })).toHaveClass("juno-tabbar-content-item")
+    warnSpy.mockRestore()
   })
 
   // Can be removed when TabNavigation is removed:

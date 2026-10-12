@@ -10,12 +10,12 @@ import { TabBar, TabBarProps } from "./TabBar.component"
 import { withDeprecationWarning } from "../withDeprecationWarning/index"
 
 const TabNavigationBackwardsCompat = ({ appearance, tabStyle, className = "", ...props }: TabBarProps) => {
-  const a = appearance || tabStyle || "main"
+  // Preserve the historic TabNavigation default of "main" rather than TabBar's new "tabs" default.
+  const resolvedAppearance = appearance || tabStyle || "main"
   return (
     <TabBar
-      appearance={appearance}
-      tabStyle={tabStyle}
-      className={`juno-tabnavigation juno-tabnavigation-${a} ${className}`.trim()}
+      appearance={resolvedAppearance}
+      className={`juno-tabnavigation juno-tabnavigation-${resolvedAppearance} ${className}`.trim()}
       {...props}
     />
   )
