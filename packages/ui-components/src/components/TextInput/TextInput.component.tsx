@@ -127,6 +127,8 @@ export const TextInput = ({
   const ref = useRef<HTMLInputElement | null>(null)
   const [val, setValue] = useState<string | number>("")
   const [hasFocus, setFocus] = useState(false)
+  // For type="number", browsers report value="" for partial input (e.g. '-', '+', 'e') while the field still has visible content.
+  const [hasIncompleteInput, setHasIncompleteInput] = useState(false)
   const [isInvalid, setIsInvalid] = useState(false)
   const [isValid, setIsValid] = useState(false)
 
@@ -139,6 +141,7 @@ export const TextInput = ({
 
   useEffect(() => {
     setValue(value)
+    setHasIncompleteInput(false)
   }, [value])
 
   const invalidated = useMemo(
@@ -160,6 +163,7 @@ export const TextInput = ({
 
   const handleValueChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
+    setHasIncompleteInput(event.target.validity.badInput)
     onChange && onChange(event)
   }
 
@@ -170,6 +174,7 @@ export const TextInput = ({
 
   const handleBlur = (event: FocusEvent<HTMLInputElement>) => {
     setFocus(false)
+    setHasIncompleteInput(event.target.validity.badInput)
     onBlur && onBlur(event)
   }
 
@@ -234,7 +239,7 @@ export const TextInput = ({
             disabled={disabled}
             required={required}
             floating
-            minimized={placeholder || hasFocus || (val && isNotEmptyString(val)) ? true : false}
+            minimized={placeholder || hasFocus || hasIncompleteInput || (val && isNotEmptyString(val)) ? true : false}
           />
         ) : (
           ""
