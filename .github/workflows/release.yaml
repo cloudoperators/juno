@@ -72,6 +72,19 @@ jobs:
           commit-message: "chore(version): update versions with Changesets"
           github-token: ${{ steps.github-app-token.outputs.token }}
 
+  debug-outputs:
+    if: needs.release.outputs.published == 'true'
+    needs: [release]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Debug outputs
+        run: |
+          echo "Published: ${{ needs.release.outputs.published }}"
+          echo "Published Packages: ${{ needs.release.outputs.publishedPackages }}"
+          echo "Published Packages length: ${#PACKAGES}"
+        env:
+          PACKAGES: ${{ needs.release.outputs.publishedPackages }}
+
   notify-on-success:
     if: needs.release.outputs.published == 'true'
     needs: [release] # List the jobs that should complete successfully

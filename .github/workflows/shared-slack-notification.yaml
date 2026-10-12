@@ -27,6 +27,15 @@ jobs:
     runs-on: [ubuntu-latest]
     environment: ${{ inputs.environment }}
     steps:
+      - name: Debug inputs
+        run: |
+          echo "Title: ${{ inputs.title }}"
+          echo "Body: ${{ inputs.body }}"
+          echo "Body length: ${#BODY}"
+          echo "Rich body: ${{ inputs.rich_body }}"
+        env:
+          BODY: ${{ inputs.body }}
+
       - name: Set Slack Payload
         env:
           RICH_BODY: '{"type":"rich_text","elements":[{"type":"rich_text_preformatted","elements":[{"type":"text","text":${{ toJson(inputs.body) }}}],"border":0}]}'

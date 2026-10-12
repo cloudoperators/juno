@@ -1,0 +1,37 @@
+/*
+ * SPDX-FileCopyrightText: 2025 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+name: Test Slack Notification
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_data:
+        description: 'Test data to send (leave empty to test empty case)'
+        required: false
+        default: '[{"name":"@cloudoperators/juno-ui-components","version":"3.0.0"},{"name":"@cloudoperators/juno-communicator","version":"2.1.0"}]'
+        type: string
+
+jobs:
+  test-notification:
+    runs-on: ubuntu-latest
+    environment: notifications
+    steps:
+      - name: Debug test data
+        run: |
+          echo "Test data: ${{ inputs.test_data }}"
+          echo "Test data length: ${#DATA}"
+        env:
+          DATA: ${{ inputs.test_data }}
+
+  call-shared-workflow:
+    needs: [test-notification]
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@fix/slack-notification-success
+    with:
+      title: "TEST: JUNO Packages Released Successfully! 🚀"
+      body: ${{ inputs.test_data }}
+      rich_body: false
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
