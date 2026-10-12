@@ -13,5 +13,5 @@ export declare const CustomPageFooter: Story;
 export declare const WithSideNavigation: Story;
 export declare const WithTopNavigation: Story;
 export declare const WithSideAndTopNavigation: Story;
-export declare const WithTabNavigation: Story;
+export declare const WithTabBar: Story;
 //# sourceMappingURL=AppShell.stories.d.ts.map
