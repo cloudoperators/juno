@@ -1,5 +1,17 @@
 # heureka
 
+## 1.1.18
+
+### Patch Changes
+
+- 4bea2c7: Migrate to modern JSX transform (react-jsx). Switch tsconfig from `"jsx": "react"` to `"jsx": "react-jsx"` so the compiler auto-injects the JSX runtime, removing the need for `import React from 'react'` in every JSX file.
+- 2a55a2a: Replace dotenv with JSON config for codegen. Remove @types/node and dotenv dependencies by switching GraphQL code generation from .env to codegen.config.json configuration.
+- Updated dependencies [b36e805]
+- Updated dependencies [b7ef8b8]
+- Updated dependencies [a455f60]
+- Updated dependencies [324f81a]
+  - @cloudoperators/juno-ui-components@9.6.0
+
 ## 1.1.17
 
 ### Patch Changes
