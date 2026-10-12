@@ -6,32 +6,43 @@
 name: Test Slack Notification
 
 on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/release.yaml'
+      - '.github/workflows/shared-slack-notification.yaml'
+      - '.github/workflows/test-slack-notification.yaml'
   workflow_dispatch:
-    inputs:
-      test_data:
-        description: 'Test data to send (leave empty to test empty case)'
-        required: false
-        default: '[{"name":"@cloudoperators/juno-ui-components","version":"3.0.0"},{"name":"@cloudoperators/juno-communicator","version":"2.1.0"}]'
-        type: string
 
 jobs:
   test-notification:
     runs-on: ubuntu-latest
-    environment: notifications
     steps:
+      - name: Set test data
+        id: data
+        run: |
+          # Use mock release data to test the notification
+          echo 'data=[{"name":"@cloudoperators/juno-ui-components","version":"3.0.0"},{"name":"@cloudoperators/juno-communicator","version":"2.1.0"}]' >> $GITHUB_OUTPUT
+
       - name: Debug test data
         run: |
-          echo "Test data: ${{ inputs.test_data }}"
+          echo "Test data: $DATA"
           echo "Test data length: ${#DATA}"
+          echo "GitHub ref: ${{ github.ref }}"
+          echo "GitHub SHA: ${{ github.sha }}"
         env:
-          DATA: ${{ inputs.test_data }}
+          DATA: ${{ steps.data.outputs.data }}
+    outputs:
+      test_data: ${{ steps.data.outputs.data }}
 
   call-shared-workflow:
     needs: [test-notification]
-    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@fix/slack-notification-success
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@main
     with:
-      title: "TEST: JUNO Packages Released Successfully! 🚀"
-      body: ${{ inputs.test_data }}
+      title: "🧪 TEST: JUNO Slack Notification (PR #${{ github.event.pull_request.number || 'manual' }})"
+      body: ${{ needs.test-notification.outputs.test_data }}
       rich_body: false
+      environment: notifications
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
