@@ -96,6 +96,23 @@ describe("TextInput", () => {
     expect(screen.getByRole("spinbutton")).toHaveAttribute("type", "number")
   })
 
+  test("keeps floating label minimized for type=number with partial numeric input (e.g. '-', '+', 'e')", async () => {
+    render(<TextInput type="number" label="My Number" />)
+    const input = screen.getByRole("spinbutton")
+    // Type a valid number first so val is non-empty
+    await act(() => fireEvent.change(input, { target: { value: "1" } }))
+    // JSDOM does not set validity.badInput for partial numeric input as real browsers do, so we stub
+    // it on the element instance to simulate the browser reporting incomplete input (e.g. '-', '+', 'e')
+    // while value="".
+    Object.defineProperty(input, "validity", {
+      get: () => ({ badInput: true }),
+      configurable: true,
+    })
+    // Now simulate the browser clearing value for partial input
+    await act(() => fireEvent.change(input, { target: { value: "" } }))
+    expect(document.querySelector(".juno-label")).toHaveClass("juno-label-minimized")
+  })
+
   test("renders a disabled input as passed", () => {
     render(<TextInput disabled />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
