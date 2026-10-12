@@ -57,10 +57,10 @@ export const TabBar = ({
 }: TabBarProps): ReactNode => {
   const resolvedAppearance = appearance || tabStyle || "tabs" // `|| tabStyle` can be removed when TabNavigation is removed
 
-  const warnedDeprecatedContent = useRef(false)
+  const warnedDeprecatedMain = useRef(false)
   useEffect(() => {
-    if (resolvedAppearance === "main" && !warnedDeprecatedContent.current) {
-      warnedDeprecatedContent.current = true
+    if (resolvedAppearance === "main" && !warnedDeprecatedMain.current) {
+      warnedDeprecatedMain.current = true
       console.warn('TabBar: appearance="main" is deprecated. Use appearance="tabs" instead.')
     }
   }, [resolvedAppearance])
