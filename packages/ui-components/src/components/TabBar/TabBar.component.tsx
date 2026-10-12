@@ -16,10 +16,10 @@ const tabBarButtonsStyles = `
   jn:p-[0.125rem]
 `
 
-/** @deprecated Use `"tabs"` instead. `"content"` remains functional but will be removed in a future major release. */
-export type DeprecatedTabBarAppearance = "content"
+/** @deprecated Use `"tabs"` instead. `"main"` remains functional but will be removed in a future major release. */
+export type DeprecatedTabBarAppearance = "main"
 
-export type TabBarAppearance = "main" | "tabs" | "buttons" | DeprecatedTabBarAppearance
+export type TabBarAppearance = "tabs" | "buttons" | "content" | DeprecatedTabBarAppearance
 
 /** @deprecated Use TabBarAppearance instead. Can be removed when TabNavigation is removed. */
 export type TabStyle = TabBarAppearance
@@ -55,13 +55,13 @@ export const TabBar = ({
   tabStyle, // Can be removed when TabNavigation is removed
   ...props
 }: TabBarProps): ReactNode => {
-  const resolvedAppearance = appearance || tabStyle || "main" // `|| tabStyle` can be removed when TabNavigation is removed
+  const resolvedAppearance = appearance || tabStyle || "tabs" // `|| tabStyle` can be removed when TabNavigation is removed
 
   const warnedDeprecatedContent = useRef(false)
   useEffect(() => {
-    if (resolvedAppearance === "content" && !warnedDeprecatedContent.current) {
+    if (resolvedAppearance === "main" && !warnedDeprecatedContent.current) {
       warnedDeprecatedContent.current = true
-      console.warn('TabBar: appearance="content" is deprecated. Use appearance="tabs" instead.')
+      console.warn('TabBar: appearance="main" is deprecated. Use appearance="tabs" instead.')
     }
   }, [resolvedAppearance])
 
@@ -100,7 +100,7 @@ export interface TabBarProps extends HTMLAttributes<HTMLElement> {
   /** A handler to execute when the active tab changes */
   // eslint-disable-next-line no-unused-vars
   onActiveItemChange?: (activeItem: ReactNode) => void
-  /** The visual appearance of the TabBar. Defaults to `main`. Use `main` as the first child in an AppShell. Use `tabs` for tabs inside page content — adds a darkened bottom border on inactive tabs. Use `buttons` for a pill-style segmented control. `content` is deprecated — use `tabs` instead. */
+  /** The visual appearance of the TabBar. Defaults to `tabs`. Use `tabs` for tabs inside an AppShell or page content. Use `buttons` for a pill-style segmented control. `content` is a distinct style variant with a shared bottom border. `main` is deprecated — use `tabs` instead. */
   appearance?: TabBarAppearance
   /** @deprecated Use appearance instead. Can be removed when TabNavigation is removed. */
   tabStyle?: TabBarAppearance

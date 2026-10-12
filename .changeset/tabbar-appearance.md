@@ -2,9 +2,9 @@
 "@cloudoperators/juno-ui-components": minor
 ---
 
-feat(ui): add TabBar `appearance="buttons"` and rename `appearance="content"` to `appearance="tabs"`
+feat(ui): add TabBar `appearance="buttons"` and rename `appearance="main"` to `appearance="tabs"`
 
 - Add `appearance="buttons"` to `TabBar` for a pill-style segmented control, useful for pre-defined filters.
-- Rename `appearance="content"` to `appearance="tabs"`. The existing default `appearance="main"` is unchanged.
-- `appearance="content"` keeps working as a deprecated alias of `tabs` and emits a deprecation warning. Switch to `appearance="tabs"`.
-- Disabled items in the `tabs`/`content` appearance no longer dim the shared bottom border.
+- Rename `appearance="main"` to `appearance="tabs"`. `appearance="tabs"` is now the default.
+- `appearance="main"` keeps working as a deprecated alias and emits a deprecation warning. Switch to `appearance="tabs"`.
+- `appearance="content"` remains a distinct style variant with a shared bottom border (unchanged).

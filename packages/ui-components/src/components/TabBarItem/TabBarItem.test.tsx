@@ -78,22 +78,24 @@ describe("TabBarItem", () => {
     expect(mockOnClick).toHaveBeenCalled()
   })
 
-  test("renders main appearance items by default inside a TabBar", () => {
+  test("renders tabs appearance items by default inside a TabBar", () => {
     render(
       <TabBar>
         <TabBarItem label="Item 1" />
       </TabBar>
     )
-    expect(screen.getByRole("button", { name: "Item 1" })).toHaveClass("juno-tabbar-main-item")
+    expect(screen.getByRole("button", { name: "Item 1" })).toHaveClass("juno-tabbar-tabs-item")
   })
 
   test("renders main appearance items as passed to the parent TabBar via appearance prop", () => {
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {})
     render(
       <TabBar appearance="main">
         <TabBarItem label="Item 1" />
       </TabBar>
     )
     expect(screen.getByRole("button", { name: "Item 1" })).toHaveClass("juno-tabbar-main-item")
+    warnSpy.mockRestore()
   })
 
   test("renders tabs appearance items as passed to the parent TabBar via appearance prop", () => {
@@ -114,15 +116,24 @@ describe("TabBarItem", () => {
     expect(screen.getByRole("button", { name: "Item 1" })).toHaveClass("juno-tabbar-buttons-item")
   })
 
-  // Can be removed when the deprecated "content" appearance is removed:
-  test("still renders the deprecated content appearance items via appearance prop", () => {
-    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {})
+  test("renders content appearance items as passed to the parent TabBar via appearance prop", () => {
     render(
       <TabBar appearance="content">
         <TabBarItem label="Item 1" />
       </TabBar>
     )
     expect(screen.getByRole("button", { name: "Item 1" })).toHaveClass("juno-tabbar-content-item")
+  })
+
+  // Can be removed when the deprecated "main" appearance is removed:
+  test("still renders the deprecated main appearance items via appearance prop", () => {
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {})
+    render(
+      <TabBar appearance="main">
+        <TabBarItem label="Item 1" />
+      </TabBar>
+    )
+    expect(screen.getByRole("button", { name: "Item 1" })).toHaveClass("juno-tabbar-main-item")
     warnSpy.mockRestore()
   })
 

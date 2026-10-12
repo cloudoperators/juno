@@ -19,7 +19,7 @@ const meta: Meta<typeof TabBar> = {
       control: false,
     },
     appearance: {
-      options: ["main", "tabs", "buttons"],
+      options: ["tabs", "buttons", "content"],
       control: { type: "radio" },
     },
     tabStyle: {
@@ -113,7 +113,7 @@ export const MainAppearance: Story = {
     docs: {
       description: {
         story:
-          'Use `appearance="main"` for the primary navigation as the first child in an AppShell. Each item carries its own bottom border, highlighted on the active item.',
+          '**Deprecated.** Use `appearance="tabs"` instead. `appearance="main"` keeps working but will be removed in a future major release.',
       },
     },
   },
@@ -133,7 +133,7 @@ export const TabsAppearance: Story = {
     docs: {
       description: {
         story:
-          'Use `appearance="tabs"` for a TabBar inside page content. Inactive items show a darkened bottom border to visually distinguish them from the active item.',
+          'Use `appearance="tabs"` as the default appearance for the primary navigation bar, e.g. as the first child in an AppShell. Each item carries its own bottom border, highlighted on the active item.',
       },
     },
   },
@@ -159,6 +159,26 @@ export const ButtonsAppearance: Story = {
   },
   args: {
     appearance: "buttons",
+    children: [
+      <TabBarItem label="Item 1" key="item-1" active></TabBarItem>,
+      <TabBarItem label="Item 2" key="item-2"></TabBarItem>,
+      <TabBarItem label="Item 3" key="item-3"></TabBarItem>,
+      <TabBarItem label="Disabled Item" key="item-4" disabled></TabBarItem>,
+    ],
+  },
+}
+
+export const ContentAppearance: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `appearance="content"` for tabs inside page content. Inactive items share a darkened bottom border to visually distinguish them from the active item.',
+      },
+    },
+  },
+  args: {
+    appearance: "content",
     children: [
       <TabBarItem label="Item 1" key="item-1" active></TabBarItem>,
       <TabBarItem label="Item 2" key="item-2"></TabBarItem>,

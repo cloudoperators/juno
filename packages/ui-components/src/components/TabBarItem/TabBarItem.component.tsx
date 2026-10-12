@@ -100,7 +100,7 @@ export const TabBarItem = ({
 }: TabBarItemProps): ReactNode => {
   const { appearance } = useContext(TabBarContext) || {}
   const isButtons = appearance === "buttons"
-  const isTabsLike = appearance === "tabs" || appearance === "content" // "content" is the deprecated alias of "tabs"
+  const isTabsLike = appearance === "content" // "content" is a distinct style variant with a shared bottom border
   return (
     <NavigationItem
       active={active}
