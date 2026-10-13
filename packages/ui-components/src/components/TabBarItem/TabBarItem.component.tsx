@@ -57,7 +57,7 @@ const tabBarItemButtonInactiveStyles = `
   jn:not-[[aria-disabled=true]]:hover:text-theme-tab-button-hover
 `
 
-const tabBarItemTabsStyles = `
+const tabBarItemContentStyles = `
   jn:flex
   jn:items-center
   jn:text-theme-default
@@ -69,12 +69,12 @@ const tabBarItemTabsStyles = `
   jn:focus-visible:ring-theme-focus
 `
 
-const tabBarActiveTabsItemStyles = `
+const tabBarActiveContentItemStyles = `
   jn:text-theme-high
   jn:font-bold
 `
 
-const tabBarItemTabsWrapperStyles = `
+const tabBarItemContentWrapperStyles = `
   jn:border-b-[3px]
   jn:border-theme-tab-content-inactive-bottom
   jn:has-[.juno-navigation-item-active]:border-theme-tab-active-bottom
@@ -100,28 +100,28 @@ export const TabBarItem = ({
 }: TabBarItemProps): ReactNode => {
   const { appearance } = useContext(TabBarContext) || {}
   const isButtons = appearance === "buttons"
-  const isTabsLike = appearance === "content" // "content" is a distinct style variant with a shared bottom border
+  const isContentLike = appearance === "content" // "content" is a distinct style variant with a shared bottom border
   return (
     <NavigationItem
       active={active}
       activeItemStyles={
-        isButtons ? tabBarItemButtonActiveStyles : isTabsLike ? tabBarActiveTabsItemStyles : tabBarActiveItemStyles
+        isButtons ? tabBarItemButtonActiveStyles : isContentLike ? tabBarActiveContentItemStyles : tabBarActiveItemStyles
       }
       ariaLabel={ariaLabel}
       className={`
         juno-tabbar-item
         ${appearance ? "juno-tabbar-" + appearance + "-item" : ""}
-        ${isButtons ? tabBarItemButtonStyles : isTabsLike ? tabBarItemTabsStyles : tabBarItemStyles}
+        ${isButtons ? tabBarItemButtonStyles : isContentLike ? tabBarItemContentStyles : tabBarItemStyles}
         ${className}
       `}
       disabled={disabled}
       href={href}
       icon={icon}
-      inactiveItemStyles={isButtons ? tabBarItemButtonInactiveStyles : isTabsLike ? "" : "jn:border-transparent"}
+      inactiveItemStyles={isButtons ? tabBarItemButtonInactiveStyles : isContentLike ? "" : "jn:border-transparent"}
       label={label}
       onClick={onClick}
       value={value}
-      wrapperClassName={isTabsLike ? tabBarItemTabsWrapperStyles : ""}
+      wrapperClassName={isContentLike ? tabBarItemContentWrapperStyles : ""}
       {...props}
     >
       {children}

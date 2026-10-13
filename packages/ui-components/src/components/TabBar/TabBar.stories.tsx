@@ -19,7 +19,7 @@ const meta: Meta<typeof TabBar> = {
       control: false,
     },
     appearance: {
-      options: ["tabs", "buttons", "content"],
+      options: ["tabs", "content", "buttons"],
       control: { type: "radio" },
     },
     tabStyle: {

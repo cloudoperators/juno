@@ -11,6 +11,7 @@ const tabBarStyles = `
 `
 
 const tabBarButtonsStyles = `
+  jn:w-fit
   jn:bg-theme-tab-buttons
   jn:rounded-[0.25rem]
   jn:p-[0.125rem]
@@ -59,11 +60,11 @@ export const TabBar = ({
 
   const warnedDeprecatedMain = useRef(false)
   useEffect(() => {
-    if (resolvedAppearance === "main" && !warnedDeprecatedMain.current) {
+    if (appearance === "main" && !warnedDeprecatedMain.current) {
       warnedDeprecatedMain.current = true
       console.warn('TabBar: appearance="main" is deprecated. Use appearance="tabs" instead.')
     }
-  }, [resolvedAppearance])
+  }, [appearance])
 
   return (
     <TabBarContext.Provider
