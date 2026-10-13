@@ -112,6 +112,14 @@ export const Number: Story = {
   args: {
     type: "number",
   },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`<TextInput type="number" />` accepts `+`, `-`, and `e` by keystroke — this is native browser behaviour.',
+      },
+    },
+  },
 }
 
 export const Password: Story = {
