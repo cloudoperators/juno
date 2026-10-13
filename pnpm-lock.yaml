@@ -371,6 +371,9 @@ importers:
       immer:
         specifier: 11.1.21
         version: 11.1.21
+      jsdom:
+        specifier: 30.1.2
+        version: 30.1.2
       react:
         specifier: 19.3.0
         version: 19.3.0
