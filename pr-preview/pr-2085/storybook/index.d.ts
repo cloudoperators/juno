@@ -186,7 +186,7 @@ export type { StyleProviderProps, StyleContextProps } from './components/StylePr
 export type { SwitchProps } from './components/Switch/Switch.component';
 export type { TabProps } from './components/Tab/Tab.component';
 export type { TabListProps } from './components/TabList/TabList.component';
-export type { TabBarProps, TabBarAppearance, TabBarContextType, TabNavigationProps, // Can be removed when TabNavigation is removed
+export type { TabBarProps, TabBarAppearance, DeprecatedTabBarAppearance, TabBarContextType, TabNavigationProps, // Can be removed when TabNavigation is removed
 TabNavigationContextType, // Can be removed when TabNavigation is removed
 TabStyle, } from './components/TabBar/TabBar.component';
 export type { TabBarItemProps, TabNavigationItemProps, } from './components/TabBarItem/TabBarItem.component';
