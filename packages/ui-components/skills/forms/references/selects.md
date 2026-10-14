@@ -27,13 +27,7 @@ import { Select, SelectOption, SelectDivider } from "@cloudoperators/juno-ui-com
 function RegionSelect() {
   const [region, setRegion] = useState<string>()
   return (
-    <Select
-      name="region"
-      label="Region"
-      value={region}
-      onChange={(v) => setRegion(v as string)}
-      required
-    >
+    <Select name="region" label="Region" value={region} onChange={(v) => setRegion(v as string)} required>
       <SelectOption value="eu-de-1">EU (Germany)</SelectOption>
       <SelectOption value="eu-nl-1">EU (Netherlands)</SelectOption>
       <SelectDivider />
@@ -50,13 +44,7 @@ import { Select, SelectOption } from "@cloudoperators/juno-ui-components"
 function TagsSelect() {
   const [tags, setTags] = useState<string[]>([])
   return (
-    <Select
-      name="tags"
-      label="Tags"
-      multiple
-      value={tags}
-      onChange={(v) => setTags((v as string[]) ?? [])}
-    >
+    <Select name="tags" label="Tags" multiple value={tags} onChange={(v) => setTags((v as string[]) ?? [])}>
       <SelectOption value="prod">Production</SelectOption>
       <SelectOption value="staging">Staging</SelectOption>
       <SelectOption value="dev">Development</SelectOption>

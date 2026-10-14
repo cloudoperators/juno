@@ -73,12 +73,7 @@ title either as a string (rendered as the application name in the default header
 `PageHeader`. Content goes in `children`.
 
 ```tsx
-import {
-  AppShellProvider,
-  AppShell,
-  Container,
-  ContentHeading,
-} from "@cloudoperators/juno-ui-components"
+import { AppShellProvider, AppShell, Container, ContentHeading } from "@cloudoperators/juno-ui-components"
 
 function App() {
   return (
@@ -179,10 +174,14 @@ function Shell({ children }: { children: React.ReactNode }) {
         <PageFooter copyright="© 2026 ACME">
           <ul className="juno-pagefooter-items-inline">
             <li>
-              <a className="juno-pagefooter-item" href="/imprint">Imprint</a>
+              <a className="juno-pagefooter-item" href="/imprint">
+                Imprint
+              </a>
             </li>
             <li>
-              <a className="juno-pagefooter-item" href="/terms">Terms of Use</a>
+              <a className="juno-pagefooter-item" href="/terms">
+                Terms of Use
+              </a>
             </li>
           </ul>
         </PageFooter>
@@ -204,12 +203,7 @@ main content (`docs/ux/page-content-area.md`). Use `ContentHeading` for the page
 `ContentAreaToolbar` for page-level actions (it is right-aligned by default).
 
 ```tsx
-import {
-  Container,
-  ContentHeading,
-  ContentAreaToolbar,
-  Button,
-} from "@cloudoperators/juno-ui-components"
+import { Container, ContentHeading, ContentAreaToolbar, Button } from "@cloudoperators/juno-ui-components"
 
 declare function openCreate(): void
 

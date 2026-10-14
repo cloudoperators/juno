@@ -5,7 +5,7 @@ manager, updating or dismissing a toast programmatically, non-dismissible or inf
 lifecycle callbacks, or notification history and persistence.
 
 `NotificationManager` wraps the Sonner toast library and owns all lifecycle — timers, auto-dismiss,
-queueing, screen position. The `Toast` component is purely presentational and is rendered *by* the
+queueing, screen position. The `Toast` component is purely presentational and is rendered _by_ the
 manager; never mount it yourself. Trigger everything through the `toast()` API
 (`docs/ux/messages-and-notifications.md`, "Toast and NotificationManager").
 
@@ -20,7 +20,7 @@ Mount one `NotificationManager` near the app root. Props and defaults:
   Pass `Infinity` to keep toasts until manually dismissed.
 - `visibleToasts` (default `3`) — max shown at once; the rest queue and appear as others close.
 - `position` (default `"bottom-right"`) — one of `top-left | top-right | bottom-left | bottom-right |
-  top-center | bottom-center`.
+top-center | bottom-center`.
 
 ## The toast() options
 
@@ -39,9 +39,7 @@ const TOASTER_ID = "uploads"
 function UploadsPanel() {
   return (
     <>
-      <button onClick={() => toast.success("Upload complete", { toasterId: TOASTER_ID })}>
-        Finish
-      </button>
+      <button onClick={() => toast.success("Upload complete", { toasterId: TOASTER_ID })}>Finish</button>
       <NotificationManager id={TOASTER_ID} position="top-right" />
     </>
   )

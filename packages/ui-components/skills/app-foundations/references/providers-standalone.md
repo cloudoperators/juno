@@ -86,11 +86,7 @@ import { StyleProvider } from "@cloudoperators/juno-ui-components"
 function ThemeToggle() {
   const { currentTheme, setThemeClass } = StyleProvider.useStyles()
   return (
-    <button
-      onClick={() =>
-        setThemeClass(currentTheme === "theme-dark" ? "theme-light" : "theme-dark")
-      }
-    >
+    <button onClick={() => setThemeClass(currentTheme === "theme-dark" ? "theme-light" : "theme-dark")}>
       Toggle theme (now {currentTheme})
     </button>
   )
@@ -127,12 +123,12 @@ Note: `ShadowRoot` by itself does **not** inject Juno styles — put a `StylePro
 
 ## The `stylesWrapper` / `shadowRoot` matrix
 
-| Goal | `AppShellProvider` props |
-| --- | --- |
-| Default: isolated, inline styles | *(none)* — `shadowRoot` true, inline forced |
-| Standalone, styles in `<head>` | `shadowRoot={false} stylesWrapper="head"` |
+| Goal                                    | `AppShellProvider` props                    |
+| --------------------------------------- | ------------------------------------------- |
+| Default: isolated, inline styles        | _(none)_ — `shadowRoot` true, inline forced |
+| Standalone, styles in `<head>`          | `shadowRoot={false} stylesWrapper="head"`   |
 | Standalone, inline styles, no isolation | `shadowRoot={false} stylesWrapper="inline"` |
-| Closed shadow root | `shadowRootMode="closed"` |
+| Closed shadow root                      | `shadowRootMode="closed"`                   |
 
 `stylesWrapper` is ignored while `shadowRoot` is `true` (styles cannot cross the shadow boundary
 into `document.head`, so they are always inlined inside the shadow root).

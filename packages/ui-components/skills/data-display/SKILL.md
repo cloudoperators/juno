@@ -41,7 +41,7 @@ sources:
 
 # Display content and data with Juno
 
-For a *list of items* that users scan, sort, and filter, reach for the DataGrid (see the datagrid
+For a _list of items_ that users scan, sort, and filter, reach for the DataGrid (see the datagrid
 skill). This skill covers everything else: a single item's properties, a container that groups
 content, code and JSON, rich prose, and glyphs. The UX guidelines explicitly point you here — a
 single item or entity belongs in a detail view, panel, or card, not a grid (`docs/ux/datagrid.md`,

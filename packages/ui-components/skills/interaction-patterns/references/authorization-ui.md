@@ -5,7 +5,7 @@ may not be authorized. Source: `docs/ux/ui-for-unauthorized-users.md` and
 `docs/ux/interaction-guidelines.md` ("Disabled States").
 
 The decision depends on three things: the sensitivity/criticality of the action, how broadly the
-feature is available, and whether you can know the user's authorization *before* they act.
+feature is available, and whether you can know the user's authorization _before_ they act.
 
 ## Decision tree
 
@@ -16,7 +16,7 @@ feature is available, and whether you can know the user's authorization *before*
    - **Yes** → continue.
 2. **Is the feature available to all/most/many users, with this user just not (yet) meeting a
    requirement?**
-   - **Yes** → **render it disabled**, and communicate *why* (tooltip on the button, or a message /
+   - **Yes** → **render it disabled**, and communicate _why_ (tooltip on the button, or a message /
      info block next to it). A disabled element the user cannot explain is a dead end.
 3. **Is the feature only for a privileged few, or does it touch very sensitive, business-critical
    data?**

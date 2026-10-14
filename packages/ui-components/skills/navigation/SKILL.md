@@ -45,7 +45,7 @@ Juno layers navigation by scope. The **SideNavigation** is the primary top-level
 fixed left column present in every view (`docs/ux/navigation-side-navigation.md`, "When to Use the
 Side Navigation"). When a second level will not fit as nested items, a horizontal **TopNavigation**
 or **TabBar** sits above the content as a child of the active top-level entry. A **Breadcrumb**
-gives the user the path back from a detail view to its list. **Tabs** switch content *inside* a
+gives the user the path back from a detail view to its list. **Tabs** switch content _inside_ a
 single view, and **Pagination** steps through a paged list.
 
 Pick the component by what the user is doing, not by how it looks:
@@ -62,11 +62,7 @@ optional `SideNavigationGroup`s. An item becomes a link when given `href`, or a 
 `onClick`. Mark the current view with `selected`.
 
 ```tsx
-import {
-  SideNavigation,
-  SideNavigationList,
-  SideNavigationItem,
-} from "@cloudoperators/juno-ui-components"
+import { SideNavigation, SideNavigationList, SideNavigationItem } from "@cloudoperators/juno-ui-components"
 
 function AppNav({ path }: { path: string }) {
   return (
@@ -140,7 +136,7 @@ function Nested() {
 
 ### Expand the group containing the active route (controlled)
 
-`open` on a group/item is both the initial value *and* a controlled value — the component re-syncs
+`open` on a group/item is both the initial value _and_ a controlled value — the component re-syncs
 to it whenever the parent updates. `onToggle` receives the next open state. On page load, open the
 branch holding the active route so the active child stays visible
 (`docs/ux/navigation-side-navigation.md`, "Active and Disabled States", "Controlled vs. Uncontrolled
@@ -148,10 +144,7 @@ Expansion").
 
 ```tsx
 import { useState } from "react"
-import {
-  SideNavigationGroup,
-  SideNavigationItem,
-} from "@cloudoperators/juno-ui-components"
+import { SideNavigationGroup, SideNavigationItem } from "@cloudoperators/juno-ui-components"
 
 function ControlledGroup({ path }: { path: string }) {
   const [open, setOpen] = useState(path.startsWith("/compute"))

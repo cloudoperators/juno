@@ -181,7 +181,11 @@ model the tone ("Something Went Wrong", "An error occurred. Try again.")
 import { Message } from "@cloudoperators/juno-ui-components"
 
 const errorMessage = (
-  <Message variant="error" title="Access Denied" text="You do not have the required permissions to access this resource." />
+  <Message
+    variant="error"
+    title="Access Denied"
+    text="You do not have the required permissions to access this resource."
+  />
 )
 ```
 

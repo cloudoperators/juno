@@ -172,7 +172,7 @@ that. This skill only covers the provider wrapper.
 
 Because `AppShellProvider` includes `PortalProvider`, components that pop out of the normal flow —
 `Modal`, `Select`, menus, date pickers — already have a portal root to render into, with a high
-`z-index` so they stack above app content. You usually do nothing extra. When you build a *custom*
+`z-index` so they stack above app content. You usually do nothing extra. When you build a _custom_
 component that must portal (a bespoke popover, a positioned picker), reach the root with the
 `usePortalRef` hook or the `PortalProvider.Portal` component:
 
@@ -201,7 +201,7 @@ place, is clipped, or stacks incorrectly.
   rendering or working as expected" (`docs/ux/the-appshell.md`). Always wrap once at the root.
 - **CRITICAL — App styles loaded outside the provider's scope when using a Shadow DOM.** With the
   default `shadowRoot`, a global stylesheet linked in `document.head` does **not** cross the shadow
-  boundary, so your own CSS silently does nothing. Load app styles as a `<style>` child *inside*
+  boundary, so your own CSS silently does nothing. Load app styles as a `<style>` child _inside_
   `AppShellProvider`, as in Setup (`docs/ux/getting-started-with-juno-ui-components.md`).
 - **HIGH — Expecting `stylesWrapper="head"` to work inside a Shadow DOM.** `stylesWrapper` is only
   honored when `shadowRoot={false}`; inside a shadow root styles are forced inline. To put styles in

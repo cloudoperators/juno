@@ -52,13 +52,7 @@ selected dates and the formatted string, not a DOM change event. It shares the v
 import { DateTimePicker } from "@cloudoperators/juno-ui-components"
 
 function StartDateField() {
-  return (
-    <DateTimePicker
-      name="start"
-      label="Start date"
-      onChange={(dates, dateStr) => console.log(dateStr, dates)}
-    />
-  )
+  return <DateTimePicker name="start" label="Start date" onChange={(dates, dateStr) => console.log(dateStr, dates)} />
 }
 ```
 

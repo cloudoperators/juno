@@ -31,12 +31,7 @@ There is no `<thead>`/`<tbody>`; a header row is just a `DataGridRow` whose chil
 ## Setup
 
 ```tsx
-import {
-  DataGrid,
-  DataGridRow,
-  DataGridHeadCell,
-  DataGridCell,
-} from "@cloudoperators/juno-ui-components"
+import { DataGrid, DataGridRow, DataGridHeadCell, DataGridCell } from "@cloudoperators/juno-ui-components"
 
 type ImageItem = { id: string; name: string; status: string; createdAt: string }
 
@@ -182,11 +177,7 @@ function ImagesTable({ images, isLoading, error, hasActiveFilters }: Props) {
             <Status
               status={hasActiveFilters ? "no-matches" : "empty"}
               title={hasActiveFilters ? "No matching images" : "No images yet"}
-              body={
-                hasActiveFilters
-                  ? "No images match your current filters."
-                  : "Create one to get started."
-              }
+              body={hasActiveFilters ? "No images match your current filters." : "Create one to get started."}
             />
           </DataGridCell>
         </DataGridRow>

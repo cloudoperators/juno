@@ -30,10 +30,10 @@ function SaveResult({ saved }: { saved: boolean }) {
 
 ## Choosing the role for custom content
 
-| Situation | Use | Why |
-| --- | --- | --- |
-| Error that needs immediate attention | `role="alert"` (implies assertive) | Interrupts and is read at once |
-| Non-urgent update (count, "saved", progress) | `role="status"` (implies polite) | Read after the current utterance |
+| Situation                                     | Use                                  | Why                                |
+| --------------------------------------------- | ------------------------------------ | ---------------------------------- |
+| Error that needs immediate attention          | `role="alert"` (implies assertive)   | Interrupts and is read at once     |
+| Non-urgent update (count, "saved", progress)  | `role="status"` (implies polite)     | Read after the current utterance   |
 | A region you update repeatedly, finer control | `aria-live="polite"` / `"assertive"` | Explicit politeness on a container |
 
 Reserve `alert`/`assertive` for things the user must act on now — overusing it is as unhelpful as

@@ -80,11 +80,7 @@ import { TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-compon
 function AppSections() {
   const [active, setActive] = useState("servers")
   return (
-    <TopNavigation
-      ariaLabel="Sections"
-      activeItem={active}
-      onActiveItemChange={(item) => setActive(String(item))}
-    >
+    <TopNavigation ariaLabel="Sections" activeItem={active} onActiveItemChange={(item) => setActive(String(item))}>
       <TopNavigationItem label="Servers" value="servers" icon="dns" />
       <TopNavigationItem label="Networks" value="networks" icon="place" />
       <TopNavigationItem label="Images" value="images" icon="autoAwesomeMotion" />

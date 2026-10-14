@@ -10,12 +10,12 @@ The `Modal` component gives you the hooks (`confirmButtonVariant`, `disableConfi
 `onConfirm`) but does not enforce a severity. Choose the level from the risk of the action
 (`docs/ux/modals.md`, "Destructive Actions and Confirmation of Destructive Actions"):
 
-| Severity | Means of confirmation                          | How to wire it                                                        |
-| -------- | ---------------------------------------------- | --------------------------------------------------------------------- |
-| Very Low | none — no Modal; maybe a toast                 | skip the Modal entirely                                               |
-| Low      | one click on the confirm button               | `confirmButtonVariant="primary-danger"`, confirm always enabled       |
-| Mid      | tick a checkbox, then confirm                  | `disableConfirmButton={!checked}`                                     |
-| High     | type a required phrase, then confirm           | `disableConfirmButton={phrase !== "DELETE"}`                          |
+| Severity | Means of confirmation                | How to wire it                                                  |
+| -------- | ------------------------------------ | --------------------------------------------------------------- |
+| Very Low | none — no Modal; maybe a toast       | skip the Modal entirely                                         |
+| Low      | one click on the confirm button      | `confirmButtonVariant="primary-danger"`, confirm always enabled |
+| Mid      | tick a checkbox, then confirm        | `disableConfirmButton={!checked}`                               |
+| High     | type a required phrase, then confirm | `disableConfirmButton={phrase !== "DELETE"}`                    |
 
 For all but very-low-risk actions, follow up with a toast confirming the entity was actually deleted,
 unless it is obvious from context or many identical actions would flood the user with notifications.
@@ -70,8 +70,7 @@ import { Modal } from "@cloudoperators/juno-ui-components"
 function MaintenanceNotice({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
     <Modal title="Maintenance Mode Enabled" open={open} onCancel={onClose}>
-      Automated alerts for cluster &apos;prod-eu-west-1&apos; are suspended until you turn off
-      maintenance mode.
+      Automated alerts for cluster &apos;prod-eu-west-1&apos; are suspended until you turn off maintenance mode.
     </Modal>
   )
 }

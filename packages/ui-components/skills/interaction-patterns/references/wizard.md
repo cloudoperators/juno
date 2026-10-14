@@ -72,9 +72,7 @@ function CreateClusterWizard({ open, onClose }: { open: boolean; onClose: () => 
     <ModalFooter>
       <ButtonRow>
         <Button variant="subdued" label="Cancel" disabled={busy} onClick={onClose} />
-        {step > 0 && (
-          <Button label="Back" disabled={busy} onClick={() => setStep((s) => s - 1)} />
-        )}
+        {step > 0 && <Button label="Back" disabled={busy} onClick={() => setStep((s) => s - 1)} />}
         {isLast ? (
           <Button
             variant="primary"
@@ -85,12 +83,7 @@ function CreateClusterWizard({ open, onClose }: { open: boolean; onClose: () => 
             onClick={submit}
           />
         ) : (
-          <Button
-            variant="primary"
-            label="Next"
-            disabled={!stepValid}
-            onClick={() => setStep((s) => s + 1)}
-          />
+          <Button variant="primary" label="Next" disabled={!stepValid} onClick={() => setStep((s) => s + 1)} />
         )}
       </ButtonRow>
     </ModalFooter>

@@ -62,10 +62,7 @@ function SelectableImagesTable({ images }: { images: ImageItem[] }) {
           onChange={toggleAll}
           aria-label="Select all images"
         />
-        <Button
-          disabled={selected.size === 0}
-          onClick={() => deleteImages([...selected])}
-        >
+        <Button disabled={selected.size === 0} onClick={() => deleteImages([...selected])}>
           Delete selected
         </Button>
       </DataGridToolbar>

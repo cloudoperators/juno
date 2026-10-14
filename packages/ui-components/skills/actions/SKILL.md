@@ -104,15 +104,7 @@ function CreateButton({ create }: { create: () => Promise<void> }) {
       setSaving(false)
     }
   }
-  return (
-    <Button
-      variant="primary"
-      label="Create"
-      progress={saving}
-      progressLabel="Creating…"
-      onClick={onClick}
-    />
-  )
+  return <Button variant="primary" label="Create" progress={saving} progressLabel="Creating…" onClick={onClick} />
 }
 ```
 

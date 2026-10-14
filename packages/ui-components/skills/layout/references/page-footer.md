@@ -27,13 +27,19 @@ function Footer() {
     <PageFooter copyright="© 2026 ACME Corporation. All rights reserved.">
       <ul className="juno-pagefooter-items-inline">
         <li>
-          <a className="juno-pagefooter-item" href="/about">About</a>
+          <a className="juno-pagefooter-item" href="/about">
+            About
+          </a>
         </li>
         <li>
-          <a className="juno-pagefooter-item" href="/imprint">Imprint</a>
+          <a className="juno-pagefooter-item" href="/imprint">
+            Imprint
+          </a>
         </li>
         <li>
-          <a className="juno-pagefooter-item" href="/terms">Terms of Use</a>
+          <a className="juno-pagefooter-item" href="/terms">
+            Terms of Use
+          </a>
         </li>
       </ul>
     </PageFooter>
@@ -58,10 +64,14 @@ function Footer() {
         </p>
         <ul className="juno-pagefooter-items">
           <li>
-            <a className="juno-pagefooter-item" href="/about">About</a>
+            <a className="juno-pagefooter-item" href="/about">
+              About
+            </a>
           </li>
           <li>
-            <a className="juno-pagefooter-item" href="/imprint">Imprint</a>
+            <a className="juno-pagefooter-item" href="/imprint">
+              Imprint
+            </a>
           </li>
         </ul>
       </div>
@@ -71,10 +81,14 @@ function Footer() {
         </p>
         <ul className="juno-pagefooter-items">
           <li>
-            <a className="juno-pagefooter-item" href="/privacy">Privacy Policy</a>
+            <a className="juno-pagefooter-item" href="/privacy">
+              Privacy Policy
+            </a>
           </li>
           <li>
-            <a className="juno-pagefooter-item" href="/contact">Contact</a>
+            <a className="juno-pagefooter-item" href="/contact">
+              Contact
+            </a>
           </li>
         </ul>
       </div>

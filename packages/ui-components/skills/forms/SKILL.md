@@ -313,13 +313,7 @@ import { Switch } from "@cloudoperators/juno-ui-components"
 declare function setMaintenanceMode(on: boolean): void
 
 function MaintenanceToggle({ enabled }: { enabled: boolean }) {
-  return (
-    <Switch
-      label="Maintenance mode"
-      on={enabled}
-      onChange={() => setMaintenanceMode(!enabled)}
-    />
-  )
+  return <Switch label="Maintenance mode" on={enabled} onChange={() => setMaintenanceMode(!enabled)} />
 }
 ```
 
@@ -336,13 +330,7 @@ import { ToggleButton } from "@cloudoperators/juno-ui-components"
 
 function DensityToggle() {
   const [density, setDensity] = useState("comfortable")
-  return (
-    <ToggleButton
-      options={["comfortable", "compact"]}
-      value={density}
-      onChange={(v) => setDensity(v)}
-    />
-  )
+  return <ToggleButton options={["comfortable", "compact"]} value={density} onChange={(v) => setDensity(v)} />
 }
 ```
 

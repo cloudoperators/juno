@@ -10,12 +10,12 @@ neutral confirmation) degrades the signal value and breaks product consistency.
 
 ## The variants
 
-| Variant   | Meaning                  | Typical use                                              |
-| --------- | ------------------------ | -------------------------------------------------------- |
-| `info`    | Neutral, informational   | General guidance, hints, status with no urgency          |
-| `success` | Positive outcome         | Confirmation that an operation completed successfully    |
-| `warning` | Caution required         | Non-blocking issue the user should be aware of or act on |
-| `error`   | Something went wrong     | A failure the user should be informed about              |
+| Variant   | Meaning                  | Typical use                                               |
+| --------- | ------------------------ | --------------------------------------------------------- |
+| `info`    | Neutral, informational   | General guidance, hints, status with no urgency           |
+| `success` | Positive outcome         | Confirmation that an operation completed successfully     |
+| `warning` | Caution required         | Non-blocking issue the user should be aware of or act on  |
+| `error`   | Something went wrong     | A failure the user should be informed about               |
 | `danger`  | High-risk or destructive | Destructive actions, data loss, irreversible consequences |
 
 ## `error` vs. `danger`
@@ -26,13 +26,13 @@ an `error`; a delete confirmation is `danger`.
 
 ## `warning` vs. `error`
 
-A `warning` does not mean something has failed — it signals that something *might* go wrong, or that
+A `warning` does not mean something has failed — it signals that something _might_ go wrong, or that
 the user should proceed carefully. An `error` means something already has gone wrong.
 
 ## Which components take which variants
 
 - **`Message`** (`MessageVariantType`) and **`Toast`** / the `toast()` helpers: `info | success |
-  warning | error | danger`. `Message` and bare `toast()` default to `info`. Note the semantic
+warning | error | danger`. `Message` and bare `toast()` default to `info`. Note the semantic
   `info` variant maps internally to the library's neutral/default icon.
 - **`Badge`** (`BadgeVariantType`): `default | info | success | warning | danger | error`. The extra
   `default` is the neutral, un-semantic chip; use it for labels that carry no status meaning.

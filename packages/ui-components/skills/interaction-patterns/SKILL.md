@@ -42,7 +42,7 @@ feedback, and the same action uses the same pattern everywhere in the app
 covers the five flow-level decisions the component library does **not** make for you: when to
 confirm, whether to disable/hide/error an unauthorized control, how to add/edit/delete inline, when
 to reach for a wizard, and how pages connect. It uses real Juno components in every example but is
-primarily about *which* pattern to choose.
+primarily about _which_ pattern to choose.
 
 ## Setup
 
@@ -150,14 +150,7 @@ function SaveButton() {
     setBusy(false)
   }
   return (
-    <Button
-      variant="primary"
-      label="Save"
-      progress={busy}
-      progressLabel="Saving…"
-      disabled={busy}
-      onClick={onClick}
-    />
+    <Button variant="primary" label="Save" progress={busy} progressLabel="Saving…" disabled={busy} onClick={onClick} />
   )
 }
 ```
@@ -171,8 +164,8 @@ skill).
 When a control is gated by permissions, pick one of three options from the context — do not default
 to disabling everything (`docs/ux/ui-for-unauthorized-users.md`):
 
-1. **Render disabled** when the feature is available to most users and *this* user just does not meet
-   a requirement, **and you know** their authorization up front. Explain *why* it is disabled with a
+1. **Render disabled** when the feature is available to most users and _this_ user just does not meet
+   a requirement, **and you know** their authorization up front. Explain _why_ it is disabled with a
    tooltip or nearby message — a bare disabled button is a dead end
    (`docs/ux/interaction-guidelines.md`, "Disabled States").
 2. **Do not render** when the feature is only for a privileged few or touches very sensitive data —

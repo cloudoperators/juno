@@ -46,15 +46,7 @@ components give you for free and the gaps you must still fill in application cod
 Everything here uses components from the single package:
 
 ```tsx
-import {
-  Button,
-  Icon,
-  TextInput,
-  CheckboxGroup,
-  Checkbox,
-  Modal,
-  Status,
-} from "@cloudoperators/juno-ui-components"
+import { Button, Icon, TextInput, CheckboxGroup, Checkbox, Modal, Status } from "@cloudoperators/juno-ui-components"
 ```
 
 Components must be rendered inside the app's `AppShellProvider` for styling (including the focus
@@ -126,13 +118,7 @@ import { TextInput } from "@cloudoperators/juno-ui-components"
 
 function EmailField({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   return (
-    <TextInput
-      label="Email address"
-      type="email"
-      required
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-    />
+    <TextInput label="Email address" type="email" required value={value} onChange={(e) => onChange(e.target.value)} />
   )
 }
 ```
@@ -194,13 +180,7 @@ import { Modal } from "@cloudoperators/juno-ui-components"
 
 function ConfirmDelete({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
-    <Modal
-      open={open}
-      title="Delete project"
-      confirmButtonLabel="Delete"
-      onCancel={onClose}
-      onConfirm={onClose}
-    >
+    <Modal open={open} title="Delete project" confirmButtonLabel="Delete" onCancel={onClose} onConfirm={onClose}>
       This action cannot be undone.
     </Modal>
   )

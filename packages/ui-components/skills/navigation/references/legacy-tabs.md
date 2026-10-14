@@ -39,7 +39,7 @@ styling), or `"codeblocks"`. `MainTabs` is simply `Tabs` with `variant="main"` p
 
 - **Uncontrolled (default):** pass `defaultIndex` for the initially selected tab and let `Tabs`
   manage selection internally. Do not also pass `selectedIndex`.
-- **Controlled:** pass `selectedIndex` *and* `onSelect`. `onSelect` receives the newly selected index
+- **Controlled:** pass `selectedIndex` _and_ `onSelect`. `onSelect` receives the newly selected index
   as a `number`; store it and feed it back as `selectedIndex`.
 
 ```tsx

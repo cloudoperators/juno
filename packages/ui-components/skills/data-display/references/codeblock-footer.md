@@ -7,7 +7,7 @@ the left of the Copy button.
 ## Breaking change (do not reintroduce the old pattern)
 
 Previously `codeBlockFooter` accepted a full replacement element that replaced the entire footer.
-It now injects content *into* the always-rendered footer wrapper. If you are migrating older code
+It now injects content _into_ the always-rendered footer wrapper. If you are migrating older code
 that passed a complete footer element expecting it to replace the bar, drop the wrapper and pass only
 the action node; use `copy={false}` when you want to hide the built-in Copy button
 (`CodeBlock.component.tsx`, `codeBlockFooter` JSDoc).

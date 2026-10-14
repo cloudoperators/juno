@@ -32,8 +32,7 @@ declare function createTag(name: string): Promise<Tag>
 function TagList({ initial }: { initial: Tag[] }) {
   const [tags, setTags] = useState<Tag[]>(initial)
 
-  const addDraft = () =>
-    setTags((prev) => [...prev, { id: `draft-${Date.now()}`, name: "", draft: true }])
+  const addDraft = () => setTags((prev) => [...prev, { id: `draft-${Date.now()}`, name: "", draft: true }])
 
   const commit = async (id: string, name: string) => {
     const saved = await createTag(name)

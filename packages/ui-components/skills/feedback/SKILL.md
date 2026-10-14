@@ -167,7 +167,11 @@ function ServicesView({ isLoading, error, retry }: Props) {
         status="error"
         title="Could not load services"
         body={error.message}
-        action={<Button variant="primary" onClick={retry}>Retry</Button>}
+        action={
+          <Button variant="primary" onClick={retry}>
+            Retry
+          </Button>
+        }
       />
     )
   }
@@ -221,12 +225,7 @@ single transition or unquantifiable wait, use a `Spinner` instead.
 import { ProgressBar } from "@cloudoperators/juno-ui-components"
 
 function Migration({ done, total }: { done: number; total: number }) {
-  return (
-    <ProgressBar
-      value={(done / total) * 100}
-      aria-label={`Migrating ${done} of ${total} volumes`}
-    />
-  )
+  return <ProgressBar value={(done / total) * 100} aria-label={`Migrating ${done} of ${total} volumes`} />
 }
 ```
 
@@ -244,9 +243,7 @@ matching icon, or an icon name string for a specific one.
 import { Badge } from "@cloudoperators/juno-ui-components"
 
 function HealthBadge({ healthy }: { healthy: boolean }) {
-  return healthy
-    ? <Badge variant="success" icon text="Healthy" />
-    : <Badge variant="error" icon text="Unhealthy" />
+  return healthy ? <Badge variant="success" icon text="Healthy" /> : <Badge variant="error" icon text="Unhealthy" />
 }
 ```
 
