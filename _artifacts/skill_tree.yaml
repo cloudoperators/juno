@@ -1,0 +1,545 @@
+library:
+  name: juno
+generated_from:
+  domain_map: _artifacts/domain_map.yaml
+  skill_spec: _artifacts/skill_spec.md
+skills:
+  [
+    {
+        name: datagrid,
+        slug: datagrid,
+        domain: data-display,
+        package: packages/ui-components,
+        path: skills/datagrid/SKILL.md,
+        description: "Use when building data tables with the Juno DataGrid in
+          @cloudoperators/juno-ui-components: rendering rows and columns,
+          controlling column widths, adding a toolbar for filtering and search,
+          row click and bulk selection, and rendering empty, loading, and error
+          states inside the grid. For form inputs used inside filters, see the
+          forms skill; for the Status component's other uses, see the feedback
+          skill.\n",
+        sources:
+          [
+            cloudoperators/juno:packages/ui-components/src/components/DataGrid/DataGrid.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx,
+            cloudoperators/juno:docs/ux/datagrid.md
+          ],
+        requires: [],
+        references: [ references/bulk-selection.md, references/toolbar-zones.md ],
+        purpose: "Teaches developers to compose the Juno DataGrid primitives (DataGrid,
+          DataGridRow, DataGridCell, DataGridHeadCell, DataGridToolbar) into an
+          accessible, UX-compliant data table, including the required
+          Status-based empty/loading/error pattern and the tri-state
+          bulk-selection model that the component library does not enforce on
+          its own.\n"
+      },
+    {
+        name: layout,
+        slug: layout,
+        domain: layout,
+        package: packages/ui-components,
+        path: skills/layout/SKILL.md,
+        description: "Use when building the overall page structure of a Juno app with
+          @cloudoperators/juno-ui-components: wrapping the app in
+          AppShellProvider, scaffolding the shell with AppShell (page header,
+          side/top navigation, content area, page footer), running in embedded
+          mode for micro-frontends, and arranging content inside the content
+          area with ContentHeading, ContentAreaToolbar, Grid/GridRow/GridColumn,
+          Stack, Container, Box, IntroBox, and Divider. For the data table that
+          usually fills a list page, see the datagrid skill; for the navigation
+          items themselves, see the navigation skill.\n",
+        sources:
+          [
+            cloudoperators/juno:packages/ui-components/src/components/AppShellProvider/AppShellProvider.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/AppShell/AppShell.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/AppShell/AppShell.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/AppBody/AppBody.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Container/Container.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/ContentContainer/ContentContainer.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/MainContainer/MainContainer.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/MainContainerInner/MainContainerInner.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/HeaderContainer/HeaderContainer.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/PageHeader/PageHeader.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/PageFooter/PageFooter.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/PageFooter/PageFooter.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/ContentHeading/ContentHeading.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/ContentAreaToolbar/ContentAreaToolbar.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Grid/Grid.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/GridRow/GridRow.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/GridColumn/GridColumn.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Stack/Stack.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Box/Box.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/IntroBox/IntroBox.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Divider/Divider.component.tsx,
+            cloudoperators/juno:docs/ux/juno-layout.md,
+            cloudoperators/juno:docs/ux/the-appshell.md,
+            cloudoperators/juno:docs/ux/layout-fundamentals.md,
+            cloudoperators/juno:docs/ux/page-header.md,
+            cloudoperators/juno:docs/ux/page-content-area.md,
+            cloudoperators/juno:docs/ux/page-footer.md,
+            cloudoperators/juno:docs/ux/page-layout-elements.md,
+            cloudoperators/juno:docs/ux/embedded-application-layout.md,
+            cloudoperators/juno:docs/ux/box.md
+          ],
+        requires: [],
+        references: [ references/box-patterns.md, references/grid-and-stack.md, references/manual-layout.md, references/page-footer.md ],
+        purpose: "Teaches developers to assemble a UX-compliant Juno page: the mandatory
+          AppShellProvider wrapper plus the AppShell page frame (header, content
+          area, footer) that the UX guidelines require on every page, when to
+          drop to the manual AppBody/MainContainer primitives, how embedded mode
+          changes the frame for micro-frontends, and how to lay out the content
+          area with the Grid, Stack, Container, Box, IntroBox, and Divider
+          primitives.\n"
+      },
+    {
+        name: forms,
+        slug: forms,
+        domain: forms,
+        package: packages/ui-components,
+        path: skills/forms/SKILL.md,
+        description: "Use when building forms with Juno inputs in
+          @cloudoperators/juno-ui-components: text fields, textareas, selects,
+          native selects, combo boxes, checkboxes, radios, switches, toggle
+          buttons, secret/date fields, grouping with Form/FormRow/FormSection,
+          labels and hints, validation state and timing
+          (helptext/errortext/successtext, invalid/valid), and the dedicated
+          SignInForm. For a data table and its filter toolbar, see the datagrid
+          skill; for Status-based page states, see the feedback skill.\n",
+        sources:
+          [
+            cloudoperators/juno:packages/ui-components/src/components/Form/Form.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/FormRow/FormRow.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/FormSection/FormSection.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/FormHint/FormHint.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Label/Label.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/TextInput/TextInput.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/TextInput/TextInput.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Textarea/Textarea.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/SearchInput/SearchInput.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/SecretText/SecretText.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Checkbox/Checkbox.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/CheckboxGroup/CheckboxGroup.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Radio/Radio.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/RadioGroup/RadioGroup.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/RadioGroup/RadioGroup.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Switch/Switch.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/ToggleButton/ToggleButton.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Select/Select.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Select/Select.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/SelectOption/SelectOption.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/SelectDivider/SelectDivider.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/NativeSelect/NativeSelect.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/NativeSelectOption/NativeSelectOption.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/NativeSelectOptionGroup/NativeSelectOptionGroup.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/ComboBox/ComboBox.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/ComboBoxOption/ComboBoxOption.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/InputGroup/InputGroup.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/InputGroup/InputGroup.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/DateTimePicker/DateTimePicker.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/SignInForm/SignInForm.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/SignInForm/SignInForm.stories.tsx,
+            cloudoperators/juno:docs/ux/forms.md,
+            cloudoperators/juno:docs/ux/sign-in.md,
+            cloudoperators/juno:docs/ux/authentication-and-access.md,
+            cloudoperators/juno:docs/ux/semantic-variants.md
+          ],
+        requires: [],
+        references: [ references/secret-and-date.md, references/selects.md, references/sign-in.md, references/validation.md ],
+        purpose: "Teaches developers to compose the Juno form primitives into
+          accessible, UX-compliant forms: picking the right input for the data,
+          labelling and hinting fields the Juno way (the `label` prop, not a
+          standalone Label), driving validation state through invalid/valid plus
+          errortext/successtext, choosing when to validate, and the sign-in
+          form's deliberately different (no-validation) rules the library does
+          not enforce for you.\n"
+      },
+    {
+        name: navigation,
+        slug: navigation,
+        domain: navigation,
+        package: packages/ui-components,
+        path: skills/navigation/SKILL.md,
+        description: "Use when building navigation in a Juno app with
+          @cloudoperators/juno-ui-components: the primary left SideNavigation
+          (flat items, groups, nested children up to three levels, active +
+          controlled expansion), a horizontal TopNavigation or TabBar as a
+          second-level navigation above content, a Breadcrumb trail back to list
+          views, in-page tabbed content (deprecated Tabs/TabList/TabPanel and
+          MainTabs), and Pagination for paged lists. For the DataGrid that fills
+          a list view, see the datagrid skill; for the AppShell that frames the
+          whole layout, see the fundamentals skill.\n",
+        sources:
+          [
+            cloudoperators/juno:packages/ui-components/src/components/SideNavigation/SideNavigation.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/SideNavigation/SideNavigation.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/SideNavigationGroup/SideNavigationGroup.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/SideNavigationItem/SideNavigationItem.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/SideNavigationList/SideNavigationList.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/TopNavigation/TopNavigation.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/TopNavigationItem/TopNavigationItem.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Navigation/Navigation.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/NavigationItem/NavigationItem.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Breadcrumb/Breadcrumb.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/BreadcrumbItem/BreadcrumbItem.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/TabBar/TabBar.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/TabBarItem/TabBarItem.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Tabs/Tabs.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Pagination/Pagination.component.tsx,
+            cloudoperators/juno:docs/ux/navigation-fundamentals.md,
+            cloudoperators/juno:docs/ux/navigation-side-navigation.md,
+            cloudoperators/juno:docs/ux/navigation.md,
+            cloudoperators/juno:docs/ux/page-and-user-flow.md
+          ],
+        requires: [],
+        references: [ references/legacy-tabs.md, references/pagination.md, references/second-level-bars.md ],
+        purpose: 'Teaches developers to pick the right Juno navigation primitive for
+          each level of an app — SideNavigation for top-level,
+          TopNavigation/TabBar for second-level, Breadcrumb for the path back,
+          Tabs for in-page content, Pagination for paged lists — and to wire the
+          active-item and controlled-expansion state the components leave to the
+          app, following the UX rules on depth, icon placement, and the
+          "navigation vs. filtering" distinction.
+
+          '
+      },
+    {
+        name: feedback,
+        slug: feedback,
+        domain: feedback,
+        package: packages/ui-components,
+        path: skills/feedback/SKILL.md,
+        description: "Use when surfacing feedback in a Juno app with
+          @cloudoperators/juno-ui-components: a static inline Message vs a
+          transient Toast notification fired through NotificationManager and the
+          toast() API, the Status component for page/section empty, loading,
+          error and no-matches states, Spinner / LoadingIndicator / ProgressBar
+          for progress, and Badge / Pill for inline status labels and filter
+          chips. Covers which component to reach for, the semantic variant to
+          pick, and the message copy and dismissal rules the library does not
+          enforce. For Status inside a DataGrid, see the datagrid skill; for
+          form field validation, see the forms skill.\n",
+        sources:
+          [
+            cloudoperators/juno:packages/ui-components/src/components/Message/Message.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Message/Message.stories.ts,
+            cloudoperators/juno:packages/ui-components/src/components/Toast/Toast.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Toast/Toast.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/NotificationManager/NotificationManager.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/NotificationManager/NotificationManager.types.ts,
+            cloudoperators/juno:packages/ui-components/src/components/NotificationManager/NotificationManager.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Status/Status.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Status/Status.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Spinner/Spinner.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/LoadingIndicator/LoadingIndicator.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/ProgressBar/ProgressBar.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Badge/Badge.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Pill/Pill.component.tsx,
+            cloudoperators/juno:docs/ux/messages-and-notifications.md,
+            cloudoperators/juno:docs/ux/error-handling-loading-empty-states.md,
+            cloudoperators/juno:docs/ux/transient-states-and-progress.md,
+            cloudoperators/juno:docs/ux/semantic-variants.md
+          ],
+        requires: [],
+        references: [ references/notifications.md, references/semantic-variants.md ],
+        purpose: "Teaches developers to choose and compose the Juno feedback primitives
+          — Message, Toast + NotificationManager, Status, Spinner,
+          LoadingIndicator, ProgressBar, Badge, and Pill — into UX-compliant
+          feedback, including the Message-vs-Notification decision, the
+          semantic-variant rules, the required non-blocking scoping of
+          loading/error states, and the copy and dismissal conventions the
+          components leave to the consumer.\n"
+      },
+    {
+        name: overlays,
+        slug: overlays,
+        domain: overlays,
+        package: packages/ui-components,
+        path: skills/overlays/SKILL.md,
+        description: "Use when building overlay UI in a Juno app with
+          @cloudoperators/juno-ui-components: Modal dialogs with built-in or
+          custom ModalFooter actions and destructive-action confirmation
+          (checkbox / typed phrase), slide-in Panels with PanelBody and
+          PanelFooter, Tooltips (TooltipTrigger + TooltipContent, hover vs.
+          click, semantic variants), and PopupMenu overflow menus with sections
+          and dividers. Also covers the PortalProvider these overlays render
+          into. For the Button variants used in footers see the forms/actions
+          material; for Status-based empty states inside tables see the datagrid
+          skill.\n",
+        sources:
+          [
+            cloudoperators/juno:packages/ui-components/src/components/Modal/Modal.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Modal/Modal.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/ModalFooter/ModalFooter.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Panel/Panel.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Panel/Panel.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/PanelBody/PanelBody.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/PanelFooter/PanelFooter.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Tooltip/Tooltip.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Tooltip/Tooltip.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/TooltipTrigger/TooltipTrigger.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/TooltipContent/TooltipContent.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/PopupMenu/PopupMenu.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/PopupMenu/PopupMenu.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/PortalProvider/PortalProvider.component.tsx,
+            cloudoperators/juno:docs/ux/modals.md,
+            cloudoperators/juno:docs/ux/popup-and-overflow-menus.md,
+            cloudoperators/juno:docs/ux/interaction-guidelines.md
+          ],
+        requires: [],
+        references: [ references/modal-patterns.md, references/popup-menu-composition.md, references/tooltip-modes.md ],
+        purpose: "Teaches developers to build Juno overlays — Modal/ModalFooter,
+          Panel/PanelBody/PanelFooter, Tooltip/TooltipTrigger/TooltipContent,
+          and PopupMenu — so they are triggered by user action, render into the
+          PortalProvider, confirm destructive actions at the correct severity,
+          and order menu items by the UX rules the components do not enforce on
+          their own.\n"
+      },
+    {
+        name: data-display,
+        slug: data-display,
+        domain: data-display,
+        package: packages/ui-components,
+        path: skills/data-display/SKILL.md,
+        description: "Use when displaying non-tabular content in a Juno app built with
+          @cloudoperators/juno-ui-components: grouping information in a Card,
+          rendering an item's properties as a term/definition DescriptionList,
+          showing inline code with Code or a copyable multi-line block with
+          CodeBlock and CodeBlockFooter, rendering structured JSON with the
+          collapsible JsonViewer, styling rich HTML prose with FormattedText,
+          and placing an Icon as a glyph, link, or button. For tabular lists of
+          items use the datagrid skill; for status badges and the empty/error
+          pattern see the feedback skill.\n",
+        sources:
+          [
+            cloudoperators/juno:packages/ui-components/src/components/Card/Card.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Card/Card.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/DescriptionList/DescriptionList.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/DescriptionList/DescriptionList.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/DescriptionTerm/DescriptionTerm.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/DescriptionDefinition/DescriptionDefinition.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Code/Code.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Code/Code.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/CodeBlock/CodeBlock.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/CodeBlock/CodeBlock.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/CodeBlockFooter/CodeBlockFooter.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/CodeBlockFooter/CodeBlockFooter.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/JsonViewer/JsonViewer.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/JsonViewer/JsonViewer.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/FormattedText/FormattedText.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/FormattedText/FormattedText.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Icon/Icon.component.tsx,
+            cloudoperators/juno:docs/ux/datagrid.md,
+            cloudoperators/juno:docs/ux/ux-writing-content-design.md
+          ],
+        requires: [],
+        references: [ references/codeblock-footer.md, references/description-list-layout.md, references/icon-names.md ],
+        purpose: "Teaches developers to pick and compose the Juno content-display
+          primitives (Card, DescriptionList with
+          DescriptionTerm/DescriptionDefinition, Code, CodeBlock with
+          CodeBlockFooter, JsonViewer, FormattedText, Icon) with their real
+          props, including the detail-view term/definition pattern, the
+          inline-vs-block code distinction, and the UX writing rules for titles,
+          empty values, and accessible interactive icons that the components do
+          not enforce on their own.\n"
+      },
+    {
+        name: actions,
+        slug: actions,
+        domain: actions,
+        package: packages/ui-components,
+        path: skills/actions/SKILL.md,
+        description: "Use when adding actions to a Juno UI built with
+          @cloudoperators/juno-ui-components: choosing a Button variant
+          (default, primary, primary-danger, subdued) and size, showing an
+          in-progress button during async work, grouping buttons with ButtonRow
+          in dialogs and forms, wiring a SortButton for a sortable column, and
+          placing a ThemeToggle. Covers which action is primary vs secondary vs
+          destructive, button label wording (title case, infinitive verbs), and
+          when to disable vs hide an action. For page-level toolbar slot layout
+          and the overflow menu, read the page-level-actions reference; for
+          actions scoped to a DataGrid, see the datagrid skill.\n",
+        sources:
+          [
+            cloudoperators/juno:packages/ui-components/src/components/Button/Button.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Button/Button.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/ButtonRow/ButtonRow.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/ButtonRow/ButtonRow.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/SortButton/SortButton.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/SortButton/SortButton.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/ThemeToggle/ThemeToggle.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/ThemeToggle/ThemeToggle.stories.tsx,
+            cloudoperators/juno:docs/ux/page-level-actions.md,
+            cloudoperators/juno:docs/ux/interaction-guidelines.md,
+            cloudoperators/juno:docs/ux/ux-writing-content-design.md
+          ],
+        requires: [],
+        references: [ references/label-wording.md, references/page-level-actions.md ],
+        purpose: "Teaches developers to pick the correct Juno Button variant and
+          placement for an action, group actions consistently with ButtonRow,
+          give async actions in-progress feedback, and apply the SortButton and
+          ThemeToggle correctly — enforcing the UX rules (one primary action per
+          page, destructive = primary-danger, title-case infinitive labels,
+          disable vs hide) that the components do not enforce on their own.\n"
+      },
+    {
+        name: app-foundations,
+        slug: app-foundations,
+        domain: foundations,
+        package: packages/ui-components,
+        path: skills/app-foundations/SKILL.md,
+        description: "Use when bootstrapping a Juno app or plugin with
+          @cloudoperators/juno-ui-components: wiring the required provider so
+          components render at all, loading the library CSS and your own styles,
+          choosing or switching the dark/light theme, encapsulating styles in a
+          Shadow DOM, and running the app embedded inside a host shell. Covers
+          AppShellProvider (the recommended entry point) plus the primitives it
+          composes — StyleProvider, PortalProvider, and ShadowRoot — and when to
+          drop down to them. For the page layout container (header/nav/footer
+          slots) see the AppShell layout skill; this skill is about the
+          providers that must wrap it.\n",
+        sources:
+          [
+            cloudoperators/juno:packages/ui-components/src/components/AppShellProvider/AppShellProvider.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/AppShellProvider/AppShellProvider.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/StyleProvider/StyleProvider.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/StyleProvider/StyleProvider.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/PortalProvider/PortalProvider.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/PortalProvider/PortalProvider.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/ShadowRoot/ShadowRoot.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/ShadowRoot/ShadowRoot.stories.tsx,
+            cloudoperators/juno:docs/ux/the-appshell.md,
+            cloudoperators/juno:docs/ux/getting-started-with-juno-ui-components.md,
+            cloudoperators/juno:docs/ux/core-concepts.md,
+            cloudoperators/juno:docs/ux/foundations.md,
+            cloudoperators/juno:docs/ux/embedded-application-layout.md
+          ],
+        requires: [],
+        references: [ references/portals.md, references/providers-standalone.md ],
+        purpose: "Teaches developers to bootstrap a Juno application correctly: wrapping
+          the app in a single AppShellProvider (which composes StyleProvider +
+          PortalProvider, optionally inside a ShadowRoot), loading the component
+          CSS where the chosen style/shadow mode requires it, selecting a theme,
+          and adjusting the setup for standalone vs. Shadow-DOM-encapsulated vs.
+          host-embedded deployment — the invisible plumbing that, if omitted,
+          makes components silently fail to style or portal.\n"
+      },
+    {
+        name: accessibility,
+        slug: accessibility,
+        domain: accessibility,
+        package: packages/ui-components,
+        path: skills/accessibility/SKILL.md,
+        description: "Use when ensuring a Juno UI built with
+          @cloudoperators/juno-ui-components is accessible: choosing semantic
+          HTML over div/span for actions and navigation, giving every input and
+          icon-only button an accessible name, grouping related inputs, wiring
+          help and error text, keeping keyboard navigation and visible focus
+          intact, trapping and returning focus in modals, avoiding color-only
+          signals, and announcing dynamic content (loading, success, errors) to
+          screen readers. For the DataGrid empty/loading/error pattern see the
+          datagrid skill; for form validation wiring see the forms skill.\n",
+        sources:
+          [
+            cloudoperators/juno:packages/ui-components/src/components/Button/Button.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Button/Button.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Icon/Icon.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/TextInput/TextInput.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/CheckboxGroup/CheckboxGroup.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/RadioGroup/RadioGroup.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Modal/Modal.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Status/Status.component.tsx,
+            cloudoperators/juno:docs/ux/accessibility.md,
+            cloudoperators/juno:docs/ux/interaction-guidelines.md
+          ],
+        requires: [],
+        references: [ references/announcing-dynamic-content.md, references/semantic-foundations.md ],
+        purpose: "Teaches developers to build accessible Juno UIs by preferring semantic
+          Juno primitives (Button, TextInput, CheckboxGroup, RadioGroup, Modal,
+          Status) that already carry the correct roles, labels, and focus
+          behaviour, and by filling the gaps the components do not enforce —
+          accessible names for icon-only controls, grouped-input labelling,
+          non-color status signals, and aria-live announcement of
+          application-driven dynamic content.\n"
+      },
+    {
+        name: ux-writing,
+        slug: ux-writing,
+        domain: content-design,
+        package: packages/ui-components,
+        path: skills/ux-writing/SKILL.md,
+        description: 'Use when writing any user-facing text in a Juno UI built with
+          @cloudoperators/juno-ui-components: button and confirm-action labels,
+          Modal titles and copy, Status/Message titles and bodies, headings and
+          DataGrid column headers, error and empty-state wording, and rendering
+          missing or unknown field values. Covers active-voice phrasing,
+          title-case rules, the "no please/thanks", "no exclamation marks",
+          "Sign in not Log in" rules, and the "- -" / fall-back-to-ID
+          conventions, so copy stays consistent across the app. For the DataGrid
+          empty/loading/error structure itself see the datagrid skill; this
+          skill governs the words that go in it.
+
+          ',
+        sources:
+          [
+            cloudoperators/juno:packages/ui-components/src/components/Button/Button.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Button/Button.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Status/Status.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Message/Message.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Modal/Modal.component.tsx,
+            cloudoperators/juno:docs/ux/ux-writing-content-design.md,
+            cloudoperators/juno:docs/ux/application-design-guidelines.md
+          ],
+        requires: [],
+        references: [ references/empty-values.md, references/title-case.md ],
+        purpose: "Teaches developers to write and label Juno UI text that follows the
+          project's UX Writing and Content Design guidelines — active impersonal
+          voice, title case, concise verb-based button labels, professional
+          non-alarmist error copy, and the project-specific empty-value
+          conventions (render \"- -\", fall back to the ID for name-like fields)
+          — grounded in the real Button, Status, Message, Modal, and
+          DescriptionList component props so the examples type-check.\n"
+      },
+    {
+        name: interaction-patterns,
+        slug: interaction-patterns,
+        domain: interaction,
+        package: packages/ui-components,
+        path: skills/interaction-patterns/SKILL.md,
+        description: "Use when designing interaction flows in a Juno app built with
+          @cloudoperators/juno-ui-components: confirming consequential or
+          destructive actions with a Modal, deciding whether to disable, hide,
+          or always-render a control the user may not be authorized for,
+          adding/editing/deleting items inline in a list, breaking a long task
+          into a multi-step wizard, and laying out the overall sign-in → home →
+          scope → list → detail page flow. This is a UX-guidelines skill: it
+          tells you which pattern to reach for and wires real Juno components
+          (Button, Modal, Tooltip, Icon, TextInput, Message) into each. For the
+          Modal API itself see the overlays skill; for form validation see the
+          forms skill; for the DataGrid list view see the datagrid skill.\n",
+        sources:
+          [
+            cloudoperators/juno:packages/ui-components/src/components/Button/Button.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Button/Button.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Modal/Modal.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Modal/Modal.stories.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/ModalFooter/ModalFooter.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/Tooltip/Tooltip.component.tsx,
+            cloudoperators/juno:packages/ui-components/src/components/TextInput/TextInput.component.tsx,
+            cloudoperators/juno:docs/ux/interaction-guidelines.md,
+            cloudoperators/juno:docs/ux/inline-adding-editing-and-deleting.md,
+            cloudoperators/juno:docs/ux/wizard.md,
+            cloudoperators/juno:docs/ux/ui-for-unauthorized-users.md,
+            cloudoperators/juno:docs/ux/page-and-user-flow.md
+          ],
+        requires: [],
+        references: [ references/authorization-ui.md, references/inline-crud.md, references/wizard.md ],
+        purpose: "Teaches developers to choose and implement Juno's interaction patterns
+          correctly — confirmation of destructive actions, the
+          disable/hide/error decision for unauthorized controls, inline
+          add/edit/delete, multi-step wizards, and the standard page-and-user
+          flow — grounded in the UX guidelines so apps stay predictable and
+          consistent instead of each screen inventing its own affordances.\n"
+      }
+  ]
+distribution:
+  mode: none
