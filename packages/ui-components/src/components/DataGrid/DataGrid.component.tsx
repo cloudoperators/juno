@@ -61,7 +61,7 @@ export const useDataGridContext = () => useContext(DataGridContext)
  * @see {@link DataGridProps}
  */
 export const DataGrid = ({
-  columns = 1,
+  columnCount = 1,
   columnMaxSize = "auto",
   columnMinSize = "0px",
   minContentColumns,
@@ -83,7 +83,7 @@ export const DataGrid = ({
     <DataGridContext.Provider value={dataGridConf}>
       <div
         className={`juno-datagrid ${dataGridStyles} ${className}`}
-        style={gridTemplate(columns, columnMaxSize, columnMinSize, minContentColumns, gridColumnTemplate)}
+        style={gridTemplate(columnCount, columnMaxSize, columnMinSize, minContentColumns, gridColumnTemplate)}
         role="grid"
         {...props}
       >
@@ -100,7 +100,7 @@ export interface DataGridProps extends HTMLAttributes<HTMLDivElement> {
    * Specifies the number of columns in the grid.
    * @default 1
    */
-  columns?: number
+  columnCount?: number
 
   /**
    * Defines maximum column sizing.

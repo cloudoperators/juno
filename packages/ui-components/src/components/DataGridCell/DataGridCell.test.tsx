@@ -27,7 +27,7 @@ describe("DataGridCell", () => {
 
   test("inherits cellVerticalAlignment from parent DataGrid context", () => {
     render(
-      <DataGrid columns={1} cellVerticalAlignment="center">
+      <DataGrid columnCount={1} cellVerticalAlignment="center">
         <DataGridCell />
       </DataGrid>
     )
@@ -38,7 +38,7 @@ describe("DataGridCell", () => {
 
   test("verticalAlignment prop overrides parent DataGrid context", () => {
     render(
-      <DataGrid columns={1} cellVerticalAlignment="center">
+      <DataGrid columnCount={1} cellVerticalAlignment="center">
         <DataGridCell verticalAlignment="top" />
       </DataGrid>
     )
@@ -49,7 +49,7 @@ describe("DataGridCell", () => {
 
   test("verticalAlignment='center' overrides parent DataGrid cellVerticalAlignment='top'", () => {
     render(
-      <DataGrid columns={1} cellVerticalAlignment="top">
+      <DataGrid columnCount={1} cellVerticalAlignment="top">
         <DataGridCell verticalAlignment="center" />
       </DataGrid>
     )

@@ -246,7 +246,7 @@ export const FullyFeatured: Story = {
           </DataGridToolbar>
         </Stack>
 
-        <DataGrid columns={6} minContentColumns={[0, 5]}>
+        <DataGrid columnCount={6} minContentColumns={[0, 5]}>
           <DataGridRow>
             <DataGridHeadCell />
             <DataGridHeadCell>Name</DataGridHeadCell>
@@ -370,7 +370,7 @@ export const FullyFeatured: Story = {
     </DataGridToolbar>
   </Stack>
 
-  <DataGrid columns={6} minContentColumns={[0, 5]}>
+  <DataGrid columnCount={6} minContentColumns={[0, 5]}>
     <DataGridRow>
       <DataGridHeadCell />
       <DataGridHeadCell>Name</DataGridHeadCell>
