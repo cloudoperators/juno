@@ -13,8 +13,8 @@ const tabBarStyles = `
 const tabBarButtonsStyles = `
   jn:w-fit
   jn:bg-theme-tab-buttons
-  jn:rounded-[0.25rem]
-  jn:p-[0.125rem]
+  jn:rounded-sm
+  jn:p-0.5
 `
 
 /** @deprecated Use `"tabs"` instead. `"main"` remains functional but will be removed in a future major release. */

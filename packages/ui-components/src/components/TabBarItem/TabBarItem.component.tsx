@@ -13,8 +13,8 @@ const tabBarItemStyles = `
   jn:items-center
   jn:text-theme-default
   jn:font-bold
-  jn:py-[0.875rem]
-  jn:px-[1.5625rem]
+  jn:py-3.5
+  jn:px-6.25
   jn:border-b-[3px]
   jn:focus-visible:outline-hidden
   jn:focus-visible:ring-2
@@ -30,8 +30,8 @@ const tabBarActiveItemStyles = `
 
 const tabBarItemButtonStyles = `
   jn:rounded-[0.1875rem]
-  jn:px-[0.625rem]
-  jn:py-[0.4375rem]
+  jn:px-2.5
+  jn:py-1.75
   jn:text-sm
   jn:font-bold
   jn:leading-[1.4]
@@ -62,8 +62,8 @@ const tabBarItemContentStyles = `
   jn:items-center
   jn:text-theme-default
   jn:font-bold
-  jn:py-[0.875rem]
-  jn:px-[1.5625rem]
+  jn:py-3.5
+  jn:px-6.25
   jn:focus-visible:outline-hidden
   jn:focus-visible:ring-2
   jn:focus-visible:ring-theme-focus
