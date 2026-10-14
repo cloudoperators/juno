@@ -3,14 +3,24 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { createContext, HTMLAttributes, ReactNode } from "react"
+import React, { createContext, HTMLAttributes, ReactNode, useEffect, useRef } from "react"
 import { Navigation } from "../Navigation/Navigation.component"
 
 const tabBarStyles = `
   jn:flex
 `
 
-export type TabBarAppearance = "main" | "content"
+const tabBarButtonsStyles = `
+  jn:w-fit
+  jn:bg-theme-tab-buttons
+  jn:rounded-sm
+  jn:p-0.5
+`
+
+/** @deprecated Use `"tabs"` instead. `"main"` remains functional but will be removed in a future major release. */
+export type DeprecatedTabBarAppearance = "main"
+
+export type TabBarAppearance = "tabs" | "buttons" | "content" | DeprecatedTabBarAppearance
 
 /** @deprecated Use TabBarAppearance instead. Can be removed when TabNavigation is removed. */
 export type TabStyle = TabBarAppearance
@@ -46,7 +56,16 @@ export const TabBar = ({
   tabStyle, // Can be removed when TabNavigation is removed
   ...props
 }: TabBarProps): ReactNode => {
-  const resolvedAppearance = appearance || tabStyle || "main" // `|| tabStyle` can be removed when TabNavigation is removed
+  const resolvedAppearance = appearance || tabStyle || "tabs" // `|| tabStyle` can be removed when TabNavigation is removed
+
+  const warnedDeprecatedMain = useRef(false)
+  useEffect(() => {
+    if (appearance === "main" && !warnedDeprecatedMain.current) {
+      warnedDeprecatedMain.current = true
+      console.warn('TabBar: appearance="main" is deprecated. Use appearance="tabs" instead.')
+    }
+  }, [appearance])
+
   return (
     <TabBarContext.Provider
       value={{
@@ -57,7 +76,7 @@ export const TabBar = ({
       <Navigation
         activeItem={activeItem}
         ariaLabel={ariaLabel}
-        className={`juno-tabbar juno-tabbar-${resolvedAppearance} ${disabled ? "juno-tabbar-disabled" : ""} ${tabBarStyles} ${className}`}
+        className={`juno-tabbar juno-tabbar-${resolvedAppearance} ${disabled ? "juno-tabbar-disabled" : ""} ${tabBarStyles} ${resolvedAppearance === "buttons" ? tabBarButtonsStyles : ""} ${className}`}
         disabled={disabled}
         onActiveItemChange={onActiveItemChange}
         {...props}
@@ -82,7 +101,7 @@ export interface TabBarProps extends HTMLAttributes<HTMLElement> {
   /** A handler to execute when the active tab changes */
   // eslint-disable-next-line no-unused-vars
   onActiveItemChange?: (activeItem: ReactNode) => void
-  /** The visual appearance of the TabBar. Use `main` as the first child in an AppShell. Use `content` for tabs inside page content — adds a darkened bottom border on inactive tabs. */
+  /** The visual appearance of the TabBar. Defaults to `tabs`. Use `tabs` for tabs inside an AppShell or page content. Use `buttons` for a pill-style segmented control. `content` is a distinct style variant with a shared bottom border. `main` is deprecated — use `tabs` instead. */
   appearance?: TabBarAppearance
   /** @deprecated Use appearance instead. Can be removed when TabNavigation is removed. */
   tabStyle?: TabBarAppearance

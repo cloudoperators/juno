@@ -237,6 +237,7 @@ export type { TabListProps } from "./components/TabList/TabList.component"
 export type {
   TabBarProps,
   TabBarAppearance,
+  DeprecatedTabBarAppearance,
   TabBarContextType,
   TabNavigationProps, // Can be removed when TabNavigation is removed
   TabNavigationContextType, // Can be removed when TabNavigation is removed

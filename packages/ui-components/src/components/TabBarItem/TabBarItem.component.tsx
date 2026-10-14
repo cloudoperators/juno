@@ -13,8 +13,8 @@ const tabBarItemStyles = `
   jn:items-center
   jn:text-theme-default
   jn:font-bold
-  jn:py-[0.875rem]
-  jn:px-[1.5625rem]
+  jn:py-3.5
+  jn:px-6.25
   jn:border-b-[3px]
   jn:focus-visible:outline-hidden
   jn:focus-visible:ring-2
@@ -26,6 +26,58 @@ const tabBarActiveItemStyles = `
   jn:font-bold
   jn:border-b-[3px]
   jn:border-theme-tab-active-bottom
+`
+
+const tabBarItemButtonStyles = `
+  jn:rounded-[0.1875rem]
+  jn:px-2.5
+  jn:py-1.75
+  jn:text-sm
+  jn:font-bold
+  jn:leading-[1.4]
+  jn:border
+  jn:cursor-pointer
+  jn:transition-colors
+  jn:duration-150
+  jn:focus-visible:outline-hidden
+  jn:focus-visible:ring-2
+  jn:focus-visible:ring-theme-focus
+  jn:focus-visible:ring-offset-1
+`
+
+const tabBarItemButtonActiveStyles = `
+  jn:bg-theme-tab-button-active
+  jn:text-theme-tab-button-active
+  jn:border-theme-tab-button-active
+`
+
+const tabBarItemButtonInactiveStyles = `
+  jn:text-theme-tab-button
+  jn:border-transparent
+  jn:not-[[aria-disabled=true]]:hover:text-theme-tab-button-hover
+`
+
+const tabBarItemContentStyles = `
+  jn:flex
+  jn:items-center
+  jn:text-theme-default
+  jn:font-bold
+  jn:py-3.5
+  jn:px-6.25
+  jn:focus-visible:outline-hidden
+  jn:focus-visible:ring-2
+  jn:focus-visible:ring-theme-focus
+`
+
+const tabBarActiveContentItemStyles = `
+  jn:text-theme-high
+  jn:font-bold
+`
+
+const tabBarItemContentWrapperStyles = `
+  jn:border-b-[3px]
+  jn:border-theme-tab-content-inactive-bottom
+  jn:has-[.juno-navigation-item-active]:border-theme-tab-active-bottom
 `
 
 /**
@@ -46,27 +98,34 @@ export const TabBarItem = ({
   value = "",
   ...props
 }: TabBarItemProps): ReactNode => {
-  const tabBarContext = useContext(TabBarContext)
-  const { appearance } = tabBarContext || {}
-  const resolvedAppearance = appearance
+  const { appearance } = useContext(TabBarContext) || {}
+  const isButtons = appearance === "buttons"
+  const isContentLike = appearance === "content" // "content" is a distinct style variant with a shared bottom border
   return (
     <NavigationItem
       active={active}
-      activeItemStyles={tabBarActiveItemStyles}
+      activeItemStyles={
+        isButtons
+          ? tabBarItemButtonActiveStyles
+          : isContentLike
+            ? tabBarActiveContentItemStyles
+            : tabBarActiveItemStyles
+      }
       ariaLabel={ariaLabel}
       className={`
         juno-tabbar-item
-        ${resolvedAppearance ? "juno-tabbar-" + resolvedAppearance + "-item" : ""}
-        ${tabBarItemStyles}
+        ${appearance ? "juno-tabbar-" + appearance + "-item" : ""}
+        ${isButtons ? tabBarItemButtonStyles : isContentLike ? tabBarItemContentStyles : tabBarItemStyles}
         ${className}
       `}
       disabled={disabled}
       href={href}
       icon={icon}
-      inactiveItemStyles={`${resolvedAppearance === "content" ? "jn:border-theme-tab-content-inactive-bottom" : "jn:border-transparent"}`}
+      inactiveItemStyles={isButtons ? tabBarItemButtonInactiveStyles : isContentLike ? "" : "jn:border-transparent"}
       label={label}
       onClick={onClick}
       value={value}
+      wrapperClassName={isContentLike ? tabBarItemContentWrapperStyles : ""}
       {...props}
     >
       {children}

@@ -166,7 +166,7 @@ describe("TabBar", () => {
     expect(mockOnActiveItemChange).toHaveBeenCalled()
   })
 
-  test("renders main appearance by default", async () => {
+  test("renders tabs appearance by default", async () => {
     await waitFor(() =>
       render(
         <TabBar>
@@ -174,7 +174,40 @@ describe("TabBar", () => {
         </TabBar>
       )
     )
+    expect(screen.getByRole("navigation")).toHaveClass("juno-tabbar-tabs")
+  })
+
+  test("renders main appearance as passed via appearance prop", async () => {
+    await waitFor(() =>
+      render(
+        <TabBar appearance="main">
+          <TabBarItem label="Item 1" />
+        </TabBar>
+      )
+    )
     expect(screen.getByRole("navigation")).toHaveClass("juno-tabbar-main")
+  })
+
+  test("renders tabs appearance as passed via appearance prop", async () => {
+    await waitFor(() =>
+      render(
+        <TabBar appearance="tabs">
+          <TabBarItem label="Item 1" />
+        </TabBar>
+      )
+    )
+    expect(screen.getByRole("navigation")).toHaveClass("juno-tabbar-tabs")
+  })
+
+  test("renders buttons appearance as passed via appearance prop", async () => {
+    await waitFor(() =>
+      render(
+        <TabBar appearance="buttons">
+          <TabBarItem label="Item 1" />
+        </TabBar>
+      )
+    )
+    expect(screen.getByRole("navigation")).toHaveClass("juno-tabbar-buttons")
   })
 
   test("renders content appearance as passed via appearance prop", async () => {
@@ -186,6 +219,20 @@ describe("TabBar", () => {
       )
     )
     expect(screen.getByRole("navigation")).toHaveClass("juno-tabbar-content")
+  })
+
+  // Can be removed when the deprecated "main" appearance is removed:
+  test("emits a deprecation warning when the main appearance is used", async () => {
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {})
+    await waitFor(() =>
+      render(
+        <TabBar appearance="main">
+          <TabBarItem label="Item 1" />
+        </TabBar>
+      )
+    )
+    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('appearance="main" is deprecated'))
+    warnSpy.mockRestore()
   })
 
   // Can be removed when TabNavigation is removed:
@@ -220,11 +267,11 @@ describe("TabBar", () => {
       return null
     }
     render(
-      <TabBar appearance="content">
+      <TabBar appearance="tabs">
         <Consumer />
       </TabBar>
     )
-    expect(ctx?.appearance).toBe("content")
+    expect(ctx?.appearance).toBe("tabs")
   })
 
   // Can be removed when TabNavigation is removed:
