@@ -21,7 +21,7 @@ const ViolationsList = () => {
           <div className="p-4">No violations found</div>
         ) : (
           <>
-            <DataGrid columns={5} cellVerticalAlignment="top" className="violations-list">
+            <DataGrid columnCount={5} cellVerticalAlignment="top" className="violations-list">
               <DataGridRow>
                 <DataGridHeadCell>
                   <Icon icon="monitorHeart" />

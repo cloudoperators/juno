@@ -17,7 +17,7 @@ const COLUMN_SPAN = 4
 export const ExposedServicesDataGrid = () => {
   const { filterSettings } = useLoaderData({ from: "/admin/exposed-services" })
   return (
-    <DataGrid columns={COLUMN_SPAN}>
+    <DataGrid columnCount={COLUMN_SPAN}>
       <DataGridRow>
         <DataGridHeadCell>Name</DataGridHeadCell>
         <DataGridHeadCell>Cluster</DataGridHeadCell>

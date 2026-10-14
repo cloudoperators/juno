@@ -162,7 +162,7 @@ const SilencesList = () => {
             />
           </Stack>
 
-          <DataGrid columns={4} minContentColumns={[0, 2, 3]} cellVerticalAlignment="top" className="silences ">
+          <DataGrid columnCount={4} minContentColumns={[0, 2, 3]} cellVerticalAlignment="top" className="silences ">
             <>
               <DataGridRow>
                 <DataGridHeadCell>Time intervall</DataGridHeadCell>

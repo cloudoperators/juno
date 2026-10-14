@@ -16,7 +16,7 @@ const COLUMN_SPAN = 8
 export const PluginPresetsDataGrid = () => {
   const { filterSettings } = useLoaderData({ from: "/admin/plugin-presets/" })
   return (
-    <DataGrid minContentColumns={[0, 1, 7]} columns={COLUMN_SPAN}>
+    <DataGrid minContentColumns={[0, 1, 7]} columnCount={COLUMN_SPAN}>
       <DataGridRow>
         <DataGridHeadCell>
           <Icon icon="monitorHeart" />

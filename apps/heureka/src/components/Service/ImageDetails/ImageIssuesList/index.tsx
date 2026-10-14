@@ -86,7 +86,7 @@ const VulnerabilitiesTabContent = ({
           }}
         />
       </Stack>
-      <DataGrid columns={5} minContentColumns={[0, 1, 2, 4]} cellVerticalAlignment="top">
+      <DataGrid columnCount={5} minContentColumns={[0, 1, 2, 4]} cellVerticalAlignment="top">
         <DataGridRow>
           <DataGridHeadCell>
             <Icon icon="monitorHeart" />
@@ -176,7 +176,7 @@ const RemediatedVulnerabilitiesTabContent = ({
         />
       </Stack>
       <div className="mt-4">
-        <DataGrid columns={COLUMN_SPAN} minContentColumns={[0, 1, 2, 4]} cellVerticalAlignment="top">
+        <DataGrid columnCount={COLUMN_SPAN} minContentColumns={[0, 1, 2, 4]} cellVerticalAlignment="top">
           <DataGridRow>
             <DataGridHeadCell>
               <Icon icon="monitorHeart" />
