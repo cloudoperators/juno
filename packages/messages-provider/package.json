@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/juno-messages-provider",
-  "version": "0.2.54",
+  "version": "0.2.55",
   "description": "Messages provider",
   "author": "UI-Team",
   "repository": "https://github.com/cloudoperators/juno/tree/main/packages/messages-provider",
@@ -26,11 +26,12 @@
     "@testing-library/react": "16.3.3",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
+    "jsdom": "30.1.2",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "typescript": "6.0.3",
     "vite": "8.3.2",
-    "vite-plugin-dts": "5.1.1",
+    "vite-plugin-dts": "5.1.2",
     "vitest": "5.0.3",
     "zustand": "5.0.15"
   },
