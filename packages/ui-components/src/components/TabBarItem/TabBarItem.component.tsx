@@ -105,7 +105,11 @@ export const TabBarItem = ({
     <NavigationItem
       active={active}
       activeItemStyles={
-        isButtons ? tabBarItemButtonActiveStyles : isContentLike ? tabBarActiveContentItemStyles : tabBarActiveItemStyles
+        isButtons
+          ? tabBarItemButtonActiveStyles
+          : isContentLike
+            ? tabBarActiveContentItemStyles
+            : tabBarActiveItemStyles
       }
       ariaLabel={ariaLabel}
       className={`
