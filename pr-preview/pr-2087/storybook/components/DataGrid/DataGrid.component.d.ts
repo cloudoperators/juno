@@ -10,14 +10,14 @@ export declare const useDataGridContext: () => DataGridContextType;
  * @see https://cloudoperators.github.io/juno/?path=/docs/components-datagrid-datagrid--docs
  * @see {@link DataGridProps}
  */
-export declare const DataGrid: ({ columns, columnMaxSize, columnMinSize, minContentColumns, gridColumnTemplate, cellVerticalAlignment, className, children, ...props }: DataGridProps) => ReactNode;
+export declare const DataGrid: ({ columnCount, columnMaxSize, columnMinSize, minContentColumns, gridColumnTemplate, cellVerticalAlignment, className, children, ...props }: DataGridProps) => ReactNode;
 export type CellVerticalAlignmentType = "center" | "top";
 export interface DataGridProps extends HTMLAttributes<HTMLDivElement> {
     /**
      * Specifies the number of columns in the grid.
      * @default 1
      */
-    columns?: number;
+    columnCount?: number;
     /**
      * Defines maximum column sizing.
      * @default "auto"
