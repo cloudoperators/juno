@@ -222,20 +222,6 @@ describe("TabBar", () => {
   })
 
   // Can be removed when the deprecated "main" appearance is removed:
-  test("still renders the deprecated main appearance as passed via appearance prop", async () => {
-    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {})
-    await waitFor(() =>
-      render(
-        <TabBar appearance="main">
-          <TabBarItem label="Item 1" />
-        </TabBar>
-      )
-    )
-    expect(screen.getByRole("navigation")).toHaveClass("juno-tabbar-main")
-    warnSpy.mockRestore()
-  })
-
-  // Can be removed when the deprecated "main" appearance is removed:
   test("emits a deprecation warning when the main appearance is used", async () => {
     const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {})
     await waitFor(() =>
