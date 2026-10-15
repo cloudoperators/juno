@@ -38,7 +38,7 @@ const meta: Meta<typeof DataGrid> = {
 export default meta
 
 const Template = (args: TemplateProps) => {
-  const { hideHead, includeColSpanRow, columns = defaultColumns } = args
+  const { hideHead, includeColSpanRow, columnCount: columns = defaultColumns } = args
 
   return (
     <DataGrid {...args}>
@@ -73,7 +73,7 @@ const Template = (args: TemplateProps) => {
 export const Default: StoryObj<TemplateProps> = {
   render: Template,
   args: {
-    columns: 5,
+    columnCount: 5,
   },
   parameters: {
     docs: {
@@ -87,7 +87,7 @@ export const Default: StoryObj<TemplateProps> = {
 export const EqualColumnSize: StoryObj<TemplateProps> = {
   render: Template,
   args: {
-    columns: 5,
+    columnCount: 5,
     columnMaxSize: "1fr",
   },
   parameters: {
@@ -103,7 +103,7 @@ export const EqualColumnSize: StoryObj<TemplateProps> = {
 export const ColumnMinSize: StoryObj<TemplateProps> = {
   render: Template,
   args: {
-    columns: 5,
+    columnCount: 5,
     columnMinSize: "300px",
   },
   parameters: {
@@ -119,7 +119,7 @@ export const ColumnMinSize: StoryObj<TemplateProps> = {
 export const MinimumSizedColumns: StoryObj<TemplateProps> = {
   render: Template,
   args: {
-    columns: 5,
+    columnCount: 5,
     minContentColumns: [0, 4],
   },
   parameters: {
@@ -136,7 +136,7 @@ export const CustomGridTemplate: StoryObj<TemplateProps> = {
   render: Template,
   args: {
     gridColumnTemplate: `20% repeat(${defaultColumns - 1}, auto)`,
-    columns: defaultColumns,
+    columnCount: defaultColumns,
   },
   parameters: {
     docs: {
@@ -151,7 +151,7 @@ export const CustomGridTemplate: StoryObj<TemplateProps> = {
 export const NoHead: StoryObj<TemplateProps> = {
   render: Template,
   args: {
-    columns: 5,
+    columnCount: 5,
     hideHead: true,
   },
   parameters: {
@@ -166,7 +166,7 @@ export const NoHead: StoryObj<TemplateProps> = {
 export const ColSpanCell: StoryObj<TemplateProps> = {
   render: Template,
   args: {
-    columns: 5,
+    columnCount: 5,
     includeColSpanRow: true,
   },
   parameters: {
@@ -180,7 +180,7 @@ export const ColSpanCell: StoryObj<TemplateProps> = {
 
 export const HoverableRow: StoryObj<DataGridRowStoryProps> = {
   render: (args) => (
-    <DataGrid columns={defaultColumns}>
+    <DataGrid columnCount={defaultColumns}>
       <DataGridRow>
         <DataGridHeadCell>ID</DataGridHeadCell>
         <DataGridHeadCell>Name</DataGridHeadCell>
@@ -210,7 +210,7 @@ export const HoverableRow: StoryObj<DataGridRowStoryProps> = {
 
 export const HoverableRowWithInteractableElements: StoryObj<DataGridRowStoryProps> = {
   render: (args) => (
-    <DataGrid columns={defaultColumns + 1}>
+    <DataGrid columnCount={defaultColumns + 1}>
       <DataGridRow>
         <DataGridHeadCell>ID</DataGridHeadCell>
         <DataGridHeadCell>Name</DataGridHeadCell>

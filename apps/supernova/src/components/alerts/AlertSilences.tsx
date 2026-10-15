@@ -63,7 +63,7 @@ const AlertSilences = ({ alert }: any) => {
       {alert.status.inhibitedBy.length > 0 && (
         <>
           <h2 className="text-xl font-bold mb-2 mt-8">Inhibited by</h2>
-          <DataGrid columns={2}>
+          <DataGrid columnCount={2}>
             <DataGridRow>
               <DataGridHeadCell>Alert</DataGridHeadCell>
               <DataGridHeadCell></DataGridHeadCell>

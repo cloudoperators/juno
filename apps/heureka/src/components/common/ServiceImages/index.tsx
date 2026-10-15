@@ -63,7 +63,7 @@ export const ServiceImages = ({
       )}
 
       <div className="datagrid-hover">
-        <DataGrid columns={columnsCount} minContentColumns={[2, 3, 4, 5, 6, 7]}>
+        <DataGrid columnCount={columnsCount} minContentColumns={[2, 3, 4, 5, 6, 7]}>
           <DataGridRow>
             <DataGridHeadCell>Image Repository</DataGridHeadCell>
             <DataGridHeadCell>Versions</DataGridHeadCell>

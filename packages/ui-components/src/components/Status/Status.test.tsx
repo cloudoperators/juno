@@ -118,7 +118,7 @@ describe("Status", () => {
 
   it("does not render a code inside a DataGrid", () => {
     render(
-      <DataGrid columns={1}>
+      <DataGrid columnCount={1}>
         <DataGridRow>
           <DataGridCell>
             <Status status="error" code={404} />
@@ -131,7 +131,7 @@ describe("Status", () => {
 
   it("adds a datagrid identifier class when rendered inside a DataGrid", () => {
     render(
-      <DataGrid columns={1}>
+      <DataGrid columnCount={1}>
         <DataGridRow>
           <DataGridCell>
             <Status />

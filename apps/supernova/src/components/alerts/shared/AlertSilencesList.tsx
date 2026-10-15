@@ -42,7 +42,7 @@ const AlertSilencesList = ({ alert }: any) => {
       {silenceList.length > 0 && (
         <>
           <h2 className="text-xl font-bold mb-2 mt-8">Silences</h2>
-          <DataGrid columns={6} minContentColumns={[5]}>
+          <DataGrid columnCount={6} minContentColumns={[5]}>
             <DataGridRow>
               <DataGridHeadCell>Status</DataGridHeadCell>
               <DataGridHeadCell>Silence start</DataGridHeadCell>

@@ -1,0 +1,288 @@
+library:
+  name: juno
+domains: []
+skills:
+  [
+    {
+        name: datagrid,
+        slug: datagrid,
+        domain: data-display,
+        description: "Use when building data tables with the Juno DataGrid: rendering
+          rows and columns, adding sorting, filtering via DataGridToolbar, bulk
+          row selection, pagination, and empty/loading/error states.",
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks:
+          [
+            "Render rows and columns and control column widths",
+            "Make a row clickable to open a detail view",
+            "Add a toolbar for filters, search, and bulk actions",
+            "Render the required empty, loading, and error states with Status",
+            "Implement tri-state bulk row selection"
+          ],
+        covers: [ DataGrid, DataGridRow, DataGridCell, DataGridHeadCell, DataGridToolbar, Status, Checkbox, SearchInput ]
+      },
+    {
+        name: layout,
+        slug: layout,
+        domain: layout,
+        description: "Teaches developers to assemble a UX-compliant Juno page: the
+          mandatory AppShellProvider wrapper plus the AppShell page frame
+          (header, content area, footer) that the UX guidelines require on every
+          page, when to drop to the manual AppBody/MainContainer primitives, how
+          embedded mode changes the frame for micro-frontends, and how to lay
+          out the content area with the Grid, Stack, Container, Box, IntroBox,
+          and Divider primitives.\n",
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks:
+          [
+            "Wrap the app in AppShellProvider and scaffold AppShell",
+            "Add side and/or top navigation to the shell",
+            "Customize the Page Header and Page Footer",
+            "Structure the content area with ContentHeading and ContentAreaToolbar",
+            "Arrange blocks with Stack and lay out a responsive Grid",
+            "Set content apart with Box, IntroBox, and Divider",
+            "Run embedded mode for micro-frontends",
+            "Drop to manual layout without AppShell when needed"
+          ],
+        covers: [ AppShell, AppShellProvider, AppBody, Container, ContentContainer, MainContainer, MainContainerInner, HeaderContainer, PageHeader, PageFooter, ContentHeading, ContentAreaToolbar, Grid, GridRow, GridColumn, Stack, Box, IntroBox, Divider ]
+      },
+    {
+        name: forms,
+        slug: forms,
+        domain: forms,
+        description: "Teaches developers to compose the Juno form primitives into
+          accessible, UX-compliant forms: picking the right input for the data,
+          labelling and hinting fields the Juno way (the `label` prop, not a
+          standalone Label), driving validation state through invalid/valid plus
+          errortext/successtext, choosing when to validate, and the sign-in
+          form's deliberately different (no-validation) rules the library does
+          not enforce for you.\n",
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks:
+          [
+            "Label every field with the label prop",
+            "Pick the right input type for the data",
+            "Communicate expectations with helptext",
+            "Show validation state via invalid/valid + errortext/successtext",
+            "Group radios and checkboxes",
+            "Choose Switch vs. Checkbox",
+            "Join an input and a button with InputGroup",
+            "Handle submit, cancel, and submission feedback",
+            "Build a sign-in form with SignInForm"
+          ],
+        covers: [ Form, FormRow, FormSection, Label, TextInput, Textarea, SearchInput, SecretText, Checkbox, CheckboxGroup, Radio, RadioGroup, Switch, ToggleButton, Select, SelectOption, SelectDivider, NativeSelect, NativeSelectOption, NativeSelectOptionGroup, ComboBox, ComboBoxOption, InputGroup, DateTimePicker, SignInForm ]
+      },
+    {
+        name: navigation,
+        slug: navigation,
+        domain: navigation,
+        description: 'Teaches developers to pick the right Juno navigation primitive for
+          each level of an app — SideNavigation for top-level,
+          TopNavigation/TabBar for second-level, Breadcrumb for the path back,
+          Tabs for in-page content, Pagination for paged lists — and to wire the
+          active-item and controlled-expansion state the components leave to the
+          app, following the UX rules on depth, icon placement, and the
+          "navigation vs. filtering" distinction.
+
+          ',
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks:
+          [
+            "Set up the primary left SideNavigation",
+            "Group related top-level items and nest up to three levels",
+            "Expand the group containing the active route (controlled)",
+            "Add a second-level navigation (TopNavigation/TabBar) above content",
+            "Give the user a path back with a Breadcrumb",
+            "Page through a list with Pagination",
+            "Render in-page tabbed content (noting Tabs is deprecated)"
+          ],
+        covers: [ SideNavigation, SideNavigationGroup, SideNavigationItem, SideNavigationList, TopNavigation, TopNavigationItem, Breadcrumb, BreadcrumbItem, Tabs, Tab, TabList, TabPanel, TabBar, TabBarItem, MainTabs, Pagination ]
+      },
+    {
+        name: feedback,
+        slug: feedback,
+        domain: feedback,
+        description: "Teaches developers to choose and compose the Juno feedback
+          primitives — Message, Toast + NotificationManager, Status, Spinner,
+          LoadingIndicator, ProgressBar, Badge, and Pill — into UX-compliant
+          feedback, including the Message-vs-Notification decision, the
+          semantic-variant rules, the required non-blocking scoping of
+          loading/error states, and the copy and dismissal conventions the
+          components leave to the consumer.\n",
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks:
+          [
+            "Show an inline Message for a condition in the view",
+            "Fire a transient notification with toast()",
+            "Render page/section empty, loading, and error states with Status",
+            "Indicate busy state at the right scale (Spinner/LoadingIndicator)",
+            "Show quantifiable progress with ProgressBar",
+            "Label entity state with Badge and filter chips with Pill"
+          ],
+        covers: [ Message, Toast, NotificationManager, Status, Spinner, LoadingIndicator, ProgressBar, Badge, Pill ]
+      },
+    {
+        name: overlays,
+        slug: overlays,
+        domain: overlays,
+        description: "Teaches developers to build Juno overlays — Modal/ModalFooter,
+          Panel/PanelBody/PanelFooter, Tooltip/TooltipTrigger/TooltipContent,
+          and PopupMenu — so they are triggered by user action, render into the
+          PortalProvider, confirm destructive actions at the correct severity,
+          and order menu items by the UX rules the components do not enforce on
+          their own.\n",
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks:
+          [
+            "Confirm a destructive action at the right severity with Modal",
+            "Replace the footer with a custom ModalFooter",
+            "Slide in a Panel for a form or detail drawer",
+            "Add a Tooltip",
+            "Build an overflow menu with PopupMenu"
+          ],
+        covers: [ Modal, ModalFooter, Panel, PanelBody, PanelFooter, Tooltip, TooltipTrigger, TooltipContent, PopupMenu, PortalProvider ]
+      },
+    {
+        name: data-display,
+        slug: data-display,
+        domain: data-display,
+        description: "Teaches developers to pick and compose the Juno content-display
+          primitives (Card, DescriptionList with
+          DescriptionTerm/DescriptionDefinition, Code, CodeBlock with
+          CodeBlockFooter, JsonViewer, FormattedText, Icon) with their real
+          props, including the detail-view term/definition pattern, the
+          inline-vs-block code distinction, and the UX writing rules for titles,
+          empty values, and accessible interactive icons that the components do
+          not enforce on their own.\n",
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks:
+          [
+            "Group content in a Card",
+            "Show an item's properties in a DescriptionList",
+            "Choose inline Code vs. a CodeBlock",
+            "Render structured JSON with JsonViewer",
+            "Add a custom action to a CodeBlock footer",
+            "Style rich prose with FormattedText",
+            "Render an Icon as glyph, link, or button"
+          ],
+        covers: [ Card, DescriptionList, DescriptionTerm, DescriptionDefinition, Code, CodeBlock, CodeBlockFooter, JsonViewer, FormattedText, Icon ]
+      },
+    {
+        name: actions,
+        slug: actions,
+        domain: actions,
+        description: "Teaches developers to pick the correct Juno Button variant and
+          placement for an action, group actions consistently with ButtonRow,
+          give async actions in-progress feedback, and apply the SortButton and
+          ThemeToggle correctly — enforcing the UX rules (one primary action per
+          page, destructive = primary-danger, title-case infinitive labels,
+          disable vs hide) that the components do not enforce on their own.\n",
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks:
+          [
+            "Choose a Button variant and size",
+            "Add an icon or make an icon-only button",
+            "Show progress during an async action",
+            "Render a link that looks like a button",
+            "Group actions with ButtonRow",
+            "Wire a SortButton for a sortable column",
+            "Place a ThemeToggle"
+          ],
+        covers: [ Button, ButtonRow, SortButton, ThemeToggle ]
+      },
+    {
+        name: app-foundations,
+        slug: app-foundations,
+        domain: foundations,
+        description: "Teaches developers to bootstrap a Juno application correctly:
+          wrapping the app in a single AppShellProvider (which composes
+          StyleProvider + PortalProvider, optionally inside a ShadowRoot),
+          loading the component CSS where the chosen style/shadow mode requires
+          it, selecting a theme, and adjusting the setup for standalone vs.
+          Shadow-DOM-encapsulated vs. host-embedded deployment — the invisible
+          plumbing that, if omitted, makes components silently fail to style or
+          portal.\n",
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks:
+          [
+            "Wrap the app in AppShellProvider (StyleProvider + PortalProvider)",
+            "Load the component CSS for the chosen style/shadow mode",
+            "Choose a theme",
+            "Decide where styles live: Shadow DOM vs. document",
+            "Run embedded inside a host shell",
+            "Render overlays through the portal"
+          ],
+        covers: [ AppShellProvider, StyleProvider, PortalProvider, ShadowRoot ]
+      },
+    {
+        name: accessibility,
+        slug: accessibility,
+        domain: accessibility,
+        description: "Teaches developers to build accessible Juno UIs by preferring
+          semantic Juno primitives (Button, TextInput, CheckboxGroup,
+          RadioGroup, Modal, Status) that already carry the correct roles,
+          labels, and focus behaviour, and by filling the gaps the components do
+          not enforce — accessible names for icon-only controls, grouped-input
+          labelling, non-color status signals, and aria-live announcement of
+          application-driven dynamic content.\n",
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks:
+          [
+            "Use the semantic component instead of a styled div",
+            "Give every icon-only control an accessible name",
+            "Label inputs with the component's own label prop",
+            "Group related inputs under one labelled group",
+            "Keep keyboard operation and the focus ring intact",
+            "Let Modal manage focus and give it an accessible name",
+            "Signal status with more than color and announce it"
+          ],
+        covers: [ Button, Icon, TextInput, Checkbox, CheckboxGroup, RadioGroup, Modal, Status, Message, Label ]
+      },
+    {
+        name: ux-writing,
+        slug: ux-writing,
+        domain: content-design,
+        description: "Teaches developers to write and label Juno UI text that follows
+          the project's UX Writing and Content Design guidelines — active
+          impersonal voice, title case, concise verb-based button labels,
+          professional non-alarmist error copy, and the project-specific
+          empty-value conventions (render \"- -\", fall back to the ID for
+          name-like fields) — grounded in the real Button, Status, Message,
+          Modal, and DescriptionList component props so the examples
+          type-check.\n",
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks:
+          [
+            "Use active, impersonal voice",
+            "Apply title case to titles, headings, and labels",
+            "Write button labels as short verbs",
+            "Keep terminology consistent",
+            "Write professional, non-alarmist error copy",
+            "Render missing values as '- -' with the ID fall-back"
+          ],
+        covers: [ Button, Status, Message, Modal, ContentHeading, DescriptionList, DescriptionTerm, DescriptionDefinition, DataGridHeadCell ]
+      },
+    {
+        name: interaction-patterns,
+        slug: interaction-patterns,
+        domain: interaction,
+        description: "Teaches developers to choose and implement Juno's interaction
+          patterns correctly — confirmation of destructive actions, the
+          disable/hide/error decision for unauthorized controls, inline
+          add/edit/delete, multi-step wizards, and the standard page-and-user
+          flow — grounded in the UX guidelines so apps stay predictable and
+          consistent instead of each screen inventing its own affordances.\n",
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks:
+          [
+            "Confirm consequential and destructive actions — and only those",
+            "Give every action feedback",
+            "Decide disabled vs hidden vs always-functional for unauthorized controls",
+            "Add, edit, and delete items inline in a list",
+            "Break long, sequential tasks into a wizard",
+            "Lay out the overall sign-in → home → list → detail page flow"
+          ],
+        covers: [ Button, ButtonRow, Modal, ModalFooter, Tooltip, TooltipTrigger, TooltipContent, TextInput, Message, Icon ]
+      }
+  ]
+gaps: []

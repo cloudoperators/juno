@@ -31,7 +31,7 @@ export const ImageVersionIssuesList = ({ issuesPromise, service, image }: ImageV
       <Stack gap="2" className="mb-4 mt-8">
         <ContentHeading>Vulnerabilities</ContentHeading>
       </Stack>
-      <DataGrid columns={4} minContentColumns={[0, 1, 2]} cellVerticalAlignment="top">
+      <DataGrid columnCount={4} minContentColumns={[0, 1, 2]} cellVerticalAlignment="top">
         <DataGridRow>
           <DataGridHeadCell>
             <Icon icon="monitorHeart" />

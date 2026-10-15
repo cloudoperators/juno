@@ -282,7 +282,7 @@ export const RemediationHistoryPanel = ({
             fallbackRender={getErrorDataRowComponent({ colspan: COLUMN_SPAN })}
             resetKeys={[remediationsPromise]}
           >
-            <DataGrid columns={COLUMN_SPAN} minContentColumns={[0, 1, 2, 3, 6]} cellVerticalAlignment="top">
+            <DataGrid columnCount={COLUMN_SPAN} minContentColumns={[0, 1, 2, 3, 6]} cellVerticalAlignment="top">
               <DataGridRow>
                 <DataGridHeadCell>Type</DataGridHeadCell>
                 <DataGridHeadCell>Expiration Date</DataGridHeadCell>

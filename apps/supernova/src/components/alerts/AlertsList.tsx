@@ -41,7 +41,7 @@ const AlertsList = () => {
   })
 
   return (
-    <DataGrid columns={7} minContentColumns={[0, 2, 5]} cellVerticalAlignment="top" className="alerts">
+    <DataGrid columnCount={7} minContentColumns={[0, 2, 5]} cellVerticalAlignment="top" className="alerts">
       <DataGridRow>
         <DataGridHeadCell>
           <Icon icon="monitorHeart" />

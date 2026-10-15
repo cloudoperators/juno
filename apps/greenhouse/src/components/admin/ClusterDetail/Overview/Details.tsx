@@ -45,7 +45,7 @@ const NodeStatus: React.FC<{ nodes: NodesStatus }> = ({ nodes }) => {
 export const Details: React.FC<DetailsProps> = ({ clusters }) => (
   <Stack gap="4" direction="vertical" className="flex-1">
     <ContentHeading>Details</ContentHeading>
-    <DataGrid columns={2} minContentColumns={[0]}>
+    <DataGrid columnCount={2} minContentColumns={[0]}>
       <DataGridRow>
         <DataGridHeadCell nowrap>Name</DataGridHeadCell>
         <DataGridCell>{clusters.metadata?.name ?? NO_VALUE_DEFAULT}</DataGridCell>
