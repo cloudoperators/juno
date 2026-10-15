@@ -1,0 +1,10 @@
+{
+  "extends": "@cloudoperators/juno-config/typescript/base.json",
+  "compilerOptions": {
+    "target": "ES2022",
+    "resolveJsonModule": true,
+    "types": ["node", "vitest/globals"]
+  },
+  "include": ["src/**/*.ts", "*.config.ts"],
+  "exclude": ["node_modules", "build", "template"]
+}

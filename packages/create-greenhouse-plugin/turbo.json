@@ -1,0 +1,10 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["@cloudoperators/juno-app-template#build"],
+      "inputs": ["src/**", "scripts/**", "tsup.config.ts"],
+      "outputs": ["build/**", "template/**"]
+    }
+  }
+}
