@@ -12,8 +12,8 @@ export const PLUGIN_NAME_TOKEN = "__PLUGIN_NAME__"
 /** Dotfiles are shipped underscore-prefixed (npm strips real dotfiles); map back on emit. */
 const RENAME: Record<string, string> = {
   "_package.json": "package.json",
-  "_gitignore": ".gitignore",
-  "_nvmrc": ".nvmrc",
+  _gitignore: ".gitignore",
+  _nvmrc: ".nvmrc",
 }
 
 /** The bundled template dir, resolved relative to the built CLI (build/cli.js → ../template). */

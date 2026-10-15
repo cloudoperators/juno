@@ -81,7 +81,11 @@ export function check(pluginDir: string, pluginName: string, comparedVersion: st
   // but a baseline file missing on disk yet still in template is handled above. Nothing else to add.
 
   const actionNeeded = findings.some(
-    (f) => f.verdict === "safe-update" || f.verdict === "conflict" || f.verdict === "deleted-locally" || f.verdict === "new-template-file"
+    (f) =>
+      f.verdict === "safe-update" ||
+      f.verdict === "conflict" ||
+      f.verdict === "deleted-locally" ||
+      f.verdict === "new-template-file"
   )
 
   return {

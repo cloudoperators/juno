@@ -71,21 +71,21 @@ pnpm dlx @cloudoperators/create-greenhouse-plugin@latest check
 It performs a three-way comparison per file — your baseline (from `.greenhouse-plugin.json`), your
 current files, and the latest template — and classifies each:
 
-| Verdict | Meaning |
-|---|---|
-| up to date | nothing to do |
-| **safe update** | template changed, you didn't touch the file → copy the new version |
-| your customization | you changed it, template didn't → yours to keep |
-| **conflict** | both changed → manual merge |
-| deleted locally | template still expects a file you removed |
-| new template file | template added a file you don't have |
+| Verdict            | Meaning                                                            |
+| ------------------ | ------------------------------------------------------------------ |
+| up to date         | nothing to do                                                      |
+| **safe update**    | template changed, you didn't touch the file → copy the new version |
+| your customization | you changed it, template didn't → yours to keep                    |
+| **conflict**       | both changed → manual merge                                        |
+| deleted locally    | template still expects a file you removed                          |
+| new template file  | template added a file you don't have                               |
 
 `check` writes nothing. It exits non-zero when any action is needed, so you can gate your own CI on
 it. Add `--json` for machine output.
 
 > **Commit `.greenhouse-plugin.json`.** It is the baseline `check` compares against — without it,
 > `check` falls back to a weaker 2-way comparison and can't tell your edits from template changes.
-> It is *not* gitignored by the generated `.gitignore`; keep it that way and commit it with the rest
+> It is _not_ gitignored by the generated `.gitignore`; keep it that way and commit it with the rest
 > of the plugin.
 
 ### Wire it into your plugin's CI

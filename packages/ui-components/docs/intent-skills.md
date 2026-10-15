@@ -275,7 +275,7 @@ Two independent mechanisms guarantee it, each sufficient on its own:
 ### Composition: when a consumer re-ships its own skill built on Juno
 
 The chain above stops Juno's skills at the first `node_modules`. But a consumer can **author its own
-skill** and ship it onward — a *composition*. Aurora is the natural example: today it is only an
+skill** and ship it onward — a _composition_. Aurora is the natural example: today it is only an
 Intent **consumer** (its `package.json` already has
 `intent.skills: ["@cloudoperators/juno-ui-components"]`, so Juno's skills reach Aurora's own
 developers). The moment Aurora adds a `skills/` directory and lists it in its `files` array, it also
@@ -325,19 +325,19 @@ skill streams now flow, each from the package that owns that knowledge:
 Two rules make this composition behave:
 
 1. **Each package owns and ships its own skill.** Juno ships component guidance; Aurora ships
-   plugin-scaffolding guidance that *references* Juno's. Aurora does **not** copy or re-bundle Juno's
+   plugin-scaffolding guidance that _references_ Juno's. Aurora does **not** copy or re-bundle Juno's
    `SKILL.md` files — they travel with the Juno dependency. Aurora's skill links to them (e.g. "for
    the data table, see `@cloudoperators/juno-ui-components#datagrid`").
 2. **Allowlisting is not transitive by default.** The plugin project sees Aurora's skill only if its
-   `intent.skills` allows `@cobaltcore-dev/aurora`, and Juno's skills only if it *also* allows
+   `intent.skills` allows `@cobaltcore-dev/aurora`, and Juno's skills only if it _also_ allows
    `@cloudoperators/juno-ui-components` (or a scope/`"*"` that covers both). A project generated from
    an Aurora template would ship an `intent.skills` that allows both, so the plugin author gets the
-   full chain — Aurora's scaffolding skill *and* the Juno component skills it defers to — out of the
+   full chain — Aurora's scaffolding skill _and_ the Juno component skills it defers to — out of the
    box.
 
 The practical payoff: a brand-new Aurora plugin, created from the template, hands its AI assistant
-both *"how to scaffold an Aurora plugin"* (Aurora's skill) and *"how to use each Juno component
-correctly"* (Juno's skills) — composed, versioned with each package, and discovered through the one
+both _"how to scaffold an Aurora plugin"_ (Aurora's skill) and _"how to use each Juno component
+correctly"_ (Juno's skills) — composed, versioned with each package, and discovered through the one
 `intent list`.
 
 ---

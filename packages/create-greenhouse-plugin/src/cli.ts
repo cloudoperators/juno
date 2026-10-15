@@ -97,9 +97,7 @@ function report(r: CheckResult): void {
 
   const updates = by("safe-update").length
   const conflicts = by("conflict").length
-  console.log(
-    `\n${updates} update(s) available, ${conflicts} conflict(s) → exit ${r.actionNeeded ? 1 : 0}`
-  )
+  console.log(`\n${updates} update(s) available, ${conflicts} conflict(s) → exit ${r.actionNeeded ? 1 : 0}`)
 }
 
 function runCheck(argv: string[]): number {
