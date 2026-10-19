@@ -3,6 +3,7 @@ import { DescriptionTermProps } from '../DescriptionTerm';
 import { DescriptionDefinitionProps } from '../DescriptionDefinition';
 interface DescriptionListContextValue {
     termWidth?: string;
+    gridColumnTemplate?: string;
 }
 export declare const DescriptionListContext: React.Context<DescriptionListContextValue>;
 export declare const useDescriptionListContext: () => DescriptionListContextValue;
@@ -28,7 +29,7 @@ export interface DescriptionListProps {
      * When used with multiColumn, this value is inherited by DescriptionListColumn children unless they set their own termWidth.
      */
     termWidth?: string;
-    /** Custom CSS grid-template-columns. Overwrites other sizing props. Useful for non-standard layouts such as multiple definitions per term. */
+    /** Custom CSS grid-template-columns. Overwrites other sizing props. Useful for non-standard layouts such as multiple definitions per term. Inherited by DescriptionListColumn children via context unless they set their own gridColumnTemplate. */
     gridColumnTemplate?: string;
     /**
      * Additional custom class names to apply styles to the <dl> element or to extend styling from the design system.
