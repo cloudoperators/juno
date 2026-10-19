@@ -9,6 +9,7 @@ import { DescriptionDefinitionProps } from "../DescriptionDefinition"
 
 interface DescriptionListContextValue {
   termWidth?: string
+  gridColumnTemplate?: string
 }
 
 export const DescriptionListContext = createContext<DescriptionListContextValue>({})
@@ -62,7 +63,7 @@ export const DescriptionList: React.FC<DescriptionListProps> = ({
   className = "",
   ...props
 }) => (
-  <DescriptionListContext.Provider value={{ termWidth }}>
+  <DescriptionListContext.Provider value={{ termWidth, gridColumnTemplate }}>
     <dl
       className={`dl ${multiColumn ? "jn:flex" : "jn:grid"} jn:group ${alignTerms === "right" ? "align-right" : "align-left"} ${className}`}
       style={!multiColumn ? { gridTemplateColumns: gridColumnTemplate ?? `${termWidth} 1fr` } : undefined}
