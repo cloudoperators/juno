@@ -87,6 +87,21 @@ export const LeftAligned: Story = {
   ),
 }
 
+export const TermWidth: Story = {
+  render: (args) => (
+    <DL termWidth="33%" {...args}>
+      <DT>Shipping Method</DT>
+      <DD>Standard shipping: 5-7 business days.</DD>
+      <DT>Payment Options</DT>
+      <DD>
+        Credit/Debit cards, PayPal, and bank transfer. Lots and lots and lots of options. Oh so many, many options.
+      </DD>
+      <DT>Delivery Time</DT>
+      <DD>1 day, 2 days, 3 days.</DD>
+    </DL>
+  ),
+}
+
 export const MultiColumn: Story = {
   render: (args) => (
     <DL multiColumn {...args}>
