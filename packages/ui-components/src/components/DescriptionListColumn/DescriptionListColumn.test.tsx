@@ -150,6 +150,18 @@ describe("DescriptionListColumn", () => {
     expect(screen.getByTestId("dlc")).toHaveStyle({ gridTemplateColumns: "auto 1fr 1fr" })
   })
 
+  it("own termWidth takes precedence over parent DescriptionList gridColumnTemplate", () => {
+    render(
+      <DescriptionList multiColumn gridColumnTemplate="auto 1fr 1fr 1fr">
+        <DescriptionListColumn data-testid="dlc" termWidth="25%">
+          <DescriptionTerm>Term</DescriptionTerm>
+          <DescriptionDefinition>Definition</DescriptionDefinition>
+        </DescriptionListColumn>
+      </DescriptionList>
+    )
+    expect(screen.getByTestId("dlc")).toHaveStyle({ gridTemplateColumns: "25% 1fr" })
+  })
+
   it("receives and applies arbitrary props", () => {
     render(
       <DescriptionListColumn data-testid="dlc" data-arbitrary-prop="data-madeup-content">
