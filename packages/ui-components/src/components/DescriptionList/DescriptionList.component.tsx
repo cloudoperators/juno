@@ -3,9 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ReactElement } from "react"
+import React, { ReactElement, createContext, useContext } from "react"
 import { DescriptionTermProps } from "../DescriptionTerm"
 import { DescriptionDefinitionProps } from "../DescriptionDefinition"
+
+interface DescriptionListContextValue {
+  termWidth?: string
+}
+
+export const DescriptionListContext = createContext<DescriptionListContextValue>({})
+
+export const useDescriptionListContext = () => useContext(DescriptionListContext)
 
 export interface DescriptionListProps {
   /**
@@ -29,6 +37,7 @@ export interface DescriptionListProps {
    * Controls the width of the term column. Accepts "auto" (default — terms size to their content),
    * a percentage string (e.g. "25%", "33%"), or any valid CSS column width value (e.g. "200px", "12rem").
    * The definition column takes the remaining space. Has no effect when multiColumn is true.
+   * When used with multiColumn, this value is inherited by DescriptionListColumn children unless they set their own termWidth.
    */
   termWidth?: string
   /**
@@ -50,13 +59,15 @@ export const DescriptionList: React.FC<DescriptionListProps> = ({
   className = "",
   ...props
 }) => (
-  <dl
-    className={`dl ${multiColumn ? "jn:flex" : "jn:grid"} jn:group ${alignTerms === "right" ? "align-right" : "align-left"} ${className}`}
-    style={!multiColumn ? { gridTemplateColumns: `${termWidth} 1fr` } : undefined}
-    {...props}
-  >
-    {children}
-  </dl>
+  <DescriptionListContext.Provider value={{ termWidth }}>
+    <dl
+      className={`dl ${multiColumn ? "jn:flex" : "jn:grid"} jn:group ${alignTerms === "right" ? "align-right" : "align-left"} ${className}`}
+      style={!multiColumn ? { gridTemplateColumns: `${termWidth} 1fr` } : undefined}
+      {...props}
+    >
+      {children}
+    </dl>
+  </DescriptionListContext.Provider>
 )
 
 export const DL = DescriptionList
