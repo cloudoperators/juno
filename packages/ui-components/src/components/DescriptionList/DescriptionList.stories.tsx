@@ -179,7 +179,7 @@ export const MultipleDefinitions: Story = {
     docs: {
       description: {
         story:
-          "A single term can have multiple definitions. Since the default two-column grid would misplace additional `DD` elements, use `gridColumnTemplate` to define a custom `grid-template-columns` value that allocates a track for each definition. `gridColumnTemplate` is the general escape hatch for any layout that `termWidth` cannot cover.",
+          "A single term can have multiple definitions. Since the default two-column grid would misplace additional `DD` elements, use `gridColumnTemplate` to define a custom `grid-template-columns` value that allocates a track for each definition. `gridColumnTemplate` is the general escape hatch for any layout that `termWidth` cannot cover. In a `multiColumn` layout, setting `gridColumnTemplate` on `DL` passes it to all `DLC` children via context; individual columns can override it with their own `gridColumnTemplate`.",
       },
     },
   },
