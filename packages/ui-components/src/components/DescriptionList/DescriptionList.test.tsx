@@ -81,6 +81,26 @@ describe("DescriptionList", () => {
     expect(screen.getByText("Definition 5")).toBeInTheDocument()
   })
 
+  it("applies auto 1fr grid template by default", () => {
+    const { container } = render(
+      <DescriptionList>
+        <DescriptionTerm>Term</DescriptionTerm>
+        <DescriptionDefinition>Definition</DescriptionDefinition>
+      </DescriptionList>
+    )
+    expect(container.querySelector("dl")).toHaveStyle({ gridTemplateColumns: "auto 1fr" })
+  })
+
+  it("applies a custom termWidth as grid template", () => {
+    const { container } = render(
+      <DescriptionList termWidth="33%">
+        <DescriptionTerm>Term</DescriptionTerm>
+        <DescriptionDefinition>Definition</DescriptionDefinition>
+      </DescriptionList>
+    )
+    expect(container.querySelector("dl")).toHaveStyle({ gridTemplateColumns: "33% 1fr" })
+  })
+
   it("receives and applies arbitrary props", () => {
     render(
       <DescriptionList data-testid={"custom-id"} data-arbitrary-prop={"data-madeup-content"}>
