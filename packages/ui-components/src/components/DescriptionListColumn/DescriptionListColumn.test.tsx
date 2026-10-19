@@ -171,4 +171,26 @@ describe("DescriptionListColumn", () => {
     )
     expect(screen.getByTestId("dlc")).toHaveAttribute("data-arbitrary-prop", "data-madeup-content")
   })
+
+  it("treats empty string termWidth as unset, falling back to auto", () => {
+    render(
+      <DescriptionListColumn data-testid="dlc" termWidth="">
+        <DescriptionTerm>Term</DescriptionTerm>
+        <DescriptionDefinition>Definition</DescriptionDefinition>
+      </DescriptionListColumn>
+    )
+    expect(screen.getByTestId("dlc")).toHaveStyle({ gridTemplateColumns: "auto 1fr" })
+  })
+
+  it("treats empty string termWidth as unset, falling back to context termWidth", () => {
+    render(
+      <DescriptionList multiColumn termWidth="33%">
+        <DescriptionListColumn data-testid="dlc" termWidth="">
+          <DescriptionTerm>Term</DescriptionTerm>
+          <DescriptionDefinition>Definition</DescriptionDefinition>
+        </DescriptionListColumn>
+      </DescriptionList>
+    )
+    expect(screen.getByTestId("dlc")).toHaveStyle({ gridTemplateColumns: "33% 1fr" })
+  })
 })
