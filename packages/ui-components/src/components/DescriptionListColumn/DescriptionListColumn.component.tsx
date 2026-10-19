@@ -6,7 +6,7 @@
 import React from "react"
 import { useDescriptionListContext } from "../DescriptionList/DescriptionList.component"
 
-export interface DescriptionListColumnProps {
+export interface DescriptionListColumnProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "children"> {
   /**
    * Child components. Accepts DescriptionTerm and DescriptionDefinition elements, including
    * conditional expressions and ternaries that may resolve to null or false.
@@ -20,10 +20,6 @@ export interface DescriptionListColumnProps {
   termWidth?: string
   /** Custom CSS grid-template-columns. Overwrites other sizing props. Useful for non-standard layouts such as multiple definitions per term. Inherits the parent DescriptionList's gridColumnTemplate when not set. Overrides the parent value when set. */
   gridColumnTemplate?: string
-  /**
-   * Additional custom class names.
-   */
-  className?: string
 }
 
 /**
@@ -42,7 +38,7 @@ export const DescriptionListColumn: React.FC<DescriptionListColumnProps> = ({
   const { termWidth: contextTermWidth, gridColumnTemplate: contextGridColumnTemplate } = useDescriptionListContext()
   const resolvedTemplate =
     gridColumnTemplate ??
-    (termWidth !== undefined ? `${termWidth} 1fr` : undefined) ??
+    (termWidth ? `${termWidth} 1fr` : undefined) ??
     contextGridColumnTemplate ??
     `${contextTermWidth ?? "auto"} 1fr`
 
