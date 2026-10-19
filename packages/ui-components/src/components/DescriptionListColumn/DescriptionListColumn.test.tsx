@@ -82,6 +82,26 @@ describe("DescriptionListColumn", () => {
     expect(screen.getByTestId("dlc")).toHaveStyle({ gridTemplateColumns: "25% 1fr" })
   })
 
+  it("applies gridColumnTemplate as grid template", () => {
+    render(
+      <DescriptionListColumn data-testid="dlc" gridColumnTemplate="auto 1fr 1fr 1fr">
+        <DescriptionTerm>Term</DescriptionTerm>
+        <DescriptionDefinition>Definition</DescriptionDefinition>
+      </DescriptionListColumn>
+    )
+    expect(screen.getByTestId("dlc")).toHaveStyle({ gridTemplateColumns: "auto 1fr 1fr 1fr" })
+  })
+
+  it("gridColumnTemplate overrides termWidth", () => {
+    render(
+      <DescriptionListColumn data-testid="dlc" termWidth="25%" gridColumnTemplate="auto 1fr 1fr 1fr">
+        <DescriptionTerm>Term</DescriptionTerm>
+        <DescriptionDefinition>Definition</DescriptionDefinition>
+      </DescriptionListColumn>
+    )
+    expect(screen.getByTestId("dlc")).toHaveStyle({ gridTemplateColumns: "auto 1fr 1fr 1fr" })
+  })
+
   it("inherits termWidth from a parent DescriptionList", () => {
     render(
       <DescriptionList multiColumn termWidth="33%">

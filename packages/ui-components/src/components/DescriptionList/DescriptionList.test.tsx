@@ -101,6 +101,26 @@ describe("DescriptionList", () => {
     expect(container.querySelector("dl")).toHaveStyle({ gridTemplateColumns: "33% 1fr" })
   })
 
+  it("applies gridColumnTemplate as grid template", () => {
+    const { container } = render(
+      <DescriptionList gridColumnTemplate="auto 1fr 1fr 1fr">
+        <DescriptionTerm>Term</DescriptionTerm>
+        <DescriptionDefinition>Definition</DescriptionDefinition>
+      </DescriptionList>
+    )
+    expect(container.querySelector("dl")).toHaveStyle({ gridTemplateColumns: "auto 1fr 1fr 1fr" })
+  })
+
+  it("gridColumnTemplate overrides termWidth", () => {
+    const { container } = render(
+      <DescriptionList termWidth="33%" gridColumnTemplate="auto 1fr 1fr 1fr">
+        <DescriptionTerm>Term</DescriptionTerm>
+        <DescriptionDefinition>Definition</DescriptionDefinition>
+      </DescriptionList>
+    )
+    expect(container.querySelector("dl")).toHaveStyle({ gridTemplateColumns: "auto 1fr 1fr 1fr" })
+  })
+
   it("receives and applies arbitrary props", () => {
     render(
       <DescriptionList data-testid={"custom-id"} data-arbitrary-prop={"data-madeup-content"}>
