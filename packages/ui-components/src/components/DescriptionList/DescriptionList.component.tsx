@@ -40,6 +40,8 @@ export interface DescriptionListProps {
    * When used with multiColumn, this value is inherited by DescriptionListColumn children unless they set their own termWidth.
    */
   termWidth?: string
+  /** Custom CSS grid-template-columns. Overwrites other sizing props. Useful for non-standard layouts such as multiple definitions per term. */
+  gridColumnTemplate?: string
   /**
    * Additional custom class names to apply styles to the <dl> element or to extend styling from the design system.
    */
@@ -56,13 +58,14 @@ export const DescriptionList: React.FC<DescriptionListProps> = ({
   alignTerms = "right",
   multiColumn = false,
   termWidth = "auto",
+  gridColumnTemplate,
   className = "",
   ...props
 }) => (
   <DescriptionListContext.Provider value={{ termWidth }}>
     <dl
       className={`dl ${multiColumn ? "jn:flex" : "jn:grid"} jn:group ${alignTerms === "right" ? "align-right" : "align-left"} ${className}`}
-      style={!multiColumn ? { gridTemplateColumns: `${termWidth} 1fr` } : undefined}
+      style={!multiColumn ? { gridTemplateColumns: gridColumnTemplate ?? `${termWidth} 1fr` } : undefined}
       {...props}
     >
       {children}

@@ -173,3 +173,30 @@ export const MultiColumnTermWidthOverride: Story = {
     </DL>
   ),
 }
+
+export const MultipleDefinitions: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "A single term can have multiple definitions. Since the default two-column grid would misplace additional `DD` elements, use `gridColumnTemplate` to define a custom `grid-template-columns` value that allocates a track for each definition. `gridColumnTemplate` is the general escape hatch for any layout that `termWidth` cannot cover.",
+      },
+    },
+  },
+  render: (args) => (
+    <DL gridColumnTemplate="auto 1fr 1fr 1fr" {...args}>
+      <DT>Shipping Method</DT>
+      <DD>Standard shipping</DD>
+      <DD>Livraison standard</DD>
+      <DD>Spedizione standard</DD>
+      <DT>Payment Options</DT>
+      <DD>Credit/Debit cards, PayPal, and bank transfer</DD>
+      <DD>Cartes de crédit, PayPal et virement bancaire</DD>
+      <DD>Carte di credito, PayPal e bonifico bancario</DD>
+      <DT>Delivery Time</DT>
+      <DD>1–3 business days</DD>
+      <DD>1–3 jours ouvrables</DD>
+      <DD>1–3 giorni lavorativi</DD>
+    </DL>
+  ),
+}

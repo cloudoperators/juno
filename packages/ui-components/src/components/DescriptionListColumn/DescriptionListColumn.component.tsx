@@ -21,6 +21,8 @@ export interface DescriptionListColumnProps {
    * Inherits the parent DescriptionList's termWidth when not set. Overrides the parent value when set.
    */
   termWidth?: string
+  /** Custom CSS grid-template-columns. Overwrites other sizing props. Useful for non-standard layouts such as multiple definitions per term. */
+  gridColumnTemplate?: string
   /**
    * Additional custom class names.
    */
@@ -34,6 +36,7 @@ export interface DescriptionListColumnProps {
 export const DescriptionListColumn: React.FC<DescriptionListColumnProps> = ({
   children,
   termWidth,
+  gridColumnTemplate,
   className = "",
   ...props
 }) => {
@@ -43,7 +46,7 @@ export const DescriptionListColumn: React.FC<DescriptionListColumnProps> = ({
   return (
     <div
       className={`dlc jn:grid jn:flex-1 ${className}`}
-      style={{ gridTemplateColumns: `${resolvedTermWidth} 1fr` }}
+      style={{ gridTemplateColumns: gridColumnTemplate ?? `${resolvedTermWidth} 1fr` }}
       {...props}
     >
       {children}
