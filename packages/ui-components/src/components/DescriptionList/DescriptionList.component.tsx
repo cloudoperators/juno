@@ -11,6 +11,7 @@ export interface DescriptionListProps {
   /**
    * Child components must be either DescriptionTerm or DescriptionDefinition to maintain semantic structure.
    * Supports multiple instances to create a detailed list of terms and definitions.
+   * When multiColumn is true, children should be DescriptionListColumn elements.
    */
   children:
     | ReactElement<DescriptionTermProps | DescriptionDefinitionProps>
@@ -20,6 +21,10 @@ export interface DescriptionListProps {
    * Determines the alignment of terms within the list. Align terms to the left or right based on preference for display style.
    */
   alignTerms?: "left" | "right"
+  /**
+   * When true, switches the layout to flex so that DescriptionListColumn children render side by side.
+   */
+  multiColumn?: boolean
   /**
    * Additional custom class names to apply styles to the <dl> element or to extend styling from the design system.
    */
@@ -34,11 +39,12 @@ export interface DescriptionListProps {
 export const DescriptionList: React.FC<DescriptionListProps> = ({
   children,
   alignTerms = "right",
+  multiColumn = false,
   className = "",
   ...props
 }) => (
   <dl
-    className={`dl jn:grid jn:grid-cols-4 jn:group ${alignTerms === "right" ? "align-right" : "align-left"} ${className}`}
+    className={`dl ${multiColumn ? "jn:flex" : "jn:grid jn:grid-cols-4"} jn:group ${alignTerms === "right" ? "align-right" : "align-left"} ${className}`}
     {...props}
   >
     {children}

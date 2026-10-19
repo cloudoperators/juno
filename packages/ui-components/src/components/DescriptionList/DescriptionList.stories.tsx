@@ -6,6 +6,7 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { DL } from "./DescriptionList.component"
+import { DLC } from "../DescriptionListColumn/DescriptionListColumn.component"
 import { DT } from "../DescriptionTerm/DescriptionTerm.component"
 import { DD } from "../DescriptionDefinition/DescriptionDefinition.component"
 
@@ -82,6 +83,30 @@ export const LeftAligned: Story = {
         Available via phone, email, and live chat from 9 AM to 6 PM, Monday to Friday. Our support team is ready to
         assist with any inquiries.
       </DD>
+    </DL>
+  ),
+}
+
+export const MultiColumn: Story = {
+  render: (args) => (
+    <DL multiColumn {...args}>
+      <DLC>
+        <DT>Shipping Method</DT>
+        <DD>Standard shipping: 5-7 business days.</DD>
+        <DT>Payment Options</DT>
+        <DD>Credit/Debit cards, PayPal, and bank transfer.</DD>
+        <DT>Delivery Time</DT>
+        <DD>Estimated delivery between 1 to 3 business days after shipping.</DD>
+      </DLC>
+      <DLC>
+        <DT>Return Policy</DT>
+        <DD>
+          Returns are accepted within 30 days of purchase. Items must be returned in their original packaging and
+          condition.
+        </DD>
+        <DT>Customer Support</DT>
+        <DD>Available via phone, email, and live chat from 9 AM to 6 PM, Monday to Friday.</DD>
+      </DLC>
     </DL>
   ),
 }
