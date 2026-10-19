@@ -121,6 +121,28 @@ describe("DescriptionList", () => {
     expect(container.querySelector("dl")).toHaveStyle({ gridTemplateColumns: "auto 1fr 1fr 1fr" })
   })
 
+  it("applies flex layout when multiColumn is true", () => {
+    const { container } = render(
+      <DescriptionList multiColumn>
+        <DescriptionTerm>Term</DescriptionTerm>
+        <DescriptionDefinition>Definition</DescriptionDefinition>
+      </DescriptionList>
+    )
+    expect(container.querySelector("dl")).toHaveClass("jn:flex")
+    expect(container.querySelector("dl")).not.toHaveClass("jn:grid")
+  })
+
+  it("applies grid layout by default", () => {
+    const { container } = render(
+      <DescriptionList>
+        <DescriptionTerm>Term</DescriptionTerm>
+        <DescriptionDefinition>Definition</DescriptionDefinition>
+      </DescriptionList>
+    )
+    expect(container.querySelector("dl")).toHaveClass("jn:grid")
+    expect(container.querySelector("dl")).not.toHaveClass("jn:flex")
+  })
+
   it("receives and applies arbitrary props", () => {
     render(
       <DescriptionList data-testid={"custom-id"} data-arbitrary-prop={"data-madeup-content"}>
