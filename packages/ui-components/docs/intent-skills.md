@@ -34,8 +34,8 @@ We want to ship that knowledge to the **consumer side** so that every team membe
 
 - **Aurora** (`@cobaltcore-dev/aurora`) — external consumer that bundles Juno components
 - **Greenhouse core** (`apps/greenhouse`) — the shell/host application
-- **Greenhouse plugins** (`apps/doop`, `apps/supernova`, `apps/heureka`) — micro-frontends
-- **External plugins** — new apps built from a template, later integrated into Greenhouse
+- **In-repo Greenhouse plugins** (`apps/doop`, `apps/supernova`, `apps/heureka`) — plugins that live in this monorepo and are integrated into Greenhouse at build time
+- **External plugins** — standalone apps built from a template and loaded into Greenhouse at runtime via dynamic import (the true micro-frontend case)
 
 The goal is **both** active guidance for critical patterns (AppShell wrapping, provider setup, accessibility) and passive knowledge for reference (UX writing, component APIs).
 
@@ -271,6 +271,74 @@ Two independent mechanisms guarantee it, each sufficient on its own:
 > For example, Aurora currently pins `@cloudoperators/juno-ui-components` at an older version as a
 > devDependency; it will not see the skills until it bumps to a release that ships them (or installs
 > a local tarball built with the skills for testing).
+
+### Composition: when a consumer re-ships its own skill built on Juno
+
+The chain above stops Juno's skills at the first `node_modules`. But a consumer can **author its own
+skill** and ship it onward — a _composition_. Aurora is the natural example: today it is only an
+Intent **consumer** (its `package.json` already has
+`intent.skills: ["@cloudoperators/juno-ui-components"]`, so Juno's skills reach Aurora's own
+developers). The moment Aurora adds a `skills/` directory and lists it in its `files` array, it also
+becomes an Intent **producer** for its downstream.
+
+Concretely, suppose Aurora ships a `create-aurora-plugin` skill — "scaffold a new full-fledged Aurora
+plugin" — whose guidance naturally uses Juno UI components (AppShell layout, DataGrid, forms) on top
+of Aurora's own patterns (the `AuroraApp` slots, tRPC routers, route `staticData`). Two independent
+skill streams now flow, each from the package that owns that knowledge:
+
+```
+┌───────────────────────────────────────────────────────────────────────────┐
+│  @cloudoperators/juno-ui-components (npm)                                  │
+│  └── skills/ (datagrid, forms, layout, …)   ← Juno owns component guidance │
+└───────────────────────────────────────────────────────────────────────────┘
+                 │  Aurora depends on Juno (bundled at build time)
+                 ▼
+┌───────────────────────────────────────────────────────────────────────────┐
+│  @cobaltcore-dev/aurora (npm)                                             │
+│                                                                           │
+│  Consumer side: intent.skills allowlists juno-ui-components               │
+│    → Juno's skills reach Aurora's OWN developers during development        │
+│                                                                           │
+│  Producer side (new): Aurora authors + ships its OWN skill                │
+│    skills/create-aurora-plugin/SKILL.md   ← Aurora owns plugin-scaffolding │
+│      · uses Juno components (AppShell, DataGrid, forms) in its examples    │
+│      · plus Aurora-only patterns (AuroraApp slots, tRPC, route staticData) │
+│    package.json: files += "skills/create-aurora-plugin"  (publishes it)    │
+│    package.json: intent.skills += "@cobaltcore-dev/aurora"  (self-allow)   │
+└───────────────────────────────────────────────────────────────────────────┘
+                 │  a plugin author / template installs @cobaltcore-dev/aurora
+                 ▼
+┌───────────────────────────────────────────────────────────────────────────┐
+│  New Aurora plugin project                                                │
+│    node_modules/@cobaltcore-dev/aurora/skills/create-aurora-plugin/…       │
+│                                                                           │
+│  `intent list` here shows TWO skills, from two packages:                   │
+│    @cobaltcore-dev/aurora#create-aurora-plugin   (if its scope is allowed) │
+│    @cloudoperators/juno-ui-components#datagrid, #forms, …  (transitively,  │
+│                                              only if explicitly allowed)   │
+│                                                                           │
+│  AI loads create-aurora-plugin to scaffold the plugin, and reaches for the │
+│  Juno skills for the component-level detail the Aurora skill points to.    │
+└───────────────────────────────────────────────────────────────────────────┘
+```
+
+Two rules make this composition behave:
+
+1. **Each package owns and ships its own skill.** Juno ships component guidance; Aurora ships
+   plugin-scaffolding guidance that _references_ Juno's. Aurora does **not** copy or re-bundle Juno's
+   `SKILL.md` files — they travel with the Juno dependency. Aurora's skill links to them (e.g. "for
+   the data table, see `@cloudoperators/juno-ui-components#datagrid`").
+2. **Allowlisting is not transitive by default.** The plugin project sees Aurora's skill only if its
+   `intent.skills` allows `@cobaltcore-dev/aurora`, and Juno's skills only if it _also_ allows
+   `@cloudoperators/juno-ui-components` (or a scope/`"*"` that covers both). A project generated from
+   an Aurora template would ship an `intent.skills` that allows both, so the plugin author gets the
+   full chain — Aurora's scaffolding skill _and_ the Juno component skills it defers to — out of the
+   box.
+
+The practical payoff: a brand-new Aurora plugin, created from the template, hands its AI assistant
+both _"how to scaffold an Aurora plugin"_ (Aurora's skill) and _"how to use each Juno component
+correctly"_ (Juno's skills) — composed, versioned with each package, and discovered through the one
+`intent list`.
 
 ---
 

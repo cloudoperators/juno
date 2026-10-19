@@ -1,0 +1,41 @@
+{
+  "name": "@cloudoperators/create-greenhouse-plugin",
+  "version": "0.0.1",
+  "description": "Scaffold a new Greenhouse external plugin from the Juno app template, with TanStack Intent + Juno UI component skills wired in.",
+  "author": "UI-Team",
+  "license": "Apache-2.0",
+  "repository": "https://github.com/cloudoperators/juno/tree/main/packages/create-greenhouse-plugin",
+  "type": "module",
+  "bin": {
+    "create-greenhouse-plugin": "./build/cli.js"
+  },
+  "files": [
+    "build/*",
+    "template/*"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "tag": "alpha"
+  },
+  "engines": {
+    "node": ">=20.19.0",
+    "pnpm": ">=11.25.0"
+  },
+  "scripts": {
+    "sync:template": "node scripts/sync-template.mjs",
+    "check:template": "node scripts/sync-template.mjs --check",
+    "build": "pnpm run sync:template && tsup",
+    "test": "vitest run",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf build && rm -rf template && rm -rf node_modules && rm -rf .turbo",
+    "clean:cache": "rm -rf .turbo"
+  },
+  "devDependencies": {
+    "@cloudoperators/juno-config": "workspace:*",
+    "@types/node": "24.19.1",
+    "tsup": "8.5.0",
+    "typescript": "6.0.3",
+    "vitest": "5.0.3"
+  }
+}
