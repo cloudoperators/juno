@@ -1,5 +1,5 @@
 import { default as React } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
-export interface DescriptionListColumnProps {
+export interface DescriptionListColumnProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "children"> {
     /**
      * Child components. Accepts DescriptionTerm and DescriptionDefinition elements, including
      * conditional expressions and ternaries that may resolve to null or false.
@@ -13,10 +13,6 @@ export interface DescriptionListColumnProps {
     termWidth?: string;
     /** Custom CSS grid-template-columns. Overwrites other sizing props. Useful for non-standard layouts such as multiple definitions per term. Inherits the parent DescriptionList's gridColumnTemplate when not set. Overrides the parent value when set. */
     gridColumnTemplate?: string;
-    /**
-     * Additional custom class names.
-     */
-    className?: string;
 }
 /**
  * A column wrapper for use inside a multiColumn DescriptionList.
