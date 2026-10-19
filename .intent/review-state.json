@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "baseline": "fac03386c50408123ab764ad6005e15412b58bd4",
+  "items": {
+    "skill:packages/ui-components/skills/datagrid-filters-toolbar/SKILL.md": {
+      "fingerprint": "12876adbc0e41793bffc207108d41cba7665657bfd84b69d1223b32c186e9ede",
+      "snapshot": {
+        "packages/ui-components/skills/datagrid-filters-toolbar/SKILL.md": "08848e73fc88c520d80ab8e6064a6bc3b84fa2400bd7261c967b9ff2b03d026a",
+        "packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx": "f27de8f443d4dc09c0a722c1afe354f15f88105c4362c2ab3ebca48960e06eee",
+        "packages/ui-components/src/components/DataGridToolbar/DataGridToolbar.component.tsx": "bceccc0fe27f3d51318f316f1fe47372e25c21c8c3a6923808cae6a21f218b97"
+      },
+      "head": "fac03386c50408123ab764ad6005e15412b58bd4",
+      "outcome": "updated",
+      "reason": "Initial authoring of datagrid and datagrid-filters-toolbar skills from DataGrid component source and Storybook stories (incl. DataGridHeader.stories.tsx), with UX zone model from docs/ux/datagrid.md embedded in the body. Verified with intent validate (2/2, typechecked).",
+      "evidence": [
+        "Changed: packages/ui-components/skills/datagrid-filters-toolbar/SKILL.md at fac03386c50408123ab764ad6005e15412b58bd4"
+      ]
+    },
+    "skill:packages/ui-components/skills/datagrid/SKILL.md": {
+      "fingerprint": "9458c667015a06a4d2d6104a10dfa29a8395c3cfd121f8166583dc921f05115f",
+      "snapshot": {
+        "packages/ui-components/skills/datagrid/SKILL.md": "657ba9410bb018c045234493f148e4cfb7f7b112854b332af1b42d832052c155",
+        "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
+        "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "db2003baceb27c32a0b63b71db7f9890f0830b24aa5beea896eb5a95b44a3e78"
+      },
+      "head": "fac03386c50408123ab764ad6005e15412b58bd4",
+      "outcome": "updated",
+      "reason": "Initial authoring of datagrid and datagrid-filters-toolbar skills from DataGrid component source and Storybook stories (incl. DataGridHeader.stories.tsx), with UX zone model from docs/ux/datagrid.md embedded in the body. Verified with intent validate (2/2, typechecked).",
+      "evidence": [
+        "Changed: packages/ui-components/skills/datagrid/SKILL.md at fac03386c50408123ab764ad6005e15412b58bd4"
+      ]
+    },
+    "planning:_artifacts": {
+      "fingerprint": "36df548e96eb316ab2a6d74fa94ec287a22335ed3663164647555d2dee573596",
+      "snapshot": {
+        "_artifacts/domain_map.yaml": "1fdaf50e604b42a41e8c59389c177e37159d75040c713dac5f3b580f7dd37dda",
+        "_artifacts/skill_spec.md": "79d6136d5738912b6a881d5af377d3296a9c9a74a1042722b529de16fdd0d311",
+        "_artifacts/skill_tree.yaml": "9bfa99c88a3dd54eaf37e47f435525233a616fc4dcdb6db36ab1456293b7c9e0",
+        "packages/ui-components/skills/datagrid-filters-toolbar/SKILL.md": "08848e73fc88c520d80ab8e6064a6bc3b84fa2400bd7261c967b9ff2b03d026a",
+        "packages/ui-components/skills/datagrid/SKILL.md": "657ba9410bb018c045234493f148e4cfb7f7b112854b332af1b42d832052c155",
+        "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
+        "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "db2003baceb27c32a0b63b71db7f9890f0830b24aa5beea896eb5a95b44a3e78",
+        "packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx": "f27de8f443d4dc09c0a722c1afe354f15f88105c4362c2ab3ebca48960e06eee",
+        "packages/ui-components/src/components/DataGridToolbar/DataGridToolbar.component.tsx": "bceccc0fe27f3d51318f316f1fe47372e25c21c8c3a6923808cae6a21f218b97"
+      },
+      "head": "fac03386c50408123ab764ad6005e15412b58bd4",
+      "outcome": "updated",
+      "reason": "Initial authoring of datagrid and datagrid-filters-toolbar skills from DataGrid component source and Storybook stories (incl. DataGridHeader.stories.tsx), with UX zone model from docs/ux/datagrid.md embedded in the body. Verified with intent validate (2/2, typechecked).",
+      "evidence": [
+        "Changed: _artifacts/domain_map.yaml, _artifacts/skill_spec.md, _artifacts/skill_tree.yaml, packages/ui-components/skills/datagrid-filters-toolbar/SKILL.md, packages/ui-components/skills/datagrid/SKILL.md at fac03386c50408123ab764ad6005e15412b58bd4"
+      ]
+    }
+  }
+}

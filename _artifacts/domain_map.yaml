@@ -1,0 +1,37 @@
+library:
+  name: juno
+domains: []
+skills:
+  [
+    {
+        name: datagrid,
+        slug: datagrid,
+        domain: data-display,
+        description: "Display a collection of structured data as a Juno DataGrid
+          (DataGrid, DataGridRow, DataGridCell, DataGridHeadCell). Use when
+          building a sortable/filterable table of resources; covers columns,
+          minContentColumns, and when NOT to use a DataGrid.",
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks: [ Display a collection of structured data in a DataGrid ],
+        covers: []
+      },
+    {
+        name: datagrid-filters-toolbar,
+        slug: datagrid-filters-toolbar,
+        domain: data-display,
+        description: "Build the DataGrid header as a three-zone composition: Zone 1
+          (sorting + overflow menu + primary action in a bare Stack), Zone 2
+          (filters via Select+ComboBox in an InputGroup, SearchInput, active
+          filter Pills, in a DataGridToolbar), Zone 3 (bulk actions + item count
+          + refresh in a DataGridToolbar). Use when a DataGrid needs filtering,
+          search, sorting, or bulk actions.",
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks:
+          [
+            "Build the DataGrid header with filters, search, sorting, and bulk
+              actions"
+          ],
+        covers: []
+      }
+  ]
+gaps: []
