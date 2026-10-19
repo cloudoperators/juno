@@ -1,6 +1,4 @@
-import { default as React, ReactElement } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
-import { DescriptionTermProps } from '../DescriptionTerm';
-import { DescriptionDefinitionProps } from '../DescriptionDefinition';
+import { default as React } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
 interface DescriptionListContextValue {
     termWidth?: string;
     gridColumnTemplate?: string;
@@ -13,7 +11,7 @@ export interface DescriptionListProps {
      * Supports multiple instances to create a detailed list of terms and definitions.
      * When multiColumn is true, children should be DescriptionListColumn elements.
      */
-    children: ReactElement<DescriptionTermProps | DescriptionDefinitionProps> | Array<ReactElement<DescriptionTermProps | DescriptionDefinitionProps>> | ReactElement<"div">;
+    children?: React.ReactNode;
     /**
      * Determines the alignment of terms within the list. Align terms to the left or right based on preference for display style.
      */
@@ -25,8 +23,8 @@ export interface DescriptionListProps {
     /**
      * Controls the width of the term column. Accepts "auto" (default — terms size to their content),
      * a percentage string (e.g. "25%", "33%"), or any valid CSS column width value (e.g. "200px", "12rem").
-     * The definition column takes the remaining space. Has no effect when multiColumn is true.
-     * When used with multiColumn, this value is inherited by DescriptionListColumn children unless they set their own termWidth.
+     * The definition column takes the remaining space.
+     * This value is inherited by DescriptionListColumn children unless they set their own termWidth.
      */
     termWidth?: string;
     /** Custom CSS grid-template-columns. Overwrites other sizing props. Useful for non-standard layouts such as multiple definitions per term. Inherited by DescriptionListColumn children via context unless they set their own gridColumnTemplate. */
