@@ -42,7 +42,10 @@ export const DescriptionListColumn: React.FC<DescriptionListColumnProps> = ({
 }) => {
   const { termWidth: contextTermWidth, gridColumnTemplate: contextGridColumnTemplate } = useDescriptionListContext()
   const resolvedTemplate =
-    gridColumnTemplate ?? contextGridColumnTemplate ?? `${termWidth ?? contextTermWidth ?? "auto"} 1fr`
+    gridColumnTemplate ??
+    (termWidth !== undefined ? `${termWidth} 1fr` : undefined) ??
+    contextGridColumnTemplate ??
+    `${contextTermWidth ?? "auto"} 1fr`
 
   return (
     <div className={`dlc jn:grid jn:flex-1 ${className}`} style={{ gridTemplateColumns: resolvedTemplate }} {...props}>
