@@ -82,6 +82,30 @@ describe("DescriptionListColumn", () => {
     expect(screen.getByTestId("dlc")).toHaveStyle({ gridTemplateColumns: "25% 1fr" })
   })
 
+  it("inherits termWidth from a parent DescriptionList", () => {
+    render(
+      <DescriptionList multiColumn termWidth="33%">
+        <DescriptionListColumn data-testid="dlc">
+          <DescriptionTerm>Term</DescriptionTerm>
+          <DescriptionDefinition>Definition</DescriptionDefinition>
+        </DescriptionListColumn>
+      </DescriptionList>
+    )
+    expect(screen.getByTestId("dlc")).toHaveStyle({ gridTemplateColumns: "33% 1fr" })
+  })
+
+  it("overrides parent DescriptionList termWidth with its own termWidth", () => {
+    render(
+      <DescriptionList multiColumn termWidth="33%">
+        <DescriptionListColumn data-testid="dlc" termWidth="50%">
+          <DescriptionTerm>Term</DescriptionTerm>
+          <DescriptionDefinition>Definition</DescriptionDefinition>
+        </DescriptionListColumn>
+      </DescriptionList>
+    )
+    expect(screen.getByTestId("dlc")).toHaveStyle({ gridTemplateColumns: "50% 1fr" })
+  })
+
   it("receives and applies arbitrary props", () => {
     render(
       <DescriptionListColumn data-testid="dlc" data-arbitrary-prop="data-madeup-content">
