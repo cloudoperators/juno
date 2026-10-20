@@ -1,5 +1,7 @@
 import { default as React, HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
-export type TabBarAppearance = "main" | "content";
+/** @deprecated Use `"tabs"` instead. `"main"` remains functional but will be removed in a future major release. */
+export type DeprecatedTabBarAppearance = "main";
+export type TabBarAppearance = "tabs" | "buttons" | "content" | DeprecatedTabBarAppearance;
 /** @deprecated Use TabBarAppearance instead. Can be removed when TabNavigation is removed. */
 export type TabStyle = TabBarAppearance;
 export interface TabBarContextType {
@@ -32,7 +34,7 @@ export interface TabBarProps extends HTMLAttributes<HTMLElement> {
     disabled?: boolean;
     /** A handler to execute when the active tab changes */
     onActiveItemChange?: (activeItem: ReactNode) => void;
-    /** The visual appearance of the TabBar. Use `main` as the first child in an AppShell. Use `content` for tabs inside page content — adds a darkened bottom border on inactive tabs. */
+    /** The visual appearance of the TabBar. Defaults to `tabs`. Use `tabs` for tabs inside an AppShell or page content. Use `buttons` for a pill-style segmented control. `content` is a distinct style variant with a shared bottom border. `main` is deprecated — use `tabs` instead. */
     appearance?: TabBarAppearance;
     /** @deprecated Use appearance instead. Can be removed when TabNavigation is removed. */
     tabStyle?: TabBarAppearance;

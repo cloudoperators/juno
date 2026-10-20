@@ -7,5 +7,8 @@ export declare const Default: Story;
 export declare const Disabled: Story;
 export declare const WithValues: Story;
 export declare const WithChildren: Story;
+export declare const MainAppearance: Story;
+export declare const TabsAppearance: Story;
+export declare const ButtonsAppearance: Story;
 export declare const ContentAppearance: Story;
 //# sourceMappingURL=TabBar.stories.d.ts.map
