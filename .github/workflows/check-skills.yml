@@ -1,0 +1,52 @@
+# check-skills.yml — copied by `intent maintainer setup` into .github/workflows/
+#
+# Validates intent skills and recorded source reviews on pull requests.
+# Only runs when files relevant to skills are changed (skill sources, component
+# sources tracked in review-state.json, or intent artifacts).
+#
+# The steps live in TanStack/intent's reusable workflows, pinned below to the
+# commit of the Intent release that copied this file. Dependabot and Renovate
+# bump the pin like any other action reference; a `github-actions` entry in
+# .github/dependabot.yml is enough.
+#
+# intent-workflow-version: 6
+
+name: Check Skills
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    paths:
+      - 'packages/ui-components/skills/**'
+      - 'packages/ui-components/src/components/**'
+      - '_artifacts/**'
+      - '.intent/**'
+  workflow_dispatch: {}
+
+permissions: {}
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      node-version: ${{ steps.versions.outputs.node-version }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Read node version from .nvmrc
+        id: versions
+        run: echo "node-version=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+
+  validate:
+    needs: setup
+    permissions:
+      contents: read
+    uses: TanStack/intent/.github/workflows/check-skills.yml@683c701dbdc0ee4985c0b09b44fe7c8cad9b7d10 # v0.5.5
+    with:
+      artifacts: '_artifacts'
+      node-version: ${{ needs.setup.outputs.node-version }}
+      repair: true
