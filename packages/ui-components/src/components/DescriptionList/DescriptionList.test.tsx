@@ -121,6 +121,26 @@ describe("DescriptionList", () => {
     expect(container.querySelector("dl")).toHaveStyle({ gridTemplateColumns: "auto 1fr 1fr 1fr" })
   })
 
+  it("applies gap class when multiColumn and gap are set", () => {
+    const { container } = render(
+      <DescriptionList multiColumn gap="6">
+        <DescriptionTerm>Term</DescriptionTerm>
+        <DescriptionDefinition>Definition</DescriptionDefinition>
+      </DescriptionList>
+    )
+    expect(container.querySelector("dl")).toHaveClass("jn:gap-6")
+  })
+
+  it("does not apply gap class when gap is set but multiColumn is false", () => {
+    const { container } = render(
+      <DescriptionList gap="6">
+        <DescriptionTerm>Term</DescriptionTerm>
+        <DescriptionDefinition>Definition</DescriptionDefinition>
+      </DescriptionList>
+    )
+    expect(container.querySelector("dl")).not.toHaveClass("jn:gap-6")
+  })
+
   it("applies flex layout when multiColumn is true", () => {
     const { container } = render(
       <DescriptionList multiColumn>

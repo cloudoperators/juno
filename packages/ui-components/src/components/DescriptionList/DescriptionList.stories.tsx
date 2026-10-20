@@ -136,6 +136,38 @@ export const MultiColumn: Story = {
   ),
 }
 
+export const MultiColumnWithGap: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Pass `gap` together with `multiColumn` to control the spacing between columns. Accepts any Tailwind spacing token (e.g. `"4"`, `"6"`, `"8"`). Has no effect without `multiColumn`.',
+      },
+    },
+  },
+  render: (args) => (
+    <DL multiColumn gap="8" {...args}>
+      <DLC>
+        <DT>Shipping Method</DT>
+        <DD>Standard shipping: 5-7 business days.</DD>
+        <DT>Payment Options</DT>
+        <DD>Credit/Debit cards, PayPal, and bank transfer.</DD>
+        <DT>Delivery Time</DT>
+        <DD>Estimated delivery between 1 to 3 business days after shipping.</DD>
+      </DLC>
+      <DLC>
+        <DT>Return Policy</DT>
+        <DD>
+          Returns are accepted within 30 days of purchase. Items must be returned in their original packaging and
+          condition.
+        </DD>
+        <DT>Customer Support</DT>
+        <DD>Available via phone, email, and live chat from 9 AM to 6 PM, Monday to Friday.</DD>
+      </DLC>
+    </DL>
+  ),
+}
+
 export const MultiColumnTermWidthOverride: Story = {
   parameters: {
     docs: {
