@@ -1,6 +1,7 @@
 # Component Props Reference
 
-Prop reference for the DataGrid components referenced by [SKILL.md](../SKILL.md).
+Prop reference for the DataGrid components referenced by
+[datagrid-spec.md](datagrid-spec.md).
 
 ### DataGrid
 

@@ -13,7 +13,9 @@
   },
   "files": [
     "build/*",
-    "skills/build-data-grids"
+    "skills/datagrid",
+    "skills/datagrid-build",
+    "skills/datagrid-validate"
   ],
   "author": "UI-Team",
   "repository": "https://github.com/cloudoperators/juno/tree/main/packages/juno-ui-components",

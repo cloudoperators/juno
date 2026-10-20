@@ -11,44 +11,55 @@ skills:
         domain: data-display,
         package: packages/ui-components,
         path: skills/datagrid/SKILL.md,
-        description: "Display a collection of structured data as a Juno DataGrid
-          (DataGrid, DataGridRow, DataGridCell, DataGridHeadCell). Use when
-          building a sortable/filterable table of resources; covers columns,
-          minContentColumns, and when NOT to use a DataGrid.",
+        description: "Compose a Juno DataGrid to display a collection of structured data
+          (DataGrid, DataGridRow, DataGridCell, DataGridHeadCell). Owns the
+          DataGridSpec — the shared rule set (Input Schema, Decision Trees,
+          Invariants) that the datagrid-build and datagrid-validate skills both
+          rely on. Use when building a sortable/filterable table of resources,
+          or when you need the canonical rules for how a DataGrid must be
+          composed.",
         sources:
           [
             src/components/DataGrid/DataGrid.component.tsx,
             src/components/DataGrid/DataGrid.stories.tsx
           ],
-        requires: [],
-        purpose: "Teach an agent to render tabular/collection data with Juno's DataGrid
-          primitives instead of a raw HTML table, including correct column
-          sizing and the cells-per-row invariant, and to recognize when a
-          DataGrid is the wrong pattern.\n"
+        references:
+          [
+            references/datagrid-spec.md,
+            references/component-props.md,
+            references/fragment-library.md
+          ],
+        requires: []
       },
     {
-        name: datagrid-filters-toolbar,
-        slug: datagrid-filters-toolbar,
+        name: datagrid-build,
+        slug: datagrid-build,
         domain: data-display,
         package: packages/ui-components,
-        path: skills/datagrid-filters-toolbar/SKILL.md,
-        description: "Build the DataGrid header as a three-zone composition: Zone 1
-          (sorting + overflow menu + primary action in a bare Stack), Zone 2
-          (filters via Select+ComboBox in an InputGroup, SearchInput, active
-          filter Pills, in a DataGridToolbar), Zone 3 (bulk actions + item count
-          + refresh in a DataGridToolbar). Use when a DataGrid needs filtering,
-          search, sorting, or bulk actions.",
-        sources:
-          [
-            src/components/DataGrid/DataGridHeader.stories.tsx,
-            src/components/DataGridToolbar/DataGridToolbar.component.tsx
-          ],
-        requires: [ datagrid ],
-        purpose: "Teach an agent the DataGrid header composition pattern, which no
-          component prop or type signature expresses: there is no Filter
-          component, filters are assembled from
-          Select/ComboBox/InputGroup/SearchInput/Pill, and the header is three
-          optional zones with specific wrapping, backgrounds, and behavior.\n"
+        path: skills/datagrid-build/SKILL.md,
+        description: "Generate a complete, production-ready Juno DataGrid implementation
+          from a BRD excerpt, feature list, or structured requirements. Use when
+          the user says \"build a DataGrid for X\", \"generate a DataGrid\",
+          \"scaffold a DataGrid\", or provides data/feature requirements and
+          asks for a DataGrid. Relies on the datagrid skill's DataGridSpec for
+          all structural rules.",
+        sources: [ skills/datagrid/references/datagrid-spec.md ],
+        requires: [ datagrid ]
+      },
+    {
+        name: datagrid-validate,
+        slug: datagrid-validate,
+        domain: data-display,
+        package: packages/ui-components,
+        path: skills/datagrid-validate/SKILL.md,
+        description: "Check an existing Juno DataGrid implementation against the
+          DataGridSpec and report violations. Use when the user says \"validate
+          this DataGrid\", \"review this DataGrid\", \"check this DataGrid\",
+          \"does this DataGrid follow the rules\", or pastes DataGrid code to be
+          audited. Relies on the datagrid skill's DataGridSpec for all
+          structural rules.",
+        sources: [ skills/datagrid/references/datagrid-spec.md ],
+        requires: [ datagrid ]
       }
   ]
 distribution:
