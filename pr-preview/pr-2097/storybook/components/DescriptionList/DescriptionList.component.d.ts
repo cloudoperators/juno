@@ -1,4 +1,5 @@
 import { default as React } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { StackGap } from '../Stack';
 interface DescriptionListContextValue {
     termWidth?: string;
     gridColumnTemplate?: string;
@@ -20,6 +21,11 @@ export interface DescriptionListProps {
      * When true, switches the layout to flex so that DescriptionListColumn children render side by side.
      */
     multiColumn?: boolean;
+    /**
+     * Sets the gap between columns. Only applies when multiColumn is true. Accepts any Tailwind spacing
+     * token (e.g. "4", "6", "8"). Has no effect when multiColumn is false.
+     */
+    gap?: StackGap;
     /**
      * Controls the width of the term column. Accepts "auto" (default — terms size to their content),
      * a percentage string (e.g. "25%", "33%"), or any valid CSS column width value (e.g. "200px", "12rem").
