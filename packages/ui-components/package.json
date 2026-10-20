@@ -12,7 +12,19 @@
     "./theme.css": "./build/theme.css"
   },
   "files": [
-    "build/*"
+    "build/*",
+    "skills/datagrid",
+    "skills/layout",
+    "skills/forms",
+    "skills/navigation",
+    "skills/feedback",
+    "skills/overlays",
+    "skills/data-display",
+    "skills/actions",
+    "skills/app-foundations",
+    "skills/accessibility",
+    "skills/ux-writing",
+    "skills/interaction-patterns"
   ],
   "author": "UI-Team",
   "repository": "https://github.com/cloudoperators/juno/tree/main/packages/juno-ui-components",
@@ -29,6 +41,7 @@
     "@storybook/addon-docs": "10.6.1",
     "@storybook/addon-links": "10.6.1",
     "@storybook/react-vite": "10.6.1",
+    "@tanstack/intent": "0.5.5",
     "@tailwindcss/vite": "4.3.3",
     "@testing-library/jest-dom": "7.0.1",
     "@testing-library/react": "16.3.3",
@@ -71,5 +84,8 @@
     "test-vitest:watch": "vitest",
     "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo",
     "clean:cache": "rm -rf .turbo"
-  }
+  },
+  "keywords": [
+    "tanstack-intent"
+  ]
 }

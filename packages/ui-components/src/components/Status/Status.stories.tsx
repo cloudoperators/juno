@@ -181,7 +181,7 @@ export const DataGridLoading: Story = {
           <SearchInput placeholder="Search Servers …" />
         </Stack>
       </DataGridToolbar>
-      <DataGrid columns={4}>
+      <DataGrid columnCount={4}>
         <DataGridRow>
           <DataGridHeadCell>Name</DataGridHeadCell>
           <DataGridHeadCell>Region</DataGridHeadCell>
@@ -215,7 +215,7 @@ export const DataGridError: Story = {
           <SearchInput placeholder="Search Servers …" />
         </Stack>
       </DataGridToolbar>
-      <DataGrid columns={4}>
+      <DataGrid columnCount={4}>
         <DataGridRow>
           <DataGridHeadCell>Name</DataGridHeadCell>
           <DataGridHeadCell>Region</DataGridHeadCell>
@@ -249,7 +249,7 @@ export const DataGridEmpty: Story = {
           <SearchInput placeholder="Search Servers …" />
         </Stack>
       </DataGridToolbar>
-      <DataGrid columns={4}>
+      <DataGrid columnCount={4}>
         <DataGridRow>
           <DataGridHeadCell>Name</DataGridHeadCell>
           <DataGridHeadCell>Region</DataGridHeadCell>
@@ -283,7 +283,7 @@ export const DataGridNoMatches: Story = {
           <SearchInput placeholder="Search Servers …" />
         </Stack>
       </DataGridToolbar>
-      <DataGrid columns={4}>
+      <DataGrid columnCount={4}>
         <DataGridRow>
           <DataGridHeadCell>Name</DataGridHeadCell>
           <DataGridHeadCell>Region</DataGridHeadCell>
@@ -320,7 +320,7 @@ export const DataGridErrorWithDetails: Story = {
           <SearchInput placeholder="Search Servers …" />
         </Stack>
       </DataGridToolbar>
-      <DataGrid columns={4}>
+      <DataGrid columnCount={4}>
         <DataGridRow>
           <DataGridHeadCell>Name</DataGridHeadCell>
           <DataGridHeadCell>Region</DataGridHeadCell>

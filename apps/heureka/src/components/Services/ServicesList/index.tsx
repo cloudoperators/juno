@@ -47,7 +47,7 @@ export const ServicesList = () => {
 
   return (
     <div className="datagrid-hover">
-      <DataGrid minContentColumns={[1, 2, 3, 4, 5, 7]} columns={COLUMN_SPAN}>
+      <DataGrid minContentColumns={[1, 2, 3, 4, 5, 7]} columnCount={COLUMN_SPAN}>
         <DataGridRow>
           <DataGridHeadCell>Service</DataGridHeadCell>
           <DataGridHeadCell colSpan={5} className="whitespace-nowrap">

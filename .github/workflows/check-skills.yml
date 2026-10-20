@@ -1,0 +1,85 @@
+# check-skills.yml — Intent skill PR checks.
+#
+# Originally scaffolded by `intent maintainer setup`, then converted to a
+# self-contained, in-repo workflow so it:
+#   - runs only on PRs that touch the sources the skills are built from,
+#   - uses this repo's own pnpm/Node toolchain (no external reusable workflows),
+#   - runs the lockfile-pinned @tanstack/intent (ui-components devDependency).
+#
+# Two things happen on a PR:
+#   1. validate      — hard gate: fails the PR on malformed/invented-API skills.
+#   2. review drift  — non-blocking: flags skills whose cited sources changed in
+#                      THIS PR, surfaced as a GitHub review reminder so the author
+#                      can update the skill in the same PR (the actionable moment).
+#
+# NOTE: `intent maintainer setup` may regenerate this file. If it does, re-apply
+# the paths filter and the PR-only scope.
+
+name: Check Skills
+
+on:
+  pull_request:
+    paths:
+      # Skills are grounded in these source trees (see `sources:` in _artifacts/skill_tree.yaml),
+      # so only run the skill checks when something that can affect them changes.
+      - "packages/ui-components/**"            # component source + the skills/ files themselves
+      - "docs/ux/**"                           # UX docs the skills cite as sources
+      - "_artifacts/**"                        # planning records the gate validates
+      - ".github/workflows/check-skills.yml"   # the workflow itself
+  workflow_dispatch: {}
+
+permissions: {}
+
+env:
+  NODE_VERSION: "22.22.2"
+
+jobs:
+  validate:
+    name: Validate Intent skills
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write # the non-blocking drift step posts a review reminder
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0 # drift review diffs this PR against its base branch
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+        with:
+          package_json_file: package.json
+
+      # Installs the lockfile-pinned @tanstack/intent (declared in
+      # packages/ui-components/package.json devDependencies) so the version is a
+      # single source of truth, bumped like any other dep — no magic version
+      # string in this workflow.
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Hard gate. Structural + type validation of every SKILL.md and reference
+      # file; type-checks each code fence against the real component types and
+      # fails the PR on malformed frontmatter, broken links, or invented APIs.
+      #
+      # Scope: `validate` only ever reads packages/ui-components/skills — an
+      # intrinsic allowlist, so this gate needs no path-ignore maintenance as the
+      # monorepo grows.
+      - name: Validate skills
+        run: pnpm --filter @cloudoperators/juno-ui-components exec intent validate skills --github-summary
+
+      # Non-blocking. Compares this PR against its base branch to flag skills
+      # whose cited sources (components / UX docs) changed but whose guidance has
+      # not been re-reviewed, and surfaces them as a GitHub review reminder. Runs
+      # here — at PR time, not release — so the author can update the skill in the
+      # same change. Never fails the PR (`continue-on-error`): soft drift is a
+      # heads-up, not a correctness error (that's what `validate` is for).
+      - name: Review skill drift (non-blocking)
+        continue-on-error: true
+        run: pnpm --filter @cloudoperators/juno-ui-components exec intent review --base "origin/${{ github.base_ref }}" --github-review --package-label "juno-ui-components"
+

@@ -47,7 +47,7 @@ export const VulnerabilitiesList = () => {
 
   return (
     <div className="datagrid-hover">
-      <DataGrid columns={5} minContentColumns={[0, 1, 2, 3]} cellVerticalAlignment="top">
+      <DataGrid columnCount={5} minContentColumns={[0, 1, 2, 3]} cellVerticalAlignment="top">
         <DataGridRow>
           <DataGridHeadCell>
             <Icon icon="monitorHeart" />

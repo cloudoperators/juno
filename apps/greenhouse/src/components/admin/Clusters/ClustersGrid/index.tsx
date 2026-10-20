@@ -17,7 +17,7 @@ const COLUMN_SPAN = 9
 export const ClustersDataGrid = () => {
   const { filterSettings } = useLoaderData({ from: "/admin/clusters/" })
   return (
-    <DataGrid minContentColumns={[0, 8]} columns={COLUMN_SPAN}>
+    <DataGrid minContentColumns={[0, 8]} columnCount={COLUMN_SPAN}>
       <DataGridRow>
         <DataGridHeadCell className="align-center">
           <Icon icon="monitorHeart" />

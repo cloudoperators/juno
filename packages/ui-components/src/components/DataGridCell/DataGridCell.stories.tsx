@@ -64,7 +64,7 @@ export const Default: Story = {
     },
   },
   render: () => (
-    <DataGrid columns={3}>
+    <DataGrid columnCount={3}>
       <DataGridRow>
         <DataGridHeadCell>Name</DataGridHeadCell>
         <DataGridHeadCell>Status</DataGridHeadCell>
@@ -91,7 +91,7 @@ export const NoWrap: Story = {
     },
   },
   render: () => (
-    <DataGrid columns={3}>
+    <DataGrid columnCount={3}>
       <DataGridRow>
         <DataGridHeadCell>Name</DataGridHeadCell>
         <DataGridHeadCell>Status</DataGridHeadCell>
@@ -119,7 +119,7 @@ export const ColSpan: Story = {
     },
   },
   render: () => (
-    <DataGrid columns={3}>
+    <DataGrid columnCount={3}>
       <DataGridRow>
         <DataGridHeadCell>Name</DataGridHeadCell>
         <DataGridHeadCell>Status</DataGridHeadCell>
@@ -145,7 +145,7 @@ export const VerticalAlignmentOverride: Story = {
     },
   },
   render: () => (
-    <DataGrid columns={2} cellVerticalAlignment="center">
+    <DataGrid columnCount={2} cellVerticalAlignment="center">
       <DataGridRow>
         <DataGridHeadCell>Name</DataGridHeadCell>
         <DataGridHeadCell>Description</DataGridHeadCell>

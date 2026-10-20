@@ -96,7 +96,7 @@ const AlertDetail = () => {
                 )
               ) : (
                 <>
-                  <DataGrid columns={2}>
+                  <DataGrid columnCount={2}>
                     <DataGridRow>
                       <DataGridHeadCell>Status</DataGridHeadCell>
                       <DataGridCell>

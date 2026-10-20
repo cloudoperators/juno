@@ -34,7 +34,7 @@ export const Details: React.FC<DetailsProps> = ({ plugin }) => {
     <Stack gap="4" direction="vertical">
       <ContentHeading>Details</ContentHeading>
       <Stack direction="horizontal">
-        <DataGrid columns={2} minContentColumns={[0]} className="flex-1">
+        <DataGrid columnCount={2} minContentColumns={[0]} className="flex-1">
           <DataGridRow>
             <DataGridHeadCell nowrap>Name</DataGridHeadCell>
             <DataGridCell>{plugin.metadata?.name}</DataGridCell>
@@ -64,7 +64,7 @@ export const Details: React.FC<DetailsProps> = ({ plugin }) => {
             <DataGridCell>{plugin.metadata?.labels?.[SUPPORT_GROUP_LABEL] ?? NO_VALUE_DEFAULT}</DataGridCell>
           </DataGridRow>
         </DataGrid>
-        <DataGrid columns={2} minContentColumns={[0]} className="flex-1">
+        <DataGrid columnCount={2} minContentColumns={[0]} className="flex-1">
           <DataGridRow>
             <DataGridHeadCell nowrap>Cluster</DataGridHeadCell>
             <DataGridCell>{plugin.spec?.clusterName ?? NO_VALUE_DEFAULT}</DataGridCell>
