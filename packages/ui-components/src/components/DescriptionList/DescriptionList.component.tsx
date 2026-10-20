@@ -9,41 +9,76 @@ import { type StackGap } from "../Stack"
 // Tailwind JIT requires complete class strings — no dynamic interpolation.
 const gapClass = (gap: StackGap): string => {
   switch (gap) {
-    case "px": return "jn:gap-px"
-    case "0.5": return "jn:gap-0.5"
-    case "1": return "jn:gap-1"
-    case "1.5": return "jn:gap-1.5"
-    case "2": return "jn:gap-2"
-    case "2.5": return "jn:gap-2.5"
-    case "3": return "jn:gap-3"
-    case "3.5": return "jn:gap-3.5"
-    case "4": return "jn:gap-4"
-    case "5": return "jn:gap-5"
-    case "6": return "jn:gap-6"
-    case "7": return "jn:gap-7"
-    case "8": return "jn:gap-8"
-    case "9": return "jn:gap-9"
-    case "10": return "jn:gap-10"
-    case "11": return "jn:gap-11"
-    case "12": return "jn:gap-12"
-    case "14": return "jn:gap-14"
-    case "16": return "jn:gap-16"
-    case "20": return "jn:gap-20"
-    case "24": return "jn:gap-24"
-    case "28": return "jn:gap-28"
-    case "32": return "jn:gap-32"
-    case "36": return "jn:gap-36"
-    case "40": return "jn:gap-40"
-    case "44": return "jn:gap-44"
-    case "48": return "jn:gap-48"
-    case "52": return "jn:gap-52"
-    case "56": return "jn:gap-56"
-    case "60": return "jn:gap-60"
-    case "64": return "jn:gap-64"
-    case "72": return "jn:gap-72"
-    case "80": return "jn:gap-80"
-    case "96": return "jn:gap-96"
-    default: return "jn:gap-0"
+    case "px":
+      return "jn:gap-px"
+    case "0.5":
+      return "jn:gap-0.5"
+    case "1":
+      return "jn:gap-1"
+    case "1.5":
+      return "jn:gap-1.5"
+    case "2":
+      return "jn:gap-2"
+    case "2.5":
+      return "jn:gap-2.5"
+    case "3":
+      return "jn:gap-3"
+    case "3.5":
+      return "jn:gap-3.5"
+    case "4":
+      return "jn:gap-4"
+    case "5":
+      return "jn:gap-5"
+    case "6":
+      return "jn:gap-6"
+    case "7":
+      return "jn:gap-7"
+    case "8":
+      return "jn:gap-8"
+    case "9":
+      return "jn:gap-9"
+    case "10":
+      return "jn:gap-10"
+    case "11":
+      return "jn:gap-11"
+    case "12":
+      return "jn:gap-12"
+    case "14":
+      return "jn:gap-14"
+    case "16":
+      return "jn:gap-16"
+    case "20":
+      return "jn:gap-20"
+    case "24":
+      return "jn:gap-24"
+    case "28":
+      return "jn:gap-28"
+    case "32":
+      return "jn:gap-32"
+    case "36":
+      return "jn:gap-36"
+    case "40":
+      return "jn:gap-40"
+    case "44":
+      return "jn:gap-44"
+    case "48":
+      return "jn:gap-48"
+    case "52":
+      return "jn:gap-52"
+    case "56":
+      return "jn:gap-56"
+    case "60":
+      return "jn:gap-60"
+    case "64":
+      return "jn:gap-64"
+    case "72":
+      return "jn:gap-72"
+    case "80":
+      return "jn:gap-80"
+    case "96":
+      return "jn:gap-96"
+    default:
+      return "jn:gap-0"
   }
 }
 
