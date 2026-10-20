@@ -1,6 +1,8 @@
 # Fragment Library
 
-Canonical code for each building block referenced by the decision trees in [SKILL.md](../SKILL.md). Compose these into the final output; do not paraphrase or restructure them.
+Canonical code for each building block referenced by the Decision Trees in
+[datagrid-spec.md](datagrid-spec.md). Compose these into the final output; do not
+paraphrase or restructure them.
 
 **FRAG:outer-shell**
 

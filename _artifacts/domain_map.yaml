@@ -16,21 +16,31 @@ skills:
         covers: []
       },
     {
-        name: datagrid-filters-toolbar,
-        slug: datagrid-filters-toolbar,
+        name: datagrid-build,
+        slug: datagrid-build,
         domain: data-display,
-        description: "Build the DataGrid header as a three-zone composition: Zone 1
-          (sorting + overflow menu + primary action in a bare Stack), Zone 2
-          (filters via Select+ComboBox in an InputGroup, SearchInput, active
-          filter Pills, in a DataGridToolbar), Zone 3 (bulk actions + item count
-          + refresh in a DataGridToolbar). Use when a DataGrid needs filtering,
-          search, sorting, or bulk actions.",
+        description: "Generate a complete, production-ready Juno DataGrid implementation
+          from a BRD excerpt, feature list, or structured requirements. Use when
+          the user says \"build a DataGrid for X\", \"generate a DataGrid\",
+          \"scaffold a DataGrid\", or provides data/feature requirements and
+          asks for a DataGrid. Relies on the datagrid skill's DataGridSpec for
+          all structural rules.",
         packages: [ "@cloudoperators/juno-ui-components" ],
-        tasks:
-          [
-            "Build the DataGrid header with filters, search, sorting, and bulk
-              actions"
-          ],
+        tasks: [ "Generate a DataGrid implementation from requirements" ],
+        covers: []
+      },
+    {
+        name: datagrid-validate,
+        slug: datagrid-validate,
+        domain: data-display,
+        description: "Check an existing Juno DataGrid implementation against the
+          DataGridSpec and report violations. Use when the user says \"validate
+          this DataGrid\", \"review this DataGrid\", \"check this DataGrid\",
+          \"does this DataGrid follow the rules\", or pastes DataGrid code to be
+          audited. Relies on the datagrid skill's DataGridSpec for all
+          structural rules.",
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks: [ "Validate a DataGrid implementation against the DataGridSpec" ],
         covers: []
       }
   ]

@@ -1,26 +1,34 @@
----
-name: build-data-grids
-description: >-
-  Generate a complete, production-ready DataGrid implementation from a BRD
-  excerpt or structured requirements. Covers all header zones, column layout,
-  row features, and states. Use when the user says "build a DataGrid for X",
-  "generate a DataGrid", "scaffold a DataGrid", or provides data/feature
-  requirements and asks for a DataGrid.
----
+# DataGridSpec — Juno DataGrid composition rule set
 
-Generate a complete DataGrid implementation that conforms to the Juno component library patterns. The output must be deterministic given the same input — all structural choices are resolved by the decision trees below. This specification is toolchain-agnostic: it can drive code generation, output validation, or review tooling equally.
+The single source of truth for how a Juno DataGrid is composed. This file
+declares _what a correct DataGrid is_, independent of task. It is consumed by:
+
+- **datagrid-build** — resolves a spec into code by running the Decision Trees forward.
+- **datagrid-validate** — checks code by running the same trees and asserting the Invariants.
+
+Rules are stated as **constraints on the output**, never as build steps, so they
+read identically in both directions. Every rule has a stable ID (`DT-n`, `INV-n`);
+cite these IDs from other skills instead of copying rule text.
+
+Supporting references in this skill: [component-props.md](component-props.md),
+[fragment-library.md](fragment-library.md).
 
 ## Scope
 
-**In scope:** DataGrid, its header (Zones 1–3), DataGridRow and DataGridCell content, state rows (loading / error / empty).
+**In scope:** DataGrid, its header (Zones 1–3), DataGridRow and DataGridCell
+content, state rows (loading / error / empty).
 
-**Out of scope — never generate, never mention:** Pagination, page layout shells, navigation, modals, panels, forms, detail views, app wrappers. If mentioned in input, acknowledge in one sentence and move on. No placeholder code, no scaffolding, no TODOs.
+**Out of scope:** Pagination, page layout shells, navigation, modals, panels,
+forms, detail views, app wrappers, `DataGridFoot` (see `INV-12`). These are the
+responsibility of the consuming component, not of a DataGrid.
 
 ---
 
 ## Input Schema
 
-Parse the user's input (BRD, feature list, or natural language) into this structure before evaluating any decision tree. Resolve ambiguities by asking a single consolidated question before proceeding.
+The canonical shape a DataGrid requirement resolves to. `datagrid-build` parses
+input _into_ this; `datagrid-validate` reconstructs it _from_ code (or is handed
+it). Every Decision Tree operates on this structure.
 
 ```ts
 interface DataGridSpec {
@@ -84,7 +92,9 @@ interface PermissionGate {
 
 ## Decision Trees
 
-Evaluate the trees in the order listed. Later trees consume outputs of earlier ones.
+Deterministic: one `DataGridSpec` → exactly one correct structure. Build evaluates
+them in order to emit; validate evaluates them to compute the _expected_ structure
+and diffs it against the actual code. Later trees consume outputs of earlier ones.
 
 ---
 
@@ -405,93 +415,24 @@ handleSelectAll:
 
 ## Invariants
 
-Rules that must hold in every valid output regardless of which DT paths were taken. A validator can check these independently of generation.
+Assertions that must hold in every valid output regardless of which DT paths were
+taken. Build must satisfy each; validate checks each against the code and cites
+the ID on failure.
 
-1. `DataGrid[columns]` equals the number of cells in every `DataGridRow`, accounting for `colSpan`. State rows must use `colSpan={columns}` to span all columns.
-2. Every index in `minContentColumns` is a valid zero-based column index (≥ 0 and < `columns`).
-3. Zone 1 is wrapped in a bare `Stack`. It is never wrapped in `DataGridToolbar`.
-4. Zones 2 and 3 are each wrapped in their own `DataGridToolbar`. They are never merged into one.
-5. The outer shell is `<Stack direction="vertical" className="juno-pattern-datagrid-outer">`.
-6. The header shell is `<Stack direction="vertical" className="juno-pattern-datagrid-header">`.
-7. An empty cell value is always `- -` (two hyphens, space-separated). Never `null`, `undefined`, `""`, `—`, or `N/A`.
-8. When `PopupMenu` is used anywhere, the consuming component tree must be wrapped in `PortalProvider`.
-9. When `DataGridRow` has `onClick`, every interactive child element calls `e.stopPropagation()` on its own handler.
-10. The checkbox column (`_select`) and action column (`_actions`) always have an empty `<DataGridHeadCell />` — no label.
-11. Column header labels are nouns or noun phrases. Verbs belong in action buttons, not column headers.
-12. `DataGridFoot` must not be generated unless explicitly requested; flag it as WiP if used.
-13. `gridColumnTemplate` is only used when `columnMinSize` / `columnMaxSize` / `minContentColumns` cannot achieve the required layout. Do not use it as a default.
-14. Elements gated by permissions (bulk actions, checkboxes, primary action) are conditionally rendered — not disabled. If a user lacks permission for all bulk actions, neither the checkboxes nor the Zone 3 bulk-actions group is rendered.
-15. The action column (`_actions`), when present, is always sized to min-content — its index is always included in `minContentColumns`. It must never stretch to fill available space.
-16. `col.bold` is never inferred or defaulted. A cell renders bold only when `col.bold = true` is explicitly present in the spec. `primary = true` does not imply bold.
-17. Only components listed in the Fragment Library or the Component Props Reference may appear in generated output. Do not use any component not documented in this skill — not from memory, not from BRD copy, not from naming intuition. If a requirement cannot be met with the documented components, say so explicitly and leave the implementation to the consuming component.
-
----
-
-## Fragment Library
-
-Canonical code for each building block referenced by the decision trees lives in
-[references/fragment-library.md](references/fragment-library.md). Compose those
-fragments into the final output; do not paraphrase or restructure them.
-
----
-
-## Assembly
-
-Evaluate the DTs in this order, then compose:
-
-1. **DT-1** → resolve `columnOrder`, `columns`, `minContentColumns`
-2. **DT-2** → resolve which zones to include
-3. **DT-3 / DT-4 / DT-5** → resolve zone contents (only for zones that DT-2 enabled)
-4. **DT-9** → resolve select-all checkbox state (only if `bulkActions`)
-5. **DT-6** → resolve per-row props and stop-propagation requirement
-6. **DT-7** → resolve state row blocks using `columns` from DT-1
-7. **DT-8** → resolve per-cell rendering for each column in `columnOrder`
-
-Then compose the final JSX:
-
-```
-FRAG:outer-shell
-  IF renderHeader:
-    FRAG:header-shell
-      IF zone1: FRAG:zone1-shell (DT-3 contents)
-      IF zone2: FRAG:zone2-shell (DT-4 contents)
-      IF zone3: FRAG:zone3-shell (DT-5 contents)
-  <DataGrid columns={columns} minContentColumns={minContentColumns}>
-    <DataGridRow>  {/* head row: one DataGridHeadCell per columnOrder entry */}
-    DT-7 state rows
-    DT-7 data rows (per DT-6 and DT-8)
-  </DataGrid>
-FRAG:outer-shell (close)
-```
-
----
-
-## Output Specification
-
-Produce a single self-contained code block containing:
-
-1. **TypeScript interface** for the data item, derived from `spec.columns`
-2. **Sample data** (3–4 items, comment: `// TODO: replace with real data`)
-3. **State declarations** — only declare state that the resolved feature set requires:
-   - `isLoading`, `isError` — always
-   - `sortOrder` — if sorting
-   - `selected` — if bulkActions
-   - `hasActiveFilters` — if filtering or search
-4. **Derived values** (immediately after state):
-   - `allSelected`, `someSelected`, `noneSelected` — if bulkActions (from DT-9)
-   - `filteredCount`, `totalCount` — if itemCount
-5. **The assembled JSX tree** — following the Assembly section above
-
-After the code block, append a **Setup Notes** section:
-
-- List all `@cloudoperators/juno-ui-components` imports needed
-- Note `PortalProvider` wrapper requirement if `PopupMenu` is used
-- Note any permission-gating elements with their condition string from `spec.features.permissions`
-
----
-
-## Component Props Reference
-
-Prop reference for the DataGrid components (DataGrid, DataGridRow, DataGridCell,
-DataGridHeadCell, DataGridToolbar) and the structural pattern classes lives in
-[references/component-props.md](references/component-props.md).
+- **INV-1** `DataGrid[columns]` equals the number of cells in every `DataGridRow`, accounting for `colSpan`. State rows must use `colSpan={columns}` to span all columns.
+- **INV-2** Every index in `minContentColumns` is a valid zero-based column index (≥ 0 and < `columns`).
+- **INV-3** Zone 1 is wrapped in a bare `Stack`. It is never wrapped in `DataGridToolbar`.
+- **INV-4** Zones 2 and 3 are each wrapped in their own `DataGridToolbar`. They are never merged into one.
+- **INV-5** The outer shell is `<Stack direction="vertical" className="juno-pattern-datagrid-outer">`.
+- **INV-6** The header shell is `<Stack direction="vertical" className="juno-pattern-datagrid-header">`.
+- **INV-7** An empty cell value is always `- -` (two hyphens, space-separated). Never `null`, `undefined`, `""`, `—`, or `N/A`.
+- **INV-8** When `PopupMenu` is used anywhere, the consuming component tree must be wrapped in `PortalProvider`.
+- **INV-9** When `DataGridRow` has `onClick`, every interactive child element calls `e.stopPropagation()` on its own handler.
+- **INV-10** The checkbox column (`_select`) and action column (`_actions`) always have an empty `<DataGridHeadCell />` — no label.
+- **INV-11** Column header labels are nouns or noun phrases. Verbs belong in action buttons, not column headers.
+- **INV-12** `DataGridFoot` must not be generated unless explicitly requested; flag it as WiP if used.
+- **INV-13** `gridColumnTemplate` is only used when `columnMinSize` / `columnMaxSize` / `minContentColumns` cannot achieve the required layout. Do not use it as a default.
+- **INV-14** Elements gated by permissions (bulk actions, checkboxes, primary action) are conditionally rendered — not disabled. If a user lacks permission for all bulk actions, neither the checkboxes nor the Zone 3 bulk-actions group is rendered.
+- **INV-15** The action column (`_actions`), when present, is always sized to min-content — its index is always included in `minContentColumns`. It must never stretch to fill available space.
+- **INV-16** `col.bold` is never inferred or defaulted. A cell renders bold only when `col.bold = true` is explicitly present in the spec. `primary = true` does not imply bold.
+- **INV-17** Only components listed in the Fragment Library or the Component Props Reference may appear in output. Do not use any component not documented in this skill — not from memory, not from BRD copy, not from naming intuition. If a requirement cannot be met with the documented components, say so explicitly and leave the implementation to the consuming component.
