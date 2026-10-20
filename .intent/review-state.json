@@ -2,20 +2,6 @@
   "schemaVersion": 1,
   "baseline": "fac03386c50408123ab764ad6005e15412b58bd4",
   "items": {
-    "skill:packages/ui-components/skills/datagrid-filters-toolbar/SKILL.md": {
-      "fingerprint": "12876adbc0e41793bffc207108d41cba7665657bfd84b69d1223b32c186e9ede",
-      "snapshot": {
-        "packages/ui-components/skills/datagrid-filters-toolbar/SKILL.md": "08848e73fc88c520d80ab8e6064a6bc3b84fa2400bd7261c967b9ff2b03d026a",
-        "packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx": "f27de8f443d4dc09c0a722c1afe354f15f88105c4362c2ab3ebca48960e06eee",
-        "packages/ui-components/src/components/DataGridToolbar/DataGridToolbar.component.tsx": "bceccc0fe27f3d51318f316f1fe47372e25c21c8c3a6923808cae6a21f218b97"
-      },
-      "head": "fac03386c50408123ab764ad6005e15412b58bd4",
-      "outcome": "updated",
-      "reason": "Initial authoring of datagrid and datagrid-filters-toolbar skills from DataGrid component source and Storybook stories (incl. DataGridHeader.stories.tsx), with UX zone model from docs/ux/datagrid.md embedded in the body. Verified with intent validate (2/2, typechecked).",
-      "evidence": [
-        "Changed: packages/ui-components/skills/datagrid-filters-toolbar/SKILL.md at fac03386c50408123ab764ad6005e15412b58bd4"
-      ]
-    },
     "skill:packages/ui-components/skills/datagrid/SKILL.md": {
       "fingerprint": "311d7206e211c15789f212628b3c601aec941795cb82134e4460c5a1d1af574f",
       "snapshot": {
@@ -60,7 +46,6 @@
         "Changed: _artifacts/skill_spec.md",
         "Changed: _artifacts/skill_tree.yaml",
         "Changed: packages/ui-components/skills/datagrid-build/SKILL.md",
-        "Changed: packages/ui-components/skills/datagrid-filters-toolbar/SKILL.md",
         "Changed: packages/ui-components/skills/datagrid-validate/SKILL.md",
         "Changed: packages/ui-components/skills/datagrid/SKILL.md",
         "Changed: packages/ui-components/skills/datagrid/references/component-props.md",
@@ -168,18 +153,6 @@
       "reason": "Moved into datagrid/references/fragment-library.md as part of the restructure.",
       "evidence": [
         "Changed: packages/ui-components/skills/build-data-grids/references/fragment-library.md"
-      ]
-    },
-    "source:packages/ui-components/skills/datagrid-filters-toolbar/SKILL.md": {
-      "fingerprint": "226e5893848f74aa1124fd870afa0a053e74bfbed6d9fc4c4fb19eb641aa19db",
-      "snapshot": {
-        "packages/ui-components/skills/datagrid-filters-toolbar/SKILL.md": null
-      },
-      "head": "348b6acb8a6971372673cfb73836962c1912cf9e",
-      "outcome": "updated",
-      "reason": "datagrid-filters-toolbar registration removed for good; the three-zone header is captured by DT-2..DT-5 and fragments in datagrid-spec.md.",
-      "evidence": [
-        "Changed: packages/ui-components/skills/datagrid-filters-toolbar/SKILL.md"
       ]
     }
   }
