@@ -1,5 +1,19 @@
 # @cloudoperators/juno-ui-components
 
+## 9.7.0
+
+### Minor Changes
+
+- 2c6a280: feat(ui): add TabBar `appearance="buttons"` and rename `appearance="main"` to `appearance="tabs"`
+  - Add `appearance="buttons"` to `TabBar` for a pill-style segmented control, useful for pre-defined filters.
+  - Rename `appearance="main"` to `appearance="tabs"`. `appearance="tabs"` is now the default.
+  - `appearance="main"` keeps working as a deprecated alias and emits a deprecation warning. Switch to `appearance="tabs"`.
+  - `appearance="content"` remains a distinct style variant with a shared bottom border (unchanged).
+
+### Patch Changes
+
+- e103754: fix(ui): keep label minimized on number input with incomplete value ("-", "+", "e", "E"; and ",", "." depending on locale)
+
 ## 9.6.0
 
 ### Minor Changes
