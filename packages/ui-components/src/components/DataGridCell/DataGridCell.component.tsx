@@ -6,10 +6,21 @@
 import React, { forwardRef, HTMLAttributes, ReactNode } from "react"
 
 import { useDataGridContext, CellVerticalAlignmentType } from "../DataGrid/DataGrid.component"
+import { TextContainType, textContainStyles } from "../../shared/textContain"
 
-const cellBaseStyles = (nowrap: boolean, cellVerticalAlignment: CellVerticalAlignmentType | undefined) => {
+const isTruncatingTextContain = (textContain: TextContainType | undefined) =>
+  textContain === "truncate-end" || textContain === "truncate-start"
+
+const cellBaseStyles = (
+  textContain: TextContainType | undefined,
+  cellVerticalAlignment: CellVerticalAlignmentType | undefined
+) => {
+  // Truncation (`truncate-*`) is applied to an inner wrapper element rather than
+  // the cell itself (see the render below for why), so it is excluded here. All
+  // other textContain values apply directly to the cell.
+  const cellTextContain = textContain && !isTruncatingTextContain(textContain) ? textContainStyles[textContain] : ""
   return `
-		${nowrap ? "jn:whitespace-nowrap" : ""}
+		${cellTextContain}
 		${
       cellVerticalAlignment === "center"
         ? `
@@ -42,19 +53,39 @@ const cellCustomStyles = (colSpan: number | undefined) => {
  * @see {@link DataGridCellProps}
  */
 export const DataGridCell = forwardRef<HTMLDivElement, DataGridCellProps>(
-  ({ colSpan, nowrap = false, verticalAlignment, className = "", children, ...props }, ref) => {
+  ({ colSpan, nowrap = false, textContain, verticalAlignment, className = "", children, ...props }, ref) => {
     const dataGridContext = useDataGridContext() || {}
     const effectiveVerticalAlignment = verticalAlignment ?? dataGridContext.cellVerticalAlignment
+    // `textContain` is the canonical API; the deprecated `nowrap` boolean is
+    // forwarded to `textContain="no-wrap"` only when `textContain` is not set.
+    const effectiveTextContain = textContain ?? (nowrap ? "no-wrap" : undefined)
+    const isTruncating = isTruncatingTextContain(effectiveTextContain)
 
     return (
       <div
-        className={`juno-datagrid-cell ${cellBaseStyles(nowrap, effectiveVerticalAlignment)} ${className}`}
+        className={`juno-datagrid-cell ${cellBaseStyles(effectiveTextContain, effectiveVerticalAlignment)} ${className}`}
         style={cellCustomStyles(colSpan)}
         role="gridcell"
         ref={ref}
         {...props}
       >
-        {children}
+        {isTruncating ? (
+          // Truncation needs a block box with a bounded width, but a center-aligned
+          // cell is a flex container — and `text-overflow: ellipsis` does not apply
+          // to flex containers. So for `truncate-*` we wrap the content in an inner
+          // block element that carries the truncate classes instead of putting them
+          // on the cell. This keeps the cell free to stay a flex container and go on
+          // centering its content vertically, while the inner element:
+          //   - is `block`, so `text-overflow: ellipsis` applies to it;
+          //   - stretches to the cell's width (flex `align-items: stretch`), giving
+          //     it the bounded width the ellipsis needs — no explicit width required;
+          //   - is a scroll container (`overflow: hidden` via `jn:truncate`), so it
+          //     contributes ~0 to the cell's min-content width and therefore does not
+          //     push the cell past its grid column track.
+          <span className={`jn:block ${textContainStyles[effectiveTextContain as TextContainType]}`}>{children}</span>
+        ) : (
+          children
+        )}
       </div>
     )
   }
@@ -69,8 +100,23 @@ export interface DataGridCellProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * If set, content within the cell will not wrap.
    * @default false
+   * @deprecated Use `textContain="no-wrap"` instead. When `textContain` is set, `nowrap` is ignored.
    */
   nowrap?: boolean
+
+  /**
+   * Controls how the cell contains text that exceeds its available space:
+   * truncation with an ellipsis (`"truncate-end"`, `"truncate-start"`), forced
+   * breaking (`"break-word"`, `"break-all"`), or single-line (`"no-wrap"`).
+   *
+   * The `truncate-*` values only take visible effect when the cell has a bounded
+   * width. In a `DataGrid` the column usually supplies this constraint. Truncation
+   * is rendered on an inner wrapper element so it works regardless of
+   * `cellVerticalAlignment` — vertical centering is preserved.
+   *
+   * Takes precedence over the deprecated `nowrap` prop.
+   */
+  textContain?: TextContainType
 
   /**
    * Overrides the parent `DataGrid`'s `cellVerticalAlignment` for this cell.

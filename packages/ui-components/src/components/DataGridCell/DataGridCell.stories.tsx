@@ -24,6 +24,10 @@ const meta: Meta<typeof DataGridCell> = {
       control: { type: "radio" },
       options: ["center", "top"],
     },
+    textContain: {
+      control: { type: "select" },
+      options: ["truncate-end", "truncate-start", "break-word", "break-all", "no-wrap"],
+    },
   },
 }
 
@@ -104,6 +108,35 @@ export const NoWrap: Story = {
             {index === longItems.length - 1 ? <span className="jn:block jn:truncate">{item.status}</span> : item.status}
           </DataGridCell>
           <DataGridCell nowrap>{item.id}</DataGridCell>
+        </DataGridRow>
+      ))}
+    </DataGrid>
+  ),
+}
+
+export const TextContain: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `textContain` to control how a cell handles text that exceeds its width. `"truncate-end"` / `"truncate-start"` clip to one line with an ellipsis, `"break-word"` / `"break-all"` force long strings to wrap, and `"no-wrap"` keeps content on one line. The `truncate-*` values only take visible effect when the cell has a bounded width, which the grid columns supply here. Truncation works under any `cellVerticalAlignment`, including the default `"center"`, and vertical centering is preserved. `textContain` supersedes the deprecated `nowrap` boolean.',
+      },
+    },
+  },
+  render: () => (
+    <DataGrid columns={4}>
+      <DataGridRow>
+        <DataGridHeadCell>truncate-end</DataGridHeadCell>
+        <DataGridHeadCell>truncate-start</DataGridHeadCell>
+        <DataGridHeadCell>break-word</DataGridHeadCell>
+        <DataGridHeadCell>break-all</DataGridHeadCell>
+      </DataGridRow>
+      {longItems.map((item) => (
+        <DataGridRow key={item.id}>
+          <DataGridCell textContain="truncate-end">{item.status}</DataGridCell>
+          <DataGridCell textContain="truncate-start">{item.status}</DataGridCell>
+          <DataGridCell textContain="break-word">{item.status}</DataGridCell>
+          <DataGridCell textContain="break-all">{item.status}</DataGridCell>
         </DataGridRow>
       ))}
     </DataGrid>

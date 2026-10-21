@@ -63,6 +63,64 @@ describe("DataGridCell", () => {
     expect(screen.getByRole("gridcell")).toHaveClass("jn:whitespace-nowrap")
   })
 
+  test("renders no-wrap class when textContain='no-wrap'", () => {
+    render(<DataGridCell textContain="no-wrap" />)
+    expect(screen.getByRole("gridcell")).toHaveClass("jn:whitespace-nowrap")
+  })
+
+  test("wraps truncate-end content in an inner block element carrying the truncate class", () => {
+    render(<DataGridCell textContain="truncate-end">content</DataGridCell>)
+    const cell = screen.getByRole("gridcell")
+    // truncation is applied to an inner wrapper, not the cell itself
+    expect(cell).not.toHaveClass("jn:truncate")
+    const inner = cell.querySelector("span")
+    expect(inner).toHaveClass("jn:block")
+    expect(inner).toHaveClass("jn:truncate")
+    expect(inner).toHaveTextContent("content")
+  })
+
+  test("renders break-words class when textContain='break-word'", () => {
+    render(<DataGridCell textContain="break-word" />)
+    expect(screen.getByRole("gridcell")).toHaveClass("jn:break-words")
+  })
+
+  test("renders break-all class when textContain='break-all'", () => {
+    render(<DataGridCell textContain="break-all" />)
+    expect(screen.getByRole("gridcell")).toHaveClass("jn:break-all")
+  })
+
+  test("textContain takes precedence over deprecated nowrap", () => {
+    render(<DataGridCell nowrap textContain="break-word" />)
+    expect(screen.getByRole("gridcell")).toHaveClass("jn:break-words")
+    expect(screen.getByRole("gridcell")).not.toHaveClass("jn:whitespace-nowrap")
+  })
+
+  test("truncate preserves center alignment on the cell (truncation sits on the inner element)", () => {
+    render(
+      <DataGrid columns={1} cellVerticalAlignment="center">
+        <DataGridCell textContain="truncate-end">content</DataGridCell>
+      </DataGrid>
+    )
+    const cell = screen.getByRole("gridcell")
+    expect(cell).toHaveClass("jn:flex")
+    expect(cell).toHaveClass("jn:flex-col")
+    expect(cell).toHaveClass("jn:justify-center")
+    expect(cell).not.toHaveClass("jn:truncate")
+    expect(cell.querySelector("span")).toHaveClass("jn:truncate")
+  })
+
+  test("non-truncating textContain is applied to the cell without an inner wrapper", () => {
+    render(
+      <DataGrid columns={1} cellVerticalAlignment="center">
+        <DataGridCell textContain="break-word">content</DataGridCell>
+      </DataGrid>
+    )
+    const cell = screen.getByRole("gridcell")
+    expect(cell).toHaveClass("jn:break-words")
+    expect(cell).toHaveClass("jn:flex")
+    expect(cell.querySelector("span")).toBeNull()
+  })
+
   test("verticalAlignment prop works without a parent DataGrid context", () => {
     render(<DataGridCell verticalAlignment="center" />)
     expect(screen.getByRole("gridcell")).toHaveClass("jn:flex")

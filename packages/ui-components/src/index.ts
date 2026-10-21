@@ -124,6 +124,7 @@ export { TopNavigationItem } from "./components/TopNavigationItem/TopNavigationI
 export { useEndlessScrollList } from "./hooks/useEndlessScrollList"
 
 // TYPES
+export type { TextContainType } from "./shared/textContain"
 export type { AppBodyProps } from "./components/AppBody/AppBody.component"
 export type { AppShellProps } from "./components/AppShell/AppShell.component"
 export type {
