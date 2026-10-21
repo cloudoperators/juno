@@ -9,6 +9,7 @@ import { DataGrid } from "../DataGrid/index"
 import { DataGridRow } from "../DataGridRow/index"
 import { DataGridHeadCell } from "../DataGridHeadCell/index"
 import { DataGridCell } from "./index"
+import type { TextContainType } from "../../shared/textContain"
 
 const meta: Meta<typeof DataGridCell> = {
   title: "Components/DataGrid/DataGridCell",
@@ -170,6 +171,52 @@ export const TruncationInCustomTemplate: Story = {
       ))}
     </DataGrid>
   ),
+}
+
+export const TextContainComparison: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "The same four-column grid (short content in the first three columns, a long string in the fourth) rendered six times, each applying a different `textContain` value to the fourth column, so their behaviour can be compared side by side.",
+      },
+    },
+  },
+  render: () => {
+    const cases: { label: string; textContain?: TextContainType }[] = [
+      { label: "1. No textContain" },
+      { label: "2. break-word on column 4", textContain: "break-word" },
+      { label: "3. break-all on column 4", textContain: "break-all" },
+      { label: "4. truncate-end on column 4", textContain: "truncate-end" },
+      { label: "5. truncate-start on column 4", textContain: "truncate-start" },
+      { label: "6. no-wrap on column 4", textContain: "no-wrap" },
+    ]
+    return (
+      <div className="jn:flex jn:flex-col jn:gap-8">
+        {cases.map((testCase) => (
+          <div key={testCase.label}>
+            <p className="jn:mb-2 jn:font-bold">{testCase.label}</p>
+            <DataGrid columns={4}>
+              <DataGridRow>
+                <DataGridHeadCell>Status</DataGridHeadCell>
+                <DataGridHeadCell>Count</DataGridHeadCell>
+                <DataGridHeadCell>Zone</DataGridHeadCell>
+                <DataGridHeadCell>Message</DataGridHeadCell>
+              </DataGridRow>
+              {longItems.map((item) => (
+                <DataGridRow key={item.id}>
+                  <DataGridCell>OK</DataGridCell>
+                  <DataGridCell>{item.id}</DataGridCell>
+                  <DataGridCell>eu-de-1a</DataGridCell>
+                  <DataGridCell textContain={testCase.textContain}>{item.status}</DataGridCell>
+                </DataGridRow>
+              ))}
+            </DataGrid>
+          </div>
+        ))}
+      </div>
+    )
+  },
 }
 
 export const ColSpan: Story = {
