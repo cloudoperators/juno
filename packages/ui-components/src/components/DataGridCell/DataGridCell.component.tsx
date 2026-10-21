@@ -96,7 +96,9 @@ export const DataGridCell = forwardRef<HTMLDivElement, DataGridCellProps>(
           // per the bidi algorithm, so edge punctuation in otherwise-LTR text (e.g.
           // `Ready!` or `/foo/bar`) would be displayed reordered (`!Ready`). Wrapping
           // the content in <bdi> isolates its own direction and prevents that.
-          <span className={`juno-datagrid-cell-truncate jn:block ${textContainStyles[effectiveTextContain as TextContainType]}`}>
+          <span
+            className={`juno-datagrid-cell-truncate jn:block ${textContainStyles[effectiveTextContain as TextContainType]}`}
+          >
             {/* <bdi> ("bidirectional isolate") keeps the wrapper's `direction: rtl`
                 from reordering the text — only the ellipsis moves to the start. */}
             {effectiveTextContain === "truncate-start" ? <bdi>{children}</bdi> : children}
