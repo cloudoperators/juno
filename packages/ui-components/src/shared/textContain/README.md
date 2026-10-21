@@ -16,10 +16,10 @@ consumer's job. This document explains exactly what that takes.
 
 ## Exports
 
-| Export             | What it is                                                              |
-| ------------------ | ----------------------------------------------------------------------- |
-| `TextContainType`  | Union: `"truncate-end" \| "truncate-start" \| "break-word" \| "break-all" \| "no-wrap"` |
-| `textContainStyles`| `Record<TextContainType, string>` — value → `jn:`-prefixed Tailwind classes |
+| Export              | What it is                                                                              |
+| ------------------- | --------------------------------------------------------------------------------------- |
+| `TextContainType`   | Union: `"truncate-end" \| "truncate-start" \| "break-word" \| "break-all" \| "no-wrap"` |
+| `textContainStyles` | `Record<TextContainType, string>` — value → `jn:`-prefixed Tailwind classes             |
 
 ```tsx
 import { textContainStyles, type TextContainType } from "../../shared/textContain"
@@ -69,7 +69,9 @@ it also centres its content vertically — move the truncate classes onto an **i
 block element** and leave the outer element as the flex container:
 
 ```tsx
-<div className="…flex flex-col justify-center jn:min-w-0">   {/* outer: layout + shrinkable */}
+<div className="…flex flex-col justify-center jn:min-w-0">
+  {" "}
+  {/* outer: layout + shrinkable */}
   <span className={`jn:block ${textContainStyles[value]}`}>{children}</span>
 </div>
 ```

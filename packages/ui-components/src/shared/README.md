@@ -19,6 +19,6 @@ from the directory:
 import { textContainStyles, type TextContainType } from "../../shared/textContain"
 ```
 
-| Concern        | What it provides                                                        |
-| -------------- | ----------------------------------------------------------------------- |
+| Concern        | What it provides                                                                   |
+| -------------- | ---------------------------------------------------------------------------------- |
 | `textContain/` | Text overflow / wrapping / truncation vocabulary and classes. See its `README.md`. |
