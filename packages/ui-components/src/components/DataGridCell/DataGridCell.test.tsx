@@ -79,6 +79,16 @@ describe("DataGridCell", () => {
     expect(inner).toHaveTextContent("content")
   })
 
+  test("adds min-w-0 to truncating cells so they can shrink within the grid track", () => {
+    render(<DataGridCell textContain="truncate-end" />)
+    expect(screen.getByRole("gridcell")).toHaveClass("jn:min-w-0")
+  })
+
+  test("does not add min-w-0 to non-truncating cells", () => {
+    render(<DataGridCell textContain="break-word" />)
+    expect(screen.getByRole("gridcell")).not.toHaveClass("jn:min-w-0")
+  })
+
   test("renders break-words class when textContain='break-word'", () => {
     render(<DataGridCell textContain="break-word" />)
     expect(screen.getByRole("gridcell")).toHaveClass("jn:break-words")

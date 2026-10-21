@@ -18,9 +18,18 @@ const cellBaseStyles = (
   // Truncation (`truncate-*`) is applied to an inner wrapper element rather than
   // the cell itself (see the render below for why), so it is excluded here. All
   // other textContain values apply directly to the cell.
-  const cellTextContain = textContain && !isTruncatingTextContain(textContain) ? textContainStyles[textContain] : ""
+  const isTruncating = isTruncatingTextContain(textContain)
+  const cellTextContain = textContain && !isTruncating ? textContainStyles[textContain] : ""
+  // A truncating cell must be allowed to shrink below its content's intrinsic
+  // width, otherwise a grid track with an `auto`/`fr` minimum (e.g. a custom
+  // `gridColumnTemplate="1fr 1fr"`) grows to fit the long text instead of letting
+  // the inner wrapper truncate. `min-width: 0` removes that automatic minimum. The
+  // default `minmax(0px, auto)` tracks already have a 0 minimum, but custom
+  // templates may not, so we set it explicitly rather than rely on the track.
+  const cellMinWidth = isTruncating ? "jn:min-w-0" : ""
   return `
 		${cellTextContain}
+		${cellMinWidth}
 		${
       cellVerticalAlignment === "center"
         ? `
@@ -78,10 +87,9 @@ export const DataGridCell = forwardRef<HTMLDivElement, DataGridCellProps>(
           // centering its content vertically, while the inner element:
           //   - is `block`, so `text-overflow: ellipsis` applies to it;
           //   - stretches to the cell's width (flex `align-items: stretch`), giving
-          //     it the bounded width the ellipsis needs — no explicit width required;
-          //   - is a scroll container (`overflow: hidden` via `jn:truncate`), so it
-          //     contributes ~0 to the cell's min-content width and therefore does not
-          //     push the cell past its grid column track.
+          //     it the bounded width the ellipsis needs — no explicit width required.
+          // The cell itself carries `jn:min-w-0` (see cellBaseStyles) so it can shrink
+          // within its grid track rather than being widened by the long content.
           <span className={`jn:block ${textContainStyles[effectiveTextContain as TextContainType]}`}>{children}</span>
         ) : (
           children
