@@ -1,0 +1,1 @@
+import{t as e}from"./iframe-bq-toPoX.js";e();
