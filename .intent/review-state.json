@@ -198,6 +198,18 @@
       "evidence": [
         "Index README listing the package skills and linking the guide; no SKILL.md, no guidance content."
       ]
+    },
+    "source:.gitignore": {
+      "fingerprint": "a57a10ab05294ec3cfb1f2eb805ed949af0d991ff4c751daf8984268f7c45151",
+      "snapshot": {
+        ".gitignore": "1992698edff99ba3ee068e3eedb82dc6c9fdd49be60039f2879d638b94c5930e"
+      },
+      "head": "19069ad895b6c9b358073f8baa4bfc9ac79cf8c8",
+      "outcome": "out-of-scope",
+      "reason": "Repo ignore rule, not skill guidance or a mapped source.",
+      "evidence": [
+        "Adds .tool-versions to .gitignore; no skill content."
+      ]
     }
   }
 }
