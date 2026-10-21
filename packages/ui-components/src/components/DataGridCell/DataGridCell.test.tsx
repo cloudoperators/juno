@@ -77,6 +77,8 @@ describe("DataGridCell", () => {
     expect(inner).toHaveClass("jn:block")
     expect(inner).toHaveClass("jn:truncate")
     expect(inner).toHaveTextContent("content")
+    // truncate-end keeps the natural LTR direction — no bidi isolation needed
+    expect(cell.querySelector("bdi")).toBeNull()
   })
 
   test("adds min-w-0 to truncating cells so they can shrink within the grid track", () => {
@@ -87,6 +89,16 @@ describe("DataGridCell", () => {
   test("does not add min-w-0 to non-truncating cells", () => {
     render(<DataGridCell textContain="break-word" />)
     expect(screen.getByRole("gridcell")).not.toHaveClass("jn:min-w-0")
+  })
+
+  test("isolates truncate-start content in a <bdi> so edge punctuation is not reordered by direction:rtl", () => {
+    render(<DataGridCell textContain="truncate-start">Ready!</DataGridCell>)
+    const cell = screen.getByRole("gridcell")
+    const bdi = cell.querySelector("bdi")
+    expect(bdi).not.toBeNull()
+    expect(bdi).toHaveTextContent("Ready!")
+    // the <bdi> sits inside the truncating wrapper span
+    expect(cell.querySelector("span")?.contains(bdi)).toBe(true)
   })
 
   test("renders break-words class when textContain='break-word'", () => {

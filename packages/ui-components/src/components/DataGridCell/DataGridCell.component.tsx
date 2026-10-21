@@ -90,7 +90,17 @@ export const DataGridCell = forwardRef<HTMLDivElement, DataGridCellProps>(
           //     it the bounded width the ellipsis needs — no explicit width required.
           // The cell itself carries `jn:min-w-0` (see cellBaseStyles) so it can shrink
           // within its grid track rather than being widened by the long content.
-          <span className={`jn:block ${textContainStyles[effectiveTextContain as TextContainType]}`}>{children}</span>
+          //
+          // For `truncate-start` the shared classes set `direction: rtl` so the
+          // ellipsis falls at the start of the string. That also reorders the content
+          // per the bidi algorithm, so edge punctuation in otherwise-LTR text (e.g.
+          // `Ready!` or `/foo/bar`) would be displayed reordered (`!Ready`). Wrapping
+          // the content in <bdi> isolates its own direction and prevents that.
+          <span className={`jn:block ${textContainStyles[effectiveTextContain as TextContainType]}`}>
+            {/* <bdi> ("bidirectional isolate") keeps the wrapper's `direction: rtl`
+                from reordering the text — only the ellipsis moves to the start. */}
+            {effectiveTextContain === "truncate-start" ? <bdi>{children}</bdi> : children}
+          </span>
         ) : (
           children
         )}
