@@ -3,24 +3,24 @@
   "baseline": "fac03386c50408123ab764ad6005e15412b58bd4",
   "items": {
     "skill:packages/ui-components/skills/datagrid/SKILL.md": {
-      "fingerprint": "a3538d5be04b897343a9b3b13f1b14529f30fccf6c0999455c7927afa5c6fd38",
+      "fingerprint": "ef58502d632666459e0401780ec094f4ad37bb18f68a63b9200f768ac648638c",
       "snapshot": {
         "packages/ui-components/skills/datagrid/SKILL.md": "f92eb187f44412313bfbfdd18e55f36357aac0a96214f4cf2ab3a0b5bc000b4b",
         "packages/ui-components/skills/datagrid/references/component-props.md": "4a07eaa42a68a0190b9acb37f99c9a17dbe8c9a63e5d46a6b477396c1bf0ed9e",
         "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "5c5abee31617ca977b0982fe541828d85d0c259281aed6f0ca56b194fd9e573e",
-        "packages/ui-components/skills/datagrid/references/fragment-library.md": "a576599a649c8bffd2d026f68f99fc16cbebb59446451352b0bb5ab5cd5a4822",
+        "packages/ui-components/skills/datagrid/references/fragment-library.md": "f9d98c1fe1e40140151277268f3c492f1726587158d28ed454bbbedb026ecd9c",
         "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
         "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "db2003baceb27c32a0b63b71db7f9890f0830b24aa5beea896eb5a95b44a3e78"
       },
-      "head": "7a4d3ba9194eb41306a4b5b56ae9fecb53a60a2d",
-      "outcome": "no-change",
-      "reason": "Initial DataGrid skill batch; SKILL guidance was authored alongside datagrid-spec.md and remains consistent with it.",
+      "head": "66dfb5869d5d00b0d4b41f345bed3c972202be31",
+      "outcome": "updated",
+      "reason": "Fix DataGrid fragment-library: valid SearchInput JSX (narrow boolean|object search before reading placeholder) and correct Status API (status/title/body/action, no children)",
       "evidence": [
-        "intent validation passes (0 authoring issues); this SKILL.md references the datagrid-spec introduced in the same batch."
+        "Changed: packages/ui-components/skills/datagrid/references/fragment-library.md at 66dfb5869d5d00b0d4b41f345bed3c972202be31"
       ]
     },
     "planning:_artifacts": {
-      "fingerprint": "0312a4e137f2f07d46e8527e51f8eff1d1f8f3c52995fa5df9a3da3f2a0d281f",
+      "fingerprint": "c90f3faa2ff3ba003a259cc14388141f3b546fed10d6a1ffd0f626393cd522a5",
       "snapshot": {
         "_artifacts/domain_map.yaml": "a81e769dbf7e2f29ef7d6fa3994773181fbd23d2de50af1792e77cd736d318ef",
         "_artifacts/skill_spec.md": "6b5489ac9a899b9ffee88c33bc6b31484855d57a79e95483e5acbb197dc2bfd3",
@@ -30,15 +30,15 @@
         "packages/ui-components/skills/datagrid/SKILL.md": "f92eb187f44412313bfbfdd18e55f36357aac0a96214f4cf2ab3a0b5bc000b4b",
         "packages/ui-components/skills/datagrid/references/component-props.md": "4a07eaa42a68a0190b9acb37f99c9a17dbe8c9a63e5d46a6b477396c1bf0ed9e",
         "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "5c5abee31617ca977b0982fe541828d85d0c259281aed6f0ca56b194fd9e573e",
-        "packages/ui-components/skills/datagrid/references/fragment-library.md": "a576599a649c8bffd2d026f68f99fc16cbebb59446451352b0bb5ab5cd5a4822",
+        "packages/ui-components/skills/datagrid/references/fragment-library.md": "f9d98c1fe1e40140151277268f3c492f1726587158d28ed454bbbedb026ecd9c",
         "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
         "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "db2003baceb27c32a0b63b71db7f9890f0830b24aa5beea896eb5a95b44a3e78"
       },
-      "head": "7a4d3ba9194eb41306a4b5b56ae9fecb53a60a2d",
-      "outcome": "no-change",
-      "reason": "Planning records describe this initial DataGrid skill batch and already cover the datagrid skills and spec.",
+      "head": "66dfb5869d5d00b0d4b41f345bed3c972202be31",
+      "outcome": "updated",
+      "reason": "Fix DataGrid fragment-library: valid SearchInput JSX (narrow boolean|object search before reading placeholder) and correct Status API (status/title/body/action, no children)",
       "evidence": [
-        "intent validation passes (0 authoring issues); _artifacts enumerate the three datagrid skills being introduced on this branch."
+        "Changed: packages/ui-components/skills/datagrid/references/fragment-library.md at 66dfb5869d5d00b0d4b41f345bed3c972202be31"
       ]
     },
     "skill:packages/ui-components/skills/datagrid-build/SKILL.md": {

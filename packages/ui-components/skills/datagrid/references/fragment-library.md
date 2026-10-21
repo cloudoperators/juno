@@ -105,7 +105,13 @@ paraphrase or restructure them.
 **FRAG:search**
 
 ```tsx no-check
-<SearchInput placeholder="{spec.features.search.placeholder ?? "Search {namePlural}…"}" />
+<SearchInput
+  placeholder={
+    typeof spec.features.search === "object" && spec.features.search.placeholder
+      ? spec.features.search.placeholder
+      : "Search {namePlural}…"
+  }
+/>
 ```
 
 **FRAG:filter-pills** _(conditionally rendered when filters are active)_
@@ -162,7 +168,7 @@ paraphrase or restructure them.
 ```tsx no-check
 <DataGridRow>
   <DataGridCell colSpan={columns}>
-    <Status icon="loading">Loading {namePlural}…</Status>
+    <Status status="progress" title="Loading {namePlural}…" />
   </DataGridCell>
 </DataGridRow>
 ```
@@ -172,9 +178,11 @@ paraphrase or restructure them.
 ```tsx no-check
 <DataGridRow>
   <DataGridCell colSpan={columns}>
-    <Status variant="error">
-      Could not load {namePlural}. <Button label="Try again" size="xs" onClick={handleRetry} />
-    </Status>
+    <Status
+      status="error"
+      body="Could not load {namePlural}."
+      action={<Button label="Try again" size="xs" onClick={handleRetry} />}
+    />
   </DataGridCell>
 </DataGridRow>
 ```
@@ -184,7 +192,7 @@ paraphrase or restructure them.
 ```tsx no-check
 <DataGridRow>
   <DataGridCell colSpan={columns}>
-    <Status>No {namePlural} found.</Status>
+    <Status status="empty" title="No {namePlural} found." body="" />
   </DataGridCell>
 </DataGridRow>
 ```
@@ -194,7 +202,7 @@ paraphrase or restructure them.
 ```tsx no-check
 <DataGridRow>
   <DataGridCell colSpan={columns}>
-    <Status>No {namePlural} match your current filters.</Status>
+    <Status status="no-matches" body="No {namePlural} match your current filters." />
   </DataGridCell>
 </DataGridRow>
 ```
