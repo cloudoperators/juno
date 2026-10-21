@@ -140,15 +140,15 @@
       ]
     },
     "source:.changeset/ui-components-ship-data-grid-skill.md": {
-      "fingerprint": "96ec9154cd98b8bc1db36c4c9e788da328147e4f15d1c4b9cc535ca8e6c8b402",
+      "fingerprint": "0bfafe20a9d7257f20dd6d5ce98fe2f57e2590bd57619dc078f83a9813d2d540",
       "snapshot": {
-        ".changeset/ui-components-ship-data-grid-skill.md": "59041c15f4c4f0c6b8a7b5e46b57c5c1b05c50074a0d89af5bb7dcd232e9eda3"
+        ".changeset/ui-components-ship-data-grid-skill.md": "642de8b98a9fedbf8066cc7a3bfef4fa022407f22b4c22d8958f00e61d0b4ccf"
       },
-      "head": "7a4d3ba9194eb41306a4b5b56ae9fecb53a60a2d",
+      "head": "f8b35751f965bcb584881ecf996bea17643b4190",
       "outcome": "out-of-scope",
-      "reason": "Repo housekeeping change unrelated to skill guidance.",
+      "reason": "Release note / consumer docs, not skill guidance or a mapped source.",
       "evidence": [
-        "Changeset only declares a patch version bump for @cloudoperators/juno-ui-components; contains no skill source or guidance."
+        "Changeset declares a patch bump and describes the Intent setup and alpha DataGrid skills; no skill content."
       ]
     },
     "source:.tool-versions": {
@@ -212,15 +212,15 @@
       ]
     },
     "source:packages/ui-components/README.md": {
-      "fingerprint": "14bbbc0396b0fa29f64d8f4711b76ca1046a667d092fc8098f8f6985d02a132d",
+      "fingerprint": "d86fc26f950661baa66600128c57b64cd46d92ab2bf9f15111c84f2f26a46d03",
       "snapshot": {
-        "packages/ui-components/README.md": "4c207cd395e0752356cb9336dd2578ad297866e28de581ee0235d41145c42003"
+        "packages/ui-components/README.md": "1558f7540b173d123eb34baef61b64f7445de7dd77aaaee9d9b515b1438d2f7f"
       },
-      "head": "f884be6e682bf485415df3a2b1feb3df0ab76dbd",
+      "head": "f8b35751f965bcb584881ecf996bea17643b4190",
       "outcome": "out-of-scope",
-      "reason": "Package README consumer docs, not skill guidance or a mapped source.",
+      "reason": "Release note / consumer docs, not skill guidance or a mapped source.",
       "evidence": [
-        "Adds an Agent Skills section describing how to consume the published skills; no skill content."
+        "README Agent Skills section points consumers to the Intent consumer guide; no skill content."
       ]
     }
   }

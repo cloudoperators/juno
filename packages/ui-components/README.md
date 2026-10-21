@@ -49,20 +49,8 @@ This package publishes **agent skills** (task-focused guidance for AI coding age
 package and version with it. See [skills/README.md](skills/README.md) for the list of
 available skills.
 
-To consume them in your project, add Intent as a dev dependency and run its setup, then
-load the skill that matches your task:
-
-```bash
-pnpm add -D @tanstack/intent
-pnpm exec intent install                                           # interactive: enable this package
-pnpm exec intent list                                              # see available skills
-pnpm exec intent load @cloudoperators/juno-ui-components#datagrid  # print a skill
-```
-
-`intent install` records your choices in `package.json#intent.skills` and writes
-skill-loading guidance for your agent; `intent list` / `intent load` surface and print the
-skills for the installed package version. For the full consumer flow, see TanStack Intent's
-consumer documentation.
+To consume these skills, follow the TanStack Intent consumer guide to set up Intent in your
+project.
 
 ## Development
 

@@ -2,6 +2,6 @@
 "@cloudoperators/juno-ui-components": patch
 ---
 
-chore(ui): ship the DataGrid TanStack Intent skills with the package
+Introduce TanStack Intent for this package and publish its first agent skills. The `datagrid`, `datagrid-build`, and `datagrid-validate` skill directories are included in the published `files`, with a `tanstack-intent` keyword so consumers can discover them.
 
-The `datagrid`, `datagrid-build`, and `datagrid-validate` skill directories are now included in the published `files`, and a `tanstack-intent` keyword was added so consumers can discover and use the DataGrid skills.
+The DataGrid skills are an **alpha** release: they are early and still evolving, so treat their guidance as experimental and expect rough edges rather than fully validated behavior.
