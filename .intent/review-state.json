@@ -162,6 +162,42 @@
       "evidence": [
         "Toolchain pin file (nodejs/pnpm versions) only; no component or skill content."
       ]
+    },
+    "source:README.md": {
+      "fingerprint": "16180a57f975375e32e74f8334bf1dafac78278bab90ed669da96fe81e569a11",
+      "snapshot": {
+        "README.md": "ec66f7cc1b73d047b498ec1058cbc48a35db151e6dfc6872309601b6938d785b"
+      },
+      "head": "f589974e7d631aa9494dcf0de8c8050a836a4984",
+      "outcome": "out-of-scope",
+      "reason": "Documentation about the Intent workflow/skills, not component guidance owned by a skill or a mapped source.",
+      "evidence": [
+        "Adds a prose link to the Intent guide under the Documentation section; no skill content."
+      ]
+    },
+    "source:docs/tanstack-intent-guide.md": {
+      "fingerprint": "fab9794b3a6a1fd3141ce5ba01c8889807fcbaca5628972c64b67a2f03100f3c",
+      "snapshot": {
+        "docs/tanstack-intent-guide.md": "7e64cff3f2b08f5f10032bc168dba75f7bc7377c1d26e0eeec35495b82c50323"
+      },
+      "head": "f589974e7d631aa9494dcf0de8c8050a836a4984",
+      "outcome": "out-of-scope",
+      "reason": "Documentation about the Intent workflow/skills, not component guidance owned by a skill or a mapped source.",
+      "evidence": [
+        "Standalone team guide describing the maintainer workflow; not mapped to any skill."
+      ]
+    },
+    "source:packages/ui-components/skills/README.md": {
+      "fingerprint": "5d3343e42f2d92d5c322ab8d5fa8912ee3fcc0e24b41a85538fddd612580446b",
+      "snapshot": {
+        "packages/ui-components/skills/README.md": "ff9ac981d9cca5a955b2c0636157ec07fb044a8819a051698c105d114bd6117a"
+      },
+      "head": "f589974e7d631aa9494dcf0de8c8050a836a4984",
+      "outcome": "out-of-scope",
+      "reason": "Documentation about the Intent workflow/skills, not component guidance owned by a skill or a mapped source.",
+      "evidence": [
+        "Index README listing the package skills and linking the guide; no SKILL.md, no guidance content."
+      ]
     }
   }
 }
