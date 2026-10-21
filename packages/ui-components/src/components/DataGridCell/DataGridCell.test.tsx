@@ -73,7 +73,7 @@ describe("DataGridCell", () => {
     const cell = screen.getByRole("gridcell")
     // truncation is applied to an inner wrapper, not the cell itself
     expect(cell).not.toHaveClass("jn:truncate")
-    const inner = cell.querySelector("span")
+    const inner = cell.querySelector(".juno-datagrid-cell-truncate")
     expect(inner).toHaveClass("jn:block")
     expect(inner).toHaveClass("jn:truncate")
     expect(inner).toHaveTextContent("content")
@@ -98,7 +98,7 @@ describe("DataGridCell", () => {
     expect(bdi).not.toBeNull()
     expect(bdi).toHaveTextContent("Ready!")
     // the <bdi> sits inside the truncating wrapper span
-    expect(cell.querySelector("span")?.contains(bdi)).toBe(true)
+    expect(cell.querySelector(".juno-datagrid-cell-truncate")?.contains(bdi)).toBe(true)
   })
 
   test("renders break-words class when textContain='break-word'", () => {
@@ -128,7 +128,7 @@ describe("DataGridCell", () => {
     expect(cell).toHaveClass("jn:flex-col")
     expect(cell).toHaveClass("jn:justify-center")
     expect(cell).not.toHaveClass("jn:truncate")
-    expect(cell.querySelector("span")).toHaveClass("jn:truncate")
+    expect(cell.querySelector(".juno-datagrid-cell-truncate")).toHaveClass("jn:truncate")
   })
 
   test("non-truncating textContain is applied to the cell without an inner wrapper", () => {
@@ -140,7 +140,7 @@ describe("DataGridCell", () => {
     const cell = screen.getByRole("gridcell")
     expect(cell).toHaveClass("jn:break-words")
     expect(cell).toHaveClass("jn:flex")
-    expect(cell.querySelector("span")).toBeNull()
+    expect(cell.querySelector(".juno-datagrid-cell-truncate")).toBeNull()
   })
 
   test("verticalAlignment prop works without a parent DataGrid context", () => {
