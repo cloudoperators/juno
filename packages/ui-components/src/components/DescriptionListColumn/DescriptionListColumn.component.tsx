@@ -1,0 +1,52 @@
+/*
+ * SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import React from "react"
+import { useDescriptionListContext } from "../DescriptionList/DescriptionList.component"
+
+export interface DescriptionListColumnProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "children"> {
+  /**
+   * Child components. Accepts DescriptionTerm and DescriptionDefinition elements, including
+   * conditional expressions and ternaries that may resolve to null or false.
+   */
+  children?: React.ReactNode
+  /**
+   * Controls the width of the term column within this column. Accepts "auto" (default — terms size to their content),
+   * a percentage string (e.g. "25%", "33%"), or any valid CSS column width value (e.g. "200px", "12rem").
+   * Inherits the parent DescriptionList's termWidth when not set. Overrides the parent value when set.
+   */
+  termWidth?: string
+  /** Custom CSS grid-template-columns. Overwrites other sizing props. Useful for non-standard layouts such as multiple definitions per term. Inherits the parent DescriptionList's gridColumnTemplate when not set. Overrides the parent value when set. */
+  gridColumnTemplate?: string
+}
+
+/**
+ * A column wrapper for use inside a multiColumn DescriptionList.
+ * Re-establishes the grid context so that DT and DD elements render correctly within each column.
+ * Note: passing a `style` prop will override the computed `gridTemplateColumns` — this is intentional,
+ * giving consumers full escape-hatch access at their own responsibility.
+ */
+export const DescriptionListColumn: React.FC<DescriptionListColumnProps> = ({
+  children,
+  termWidth,
+  gridColumnTemplate,
+  className = "",
+  ...props
+}) => {
+  const { termWidth: contextTermWidth, gridColumnTemplate: contextGridColumnTemplate } = useDescriptionListContext()
+  const resolvedTemplate =
+    gridColumnTemplate ??
+    (termWidth ? `${termWidth} 1fr` : undefined) ??
+    contextGridColumnTemplate ??
+    `${contextTermWidth ?? "auto"} 1fr`
+
+  return (
+    <div className={`dlc jn:grid jn:flex-1 ${className}`} style={{ gridTemplateColumns: resolvedTemplate }} {...props}>
+      {children}
+    </div>
+  )
+}
+
+export const DLC = DescriptionListColumn

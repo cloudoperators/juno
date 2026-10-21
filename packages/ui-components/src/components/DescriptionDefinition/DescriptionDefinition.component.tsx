@@ -8,12 +8,11 @@ import React, { ReactNode } from "react"
 const baseStyles = `
   jn:grid
   jn:items-start
-  jn:border-b 
+  jn:border-b
   jn:border-theme-default
   jn:bg-dd-background
   jn:text-dd-text
   jn:p-2
-  jn:col-span-3
 `
 
 export interface DescriptionDefinitionProps {
