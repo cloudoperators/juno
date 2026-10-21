@@ -20,13 +20,16 @@ const cellBaseStyles = (
   // other textContain values apply directly to the cell.
   const isTruncating = isTruncatingTextContain(textContain)
   const cellTextContain = textContain && !isTruncating ? textContainStyles[textContain] : ""
-  // A truncating cell must be allowed to shrink below its content's intrinsic
-  // width, otherwise a grid track with an `auto`/`fr` minimum (e.g. a custom
-  // `gridColumnTemplate="1fr 1fr"`) grows to fit the long text instead of letting
-  // the inner wrapper truncate. `min-width: 0` removes that automatic minimum. The
-  // default `minmax(0px, auto)` tracks already have a 0 minimum, but custom
-  // templates may not, so we set it explicitly rather than rely on the track.
-  const cellMinWidth = isTruncating ? "jn:min-w-0" : ""
+  // Every containing value except `no-wrap` needs the cell to shrink below its
+  // content's intrinsic width, otherwise a grid track with an `auto`/`fr` minimum
+  // (e.g. a custom `gridColumnTemplate="1fr 1fr"`) grows to fit the long text:
+  // truncation never clips, and `break-word` never wraps (`overflow-wrap: break-word`
+  // does not reduce min-content sizing). `min-width: 0` removes that automatic
+  // minimum. (`break-all` already shrinks its min-content, and the default
+  // `minmax(0px, auto)` tracks already floor at 0, but we set it explicitly so it
+  // holds under any template. `no-wrap` is excluded by design — it is meant to stay
+  // on one line and let the consumer handle the overflow.)
+  const cellMinWidth = textContain && textContain !== "no-wrap" ? "jn:min-w-0" : ""
   return `
 		${cellTextContain}
 		${cellMinWidth}

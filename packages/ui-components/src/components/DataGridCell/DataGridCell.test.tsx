@@ -86,8 +86,13 @@ describe("DataGridCell", () => {
     expect(screen.getByRole("gridcell")).toHaveClass("jn:min-w-0")
   })
 
-  test("does not add min-w-0 to non-truncating cells", () => {
+  test("adds min-w-0 to break-word cells so they wrap within the grid track instead of widening it", () => {
     render(<DataGridCell textContain="break-word" />)
+    expect(screen.getByRole("gridcell")).toHaveClass("jn:min-w-0")
+  })
+
+  test("does not add min-w-0 to no-wrap cells (they stay on one line by design)", () => {
+    render(<DataGridCell textContain="no-wrap" />)
     expect(screen.getByRole("gridcell")).not.toHaveClass("jn:min-w-0")
   })
 

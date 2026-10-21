@@ -148,22 +148,24 @@ export const TruncationInCustomTemplate: Story = {
     docs: {
       description: {
         story:
-          'Truncation also holds up under a custom `gridColumnTemplate` whose tracks have an `auto`/`fr` minimum (here `"minmax(150px, max-content) 1fr 1fr"`). Such tracks would otherwise grow to fit a long non-wrapping string; truncating cells carry `min-width: 0` so they clip within their track instead. The `truncate-start` column uses path-like values to show the start of the string is dropped with the ellipsis while the text keeps its natural order (the slashes are not reordered).',
+          'Containment holds up under a custom `gridColumnTemplate` whose tracks have an `auto`/`fr` minimum (here `"minmax(150px, max-content) 1fr 1fr 1fr"`). Such tracks would otherwise grow to fit a long non-wrapping string. Truncating cells carry `min-width: 0` so they clip within their track; the `break-word` cell carries it too so a long unbroken token wraps instead of widening the column (`overflow-wrap: break-word` alone does not reduce min-content sizing). The `truncate-start` column uses path-like values to show the start of the string is dropped with the ellipsis while the text keeps its natural order (the slashes are not reordered).',
       },
     },
   },
   render: () => (
-    <DataGrid gridColumnTemplate="minmax(150px, max-content) 1fr 1fr">
+    <DataGrid gridColumnTemplate="minmax(150px, max-content) 1fr 1fr 1fr">
       <DataGridRow>
         <DataGridHeadCell>Name</DataGridHeadCell>
         <DataGridHeadCell>truncate-end</DataGridHeadCell>
         <DataGridHeadCell>truncate-start</DataGridHeadCell>
+        <DataGridHeadCell>break-word</DataGridHeadCell>
       </DataGridRow>
       {longItems.map((item) => (
         <DataGridRow key={item.id}>
           <DataGridCell>{item.name}</DataGridCell>
           <DataGridCell textContain="truncate-end">{item.status}</DataGridCell>
           <DataGridCell textContain="truncate-start">{`/var/log/${item.name}/health-check-report-latest.log`}</DataGridCell>
+          <DataGridCell textContain="break-word">{`${item.name}-availability-zone-eu-de-1a-verylongunbrokenidentifier`}</DataGridCell>
         </DataGridRow>
       ))}
     </DataGrid>

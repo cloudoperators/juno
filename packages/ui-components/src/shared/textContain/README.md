@@ -8,11 +8,10 @@ SPDX-License-Identifier: Apache-2.0
 A shared vocabulary for controlling how an element contains text that exceeds its
 available space. It consolidates mutually exclusive behaviours — truncation, forced
 breaking, and no-wrap — under one value set so every component exposes an identical
-API and the vocabulary cannot drift.
+API, and the vocabulary cannot drift.
 
 **This module is data only.** It exports a type and a class map; it does not render
-anything. Applying the behaviour correctly — especially truncation — is the
-consumer's job. This document explains exactly what that takes.
+anything. Consumerds are responsible to apply the behaviour correctly, especially when using truncation. This document explains exactly what needs doing.
 
 ## Exports
 
@@ -34,11 +33,12 @@ classes to the element that holds the text:
 <div className={textContain ? textContainStyles[textContain] : ""}>{children}</div>
 ```
 
-For **`break-word`**, **`break-all`**, and **`no-wrap`** on a plain block element,
-that is all you need — they work directly on the element regardless of layout.
+On a plain block element, applying the class is all you need for **`break-all`** and
+**`no-wrap`**. **`break-word`** needs one extra step in grid/flex layouts (the
+`min-width: 0` below). Truncation needs the most care.
 
-Truncation is the hard part. The `truncate-*` values have three requirements that a
-class string **cannot** satisfy on its own; the consumer must supply them.
+The `truncate-*` values have three requirements that a class string **cannot** satisfy
+on its own — and `break-word` shares the second; the consumer must supply them.
 
 ## Making truncation work (`truncate-end` / `truncate-start`)
 
@@ -52,7 +52,9 @@ nothing truncates.
 ### 2. `min-width: 0` on the grid/flex item
 
 A grid or flex item defaults to `min-width: auto`, i.e. its `min-content` size, so a
-long unbroken string widens the track instead of clipping. This is masked by tracks
+long unbroken string widens the track instead of clipping — or, for `break-word`,
+instead of wrapping, because `overflow-wrap: break-word` does **not** reduce
+min-content sizing (unlike `break-all`). This is masked by tracks
 with an explicit `0` minimum (e.g. `minmax(0px, auto)`) but **not** by `auto`/`fr`
 tracks (`1fr` is `minmax(auto, 1fr)`) or a plain flex item. Add `jn:min-w-0` to the
 item so it can shrink within its track:
@@ -99,7 +101,8 @@ only the ellipsis is affected. Do this **only** for `truncate-start`:
 
 ## Checklist for a new consumer
 
-- [ ] `break-*` / `no-wrap` only, plain block → apply `textContainStyles[value]` directly.
+- [ ] `break-all` / `no-wrap`, or any value on a plain block with a bounded width → apply `textContainStyles[value]` directly.
+- [ ] `break-word` in a grid/flex layout → also add `jn:min-w-0` to the item, or a long token widens the track instead of wrapping.
 - [ ] Supporting `truncate-*`?
   - [ ] Does the element have a bounded width? (grid/flex item → next item)
   - [ ] Add `jn:min-w-0` to the grid/flex item.
@@ -109,5 +112,6 @@ only the ellipsis is affected. Do this **only** for `truncate-start`:
 ## Reference implementation
 
 `DataGridCell` (`src/components/DataGridCell/DataGridCell.component.tsx`) implements
-all of the above: `jn:min-w-0` on the cell, the inner block wrapper for `truncate-*`
-(class-hooked as `juno-datagrid-cell-truncate`), and the `<bdi>` for `truncate-start`.
+all of the above: `jn:min-w-0` on the cell for every containing value except
+`no-wrap`, the inner block wrapper for `truncate-*` (class-hooked as
+`juno-datagrid-cell-truncate`), and the `<bdi>` for `truncate-start`.
