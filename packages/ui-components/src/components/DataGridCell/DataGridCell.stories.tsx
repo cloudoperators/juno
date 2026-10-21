@@ -9,6 +9,7 @@ import { DataGrid } from "../DataGrid/index"
 import { DataGridRow } from "../DataGridRow/index"
 import { DataGridHeadCell } from "../DataGridHeadCell/index"
 import { DataGridCell } from "./index"
+import { Code } from "../Code/index"
 import type { TextContainType } from "../../shared/textContain"
 
 const meta: Meta<typeof DataGridCell> = {
@@ -175,6 +176,12 @@ export const TruncationInCustomTemplate: Story = {
 
 export const TextContainComparison: Story = {
   parameters: {
+    // This story hardcodes all six textContain values and ignores args, so the
+    // controls would be inert — hide them to avoid implying they do anything.
+    controls: { disable: true },
+    // Likewise hide the Actions panel, which is otherwise populated globally from
+    // DataGridCell's inherited `on*` HTMLAttributes (see preview.js argTypesRegex).
+    actions: { disable: true },
     docs: {
       description: {
         story:
@@ -183,19 +190,30 @@ export const TextContainComparison: Story = {
     },
   },
   render: () => {
-    const cases: { label: string; textContain?: TextContainType }[] = [
-      { label: "1. No textContain" },
-      { label: "2. break-word on column 4", textContain: "break-word" },
-      { label: "3. break-all on column 4", textContain: "break-all" },
-      { label: "4. truncate-end on column 4", textContain: "truncate-end" },
-      { label: "5. truncate-start on column 4", textContain: "truncate-start" },
-      { label: "6. no-wrap on column 4", textContain: "no-wrap" },
+    const cases: (TextContainType | undefined)[] = [
+      undefined,
+      "break-word",
+      "break-all",
+      "truncate-end",
+      "truncate-start",
+      "no-wrap",
     ]
     return (
       <div className="jn:flex jn:flex-col jn:gap-8">
-        {cases.map((testCase) => (
-          <div key={testCase.label}>
-            <p className="jn:mb-2 jn:font-bold">{testCase.label}</p>
+        {cases.map((textContain, index) => (
+          <div key={textContain ?? "none"}>
+            <p className="jn:mb-2 jn:font-bold">
+              {index + 1}.{" "}
+              {textContain ? (
+                <>
+                  <Code>{textContain}</Code> on column 4
+                </>
+              ) : (
+                <>
+                  No <Code>textContain</Code> set
+                </>
+              )}
+            </p>
             <DataGrid columns={4}>
               <DataGridRow>
                 <DataGridHeadCell>Status</DataGridHeadCell>
@@ -208,7 +226,7 @@ export const TextContainComparison: Story = {
                   <DataGridCell>OK</DataGridCell>
                   <DataGridCell>{item.id}</DataGridCell>
                   <DataGridCell>eu-de-1a</DataGridCell>
-                  <DataGridCell textContain={testCase.textContain}>{item.status}</DataGridCell>
+                  <DataGridCell textContain={textContain}>{item.status}</DataGridCell>
                 </DataGridRow>
               ))}
             </DataGrid>
