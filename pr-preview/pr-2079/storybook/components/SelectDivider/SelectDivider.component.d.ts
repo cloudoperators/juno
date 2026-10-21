@@ -1,4 +1,4 @@
-import { default as React, HTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React, HTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export interface SelectDividerProps extends HTMLAttributes<HTMLDivElement> {
     /** add a custom className */
     className?: string;

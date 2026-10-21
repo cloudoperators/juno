@@ -1,4 +1,4 @@
-import { default as React } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { Select, SelectProps } from './Select.component';
 import { Meta, StoryObj } from '@storybook/react-vite';
 declare const meta: Meta<typeof Select>;

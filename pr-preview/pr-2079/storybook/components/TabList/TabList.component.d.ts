@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { TabsVariant } from '../Tabs/Tabs.component';
 /**
  * @deprecated TabList is deprecated and may be removed in any of the next major releases. Use react-tabs directly instead.

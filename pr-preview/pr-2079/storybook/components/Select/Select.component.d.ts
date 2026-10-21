@@ -1,4 +1,4 @@
-import { default as React, ReactNode, ButtonHTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React, ReactNode, ButtonHTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export type SelectContextProps = {
     truncateOptions: boolean;
     addOptionValueAndLabel: (value: unknown, label: unknown, children: unknown) => void;

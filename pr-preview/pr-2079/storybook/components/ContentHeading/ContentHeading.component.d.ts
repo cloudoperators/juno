@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export interface ContentHeadingProps extends HTMLAttributes<HTMLHeadingElement> {
     /**
      * Custom content to render within the heading.

@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode, MouseEvent } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { HTMLAttributes, ReactNode, MouseEvent } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 type EventHandler = (event: MouseEvent<HTMLElement>, id: string) => void;
 /**
  * A Pill to represent a value, or key and value. Can e.g. be used to represent selected filter values in a filter component. Can optionally be closed. On close the uid, if provided, or the pillKey is returned in the callback.

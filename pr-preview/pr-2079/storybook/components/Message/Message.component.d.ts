@@ -1,4 +1,4 @@
-import { ReactNode, HTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { ReactNode, HTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export type MessageVariantType = "info" | "warning" | "danger" | "error" | "success";
 export interface MessageProps extends HTMLAttributes<HTMLDivElement> {
     /**

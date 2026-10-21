@@ -1,4 +1,4 @@
-import { ReactNode, MouseEventHandler, HTMLProps } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { ReactNode, MouseEventHandler, HTMLProps } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { ButtonVariant } from '../Button/index';
 import { KnownIcons } from '../Icon/Icon.component';
 /**

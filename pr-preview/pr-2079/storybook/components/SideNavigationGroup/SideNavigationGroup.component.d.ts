@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { ReactElement, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { SideNavigationItemProps } from '../SideNavigationItem';
 export interface SideNavigationGroupProps {
     /** Represents the nested components within the navigation group. */

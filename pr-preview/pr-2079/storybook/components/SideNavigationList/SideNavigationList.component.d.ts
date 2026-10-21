@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { ReactElement, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { SideNavigationGroupProps } from '../SideNavigationGroup';
 import { SideNavigationItemProps } from '../SideNavigationItem/SideNavigationItem.component';
 export interface SideNavigationListProps {

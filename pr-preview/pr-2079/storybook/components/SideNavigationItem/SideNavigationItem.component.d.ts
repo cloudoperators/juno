@@ -1,4 +1,4 @@
-import { ReactNode, HTMLAttributes, MouseEventHandler, ReactElement } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { ReactNode, HTMLAttributes, MouseEventHandler, ReactElement } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { KnownIcons } from '../Icon/Icon.component';
 export interface SideNavigationItemProps extends Omit<HTMLAttributes<HTMLElement>, "onToggle"> {
     /** Provides an accessibility label for the navigation item. */

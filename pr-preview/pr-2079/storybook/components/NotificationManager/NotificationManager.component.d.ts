@@ -1,4 +1,4 @@
-import { default as React } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { NotificationToast, ToastPosition } from './NotificationManager.types';
 /**
  * NotificationManager wraps the Sonner toast library and supports rendering

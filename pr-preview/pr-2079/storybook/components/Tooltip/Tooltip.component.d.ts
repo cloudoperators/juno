@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { useTooltip } from './useTooltip';
 import { ToolTipVariant, TooltipPlacement } from './ToolTip.types';
 type TooltipContextType = ReturnType<typeof useTooltip> | null;

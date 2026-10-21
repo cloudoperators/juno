@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { default as React } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { CodeBlock, CodeBlockProps } from './CodeBlock.component';
 import { Tab } from '../Tab';
 interface TabsTemplateProps {

@@ -1,4 +1,4 @@
-import { default as React, HTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React, HTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 /**
  * The `Label` component is a reusable, accessible label for form elements.
  * It supports optional features like disabling, required indicators, and floating label styles.

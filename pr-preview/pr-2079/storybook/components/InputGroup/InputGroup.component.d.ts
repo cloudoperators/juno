@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 type VariantTypes = "default" | "primary" | "primary-danger" | "subdued";
 export interface InputGroupProps extends HTMLAttributes<HTMLElement> {
     /**

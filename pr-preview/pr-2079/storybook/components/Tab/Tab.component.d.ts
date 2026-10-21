@@ -1,4 +1,4 @@
-import { HTMLProps, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { HTMLProps, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { KnownIcons } from '../Icon/Icon.component';
 /**
  * @deprecated Tab is deprecated and may be removed in any of the next major releases. Once TabBar is refactored to being representational-only, you will be able to use TabBar in combination with react-tabs directly if you want to keep the react-tabs internal logic.

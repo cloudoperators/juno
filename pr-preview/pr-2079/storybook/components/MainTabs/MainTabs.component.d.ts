@@ -1,4 +1,4 @@
-import { default as React, HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React, HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export declare const MainTabsBase: ({ children, defaultIndex, selectedIndex, onSelect, className, ...props }: MainTabsProps) => ReactNode;
 export interface MainTabsProps extends Omit<HTMLAttributes<HTMLElement>, "onSelect"> {
     /**

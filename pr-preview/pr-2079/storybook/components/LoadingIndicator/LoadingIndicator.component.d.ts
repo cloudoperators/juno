@@ -1,4 +1,4 @@
-import { ReactNode, SVGAttributes } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { ReactNode, SVGAttributes } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export interface LoadingIndicatorProps extends SVGAttributes<SVGElement> {
     /**
      * The size of the LoadingIndicator in pixels. Must be a positive number value.

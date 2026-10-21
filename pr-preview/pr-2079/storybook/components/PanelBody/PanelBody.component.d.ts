@@ -1,4 +1,4 @@
-import { ReactNode, ReactElement, HTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { ReactNode, ReactElement, HTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export interface PanelBodyProps extends HTMLAttributes<HTMLDivElement> {
     /**
      * Additional CSS classes to apply to the panel body for custom styling.

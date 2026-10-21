@@ -1,4 +1,4 @@
-import { default as React, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { ShadowRootMode } from '../ShadowRoot/ShadowRoot.component';
 type SetThemeClassFunc = (value: string) => void;
 type AddClassFunc = (value: string) => void;

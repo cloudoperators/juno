@@ -1,4 +1,4 @@
-import { default as React, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export interface DescriptionDefinitionProps {
     /**
      * Content to be displayed as the description, accommodating text or more complex nodes to explain or define the associated term.

@@ -1,4 +1,4 @@
-import { ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 /**
  * The `AppShellProvider` component serves as a wrapper for Juno apps. It integrates both
  * `StyleProvider` and `PortalProvider`, offering consistent theming and managing portals across the app.

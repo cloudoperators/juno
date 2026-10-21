@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 /**
  * The `MainContainer` is the core container for application content, ideal for manual scaffold setups.
  * In most instances, `AppShell` offers a comprehensive layout alternative.

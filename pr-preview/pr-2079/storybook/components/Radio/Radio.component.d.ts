@@ -1,4 +1,4 @@
-import { MouseEventHandler, ReactNode, InputHTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { MouseEventHandler, ReactNode, InputHTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 /**
  * A controlled Radio component.
  * @see https://cloudoperators.github.io/juno/?path=/docs/forms-radio--docs

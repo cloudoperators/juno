@@ -1,4 +1,4 @@
-import { default as React, ReactNode, HTMLAttributes, FocusEventHandler, ChangeEventHandler } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React, ReactNode, HTMLAttributes, FocusEventHandler, ChangeEventHandler } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 type AddOptionValueAndLabelFunction = (value: string, label: string, children: ReactNode) => void;
 export type ComboBoxContextType = {
     selectedValue?: string;

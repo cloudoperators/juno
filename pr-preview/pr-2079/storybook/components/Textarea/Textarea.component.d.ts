@@ -1,4 +1,4 @@
-import { ReactNode, HTMLProps, ChangeEventHandler, FocusEventHandler } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { ReactNode, HTMLProps, ChangeEventHandler, FocusEventHandler } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 /**
  * A controlled Text Input.
  * Also covers email, telephone, password, URL derivatives.

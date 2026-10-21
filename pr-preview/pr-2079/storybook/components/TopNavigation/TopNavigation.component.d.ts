@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 /**
  * A generic horizontal top level navigation component. To be placed below the application header but above application content.
  * Place `TopNavigationItem` elements as children.

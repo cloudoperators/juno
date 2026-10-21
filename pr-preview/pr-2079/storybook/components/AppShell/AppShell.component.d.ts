@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 /**
  * The `AppShell` component provides the foundational layout structure for the application.
  * It acts similarly to an HTML `body` element, organizing pages with headers, footers,

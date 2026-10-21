@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode, MouseEventHandler } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { HTMLAttributes, ReactNode, MouseEventHandler } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 type PanelSize = "default" | "large";
 export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
     /**

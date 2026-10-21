@@ -1,4 +1,4 @@
-import { HTMLProps, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { HTMLProps, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 /**
  * `ComboBoxOption` is a component used within a `ComboBox` to represent each selectable option.
  * It displays the option's label and value, and indicates the selected state with styles or an icon.

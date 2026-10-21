@@ -1,4 +1,4 @@
-import { default as React, HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React, HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { CellVerticalAlignmentType } from '../DataGrid/DataGrid.component';
 /**
  * `DataGridCell` is a versatile layout component for `DataGrid`, supporting cell-specific configurations

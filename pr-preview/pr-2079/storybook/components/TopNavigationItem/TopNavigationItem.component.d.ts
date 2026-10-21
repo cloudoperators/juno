@@ -1,4 +1,4 @@
-import { HTMLAttributes, MouseEventHandler, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { HTMLAttributes, MouseEventHandler, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { KnownIcons } from '../Icon/Icon.component';
 /**
  * An individual item of a top level navigation. Place inside TopNavigation.
