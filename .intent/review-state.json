@@ -3,84 +3,68 @@
   "baseline": "fac03386c50408123ab764ad6005e15412b58bd4",
   "items": {
     "skill:packages/ui-components/skills/datagrid/SKILL.md": {
-      "fingerprint": "311d7206e211c15789f212628b3c601aec941795cb82134e4460c5a1d1af574f",
+      "fingerprint": "a3538d5be04b897343a9b3b13f1b14529f30fccf6c0999455c7927afa5c6fd38",
       "snapshot": {
         "packages/ui-components/skills/datagrid/SKILL.md": "f92eb187f44412313bfbfdd18e55f36357aac0a96214f4cf2ab3a0b5bc000b4b",
         "packages/ui-components/skills/datagrid/references/component-props.md": "4a07eaa42a68a0190b9acb37f99c9a17dbe8c9a63e5d46a6b477396c1bf0ed9e",
-        "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "da8b2c3b7d1ac638841c86587a2c6427d7f8347057f4d5cc99dc79c8016bfc93",
+        "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "5c5abee31617ca977b0982fe541828d85d0c259281aed6f0ca56b194fd9e573e",
         "packages/ui-components/skills/datagrid/references/fragment-library.md": "a576599a649c8bffd2d026f68f99fc16cbebb59446451352b0bb5ab5cd5a4822",
         "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
         "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "db2003baceb27c32a0b63b71db7f9890f0830b24aa5beea896eb5a95b44a3e78"
       },
-      "head": "348b6acb8a6971372673cfb73836962c1912cf9e",
-      "outcome": "updated",
-      "reason": "DataGrid skills restructured into a shared-spec architecture: the datagrid skill now owns references/datagrid-spec.md (Input Schema, Decision Trees DT-1..DT-9, Invariants INV-1..INV-17); datagrid-build and datagrid-validate are task skills that require datagrid and cite rule IDs instead of restating rules. Verified with intent validate (3/3). datagrid: new base skill owning the DataGridSpec.",
+      "head": "7a4d3ba9194eb41306a4b5b56ae9fecb53a60a2d",
+      "outcome": "no-change",
+      "reason": "Initial DataGrid skill batch; SKILL guidance was authored alongside datagrid-spec.md and remains consistent with it.",
       "evidence": [
-        "Changed: packages/ui-components/skills/datagrid/SKILL.md",
-        "Changed: packages/ui-components/skills/datagrid/references/component-props.md",
-        "Changed: packages/ui-components/skills/datagrid/references/datagrid-spec.md",
-        "Changed: packages/ui-components/skills/datagrid/references/fragment-library.md"
+        "intent validation passes (0 authoring issues); this SKILL.md references the datagrid-spec introduced in the same batch."
       ]
     },
     "planning:_artifacts": {
-      "fingerprint": "e2091a37d475ddce640e67652a005a31c1007dd2af4e5ec5c51551e0d5b4acd2",
+      "fingerprint": "0312a4e137f2f07d46e8527e51f8eff1d1f8f3c52995fa5df9a3da3f2a0d281f",
       "snapshot": {
         "_artifacts/domain_map.yaml": "a81e769dbf7e2f29ef7d6fa3994773181fbd23d2de50af1792e77cd736d318ef",
         "_artifacts/skill_spec.md": "6b5489ac9a899b9ffee88c33bc6b31484855d57a79e95483e5acbb197dc2bfd3",
         "_artifacts/skill_tree.yaml": "1a714b8ae7450cce6ec936f6e3a637c14ba1f0879563d7eb6cb5829a58d906a5",
-        "packages/ui-components/skills/build-data-grids/SKILL.md": null,
         "packages/ui-components/skills/datagrid-build/SKILL.md": "0e72c69a358f9cd65e2a231de31d96ed0647d188da14558620d4fc2bb5006ac4",
-        "packages/ui-components/skills/datagrid-validate/SKILL.md": "5b764fb66c7439545fe084b9d1f89a0a2db794d1971e9c6008c7abd8e59923f6",
+        "packages/ui-components/skills/datagrid-validate/SKILL.md": "3960e5057966251570739955b557da9001f70e68402c5d581ad618ef5312dc63",
         "packages/ui-components/skills/datagrid/SKILL.md": "f92eb187f44412313bfbfdd18e55f36357aac0a96214f4cf2ab3a0b5bc000b4b",
         "packages/ui-components/skills/datagrid/references/component-props.md": "4a07eaa42a68a0190b9acb37f99c9a17dbe8c9a63e5d46a6b477396c1bf0ed9e",
-        "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "da8b2c3b7d1ac638841c86587a2c6427d7f8347057f4d5cc99dc79c8016bfc93",
+        "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "5c5abee31617ca977b0982fe541828d85d0c259281aed6f0ca56b194fd9e573e",
         "packages/ui-components/skills/datagrid/references/fragment-library.md": "a576599a649c8bffd2d026f68f99fc16cbebb59446451352b0bb5ab5cd5a4822",
         "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
         "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "db2003baceb27c32a0b63b71db7f9890f0830b24aa5beea896eb5a95b44a3e78"
       },
-      "head": "348b6acb8a6971372673cfb73836962c1912cf9e",
-      "outcome": "updated",
-      "reason": "DataGrid skills restructured into a shared-spec architecture: the datagrid skill now owns references/datagrid-spec.md (Input Schema, Decision Trees DT-1..DT-9, Invariants INV-1..INV-17); datagrid-build and datagrid-validate are task skills that require datagrid and cite rule IDs instead of restating rules. Verified with intent validate (3/3). Planning records updated: registered datagrid-build and datagrid-validate, dropped datagrid-filters-toolbar (header rules live in datagrid-spec.md DT-2..DT-5 + fragments).",
+      "head": "7a4d3ba9194eb41306a4b5b56ae9fecb53a60a2d",
+      "outcome": "no-change",
+      "reason": "Planning records describe this initial DataGrid skill batch and already cover the datagrid skills and spec.",
       "evidence": [
-        "Changed: _artifacts/domain_map.yaml",
-        "Changed: _artifacts/skill_spec.md",
-        "Changed: _artifacts/skill_tree.yaml",
-        "Changed: packages/ui-components/skills/datagrid-build/SKILL.md",
-        "Changed: packages/ui-components/skills/datagrid-validate/SKILL.md",
-        "Changed: packages/ui-components/skills/datagrid/SKILL.md",
-        "Changed: packages/ui-components/skills/datagrid/references/component-props.md",
-        "Changed: packages/ui-components/skills/datagrid/references/datagrid-spec.md",
-        "Changed: packages/ui-components/skills/datagrid/references/fragment-library.md",
-        "Changed: packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx",
-        "Changed: packages/ui-components/src/components/DataGridToolbar/DataGridToolbar.component.tsx"
+        "intent validation passes (0 authoring issues); _artifacts enumerate the three datagrid skills being introduced on this branch."
       ]
     },
     "skill:packages/ui-components/skills/datagrid-build/SKILL.md": {
-      "fingerprint": "9bb0a7b34242d6931a65850ba233d4b68c3a2695baa8c80ec310d9d7211c7763",
+      "fingerprint": "6c6db5ffec67847e66226f78343302918df71435951c7771ed2115ba470c981a",
       "snapshot": {
         "packages/ui-components/skills/datagrid-build/SKILL.md": "0e72c69a358f9cd65e2a231de31d96ed0647d188da14558620d4fc2bb5006ac4",
-        "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "da8b2c3b7d1ac638841c86587a2c6427d7f8347057f4d5cc99dc79c8016bfc93"
+        "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "5c5abee31617ca977b0982fe541828d85d0c259281aed6f0ca56b194fd9e573e"
       },
-      "head": "348b6acb8a6971372673cfb73836962c1912cf9e",
-      "outcome": "updated",
-      "reason": "DataGrid skills restructured into a shared-spec architecture: the datagrid skill now owns references/datagrid-spec.md (Input Schema, Decision Trees DT-1..DT-9, Invariants INV-1..INV-17); datagrid-build and datagrid-validate are task skills that require datagrid and cite rule IDs instead of restating rules. Verified with intent validate (3/3). datagrid-build: build procedure only, requires datagrid.",
+      "head": "7a4d3ba9194eb41306a4b5b56ae9fecb53a60a2d",
+      "outcome": "no-change",
+      "reason": "Initial DataGrid skill batch; SKILL guidance was authored alongside datagrid-spec.md and remains consistent with it.",
       "evidence": [
-        "Changed: packages/ui-components/skills/datagrid-build/SKILL.md",
-        "Changed: packages/ui-components/skills/datagrid/references/datagrid-spec.md"
+        "intent validation passes (0 authoring issues); this SKILL.md references the datagrid-spec introduced in the same batch."
       ]
     },
     "skill:packages/ui-components/skills/datagrid-validate/SKILL.md": {
-      "fingerprint": "daaee3b45aac5954086cf5558dbc1836ca308ebdf41089dc075b1a65c04ca460",
+      "fingerprint": "bafdc5d6bd65895a9d436e2b8540ea07814899f91cd5058706068065fe96fc5f",
       "snapshot": {
-        "packages/ui-components/skills/datagrid-validate/SKILL.md": "5b764fb66c7439545fe084b9d1f89a0a2db794d1971e9c6008c7abd8e59923f6",
-        "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "da8b2c3b7d1ac638841c86587a2c6427d7f8347057f4d5cc99dc79c8016bfc93"
+        "packages/ui-components/skills/datagrid-validate/SKILL.md": "3960e5057966251570739955b557da9001f70e68402c5d581ad618ef5312dc63",
+        "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "5c5abee31617ca977b0982fe541828d85d0c259281aed6f0ca56b194fd9e573e"
       },
-      "head": "348b6acb8a6971372673cfb73836962c1912cf9e",
-      "outcome": "updated",
-      "reason": "DataGrid skills restructured into a shared-spec architecture: the datagrid skill now owns references/datagrid-spec.md (Input Schema, Decision Trees DT-1..DT-9, Invariants INV-1..INV-17); datagrid-build and datagrid-validate are task skills that require datagrid and cite rule IDs instead of restating rules. Verified with intent validate (3/3). datagrid-validate: review procedure only, requires datagrid.",
+      "head": "7a4d3ba9194eb41306a4b5b56ae9fecb53a60a2d",
+      "outcome": "no-change",
+      "reason": "Initial DataGrid skill batch; SKILL guidance was authored alongside datagrid-spec.md and remains consistent with it.",
       "evidence": [
-        "Changed: packages/ui-components/skills/datagrid-validate/SKILL.md",
-        "Changed: packages/ui-components/skills/datagrid/references/datagrid-spec.md"
+        "intent validation passes (0 authoring issues); this SKILL.md references the datagrid-spec introduced in the same batch."
       ]
     },
     "source:docs/agents/domain.md": {
@@ -153,6 +137,30 @@
       "reason": "Moved into datagrid/references/fragment-library.md as part of the restructure.",
       "evidence": [
         "Changed: packages/ui-components/skills/build-data-grids/references/fragment-library.md"
+      ]
+    },
+    "source:.changeset/ui-components-ship-data-grid-skill.md": {
+      "fingerprint": "96ec9154cd98b8bc1db36c4c9e788da328147e4f15d1c4b9cc535ca8e6c8b402",
+      "snapshot": {
+        ".changeset/ui-components-ship-data-grid-skill.md": "59041c15f4c4f0c6b8a7b5e46b57c5c1b05c50074a0d89af5bb7dcd232e9eda3"
+      },
+      "head": "7a4d3ba9194eb41306a4b5b56ae9fecb53a60a2d",
+      "outcome": "out-of-scope",
+      "reason": "Repo housekeeping change unrelated to skill guidance.",
+      "evidence": [
+        "Changeset only declares a patch version bump for @cloudoperators/juno-ui-components; contains no skill source or guidance."
+      ]
+    },
+    "source:.tool-versions": {
+      "fingerprint": "bd76a3788bcd3ae7c09fab2c1f1f977105720d0f7cce5c61e6c8791b9da06976",
+      "snapshot": {
+        ".tool-versions": "f6cc7b9014790187f6285eb5b146b2dd01147fd4b22c0e88e68137d060aed208"
+      },
+      "head": "7a4d3ba9194eb41306a4b5b56ae9fecb53a60a2d",
+      "outcome": "out-of-scope",
+      "reason": "Repo housekeeping change unrelated to skill guidance.",
+      "evidence": [
+        "Toolchain pin file (nodejs/pnpm versions) only; no component or skill content."
       ]
     }
   }
