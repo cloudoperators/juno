@@ -3,24 +3,24 @@
   "baseline": "fac03386c50408123ab764ad6005e15412b58bd4",
   "items": {
     "skill:packages/ui-components/skills/datagrid/SKILL.md": {
-      "fingerprint": "03e125f6e847d0ff02e5c30f6260c9b06640a6426909afd2e36ae12db7820769",
+      "fingerprint": "4828af2c6b3b2f0be4880e703696b4591d8418abeb6e8027215f90fc78e65495",
       "snapshot": {
         "packages/ui-components/skills/datagrid/SKILL.md": "f92eb187f44412313bfbfdd18e55f36357aac0a96214f4cf2ab3a0b5bc000b4b",
-        "packages/ui-components/skills/datagrid/references/component-props.md": "e360a1bab8e7cc0d42ae312c88185330604da068efcaae3955233201484e94cf",
+        "packages/ui-components/skills/datagrid/references/component-props.md": "8f9b421a3026883e208129c96c7ac8ab5caa1eff08a908b3193b8bcb44371b67",
         "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "5c5abee31617ca977b0982fe541828d85d0c259281aed6f0ca56b194fd9e573e",
         "packages/ui-components/skills/datagrid/references/fragment-library.md": "f9d98c1fe1e40140151277268f3c492f1726587158d28ed454bbbedb026ecd9c",
         "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
         "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "db2003baceb27c32a0b63b71db7f9890f0830b24aa5beea896eb5a95b44a3e78"
       },
-      "head": "0ccfc41dfedc0c935055a2d7effb9cffa60ef837",
+      "head": "1820fa97e6e4d36dc269f15f9b86a3e73a042937",
       "outcome": "updated",
       "reason": "Add textContain prop to DataGridCell; guidance updated in datagrid skill component-props.md",
       "evidence": [
-        "Changed: packages/ui-components/skills/datagrid/references/component-props.md at 0ccfc41dfedc0c935055a2d7effb9cffa60ef837"
+        "Changed: packages/ui-components/skills/datagrid/references/component-props.md at 1820fa97e6e4d36dc269f15f9b86a3e73a042937"
       ]
     },
     "planning:_artifacts": {
-      "fingerprint": "64a9fd800fb7d59ca7a3e2966cc0f81369329e6d0e4b4a56cb3ba65cc0b8093d",
+      "fingerprint": "b1cc8a045fc2dd1028155d60da4c2c6eda10f7301f1f2ee3ee35e602cef3ce67",
       "snapshot": {
         "_artifacts/domain_map.yaml": "a81e769dbf7e2f29ef7d6fa3994773181fbd23d2de50af1792e77cd736d318ef",
         "_artifacts/skill_spec.md": "6b5489ac9a899b9ffee88c33bc6b31484855d57a79e95483e5acbb197dc2bfd3",
@@ -28,17 +28,17 @@
         "packages/ui-components/skills/datagrid-build/SKILL.md": "0e72c69a358f9cd65e2a231de31d96ed0647d188da14558620d4fc2bb5006ac4",
         "packages/ui-components/skills/datagrid-validate/SKILL.md": "3960e5057966251570739955b557da9001f70e68402c5d581ad618ef5312dc63",
         "packages/ui-components/skills/datagrid/SKILL.md": "f92eb187f44412313bfbfdd18e55f36357aac0a96214f4cf2ab3a0b5bc000b4b",
-        "packages/ui-components/skills/datagrid/references/component-props.md": "e360a1bab8e7cc0d42ae312c88185330604da068efcaae3955233201484e94cf",
+        "packages/ui-components/skills/datagrid/references/component-props.md": "8f9b421a3026883e208129c96c7ac8ab5caa1eff08a908b3193b8bcb44371b67",
         "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "5c5abee31617ca977b0982fe541828d85d0c259281aed6f0ca56b194fd9e573e",
         "packages/ui-components/skills/datagrid/references/fragment-library.md": "f9d98c1fe1e40140151277268f3c492f1726587158d28ed454bbbedb026ecd9c",
         "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
         "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "db2003baceb27c32a0b63b71db7f9890f0830b24aa5beea896eb5a95b44a3e78"
       },
-      "head": "0ccfc41dfedc0c935055a2d7effb9cffa60ef837",
+      "head": "1820fa97e6e4d36dc269f15f9b86a3e73a042937",
       "outcome": "updated",
       "reason": "Add textContain prop to DataGridCell; guidance updated in datagrid skill component-props.md",
       "evidence": [
-        "Changed: packages/ui-components/skills/datagrid/references/component-props.md at 0ccfc41dfedc0c935055a2d7effb9cffa60ef837"
+        "Changed: packages/ui-components/skills/datagrid/references/component-props.md at 1820fa97e6e4d36dc269f15f9b86a3e73a042937"
       ]
     },
     "skill:packages/ui-components/skills/datagrid-build/SKILL.md": {
