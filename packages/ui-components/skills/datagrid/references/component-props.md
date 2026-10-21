@@ -23,11 +23,12 @@ Prop reference for the DataGrid components referenced by
 
 ### DataGridCell
 
-| Prop                | Type                | Notes                                        |
-| ------------------- | ------------------- | -------------------------------------------- |
-| `colSpan`           | `number`            | Span across multiple columns                 |
-| `nowrap`            | `boolean`           | Applies `white-space: nowrap`                |
-| `verticalAlignment` | `"center" \| "top"` | Overrides the DataGrid default for this cell |
+| Prop                | Type                                                                             | Notes                                                                                         |
+| ------------------- | -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `colSpan`           | `number`                                                                         | Span across multiple columns                                                                  |
+| `textContain`       | `"truncate-end" \| "truncate-start" \| "break-word" \| "break-all" \| "no-wrap"` | Controls how text that exceeds the cell width is contained: ellipsis truncation, forced breaking, or no-wrap |
+| `nowrap`            | `boolean`                                                                        | **Deprecated** — use `textContain="no-wrap"`. Applies `white-space: nowrap`                   |
+| `verticalAlignment` | `"center" \| "top"`                                                              | Overrides the DataGrid default for this cell                                                  |
 
 ### DataGridHeadCell
 
