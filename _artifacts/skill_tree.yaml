@@ -64,3 +64,11 @@ skills:
   ]
 distribution:
   mode: none
+review:
+  ignore:
+    - ".changeset/**"
+    - ".gitignore"
+    - "**/*.tgz"
+    - "docs/**"
+    - "**/README.md"
+    - "**/CHANGELOG.md"

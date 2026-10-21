@@ -20,11 +20,11 @@
       ]
     },
     "planning:_artifacts": {
-      "fingerprint": "c90f3faa2ff3ba003a259cc14388141f3b546fed10d6a1ffd0f626393cd522a5",
+      "fingerprint": "f7fc56bff7e0a81c6a82be6629a6c2ab238db05ae52c66f39d87e86be70f84cc",
       "snapshot": {
         "_artifacts/domain_map.yaml": "a81e769dbf7e2f29ef7d6fa3994773181fbd23d2de50af1792e77cd736d318ef",
         "_artifacts/skill_spec.md": "6b5489ac9a899b9ffee88c33bc6b31484855d57a79e95483e5acbb197dc2bfd3",
-        "_artifacts/skill_tree.yaml": "1a714b8ae7450cce6ec936f6e3a637c14ba1f0879563d7eb6cb5829a58d906a5",
+        "_artifacts/skill_tree.yaml": "4cba1c55cf09d615d6609b4d342ffce2da16241338727e56e4839980bb3f5746",
         "packages/ui-components/skills/datagrid-build/SKILL.md": "0e72c69a358f9cd65e2a231de31d96ed0647d188da14558620d4fc2bb5006ac4",
         "packages/ui-components/skills/datagrid-validate/SKILL.md": "3960e5057966251570739955b557da9001f70e68402c5d581ad618ef5312dc63",
         "packages/ui-components/skills/datagrid/SKILL.md": "f92eb187f44412313bfbfdd18e55f36357aac0a96214f4cf2ab3a0b5bc000b4b",
@@ -34,11 +34,11 @@
         "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
         "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "db2003baceb27c32a0b63b71db7f9890f0830b24aa5beea896eb5a95b44a3e78"
       },
-      "head": "66dfb5869d5d00b0d4b41f345bed3c972202be31",
+      "head": "1c95fb31c115b88080f7f7fa3162c88ad3c6f1b0",
       "outcome": "updated",
-      "reason": "Fix DataGrid fragment-library: valid SearchInput JSX (narrow boolean|object search before reading placeholder) and correct Status API (status/title/body/action, no children)",
+      "reason": "Refine review.ignore: drop redundant .tool-versions (already git-ignored)",
       "evidence": [
-        "Changed: packages/ui-components/skills/datagrid/references/fragment-library.md at 66dfb5869d5d00b0d4b41f345bed3c972202be31"
+        "Changed: _artifacts/skill_tree.yaml at 1c95fb31c115b88080f7f7fa3162c88ad3c6f1b0"
       ]
     },
     "skill:packages/ui-components/skills/datagrid-build/SKILL.md": {
@@ -65,162 +65,6 @@
       "reason": "Initial DataGrid skill batch; SKILL guidance was authored alongside datagrid-spec.md and remains consistent with it.",
       "evidence": [
         "intent validation passes (0 authoring issues); this SKILL.md references the datagrid-spec introduced in the same batch."
-      ]
-    },
-    "source:docs/agents/domain.md": {
-      "fingerprint": "84e69008bf2455283b63c7f1c1b6f60c866e36f2d5bff364ac47339557e157dc",
-      "snapshot": {
-        "docs/agents/domain.md": "69af047a150730dbf6f80d24d301292ff3837c01ff6215c18f5d032d80e7f046"
-      },
-      "head": "348b6acb8a6971372673cfb73836962c1912cf9e",
-      "outcome": "out-of-scope",
-      "reason": "Part of the separate agent-skills setup referenced by CLAUDE.md (issue tracker / triage labels / domain docs), not the DataGrid skill batch.",
-      "evidence": [
-        "Changed: docs/agents/domain.md"
-      ]
-    },
-    "source:docs/agents/issue-tracker.md": {
-      "fingerprint": "8fdb981fc91a19153a9bd934d2ebfb53bc7b830a3cb314d40780cdef07a409dc",
-      "snapshot": {
-        "docs/agents/issue-tracker.md": "afd6852a80185217bd28aa5cbe456bef1e85be25be7bd1fba382d5b8ee428325"
-      },
-      "head": "348b6acb8a6971372673cfb73836962c1912cf9e",
-      "outcome": "out-of-scope",
-      "reason": "Part of the separate agent-skills setup referenced by CLAUDE.md (issue tracker / triage labels / domain docs), not the DataGrid skill batch.",
-      "evidence": [
-        "Changed: docs/agents/issue-tracker.md"
-      ]
-    },
-    "source:docs/agents/triage-labels.md": {
-      "fingerprint": "d662b45974b49df9f57fab4e3ab1e0091d845985014e6e13edf83c91b4ea8835",
-      "snapshot": {
-        "docs/agents/triage-labels.md": "4f53c9b40ce2651e3611aa090eaedbd6dbc9b71ef8c5f7e65eac0d8263190d0d"
-      },
-      "head": "348b6acb8a6971372673cfb73836962c1912cf9e",
-      "outcome": "out-of-scope",
-      "reason": "Part of the separate agent-skills setup referenced by CLAUDE.md (issue tracker / triage labels / domain docs), not the DataGrid skill batch.",
-      "evidence": [
-        "Changed: docs/agents/triage-labels.md"
-      ]
-    },
-    "source:packages/ui-components/skills/build-data-grids/SKILL.md": {
-      "fingerprint": "f1295b7e9eeb0e316b0e7a5c11c3b245498750f728c1ad949a5f6a10af0b51b1",
-      "snapshot": {
-        "packages/ui-components/skills/build-data-grids/SKILL.md": null
-      },
-      "head": "348b6acb8a6971372673cfb73836962c1912cf9e",
-      "outcome": "updated",
-      "reason": "Old build-data-grids skill removed; its content was ported verbatim into the datagrid skill (spec + references) and datagrid-build.",
-      "evidence": [
-        "Changed: packages/ui-components/skills/build-data-grids/SKILL.md"
-      ]
-    },
-    "source:packages/ui-components/skills/build-data-grids/references/component-props.md": {
-      "fingerprint": "99671b4fb881bdb1cec383b8ecdd7901b87220e27fa214b06de88d16d730062b",
-      "snapshot": {
-        "packages/ui-components/skills/build-data-grids/references/component-props.md": null
-      },
-      "head": "348b6acb8a6971372673cfb73836962c1912cf9e",
-      "outcome": "updated",
-      "reason": "Moved into datagrid/references/component-props.md as part of the restructure.",
-      "evidence": [
-        "Changed: packages/ui-components/skills/build-data-grids/references/component-props.md"
-      ]
-    },
-    "source:packages/ui-components/skills/build-data-grids/references/fragment-library.md": {
-      "fingerprint": "8206392005bad36a8c20d687d597ff075ac2bca18f2aad43ced006c84b812fcd",
-      "snapshot": {
-        "packages/ui-components/skills/build-data-grids/references/fragment-library.md": null
-      },
-      "head": "348b6acb8a6971372673cfb73836962c1912cf9e",
-      "outcome": "updated",
-      "reason": "Moved into datagrid/references/fragment-library.md as part of the restructure.",
-      "evidence": [
-        "Changed: packages/ui-components/skills/build-data-grids/references/fragment-library.md"
-      ]
-    },
-    "source:.changeset/ui-components-ship-data-grid-skill.md": {
-      "fingerprint": "0bfafe20a9d7257f20dd6d5ce98fe2f57e2590bd57619dc078f83a9813d2d540",
-      "snapshot": {
-        ".changeset/ui-components-ship-data-grid-skill.md": "642de8b98a9fedbf8066cc7a3bfef4fa022407f22b4c22d8958f00e61d0b4ccf"
-      },
-      "head": "f8b35751f965bcb584881ecf996bea17643b4190",
-      "outcome": "out-of-scope",
-      "reason": "Release note / consumer docs, not skill guidance or a mapped source.",
-      "evidence": [
-        "Changeset declares a patch bump and describes the Intent setup and alpha DataGrid skills; no skill content."
-      ]
-    },
-    "source:.tool-versions": {
-      "fingerprint": "bd76a3788bcd3ae7c09fab2c1f1f977105720d0f7cce5c61e6c8791b9da06976",
-      "snapshot": {
-        ".tool-versions": "f6cc7b9014790187f6285eb5b146b2dd01147fd4b22c0e88e68137d060aed208"
-      },
-      "head": "7a4d3ba9194eb41306a4b5b56ae9fecb53a60a2d",
-      "outcome": "out-of-scope",
-      "reason": "Repo housekeeping change unrelated to skill guidance.",
-      "evidence": [
-        "Toolchain pin file (nodejs/pnpm versions) only; no component or skill content."
-      ]
-    },
-    "source:README.md": {
-      "fingerprint": "16180a57f975375e32e74f8334bf1dafac78278bab90ed669da96fe81e569a11",
-      "snapshot": {
-        "README.md": "ec66f7cc1b73d047b498ec1058cbc48a35db151e6dfc6872309601b6938d785b"
-      },
-      "head": "f589974e7d631aa9494dcf0de8c8050a836a4984",
-      "outcome": "out-of-scope",
-      "reason": "Documentation about the Intent workflow/skills, not component guidance owned by a skill or a mapped source.",
-      "evidence": [
-        "Adds a prose link to the Intent guide under the Documentation section; no skill content."
-      ]
-    },
-    "source:docs/tanstack-intent-guide.md": {
-      "fingerprint": "fab9794b3a6a1fd3141ce5ba01c8889807fcbaca5628972c64b67a2f03100f3c",
-      "snapshot": {
-        "docs/tanstack-intent-guide.md": "7e64cff3f2b08f5f10032bc168dba75f7bc7377c1d26e0eeec35495b82c50323"
-      },
-      "head": "f589974e7d631aa9494dcf0de8c8050a836a4984",
-      "outcome": "out-of-scope",
-      "reason": "Documentation about the Intent workflow/skills, not component guidance owned by a skill or a mapped source.",
-      "evidence": [
-        "Standalone team guide describing the maintainer workflow; not mapped to any skill."
-      ]
-    },
-    "source:packages/ui-components/skills/README.md": {
-      "fingerprint": "5d3343e42f2d92d5c322ab8d5fa8912ee3fcc0e24b41a85538fddd612580446b",
-      "snapshot": {
-        "packages/ui-components/skills/README.md": "ff9ac981d9cca5a955b2c0636157ec07fb044a8819a051698c105d114bd6117a"
-      },
-      "head": "f589974e7d631aa9494dcf0de8c8050a836a4984",
-      "outcome": "out-of-scope",
-      "reason": "Documentation about the Intent workflow/skills, not component guidance owned by a skill or a mapped source.",
-      "evidence": [
-        "Index README listing the package skills and linking the guide; no SKILL.md, no guidance content."
-      ]
-    },
-    "source:.gitignore": {
-      "fingerprint": "a57a10ab05294ec3cfb1f2eb805ed949af0d991ff4c751daf8984268f7c45151",
-      "snapshot": {
-        ".gitignore": "1992698edff99ba3ee068e3eedb82dc6c9fdd49be60039f2879d638b94c5930e"
-      },
-      "head": "19069ad895b6c9b358073f8baa4bfc9ac79cf8c8",
-      "outcome": "out-of-scope",
-      "reason": "Repo ignore rule, not skill guidance or a mapped source.",
-      "evidence": [
-        "Adds .tool-versions to .gitignore; no skill content."
-      ]
-    },
-    "source:packages/ui-components/README.md": {
-      "fingerprint": "d86fc26f950661baa66600128c57b64cd46d92ab2bf9f15111c84f2f26a46d03",
-      "snapshot": {
-        "packages/ui-components/README.md": "1558f7540b173d123eb34baef61b64f7445de7dd77aaaee9d9b515b1438d2f7f"
-      },
-      "head": "f8b35751f965bcb584881ecf996bea17643b4190",
-      "outcome": "out-of-scope",
-      "reason": "Release note / consumer docs, not skill guidance or a mapped source.",
-      "evidence": [
-        "README Agent Skills section points consumers to the Intent consumer guide; no skill content."
       ]
     }
   }
