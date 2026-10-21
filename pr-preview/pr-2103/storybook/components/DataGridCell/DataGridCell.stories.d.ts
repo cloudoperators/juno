@@ -6,6 +6,7 @@ type Story = StoryObj<typeof meta>;
 export declare const Default: Story;
 export declare const NoWrap: Story;
 export declare const TextContain: Story;
+export declare const TruncationInCustomTemplate: Story;
 export declare const ColSpan: Story;
 export declare const VerticalAlignmentOverride: Story;
 //# sourceMappingURL=DataGridCell.stories.d.ts.map
