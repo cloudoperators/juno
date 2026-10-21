@@ -42,6 +42,16 @@ module.exports = {
 
 Doing this lets you use Tailwind classnames from the Juno UI Components library.
 
+## Agent Skills
+
+This package publishes **agent skills** (task-focused guidance for AI coding agents) using
+[TanStack Intent](https://github.com/TanStack/intent). The skills ship inside the npm
+package and version with it. See [skills/README.md](skills/README.md) for the list of
+available skills.
+
+To consume these skills, follow the TanStack Intent consumer guide to set up Intent in your
+project.
+
 ## Development
 
 In order to work ON (NOT WITH) the Juno Design System and its components run storybook with:

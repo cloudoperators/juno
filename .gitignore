@@ -29,3 +29,6 @@ claude.md
 # Vitest output directories (v5+)
 .vitest/
 .vitest-attachments/
+
+# Local toolchain managers (personal; CI uses .nvmrc)
+.tool-versions

@@ -44,6 +44,8 @@ To get started with Juno, follow the instructions in the [Getting Started Guide]
 
 Comprehensive documentation for Juno is available in the [docs](docs) directory. This includes detailed guides on using the various tools and libraries, best practices, and examples to help you get the most out of the platform.
 
+Maintainers shipping agent skills with a package should read the [TanStack Intent Guide](docs/tanstack-intent-guide.md), which explains what skills are, how to create them, and how to keep them current when components change.
+
 ## Support, Feedback, Contributing
 
 This project is open to feature requests/suggestions, bug reports, etc. via [GitHub issues](https://github.com/cloudoperators/juno/issues). Contribution and feedback are encouraged and always welcome. For more information about how to contribute, the project structure, as well as additional contribution information, see our [Contribution Guidelines](CONTRIBUTING.md).

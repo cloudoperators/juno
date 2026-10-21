@@ -1,0 +1,47 @@
+library:
+  name: juno
+domains: []
+skills:
+  [
+    {
+        name: datagrid,
+        slug: datagrid,
+        domain: data-display,
+        description: "Display a collection of structured data as a Juno DataGrid
+          (DataGrid, DataGridRow, DataGridCell, DataGridHeadCell). Use when
+          building a sortable/filterable table of resources; covers columns,
+          minContentColumns, and when NOT to use a DataGrid.",
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks: [ Display a collection of structured data in a DataGrid ],
+        covers: []
+      },
+    {
+        name: datagrid-build,
+        slug: datagrid-build,
+        domain: data-display,
+        description: "Generate a complete, production-ready Juno DataGrid implementation
+          from a BRD excerpt, feature list, or structured requirements. Use when
+          the user says \"build a DataGrid for X\", \"generate a DataGrid\",
+          \"scaffold a DataGrid\", or provides data/feature requirements and
+          asks for a DataGrid. Relies on the datagrid skill's DataGridSpec for
+          all structural rules.",
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks: [ "Generate a DataGrid implementation from requirements" ],
+        covers: []
+      },
+    {
+        name: datagrid-validate,
+        slug: datagrid-validate,
+        domain: data-display,
+        description: "Check an existing Juno DataGrid implementation against the
+          DataGridSpec and report violations. Use when the user says \"validate
+          this DataGrid\", \"review this DataGrid\", \"check this DataGrid\",
+          \"does this DataGrid follow the rules\", or pastes DataGrid code to be
+          audited. Relies on the datagrid skill's DataGridSpec for all
+          structural rules.",
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks: [ "Validate a DataGrid implementation against the DataGridSpec" ],
+        covers: []
+      }
+  ]
+gaps: []

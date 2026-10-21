@@ -1,0 +1,74 @@
+library:
+  name: juno
+generated_from:
+  domain_map: _artifacts/domain_map.yaml
+  skill_spec: _artifacts/skill_spec.md
+skills:
+  [
+    {
+        name: datagrid,
+        slug: datagrid,
+        domain: data-display,
+        package: packages/ui-components,
+        path: skills/datagrid/SKILL.md,
+        description: "Compose a Juno DataGrid to display a collection of structured data
+          (DataGrid, DataGridRow, DataGridCell, DataGridHeadCell). Owns the
+          DataGridSpec — the shared rule set (Input Schema, Decision Trees,
+          Invariants) that the datagrid-build and datagrid-validate skills both
+          rely on. Use when building a sortable/filterable table of resources,
+          or when you need the canonical rules for how a DataGrid must be
+          composed.",
+        sources:
+          [
+            src/components/DataGrid/DataGrid.component.tsx,
+            src/components/DataGrid/DataGrid.stories.tsx
+          ],
+        references:
+          [
+            references/datagrid-spec.md,
+            references/component-props.md,
+            references/fragment-library.md
+          ],
+        requires: []
+      },
+    {
+        name: datagrid-build,
+        slug: datagrid-build,
+        domain: data-display,
+        package: packages/ui-components,
+        path: skills/datagrid-build/SKILL.md,
+        description: "Generate a complete, production-ready Juno DataGrid implementation
+          from a BRD excerpt, feature list, or structured requirements. Use when
+          the user says \"build a DataGrid for X\", \"generate a DataGrid\",
+          \"scaffold a DataGrid\", or provides data/feature requirements and
+          asks for a DataGrid. Relies on the datagrid skill's DataGridSpec for
+          all structural rules.",
+        sources: [ skills/datagrid/references/datagrid-spec.md ],
+        requires: [ datagrid ]
+      },
+    {
+        name: datagrid-validate,
+        slug: datagrid-validate,
+        domain: data-display,
+        package: packages/ui-components,
+        path: skills/datagrid-validate/SKILL.md,
+        description: "Check an existing Juno DataGrid implementation against the
+          DataGridSpec and report violations. Use when the user says \"validate
+          this DataGrid\", \"review this DataGrid\", \"check this DataGrid\",
+          \"does this DataGrid follow the rules\", or pastes DataGrid code to be
+          audited. Relies on the datagrid skill's DataGridSpec for all
+          structural rules.",
+        sources: [ skills/datagrid/references/datagrid-spec.md ],
+        requires: [ datagrid ]
+      }
+  ]
+distribution:
+  mode: none
+review:
+  ignore:
+    - ".changeset/**"
+    - ".gitignore"
+    - "**/*.tgz"
+    - "docs/**"
+    - "**/README.md"
+    - "**/CHANGELOG.md"
