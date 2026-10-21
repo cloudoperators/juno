@@ -210,6 +210,18 @@
       "evidence": [
         "Adds .tool-versions to .gitignore; no skill content."
       ]
+    },
+    "source:packages/ui-components/README.md": {
+      "fingerprint": "14bbbc0396b0fa29f64d8f4711b76ca1046a667d092fc8098f8f6985d02a132d",
+      "snapshot": {
+        "packages/ui-components/README.md": "4c207cd395e0752356cb9336dd2578ad297866e28de581ee0235d41145c42003"
+      },
+      "head": "f884be6e682bf485415df3a2b1feb3df0ab76dbd",
+      "outcome": "out-of-scope",
+      "reason": "Package README consumer docs, not skill guidance or a mapped source.",
+      "evidence": [
+        "Adds an Agent Skills section describing how to consume the published skills; no skill content."
+      ]
     }
   }
 }
