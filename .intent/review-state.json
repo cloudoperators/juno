@@ -3,24 +3,24 @@
   "baseline": "fac03386c50408123ab764ad6005e15412b58bd4",
   "items": {
     "skill:packages/ui-components/skills/datagrid/SKILL.md": {
-      "fingerprint": "4828af2c6b3b2f0be4880e703696b4591d8418abeb6e8027215f90fc78e65495",
+      "fingerprint": "e73b902c9bb61464b9d9ab3755b8fd0ab126a9b12c1a296873eb20f5ff21b2ad",
       "snapshot": {
         "packages/ui-components/skills/datagrid/SKILL.md": "f92eb187f44412313bfbfdd18e55f36357aac0a96214f4cf2ab3a0b5bc000b4b",
-        "packages/ui-components/skills/datagrid/references/component-props.md": "8f9b421a3026883e208129c96c7ac8ab5caa1eff08a908b3193b8bcb44371b67",
+        "packages/ui-components/skills/datagrid/references/component-props.md": "07eaffc5ea043a6353797105dd2eec51ee1b054c42ff528e93e8129e3f993e90",
         "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "5c5abee31617ca977b0982fe541828d85d0c259281aed6f0ca56b194fd9e573e",
         "packages/ui-components/skills/datagrid/references/fragment-library.md": "f9d98c1fe1e40140151277268f3c492f1726587158d28ed454bbbedb026ecd9c",
         "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
         "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "db2003baceb27c32a0b63b71db7f9890f0830b24aa5beea896eb5a95b44a3e78"
       },
-      "head": "1820fa97e6e4d36dc269f15f9b86a3e73a042937",
+      "head": "122b722fe83217166f9e5d3da3782b5ea453de07",
       "outcome": "updated",
-      "reason": "Add textContain prop to DataGridCell; guidance updated in datagrid skill component-props.md",
+      "reason": "add textContain to DataGridHeadCell, deprecate nowrap, update component-props.md",
       "evidence": [
-        "Changed: packages/ui-components/skills/datagrid/references/component-props.md at 1820fa97e6e4d36dc269f15f9b86a3e73a042937"
+        "Changed: packages/ui-components/skills/datagrid/references/component-props.md at 122b722fe83217166f9e5d3da3782b5ea453de07"
       ]
     },
     "planning:_artifacts": {
-      "fingerprint": "b1cc8a045fc2dd1028155d60da4c2c6eda10f7301f1f2ee3ee35e602cef3ce67",
+      "fingerprint": "9b127ee91a70c8dadef0103e6d48febcf914f41a6a219291027799f6c6e836dc",
       "snapshot": {
         "_artifacts/domain_map.yaml": "a81e769dbf7e2f29ef7d6fa3994773181fbd23d2de50af1792e77cd736d318ef",
         "_artifacts/skill_spec.md": "6b5489ac9a899b9ffee88c33bc6b31484855d57a79e95483e5acbb197dc2bfd3",
@@ -28,17 +28,17 @@
         "packages/ui-components/skills/datagrid-build/SKILL.md": "0e72c69a358f9cd65e2a231de31d96ed0647d188da14558620d4fc2bb5006ac4",
         "packages/ui-components/skills/datagrid-validate/SKILL.md": "3960e5057966251570739955b557da9001f70e68402c5d581ad618ef5312dc63",
         "packages/ui-components/skills/datagrid/SKILL.md": "f92eb187f44412313bfbfdd18e55f36357aac0a96214f4cf2ab3a0b5bc000b4b",
-        "packages/ui-components/skills/datagrid/references/component-props.md": "8f9b421a3026883e208129c96c7ac8ab5caa1eff08a908b3193b8bcb44371b67",
+        "packages/ui-components/skills/datagrid/references/component-props.md": "07eaffc5ea043a6353797105dd2eec51ee1b054c42ff528e93e8129e3f993e90",
         "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "5c5abee31617ca977b0982fe541828d85d0c259281aed6f0ca56b194fd9e573e",
         "packages/ui-components/skills/datagrid/references/fragment-library.md": "f9d98c1fe1e40140151277268f3c492f1726587158d28ed454bbbedb026ecd9c",
         "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
         "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "db2003baceb27c32a0b63b71db7f9890f0830b24aa5beea896eb5a95b44a3e78"
       },
-      "head": "1820fa97e6e4d36dc269f15f9b86a3e73a042937",
+      "head": "122b722fe83217166f9e5d3da3782b5ea453de07",
       "outcome": "updated",
-      "reason": "Add textContain prop to DataGridCell; guidance updated in datagrid skill component-props.md",
+      "reason": "add textContain to DataGridHeadCell, deprecate nowrap, update component-props.md",
       "evidence": [
-        "Changed: packages/ui-components/skills/datagrid/references/component-props.md at 1820fa97e6e4d36dc269f15f9b86a3e73a042937"
+        "Changed: packages/ui-components/skills/datagrid/references/component-props.md at 122b722fe83217166f9e5d3da3782b5ea453de07"
       ]
     },
     "skill:packages/ui-components/skills/datagrid-build/SKILL.md": {
@@ -137,6 +137,42 @@
       "reason": "Add textContain prop to DataGridCell; guidance updated in datagrid skill component-props.md",
       "evidence": [
         "Changed: packages/ui-components/src/shared/textContain/textContain.ts at 0ccfc41dfedc0c935055a2d7effb9cffa60ef837"
+      ]
+    },
+    "source:packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.component.tsx": {
+      "fingerprint": "f85e465d0099e95e90417315c6f3e568fdc727b5c157d4e7759f2ec1261b2e06",
+      "snapshot": {
+        "packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.component.tsx": "1bb4762cab7c63675d0bbb363c33b2c803a8c090385731297caaf445dbcbcf69"
+      },
+      "head": "122b722fe83217166f9e5d3da3782b5ea453de07",
+      "outcome": "updated",
+      "reason": "add textContain to DataGridHeadCell, deprecate nowrap, update component-props.md",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.component.tsx at 122b722fe83217166f9e5d3da3782b5ea453de07"
+      ]
+    },
+    "source:packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.stories.tsx": {
+      "fingerprint": "4206ed95e886b19770b50c5a1673b36e1bbb7ac8282f84f0e1d72b2489253e57",
+      "snapshot": {
+        "packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.stories.tsx": "de9b7bdb7d2312de958f0ce129912d068fb87a59e47dfaecad24d77269d29583"
+      },
+      "head": "122b722fe83217166f9e5d3da3782b5ea453de07",
+      "outcome": "updated",
+      "reason": "add textContain to DataGridHeadCell, deprecate nowrap, update component-props.md",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.stories.tsx at 122b722fe83217166f9e5d3da3782b5ea453de07"
+      ]
+    },
+    "source:packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.test.tsx": {
+      "fingerprint": "6b4776e677f05a8c26b24342f1f3e1ca65ec2c07443447fc2b99b44c92b560f4",
+      "snapshot": {
+        "packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.test.tsx": "0623a4d2b72aae629b82c93dbdfa4dd7e559479c281f1e7b3845847f4f491f8a"
+      },
+      "head": "122b722fe83217166f9e5d3da3782b5ea453de07",
+      "outcome": "updated",
+      "reason": "add textContain to DataGridHeadCell, deprecate nowrap, update component-props.md",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.test.tsx at 122b722fe83217166f9e5d3da3782b5ea453de07"
       ]
     }
   }
