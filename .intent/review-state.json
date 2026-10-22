@@ -152,15 +152,15 @@
       ]
     },
     "source:packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.stories.tsx": {
-      "fingerprint": "4206ed95e886b19770b50c5a1673b36e1bbb7ac8282f84f0e1d72b2489253e57",
+      "fingerprint": "32ce2e8ec812b34915ea57eae1062489bd14e9c91c7831ce3b07c538e74f3aa8",
       "snapshot": {
-        "packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.stories.tsx": "de9b7bdb7d2312de958f0ce129912d068fb87a59e47dfaecad24d77269d29583"
+        "packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.stories.tsx": "b46f9d1802b01d2fc3afc37170bc442394de6f3a346257fd73cb3cac4478c806"
       },
-      "head": "122b722fe83217166f9e5d3da3782b5ea453de07",
+      "head": "a9edd7e268ea0751a7bc83d5049fa78049b554d9",
       "outcome": "updated",
-      "reason": "add textContain to DataGridHeadCell, deprecate nowrap, update component-props.md",
+      "reason": "disable controls and actions for TextContain story",
       "evidence": [
-        "Changed: packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.stories.tsx at 122b722fe83217166f9e5d3da3782b5ea453de07"
+        "Changed: packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.stories.tsx at a9edd7e268ea0751a7bc83d5049fa78049b554d9"
       ]
     },
     "source:packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.test.tsx": {
