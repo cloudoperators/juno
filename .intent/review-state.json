@@ -174,6 +174,42 @@
       "evidence": [
         "Changed: packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.test.tsx at 9e46122f29d7cd2afcd6ebad1b61bc1b21af7565"
       ]
+    },
+    "source:packages/ui-components/src/components/Status/Status.component.tsx": {
+      "fingerprint": "988588206b34c3ef0c069b7863a807dd3affea6ee5ceee464b00b3709b86f1d8",
+      "snapshot": {
+        "packages/ui-components/src/components/Status/Status.component.tsx": "c059455ddce76e658b21b940a71cbafe2271fd8dc0136d6c045fb291e565d73d"
+      },
+      "head": "e36e67a0d7e7b83551102fb1d80121cf5e0c067b",
+      "outcome": "no-change",
+      "reason": "follow-up fix for zero ReactNode guard; no skill impact",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/Status/Status.component.tsx at e36e67a0d7e7b83551102fb1d80121cf5e0c067b"
+      ]
+    },
+    "source:packages/ui-components/src/components/Status/Status.stories.tsx": {
+      "fingerprint": "82706a1d9f1acb58ad822e45faaf02e6b907309f723510691fb9e4ce56761fc8",
+      "snapshot": {
+        "packages/ui-components/src/components/Status/Status.stories.tsx": "6d9d849075e405caebf8085e5f071655d60948cbe8313ac7ab1f118c389cb65c"
+      },
+      "head": "f53fa47517490d9d3c8537d3100500b47773aeda",
+      "outcome": "no-change",
+      "reason": "Status component has no associated skill; widening title and body to ReactNode does not affect any DataGrid skill",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/Status/Status.stories.tsx at f53fa47517490d9d3c8537d3100500b47773aeda"
+      ]
+    },
+    "source:packages/ui-components/src/components/Status/Status.test.tsx": {
+      "fingerprint": "c391674049bbbd6eb77039633ae77bf9d9cf85bffa7a3d7e2915b769cb5d6ea8",
+      "snapshot": {
+        "packages/ui-components/src/components/Status/Status.test.tsx": "bfc27cfa7e25042e93e04c34b032af3916fd5ed19c2d04f1757865736c31c450"
+      },
+      "head": "e36e67a0d7e7b83551102fb1d80121cf5e0c067b",
+      "outcome": "no-change",
+      "reason": "follow-up fix for zero ReactNode guard; no skill impact",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/Status/Status.test.tsx at e36e67a0d7e7b83551102fb1d80121cf5e0c067b"
+      ]
     }
   }
 }
