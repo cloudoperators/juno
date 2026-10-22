@@ -174,6 +174,42 @@
       "evidence": [
         "Changed: packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.test.tsx at 9e46122f29d7cd2afcd6ebad1b61bc1b21af7565"
       ]
+    },
+    "source:packages/ui-components/src/components/Status/Status.component.tsx": {
+      "fingerprint": "ed07b02302e2836de16fde36bf69ecae82b50c3ab6ce97d235fe0def029baf8e",
+      "snapshot": {
+        "packages/ui-components/src/components/Status/Status.component.tsx": "0a03a2a09536a7def00c0991755a7839bcc08e5c605bff1d203a304279b1fb7e"
+      },
+      "head": "f53fa47517490d9d3c8537d3100500b47773aeda",
+      "outcome": "no-change",
+      "reason": "Status component has no associated skill; widening title and body to ReactNode does not affect any DataGrid skill",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/Status/Status.component.tsx at f53fa47517490d9d3c8537d3100500b47773aeda"
+      ]
+    },
+    "source:packages/ui-components/src/components/Status/Status.stories.tsx": {
+      "fingerprint": "82706a1d9f1acb58ad822e45faaf02e6b907309f723510691fb9e4ce56761fc8",
+      "snapshot": {
+        "packages/ui-components/src/components/Status/Status.stories.tsx": "6d9d849075e405caebf8085e5f071655d60948cbe8313ac7ab1f118c389cb65c"
+      },
+      "head": "f53fa47517490d9d3c8537d3100500b47773aeda",
+      "outcome": "no-change",
+      "reason": "Status component has no associated skill; widening title and body to ReactNode does not affect any DataGrid skill",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/Status/Status.stories.tsx at f53fa47517490d9d3c8537d3100500b47773aeda"
+      ]
+    },
+    "source:packages/ui-components/src/components/Status/Status.test.tsx": {
+      "fingerprint": "1009a35e5fa11cb8b33b93b8c5be12a1c416d30a8bef89bdca9c192fb3605993",
+      "snapshot": {
+        "packages/ui-components/src/components/Status/Status.test.tsx": "af61d8ce09e43d9804884b8a75dd7e809ad74c63ed940b5be6e6fc9bab26b720"
+      },
+      "head": "f53fa47517490d9d3c8537d3100500b47773aeda",
+      "outcome": "no-change",
+      "reason": "Status component has no associated skill; widening title and body to ReactNode does not affect any DataGrid skill",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/Status/Status.test.tsx at f53fa47517490d9d3c8537d3100500b47773aeda"
+      ]
     }
   }
 }
