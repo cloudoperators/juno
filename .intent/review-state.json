@@ -164,15 +164,15 @@
       ]
     },
     "source:packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.test.tsx": {
-      "fingerprint": "6b4776e677f05a8c26b24342f1f3e1ca65ec2c07443447fc2b99b44c92b560f4",
+      "fingerprint": "0862c619c7ec2474f4ac34ea8ebb00805132dede124e122ae6bb631d4ab8c46b",
       "snapshot": {
-        "packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.test.tsx": "0623a4d2b72aae629b82c93dbdfa4dd7e559479c281f1e7b3845847f4f491f8a"
+        "packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.test.tsx": "f049efdcbb9050ef417eae9dfe44474884fc7790d13f7014812ee0debea17ffb"
       },
-      "head": "122b722fe83217166f9e5d3da3782b5ea453de07",
+      "head": "9e46122f29d7cd2afcd6ebad1b61bc1b21af7565",
       "outcome": "updated",
-      "reason": "add textContain to DataGridHeadCell, deprecate nowrap, update component-props.md",
+      "reason": "add full textContain test coverage to DataGridHeadCell",
       "evidence": [
-        "Changed: packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.test.tsx at 122b722fe83217166f9e5d3da3782b5ea453de07"
+        "Changed: packages/ui-components/src/components/DataGridHeadCell/DataGridHeadCell.test.tsx at 9e46122f29d7cd2afcd6ebad1b61bc1b21af7565"
       ]
     }
   }
