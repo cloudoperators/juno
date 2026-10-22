@@ -32,11 +32,11 @@ Prop reference for the DataGrid components referenced by
 
 ### DataGridHeadCell
 
-| Prop          | Type                                                                             | Notes                                                                                                        |
-| ------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `colSpan`     | `number`                                                                         | Span across multiple columns                                                                                 |
-| `textContain` | `"truncate-end" \| "truncate-start" \| "break-word" \| "break-all" \| "no-wrap"` | Controls how text that exceeds the cell width is contained; forwarded to the underlying `DataGridCell`       |
-| `nowrap`      | `boolean`                                                                        | **Deprecated** — use `textContain="no-wrap"`. Applies `white-space: nowrap`                                  |
+| Prop          | Type                                                                             | Notes                                                                                                  |
+| ------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `colSpan`     | `number`                                                                         | Span across multiple columns                                                                           |
+| `textContain` | `"truncate-end" \| "truncate-start" \| "break-word" \| "break-all" \| "no-wrap"` | Controls how text that exceeds the cell width is contained; forwarded to the underlying `DataGridCell` |
+| `nowrap`      | `boolean`                                                                        | **Deprecated** — use `textContain="no-wrap"`. Applies `white-space: nowrap`                            |
 
 ### DataGridToolbar
 

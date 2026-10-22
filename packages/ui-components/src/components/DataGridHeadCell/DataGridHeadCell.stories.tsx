@@ -63,8 +63,7 @@ export const NoWrap: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "DataGridHeadCell with `nowrap`. **Deprecated** — use `textContain=\"no-wrap\"` instead.",
+        story: 'DataGridHeadCell with `nowrap`. **Deprecated** — use `textContain="no-wrap"` instead.',
       },
     },
   },
