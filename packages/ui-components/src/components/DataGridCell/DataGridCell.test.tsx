@@ -63,6 +63,91 @@ describe("DataGridCell", () => {
     expect(screen.getByRole("gridcell")).toHaveClass("jn:whitespace-nowrap")
   })
 
+  test("renders no-wrap class when textContain='no-wrap'", () => {
+    render(<DataGridCell textContain="no-wrap" />)
+    expect(screen.getByRole("gridcell")).toHaveClass("jn:whitespace-nowrap")
+  })
+
+  test("wraps truncate-end content in an inner block element carrying the truncate class", () => {
+    render(<DataGridCell textContain="truncate-end">content</DataGridCell>)
+    const cell = screen.getByRole("gridcell")
+    // truncation is applied to an inner wrapper, not the cell itself
+    expect(cell).not.toHaveClass("jn:truncate")
+    const inner = cell.querySelector(".juno-datagrid-cell-truncate")
+    expect(inner).toHaveClass("jn:block")
+    expect(inner).toHaveClass("jn:truncate")
+    expect(inner).toHaveTextContent("content")
+    // truncate-end keeps the natural LTR direction — no bidi isolation needed
+    expect(cell.querySelector("bdi")).toBeNull()
+  })
+
+  test("adds min-w-0 to truncating cells so they can shrink within the grid track", () => {
+    render(<DataGridCell textContain="truncate-end" />)
+    expect(screen.getByRole("gridcell")).toHaveClass("jn:min-w-0")
+  })
+
+  test("adds min-w-0 to break-word cells so they wrap within the grid track instead of widening it", () => {
+    render(<DataGridCell textContain="break-word" />)
+    expect(screen.getByRole("gridcell")).toHaveClass("jn:min-w-0")
+  })
+
+  test("does not add min-w-0 to no-wrap cells (they stay on one line by design)", () => {
+    render(<DataGridCell textContain="no-wrap" />)
+    expect(screen.getByRole("gridcell")).not.toHaveClass("jn:min-w-0")
+  })
+
+  test("isolates truncate-start content in a <bdi> so edge punctuation is not reordered by direction:rtl", () => {
+    render(<DataGridCell textContain="truncate-start">Ready!</DataGridCell>)
+    const cell = screen.getByRole("gridcell")
+    const bdi = cell.querySelector("bdi")
+    expect(bdi).not.toBeNull()
+    expect(bdi).toHaveTextContent("Ready!")
+    // the <bdi> sits inside the truncating wrapper span
+    expect(cell.querySelector(".juno-datagrid-cell-truncate")?.contains(bdi)).toBe(true)
+  })
+
+  test("renders break-words class when textContain='break-word'", () => {
+    render(<DataGridCell textContain="break-word" />)
+    expect(screen.getByRole("gridcell")).toHaveClass("jn:break-words")
+  })
+
+  test("renders break-all class when textContain='break-all'", () => {
+    render(<DataGridCell textContain="break-all" />)
+    expect(screen.getByRole("gridcell")).toHaveClass("jn:break-all")
+  })
+
+  test("textContain takes precedence over deprecated nowrap", () => {
+    render(<DataGridCell nowrap textContain="break-word" />)
+    expect(screen.getByRole("gridcell")).toHaveClass("jn:break-words")
+    expect(screen.getByRole("gridcell")).not.toHaveClass("jn:whitespace-nowrap")
+  })
+
+  test("truncate preserves center alignment on the cell (truncation sits on the inner element)", () => {
+    render(
+      <DataGrid columns={1} cellVerticalAlignment="center">
+        <DataGridCell textContain="truncate-end">content</DataGridCell>
+      </DataGrid>
+    )
+    const cell = screen.getByRole("gridcell")
+    expect(cell).toHaveClass("jn:flex")
+    expect(cell).toHaveClass("jn:flex-col")
+    expect(cell).toHaveClass("jn:justify-center")
+    expect(cell).not.toHaveClass("jn:truncate")
+    expect(cell.querySelector(".juno-datagrid-cell-truncate")).toHaveClass("jn:truncate")
+  })
+
+  test("non-truncating textContain is applied to the cell without an inner wrapper", () => {
+    render(
+      <DataGrid columns={1} cellVerticalAlignment="center">
+        <DataGridCell textContain="break-word">content</DataGridCell>
+      </DataGrid>
+    )
+    const cell = screen.getByRole("gridcell")
+    expect(cell).toHaveClass("jn:break-words")
+    expect(cell).toHaveClass("jn:flex")
+    expect(cell.querySelector(".juno-datagrid-cell-truncate")).toBeNull()
+  })
+
   test("verticalAlignment prop works without a parent DataGrid context", () => {
     render(<DataGridCell verticalAlignment="center" />)
     expect(screen.getByRole("gridcell")).toHaveClass("jn:flex")
