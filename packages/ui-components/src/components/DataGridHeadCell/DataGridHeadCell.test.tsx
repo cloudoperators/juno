@@ -47,5 +47,47 @@ describe("DataGridHeadCell", () => {
     expect(inner).toHaveClass("jn:block")
     expect(inner).toHaveClass("jn:truncate")
     expect(inner).toHaveTextContent("content")
+    expect(cell.querySelector("bdi")).toBeNull()
+  })
+
+  test("adds min-w-0 to truncating cells so they can shrink within the grid track", () => {
+    render(<DataGridHeadCell textContain="truncate-end" />)
+    expect(screen.getByRole("columnheader")).toHaveClass("jn:min-w-0")
+  })
+
+  test("adds min-w-0 to break-word cells so they wrap within the grid track instead of widening it", () => {
+    render(<DataGridHeadCell textContain="break-word" />)
+    expect(screen.getByRole("columnheader")).toHaveClass("jn:min-w-0")
+  })
+
+  test("does not add min-w-0 to no-wrap cells (they stay on one line by design)", () => {
+    render(<DataGridHeadCell textContain="no-wrap" />)
+    expect(screen.getByRole("columnheader")).not.toHaveClass("jn:min-w-0")
+  })
+
+  test("isolates truncate-start content in a <bdi> so edge punctuation is not reordered by direction:rtl", () => {
+    render(<DataGridHeadCell textContain="truncate-start">Ready!</DataGridHeadCell>)
+    const cell = screen.getByRole("columnheader")
+    const bdi = cell.querySelector("bdi")
+    expect(bdi).not.toBeNull()
+    expect(bdi).toHaveTextContent("Ready!")
+    expect(cell.querySelector(".juno-datagrid-cell-truncate")?.contains(bdi)).toBe(true)
+  })
+
+  test("renders break-words class when textContain='break-word'", () => {
+    render(<DataGridHeadCell textContain="break-word" />)
+    expect(screen.getByRole("columnheader")).toHaveClass("jn:break-words")
+  })
+
+  test("renders break-all class when textContain='break-all'", () => {
+    render(<DataGridHeadCell textContain="break-all" />)
+    expect(screen.getByRole("columnheader")).toHaveClass("jn:break-all")
+  })
+
+  test("non-truncating textContain is applied to the cell without an inner wrapper", () => {
+    render(<DataGridHeadCell textContain="break-word">content</DataGridHeadCell>)
+    const cell = screen.getByRole("columnheader")
+    expect(cell).toHaveClass("jn:break-words")
+    expect(cell.querySelector(".juno-datagrid-cell-truncate")).toBeNull()
   })
 })
