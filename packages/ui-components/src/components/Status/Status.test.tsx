@@ -80,9 +80,36 @@ describe("Status", () => {
     expect(screen.getByText("Custom title")).toBeInTheDocument()
   })
 
+  it("renders a ReactNode as title", () => {
+    render(
+      <Status
+        status="error"
+        title={
+          <span>
+            Title with <a href="#">a link</a>
+          </span>
+        }
+      />
+    )
+    expect(screen.getByRole("link", { name: "a link" })).toBeInTheDocument()
+  })
+
   it("renders body text", () => {
     render(<Status body="Please try again." />)
     expect(screen.getByText("Please try again.")).toBeInTheDocument()
+  })
+
+  it("renders a ReactNode as body", () => {
+    render(
+      <Status
+        body={
+          <span>
+            Body with <a href="#">a link</a>
+          </span>
+        }
+      />
+    )
+    expect(screen.getByRole("link", { name: "a link" })).toBeInTheDocument()
   })
 
   it("renders details in a pre element", () => {

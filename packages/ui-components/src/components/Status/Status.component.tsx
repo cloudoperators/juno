@@ -31,13 +31,13 @@ const STATUS_DEFAULTS: Record<string, { title: string; body: string }> = {
   "no-matches": { title: "", body: "No items match the current filters. Adjust or clear filters." },
 }
 
-export interface StatusProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface StatusProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   /** The status to display. Determines the default copy. Defaults to `"error"`. */
   status?: "progress" | "error" | "empty" | "no-matches"
-  /** Optional title. Overrides the per-status default title when set. Use title case (e.g. "Something Went Wrong", not "Something went wrong"). */
-  title?: string
-  /** Optional body text. Overrides the per-status default body text when set. */
-  body?: string
+  /** Optional title. Overrides the per-status default title when set. Use title case (e.g. "Something Went Wrong", not "Something went wrong"). Accepts a React node to allow links, formatted text, or other inline elements. */
+  title?: ReactNode
+  /** Optional body text. Overrides the per-status default body text when set. Accepts a React node to allow links, line breaks, formatted text, or other inline elements. */
+  body?: ReactNode
   /** Renders a `Spinner`. Defaults to `true` when `status="progress"`, `false` otherwise. */
   spinner?: boolean
   /** Displayed large and prominently above the title. Intended for HTTP error codes such as 404 or 500. */
@@ -139,7 +139,9 @@ export const Status = ({
       {/* suppress rendering HTTP error codes inside a DataGrid: */}
       {/* explicit null check instead of truthiness — 0 is falsy but a valid (if unusual/non-sensical) value, but still… */}
       {code != null && !isDataGrid && <div className={`juno-status-code ${codeStyles}`}>{code}</div>}
-      {resolvedSpinner && <Spinner variant="primary" aria-label={resolvedTitle ?? "Loading"} />}
+      {resolvedSpinner && (
+        <Spinner variant="primary" aria-label={typeof resolvedTitle === "string" ? resolvedTitle : "Loading"} />
+      )}
       {resolvedTitle && <strong className={`juno-status-title ${titleStyles}`}>{resolvedTitle}</strong>}
       {resolvedBody && <div className={`juno-status-body ${bodyStyles}`}>{resolvedBody}</div>}
       {details && (
