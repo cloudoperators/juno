@@ -1,11 +1,11 @@
 import { default as React, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
-export interface StatusProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface StatusProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
     /** The status to display. Determines the default copy. Defaults to `"error"`. */
     status?: "progress" | "error" | "empty" | "no-matches";
-    /** Optional title. Overrides the per-status default title when set. Use title case (e.g. "Something Went Wrong", not "Something went wrong"). */
-    title?: string;
-    /** Optional body text. Overrides the per-status default body text when set. */
-    body?: string;
+    /** Optional title. Overrides the per-status default title when set. Use title case (e.g. "Something Went Wrong", not "Something went wrong"). Accepts a React node to allow links, formatted text, or other inline elements. */
+    title?: ReactNode;
+    /** Optional body text. Overrides the per-status default body text when set. Accepts a React node to allow links, line breaks, formatted text, or other inline elements. */
+    body?: ReactNode;
     /** Renders a `Spinner`. Defaults to `true` when `status="progress"`, `false` otherwise. */
     spinner?: boolean;
     /** Displayed large and prominently above the title. Intended for HTTP error codes such as 404 or 500. */
