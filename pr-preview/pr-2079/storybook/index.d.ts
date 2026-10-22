@@ -100,6 +100,7 @@ export { TooltipTrigger } from './components/TooltipTrigger/TooltipTrigger.compo
 export { TopNavigation } from './components/TopNavigation/TopNavigation.component';
 export { TopNavigationItem } from './components/TopNavigationItem/TopNavigationItem.component';
 export { useEndlessScrollList } from './hooks/useEndlessScrollList';
+export type { TextContainType } from './shared/textContain';
 export type { AppBodyProps } from './components/AppBody/AppBody.component';
 export type { AppShellProps } from './components/AppShell/AppShell.component';
 export type { AppShellProviderProps, AppShellStyleWrapper, } from './components/AppShellProvider/AppShellProvider.component';
