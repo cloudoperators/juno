@@ -142,8 +142,12 @@ export const Status = ({
       {resolvedSpinner && (
         <Spinner variant="primary" aria-label={typeof resolvedTitle === "string" ? resolvedTitle : "Loading"} />
       )}
-      {resolvedTitle && <strong className={`juno-status-title ${titleStyles}`}>{resolvedTitle}</strong>}
-      {resolvedBody && <div className={`juno-status-body ${bodyStyles}`}>{resolvedBody}</div>}
+      {resolvedTitle != null && resolvedTitle !== false && resolvedTitle !== "" && (
+        <strong className={`juno-status-title ${titleStyles}`}>{resolvedTitle}</strong>
+      )}
+      {resolvedBody != null && resolvedBody !== false && resolvedBody !== "" && (
+        <div className={`juno-status-body ${bodyStyles}`}>{resolvedBody}</div>
+      )}
       {details && (
         <pre
           aria-label="Error details"

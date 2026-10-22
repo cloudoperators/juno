@@ -118,6 +118,20 @@ describe("Status", () => {
     expect(screen.getByText("Error: something failed")).toBeInTheDocument()
   })
 
+  it("renders a numeric zero as title inside the title wrapper", () => {
+    render(<Status title={0} />)
+    const title = document.querySelector(".juno-status-title")
+    expect(title).toBeInTheDocument()
+    expect(title).toHaveTextContent("0")
+  })
+
+  it("renders a numeric zero as body inside the body wrapper", () => {
+    render(<Status body={0} />)
+    const body = document.querySelector(".juno-status-body")
+    expect(body).toBeInTheDocument()
+    expect(body).toHaveTextContent("0")
+  })
+
   it("does not render details when not passed", () => {
     render(<Status />)
     expect(screen.queryByLabelText("Error details")).not.toBeInTheDocument()
