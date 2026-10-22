@@ -75,6 +75,8 @@ export const NoWrap: Story = {
 
 export const TextContain: Story = {
   parameters: {
+    controls: { disable: true },
+    actions: { disable: true },
     docs: {
       description: {
         story:
