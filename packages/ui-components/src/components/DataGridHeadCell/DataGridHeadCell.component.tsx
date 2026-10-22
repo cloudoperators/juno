@@ -5,6 +5,7 @@
 
 import React, { forwardRef, HTMLAttributes, ReactNode } from "react"
 import { DataGridCell } from "../DataGridCell/index"
+import { TextContainType } from "../../shared/textContain"
 
 const headCellBaseStyles = `
 	jn:font-bold
@@ -19,11 +20,12 @@ const headCellBaseStyles = `
  * @see {@link DataGridHeadCellProps}
  */
 export const DataGridHeadCell = forwardRef<HTMLDivElement, DataGridHeadCellProps>(
-  ({ colSpan, nowrap = false, className = "", children, ...props }, ref) => {
+  ({ colSpan, nowrap = false, textContain, className = "", children, ...props }, ref) => {
     return (
       <DataGridCell
         colSpan={colSpan}
         nowrap={nowrap}
+        textContain={textContain}
         className={`juno-datagrid-head-cell ${headCellBaseStyles} ${className}`}
         role="columnheader"
         ref={ref}
@@ -38,12 +40,26 @@ export const DataGridHeadCell = forwardRef<HTMLDivElement, DataGridHeadCellProps
 DataGridHeadCell.displayName = "DataGridHeadCell"
 
 export interface DataGridHeadCellProps extends HTMLAttributes<HTMLElement> {
-  /** Add a col span to the cell. This works like a colspan in a normal html table, so you have to take care not to place too many cells in a row if some of them have a colspan.  */
+  /** Defines the number of columns the cell spans. */
   colSpan?: number
-  /** Set nowrap to true if the cell content shouldn't wrap (this is achieved by adding white-space: nowrap;) */
+
+  /**
+   * If set, content within the cell will not wrap.
+   * @default false
+   * @deprecated Use `textContain="no-wrap"` instead. When `textContain` is set, `nowrap` is ignored.
+   */
   nowrap?: boolean
+
+  /**
+   * Controls how the cell contains text that exceeds its available space.
+   * Forwarded to the underlying `DataGridCell` — see its documentation for full details.
+   * Takes precedence over the deprecated `nowrap` prop.
+   */
+  textContain?: TextContainType
+
   /** Children to render in the DataGridHeadCell */
   children?: ReactNode
+
   /** Add a classname */
   className?: string
 }
