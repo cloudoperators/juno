@@ -1,5 +1,13 @@
 # @cloudoperators/juno-ui-components
 
+## 9.7.2
+
+### Patch Changes
+
+- 4c952c8: feat(ui): add textContain prop to DataGridHeadCell, deprecate nowrap
+- 322b388: feat(ui): add shared textContain module and DataGridCell prop for text wrapping and truncation
+- 67e7695: feat(ui): make Status title and body props accept React nodes
+
 ## 9.7.1
 
 ### Patch Changes
