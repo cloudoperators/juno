@@ -27,6 +27,8 @@ Do NOT use an OverflowMenu when:
 
 Whether to use an overflow menu for a single action is ultimately the author's call. As a default: in list and table contexts, prefer an overflow menu even for a single action, since repeating the same inline control across every row adds visual noise. Outside of lists, default to showing the action inline unless there is a specific reason to house it in a menu. To avoid page clutter in either case, another option is to display the button or icon inline but only make it appear when hovering the item/row.
 
+**Exception:** In inline/in-place editing contexts — where items are added to or removed from a working set and the action is low-risk — a single visible icon button per item remains appropriate. See [Inline Adding, Editing, and Deleting Items](inline-adding-editing-and-deleting.md).
+
 When using a PopupMenu, always make sure:
 
 - the options in the menu are labelled in a way that leaves no doubt as to what the item will do once clicked
