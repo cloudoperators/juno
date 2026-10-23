@@ -30,6 +30,6 @@ The new item should appear in its editable state, ready for input. There should 
 
 ## Inline Deleting
 
-Where items can be deleted and the user has the necessary permissions, a delete action — typically an icon button — can be placed on each item. On activation, disable the action while deletion is in progress; remove the item only after the request succeeds, and retain the item while surfacing an error if it fails.
+Where items can be deleted and the user has the necessary permissions, a delete action — typically an icon button — can be placed on each item. Placing a visible icon button directly on each item is an intentional exception to the general preference for overflow menus in list contexts (see [Popup and Overflow Menus](popup-and-overflow-menus.md)). It is appropriate here because the action is low-risk, the interaction is in-place, and users are likely to repeat it in quick succession — where the two-click overhead of an overflow menu would be a meaningful workflow cost. On activation, disable the action while deletion is in progress; remove the item only after the request succeeds, and retain the item while surfacing an error if it fails.
 
 Use the inline delete pattern only for low-criticality deletions where the consequences of accidental deletion are minimal. For higher-criticality actions, add a confirmation step — see [Modals — Destructive Actions](modals.md#destructive-actions-and-confirmation-of-destructive-actions) for guidance on choosing the appropriate confirmation level based on severity.

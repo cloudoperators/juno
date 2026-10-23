@@ -16,16 +16,18 @@ Use an OverflowMenu when:
 
 - the options or actions in the menu are associated with or targeted at a specific item
 - there are multiple options per item
-- there is only a single option per item, but showing it inline in the item itself as an icon or button would lead to page clutter, the option is likely rarely to be used, or the action is highly destructive
+- there is only a single option per item, and the UI context is a list or table (e.g. a DataGrid) where showing the action inline on every row would result in many identical, repeated controls and visual clutter
 
-Do NOT use an overflow item when:
+Do NOT use an OverflowMenu when:
 
 - it is impossible for a user to establish what item or UI element the menu and its options refer to
-- there is only a single option on the item, and that single option is often used so putting it inside menu feels like additional legwork, and/or that single option is not highly destructive
+- there is only a single option, the UI context is not a list or table, and the option is frequently used — in that case, an inline button or icon is the more direct choice
 
 ### Bottom Line
 
-When in doubt and to prevent page clutter, it is usually the safer option to also put single item options in an overflow menu, unless the option is very often used, and not destructive. To avoid page clutter, another option is to display the button or icon inline, but only make it appear when hovering the item/row.
+Whether to use an overflow menu for a single action is ultimately the author's call. As a default: in list and table contexts, prefer an overflow menu even for a single action, since repeating the same inline control across every row adds visual noise. Outside of lists, default to showing the action inline unless there is a specific reason to house it in a menu. To avoid page clutter in either case, another option is to display the button or icon inline but only make it appear when hovering the item/row.
+
+**Exception:** In inline/in-place editing contexts — where items are added to or removed from a working set and the action is low-risk — a single visible icon button per item remains appropriate. See [Inline Adding, Editing, and Deleting Items](inline-adding-editing-and-deleting.md).
 
 When using a PopupMenu, always make sure:
 
