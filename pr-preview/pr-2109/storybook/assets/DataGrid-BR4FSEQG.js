@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-C0FnF6B9.js";import{l as t}from"./DataGridHeadCell.component-BUDzBEUA.js";function n(){return(n=e((()=>{t()})))()}export{n as t};
