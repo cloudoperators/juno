@@ -1136,27 +1136,27 @@
       ]
     },
     "source:packages/ui-components/src/components/DescriptionDefinition/DescriptionDefinition.component.tsx": {
-      "fingerprint": "fbf661d092f89ee874af4431af0b6a6ceda9d985401088cec5969728a2b5e33d",
+      "fingerprint": "17562cee0896c81fcc3125089a738990db8e1d063305e1008b967e8a21f01c84",
       "snapshot": {
-        "packages/ui-components/src/components/DescriptionDefinition/DescriptionDefinition.component.tsx": "b2a538b75137f1ff0234b3c531e365128e64b4d86bfc483a1a7edf4ab7985078"
+        "packages/ui-components/src/components/DescriptionDefinition/DescriptionDefinition.component.tsx": "c1c77f47f2f03fbecc015ce75c07efb5f2960060155e5d4c523989bf25bcae48"
       },
-      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "head": "aa2060bf122d8077eb168710314290c83fa86941",
       "outcome": "no-change",
-      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "reason": "source-only fixes for break-word overflow and truncate-start alignment — no guidance items affected",
       "evidence": [
-        "Changed: packages/ui-components/src/components/DescriptionDefinition/DescriptionDefinition.component.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+        "Changed: packages/ui-components/src/components/DescriptionDefinition/DescriptionDefinition.component.tsx at aa2060bf122d8077eb168710314290c83fa86941"
       ]
     },
     "source:packages/ui-components/src/components/DescriptionDefinition/DescriptionDefinition.test.tsx": {
-      "fingerprint": "f35d640e521f3dff0ab2d9c328b146513976850b7eede80d831640d3c481356c",
+      "fingerprint": "11244c06e3d83fbc3d307fbbcd60102d4fcf5dfa4248476a968da4681c017187",
       "snapshot": {
-        "packages/ui-components/src/components/DescriptionDefinition/DescriptionDefinition.test.tsx": "6754a8b729ee024f991a92ebd5621c75ac1c56d7988ff6eda913bc8d5da7b9a4"
+        "packages/ui-components/src/components/DescriptionDefinition/DescriptionDefinition.test.tsx": "75ad930afa8b27697aab907f205af475f95fdac35b23eae304648371963f8d18"
       },
-      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "head": "aa2060bf122d8077eb168710314290c83fa86941",
       "outcome": "no-change",
-      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "reason": "source-only fixes for break-word overflow and truncate-start alignment — no guidance items affected",
       "evidence": [
-        "Changed: packages/ui-components/src/components/DescriptionDefinition/DescriptionDefinition.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+        "Changed: packages/ui-components/src/components/DescriptionDefinition/DescriptionDefinition.test.tsx at aa2060bf122d8077eb168710314290c83fa86941"
       ]
     },
     "source:packages/ui-components/src/components/DescriptionList/DescriptionList.stories.tsx": {
@@ -1172,27 +1172,27 @@
       ]
     },
     "source:packages/ui-components/src/components/DescriptionTerm/DescriptionTerm.component.tsx": {
-      "fingerprint": "1e53f9322b7cbceee4a20f8035ee2d8fc26fbcb95df3cce5e0bed734a3118f3c",
+      "fingerprint": "b0b820ef0478eb49d6795b4460968d8bd6b4c15b13e3c13f4383a40fdaac8b26",
       "snapshot": {
-        "packages/ui-components/src/components/DescriptionTerm/DescriptionTerm.component.tsx": "2596fdead2d8a09f14cd5a19f394a1912280c3ae3cd9af200b16255d17f40ac8"
+        "packages/ui-components/src/components/DescriptionTerm/DescriptionTerm.component.tsx": "95bea79853353878727b3183b1332b42882d7e2c74a5d1e3adcf20fdea78a490"
       },
-      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "head": "aa2060bf122d8077eb168710314290c83fa86941",
       "outcome": "no-change",
-      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "reason": "source-only fixes for break-word overflow and truncate-start alignment — no guidance items affected",
       "evidence": [
-        "Changed: packages/ui-components/src/components/DescriptionTerm/DescriptionTerm.component.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+        "Changed: packages/ui-components/src/components/DescriptionTerm/DescriptionTerm.component.tsx at aa2060bf122d8077eb168710314290c83fa86941"
       ]
     },
     "source:packages/ui-components/src/components/DescriptionTerm/DescriptionTerm.test.tsx": {
-      "fingerprint": "07a5029278dc94dad0942d478ae836bb3bcad814f2ab4eb29ab46d7791741bea",
+      "fingerprint": "5afe31654dcb229ac166392afefaa95d355a13648a382b4d80afd969e1f1f313",
       "snapshot": {
-        "packages/ui-components/src/components/DescriptionTerm/DescriptionTerm.test.tsx": "bf7642a6a2036ef0d22cc1169b79865f6a9a087ec1d3e2f07f5a5a46ef3b7501"
+        "packages/ui-components/src/components/DescriptionTerm/DescriptionTerm.test.tsx": "6733d315bed8619d92d5be768cae23fcffcebf5693796c83b95c8117faf5a6f8"
       },
-      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "head": "aa2060bf122d8077eb168710314290c83fa86941",
       "outcome": "no-change",
-      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "reason": "source-only fixes for break-word overflow and truncate-start alignment — no guidance items affected",
       "evidence": [
-        "Changed: packages/ui-components/src/components/DescriptionTerm/DescriptionTerm.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+        "Changed: packages/ui-components/src/components/DescriptionTerm/DescriptionTerm.test.tsx at aa2060bf122d8077eb168710314290c83fa86941"
       ]
     },
     "source:packages/ui-components/src/components/TabBar/TabBar.component.tsx": {
