@@ -7,6 +7,7 @@ export declare const Default: Story;
 export declare const HttpError: Story;
 export declare const WithDetails: Story;
 export declare const WithAction: Story;
+export declare const WithReactNodeContent: Story;
 export declare const Loading: Story;
 export declare const InPageContext: Story;
 export declare const WithCodeInPageContext: Story;
