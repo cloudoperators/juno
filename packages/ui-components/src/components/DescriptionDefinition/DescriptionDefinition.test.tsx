@@ -46,6 +46,21 @@ describe("DescriptionDefinition", () => {
     expect(dd.querySelector(".juno-dd-truncate")?.contains(bdi)).toBe(true)
   })
 
+  it("adds grid-cols-1 for break-word so the implicit inner column can shrink and text wraps", () => {
+    render(<DescriptionDefinition textContain="break-word">Definition</DescriptionDefinition>)
+    expect(screen.getByRole("definition")).toHaveClass("jn:grid-cols-1")
+  })
+
+  it("adds grid-cols-1 for truncate-end", () => {
+    render(<DescriptionDefinition textContain="truncate-end">Definition</DescriptionDefinition>)
+    expect(screen.getByRole("definition")).toHaveClass("jn:grid-cols-1")
+  })
+
+  it("does not add grid-cols-1 for no-wrap", () => {
+    render(<DescriptionDefinition textContain="no-wrap">Definition</DescriptionDefinition>)
+    expect(screen.getByRole("definition")).not.toHaveClass("jn:grid-cols-1")
+  })
+
   it("adds min-w-0 for truncate-end so the <dd> can shrink within its grid track", () => {
     render(<DescriptionDefinition textContain="truncate-end">Definition</DescriptionDefinition>)
     expect(screen.getByRole("definition")).toHaveClass("jn:min-w-0")

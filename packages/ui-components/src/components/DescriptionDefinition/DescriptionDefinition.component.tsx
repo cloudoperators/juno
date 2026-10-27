@@ -16,6 +16,10 @@ const baseStyles = (textContain: TextContainType | undefined) => {
   // width within the outer grid track. Without it, long text widens the column instead
   // of clipping or wrapping. Excluded for `no-wrap` by design.
   const ddMinWidth = textContain && textContain !== "no-wrap" ? "jn:min-w-0" : ""
+  // `jn:grid-cols-1` sets an explicit `minmax(0, 1fr)` column so the implicit inner
+  // grid column can shrink to 0. Without it, `break-word` never fires because the
+  // implicit column's minimum is the content's min-content width, not 0.
+  const ddGridCols = textContain && textContain !== "no-wrap" ? "jn:grid-cols-1" : ""
   return `
     jn:grid
     jn:items-start
@@ -27,6 +31,7 @@ const baseStyles = (textContain: TextContainType | undefined) => {
     jn:col-span-3
     ${ddTextContain}
     ${ddMinWidth}
+    ${ddGridCols}
   `
 }
 

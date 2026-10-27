@@ -44,6 +44,28 @@ describe("DescriptionTerm", () => {
     expect(dt.querySelector(".juno-dt-truncate")?.contains(bdi)).toBe(true)
   })
 
+  it("adds grid-cols-1 for break-word so the implicit inner column can shrink and text wraps", () => {
+    render(<DescriptionTerm textContain="break-word">Term</DescriptionTerm>)
+    expect(screen.getByRole("term")).toHaveClass("jn:grid-cols-1")
+  })
+
+  it("adds grid-cols-1 for truncate-end", () => {
+    render(<DescriptionTerm textContain="truncate-end">Term</DescriptionTerm>)
+    expect(screen.getByRole("term")).toHaveClass("jn:grid-cols-1")
+  })
+
+  it("does not add grid-cols-1 for no-wrap", () => {
+    render(<DescriptionTerm textContain="no-wrap">Term</DescriptionTerm>)
+    expect(screen.getByRole("term")).not.toHaveClass("jn:grid-cols-1")
+  })
+
+  it("preserves group alignment on the inner truncation span so alignTerms is not overridden", () => {
+    render(<DescriptionTerm textContain="truncate-start">Term</DescriptionTerm>)
+    const inner = screen.getByRole("term").querySelector(".juno-dt-truncate")
+    expect(inner).toHaveClass("jn:group-[.align-right]:text-right")
+    expect(inner).toHaveClass("jn:group-[.align-left]:text-left")
+  })
+
   it("adds min-w-0 for truncate-end so the <dt> can shrink within its grid track", () => {
     render(<DescriptionTerm textContain="truncate-end">Term</DescriptionTerm>)
     expect(screen.getByRole("term")).toHaveClass("jn:min-w-0")
