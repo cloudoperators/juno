@@ -6,17 +6,16 @@
 import React, { ReactNode } from "react"
 
 const baseStyles = `
-jn:grid 
-jn:items-start 
-jn:border-b 
+jn:grid
+jn:items-start
+jn:border-b
 jn:border-theme-default
 jn:bg-dt-background
 jn:text-dt-text
 jn:font-bold
 jn:gap-y-[0.25rem]
 jn:p-2
-jn:col-span-1
-jn:group-[.align-right]:text-right 
+jn:group-[.align-right]:text-right
 jn:group-[.align-left]:text-left
 `
 
