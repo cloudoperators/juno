@@ -210,6 +210,1182 @@
       "evidence": [
         "Changed: packages/ui-components/src/components/Status/Status.test.tsx at e36e67a0d7e7b83551102fb1d80121cf5e0c067b"
       ]
+    },
+    "source:.github/licenserc.yaml": {
+      "fingerprint": "95021b7976008182f6f1c8070ac18a7483f2325e14b904efbf0d257b14c0e232",
+      "snapshot": {
+        ".github/licenserc.yaml": "b11b3671281e9202fd3f123915c0dad8748522b91f89c6e43b2a42894c17b979"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: .github/licenserc.yaml at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:.github/workflows/build-push-greenhouse-image.yaml": {
+      "fingerprint": "85818370029eb12a48acaa4e355960b04aef8e3ed53094c11fcfb071df0cfbf1",
+      "snapshot": {
+        ".github/workflows/build-push-greenhouse-image.yaml": "4d8c930e480382bd97c68099cf2421bf8463b6c720ebe4dfee567c3d4dbf7849"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: .github/workflows/build-push-greenhouse-image.yaml at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:.github/workflows/build-push-supernova-image.yaml": {
+      "fingerprint": "8647c579feab961aa952d3ec246e8fe1a79e75e82cf730955ad6fa954311d63f",
+      "snapshot": {
+        ".github/workflows/build-push-supernova-image.yaml": "57ee9dd56991d5c3920ad417e6a206677c21807309431620ad85fca7d66be97b"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: .github/workflows/build-push-supernova-image.yaml at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:.github/workflows/release.yaml": {
+      "fingerprint": "0a1b46abd7b865407a549f19fb596bcaad0b75bcd0e13a9e33099d71fafbf1f0",
+      "snapshot": {
+        ".github/workflows/release.yaml": "483a9f67f235d59a25ddf0a9184358bc9d7e27f548f5132283a741e53b41e9c4"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: .github/workflows/release.yaml at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:.prettierignore": {
+      "fingerprint": "2231ce26e71553ee68a3fa70edf80628cd8a1ea5aecb6a2727c02d03013145a8",
+      "snapshot": {
+        ".prettierignore": "7d556fe3ce0cd6627af1d6bc8362dcf92ed8b6d03e3cb6c78b0f245a8f31654c"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: .prettierignore at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/doop/eslint.config.mjs": {
+      "fingerprint": "dcf7b633af05e5b929d17f1e8d7600555b8eae910aceb70e861bc8c130f597cb",
+      "snapshot": {
+        "apps/doop/eslint.config.mjs": "141c39cce471c455b2f649eb8d0c895f9a03b2dd2222d44772ae9b981a5898a6"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/doop/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/doop/tsconfig.json": {
+      "fingerprint": "615d4d79649177d69c300c2a138d5bce96a4a934b47bb9d91edb7cd7ee390d5f",
+      "snapshot": {
+        "apps/doop/tsconfig.json": "4c5e153139cb603a978fd149014ff1006a8a05393ece1f0462729eb74de92fed"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/doop/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/doop/vite.config.ts": {
+      "fingerprint": "55fb1f0fe0a2e569137783fc61176bd51affd42bb230424afd1b421c0957a730",
+      "snapshot": {
+        "apps/doop/vite.config.ts": "12f7b4f00ed18a7304d4d253e7fb5da4e28cec819bb20ea1eb21e820c9e274a2"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/doop/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/greenhouse/eslint.config.mjs": {
+      "fingerprint": "38ea6acf0d4adc93d3f22285b069adc92ac4205f906a0aef8b2c1764dc654d0d",
+      "snapshot": {
+        "apps/greenhouse/eslint.config.mjs": "d358cb3e9794fdba0385c3675909b89ba9454f9061a6394d73d174218a9ca419"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/greenhouse/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/greenhouse/tsconfig.json": {
+      "fingerprint": "3f404fa8391e0d72361e4a3b3c508ea482acc4747967eb2598c4395ed0653fd7",
+      "snapshot": {
+        "apps/greenhouse/tsconfig.json": "7042a1664be5024ad4398b990cbd9fc07c2c967f09a3717854cbf6de9009b227"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/greenhouse/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/greenhouse/vite.config.ts": {
+      "fingerprint": "7c5537ecfe8cf04a44b048f6478f496b4e6f6197444b819bf95fcaf9de53c9a4",
+      "snapshot": {
+        "apps/greenhouse/vite.config.ts": "90836295432647e790af8045eed46e83fc02b6fae358e8acf48381d82ab69181"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/greenhouse/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/eslint.config.mjs": {
+      "fingerprint": "121642390474539cef52e0046b3cce3e7aead5d0f8b600fe13e6d2f33500dabf",
+      "snapshot": {
+        "apps/heureka/eslint.config.mjs": "c80e4f09921b3a8945b3bb3aeb02ebf672433a10d424d0a5641ee120be57d922"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/Service/ImageDetails/ChangeSeverityModal/ChangeSeverityModal.test.tsx": {
+      "fingerprint": "592a0208f300e8ca8792be7b5455ae8a6d18faf47927184b8ba3d43a86cddebe",
+      "snapshot": {
+        "apps/heureka/src/components/Service/ImageDetails/ChangeSeverityModal/ChangeSeverityModal.test.tsx": "234bce9022cb7426d5d43c32d1c7409aeb8703db2663dbd4b74e2df3b665bd6f"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/Service/ImageDetails/ChangeSeverityModal/ChangeSeverityModal.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/Service/ImageDetails/FalsePositiveModal/FalsePositiveModal.test.tsx": {
+      "fingerprint": "5383e7ad9ab2fefc18e1ece60a7986b5e0d0ffa46ac03f870f0e656c63e729fa",
+      "snapshot": {
+        "apps/heureka/src/components/Service/ImageDetails/FalsePositiveModal/FalsePositiveModal.test.tsx": "a2f108f023bc524e921ebc567e89e3a20a9bc796261dcc4ae11d1e8d05c1f63d"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/Service/ImageDetails/FalsePositiveModal/FalsePositiveModal.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/Service/ImageDetails/FalsePositiveModal/index.tsx": {
+      "fingerprint": "b8b0989bb6463b33e164aabe84aec9cfc11a275c2ae81600907ad26b6069b7cb",
+      "snapshot": {
+        "apps/heureka/src/components/Service/ImageDetails/FalsePositiveModal/index.tsx": "928ebd01aa56e3b19737e8452282b3061326d0b2a8dc04e74bc14720b6baa78b"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/Service/ImageDetails/FalsePositiveModal/index.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/Service/ImageDetails/ImageIssuesList/RemediatedIssuesDataRows/RemediatedIssueDataRow/RemediatedIssueDataRow.test.tsx": {
+      "fingerprint": "33bb02a243e0d4d17ebb4079b160d46c827d4a15d0e923029fb4204500d19235",
+      "snapshot": {
+        "apps/heureka/src/components/Service/ImageDetails/ImageIssuesList/RemediatedIssuesDataRows/RemediatedIssueDataRow/RemediatedIssueDataRow.test.tsx": "f07add995fd76449bfab2aa435eff199784eab8dc6b38c22a72c5ff6f8e788fd"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/Service/ImageDetails/ImageIssuesList/RemediatedIssuesDataRows/RemediatedIssueDataRow/RemediatedIssueDataRow.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/Service/ImageDetails/ImageIssuesList/RemediationHistoryPanel/RemediationHistoryPanel.test.tsx": {
+      "fingerprint": "e9a60643e6648bb75ef17298f22331ecef2618292b6872f9d10f8ef53702606a",
+      "snapshot": {
+        "apps/heureka/src/components/Service/ImageDetails/ImageIssuesList/RemediationHistoryPanel/RemediationHistoryPanel.test.tsx": "f4b55f97105b0400deba8bde808794f48ec0cc669dd2a9c458cc0d005e82a427"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/Service/ImageDetails/ImageIssuesList/RemediationHistoryPanel/RemediationHistoryPanel.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/Service/ImageDetails/MitigateManuallyModal/index.tsx": {
+      "fingerprint": "980a5b6bc440bf8ccdef61c636d6ef43072c96aea5a53607c976ffbbf531371a",
+      "snapshot": {
+        "apps/heureka/src/components/Service/ImageDetails/MitigateManuallyModal/index.tsx": "f71a4a918519718b3277c1d898b78986f51af576df3c00a0f51fd9531a16596c"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/Service/ImageDetails/MitigateManuallyModal/index.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/Service/ImageDetails/RemediationModal/RemediationModal.test.tsx": {
+      "fingerprint": "0bb64d0df273fa01e2a505f978f70169d289eba769c2c1ead084f196922e51d8",
+      "snapshot": {
+        "apps/heureka/src/components/Service/ImageDetails/RemediationModal/RemediationModal.test.tsx": "4d3597f9cf164e38dcf488995d109489df1c85dd288b93bdbbfb732b53104658"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/Service/ImageDetails/RemediationModal/RemediationModal.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/Service/ImageDetails/RiskAcceptanceModal/RiskAcceptanceModal.test.tsx": {
+      "fingerprint": "6a0760ecd47a9e7efa95ffbae8771cc4c1daf8d1129ea7af3178cdea21eb2f32",
+      "snapshot": {
+        "apps/heureka/src/components/Service/ImageDetails/RiskAcceptanceModal/RiskAcceptanceModal.test.tsx": "d50c4b04859e14f08e25e0fb687e8df4729c5be1641bcd908b1d481df53372ff"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/Service/ImageDetails/RiskAcceptanceModal/RiskAcceptanceModal.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/Service/ImageDetails/RiskAcceptanceModal/index.tsx": {
+      "fingerprint": "71437352d3f5dd1eb087bfc3b93eea2b8f734b32be6396cb995445cf22b0ed99",
+      "snapshot": {
+        "apps/heureka/src/components/Service/ImageDetails/RiskAcceptanceModal/index.tsx": "4da891d141cbc495016dd7e831b616c76ed4563a5801f7ef66dca3447d7175c8"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/Service/ImageDetails/RiskAcceptanceModal/index.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/Services/Services.test.tsx": {
+      "fingerprint": "4db539a772bb23ed943f40f8d6400860df64bf3e519a348856b1796ac9d5b98e",
+      "snapshot": {
+        "apps/heureka/src/components/Services/Services.test.tsx": "3963b303d494ce5082b9e1b3ab65643e6192503f4cb9babb543d3292058e9733"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/Services/Services.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/Services/ServicesList/ServicesDataRows/ServiceDataRow.tsx": {
+      "fingerprint": "986b7730374046ab3ddecf5117ea02d6b9e2a78ffc7066fb8eb40c4b9fab96e3",
+      "snapshot": {
+        "apps/heureka/src/components/Services/ServicesList/ServicesDataRows/ServiceDataRow.tsx": "03545ec5a78c78583236ab1e5ed07f8bc38f5ea4cc891b52e5d612111351f7e1"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/Services/ServicesList/ServicesDataRows/ServiceDataRow.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/Services/index.tsx": {
+      "fingerprint": "09e093ee7c434a042170761541dcab06895ea5a775fa4260f9dfd62b20f228e7",
+      "snapshot": {
+        "apps/heureka/src/components/Services/index.tsx": "d6cb6758be1720c47958b25f1687e0014944cfbf41a092abf9191a7c303a0911"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/Services/index.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/Vulnerabilities/Vulnerabilities.test.tsx": {
+      "fingerprint": "a525985fc645c2e3612edf5c4a23b9a6fb3445fd32b7b96225e3973a852d696b",
+      "snapshot": {
+        "apps/heureka/src/components/Vulnerabilities/Vulnerabilities.test.tsx": "08fb0bd9bcd784953974b3d568d3f5d243c72d7f3affd82d77ec7e77dbf4f665"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/Vulnerabilities/Vulnerabilities.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/Vulnerabilities/index.tsx": {
+      "fingerprint": "415ec08e089ba272ea507476e449c9998bf900d707515309979ad22a44218eb7",
+      "snapshot": {
+        "apps/heureka/src/components/Vulnerabilities/index.tsx": "042be7d33ebfc483ae13194cb5352fe16e43e4dcda66e3b125d7429fe591cdf6"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/Vulnerabilities/index.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/common/Breadcrumb.tsx": {
+      "fingerprint": "2db4d1e2bcbb4967366cc589de0dda6d3eae0d6b46d754ed17b79fe697bc63b4",
+      "snapshot": {
+        "apps/heureka/src/components/common/Breadcrumb.tsx": "6529bdf92480f110fc4d01c10470c727b0cc0d62caf30c68d8a461655c236ec4"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/common/Breadcrumb.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/common/EmptyDataGridRow.tsx": {
+      "fingerprint": "7815e328bb738550f921aa3cc9cf94f52c2530566de4f59d60ac40c0e5e88149",
+      "snapshot": {
+        "apps/heureka/src/components/common/EmptyDataGridRow.tsx": "123a9612943e94e2dbdc185c38ed2a749e070129fe49899b4c97d53421aa8a83"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/common/EmptyDataGridRow.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/common/ErrorBoundary/ErrorMessage.test.tsx": {
+      "fingerprint": "7b1dd92135f7f2df17c5e707035804b16938f61c4da5948cde5cf6f3ae31ecd7",
+      "snapshot": {
+        "apps/heureka/src/components/common/ErrorBoundary/ErrorMessage.test.tsx": "28a55a430200ec838019125880114a47234da866e3f46e3986b89968fc6a6830"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/common/ErrorBoundary/ErrorMessage.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/common/ErrorBoundary/ErrorMessage.tsx": {
+      "fingerprint": "9c9edd59a8f558c756467016fa6ec1769123085ea1a042471650502591213904",
+      "snapshot": {
+        "apps/heureka/src/components/common/ErrorBoundary/ErrorMessage.tsx": "b02fef07bda123b872248ee95d24b43767d4929e8f9a62903b022216e6a658b9"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/common/ErrorBoundary/ErrorMessage.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/common/Filters/FilterSelect.test.tsx": {
+      "fingerprint": "b3b7e6bbe85c23bd1c28405a0d36122beaa17723e0489524728b9c26ef7781db",
+      "snapshot": {
+        "apps/heureka/src/components/common/Filters/FilterSelect.test.tsx": "1de7fe9b20dd63c54b2f90a0df7dddc573c5ff518b2eb8130817fd61a4a93f02"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/common/Filters/FilterSelect.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/common/Filters/PlaceHolderFilterSelect.test.tsx": {
+      "fingerprint": "1595131d855b05b4dd757a4e795f8f0c004d988df90602951a68a655383b24aa",
+      "snapshot": {
+        "apps/heureka/src/components/common/Filters/PlaceHolderFilterSelect.test.tsx": "25e0810e9ddf834509ca46fe486b482ce901c5d6b4ef8201603bdd079fa94b6c"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/common/Filters/PlaceHolderFilterSelect.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/common/Filters/PlaceHolderFilterSelect.tsx": {
+      "fingerprint": "a9a1097a9f2ff11073b3e4e898e11285ec2d27520dc65ca6f7732445fc5a4fac",
+      "snapshot": {
+        "apps/heureka/src/components/common/Filters/PlaceHolderFilterSelect.tsx": "7e8639d08427897eba8821fb308b8cd9f91d972e32be05b1f9cc53a802759a7e"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/common/Filters/PlaceHolderFilterSelect.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/common/Filters/SelectedFilters.tsx": {
+      "fingerprint": "c8b8f83d202679b6b7613b987b8401f79911f30799ceebd6d4dcb295878e1949",
+      "snapshot": {
+        "apps/heureka/src/components/common/Filters/SelectedFilters.tsx": "f6cee2cc69c260be3b56000d78b370ef84e178720cbd7fcfec48a8c3282aef30"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/common/Filters/SelectedFilters.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/common/Filters/index.test.tsx": {
+      "fingerprint": "7c3001ec4ee79c7be9ac302690048bc4f70e60386128844066225c163923314a",
+      "snapshot": {
+        "apps/heureka/src/components/common/Filters/index.test.tsx": "74b5334e864683f9f907770183716aed8a23d3a7f79b1d4c0be72e41b3830540"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/common/Filters/index.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/common/IssueCountsPerSeverityLevel.tsx": {
+      "fingerprint": "882ed3db6d3cb09500450437800c94bf5751ea97dd96f65b2df908c82d71a9b9",
+      "snapshot": {
+        "apps/heureka/src/components/common/IssueCountsPerSeverityLevel.tsx": "bfbee7f142262e9eb9f6673a2bbc05592d6243c698ff87085cb4c5cf600d895c"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/common/IssueCountsPerSeverityLevel.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/common/IssueIcon.tsx": {
+      "fingerprint": "8481c3b9842f29592def9ced7f26f135827f37f40dd39746372fcd4420d6cd3c",
+      "snapshot": {
+        "apps/heureka/src/components/common/IssueIcon.tsx": "0d23287634f8c4ff2cffd9ec462fad37e22b8277ad6646e21c51a832bcbdc0f1"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/common/IssueIcon.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/common/IssueTimestamp.tsx": {
+      "fingerprint": "f9673c2c4a72994e25cca606fe0a1bc295370d0600d7c10d899176b32c40ce88",
+      "snapshot": {
+        "apps/heureka/src/components/common/IssueTimestamp.tsx": "3831633ac6d589aa35c1dcf24d0d816a9b5b87e3c2ca3d8faf39364f28fc0fda"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/common/IssueTimestamp.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/common/LoadingDataRow.test.tsx": {
+      "fingerprint": "584dc8432444a9cd629e844c97766a72c5e227d6a75b474675c75358e19fb7d2",
+      "snapshot": {
+        "apps/heureka/src/components/common/LoadingDataRow.test.tsx": "2ea40f92c424c37bc7d43bbc09cb3e28ca4decf22d02c8213e6aa2eb94eb3ba0"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/common/LoadingDataRow.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/common/LoadingDataRow.tsx": {
+      "fingerprint": "aa862fce49ef3ee92bc18e8b5525c57300564fcea29a2c11d2fea2e3eed03017",
+      "snapshot": {
+        "apps/heureka/src/components/common/LoadingDataRow.tsx": "9f77e87479c876b907ab6fa904e8efa0206b455afb8728dbf39da0917f00e278"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/common/LoadingDataRow.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/common/SectionContentHeading.tsx": {
+      "fingerprint": "a9d56cb9634d1e689a54ded51cd4333533532f694bb86ed6bd0e28612ccb06ed",
+      "snapshot": {
+        "apps/heureka/src/components/common/SectionContentHeading.tsx": "569143aa79972ebf995b99c07b734b78db50bcc49dd63430315cc550a417c9c7"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/common/SectionContentHeading.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/common/ServiceImages/ImagesDataRows/ImagesDataRow.tsx": {
+      "fingerprint": "8bd7e94917732a91b1bf0cfa4f34518a939158388016a40755e6751e13c4b048",
+      "snapshot": {
+        "apps/heureka/src/components/common/ServiceImages/ImagesDataRows/ImagesDataRow.tsx": "17d2172f54f70f0c88a09f89b11276426939be6b6eb1f9c280af21594c7a57ae"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/common/ServiceImages/ImagesDataRows/ImagesDataRow.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/common/SeverityCount.test.tsx": {
+      "fingerprint": "3b6edc2c6ba03719c7a2bb48195609b6e59ddf3e729dfd149301cc278098c777",
+      "snapshot": {
+        "apps/heureka/src/components/common/SeverityCount.test.tsx": "754772e099394811ea7359cc4e9a03a785e9a29fe87d5811fb0887422311c01a"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/common/SeverityCount.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/common/SeverityCount.tsx": {
+      "fingerprint": "aa889d5bc1abfbff207801faf5bbc7378268264835d017810a6a55ec0813d3f9",
+      "snapshot": {
+        "apps/heureka/src/components/common/SeverityCount.tsx": "f747993853b4abfc57c7591aed76312129d021bf0e5c4cbbf710b1b59d815262"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/common/SeverityCount.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/common/getErrorDataRow.test.tsx": {
+      "fingerprint": "b42a03c18c4742fb18934de4da4eaee26086132be786c600c887bd666dcb15cb",
+      "snapshot": {
+        "apps/heureka/src/components/common/getErrorDataRow.test.tsx": "ef4bbee9e396b3b51340c0ba46dd76d46139d1a425ea62b52e1063707030397c"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/common/getErrorDataRow.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/components/common/getErrorDataRow.tsx": {
+      "fingerprint": "2bcf24244ece265f33f4013a09da386c534ccf8922c30ec530ad32ccf22ba160",
+      "snapshot": {
+        "apps/heureka/src/components/common/getErrorDataRow.tsx": "34f70b885772ea533bb4ee829c08bf4cb8f0c890d1e7516b1fded3843c4c5e4d"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/components/common/getErrorDataRow.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/index.tsx": {
+      "fingerprint": "a3d8bba4bd77ee30bd3424a294ae3aa7ba4181720840414c9c8ae1c0b7b90761",
+      "snapshot": {
+        "apps/heureka/src/index.tsx": "454c036c8d68b9e810d8961be6bcd8b1c6c6b6d0d86126717ca1a5a8267f59ae"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/index.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/src/routes/__root.tsx": {
+      "fingerprint": "1c0a35f5436d0e9670a980ee7442f71fa8042da905aa8f8deed97ef8f3f11479",
+      "snapshot": {
+        "apps/heureka/src/routes/__root.tsx": "e796b639461d30585730ba429590898a8568fffb128e8e5f4f82bfcfd8ee212a"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/src/routes/__root.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/tsconfig.json": {
+      "fingerprint": "736683de66eb37a63b688e6fbad2d5233c00b56a06081dffcb6f6ade67369acf",
+      "snapshot": {
+        "apps/heureka/tsconfig.json": "3750696fe61d5f614d9352895240a16f8ab4c14702d54ce4d295eae40996a02c"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/heureka/vite.config.ts": {
+      "fingerprint": "ab0e145651bdc41fd489b0e08d624e6a6aeb6c7d0c583459a7670448bb7c5ca5",
+      "snapshot": {
+        "apps/heureka/vite.config.ts": "21b46f0a96182679c91d72d0db955b7915f15262f4c9ee4e39812f689479dd74"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/heureka/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/supernova/eslint.config.mjs": {
+      "fingerprint": "c9a19fb98c6f1e637fcafed4433d0502af005063fd6f25a938cc4fb6586a0698",
+      "snapshot": {
+        "apps/supernova/eslint.config.mjs": "5a8d060632b02c6b42c09db0426136e9b65e0f6048e33d1ef2486b6f0e25d949"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/supernova/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/supernova/src/components/filters/FilterSelect.test.tsx": {
+      "fingerprint": "2c426c089a4ec566a7dc79966c9e5146a0589f9bf266d2d0cc39285453063b31",
+      "snapshot": {
+        "apps/supernova/src/components/filters/FilterSelect.test.tsx": "2c053706f2b3f5f8366bc63f4e76062dc8decbc4f3f9f243cf280245a3629953"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/supernova/src/components/filters/FilterSelect.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/supernova/src/components/filters/FilterSelect.tsx": {
+      "fingerprint": "4d22a90b0d07f4a2672590e05fc42bb8c6583f2f27767a081f14607b7ddacd47",
+      "snapshot": {
+        "apps/supernova/src/components/filters/FilterSelect.tsx": "2db80c88bdb776c94cbae62de69dd6bb6b593d3bb2150b823b6a33f28eaefac8"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/supernova/src/components/filters/FilterSelect.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/supernova/tsconfig.json": {
+      "fingerprint": "5182c83cb383350843371c3730a6e262305c1cb97e055eda718794cf5c763b7d",
+      "snapshot": {
+        "apps/supernova/tsconfig.json": "7042a1664be5024ad4398b990cbd9fc07c2c967f09a3717854cbf6de9009b227"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/supernova/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/supernova/vite.config.ts": {
+      "fingerprint": "712e472cb3891e03f6160def01edf21beadf6fa55e51b910cad57bfac4f1c141",
+      "snapshot": {
+        "apps/supernova/vite.config.ts": "c95098521af167c27e391496ae6896c82fd3a69db69cfdee4db4fcfc38f08ba2"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/supernova/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/template/eslint.config.mjs": {
+      "fingerprint": "7357194df5ac3f35b1ce56b725fea1f72bcd0c043fe0416b0023c2a84a97e173",
+      "snapshot": {
+        "apps/template/eslint.config.mjs": "c07e1f2b930c69d3c9426fa9c4e7e81bdc4b8b765f9d3ffb75cd6d154e5e0f49"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/template/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:apps/template/tsconfig.json": {
+      "fingerprint": "4d9fd4d759e379c9225c9809a6e2a9b6231c4cad3d8bb2dda4ef3573af9901e1",
+      "snapshot": {
+        "apps/template/tsconfig.json": "31d0145f34cd3cdd02162b1cb03cfd5906edad32cc233e665d73edf5555a20b7"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: apps/template/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/communicator/tsconfig.json": {
+      "fingerprint": "7c8f1b9662bb14a76ea5e015fdb5736a819a4f7f44913ff77c3e0ab61fa14734",
+      "snapshot": {
+        "packages/communicator/tsconfig.json": "5a1dec22c0a9c84b67e3557ee3d9426a1914490d6211681202dcf96e7afb13eb"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/communicator/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/communicator/vite.config.ts": {
+      "fingerprint": "5bc231f290d374a8f66a8eb7c7acc02137251411ea9d9f8860ad7369729d9872",
+      "snapshot": {
+        "packages/communicator/vite.config.ts": "a1a4851dd8a9dd48cb3f23e530488bbf0de6093baa4d78d2012e0b4cfc69581d"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/communicator/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/config/eslint/build-config.mjs": {
+      "fingerprint": "5485126d271dab2a16a8b1bfc505797ad47117100584770c24b99fb6314e44d7",
+      "snapshot": {
+        "packages/config/eslint/build-config.mjs": "c5c36e2160c5d470ab5df1b3af162ba3978d91689eb5709ee86281d24b1ee052"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/config/eslint/build-config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/config/eslint/juno-typescript.mjs": {
+      "fingerprint": "55b8e6d85df12dfd64e1ce6d7b4547d9381305d3f5133a35153b31ae71167f69",
+      "snapshot": {
+        "packages/config/eslint/juno-typescript.mjs": "ba69ac88123786fe52ea0978a9eec034a5b1b22c0762b1ad4a0b6119dc4ab048"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/config/eslint/juno-typescript.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/config/eslint/vite-react-ts.mjs": {
+      "fingerprint": "b41b2f044255bbe42899071037b132216142054eccdc9dd81b8c68f02fdac759",
+      "snapshot": {
+        "packages/config/eslint/vite-react-ts.mjs": "cfa4467420a664cfe207cf7adea3d931cde3267116ab29eda218a27a44c85b5e"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/config/eslint/vite-react-ts.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/config/eslint/vite-ts.mjs": {
+      "fingerprint": "b85413e4c31e83a79edf4331801d5c1c1f00247b4d239246e57dadc0c026d83b",
+      "snapshot": {
+        "packages/config/eslint/vite-ts.mjs": "7abdc899b53e2f97cbe8353adf410339f74b114ce29c7202802a7c662b3f14e7"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/config/eslint/vite-ts.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/greenhouse-auth-provider/tsconfig.json": {
+      "fingerprint": "d8f5315c252893030ea5d35a60bd332fe121cd1513b88ca3fe4ac232d62abda9",
+      "snapshot": {
+        "packages/greenhouse-auth-provider/tsconfig.json": "abb6423c626f36b5b1689c0b5f8dcfe4333e012005a28e51a859a02d1e4e018a"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/greenhouse-auth-provider/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/greenhouse-auth-provider/vite.config.ts": {
+      "fingerprint": "93ae17e445b6f4112bd5ef5af33c0c20d933a866e902f229101bbed7abaeeb5c",
+      "snapshot": {
+        "packages/greenhouse-auth-provider/vite.config.ts": "dc0037a4b6c41828706d0df636abdab3e9c608393cb268f7dd2844418ad07dfa"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/greenhouse-auth-provider/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/k8s-client/eslint.config.mjs": {
+      "fingerprint": "4ce6e43ab2e7b884c3ab2e04b19ba0f01d3155c7c6d0d97afad442a0f7f6f26e",
+      "snapshot": {
+        "packages/k8s-client/eslint.config.mjs": "3cbb0b1bd0889934e8809061a7c07a1cc9fdeec95a0c755e89d389d2dd37a126"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/k8s-client/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/k8s-client/tsconfig.json": {
+      "fingerprint": "e4642f563115fd580ed60a5418518e75aef8d8b557d73102feb12593144a62e4",
+      "snapshot": {
+        "packages/k8s-client/tsconfig.json": "d600ab156e9830027f1dcb1ecaf3a047254f2d01db165b57e314d33296ca6872"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/k8s-client/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/k8s-client/vite.config.ts": {
+      "fingerprint": "d3a42147c00344eeb8eb0d3b39e01a9b15ec77910bce84fa186f3923ea71b778",
+      "snapshot": {
+        "packages/k8s-client/vite.config.ts": "3542a6c72ac90693f04f058d4203d8491c988ca138401e9168f300d1c854fac5"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/k8s-client/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/messages-provider/tsconfig.json": {
+      "fingerprint": "0a287896c40924296130b5c39c3cd64502ae177cf38cc2f5a98cd3bbdf83c053",
+      "snapshot": {
+        "packages/messages-provider/tsconfig.json": "f961bbc3d76b993d17d8b62ff510735be02a6b7c4208cd3c546e470a03c6b064"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/messages-provider/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/messages-provider/vite.config.ts": {
+      "fingerprint": "ad6730931c823aa1dd73eb6f8e458a9144fdcb74dff70929d2a1302a93fbd704",
+      "snapshot": {
+        "packages/messages-provider/vite.config.ts": "5f13139e88eada3e9b5a9f3711b325a1f0dcdc93ab1197921e018176261d317f"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/messages-provider/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/oauth/eslint.config.mjs": {
+      "fingerprint": "222ba27c654284fdbbc8e723d4ebd742e0a310aaf6abd14dd0b17a75e0d18b11",
+      "snapshot": {
+        "packages/oauth/eslint.config.mjs": "db5bc3ee98e9420083d205ced3438ec1e16940ddc070a0c9d2497e6f70fc5e6f"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/oauth/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/oauth/tsconfig.json": {
+      "fingerprint": "d10c874031e39299f7e96ebe78d902ac634b66a00dcaf0ec4335c007143fca69",
+      "snapshot": {
+        "packages/oauth/tsconfig.json": "035349353556ee57d93e8ec1be47bb44aa06153b230a7bd03a0c282f53067d1a"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/oauth/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/oauth/vite.config.ts": {
+      "fingerprint": "420f7796485d19cc69f0302186079d14e0a6c99ebabe5f8fe7cc32da505c4837",
+      "snapshot": {
+        "packages/oauth/vite.config.ts": "16dbc83594744590f2230b9ee7652d6bc9098f4084557b49fcfd44a274f3d80b"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/oauth/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/template/tsconfig.json": {
+      "fingerprint": "8ca1890752020237d558ac2e0482e8eef87b7bb7dfdccc2640020d08cab44d93",
+      "snapshot": {
+        "packages/template/tsconfig.json": "4d9eb9b9b29ba1d2d5e8354b82b3b98d05c64ffe58775de29b94287ec1619372"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/template/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/template/vite.config.ts": {
+      "fingerprint": "4390ef49fd6c56d34cf29ec04ffe78a79127cb53d78dcf112b18721d43ab9a7a",
+      "snapshot": {
+        "packages/template/vite.config.ts": "7dcde06cc363de9acb6836d27a35a9fe574b5ea4ab56c582d94c0c0f4f31b66b"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/template/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/ui-components/src/components/ComboBox/ComboBox.component.tsx": {
+      "fingerprint": "d051aaf371f01ead4c20b6b10695ff7eccffef4e5c9a6ac1265dbcdc94d099f2",
+      "snapshot": {
+        "packages/ui-components/src/components/ComboBox/ComboBox.component.tsx": "d6d38b4ad34b216c06e555073d0441a39642d588e7569a45f2b3a87338cfb834"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/ComboBox/ComboBox.component.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/ui-components/src/components/ComboBox/ComboBox.test.tsx": {
+      "fingerprint": "c439afce286445e9f18c36d17ec26eb29fe1fa0c1a960f16ac09a861abe9ca87",
+      "snapshot": {
+        "packages/ui-components/src/components/ComboBox/ComboBox.test.tsx": "dd02bdce3f5b2f8a0ac180c7a992d99fe9161d98b74bbba7708bd1d0aceebafa"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/ComboBox/ComboBox.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/ui-components/src/components/DescriptionDefinition/DescriptionDefinition.component.tsx": {
+      "fingerprint": "17562cee0896c81fcc3125089a738990db8e1d063305e1008b967e8a21f01c84",
+      "snapshot": {
+        "packages/ui-components/src/components/DescriptionDefinition/DescriptionDefinition.component.tsx": "c1c77f47f2f03fbecc015ce75c07efb5f2960060155e5d4c523989bf25bcae48"
+      },
+      "head": "aa2060bf122d8077eb168710314290c83fa86941",
+      "outcome": "no-change",
+      "reason": "source-only fixes for break-word overflow and truncate-start alignment — no guidance items affected",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/DescriptionDefinition/DescriptionDefinition.component.tsx at aa2060bf122d8077eb168710314290c83fa86941"
+      ]
+    },
+    "source:packages/ui-components/src/components/DescriptionDefinition/DescriptionDefinition.test.tsx": {
+      "fingerprint": "11244c06e3d83fbc3d307fbbcd60102d4fcf5dfa4248476a968da4681c017187",
+      "snapshot": {
+        "packages/ui-components/src/components/DescriptionDefinition/DescriptionDefinition.test.tsx": "75ad930afa8b27697aab907f205af475f95fdac35b23eae304648371963f8d18"
+      },
+      "head": "aa2060bf122d8077eb168710314290c83fa86941",
+      "outcome": "no-change",
+      "reason": "source-only fixes for break-word overflow and truncate-start alignment — no guidance items affected",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/DescriptionDefinition/DescriptionDefinition.test.tsx at aa2060bf122d8077eb168710314290c83fa86941"
+      ]
+    },
+    "source:packages/ui-components/src/components/DescriptionList/DescriptionList.stories.tsx": {
+      "fingerprint": "efc4b36c115b7afd2e0c816044dff5957e19f08b4eb0708d0b608f576946f89c",
+      "snapshot": {
+        "packages/ui-components/src/components/DescriptionList/DescriptionList.stories.tsx": "35cbee7dec3b5a5bd0b07ada65362e236ba430bd9ec7b457c316ea9b30306398"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/DescriptionList/DescriptionList.stories.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/ui-components/src/components/DescriptionTerm/DescriptionTerm.component.tsx": {
+      "fingerprint": "b0b820ef0478eb49d6795b4460968d8bd6b4c15b13e3c13f4383a40fdaac8b26",
+      "snapshot": {
+        "packages/ui-components/src/components/DescriptionTerm/DescriptionTerm.component.tsx": "95bea79853353878727b3183b1332b42882d7e2c74a5d1e3adcf20fdea78a490"
+      },
+      "head": "aa2060bf122d8077eb168710314290c83fa86941",
+      "outcome": "no-change",
+      "reason": "source-only fixes for break-word overflow and truncate-start alignment — no guidance items affected",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/DescriptionTerm/DescriptionTerm.component.tsx at aa2060bf122d8077eb168710314290c83fa86941"
+      ]
+    },
+    "source:packages/ui-components/src/components/DescriptionTerm/DescriptionTerm.test.tsx": {
+      "fingerprint": "5afe31654dcb229ac166392afefaa95d355a13648a382b4d80afd969e1f1f313",
+      "snapshot": {
+        "packages/ui-components/src/components/DescriptionTerm/DescriptionTerm.test.tsx": "6733d315bed8619d92d5be768cae23fcffcebf5693796c83b95c8117faf5a6f8"
+      },
+      "head": "aa2060bf122d8077eb168710314290c83fa86941",
+      "outcome": "no-change",
+      "reason": "source-only fixes for break-word overflow and truncate-start alignment — no guidance items affected",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/DescriptionTerm/DescriptionTerm.test.tsx at aa2060bf122d8077eb168710314290c83fa86941"
+      ]
+    },
+    "source:packages/ui-components/src/components/TabBar/TabBar.component.tsx": {
+      "fingerprint": "5ac336bb6f986f99a2612d6707cf19362787f5a00654e27c9c8f859033da249c",
+      "snapshot": {
+        "packages/ui-components/src/components/TabBar/TabBar.component.tsx": "5044a1d6b378397c58294e7196b70ccaacec2afac19044c11989461234283acc"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/TabBar/TabBar.component.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/ui-components/src/components/TabBar/TabBar.stories.tsx": {
+      "fingerprint": "40f1697603caf46c2372fcddbcc96c88ed17b58ee45a7b0ceb5459b9f2c8e220",
+      "snapshot": {
+        "packages/ui-components/src/components/TabBar/TabBar.stories.tsx": "779e2cc3a093d98c8838902d39973455ab64deb09147b267882deadd1b0492f0"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/TabBar/TabBar.stories.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/ui-components/src/components/TabBar/TabBar.test.tsx": {
+      "fingerprint": "9e695ed432d80946a607e2f2394b91422e2a681052527bb58b960e55dc346e53",
+      "snapshot": {
+        "packages/ui-components/src/components/TabBar/TabBar.test.tsx": "79e1007ab8990ac75d6a1bf1c97402e0787609f92667b9c39bd2b13fa90017b1"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/TabBar/TabBar.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/ui-components/src/components/TabBar/TabNavigation.deprecated.tsx": {
+      "fingerprint": "637dcb62ab251f806d9bfae8fa1e08c088b5b43b5318e9f057623579f0475b4c",
+      "snapshot": {
+        "packages/ui-components/src/components/TabBar/TabNavigation.deprecated.tsx": "73711386b0c6aa658eaea1eb94ea268104061f7ec8ec0bc6fc7ec6cbb42a1c0b"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/TabBar/TabNavigation.deprecated.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/ui-components/src/components/TabBarItem/TabBarItem.component.tsx": {
+      "fingerprint": "843be7015886f3576a315cc066c9f7101bcbbc671f0f434bac00410b951314e2",
+      "snapshot": {
+        "packages/ui-components/src/components/TabBarItem/TabBarItem.component.tsx": "a1ab4afde4de6ad6f32e1fa4f9a1c3552ce56722c4b9e674bac8820e2c7ea62e"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/TabBarItem/TabBarItem.component.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/ui-components/src/components/TabBarItem/TabBarItem.test.tsx": {
+      "fingerprint": "32f5443861a89fdf3c3ee88d43181ac68c44c5fcfd355802848906dd5889855a",
+      "snapshot": {
+        "packages/ui-components/src/components/TabBarItem/TabBarItem.test.tsx": "4575d1a874fbf29c708dd99eb9fe7d2653eae563f82e59d9b6870475f07e3e48"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/TabBarItem/TabBarItem.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/ui-components/src/components/TextInput/TextInput.component.tsx": {
+      "fingerprint": "abc80dd45c5796c215be2f5de38e73a79da8818f654fe9de8c6dcb08dd3480c4",
+      "snapshot": {
+        "packages/ui-components/src/components/TextInput/TextInput.component.tsx": "cae8a354728da5d209476388f34528f0452f487bc206b6b713631d57bf3893c8"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/TextInput/TextInput.component.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/ui-components/src/components/TextInput/TextInput.stories.tsx": {
+      "fingerprint": "f587c5d33f4c7b13dd32daaae754c0847042a84008f596fa501716d6b56d9763",
+      "snapshot": {
+        "packages/ui-components/src/components/TextInput/TextInput.stories.tsx": "3c5cb9b54285b801097e9c503083dd40e41e9a9477b8af447ea6e2c2776f2dd3"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/TextInput/TextInput.stories.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/ui-components/src/components/TextInput/TextInput.test.tsx": {
+      "fingerprint": "4e334ec04a1b9d99fcbe2881aca4cf3ad70c787aad71edc7dc990d6911464967",
+      "snapshot": {
+        "packages/ui-components/src/components/TextInput/TextInput.test.tsx": "2e5739d102fc7fa2442a0712402f427a73546e9dc6706db3318039622946ce08"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/ui-components/src/components/TextInput/TextInput.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/ui-components/src/global.css": {
+      "fingerprint": "7426128f1e007c71eada14acd38e1e2bab62d0661fc54afd3e62a980e0fbc6a9",
+      "snapshot": {
+        "packages/ui-components/src/global.css": "f355e53c6a0b909d0a7ad6c1fd1e728a1672dcfa165ca34abcdfd208316b0097"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/ui-components/src/global.css at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/ui-components/src/theme.css": {
+      "fingerprint": "5dab0a637de0f486611933127b00b1c767f13408699959a8c5d05a158f5f9384",
+      "snapshot": {
+        "packages/ui-components/src/theme.css": "aa5687a1e6981418a08129a5d90095d14d2f0bd3263c3ba59d046bb67bffeeb8"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/ui-components/src/theme.css at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/ui-components/tsconfig.json": {
+      "fingerprint": "efcc74e05ba9c7d6dc7a6fce9dd41a0975a1983d8e67f5d992eac76aabc478b7",
+      "snapshot": {
+        "packages/ui-components/tsconfig.json": "2525fef3420247ac1bf092ee9053ef4578296d6fab0d90a75ed71570bfc28e37"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/ui-components/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/ui-components/vite.config.mts": {
+      "fingerprint": "aa1f2aebedcb7f5e1a6a0dcbc21bf727fc130103c30422e728be9448b71a937f",
+      "snapshot": {
+        "packages/ui-components/vite.config.mts": "9ef5429f00c1a07449056d61eb9840676640a9b0b2cbe11b9d629026752e5622"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/ui-components/vite.config.mts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/url-state-provider/eslint.config.mjs": {
+      "fingerprint": "1fee3c9b158470ef4b663863a27867d18933afd6a2190c664f7fb002f3b653ba",
+      "snapshot": {
+        "packages/url-state-provider/eslint.config.mjs": "41db73c8d8a41a083ce64d38cb39fdf46e7275bd5eb775100696c477a5cdb30b"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/url-state-provider/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/url-state-provider/tsconfig.json": {
+      "fingerprint": "bd2ffb7af81ad5458050349f01fa4c8509aef74151c5514963d52f595e41d57f",
+      "snapshot": {
+        "packages/url-state-provider/tsconfig.json": "6c112b8dc2ac6f2c5592f061c89a03cc96893948758fc2e7d314c97222b9fcfc"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/url-state-provider/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
+    },
+    "source:packages/url-state-provider/vite.config.ts": {
+      "fingerprint": "3563ad4fe55b2b10a3258e7aa3253fce20dbef1222e263fd42340fe781d1cdb1",
+      "snapshot": {
+        "packages/url-state-provider/vite.config.ts": "d1bdda39638dc04b719921ab9781fdb285ff63f4ad7f3571e96b885b8d83307b"
+      },
+      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
+      "outcome": "no-change",
+      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "evidence": [
+        "Changed: packages/url-state-provider/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     }
   }
 }
