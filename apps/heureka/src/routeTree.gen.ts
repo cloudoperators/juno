@@ -11,9 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServicesRouteRouteImport } from './routes/services/route'
+import { Route as TrendsRouteRouteImport } from './routes/trends/route'
 import { Route as VulnerabilitiesRouteRouteImport } from './routes/vulnerabilities/route'
 import { Route as ServicesIndexRouteImport } from './routes/services/index'
 import { Route as ServicesServiceRouteImport } from './routes/services/$service'
+import { Route as TrendsIndexRouteImport } from './routes/trends/index'
 import { Route as VulnerabilitiesIndexRouteImport } from './routes/vulnerabilities/index'
 import { Route as ServicesServiceImagesImageRouteImport } from './routes/services/$service/images/$image'
 import { Route as ServicesServiceImagesImageVersionsVersionRouteImport } from './routes/services/$service/images/$image/versions/$version'
@@ -26,6 +28,11 @@ const IndexRoute = IndexRouteImport.update({
 const ServicesRouteRoute = ServicesRouteRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrendsRouteRoute = TrendsRouteRouteImport.update({
+  id: '/trends',
+  path: '/trends',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VulnerabilitiesRouteRoute = VulnerabilitiesRouteRouteImport.update({
@@ -42,6 +49,11 @@ const ServicesServiceRoute = ServicesServiceRouteImport.update({
   id: '/$service',
   path: '/$service',
   getParentRoute: () => ServicesRouteRoute,
+} as any)
+const TrendsIndexRoute = TrendsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TrendsRouteRoute,
 } as any)
 const VulnerabilitiesIndexRoute = VulnerabilitiesIndexRouteImport.update({
   id: '/',
@@ -64,9 +76,11 @@ const ServicesServiceImagesImageVersionsVersionRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/services': typeof ServicesRouteRouteWithChildren
+  '/trends': typeof TrendsRouteRouteWithChildren
   '/vulnerabilities': typeof VulnerabilitiesRouteRouteWithChildren
   '/services/$service': typeof ServicesServiceRouteWithChildren
   '/services/': typeof ServicesIndexRoute
+  '/trends/': typeof TrendsIndexRoute
   '/vulnerabilities/': typeof VulnerabilitiesIndexRoute
   '/services/$service/images/$image': typeof ServicesServiceImagesImageRouteWithChildren
   '/services/$service/images/$image/versions/$version': typeof ServicesServiceImagesImageVersionsVersionRoute
@@ -75,6 +89,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/services/$service': typeof ServicesServiceRouteWithChildren
   '/services': typeof ServicesIndexRoute
+  '/trends': typeof TrendsIndexRoute
   '/vulnerabilities': typeof VulnerabilitiesIndexRoute
   '/services/$service/images/$image': typeof ServicesServiceImagesImageRouteWithChildren
   '/services/$service/images/$image/versions/$version': typeof ServicesServiceImagesImageVersionsVersionRoute
@@ -83,9 +98,11 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/services': typeof ServicesRouteRouteWithChildren
+  '/trends': typeof TrendsRouteRouteWithChildren
   '/vulnerabilities': typeof VulnerabilitiesRouteRouteWithChildren
   '/services/$service': typeof ServicesServiceRouteWithChildren
   '/services/': typeof ServicesIndexRoute
+  '/trends/': typeof TrendsIndexRoute
   '/vulnerabilities/': typeof VulnerabilitiesIndexRoute
   '/services/$service/images/$image': typeof ServicesServiceImagesImageRouteWithChildren
   '/services/$service/images/$image/versions/$version': typeof ServicesServiceImagesImageVersionsVersionRoute
@@ -95,9 +112,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/services'
+    | '/trends'
     | '/vulnerabilities'
     | '/services/$service'
     | '/services/'
+    | '/trends/'
     | '/vulnerabilities/'
     | '/services/$service/images/$image'
     | '/services/$service/images/$image/versions/$version'
@@ -106,6 +125,7 @@ export interface FileRouteTypes {
     | '/'
     | '/services/$service'
     | '/services'
+    | '/trends'
     | '/vulnerabilities'
     | '/services/$service/images/$image'
     | '/services/$service/images/$image/versions/$version'
@@ -113,9 +133,11 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/services'
+    | '/trends'
     | '/vulnerabilities'
     | '/services/$service'
     | '/services/'
+    | '/trends/'
     | '/vulnerabilities/'
     | '/services/$service/images/$image'
     | '/services/$service/images/$image/versions/$version'
@@ -124,6 +146,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ServicesRouteRoute: typeof ServicesRouteRouteWithChildren
+  TrendsRouteRoute: typeof TrendsRouteRouteWithChildren
   VulnerabilitiesRouteRoute: typeof VulnerabilitiesRouteRouteWithChildren
 }
 
@@ -141,6 +164,13 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trends': {
+      id: '/trends'
+      path: '/trends'
+      fullPath: '/trends'
+      preLoaderRoute: typeof TrendsRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/vulnerabilities': {
@@ -163,6 +193,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/services/$service'
       preLoaderRoute: typeof ServicesServiceRouteImport
       parentRoute: typeof ServicesRouteRoute
+    }
+    '/trends/': {
+      id: '/trends/'
+      path: '/'
+      fullPath: '/trends/'
+      preLoaderRoute: typeof TrendsIndexRouteImport
+      parentRoute: typeof TrendsRouteRoute
     }
     '/vulnerabilities/': {
       id: '/vulnerabilities/'
@@ -229,6 +266,18 @@ const ServicesRouteRouteWithChildren = ServicesRouteRoute._addFileChildren(
   ServicesRouteRouteChildren,
 )
 
+interface TrendsRouteRouteChildren {
+  TrendsIndexRoute: typeof TrendsIndexRoute
+}
+
+const TrendsRouteRouteChildren: TrendsRouteRouteChildren = {
+  TrendsIndexRoute: TrendsIndexRoute,
+}
+
+const TrendsRouteRouteWithChildren = TrendsRouteRoute._addFileChildren(
+  TrendsRouteRouteChildren,
+)
+
 interface VulnerabilitiesRouteRouteChildren {
   VulnerabilitiesIndexRoute: typeof VulnerabilitiesIndexRoute
 }
@@ -243,6 +292,7 @@ const VulnerabilitiesRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ServicesRouteRoute: ServicesRouteRouteWithChildren,
+  TrendsRouteRoute: TrendsRouteRouteWithChildren,
   VulnerabilitiesRouteRoute: VulnerabilitiesRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport

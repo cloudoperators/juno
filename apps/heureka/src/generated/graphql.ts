@@ -728,3 +728,57 @@ export const GetVulnerabilityFiltersDocument = gql`
     }
   }
 `
+
+export const TrendGranularity = {
+  Daily: "DAILY",
+  Weekly: "WEEKLY",
+  Monthly: "MONTHLY",
+} as const
+
+export type TrendGranularity = (typeof TrendGranularity)[keyof typeof TrendGranularity]
+
+export type IssueTrendFilter = {
+  after: string
+  before: string
+  granularity: TrendGranularity
+  serviceCcrn?: Array<string> | null | undefined
+  supportGroupCcrn?: Array<string> | null | undefined
+}
+
+export type GetIssueTrendsQueryVariables = Exact<{
+  filter: IssueTrendFilter
+}>
+
+export type TrendBucketData = {
+  date: string
+  critical: number
+  high: number
+  medium: number
+  low: number
+  none: number
+  total: number
+  remediated: number
+}
+
+export type GetIssueTrendsQuery = {
+  IssueTrends: {
+    buckets: Array<TrendBucketData>
+  } | null
+}
+
+export const GetIssueTrendsDocument = gql`
+  query GetIssueTrends($filter: IssueTrendFilter!) {
+    IssueTrends(filter: $filter) {
+      buckets {
+        date
+        critical
+        high
+        medium
+        low
+        none
+        total
+        remediated
+      }
+    }
+  }
+`

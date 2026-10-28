@@ -26,6 +26,10 @@ const navigationItems: NavigationItemType[] = [
     label: "Vulnerabilities",
     value: "/vulnerabilities/",
   },
+  {
+    label: "Trends",
+    value: "/trends/",
+  },
 ]
 
 export const Navigation = () => {

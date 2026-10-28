@@ -31,10 +31,8 @@ export function extractFilterSettingsFromSearchParams(searchParams: Vulnerabilit
     selectedFilters: Object.entries(searchParams)
       .filter(([key]) => key.startsWith(SELECTED_FILTER_PREFIX))
       .flatMap(([key, value]) => {
-        const name = key.slice(2) // Remove "selected_" prefix
-        if (Array.isArray(value)) {
-          return value.map((v) => ({ name, value: v }))
-        }
+        const name = key.slice(SELECTED_FILTER_PREFIX.length)
+        if (Array.isArray(value)) return value.map((v) => ({ name, value: v }))
         return [{ name, value: value as string }]
       }),
   }
