@@ -1,0 +1,4 @@
+import{n as e}from"./rolldown-runtime-BCiCTKAo.js";import{r as t}from"./react-8KJKb_Eb.js";import{t as n}from"./jsx-runtime-BB9-612F.js";import{a as r,n as i,o as a,r as o,t as s}from"./TooltipContent.component-Djb_j23_.js";import{t as c}from"./TooltipTrigger-CD3RaPs4.js";var l,u,d,f,p;function m(){return(m=e((()=>{t(),r(),i(),c(),l=n(),u={title:`Components/Tooltip/TooltipContent`,component:s,argTypes:{},decorators:[e=>(0,l.jsx)(`div`,{className:`jn:my-6 jn:flex jn:justify-center`,children:(0,l.jsxs)(a,{initialOpen:!0,children:[(0,l.jsx)(o,{children:`clickMe`}),(0,l.jsx)(e,{})]})})]},d=e=>(0,l.jsx)(s,{...e,children:`This is a tooltip`}),f={args:{},render:d},p=[`Default`],f.parameters={...f.parameters,docs:{...f.parameters?.docs,source:{originalSource:`{
+  args: {},
+  render: DefaultTemplate
+}`,...f.parameters?.docs?.source}}}})))()}m();export{f as Default,p as __namedExportsOrder,u as default};
