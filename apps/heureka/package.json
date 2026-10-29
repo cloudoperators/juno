@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "@cloudoperators/greenhouse-auth-provider": "workspace:*",
+    "@cloudoperators/greenhouse-core": "workspace:*",
     "@cloudoperators/juno-ui-components": "workspace:*",
     "@cloudoperators/juno-url-state-provider": "workspace:*",
     "@tanstack/react-query": "5.104.1",

@@ -3,21 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { createRoot, Root } from "react-dom/client"
-import React from "react"
+import { createPluginMount } from "@cloudoperators/greenhouse-core"
 import App from "./App"
 
-let root: Root | null = null
-
-// export mount and unmount functions
-export const mount = (container: HTMLElement, options: any = {}) => {
-  root = createRoot(container)
-  root.render(React.createElement(App, options?.props))
-}
-
-export const unmount = () => {
-  if (root) {
-    root.unmount()
-    root = null
-  }
-}
+// The whole plugin surface is a single `PluginModule` value. If the shared contract grows new
+// methods in the future, this file stays unchanged — the shell is the only side that has to adapt.
+export const plugin = createPluginMount(App)

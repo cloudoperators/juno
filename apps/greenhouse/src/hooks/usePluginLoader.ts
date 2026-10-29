@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react"
 import { useRouter } from "@tanstack/react-router"
 import { AppProps } from "../Shell"
 import type { AuthStore } from "@cloudoperators/greenhouse-auth-provider"
-import type { PluginModule } from "@cloudoperators/juno-app-supernova"
+import type { PluginModule } from "@cloudoperators/greenhouse-core"
 
 // Cache loaded modules at the module level (persists across component mounts)
 const moduleCache = new Map<string, PluginModule>()
@@ -18,17 +18,20 @@ const getApp = async (appName: string): Promise<PluginModule | null> => {
     return moduleCache.get(appName)!
   }
 
-  // Load the module
+  // Load the module and extract its `plugin` export (the single PluginModule surface each plugin's
+  // `src/index.{ts,tsx}` exports). Letting plugins expose the whole PluginModule value as one named
+  // export means a future contract change (new method, renamed method, …) does not require editing
+  // any plugin — only the shell adapts to the new shape.
   let module: PluginModule | null = null
   switch (appName) {
     case "supernova":
-      module = await import("@cloudoperators/juno-app-supernova")
+      module = (await import("@cloudoperators/juno-app-supernova")).plugin
       break
     case "doop":
-      module = await import("@cloudoperators/juno-app-doop")
+      module = (await import("@cloudoperators/juno-app-doop")).plugin
       break
     case "heureka":
-      module = await import("@cloudoperators/juno-app-heureka")
+      module = (await import("@cloudoperators/juno-app-heureka")).plugin
       break
   }
 

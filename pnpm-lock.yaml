@@ -207,6 +207,9 @@ importers:
 
   apps/doop:
     dependencies:
+      '@cloudoperators/greenhouse-core':
+        specifier: workspace:*
+        version: link:../../packages/greenhouse-core
       '@cloudoperators/juno-messages-provider':
         specifier: workspace:*
         version: link:../../packages/messages-provider
@@ -289,6 +292,9 @@ importers:
       '@cloudoperators/greenhouse-auth-provider':
         specifier: workspace:*
         version: link:../../packages/greenhouse-auth-provider
+      '@cloudoperators/greenhouse-core':
+        specifier: workspace:*
+        version: link:../../packages/greenhouse-core
       '@cloudoperators/juno-app-doop':
         specifier: workspace:*
         version: link:../doop
@@ -410,6 +416,9 @@ importers:
       '@cloudoperators/greenhouse-auth-provider':
         specifier: workspace:*
         version: link:../../packages/greenhouse-auth-provider
+      '@cloudoperators/greenhouse-core':
+        specifier: workspace:*
+        version: link:../../packages/greenhouse-core
       '@cloudoperators/juno-ui-components':
         specifier: workspace:*
         version: link:../../packages/ui-components
@@ -504,6 +513,9 @@ importers:
 
   apps/supernova:
     dependencies:
+      '@cloudoperators/greenhouse-core':
+        specifier: workspace:*
+        version: link:../../packages/greenhouse-core
       '@cloudoperators/juno-messages-provider':
         specifier: workspace:*
         version: link:../../packages/messages-provider
@@ -744,6 +756,39 @@ importers:
       vitest:
         specifier: 5.0.3
         version: 5.0.3(@types/node@24.19.1)(jsdom@30.1.2)(vite@8.3.3(@types/node@24.19.1)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
+
+  packages/greenhouse-core:
+    devDependencies:
+      '@cloudoperators/juno-config':
+        specifier: workspace:*
+        version: link:../config
+      '@testing-library/jest-dom':
+        specifier: 7.0.1
+        version: 7.0.1(@testing-library/dom@10.4.2)(vitest@5.0.3(@types/node@24.3.2)(jsdom@30.1.2)(vite@8.3.3(@types/node@24.3.2)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1)))
+      '@testing-library/react':
+        specifier: 16.3.3
+        version: 16.3.3(@testing-library/dom@10.4.2)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@types/react':
+        specifier: 19.3.0
+        version: 19.3.0
+      '@types/react-dom':
+        specifier: 19.3.0
+        version: 19.3.0(@types/react@19.3.0)
+      jsdom:
+        specifier: 30.1.2
+        version: 30.1.2
+      react:
+        specifier: 19.3.0
+        version: 19.3.0
+      react-dom:
+        specifier: 19.3.0
+        version: 19.3.0(react@19.3.0)
+      typescript:
+        specifier: 6.0.3
+        version: 6.0.3
+      vitest:
+        specifier: 5.0.3
+        version: 5.0.3(@types/node@24.3.2)(jsdom@30.1.2)(vite@8.3.3(@types/node@24.3.2)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
 
   packages/k8s-client:
     devDependencies:
