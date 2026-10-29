@@ -80,15 +80,56 @@ describe("Status", () => {
     expect(screen.getByText("Custom title")).toBeInTheDocument()
   })
 
+  it("renders a ReactNode as title", () => {
+    render(
+      <Status
+        status="error"
+        title={
+          <span>
+            Title with <a href="#">a link</a>
+          </span>
+        }
+      />
+    )
+    expect(screen.getByRole("link", { name: "a link" })).toBeInTheDocument()
+  })
+
   it("renders body text", () => {
     render(<Status body="Please try again." />)
     expect(screen.getByText("Please try again.")).toBeInTheDocument()
+  })
+
+  it("renders a ReactNode as body", () => {
+    render(
+      <Status
+        body={
+          <span>
+            Body with <a href="#">a link</a>
+          </span>
+        }
+      />
+    )
+    expect(screen.getByRole("link", { name: "a link" })).toBeInTheDocument()
   })
 
   it("renders details in a pre element", () => {
     render(<Status details="Error: something failed" />)
     expect(screen.getByLabelText("Error details")).toBeInTheDocument()
     expect(screen.getByText("Error: something failed")).toBeInTheDocument()
+  })
+
+  it("renders a numeric zero as title inside the title wrapper", () => {
+    render(<Status title={0} />)
+    const title = document.querySelector(".juno-status-title")
+    expect(title).toBeInTheDocument()
+    expect(title).toHaveTextContent("0")
+  })
+
+  it("renders a numeric zero as body inside the body wrapper", () => {
+    render(<Status body={0} />)
+    const body = document.querySelector(".juno-status-body")
+    expect(body).toBeInTheDocument()
+    expect(body).toHaveTextContent("0")
   })
 
   it("does not render details when not passed", () => {

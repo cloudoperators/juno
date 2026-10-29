@@ -334,6 +334,11 @@ SWITCH col.id:
         items ← effectiveActions
         IF stopPropagationRequired: each PopupMenuItem onClick calls e.stopPropagation()
 
+      Note: even when effectiveActions contains a single item, the action column
+      always uses an OverflowMenu (PopupMenu) — never a bare inline button.
+      Repeating an identical button across every row adds visual noise and
+      inconsistency. See docs/ux/datagrid.md and docs/ux/popup-and-overflow-menus.md.
+
   any other col:
     value ← item[col.field]
 

@@ -27,6 +27,12 @@ const meta: Meta<typeof Status> = {
     code: {
       control: { type: "number" },
     },
+    title: {
+      control: "text",
+    },
+    body: {
+      control: "text",
+    },
     action: { control: false },
   },
   parameters: {
@@ -118,6 +124,32 @@ export const WithAction: Story = {
     docs: {
       description: {
         story: "Pass any element via the `action` slot — typically a `Button` or a button-styled anchor.",
+      },
+    },
+  },
+}
+
+export const WithReactNodeContent: Story = {
+  render: () => (
+    <Status
+      status="error"
+      title={<>Something Went Wrong</>}
+      body={
+        <>
+          An error occurred.{" "}
+          <a href="#" className="jn:underline">
+            Learn more
+          </a>{" "}
+          or try again later.
+        </>
+      }
+    />
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "`title` and `body` both accept React nodes, allowing links, line breaks, and other inline elements for richer messaging.",
       },
     },
   },

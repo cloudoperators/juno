@@ -8,6 +8,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite"
 import { DL } from "./DescriptionList.component"
 import { DT } from "../DescriptionTerm/DescriptionTerm.component"
 import { DD } from "../DescriptionDefinition/DescriptionDefinition.component"
+import type { TextContainType } from "../../shared/textContain"
 
 const meta: Meta<typeof DL> = {
   title: "Components/DescriptionList",
@@ -83,5 +84,54 @@ export const LeftAligned: Story = {
         assist with any inquiries.
       </DD>
     </DL>
+  ),
+}
+
+const textContainCases: (TextContainType | undefined)[] = [
+  undefined,
+  "truncate-end",
+  "truncate-start",
+  "break-word",
+  "break-all",
+  "no-wrap",
+]
+
+export const TextContain: Story = {
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story:
+          'Use `textContain` on `DT` or `DD` to control how long text is contained. `"truncate-end"` / `"truncate-start"` clip to one line with an ellipsis; `"break-word"` / `"break-all"` force long strings to wrap; `"no-wrap"` keeps content on one line. The `truncate-*` values only take visible effect when the element has a bounded width — the parent `DescriptionList` grid column supplies this automatically.',
+      },
+    },
+  },
+  render: () => (
+    <div className="jn:flex jn:flex-col jn:gap-8">
+      {textContainCases.map((textContain) => (
+        <div key={textContain ?? "none"}>
+          <p className="jn:mb-2 jn:font-bold">
+            {textContain ? (
+              <>
+                <code>{textContain}</code> on DT and DD
+              </>
+            ) : (
+              <>No textContain set</>
+            )}
+          </p>
+          <DL>
+            <DT textContain={textContain}>
+              Status — a very long term that might need containing depending on the mode
+            </DT>
+            <DD textContain={textContain}>
+              Running — all systems operational, no issues detected, health check passed on all endpoints, last checked
+              2 minutes ago
+            </DD>
+            <DT textContain={textContain}>eu-de-1a-availability-zone-verylongunbrokenidentifier-without-spaces</DT>
+            <DD textContain={textContain}>eu-de-1a-availability-zone-verylongunbrokenidentifier-without-spaces</DD>
+          </DL>
+        </div>
+      ))}
+    </div>
   ),
 }
