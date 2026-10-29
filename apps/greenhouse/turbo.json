@@ -4,6 +4,7 @@
     "dev": {
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
+        "@cloudoperators/greenhouse-core#build",
         "@cloudoperators/juno-messages-provider#build",
         "@cloudoperators/juno-oauth#build",
         "@cloudoperators/juno-app-supernova#build",
@@ -16,6 +17,7 @@
     "build": {
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
+        "@cloudoperators/greenhouse-core#build",
         "@cloudoperators/juno-messages-provider#build",
         "@cloudoperators/juno-oauth#build",
         "@cloudoperators/juno-app-supernova#build",
@@ -28,6 +30,7 @@
     "build:static": {
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
+        "@cloudoperators/greenhouse-core#build",
         "@cloudoperators/juno-messages-provider#build",
         "@cloudoperators/juno-oauth#build",
         "@cloudoperators/juno-app-supernova#build",
@@ -40,6 +43,7 @@
     "test": {
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
+        "@cloudoperators/greenhouse-core#build",
         "@cloudoperators/juno-messages-provider#build",
         "@cloudoperators/juno-oauth#build",
         "@cloudoperators/juno-app-supernova#build",
@@ -52,6 +56,7 @@
     "typecheck": {
       "dependsOn": [
         "@cloudoperators/juno-ui-components#build",
+        "@cloudoperators/greenhouse-core#build",
         "@cloudoperators/juno-messages-provider#build",
         "@cloudoperators/juno-oauth#build",
         "@cloudoperators/juno-app-supernova#build",
