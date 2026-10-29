@@ -12,7 +12,7 @@ A single component family under `src/components/` (e.g. `Button`, `Select`, `Des
 
 ## Procedure
 
-1. **Gather** every file belonging to the family: component source, `index.ts`, tests, and stories. Include related sub-components (e.g. for `DescriptionList`, also `DescriptionTerm`, `DescriptionDefinition`).
+1. **Gather** every file belonging to the family: component source, `index.ts`, tests, stories, and any colocated `.css` / `.module.css` files. Include related sub-components, which live in their own sibling directories sharing a name prefix (e.g. for `DescriptionList`, also `DescriptionTerm` and `DescriptionDefinition`).
 2. **Read** all gathered files before forming any conclusion.
 3. **Apply every check** defined in [component-checks.md](component-checks.md) in **deep (single-component) mode**. Deep mode means the Depth Constraint's deep behaviour applies: consuming-component validation is in scope — look across the wider codebase (`apps/`, other packages) for call sites and flag any the current interface would break.
 4. **Verify before asserting.** Apply the Verification Requirement from `component-checks.md`: any claim about TypeScript type compatibility or runtime behaviour must be confirmed empirically (`tsc --noEmit` / a test run) before being stated as fact, or else labelled "unverified — worth a quick check". Apply the same filter to any findings gathered from delegated work before relaying them.

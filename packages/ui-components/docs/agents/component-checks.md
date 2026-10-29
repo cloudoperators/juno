@@ -16,7 +16,7 @@ Flag props defined in the component interface but never referenced in the render
 
 ### Type Safety & Prop Interfaces
 
-Flag overly loose types: `any`, untyped event handlers (e.g. `(e) => ...` with no type annotation). Flag overly complex or redundant types that could be simplified without loss of correctness.
+Flag overly loose types: `any`, or handlers genuinely left untyped where no contextual type applies. Judge the effective (contextual) type, not the presence of an annotation: an inline handler whose parameter lacks an annotation is **not** a defect when TypeScript types it contextually — e.g. `onClick={(e) => …}` on a typed JSX prop already gives `e` a precise type, and flagging it is a false positive. Flag overly complex or redundant types that could be simplified without loss of correctness.
 
 **Caveat:** Do not flag a specific type assignment as an error unless verified by running `tsc --noEmit` against the project's own `tsconfig.json`. TypeScript assignability — especially around JSX ref props, bivariance, and union types — frequently behaves differently from what reading the types alone suggests. Claims that can only be confirmed by running `tsc` must be labelled as unverified.
 
