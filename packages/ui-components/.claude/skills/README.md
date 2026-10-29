@@ -11,7 +11,12 @@ Both are **read-only** — they report, they never modify files.
 
 ## How to run
 
-Open the repo in Claude Code. These are **directory-scoped** skills: they auto-discover with zero setup once you are working inside `packages/ui-components/` (they will not appear from the repo root). Invoke by asking naturally ("analyze Select", "what's broken across the library") or by the skill names `component-analyze` / `component-audit`.
+Quick start:
+
+1. Open the repo in Claude Code and change into `packages/ui-components/` — the skills are **directory-scoped** and only surface from inside the package (not the repo root); no setup needed.
+2. Ask in plain language: **"analyze Button"** for one component (→ detailed prose report), or **"audit all components"** for the whole library (→ severity-ranked report). You can also invoke `component-analyze` / `component-audit` by name.
+
+Both are read-only — they report, they never change files.
 
 ## Thin wrappers over shared knowledge
 
