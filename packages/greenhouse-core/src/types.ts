@@ -4,31 +4,25 @@
  */
 
 /**
- * Props Greenhouse passes to every plugin at mount time.
+ * Props Greenhouse passes to every plugin at mount time — the host↔plugin contract surface.
  *
  * This mirrors the shape produced by `apps/greenhouse/src/hooks/usePluginLoader.ts` at its
  * `app.mount(container, { props: ... })` call. Keeping it here (not in the host) makes it the single
- * versioned source of truth that both the plugin and the Greenhouse host import — so a contract
- * change surfaces as a `pnpm typecheck` error at the consuming site, not as a silent runtime
- * mismatch.
+ * versioned source of truth that both the plugin and the Greenhouse host import — so a change to
+ * what every plugin can rely on surfaces as a `pnpm typecheck` error at the consuming site.
  *
- * **Scope.** This first iteration pins only the fields every plugin cares about regardless of
- * stack choice: `theme` and `embedded`. Router-specific fields (`basePath`, `enableHashedRouting`)
- * and auth-related fields are deliberately NOT part of the typed surface here — forcing them would
- * couple every plugin to a particular router or auth client. Greenhouse still forwards those
- * values at mount; a plugin that wants them declares them on its own `AppProps`:
+ * **Scope.** `PluginProps` pins only what EVERY plugin must be able to assume regardless of stack
+ * choice: `theme` and `embedded`. Host-side forwarded fields (routing values, auth, plugin-specific
+ * `appProps`) are DELIBERATELY not here — they are the host's convention, not the contract. A
+ * plugin that reads them declares them on its own `AppProps extends PluginProps { … }`.
  *
- * ```ts
- * interface AppProps extends PluginProps {
- *   basePath?: string
- *   enableHashedRouting?: boolean
- *   auth?: MyAuthShape
- * }
- * ```
+ * This separation matters: changing the fields the host happens to forward (e.g. renaming
+ * `basePath` or adding a new field) is a change inside `apps/greenhouse`, not a change to this
+ * contract. It does NOT require bumping `greenhouse-core`, publishing it, and asking every plugin
+ * to update.
  *
- * Note the absence of an index signature. If a plugin reads `props.somethingNotDeclared`, that is
- * a type error — not a silent `unknown`. The contract names its fields; everything else is the
- * plugin's responsibility to declare.
+ * There is no index signature. If a plugin reads `props.somethingNotDeclared`, that is a type
+ * error, not a silent `unknown`.
  */
 export interface PluginProps {
   /** Greenhouse-provided theme name. Defaults to `theme-dark` when the plugin runs standalone. */

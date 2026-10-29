@@ -31,8 +31,9 @@ describe("usePluginLoader", () => {
   const mockPluginAuth = {} as any
   const mockConfig = {
     id: "supernova",
+    name: "supernova",
     props: {
-      someProp: "value",
+      theme: "theme-dark" as const,
     },
   }
 

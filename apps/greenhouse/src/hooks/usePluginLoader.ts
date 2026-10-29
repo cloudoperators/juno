@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react"
 import { useRouter } from "@tanstack/react-router"
 import { AppProps } from "../Shell"
 import type { AuthStore } from "@cloudoperators/greenhouse-auth-provider"
-import type { PluginModule } from "@cloudoperators/greenhouse-core"
+import type { PluginModule, PluginProps } from "@cloudoperators/greenhouse-core"
 
 // Cache loaded modules at the module level (persists across component mounts)
 const moduleCache = new Map<string, PluginModule>()
@@ -43,9 +43,41 @@ const getApp = async (appName: string): Promise<PluginModule | null> => {
   return module
 }
 
+/**
+ * The subset of a plugin's config entry the loader needs to see.
+ *
+ * The plugin store's upstream shape is `any` (loaded dynamically from JSON config); this interface
+ * narrows it to just the three fields `usePluginLoader` and `Extension` actually touch. The `props`
+ * field is typed against the shared `PluginProps` contract so a change to the contract surfaces as
+ * a `pnpm typecheck` error at this call site too (not only inside the plugins).
+ */
+export interface PluginLoaderConfig {
+  id: string
+  name: string
+  props?: PluginProps
+}
+
+/**
+ * The host-side shape of the props Greenhouse forwards to a plugin at mount time.
+ *
+ * `PluginProps` (from `@cloudoperators/greenhouse-core`) is the contract — the fields every plugin
+ * can rely on. The three fields added here (`basePath`, `enableHashedRouting`, `auth`) are the
+ * host's own convention: `apps/greenhouse` happens to forward them, but they are not part of the
+ * shared contract. Keeping them in a host-local type means that changing what the host forwards
+ * (renaming, adding, removing a field) is a change inside this file — it does NOT require bumping
+ * `greenhouse-core`, publishing it, and asking every plugin to update.
+ *
+ * A plugin that reads one of these fields opts in by declaring it on its own `AppProps`.
+ */
+interface GreenhouseMountProps extends PluginProps {
+  basePath?: string
+  enableHashedRouting?: boolean
+  auth?: AuthStore
+}
+
 type UsePluginLoaderParams = {
   pluginName: string
-  config: any
+  config: PluginLoaderConfig
   appProps: AppProps
   pluginAuth: AuthStore
 }
@@ -110,15 +142,18 @@ export function usePluginLoader({
       return
     }
 
-    app.mount(containerRef.current, {
-      props: {
-        ...config.props,
-        embedded: true,
-        basePath: `${router.basepath === "/" ? "" : router.basepath}/${config.id}`,
-        enableHashedRouting: appProps?.enableHashedRouting || false,
-        auth: pluginAuth,
-      },
-    })
+    // The literal below is typed as `GreenhouseMountProps` (host-side convention), which extends
+    // the shared contract's `PluginProps`. If the host adds or removes a forwarded field, it is
+    // changed here — not in `@cloudoperators/greenhouse-core`.
+    const mountProps: GreenhouseMountProps = {
+      ...config.props,
+      embedded: true,
+      basePath: `${router.basepath === "/" ? "" : router.basepath}/${config.id}`,
+      enableHashedRouting: appProps?.enableHashedRouting || false,
+      auth: pluginAuth,
+    }
+
+    app.mount(containerRef.current, { props: mountProps })
 
     return () => {
       app.unmount()
