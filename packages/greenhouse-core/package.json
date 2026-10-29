@@ -17,10 +17,6 @@
     ".": {
       "types": "./build/index.d.ts",
       "default": "./build/index.js"
-    },
-    "./plugin-exports": {
-      "types": "./build/plugin-exports.d.ts",
-      "default": "./build/plugin-exports.js"
     }
   },
   "files": [

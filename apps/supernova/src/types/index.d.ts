@@ -3,9 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// Delegate the module shape to the shared Greenhouse contract — any evolution of `mount` /
-// `unmount` in `@cloudoperators/greenhouse-core` propagates here automatically, and a plugin
-// whose real export shape doesn't satisfy the contract fails its own typecheck.
+import type { PluginModule } from "@cloudoperators/greenhouse-core"
+
+// Declare this plugin's module shape so the host's `await import("@cloudoperators/juno-app-supernova")`
+// is typed as `{ plugin: PluginModule }` instead of `any`. This declaration is NOT verified
+// against src/index.{ts,tsx} at build time — a plugin that renames or removes its `plugin`
+// export would still compile. The real safety against runtime drift (external plugins loaded via
+// dynamic URL) comes from Phase 3's runtime validation at the host, not from this file.
 declare module "@cloudoperators/juno-app-supernova" {
-  export * from "@cloudoperators/greenhouse-core/plugin-exports"
+  export const plugin: PluginModule
 }

@@ -4,4 +4,4 @@
 
 refactor(heureka): adopt the shared Greenhouse plugin contract
 
-`src/index.tsx` collapses to a single `export const plugin = createPluginMount(App)` — the hand-written `createRoot` / mount / unmount dance and the local `Options` type are gone. `src/types/index.d.ts` delegates the module shape to `@cloudoperators/greenhouse-core/plugin-exports`, so a plugin whose real export shape ever drifts from the shared contract fails its own typecheck instead of silently at runtime. Exposing the whole `PluginModule` as one `plugin` export also means future contract changes (new / renamed methods) do not require touching this file. `@cloudoperators/greenhouse-core` is now a runtime dependency. No behaviour change.
+`src/index.tsx` collapses to the two-line `export const plugin = createPluginMount(App)` pattern — the hand-written `createRoot` / mount / unmount dance and the local `Options` type are gone. `src/types/index.d.ts` is a tiny `declare module { export const plugin: PluginModule }` so the host's dynamic `await import(...)` is typed. `@cloudoperators/greenhouse-core` is now a runtime dependency. No behaviour change.
