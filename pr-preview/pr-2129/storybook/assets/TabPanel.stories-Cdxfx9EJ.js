@@ -1,0 +1,5 @@
+import{n as e}from"./rolldown-runtime-C0FnF6B9.js";import{n as t,t as n}from"./TabPanel-BAiP0d6J.js";var r,i,a;function o(){return(o=e((()=>{n(),r={title:`Deprecated/Tabs/TabPanel`,component:t,parameters:{docs:{description:{component:"`Tabs` and its child components `Tab`, `TabList`, and `TabPanel` are deprecated and may be removed in any of the next major releases. Once `TabBar` is refactored to being representational-only, you will be able to use `TabBar` in combination with `react-tabs` directly if you want to keep the `react-tabs` internal logic."}}},argTypes:{children:{control:!1,table:{type:{summary:`ReactNode`}}}}},i={args:{children:`Tab panel content goes here.`}},a=[`Default`],i.parameters={...i.parameters,docs:{...i.parameters?.docs,source:{originalSource:`{
+  args: {
+    children: "Tab panel content goes here."
+  }
+}`,...i.parameters?.docs?.source}}}})))()}o();export{i as Default,a as __namedExportsOrder,r as default};
