@@ -17,6 +17,7 @@ export const types = [
   "test",
 ]
 export const scopes = [
+  "ai",
   "build",
   "communicator",
   "config",
