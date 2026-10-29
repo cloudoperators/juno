@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "description": "Shared ground between the Greenhouse shell and its plugins: the plugin contract (PluginModule, PluginProps, MountOptions) and a createPluginMount helper. The single versioned source of truth imported by both sides.",
   "author": "UI-Team",
-  "private": true,
   "source": "src/index.ts",
   "main": "build/index.js",
   "module": "build/index.js",
@@ -11,6 +10,9 @@
   "license": "Apache-2.0",
   "type": "module",
   "types": "build/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     ".": {
       "types": "./build/index.d.ts",
