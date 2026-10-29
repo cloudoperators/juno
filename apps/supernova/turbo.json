@@ -43,6 +43,14 @@
         "@cloudoperators/juno-messages-provider#build",
         "@cloudoperators/juno-url-state-provider#build"
       ]
+    },
+    "lint": {
+      "dependsOn": [
+        "@cloudoperators/juno-ui-components#build",
+        "@cloudoperators/greenhouse-core#build",
+        "@cloudoperators/juno-messages-provider#build",
+        "@cloudoperators/juno-url-state-provider#build"
+      ]
     }
   }
 }
