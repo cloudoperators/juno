@@ -49,7 +49,7 @@
         })
         .then((props) => {
           import("./src/index").then((app) => {
-            app.mount(document.getElementById("root"), { props })
+            app.plugin.mount(document.getElementById("root"), { props })
           })
         })
     </script>
