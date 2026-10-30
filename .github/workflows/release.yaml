@@ -85,7 +85,11 @@ jobs:
           PACKAGES: ${{ needs.release.outputs.publishedPackages }}
         run: |
           MESSAGE=$(echo "$PACKAGES" | jq -r '[.[] | "• \(.name)@\(.version)"] | join("\n")')
-          echo "message=${MESSAGE}" >> $GITHUB_OUTPUT
+          {
+            echo 'message<<EOF'
+            printf '%s\n' "$MESSAGE"
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
 
   notify-on-success:
     if: needs.release.outputs.published == 'true'
