@@ -23,6 +23,8 @@ import { ComboBoxOption } from "../ComboBoxOption"
 import { SearchInput } from "../SearchInput"
 import { Pill } from "../Pill"
 import { PortalProvider } from "../PortalProvider"
+import { TabBar } from "../TabBar"
+import { TabBarItem } from "../TabBarItem"
 
 const meta: Meta = {
   title: "Components/DataGrid/DataGrid Header",
@@ -75,6 +77,53 @@ export const WithPrimaryAction: Story = {
       description: {
         story:
           "The simplest DataGrid header: a single primary action. No `DataGridToolbar` needed — Zone 1 content sits directly in a `Stack`.",
+      },
+      source: { type: "dynamic" },
+    },
+  },
+}
+
+export const WithPredefinedFilters: Story = {
+  render: () => {
+    const [activeFilter, setActiveFilter] = useState<React.ReactNode>("All")
+
+    return (
+      <Stack direction="vertical">
+        {/* Zone 1: Predefined filter tabs on the far left, primary action on the far right */}
+        <Stack distribution="between" alignment="center" className="jn:pb-2">
+          <TabBar appearance="buttons" activeItem={activeFilter} onActiveItemChange={setActiveFilter}>
+            <TabBarItem label="All" />
+            <TabBarItem label="Running" />
+            <TabBarItem label="Stopped" />
+            <TabBarItem label="Error" />
+          </TabBar>
+          <Button label="Create Server" variant="primary" />
+        </Stack>
+
+        {/* Zone 2: The same filters, recreatable by hand via filter inputs + search */}
+        <DataGridToolbar>
+          <Stack distribution="between" alignment="center">
+            <InputGroup>
+              <Select width="auto" label="Filter by" className="jn:min-w-44">
+                <SelectOption value="status" label="Status" />
+              </Select>
+              <ComboBox>
+                <ComboBoxOption value="running" label="Running" />
+                <ComboBoxOption value="stopped" label="Stopped" />
+                <ComboBoxOption value="error" label="Error" />
+              </ComboBox>
+            </InputGroup>
+            <SearchInput placeholder="Search servers…" />
+          </Stack>
+        </DataGridToolbar>
+      </Stack>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Predefined filter tabs in Zone 1. Use a `TabBar` with `appearance="buttons"` placed on the far left to offer a fixed set of pre-configured filters — each tab a meaningful subset of the same data set (here, servers by status). They save users from repeatedly configuring the same filters for frequently accessed subsets. Zone 1 is a bare `Stack` with no background; other Zone 1 content such as the primary action sits on the far right. Predefined filter tabs must always operate on the same entities, just filtered differently — never use them as navigation tabs for unrelated data sets. If the tabs would switch between entirely different entities, use page-level tabs with an independent DataGrid per tab instead. Each predefined filter must always be reproducible by hand through the Zone 2 filter controls — here, selecting "Status" and a status value recreates the corresponding tab. The tabs are a shortcut for frequent subsets, never a filter that cannot otherwise be configured manually.',
       },
       source: { type: "dynamic" },
     },
@@ -164,12 +213,19 @@ export const FullyFeatured: Story = {
   render: () => {
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc")
     const [selected, setSelected] = useState<Record<string, boolean>>({})
+    const [activeFilter, setActiveFilter] = useState<React.ReactNode>("All")
 
     return (
       <Stack direction="vertical" className="juno-pattern-datagrid-outer">
         <Stack direction="vertical" className="juno-pattern-datagrid-header">
-          {/* Zone 1: Sorting + primary action — bare Stack, no background */}
-          <Stack distribution="end" alignment="center" gap="2" className="jn:pb-2">
+          {/* Zone 1: Predefined filter tabs (left) + sorting and primary action (right) — bare Stack, no background */}
+          <Stack distribution="between" alignment="center" gap="2" className="jn:pb-2">
+            <TabBar appearance="buttons" activeItem={activeFilter} onActiveItemChange={setActiveFilter}>
+              <TabBarItem label="All" />
+              <TabBarItem label="Running" />
+              <TabBarItem label="Stopped" />
+              <TabBarItem label="Error" />
+            </TabBar>
             <Stack gap="2">
               <Stack gap="0.5">
                 <Select width="auto" label="Sort by" className="jn:min-w-40">
@@ -201,14 +257,14 @@ export const FullyFeatured: Story = {
               <Stack distribution="between" alignment="center">
                 <InputGroup>
                   <Select width="auto" label="Filter by" className="jn:min-w-44">
-                    <SelectOption value="region" label="Region" />
                     <SelectOption value="status" label="Status" />
+                    <SelectOption value="region" label="Region" />
                     <SelectOption value="az" label="Availability Zone" />
                   </Select>
                   <ComboBox>
-                    <ComboBoxOption value="eu-west-1" label="eu-west-1" />
-                    <ComboBoxOption value="us-east-1" label="us-east-1" />
-                    <ComboBoxOption value="ap-south-1" label="ap-south-1" />
+                    <ComboBoxOption value="running" label="Running" />
+                    <ComboBoxOption value="stopped" label="Stopped" />
+                    <ComboBoxOption value="error" label="Error" />
                   </ComboBox>
                 </InputGroup>
                 <SearchInput placeholder="Search servers…" />
@@ -216,7 +272,6 @@ export const FullyFeatured: Story = {
 
               {/* Zone 2 cont: Active filter pills */}
               <Stack gap="2" wrap>
-                <Pill pillKey="Region" pillValue="eu-west-1" closeable />
                 <Pill pillKey="Status" pillValue="Running" closeable />
                 <Button label="Clear filters" size="xs" />
               </Stack>
@@ -295,7 +350,13 @@ export const FullyFeatured: Story = {
 <Stack direction="vertical" className="juno-pattern-datagrid-outer">
   <Stack direction="vertical" className="juno-pattern-datagrid-header">
     {/* Zone 1 — bare Stack, no background */}
-    <Stack distribution="end" alignment="center" gap="2" className="pb-2">
+    <Stack distribution="between" alignment="center" gap="2" className="pb-2">
+      <TabBar appearance="buttons" activeItem={activeFilter} onActiveItemChange={setActiveFilter}>
+        <TabBarItem label="All" />
+        <TabBarItem label="Running" />
+        <TabBarItem label="Stopped" />
+        <TabBarItem label="Error" />
+      </TabBar>
       <Stack gap="2">
         <Stack gap="0.5">
           <Select width="auto" label="Sort by" className="min-w-40">
@@ -326,20 +387,19 @@ export const FullyFeatured: Story = {
         <Stack distribution="between" alignment="center">
           <InputGroup>
             <Select width="auto" label="Filter by" className="min-w-44">
-              <SelectOption value="region" label="Region" />
               <SelectOption value="status" label="Status" />
+              <SelectOption value="region" label="Region" />
               <SelectOption value="az" label="Availability Zone" />
             </Select>
             <ComboBox>
-              <ComboBoxOption value="eu-west-1" label="eu-west-1" />
-              <ComboBoxOption value="us-east-1" label="us-east-1" />
-              <ComboBoxOption value="ap-south-1" label="ap-south-1" />
+              <ComboBoxOption value="running" label="Running" />
+              <ComboBoxOption value="stopped" label="Stopped" />
+              <ComboBoxOption value="error" label="Error" />
             </ComboBox>
           </InputGroup>
           <SearchInput placeholder="Search servers…" />
         </Stack>
         <Stack gap="2" wrap>
-          <Pill pillKey="Region" pillValue="eu-west-1" closeable />
           <Pill pillKey="Status" pillValue="Running" closeable />
           <Button label="Clear filters" size="xs" />
         </Stack>
