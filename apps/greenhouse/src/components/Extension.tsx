@@ -6,11 +6,11 @@
 import React from "react"
 import { AppProps } from "../Shell"
 import type { AuthStore } from "@cloudoperators/greenhouse-auth-provider"
-import { usePluginLoader } from "../hooks/usePluginLoader"
+import { usePluginLoader, type PluginLoaderConfig } from "../hooks/usePluginLoader"
 
 type ExtensionProps = {
   id: string
-  config: any
+  config: PluginLoaderConfig
   appProps: AppProps
   pluginAuth: AuthStore
 }

@@ -1,0 +1,55 @@
+{
+  "name": "@cloudoperators/greenhouse-core",
+  "version": "0.1.0",
+  "description": "Shared ground between the Greenhouse shell and its plugins: the plugin contract (PluginModule, PluginProps, MountOptions) and a createPluginMount helper. The single versioned source of truth imported by both sides.",
+  "author": "UI-Team",
+  "source": "src/index.ts",
+  "main": "build/index.js",
+  "module": "build/index.js",
+  "repository": "https://github.com/cloudoperators/juno/tree/main/packages/greenhouse-core",
+  "license": "Apache-2.0",
+  "type": "module",
+  "types": "build/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "default": "./build/index.js"
+    }
+  },
+  "files": [
+    "build/**",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20.12.0",
+    "pnpm": ">=11.25.0"
+  },
+  "peerDependencies": {
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0"
+  },
+  "devDependencies": {
+    "@cloudoperators/juno-config": "workspace:*",
+    "@testing-library/jest-dom": "7.0.1",
+    "@testing-library/react": "16.3.3",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "jsdom": "30.1.2",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "typescript": "6.0.3",
+    "vitest": "5.0.3"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest --watch",
+    "lint": "eslint ",
+    "build": "tsc --project tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf build && rm -rf node_modules && rm -rf .turbo",
+    "clean:cache": "rm -rf .turbo"
+  }
+}

@@ -8,6 +8,7 @@ import { ApolloProvider } from "@apollo/client/react"
 import { createRouter, RouterProvider, createHashHistory, createBrowserHistory } from "@tanstack/react-router"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { AppShell, AppShellProvider, PageHeader } from "@cloudoperators/juno-ui-components"
+import type { PluginProps } from "@cloudoperators/greenhouse-core"
 import { encodeV2, decodeV2 } from "@cloudoperators/juno-url-state-provider"
 import styles from "./styles.css?inline"
 import { ErrorBoundary } from "./components/common/ErrorBoundary"
@@ -25,10 +26,8 @@ export type { AuthState, EmbeddedAuth } from "@cloudoperators/greenhouse-auth-pr
 const queryClient = new QueryClient()
 
 /** Auth can be EmbeddedAuth (from shell) or a plain AuthState (e.g. from appProps.json, which cannot contain functions). */
-export type AppProps = {
-  theme?: "theme-dark" | "theme-light"
+export interface AppProps extends PluginProps {
   apiEndpoint?: string
-  embedded?: boolean
   initialFilters?: InitialFilters
   basePath?: string
   enableHashedRouting?: boolean

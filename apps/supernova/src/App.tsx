@@ -10,6 +10,7 @@ import { z } from "zod"
 import { ErrorBoundary } from "react-error-boundary"
 import { decodeV2, encodeV2, registerConsumer } from "@cloudoperators/juno-url-state-provider"
 import { AppShellProvider, CodeBlock } from "@cloudoperators/juno-ui-components"
+import type { PluginProps } from "@cloudoperators/greenhouse-core"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import styles from "./styles.css?inline"
 import { StoreProvider } from "./components/StoreProvider"
@@ -32,14 +33,13 @@ declare module "@tanstack/react-router" {
   }
 }
 
-export type AppProps = {
+export interface AppProps extends PluginProps {
   endpoint: string
   filterLabels: string[]
   initialFilters: Record<string, any>
   predefinedFilters: Record<string, any>
   silenceExcludedLabels: string[]
   silenceTemplates: any[]
-  theme: "theme-dark" | "theme-light"
   username: string
   enableHashedRouting?: boolean
   basePath?: string

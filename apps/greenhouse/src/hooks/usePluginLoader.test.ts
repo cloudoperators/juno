@@ -14,9 +14,11 @@ vi.mock("@tanstack/react-router", () => ({
   })),
 }))
 
-// Mock the plugin modules
+// Mock the plugin modules — each plugin exposes a single `plugin: PluginModule` named export,
+// matching the shape the loader reads at `src/hooks/usePluginLoader.ts`
+// (`(await import(...)).plugin`).
 vi.mock("@cloudoperators/juno-app-supernova", () => ({
-  default: {
+  plugin: {
     mount: vi.fn(),
     unmount: vi.fn(),
   },
@@ -29,8 +31,9 @@ describe("usePluginLoader", () => {
   const mockPluginAuth = {} as any
   const mockConfig = {
     id: "supernova",
+    name: "supernova",
     props: {
-      someProp: "value",
+      theme: "theme-dark" as const,
     },
   }
 
