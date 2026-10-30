@@ -22,7 +22,9 @@ act_*.json
 .secret
 
 .out-of-code-insights
-.claude
+# Root-level Claude config stays local (leading slash = root only, so nested
+# packages/*/.claude/ skills are still tracked):
+/.claude
 claude.md
 .mcp.json
 
