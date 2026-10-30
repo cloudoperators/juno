@@ -117,6 +117,7 @@ jobs:
           file: ${{ env.PACKAGE_PATH }}/docker/Dockerfile
           # remove untagged images produced for multi platform builds
           provenance: false
+          no-cache: true
 
       - name: Sign the published Docker image
         env:
