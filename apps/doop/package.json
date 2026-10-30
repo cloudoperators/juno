@@ -54,6 +54,6 @@
     "@tanstack/react-router": "1.170.41",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "zod": "4.6.5"
+    "zod": "4.6.7"
   }
 }

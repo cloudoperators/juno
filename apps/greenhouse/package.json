@@ -63,6 +63,6 @@
     "@tanstack/react-query": "5.104.1",
     "@tanstack/react-router": "1.170.41",
     "js-yaml": "5.4.2",
-    "zod": "4.6.5"
+    "zod": "4.6.7"
   }
 }
