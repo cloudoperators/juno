@@ -11,6 +11,71 @@ import { DescriptionList } from "../DescriptionList"
 import { DescriptionTerm } from "../DescriptionTerm"
 
 describe("DescriptionDefinition", () => {
+  it("renders textContain='no-wrap' class directly on the <dd>", () => {
+    render(<DescriptionDefinition textContain="no-wrap">Definition</DescriptionDefinition>)
+    expect(screen.getByRole("definition")).toHaveClass("jn:whitespace-nowrap")
+  })
+
+  it("renders textContain='break-word' class directly on the <dd>", () => {
+    render(<DescriptionDefinition textContain="break-word">Definition</DescriptionDefinition>)
+    expect(screen.getByRole("definition")).toHaveClass("jn:break-words")
+  })
+
+  it("renders textContain='break-all' class directly on the <dd>", () => {
+    render(<DescriptionDefinition textContain="break-all">Definition</DescriptionDefinition>)
+    expect(screen.getByRole("definition")).toHaveClass("jn:break-all")
+  })
+
+  it("wraps truncate-end content in an inner block element carrying the truncate class", () => {
+    render(<DescriptionDefinition textContain="truncate-end">A long definition</DescriptionDefinition>)
+    const dd = screen.getByRole("definition")
+    expect(dd).not.toHaveClass("jn:truncate")
+    const inner = dd.querySelector(".juno-dd-truncate")
+    expect(inner).toHaveClass("jn:block")
+    expect(inner).toHaveClass("jn:truncate")
+    expect(inner).toHaveTextContent("A long definition")
+    expect(dd.querySelector("bdi")).toBeNull()
+  })
+
+  it("wraps truncate-start content in an inner block element and isolates it with <bdi>", () => {
+    render(<DescriptionDefinition textContain="truncate-start">Ready!</DescriptionDefinition>)
+    const dd = screen.getByRole("definition")
+    const bdi = dd.querySelector("bdi")
+    expect(bdi).not.toBeNull()
+    expect(bdi).toHaveTextContent("Ready!")
+    expect(dd.querySelector(".juno-dd-truncate")?.contains(bdi)).toBe(true)
+  })
+
+  it("adds grid-cols-1 for break-word so the implicit inner column can shrink and text wraps", () => {
+    render(<DescriptionDefinition textContain="break-word">Definition</DescriptionDefinition>)
+    expect(screen.getByRole("definition")).toHaveClass("jn:grid-cols-1")
+  })
+
+  it("adds grid-cols-1 for truncate-end", () => {
+    render(<DescriptionDefinition textContain="truncate-end">Definition</DescriptionDefinition>)
+    expect(screen.getByRole("definition")).toHaveClass("jn:grid-cols-1")
+  })
+
+  it("does not add grid-cols-1 for no-wrap", () => {
+    render(<DescriptionDefinition textContain="no-wrap">Definition</DescriptionDefinition>)
+    expect(screen.getByRole("definition")).not.toHaveClass("jn:grid-cols-1")
+  })
+
+  it("adds min-w-0 for truncate-end so the <dd> can shrink within its grid track", () => {
+    render(<DescriptionDefinition textContain="truncate-end">Definition</DescriptionDefinition>)
+    expect(screen.getByRole("definition")).toHaveClass("jn:min-w-0")
+  })
+
+  it("adds min-w-0 for break-word so long words wrap within the track instead of widening it", () => {
+    render(<DescriptionDefinition textContain="break-word">Definition</DescriptionDefinition>)
+    expect(screen.getByRole("definition")).toHaveClass("jn:min-w-0")
+  })
+
+  it("does not add min-w-0 for no-wrap", () => {
+    render(<DescriptionDefinition textContain="no-wrap">Definition</DescriptionDefinition>)
+    expect(screen.getByRole("definition")).not.toHaveClass("jn:min-w-0")
+  })
+
   it("renders child DescriptionTerm and DescriptionDefinition components with arbitrary test props", () => {
     render(
       <DescriptionList>
