@@ -56,6 +56,6 @@
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-error-boundary": "6.1.6",
-    "zod": "4.6.5"
+    "zod": "4.6.7"
   }
 }
