@@ -1,5 +1,18 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.14.17
+
+### Patch Changes
+
+- b148f33: fix(greenhouse): rebuild Docker image to fix CVE-2026-111497 (brotli-libs out-of-bounds write)
+- Updated dependencies [b148f33]
+- Updated dependencies [d066076]
+  - @cloudoperators/juno-app-supernova@0.20.16
+  - @cloudoperators/juno-ui-components@9.8.0
+  - @cloudoperators/juno-app-doop@2.6.47
+  - @cloudoperators/juno-app-heureka@1.1.22
+  - @cloudoperators/juno-messages-provider@0.2.59
+
 ## 0.14.16
 
 ### Patch Changes
