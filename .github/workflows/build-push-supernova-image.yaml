@@ -125,6 +125,7 @@ jobs:
           push: true
           # remove untagged images produced for multi platform builds
           provenance: false
+          no-cache: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: |
