@@ -3,7 +3,7 @@
   "baseline": "fac03386c50408123ab764ad6005e15412b58bd4",
   "items": {
     "skill:packages/ui-components/skills/datagrid/SKILL.md": {
-      "fingerprint": "059a02bc8b2e6fa0239420fb27d0ce0527be8078365b56df98dbd0524b0c5185",
+      "fingerprint": "58cb0e758353680fb07cf5b307dc9168d7d2e542cb77b9f39e9a1015c4d27d5a",
       "snapshot": {
         "packages/ui-components/skills/datagrid/SKILL.md": "3579e1d5fd5213fd850dd077f4e8cc8492f3acdfd48cb34e167a836510b60091",
         "packages/ui-components/skills/datagrid/references/component-props.md": "e1c9bd78c2aeb3ee71c877989b699173de266facd733f4a581104a335f0cd0b5",
@@ -11,18 +11,18 @@
         "packages/ui-components/skills/datagrid/references/fragment-library.md": "37eaf3d15c1b8efe590629ec24d6a27790d7e46ddffcedec67275ea7f09d2f78",
         "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
         "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "c1c52e3c778327d889e0c8741d09d4613fd9942dd065ddae4059592d3e2b505a",
-        "packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx": "baf54d3ad073dbc24874eb6f91e900d3b1cfc650f8435ca46130b59e12028eb1",
-        "packages/ui-components/src/components/DataGrid/DataGridPattern.stories.tsx": "f90df532c41e4604c199e461df168711566f1199ff386c9b865a8013ded798eb"
+        "packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx": "5c5c7959a6397ac2a1aea2f1d02584ac7bf06b6f32144c0b597f6e1c8cf46e1a",
+        "packages/ui-components/src/components/DataGrid/DataGridPattern.stories.tsx": "36e95f30fcc0c6fb2aabc681c5f1b6a8399d38756bda8d4040cfbb743c988d9c"
       },
-      "head": "f57171821ac0eb694041e11b312d6c2be3c5d8fc",
-      "outcome": "updated",
-      "reason": "Re-record after a prettier reformat of component-props.md (the TabBar/TabBarItem entry added for predefined filters) — table padding only, guidance content unchanged from the already-reviewed version. Refreshes the fingerprint for the datagrid skill and planning records.",
+      "head": "bad7b89992dc0e143348777936a75566ea42acd7",
+      "outcome": "no-change",
+      "reason": "DataGrid story source examples (Header + Pattern) corrected to add the select-all checkbox aria-label already mandated by FRAG:bulk-actions. The change is to the story sources only; the datagrid skill guidance and planning records are unchanged and still correct.",
       "evidence": [
-        "Changed: packages/ui-components/skills/datagrid/references/component-props.md at f57171821ac0eb694041e11b312d6c2be3c5d8fc"
+        "Changed: packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx, packages/ui-components/src/components/DataGrid/DataGridPattern.stories.tsx at bad7b89992dc0e143348777936a75566ea42acd7"
       ]
     },
     "planning:_artifacts": {
-      "fingerprint": "f96c9befec0674df52e44850d8722cf0550a9dacdc19cee145c726f9bfd9ff11",
+      "fingerprint": "e36a6a667234120588051acefac01f2f4224c67ead314f8ce4decd335fa1348c",
       "snapshot": {
         "_artifacts/domain_map.yaml": "a81e769dbf7e2f29ef7d6fa3994773181fbd23d2de50af1792e77cd736d318ef",
         "_artifacts/skill_spec.md": "3380751adf5f55215d38e9f0ab67867a7317de7d960995d6d01fc0fbf2d423ca",
@@ -35,14 +35,14 @@
         "packages/ui-components/skills/datagrid/references/fragment-library.md": "37eaf3d15c1b8efe590629ec24d6a27790d7e46ddffcedec67275ea7f09d2f78",
         "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
         "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "c1c52e3c778327d889e0c8741d09d4613fd9942dd065ddae4059592d3e2b505a",
-        "packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx": "baf54d3ad073dbc24874eb6f91e900d3b1cfc650f8435ca46130b59e12028eb1",
-        "packages/ui-components/src/components/DataGrid/DataGridPattern.stories.tsx": "f90df532c41e4604c199e461df168711566f1199ff386c9b865a8013ded798eb"
+        "packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx": "5c5c7959a6397ac2a1aea2f1d02584ac7bf06b6f32144c0b597f6e1c8cf46e1a",
+        "packages/ui-components/src/components/DataGrid/DataGridPattern.stories.tsx": "36e95f30fcc0c6fb2aabc681c5f1b6a8399d38756bda8d4040cfbb743c988d9c"
       },
-      "head": "f57171821ac0eb694041e11b312d6c2be3c5d8fc",
-      "outcome": "updated",
-      "reason": "Re-record after a prettier reformat of component-props.md (the TabBar/TabBarItem entry added for predefined filters) — table padding only, guidance content unchanged from the already-reviewed version. Refreshes the fingerprint for the datagrid skill and planning records.",
+      "head": "bad7b89992dc0e143348777936a75566ea42acd7",
+      "outcome": "no-change",
+      "reason": "DataGrid story source examples (Header + Pattern) corrected to add the select-all checkbox aria-label already mandated by FRAG:bulk-actions. The change is to the story sources only; the datagrid skill guidance and planning records are unchanged and still correct.",
       "evidence": [
-        "Changed: packages/ui-components/skills/datagrid/references/component-props.md at f57171821ac0eb694041e11b312d6c2be3c5d8fc"
+        "Changed: packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx, packages/ui-components/src/components/DataGrid/DataGridPattern.stories.tsx at bad7b89992dc0e143348777936a75566ea42acd7"
       ]
     },
     "skill:packages/ui-components/skills/datagrid-build/SKILL.md": {

@@ -261,7 +261,7 @@ export const Default: Story = {
     <DataGridToolbar>
       <Stack distribution="between" alignment="center" className="text-sm">
         <Stack gap="2" alignment="center">
-          <Checkbox />
+          <Checkbox aria-label="Select all items" />
           <PopupMenu className="flex items-center">
             <PopupMenuToggle as={React.Fragment}>
               <Button size="xs" icon="moreVert" label="Actions" />
