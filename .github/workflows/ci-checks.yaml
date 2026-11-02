@@ -23,12 +23,12 @@ env:
 
 jobs:
   reuse-compliance:
-    uses: cloudoperators/common/.github/workflows/shared-reuse.yaml@ab7fac711675c77ba025bfde04f08175a4476546 # main
+    uses: cloudoperators/common/.github/workflows/shared-reuse.yaml@4c90d3c7b7e98f1edd2c894e533c70a31f2ec28e # main
 
   license-headers:
     permissions:
       contents: write
-    uses: cloudoperators/common/.github/workflows/shared-license.yaml@ab7fac711675c77ba025bfde04f08175a4476546 # main
+    uses: cloudoperators/common/.github/workflows/shared-license.yaml@4c90d3c7b7e98f1edd2c894e533c70a31f2ec28e # main
     with:
       apply_header: false
 
@@ -38,7 +38,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Use Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
 
@@ -87,7 +87,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Use Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
 
