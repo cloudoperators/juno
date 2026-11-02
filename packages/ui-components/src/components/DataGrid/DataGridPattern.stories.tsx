@@ -21,7 +21,6 @@ import { InputGroup } from "../InputGroup"
 import { ComboBox } from "../ComboBox"
 import { ComboBoxOption } from "../ComboBoxOption"
 import { SearchInput } from "../SearchInput"
-import { Pill } from "../Pill"
 import { PortalProvider } from "../PortalProvider"
 import { TabBar } from "../TabBar"
 import { TabBarItem } from "../TabBarItem"
@@ -120,12 +119,6 @@ export const Default: Story = {
                 </InputGroup>
                 <SearchInput placeholder="Search servers…" />
               </Stack>
-
-              {/* Zone 2 cont: Active filter pills */}
-              <Stack gap="2" wrap>
-                <Pill pillKey="Status" pillValue="Running" closeable />
-                <Button label="Clear filters" size="xs" />
-              </Stack>
             </Stack>
           </DataGridToolbar>
           <DataGridToolbar>
@@ -143,7 +136,7 @@ export const Default: Story = {
                   </PopupMenuOptions>
                 </PopupMenu>
               </Stack>
-              <span className="jn:theme-color-text-light">Showing 2 of 4 servers</span>
+              <span className="jn:theme-color-text-light">4 servers</span>
               <Stack gap="2" alignment="center">
                 <span>Last update: 20.05.2026 @09:41</span>
                 <Button label="Update" size="xs" />
@@ -193,7 +186,7 @@ export const Default: Story = {
     docs: {
       description: {
         story:
-          "The complete DataGrid pattern: a fully featured header (all three zones) composed above an actual `DataGrid`. The header composition and the `DataGrid` are wrapped together in an outer vertical `Stack`. Every header zone and element is optional — this example shows all of them for reference.",
+          'The complete DataGrid pattern: a fully featured header (all three zones) composed above an actual `DataGrid`. The header composition and the `DataGrid` are wrapped together in an outer vertical `Stack`. Every header zone and element is optional — this example shows all of them for reference. The static example depicts the unfiltered default state (the `All` tab, all 4 rows, so the item count reads "4 servers"). When a predefined filter (or a manual filter) is active, the item count should update to "Showing X of Y servers" to reflect the narrowed set — this static story does not wire that interaction.',
       },
       // Keep this source.code in sync with the render function above
       source: {
@@ -250,10 +243,6 @@ export const Default: Story = {
           </InputGroup>
           <SearchInput placeholder="Search servers…" />
         </Stack>
-        <Stack gap="2" wrap>
-          <Pill pillKey="Status" pillValue="Running" closeable />
-          <Button label="Clear filters" size="xs" />
-        </Stack>
       </Stack>
     </DataGridToolbar>
 
@@ -272,7 +261,7 @@ export const Default: Story = {
             </PopupMenuOptions>
           </PopupMenu>
         </Stack>
-        <span className="theme-color-text-light">Showing 2 of 4 servers</span>
+        <span className="theme-color-text-light">4 servers</span>
         <Stack gap="2" alignment="center">
           <span>Last update: 20.05.2026 @09:41</span>
           <Button label="Update" size="xs" />
