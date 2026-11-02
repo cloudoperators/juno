@@ -47,8 +47,12 @@ paraphrase or restructure them.
 
 **FRAG:filter-tabs**
 
+Predefined filter tabs always use the segmented button appearance
+(`appearance="buttons"`) and are controlled via an `activeFilterTab` state (see
+the datagrid-build state declarations). The first tab is the default active tab.
+
 ```tsx no-check
-<TabBar>
+<TabBar appearance="buttons" activeItem={activeFilterTab} onActiveItemChange={setActiveFilterTab}>
   {spec.features.filterTabs.tabs.map((tab) => (
     <TabBarItem key={tab} label={tab} />
   ))}

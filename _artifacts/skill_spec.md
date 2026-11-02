@@ -14,7 +14,7 @@ consume it.
   of truth in `references/datagrid-spec.md`: the Input Schema, the Decision Trees
   (`DT-1`–`DT-9`) that deterministically resolve structure (columns, the
   three-zone header, rows, cells, state rows), and the Invariants
-  (`INV-1`–`INV-17`). Also carries the mental model, column-sizing escalation, and
+  (`INV-1`–`INV-19`). Also carries the mental model, column-sizing escalation, and
   when NOT to use a DataGrid. Supporting references: `component-props.md`,
   `fragment-library.md`.
 - **`datagrid-build`** (`packages/ui-components`, requires `datagrid`). Task:
@@ -26,6 +26,23 @@ consume it.
   intended spec from code, runs the same trees to compute the expected structure,
   diffs, and asserts the Invariants. Holds only the review procedure and findings
   format; cites spec rule IDs.
+
+#### Update — predefined filters (2026-11, issue #2090)
+
+Extended the DataGrid skills to cover **predefined filter tabs** (Zone 1), after
+the pattern was documented in Storybook and `docs/ux/datagrid.md`:
+
+- `FRAG:filter-tabs` corrected to the shipped form — `TabBar appearance="buttons"`
+  controlled by an `activeFilterTab` state (was a bare `TabBar`).
+- Added `INV-18` (capability parity: every tab must be reproducible via the Zone 2
+  filters) and `INV-19` (an active tab is a scope layer, never mirrored as a filter
+  pill; no reverse auto-activation). Invariant range is now `INV-1`–`INV-19`.
+- `component-props.md` gained a `TabBar`/`TabBarItem` entry (appearance, activeItem,
+  onActiveItemChange, label).
+- `datagrid-build` adds the `activeFilterTab` state and a parse-time parity check;
+  `datagrid-validate` asserts the new invariants (range bumped).
+- Added `DataGridHeader.stories.tsx` and `DataGridPattern.stories.tsx` as tracked
+  sources of the `datagrid` skill (the header/pattern compositions now live there).
 
 ### Decisions
 

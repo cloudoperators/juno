@@ -19,7 +19,7 @@ Decision Trees, not by judgement.
 ## Source of truth — do not restate
 
 All structural rules live in the **datagrid** skill (`requires: [datagrid]`):
-Input Schema, Decision Trees `DT-1`…`DT-9`, Invariants `INV-1`…`INV-17`, the
+Input Schema, Decision Trees `DT-1`…`DT-9`, Invariants `INV-1`…`INV-19`, the
 Fragment Library, and the Component Props Reference. Read
 `datagrid/references/datagrid-spec.md` before emitting anything. This skill adds
 only the build-specific procedure. If you are tempted to write a structural rule
@@ -30,6 +30,11 @@ here, it belongs in `datagrid-spec.md` instead.
 Map the BRD / feature list / natural language onto the Input Schema. Resolve every
 ambiguity with a **single consolidated question** before emitting anything — never
 guess a spec field, and never emit partial scaffolding "to see how it looks".
+
+If the input asks for predefined filter tabs (`filterTabs`), confirm each tab is
+reproducible through the Zone 2 filters and that `filtering` is enabled to express
+them (`INV-18`); if a tab has no manual-filter equivalent, raise it in the
+consolidated question rather than emitting it.
 
 ## 2 · Resolve structure (run the trees forward)
 
@@ -73,6 +78,7 @@ A single self-contained code block containing:
    - `isLoading`, `isError` — always
    - `sortOrder` — if sorting
    - `selected` — if bulkActions
+   - `activeFilterTab` — if filterTabs (initialize to the first tab, e.g. `"All"`)
    - `hasActiveFilters` — if filtering or search
 4. **Derived values** (immediately after state):
    - `allSelected`, `someSelected`, `noneSelected` — if bulkActions (from `DT-9`)
@@ -94,6 +100,6 @@ After the code block, append a **Setup Notes** section:
 
 ## Self-check before returning
 
-The output must satisfy every Invariant (`INV-1`…`INV-17`). If a requirement
+The output must satisfy every Invariant (`INV-1`…`INV-19`). If a requirement
 cannot be met with the documented components (`INV-17`), say so explicitly and
 leave that part to the consuming component.

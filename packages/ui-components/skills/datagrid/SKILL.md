@@ -10,6 +10,8 @@ description: >-
 sources:
   - src/components/DataGrid/DataGrid.component.tsx
   - src/components/DataGrid/DataGrid.stories.tsx
+  - src/components/DataGrid/DataGridHeader.stories.tsx
+  - src/components/DataGrid/DataGridPattern.stories.tsx
 ---
 
 Juno renders tabular / collection data with DataGrid primitives, never a raw HTML
@@ -20,7 +22,7 @@ defines what a correct DataGrid is.
 
 [references/datagrid-spec.md](references/datagrid-spec.md) is the single source of
 truth — Input Schema, Decision Trees (`DT-1`…`DT-9`), and Invariants
-(`INV-1`…`INV-17`). Supporting references:
+(`INV-1`…`INV-19`). Supporting references:
 [references/component-props.md](references/component-props.md),
 [references/fragment-library.md](references/fragment-library.md).
 
@@ -44,6 +46,9 @@ never duplicate the rule into a consuming skill.
   (`INV-13`).
 - The header is up to three zones (`DT-2`): Zone 1 in a bare `Stack`, Zones 2–3
   each in their own `DataGridToolbar` (`INV-3`, `INV-4`).
+- Predefined filter tabs (Zone 1, far left) are a scope shortcut layered over the
+  manual filters: they must be reproducible via Zone 2 filtering (`INV-18`) and an
+  active tab never renders as a filter pill (`INV-19`).
 
 ## When NOT to use a DataGrid
 
