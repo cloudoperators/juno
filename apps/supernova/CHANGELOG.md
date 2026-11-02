@@ -1,5 +1,14 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.20.16
+
+### Patch Changes
+
+- b148f33: fix(supernova): rebuild Docker image to fix CVE-2026-111497 (brotli-libs out-of-bounds write)
+- Updated dependencies [d066076]
+  - @cloudoperators/juno-ui-components@9.8.0
+  - @cloudoperators/juno-messages-provider@0.2.59
+
 ## 0.20.15
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 9.8.0
+
+### Minor Changes
+
+- d066076: feat(ui): implement `textContain` prop on `DescriptionTerm`/`DT` and `DescriptionDefinition`/`DD` components
+
 ## 9.7.2
 
 ### Patch Changes
