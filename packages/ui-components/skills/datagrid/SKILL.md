@@ -22,7 +22,7 @@ defines what a correct DataGrid is.
 
 [references/datagrid-spec.md](references/datagrid-spec.md) is the single source of
 truth — Input Schema, Decision Trees (`DT-1`…`DT-9`), and Invariants
-(`INV-1`…`INV-19`). Supporting references:
+(`INV-1`…`INV-20`). Supporting references:
 [references/component-props.md](references/component-props.md),
 [references/fragment-library.md](references/fragment-library.md).
 

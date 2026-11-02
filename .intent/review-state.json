@@ -3,72 +3,72 @@
   "baseline": "fac03386c50408123ab764ad6005e15412b58bd4",
   "items": {
     "skill:packages/ui-components/skills/datagrid/SKILL.md": {
-      "fingerprint": "58cb0e758353680fb07cf5b307dc9168d7d2e542cb77b9f39e9a1015c4d27d5a",
+      "fingerprint": "0dafc0d5e6eaab0fbed4f05aebc46002e80803a867992d47c9a2b2624e315934",
       "snapshot": {
-        "packages/ui-components/skills/datagrid/SKILL.md": "3579e1d5fd5213fd850dd077f4e8cc8492f3acdfd48cb34e167a836510b60091",
-        "packages/ui-components/skills/datagrid/references/component-props.md": "e1c9bd78c2aeb3ee71c877989b699173de266facd733f4a581104a335f0cd0b5",
-        "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "18230bccf000f2d3071015937c6d3817407ab42a77d79a9f0996746fbb077fa1",
+        "packages/ui-components/skills/datagrid/SKILL.md": "2e7630e63a9901fbb063b4d19b67ae4842206f202915cf812e59d3bb2822aaa3",
+        "packages/ui-components/skills/datagrid/references/component-props.md": "ab4f49dcb1bacbd9aa6e837a7fad54481d520db9f0842b4b54324e5cedb5ae61",
+        "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "53040c52d11304155171567756d5ee260fbd9c16d184316ef32fadcbee7fe53d",
         "packages/ui-components/skills/datagrid/references/fragment-library.md": "37eaf3d15c1b8efe590629ec24d6a27790d7e46ddffcedec67275ea7f09d2f78",
         "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
         "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "c1c52e3c778327d889e0c8741d09d4613fd9942dd065ddae4059592d3e2b505a",
         "packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx": "5c5c7959a6397ac2a1aea2f1d02584ac7bf06b6f32144c0b597f6e1c8cf46e1a",
         "packages/ui-components/src/components/DataGrid/DataGridPattern.stories.tsx": "36e95f30fcc0c6fb2aabc681c5f1b6a8399d38756bda8d4040cfbb743c988d9c"
       },
-      "head": "bad7b89992dc0e143348777936a75566ea42acd7",
-      "outcome": "no-change",
-      "reason": "DataGrid story source examples (Header + Pattern) corrected to add the select-all checkbox aria-label already mandated by FRAG:bulk-actions. The change is to the story sources only; the datagrid skill guidance and planning records are unchanged and still correct.",
+      "head": "8a8d020177723de6add01a62452404da6a352178",
+      "outcome": "updated",
+      "reason": "Tightened predefined-filter determinism so render/omit is never a judgement call: schema filterTabs is now { tabs: string[] } | null (dropped the ambiguous bare boolean), DT-2/DT-3 gate on filterTabs.tabs.length > 0, added INV-20 (render iff a non-empty tabs array is present; tabs never inferred/invented), and datagrid-build §1 forbids introducing filterTabs without explicit concrete tabs. Invariant range bumped to INV-1..INV-20 across the skills and planning record.",
       "evidence": [
-        "Changed: packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx, packages/ui-components/src/components/DataGrid/DataGridPattern.stories.tsx at bad7b89992dc0e143348777936a75566ea42acd7"
+        "Changed: packages/ui-components/skills/datagrid/SKILL.md, packages/ui-components/skills/datagrid/references/component-props.md, packages/ui-components/skills/datagrid/references/datagrid-spec.md at 8a8d020177723de6add01a62452404da6a352178"
       ]
     },
     "planning:_artifacts": {
-      "fingerprint": "e36a6a667234120588051acefac01f2f4224c67ead314f8ce4decd335fa1348c",
+      "fingerprint": "5d1a98006770fcd4220935cfca22bbff2b1179de20d497738da7afa71b2d85f1",
       "snapshot": {
         "_artifacts/domain_map.yaml": "a81e769dbf7e2f29ef7d6fa3994773181fbd23d2de50af1792e77cd736d318ef",
-        "_artifacts/skill_spec.md": "3380751adf5f55215d38e9f0ab67867a7317de7d960995d6d01fc0fbf2d423ca",
+        "_artifacts/skill_spec.md": "9a3ced4ddd907bf8c4e954407d3fd9db66fb9db23c8800848a8db4505193464a",
         "_artifacts/skill_tree.yaml": "a78df02c3ecd42e677c1282cab50c8205523011dbc1a2d19d45b79493168caa1",
-        "packages/ui-components/skills/datagrid-build/SKILL.md": "af22a6e493382ee17f002f90dba14f699927d32ae1fc5cedb0430cc02f0dbb2e",
-        "packages/ui-components/skills/datagrid-validate/SKILL.md": "ad3af3fc9a57af2d3e0cbc2c457ed101388ad426c50b0ac826880422b6d1b7f0",
-        "packages/ui-components/skills/datagrid/SKILL.md": "3579e1d5fd5213fd850dd077f4e8cc8492f3acdfd48cb34e167a836510b60091",
-        "packages/ui-components/skills/datagrid/references/component-props.md": "e1c9bd78c2aeb3ee71c877989b699173de266facd733f4a581104a335f0cd0b5",
-        "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "18230bccf000f2d3071015937c6d3817407ab42a77d79a9f0996746fbb077fa1",
+        "packages/ui-components/skills/datagrid-build/SKILL.md": "d91474aa41ef649994153956ad7b14e95691f9843906d96473cc988ae6750acc",
+        "packages/ui-components/skills/datagrid-validate/SKILL.md": "7fe7b8e27276f2c371d67ab0aaa8a3b7ce3ecb082d4ed2cfbe4fcba4495fcd8e",
+        "packages/ui-components/skills/datagrid/SKILL.md": "2e7630e63a9901fbb063b4d19b67ae4842206f202915cf812e59d3bb2822aaa3",
+        "packages/ui-components/skills/datagrid/references/component-props.md": "ab4f49dcb1bacbd9aa6e837a7fad54481d520db9f0842b4b54324e5cedb5ae61",
+        "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "53040c52d11304155171567756d5ee260fbd9c16d184316ef32fadcbee7fe53d",
         "packages/ui-components/skills/datagrid/references/fragment-library.md": "37eaf3d15c1b8efe590629ec24d6a27790d7e46ddffcedec67275ea7f09d2f78",
         "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
         "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "c1c52e3c778327d889e0c8741d09d4613fd9942dd065ddae4059592d3e2b505a",
         "packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx": "5c5c7959a6397ac2a1aea2f1d02584ac7bf06b6f32144c0b597f6e1c8cf46e1a",
         "packages/ui-components/src/components/DataGrid/DataGridPattern.stories.tsx": "36e95f30fcc0c6fb2aabc681c5f1b6a8399d38756bda8d4040cfbb743c988d9c"
       },
-      "head": "bad7b89992dc0e143348777936a75566ea42acd7",
-      "outcome": "no-change",
-      "reason": "DataGrid story source examples (Header + Pattern) corrected to add the select-all checkbox aria-label already mandated by FRAG:bulk-actions. The change is to the story sources only; the datagrid skill guidance and planning records are unchanged and still correct.",
+      "head": "8a8d020177723de6add01a62452404da6a352178",
+      "outcome": "updated",
+      "reason": "Tightened predefined-filter determinism so render/omit is never a judgement call: schema filterTabs is now { tabs: string[] } | null (dropped the ambiguous bare boolean), DT-2/DT-3 gate on filterTabs.tabs.length > 0, added INV-20 (render iff a non-empty tabs array is present; tabs never inferred/invented), and datagrid-build §1 forbids introducing filterTabs without explicit concrete tabs. Invariant range bumped to INV-1..INV-20 across the skills and planning record.",
       "evidence": [
-        "Changed: packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx, packages/ui-components/src/components/DataGrid/DataGridPattern.stories.tsx at bad7b89992dc0e143348777936a75566ea42acd7"
+        "Changed: _artifacts/skill_spec.md, packages/ui-components/skills/datagrid-build/SKILL.md, packages/ui-components/skills/datagrid-validate/SKILL.md, packages/ui-components/skills/datagrid/SKILL.md, packages/ui-components/skills/datagrid/references/component-props.md, packages/ui-components/skills/datagrid/references/datagrid-spec.md at 8a8d020177723de6add01a62452404da6a352178"
       ]
     },
     "skill:packages/ui-components/skills/datagrid-build/SKILL.md": {
-      "fingerprint": "b9539f9c6471879fe2d209adb064fe361f2ec6c1f66035be02fedee77294903e",
+      "fingerprint": "890373978752b3c77bd9c26cb7f58ecca2e808a92d675adfe8c7946d98b44599",
       "snapshot": {
-        "packages/ui-components/skills/datagrid-build/SKILL.md": "af22a6e493382ee17f002f90dba14f699927d32ae1fc5cedb0430cc02f0dbb2e",
-        "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "18230bccf000f2d3071015937c6d3817407ab42a77d79a9f0996746fbb077fa1"
+        "packages/ui-components/skills/datagrid-build/SKILL.md": "d91474aa41ef649994153956ad7b14e95691f9843906d96473cc988ae6750acc",
+        "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "53040c52d11304155171567756d5ee260fbd9c16d184316ef32fadcbee7fe53d"
       },
-      "head": "3e673d6cb47a4e686e812244d47873ccb1d645ac",
+      "head": "8a8d020177723de6add01a62452404da6a352178",
       "outcome": "updated",
-      "reason": "Extended datagrid-build for predefined filters: added the activeFilterTab state declaration (when filterTabs is enabled) and a parse-time capability-parity check referencing INV-18; bumped the invariant range from INV-17 to INV-19 in both range references.",
+      "reason": "Tightened predefined-filter determinism so render/omit is never a judgement call: schema filterTabs is now { tabs: string[] } | null (dropped the ambiguous bare boolean), DT-2/DT-3 gate on filterTabs.tabs.length > 0, added INV-20 (render iff a non-empty tabs array is present; tabs never inferred/invented), and datagrid-build §1 forbids introducing filterTabs without explicit concrete tabs. Invariant range bumped to INV-1..INV-20 across the skills and planning record.",
       "evidence": [
-        "intent validate packages/ui-components/skills -> 3/3 passed. INV-18/INV-19 are defined in datagrid/references/datagrid-spec.md. Limitation: no fresh-consumer 'build a DataGrid with predefined filters' run was executed this session."
+        "Changed: packages/ui-components/skills/datagrid-build/SKILL.md, packages/ui-components/skills/datagrid/references/datagrid-spec.md at 8a8d020177723de6add01a62452404da6a352178"
       ]
     },
     "skill:packages/ui-components/skills/datagrid-validate/SKILL.md": {
-      "fingerprint": "3a752f0a8b9d535c55019a6257eedd5380814e926c821b7a97c86074420b76db",
+      "fingerprint": "154bfb51465accc15e92dafc6ecfe018adf20b97eea8c0ff1a37e999bf71a8c1",
       "snapshot": {
-        "packages/ui-components/skills/datagrid-validate/SKILL.md": "ad3af3fc9a57af2d3e0cbc2c457ed101388ad426c50b0ac826880422b6d1b7f0",
-        "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "18230bccf000f2d3071015937c6d3817407ab42a77d79a9f0996746fbb077fa1"
+        "packages/ui-components/skills/datagrid-validate/SKILL.md": "7fe7b8e27276f2c371d67ab0aaa8a3b7ce3ecb082d4ed2cfbe4fcba4495fcd8e",
+        "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "53040c52d11304155171567756d5ee260fbd9c16d184316ef32fadcbee7fe53d"
       },
-      "head": "3e673d6cb47a4e686e812244d47873ccb1d645ac",
+      "head": "8a8d020177723de6add01a62452404da6a352178",
       "outcome": "updated",
-      "reason": "Bumped the invariant range from INV-17 to INV-19 at all three references so the generic 'assert INV-1..INV-N' procedure now covers the new predefined-filter invariants INV-18 (capability parity) and INV-19 (no-pill scope layer). No other change needed — validate inherits spec rules by reference.",
+      "reason": "Tightened predefined-filter determinism so render/omit is never a judgement call: schema filterTabs is now { tabs: string[] } | null (dropped the ambiguous bare boolean), DT-2/DT-3 gate on filterTabs.tabs.length > 0, added INV-20 (render iff a non-empty tabs array is present; tabs never inferred/invented), and datagrid-build §1 forbids introducing filterTabs without explicit concrete tabs. Invariant range bumped to INV-1..INV-20 across the skills and planning record.",
       "evidence": [
-        "intent validate -> 3/3 passed. INV-18/INV-19 defined in datagrid-spec.md. Limitation: no fresh-consumer validate run executed this session."
+        "Changed: packages/ui-components/skills/datagrid-validate/SKILL.md, packages/ui-components/skills/datagrid/references/datagrid-spec.md at 8a8d020177723de6add01a62452404da6a352178"
       ]
     },
     "source:packages/ui-components/src/components/DataGridCell/DataGridCell.component.tsx": {

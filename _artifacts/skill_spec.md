@@ -14,7 +14,7 @@ consume it.
   of truth in `references/datagrid-spec.md`: the Input Schema, the Decision Trees
   (`DT-1`–`DT-9`) that deterministically resolve structure (columns, the
   three-zone header, rows, cells, state rows), and the Invariants
-  (`INV-1`–`INV-19`). Also carries the mental model, column-sizing escalation, and
+  (`INV-1`–`INV-20`). Also carries the mental model, column-sizing escalation, and
   when NOT to use a DataGrid. Supporting references: `component-props.md`,
   `fragment-library.md`.
 - **`datagrid-build`** (`packages/ui-components`, requires `datagrid`). Task:
@@ -36,7 +36,13 @@ the pattern was documented in Storybook and `docs/ux/datagrid.md`:
   controlled by an `activeFilterTab` state (was a bare `TabBar`).
 - Added `INV-18` (capability parity: every tab must be reproducible via the Zone 2
   filters) and `INV-19` (an active tab is a scope layer, never mirrored as a filter
-  pill; no reverse auto-activation). Invariant range is now `INV-1`–`INV-19`.
+  pill; no reverse auto-activation).
+- Tightened determinism so rendering filter tabs is never a judgement call: the
+  schema is `filterTabs: { tabs: string[] } | null` (dropped the ambiguous bare
+  boolean), DT-2/DT-3 gate on `filterTabs.tabs.length > 0`, and `INV-20` fixes
+  render-if-and-only-if-present with tabs never inferred/invented. `datagrid-build`
+  §1 forbids introducing `filterTabs` unless the requirements name concrete tabs.
+  Invariant range is now `INV-1`–`INV-20`.
 - `component-props.md` gained a `TabBar`/`TabBarItem` entry (appearance, activeItem,
   onActiveItemChange, label).
 - `datagrid-build` adds the `activeFilterTab` state and a parse-time parity check;

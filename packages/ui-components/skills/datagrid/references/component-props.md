@@ -44,7 +44,7 @@ No props beyond `children` and `className`. Use only for Zone 2 and Zone 3.
 
 ### TabBar / TabBarItem (predefined filter tabs)
 
-Used only for Zone 1 predefined filter tabs (`FRAG:filter-tabs`). See `INV-18`/`INV-19`.
+Used only for Zone 1 predefined filter tabs (`FRAG:filter-tabs`). See `INV-18`/`INV-19`/`INV-20`.
 
 `TabBar`:
 

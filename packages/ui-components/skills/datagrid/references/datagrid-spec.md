@@ -49,7 +49,7 @@ interface DataGridSpec {
     rowClick: boolean // whole row is clickable (navigate or open panel)
     primaryAction: string | null // label for Zone 1 create button; null = omit
     overflowActions: string[] // Zone 1 overflow menu items; [] = omit
-    filterTabs: boolean | { tabs: string[] } // predefined filter tabs in Zone 1; must be reproducible via filtering (INV-18)
+    filterTabs: { tabs: string[] } | null // predefined filter tabs in Zone 1; null = none. Tabs must be reproducible via filtering (INV-18) and are never inferred (INV-20)
     itemCount: boolean
     refresh: boolean
     permissions: PermissionGate[] // optional; elements to render conditionally
@@ -146,7 +146,7 @@ Inputs: `spec.features.*`
 Outputs: `zone1` (bool), `zone2` (bool), `zone3` (bool), `renderHeader` (bool)
 
 ```
-zone1 ← spec.features.filterTabs
+zone1 ← (spec.features.filterTabs AND spec.features.filterTabs.tabs.length > 0)
       OR spec.features.sorting
       OR spec.features.primaryAction IS non-null
       OR spec.features.overflowActions IS non-empty
@@ -174,10 +174,11 @@ Outputs: `leftGroup[]`, `rightGroup[]`, `stackDistribution`
 1. leftGroup ← []
    rightGroup ← []
 
-2. IF spec.features.filterTabs non-empty:
+2. IF spec.features.filterTabs AND spec.features.filterTabs.tabs.length > 0:
      leftGroup.push(FRAG:filter-tabs)
      // filter tabs use TabBar appearance="buttons" + activeFilterTab state.
      // filterTabs requires filtering (INV-18); the tab never adds a pill (INV-19).
+     // render IFF a non-empty tabs array is present; never infer tabs (INV-20).
 
 3. IF spec.features.sorting:
      rightGroup.push(FRAG:sorting)
@@ -447,3 +448,4 @@ the ID on failure.
 - **INV-17** Only components listed in the Fragment Library or the Component Props Reference may appear in output. Do not use any component not documented in this skill — not from memory, not from BRD copy, not from naming intuition. If a requirement cannot be met with the documented components, say so explicitly and leave the implementation to the consuming component.
 - **INV-18** Every predefined filter tab (`spec.features.filterTabs`) must be reproducible by hand through the Zone 2 filter controls. A `filterTabs` feature therefore requires `filtering` (`DT-4`) to be enabled with field(s)/option(s) that can express each tab. A predefined filter tab that cannot be reconstructed from the available filters is invalid — do not emit it; flag the requirement instead. Predefined filter tabs are a shortcut for frequent subsets, never a filter that is otherwise unreachable.
 - **INV-19** An active predefined filter tab is never mirrored as a filter `Pill`. Selecting a tab narrows the data (communicated by the active-tab highlight and the `FRAG:item-count` "X of Y") but must not populate the Zone 2 filter controls or add a pill to `FRAG:filter-pills`. Predefined filter tabs (Zone 1) and filter pills (Zone 2) are distinct layers: pills record only filters the user set manually, and a tab is never auto-activated by manually reconstructing its filter set.
+- **INV-20** Predefined filter tabs render if and only if `spec.features.filterTabs` is present with a non-empty `tabs` array (`tabs.length > 0`). The rendered tabs are exactly `spec.features.filterTabs.tabs` — never inferred, defaulted, or invented from column values, BRD prose, or naming intuition. `filterTabs` null/absent, or an empty `tabs` array, means no predefined filter tabs are rendered at all.
