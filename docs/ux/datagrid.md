@@ -52,6 +52,19 @@ Zone 1 has no distinct background — it sits above the toolbar area as a plain,
 
 > **Do not misuse predefined filter tabs as navigation tabs.** They must always operate on the same set of entities — just filtered differently. If the tabs would show entirely different, unrelated sets of data or entity types, use page-level tabs instead, with each tab containing its own independent DataGrid.
 
+> **Predefined filters must be reproducible by hand.** Every predefined filter tab must correspond to a filter configuration the user could also set manually with the Zone 2 filter controls. They are a convenience shortcut for frequently needed subsets — never a way to apply a filter that cannot otherwise be configured. This is also a constraint on _which_ predefined filters you may offer: if a desired subset cannot be expressed through the regular filters, do not create a predefined filter for it.
+
+Selecting a predefined filter narrows the displayed data to its subset, but does **not** populate the Zone 2 filter controls or add active filter pills. The selected filter's highlighted state, together with the item count — which updates to "Showing X of Y" exactly as it does for manual filters — communicates which subset is currently shown. Treat predefined filters as a coarse scope that sits _above_ the manual filters: any filter or search the user then applies in Zone 2 refines the data further _within_ the currently selected subset, rather than replacing it. Likewise, do not automatically activate a predefined filter when the user manually reconstructs its equivalent configuration.
+
+We deliberately do **not** mirror an active predefined filter as one or more active filter pills for the following reasons:
+
+- The highlighted filter already communicates the active subset. A pill would represent that same state a second time, in a second place, inviting the question of whether the two are one filter or two.
+- It would create two conflicting ways to undo the same thing — closing the pill versus switching to another predefined filter — with no obvious outcome for the other control.
+- The two are different in kind. Active filter pills are a record of the ad-hoc filters _the user_ chose and can combine and remove one by one; a predefined filter is a single, mutually exclusive scope. Showing it as a removable pill would make a structural choice look like just another dismissible filter the user could partially take apart.
+- A predefined filter may bundle several underlying conditions. Collapsing it into one pill understates it, while expanding it into several floods Zone 2 with chips the user never set and could half-dismantle, breaking the idea that the subset is one coherent choice.
+
+Keeping the two separate lets each carry exactly one meaning: predefined filters select the subset, and filter pills record the user's own refinements within it.
+
 - Sorting: Select to choose what to sort by, and a button to toggle sort direction
 - Other Actions Overflow Menu: Any actions global to the data set other than the primary action
 - Primary Action: The primary, i.e. most likely action for users. If users can create new items in the DataGrid, this can be done using the primary action button
@@ -60,7 +73,7 @@ Zone 1 has no distinct background — it sits above the toolbar area as a plain,
 
 - Filter: Input elements to select what to filter the data by. Depending on the data displayed, this can be a simple Select, or a Select or ComboBox with an additional element such as another Select, ComboBox, or often a TextInput.
 - Search: A SearchBox to perform a string-based search on the data and display the matching items. Make sure to manage user expectations as to what exactly will be searched, i.e. if the string entered is only matched against a single or a subset of fields, the placeholder should indicate that (e.g. "Search Description" if only descriptions can be searched)
-- Filter Pills: Each filter that has been configured by the user using the Filter element(s) and that is currently active is displayed here. As a last item, there is a button that allows for clearing all active filters at once.
+- Filter Pills: Each filter that has been configured by the user using the Filter element(s) and that is currently active is displayed here. As a last item, there is a button that allows for clearing all active filters at once. Predefined filters (see Zone 1) are a separate, coarser scope and are **not** shown here as filter pills — only the filters a user configures with the Filter element(s) appear.
 
 ### Zone 3: DataGrid View/State, Bulk Actions, Refresh
 
