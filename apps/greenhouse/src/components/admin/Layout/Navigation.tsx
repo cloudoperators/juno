@@ -6,33 +6,26 @@
 import React from "react"
 import { useNavigate, useMatches, AnySchema } from "@tanstack/react-router"
 import { TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
+import { markAdminTabVisited } from "../adminTabState"
+import { ADMIN_ROUTES, AdminRoute } from "../adminRoutes"
 
 export const navigationItems = [
-  {
-    label: "PluginPresets",
-    value: "/admin/plugin-presets",
-  },
-  {
-    label: "Clusters",
-    value: "/admin/clusters",
-  },
-  {
-    label: "Exposed Services",
-    value: "/admin/exposed-services",
-  },
+  { label: "PluginPresets", value: ADMIN_ROUTES.PLUGIN_PRESETS },
+  { label: "Clusters", value: ADMIN_ROUTES.CLUSTERS },
+  { label: "Exposed Services", value: ADMIN_ROUTES.EXPOSED_SERVICES },
 ] as const
+export type { AdminRoute }
 
-type NavigationItem = (typeof navigationItems)[number]
-type VisitedPages = Partial<Record<NavigationItem["value"], AnySchema>>
+type VisitedPages = Partial<Record<AdminRoute, AnySchema>>
 
 // Module-level so it survives component unmount (e.g. navigating away to Compliance)
 const visitedPages: VisitedPages = {}
 
-const isValidNavigationValue = (value: unknown): value is NavigationItem["value"] => {
+const isValidNavigationValue = (value: unknown): value is AdminRoute => {
   return typeof value === "string" && navigationItems.some((item) => item.value === value)
 }
 
-const getNavigationValueFromPath = (path: string): NavigationItem["value"] | undefined => {
+const getNavigationValueFromPath = (path: string): AdminRoute | undefined => {
   return navigationItems.find((item) => path.includes(item.value))?.value
 }
 
@@ -48,6 +41,7 @@ export const Navigation = () => {
       const currentNavValue = getNavigationValueFromPath(currentPath)
       if (currentNavValue) {
         visitedPages[currentNavValue] = matches[matches.length - 1].search
+        markAdminTabVisited(currentNavValue)
       }
       navigate({
         to: link,

@@ -9,6 +9,8 @@ import { PluginPresets } from "../../../components/admin/PluginPresets"
 import { FILTER_IDS, SELECTED_FILTER_PREFIX } from "../../../components/admin/constants"
 import { extractFilterSettingsFromSearchParams, getFiltersForUrl } from "../../../components/admin/utils"
 import { filterSearchParamsByPrefix } from "../../../lib/helpers"
+import { hasAdminTabBeenVisited, markAdminTabVisited } from "../../../components/admin/adminTabState"
+import { ADMIN_ROUTES } from "../../../components/admin/adminRoutes"
 import { User } from "../../__root"
 
 const filterValueSchema = z.union([z.string(), z.array(z.string()), z.undefined()])
@@ -38,6 +40,13 @@ export const Route = createFileRoute("/admin/plugin-presets/")({
   component: PluginPresets,
   validateSearch: validatePluginPresetsSearch,
   beforeLoad: ({ context, search }) => {
+    // Apply default filters only on the first visit to this tab.
+    // On return visits, respect whatever the user left (including an explicitly cleared state).
+    if (hasAdminTabBeenVisited(ADMIN_ROUTES.PLUGIN_PRESETS)) {
+      return
+    }
+    markAdminTabVisited(ADMIN_ROUTES.PLUGIN_PRESETS)
+
     // Check if any filter is already applied
     const hasAnyFilter = Object.keys(search).some((key) => key.startsWith(SELECTED_FILTER_PREFIX))
     const defaultFilters = getDefaultFilters(context.user)
