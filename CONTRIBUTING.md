@@ -101,22 +101,21 @@ Whenever you change source files in `packages/ui-components/src/components/`, ru
 following before opening or updating your PR:
 
 ```bash
-pnpm exec intent maintainer review   # walk through changed sources; record review outcomes
-pnpm exec intent maintainer check    # verify the gate passes locally
+pnpm exec intent maintainer review --interactive   # walk through changed sources; record review outcomes
+pnpm exec intent maintainer check                  # verify the gate passes locally
 ```
 
-`maintainer review` walks you through each affected source file and asks you to record
-whether the associated skill guidance still holds or needs to be updated. `maintainer check`
-runs the same validation that CI runs.
+`maintainer review --interactive` walks you through each affected source file and asks you
+to record whether the associated skill guidance still holds or needs to be updated.
+`maintainer check` runs the same validation that CI runs.
 
 ### If the CI gate fails
 
-If the `Check Skills` job fails on your PR, a tracked source file changed without a
-recorded review outcome. Running the two commands above and committing the result to
-`.intent/review-state.json` resolves it.
-
-See the [TanStack Intent Guide](docs/tanstack-intent-guide.md) for the complete workflow,
-including how to author new skills and add skills for other packages.
+If the `Check Skills` job fails on your PR, the most common cause is a tracked source file
+that changed without a recorded review outcome. In that case, running the two commands above
+and committing the result to `.intent/review-state.json` resolves it. For other failure
+modes (invalid skill content, stale generated metadata) and the complete workflow including
+how to author new skills, see the [TanStack Intent Guide](docs/tanstack-intent-guide.md).
 
 ## Issues and Planning
 
