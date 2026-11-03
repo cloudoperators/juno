@@ -42,6 +42,25 @@ Prop reference for the DataGrid components referenced by
 
 No props beyond `children` and `className`. Use only for Zone 2 and Zone 3.
 
+### TabBar / TabBarItem (predefined filter tabs)
+
+Used only for Zone 1 predefined filter tabs (`FRAG:filter-tabs`). See `INV-18`/`INV-19`/`INV-20`.
+
+`TabBar`:
+
+| Prop                 | Type                   | Notes                                                                     |
+| -------------------- | ---------------------- | ------------------------------------------------------------------------- |
+| `appearance`         | `"buttons"`            | Predefined filter tabs always use the segmented button appearance         |
+| `activeItem`         | `ReactNode`            | Label of the active tab (controlled); held in the `activeFilterTab` state |
+| `onActiveItemChange` | `(activeItem) => void` | Handler that updates `activeFilterTab`                                    |
+
+`TabBarItem`:
+
+| Prop     | Type      | Notes                                                      |
+| -------- | --------- | ---------------------------------------------------------- |
+| `label`  | `string`  | Tab label; must be unique within the `TabBar`              |
+| `active` | `boolean` | Optional; prefer controlling via the parent's `activeItem` |
+
 ### Structural pattern classes
 
 | Class                          | Applied to                               |

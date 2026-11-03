@@ -18,7 +18,7 @@ This skill never defines what is correct — it only checks, locates, and explai
 ## Source of truth — do not restate
 
 All structural rules live in the **datagrid** skill (`requires: [datagrid]`):
-Input Schema, Decision Trees `DT-1`…`DT-9`, Invariants `INV-1`…`INV-17`. Read
+Input Schema, Decision Trees `DT-1`…`DT-9`, Invariants `INV-1`…`INV-20`. Read
 `datagrid/references/datagrid-spec.md` first. Cite these IDs in every finding. If
 a check is not backed by a spec rule, it is not a finding — do not invent rules.
 
@@ -33,7 +33,7 @@ a check is not backed by a spec rule, it is not a finding — do not invent rule
    rendering.
 3. **Diff expected vs. actual.** Every divergence from a Decision-Tree output is a
    finding, tagged with the `DT-n` that produced the expectation.
-4. **Assert the Invariants.** Check `INV-1`…`INV-17` directly against the code.
+4. **Assert the Invariants.** Check `INV-1`…`INV-20` directly against the code.
    These hold unconditionally and need no reconstructed spec.
 
 ## Finding format
@@ -52,7 +52,7 @@ One entry per violation:
 ## Reporting rules
 
 - Rank **errors** before **warnings**; within a severity, group by rule ID.
-- Report a clean pass explicitly — e.g. "Conforms to DataGridSpec; `INV-1`…`INV-17`
+- Report a clean pass explicitly — e.g. "Conforms to DataGridSpec; `INV-1`…`INV-20`
   hold and the structure matches `DT-1`…`DT-9`." Never answer with silence.
 - Validation **reports**, it does not regenerate. Give the minimal fix per
   finding; do not rewrite the whole implementation. If the user then wants it
