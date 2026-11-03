@@ -41,7 +41,13 @@ export const Navigation = () => {
       const currentNavValue = getNavigationValueFromPath(currentPath)
       if (currentNavValue) {
         visitedPages[currentNavValue] = matches[matches.length - 1].search
-        markAdminTabVisited(currentNavValue)
+        // Only mark the tab as visited when on the list route itself, not a child detail route.
+        // e.g. opening /admin/clusters/$name directly and switching tabs must not prevent
+        // beforeLoad from applying default filters when the list is visited for the first time.
+        const currentRouteId = matches[matches.length - 1].routeId
+        if (currentRouteId === currentNavValue || currentRouteId === `${currentNavValue}/`) {
+          markAdminTabVisited(currentNavValue)
+        }
       }
       navigate({
         to: link,

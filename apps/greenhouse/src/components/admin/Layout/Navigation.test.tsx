@@ -15,6 +15,8 @@ import {
   RouterProvider,
 } from "@tanstack/react-router"
 import { Navigation } from "./Navigation"
+import { hasAdminTabBeenVisited, resetAdminTabState } from "../adminTabState"
+import { ADMIN_ROUTES } from "../adminRoutes"
 
 const buildRouter = (initialEntry: string) => {
   const rootRoute = createRootRoute({
@@ -38,13 +40,19 @@ const buildRouter = (initialEntry: string) => {
     component: () => <div>Clusters page</div>,
   })
 
+  const clusterDetailRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: "/admin/clusters/$clusterName",
+    component: () => <div>Cluster detail page</div>,
+  })
+
   const exposedServicesRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: "/admin/exposed-services",
     component: () => <div>Exposed Services page</div>,
   })
 
-  const routeTree = rootRoute.addChildren([pluginPresetsRoute, clustersRoute, exposedServicesRoute])
+  const routeTree = rootRoute.addChildren([pluginPresetsRoute, clustersRoute, clusterDetailRoute, exposedServicesRoute])
 
   return createRouter({
     routeTree,
@@ -53,6 +61,10 @@ const buildRouter = (initialEntry: string) => {
 }
 
 describe("Navigation", () => {
+  beforeEach(() => {
+    resetAdminTabState()
+  })
+
   it("renders all navigation items", async () => {
     const router = buildRouter("/admin/plugin-presets")
     render(<RouterProvider router={router} />)
@@ -124,5 +136,19 @@ describe("Navigation", () => {
         f_pluginPresetDefinition: "alerts",
       })
     })
+  })
+
+  it("does not mark a tab as visited when navigating away from a detail route", async () => {
+    // Start on a cluster detail page — the list's beforeLoad has never run
+    const router = buildRouter("/admin/clusters/my-cluster")
+    render(<RouterProvider router={router} />)
+
+    await screen.findByText("Cluster detail page")
+
+    // Switch to another tab — this must NOT mark clusters as visited
+    await userEvent.click(screen.getByText("PluginPresets"))
+    await screen.findByText("PluginPresets page")
+
+    expect(hasAdminTabBeenVisited(ADMIN_ROUTES.CLUSTERS)).toBe(false)
   })
 })
