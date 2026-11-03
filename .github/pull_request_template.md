@@ -38,6 +38,7 @@
 - [ ] I have made corresponding changes to the documentation (if applicable).
 - [ ] My changes generate no new warnings or errors.
 - [ ] I have created a changeset for my changes.
+- [ ] I have run intent maintainer review/check and committed the result (if applicable)
 
 # PR Manifesto
 

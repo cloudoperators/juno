@@ -83,6 +83,40 @@ Before submitting your pull request, please ensure your code passes the followin
 - **Allowed Licenses**: Ensure that any dependencies added are compliant with the list of allowed licenses (see in `package.json`). Check with `pnpm check-licenses`.
 - **REUSE Compliance**: Ensure that your contributions are compliant with the [REUSE guidelines](./reuse/dep5).
 - **Tests**: Make sure all tests pass. Run `pnpm test` at the root level to ensure your code didn't break other packages.
+- **Agent Skills**: If your PR touches source files in `packages/ui-components/src/components/`, run the skills check before submitting. See [Agent Skills](#agent-skills) below.
+
+## Agent Skills
+
+`@cloudoperators/juno-ui-components` ships versioned agent skills alongside its components
+via [TanStack Intent](docs/tanstack-intent-guide.md). Skills are versioned component
+specifications — they encode the decision logic, invariants, and canonical patterns for
+building and validating a component from requirements, and travel with the package on npm
+so agents always work from the current version of the spec rather than guessing from source
+code. Skills live in `packages/ui-components/skills/` and are tracked against their source
+components so they stay current as the library evolves.
+
+### Routine workflow
+
+Whenever you change source files in `packages/ui-components/src/components/`, run the
+following before opening or updating your PR:
+
+```bash
+pnpm exec intent maintainer review   # walk through changed sources; record review outcomes
+pnpm exec intent maintainer check    # verify the gate passes locally
+```
+
+`maintainer review` walks you through each affected source file and asks you to record
+whether the associated skill guidance still holds or needs to be updated. `maintainer check`
+runs the same validation that CI runs.
+
+### If the CI gate fails
+
+If the `Check Skills` job fails on your PR, a tracked source file changed without a
+recorded review outcome. Running the two commands above and committing the result to
+`.intent/review-state.json` resolves it.
+
+See the [TanStack Intent Guide](docs/tanstack-intent-guide.md) for the complete workflow,
+including how to author new skills and add skills for other packages.
 
 ## Issues and Planning
 
