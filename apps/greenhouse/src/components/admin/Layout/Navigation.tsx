@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useRef } from "react"
+import React from "react"
 import { useNavigate, useMatches, AnySchema } from "@tanstack/react-router"
 import { TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
 
@@ -25,6 +25,9 @@ export const navigationItems = [
 type NavigationItem = (typeof navigationItems)[number]
 type VisitedPages = Partial<Record<NavigationItem["value"], AnySchema>>
 
+// Module-level so it survives component unmount (e.g. navigating away to Compliance)
+const visitedPages: VisitedPages = {}
+
 const isValidNavigationValue = (value: unknown): value is NavigationItem["value"] => {
   return typeof value === "string" && navigationItems.some((item) => item.value === value)
 }
@@ -34,7 +37,6 @@ const getNavigationValueFromPath = (path: string): NavigationItem["value"] | und
 }
 
 export const Navigation = () => {
-  const visitedPages = useRef<VisitedPages>({})
   const navigate = useNavigate()
   const matches = useMatches()
 
@@ -45,12 +47,12 @@ export const Navigation = () => {
       // Save the current page's URL state to restore it later
       const currentNavValue = getNavigationValueFromPath(currentPath)
       if (currentNavValue) {
-        visitedPages.current[currentNavValue] = matches[matches.length - 1].search
+        visitedPages[currentNavValue] = matches[matches.length - 1].search
       }
       navigate({
         to: link,
         search: {
-          ...visitedPages.current[link],
+          ...visitedPages[link],
         },
       })
     }

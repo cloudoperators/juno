@@ -62,6 +62,7 @@ break-all
 
 const PluginNav = () => {
   const visitedApps = useRef<Record<string, AnySchema>>({})
+  const visitedAdminPath = useRef<string | undefined>(undefined)
   const appConfig = usePlugin().appConfig()
   const mngConfig = usePlugin().mngConfig()
   const navigate = useNavigate({ from: "/" })
@@ -75,12 +76,24 @@ const PluginNav = () => {
   const navigateToApp = (appId: string) => {
     // Save the current app's URL state to restore it later
     if (activeApp) {
-      visitedApps.current[activeApp] = matches[matches.length - 1].search
+      const lastMatch = matches[matches.length - 1]
+      visitedApps.current[activeApp] = lastMatch.search
+      // For admin, also save the exact sub-route path so we can restore it
+      if (activeApp === "admin") {
+        visitedAdminPath.current = lastMatch.pathname
+      }
     }
-    navigate({
-      to: `/${appId}`,
-      search: visitedApps.current[appId] ?? {}, // restore the url state of the target app
-    })
+    if (appId === "admin" && visitedAdminPath.current) {
+      navigate({
+        to: visitedAdminPath.current,
+        search: visitedApps.current["admin"] ?? {},
+      })
+    } else {
+      navigate({
+        to: `/${appId}`,
+        search: visitedApps.current[appId] ?? {},
+      })
+    }
   }
 
   return (

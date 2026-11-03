@@ -11,9 +11,6 @@ import { extractFilterSettingsFromSearchParams, getFiltersForUrl } from "../../.
 import { filterSearchParamsByPrefix } from "../../../lib/helpers"
 import { User } from "../../__root"
 
-// A module level flag that resets on page refresh but persists during SPA navigation
-let defaultFiltersApplied = false
-
 const filterValueSchema = z.union([z.string(), z.array(z.string()), z.undefined()])
 
 const searchParamsSchema = z
@@ -41,13 +38,6 @@ export const Route = createFileRoute("/admin/plugin-presets/")({
   component: PluginPresets,
   validateSearch: validatePluginPresetsSearch,
   beforeLoad: ({ context, search }) => {
-    // Skip if defaults were already applied this session
-    if (defaultFiltersApplied) {
-      return
-    }
-
-    defaultFiltersApplied = true
-
     // Check if any filter is already applied
     const hasAnyFilter = Object.keys(search).some((key) => key.startsWith(SELECTED_FILTER_PREFIX))
     const defaultFilters = getDefaultFilters(context.user)
