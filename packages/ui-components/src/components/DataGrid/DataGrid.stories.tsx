@@ -26,6 +26,20 @@ type DataGridRowStoryProps = {
 const meta: Meta<typeof DataGrid> = {
   title: "Components/DataGrid/DataGrid",
   component: DataGrid,
+  parameters: {
+    docs: {
+      description: {
+        component: `
+The \`DataGrid\` component renders the data grid itself — columns, rows, and cells. These stories document that core component in isolation.
+
+In real applications the grid is almost always used together with a header (filters, search, sorting, bulk actions, item count). That composition is documented as a pattern, not part of this component:
+
+- [DataGrid Header](?path=/docs/patterns-datagrid-datagrid-header--docs) — the header composition (filters, search, predefined filter tabs, bulk actions) on its own.
+- [DataGrid Pattern](?path=/docs/patterns-datagrid-datagrid-pattern--docs) — the header and an actual \`DataGrid\` composed together, i.e. the complete pattern.
+        `,
+      },
+    },
+  },
   argTypes: {
     children: {
       control: false,

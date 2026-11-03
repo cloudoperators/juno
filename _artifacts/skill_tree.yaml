@@ -21,7 +21,9 @@ skills:
         sources:
           [
             src/components/DataGrid/DataGrid.component.tsx,
-            src/components/DataGrid/DataGrid.stories.tsx
+            src/components/DataGrid/DataGrid.stories.tsx,
+            src/components/DataGrid/DataGridHeader.stories.tsx,
+            src/components/DataGrid/DataGridPattern.stories.tsx
           ],
         references:
           [
