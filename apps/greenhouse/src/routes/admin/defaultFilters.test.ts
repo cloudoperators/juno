@@ -20,8 +20,7 @@ const mockUser = { organization: "test-org", supportGroups: ["sci-admin"] }
 const hasAnyFilter = (search: Record<string, unknown>) =>
   Object.keys(search).some((key) => key.startsWith(SELECTED_FILTER_PREFIX))
 
-const getDefaultFilters = (user: typeof mockUser) =>
-  user.supportGroups.map((sg) => ({ id: "supportGroup", value: sg }))
+const getDefaultFilters = (user: typeof mockUser) => user.supportGroups.map((sg) => ({ id: "supportGroup", value: sg }))
 
 describe("default filter beforeLoad logic", () => {
   it("applies default filters when no filters are present in search params", () => {
