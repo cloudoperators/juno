@@ -6,10 +6,10 @@
 import { createElement, type ComponentType } from "react"
 import { createRoot, type Root } from "react-dom/client"
 
-import type { MountOptions, PluginModule, PluginProps } from "./types"
+import type { MountOptions, Plugin, PluginProps } from "./types"
 
 /**
- * Create the `PluginModule` value Greenhouse's plugin loader calls into — currently
+ * Create the `Plugin` value Greenhouse's plugin loader calls into — currently
  * `{ mount, unmount }`, and whatever else the contract grows later. A plugin's `src/index.tsx`
  * collapses to a single line that exposes it:
  *
@@ -21,7 +21,7 @@ import type { MountOptions, PluginModule, PluginProps } from "./types"
  * export const plugin = createPlugin(App)
  * ```
  *
- * The returned object `satisfies PluginModule` by construction. Centralising it means:
+ * The returned object `satisfies Plugin` by construction. Centralising it means:
  *
  * - The `createRoot` lifecycle (duplicated across every plugin's `index.tsx`) lives in one place.
  * - Mount-mechanics fixes reach every plugin via a `pnpm update` — no edits to plugin files.
@@ -32,11 +32,11 @@ import type { MountOptions, PluginModule, PluginProps } from "./types"
  * for consumers who want to narrow it; this helper stays shape-agnostic so any React component
  * can be mounted.
  */
-export function createPlugin<P extends object = PluginProps>(App: ComponentType<P>): PluginModule {
+export function createPlugin<P extends object = PluginProps>(App: ComponentType<P>): Plugin {
   // Scope `root` per returned module so repeated mount/unmount cycles do not leak React roots.
   let root: Root | null = null
 
-  const mount: PluginModule["mount"] = (container, options: MountOptions = {}) => {
+  const mount: Plugin["mount"] = (container, options: MountOptions = {}) => {
     // Idempotent re-mount: tear down any prior root before creating a new one for the same module.
     if (root) root.unmount()
     root = createRoot(container)
@@ -49,7 +49,7 @@ export function createPlugin<P extends object = PluginProps>(App: ComponentType<
     root.render(createElement<P>(App, props))
   }
 
-  const unmount: PluginModule["unmount"] = () => {
+  const unmount: Plugin["unmount"] = () => {
     root?.unmount()
     root = null
   }

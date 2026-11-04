@@ -45,14 +45,16 @@ export interface MountOptions<P extends object = PluginProps> {
 }
 
 /**
- * The shape every Greenhouse plugin exports — the contract Greenhouse's plugin loader calls.
+ * The shape of the `plugin` value every Greenhouse plugin exports — the contract Greenhouse's
+ * loader calls into.
  *
- * A plugin's `src/index.tsx` typically exports a `mount` / `unmount` pair built with
- * `createRoot(container).render(…)`; typing that export as `satisfies PluginModule` catches drift
- * at `pnpm typecheck` time rather than at runtime. The Greenhouse host imports the same type to
- * describe the module it loads, so one definition covers both sides.
+ * A plugin typically produces this value via `createPlugin(App)` (returned object `satisfies
+ * Plugin` by construction) and exposes it as `export const plugin = createPlugin(App)`. A plugin
+ * that needs a different mount shape builds the value itself and types it `satisfies Plugin`.
+ * The Greenhouse host imports the same `Plugin` to describe the module it loads, so one
+ * definition covers both sides.
  */
-export interface PluginModule {
+export interface Plugin {
   /**
    * Mount the plugin's React tree into `container`. Called once per plugin instance.
    *

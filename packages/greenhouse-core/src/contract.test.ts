@@ -17,10 +17,10 @@
 import { describe, it, expect } from "vitest"
 import type { ComponentType } from "react"
 
-import type { PluginModule, PluginProps, MountOptions } from "./types"
+import type { Plugin, PluginProps, MountOptions } from "./types"
 
 describe("contract types (type-level assertions)", () => {
-  it("a hand-written mount/unmount pair satisfies PluginModule", () => {
+  it("a hand-written mount/unmount pair satisfies Plugin", () => {
     // The shape every plugin exports — the same shape Greenhouse's loader imports as a type. We
     // keep the implementation here deliberately trivial: the test is about the TYPE assignment,
     // not about mount semantics.
@@ -31,7 +31,7 @@ describe("contract types (type-level assertions)", () => {
       unmount: () => {
         /* and tear it down here */
       },
-    } satisfies PluginModule
+    } satisfies Plugin
 
     expect(module.mount).toBeDefined()
     expect(module.unmount).toBeDefined()

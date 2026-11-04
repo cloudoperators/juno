@@ -7,22 +7,22 @@ import { useEffect, useRef, useState } from "react"
 import { useRouter } from "@tanstack/react-router"
 import { AppProps } from "../Shell"
 import type { AuthStore } from "@cloudoperators/greenhouse-auth-provider"
-import type { PluginModule, PluginProps } from "@cloudoperators/greenhouse-core"
+import type { Plugin, PluginProps } from "@cloudoperators/greenhouse-core"
 
 // Cache loaded modules at the module level (persists across component mounts)
-const moduleCache = new Map<string, PluginModule>()
+const moduleCache = new Map<string, Plugin>()
 
-const getApp = async (appName: string): Promise<PluginModule | null> => {
+const getApp = async (appName: string): Promise<Plugin | null> => {
   // Return cached module immediately if available
   if (moduleCache.has(appName)) {
     return moduleCache.get(appName)!
   }
 
-  // Load the module and extract its `plugin` export (the single PluginModule surface each plugin's
-  // `src/index.{ts,tsx}` exports). Letting plugins expose the whole PluginModule value as one named
+  // Load the module and extract its `plugin` export (the single Plugin surface each plugin's
+  // `src/index.{ts,tsx}` exports). Letting plugins expose the whole Plugin value as one named
   // export means a future contract change (new method, renamed method, …) does not require editing
   // any plugin — only the shell adapts to the new shape.
-  let module: PluginModule | null = null
+  let module: Plugin | null = null
   switch (appName) {
     case "supernova":
       module = (await import("@cloudoperators/juno-app-supernova")).plugin
@@ -102,7 +102,7 @@ export function usePluginLoader({
 
   // Check if module is already cached - if so, start with it loaded!
   const cachedModule = moduleCache.get(pluginName)
-  const [app, setApp] = useState<PluginModule | null>(cachedModule || null)
+  const [app, setApp] = useState<Plugin | null>(cachedModule || null)
   const [isLoading, setIsLoading] = useState(!cachedModule) // Only show loading if not cached
 
   // Load the plugin module dynamically (only if not already loaded)

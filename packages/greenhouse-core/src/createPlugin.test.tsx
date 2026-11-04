@@ -6,7 +6,7 @@
 import React from "react"
 import { describe, it, expect, vi } from "vitest"
 import { createPlugin } from "./createPlugin"
-import type { MountOptions, PluginModule, PluginProps } from "./types"
+import type { MountOptions, Plugin, PluginProps } from "./types"
 
 interface AppProps extends PluginProps {
   label?: string
@@ -92,11 +92,11 @@ describe("createPlugin", () => {
     document.body.removeChild(container)
   })
 
-  // Type-level regression guard: `createPlugin(App)` MUST produce a `PluginModule`.
-  // If `PluginModule` ever changes in a way the helper no longer satisfies, `tsc` fails here
+  // Type-level regression guard: `createPlugin(App)` MUST produce a `Plugin`.
+  // If `Plugin` ever changes in a way the helper no longer satisfies, `tsc` fails here
   // before any runtime test runs.
-  it("satisfies the PluginModule contract (type-level)", () => {
-    const plugin = createPlugin(App) satisfies PluginModule
+  it("satisfies the Plugin contract (type-level)", () => {
+    const plugin = createPlugin(App) satisfies Plugin
     expect(plugin).toBeDefined()
   })
 })
