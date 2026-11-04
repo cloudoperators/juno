@@ -3,38 +3,33 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useRef } from "react"
+import React from "react"
 import { useNavigate, useMatches, AnySchema } from "@tanstack/react-router"
 import { TopNavigation, TopNavigationItem } from "@cloudoperators/juno-ui-components"
+import { markAdminTabVisited } from "../adminTabState"
+import { ADMIN_ROUTES, AdminRoute } from "../adminRoutes"
 
 export const navigationItems = [
-  {
-    label: "PluginPresets",
-    value: "/admin/plugin-presets",
-  },
-  {
-    label: "Clusters",
-    value: "/admin/clusters",
-  },
-  {
-    label: "Exposed Services",
-    value: "/admin/exposed-services",
-  },
+  { label: "PluginPresets", value: ADMIN_ROUTES.PLUGIN_PRESETS },
+  { label: "Clusters", value: ADMIN_ROUTES.CLUSTERS },
+  { label: "Exposed Services", value: ADMIN_ROUTES.EXPOSED_SERVICES },
 ] as const
+export type { AdminRoute }
 
-type NavigationItem = (typeof navigationItems)[number]
-type VisitedPages = Partial<Record<NavigationItem["value"], AnySchema>>
+type VisitedPages = Partial<Record<AdminRoute, AnySchema>>
 
-const isValidNavigationValue = (value: unknown): value is NavigationItem["value"] => {
+// Module-level so it survives component unmount (e.g. navigating away to Compliance)
+const visitedPages: VisitedPages = {}
+
+const isValidNavigationValue = (value: unknown): value is AdminRoute => {
   return typeof value === "string" && navigationItems.some((item) => item.value === value)
 }
 
-const getNavigationValueFromPath = (path: string): NavigationItem["value"] | undefined => {
+const getNavigationValueFromPath = (path: string): AdminRoute | undefined => {
   return navigationItems.find((item) => path.includes(item.value))?.value
 }
 
 export const Navigation = () => {
-  const visitedPages = useRef<VisitedPages>({})
   const navigate = useNavigate()
   const matches = useMatches()
 
@@ -45,12 +40,19 @@ export const Navigation = () => {
       // Save the current page's URL state to restore it later
       const currentNavValue = getNavigationValueFromPath(currentPath)
       if (currentNavValue) {
-        visitedPages.current[currentNavValue] = matches[matches.length - 1].search
+        visitedPages[currentNavValue] = matches[matches.length - 1].search
+        // Only mark the tab as visited when on the list route itself, not a child detail route.
+        // e.g. opening /admin/clusters/$name directly and switching tabs must not prevent
+        // beforeLoad from applying default filters when the list is visited for the first time.
+        const currentRouteId = matches[matches.length - 1].routeId
+        if (currentRouteId === currentNavValue || currentRouteId === `${currentNavValue}/`) {
+          markAdminTabVisited(currentNavValue)
+        }
       }
       navigate({
         to: link,
         search: {
-          ...visitedPages.current[link],
+          ...visitedPages[link],
         },
       })
     }

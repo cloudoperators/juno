@@ -10,7 +10,6 @@ export const Route = createFileRoute("/admin/")({
     // eslint-disable-next-line @typescript-eslint/only-throw-error
     throw redirect({
       to: "/admin/plugin-presets",
-      search: (prev) => ({ ...prev }),
     })
   },
 })
