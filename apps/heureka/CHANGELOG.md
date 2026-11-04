@@ -1,5 +1,18 @@
 # heureka
 
+## 1.1.23
+
+### Patch Changes
+
+- 46600d6: refactor(heureka): adopt the shared Greenhouse plugin contract
+
+  `src/index.tsx` collapses to the two-line `export const plugin = createPlugin(App)` pattern — the hand-written `createRoot` / mount / unmount dance and the local `Options` type are gone. `src/types/index.d.ts` is a tiny `declare module { export const plugin: Plugin }` so the host's dynamic `await import(...)` is typed. `@cloudoperators/greenhouse-core` is now a runtime dependency. No behaviour change.
+
+- Updated dependencies [68fc3fb]
+- Updated dependencies [46600d6]
+  - @cloudoperators/juno-ui-components@9.9.0
+  - @cloudoperators/greenhouse-core@0.2.0
+
 ## 1.1.22
 
 ### Patch Changes
