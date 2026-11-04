@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "@cloudoperators/greenhouse-auth-provider": "workspace:*",
+    "@cloudoperators/greenhouse-core": "workspace:*",
     "@cloudoperators/juno-app-doop": "workspace:*",
     "@cloudoperators/juno-app-heureka": "workspace:*",
     "@cloudoperators/juno-app-supernova": "workspace:*",

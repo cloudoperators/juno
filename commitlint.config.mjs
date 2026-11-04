@@ -41,6 +41,7 @@ export const scopes = [
   "ui",
   "url-state-provider",
   "version",
+  "greenhouse-core",
   /^ISSUE-\d+$/, // Regex pattern for ISSUE-<number>
 ]
 

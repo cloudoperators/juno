@@ -6,6 +6,7 @@
 import React, { StrictMode, useLayoutEffect } from "react"
 
 import { AppShellProvider } from "@cloudoperators/juno-ui-components"
+import type { PluginProps } from "@cloudoperators/greenhouse-core"
 import { RouterProvider, createBrowserHistory, createHashHistory, createRouter } from "@tanstack/react-router"
 import { decodeV2, encodeV2, registerConsumer } from "@cloudoperators/juno-url-state-provider"
 import styles from "./styles.css?inline"
@@ -33,11 +34,9 @@ declare module "@tanstack/react-router" {
   }
 }
 
-export type AppProps = {
+export interface AppProps extends PluginProps {
   id?: string
-  theme?: "theme-dark" | "theme-light"
   apiEndpoint?: string
-  embedded?: boolean
   basePath?: string
   enableHashedRouting?: boolean
   showDebugSeverities?: boolean
