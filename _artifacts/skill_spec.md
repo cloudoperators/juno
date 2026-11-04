@@ -9,7 +9,7 @@ authored from the component source, Storybook stories, and the repository UX
 guidelines (`docs/ux/datagrid.md`). One skill owns the rule set; two task skills
 consume it.
 
-- **`datagrid`** (`packages/ui-components`). Task: _Display a collection of
+- **`datagrid-spec`** (`packages/ui-components`). Task: _Display a collection of
   structured data in a DataGrid._ Owns the **DataGridSpec** — the single source
   of truth in `references/datagrid-spec.md`: the Input Schema, the Decision Trees
   (`DT-1`–`DT-9`) that deterministically resolve structure (columns, the
@@ -17,11 +17,11 @@ consume it.
   (`INV-1`–`INV-20`). Also carries the mental model, column-sizing escalation, and
   when NOT to use a DataGrid. Supporting references: `component-props.md`,
   `fragment-library.md`.
-- **`datagrid-build`** (`packages/ui-components`, requires `datagrid`). Task:
+- **`datagrid-build`** (`packages/ui-components`, requires `datagrid-spec`). Task:
   _Generate a DataGrid implementation from requirements._ Parses a BRD / feature
   list into a DataGridSpec, runs the Decision Trees forward, composes fragments,
   and emits code. Holds only build-specific procedure; cites spec rule IDs.
-- **`datagrid-validate`** (`packages/ui-components`, requires `datagrid`). Task:
+- **`datagrid-validate`** (`packages/ui-components`, requires `datagrid-spec`). Task:
   _Validate a DataGrid implementation against the DataGridSpec._ Reconstructs the
   intended spec from code, runs the same trees to compute the expected structure,
   diffs, and asserts the Invariants. Holds only the review procedure and findings
@@ -48,7 +48,19 @@ the pattern was documented in Storybook and `docs/ux/datagrid.md`:
 - `datagrid-build` adds the `activeFilterTab` state and a parse-time parity check;
   `datagrid-validate` asserts the new invariants (range bumped).
 - Added `DataGridHeader.stories.tsx` and `DataGridPattern.stories.tsx` as tracked
-  sources of the `datagrid` skill (the header/pattern compositions now live there).
+  sources of the `datagrid-spec` skill (the header/pattern compositions now live there).
+
+#### Update — nested skill directories (2026-11, issue #2145)
+
+Restructured the three skills under a single parent directory per component. The
+hub skill `datagrid` was renamed to `datagrid-spec` and moved into
+`skills/datagrid/datagrid-spec/`, alongside sibling `skills/datagrid/datagrid-build/`
+and `skills/datagrid/datagrid-validate/`. The shared `references/` now lives under
+the spec skill that owns it (`skills/datagrid/datagrid-spec/references/`), because
+Intent resolves a skill's references only at `<skillDir>/references/`. The task
+skills now `require: [datagrid-spec]` and point their `sources` at
+`skills/datagrid/datagrid-spec/references/datagrid-spec.md`. This is the convention
+every future component skill set follows.
 
 ### Decisions
 
@@ -57,7 +69,7 @@ the pattern was documented in Storybook and `docs/ux/datagrid.md`:
 - **One rule set, two directions.** Everything that defines what a correct
   DataGrid is lives once in `datagrid-spec.md`, as constraints on the output
   (`DT-n`, `INV-n`) rather than build steps. `datagrid-build` applies it forward;
-  `datagrid-validate` checks against it. Both `require` the `datagrid` skill and
+  `datagrid-validate` checks against it. Both `require` the `datagrid-spec` skill and
   cite rule IDs instead of restating rules, so there is a single source of truth.
 - **Header composition stays in the spec.** An earlier plan split the three-zone
   header (filters / search / sorting / bulk actions) into a separate

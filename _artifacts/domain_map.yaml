@@ -4,8 +4,8 @@ domains: []
 skills:
   [
     {
-        name: datagrid,
-        slug: datagrid,
+        name: datagrid-spec,
+        slug: datagrid-spec,
         domain: data-display,
         description: "Display a collection of structured data as a Juno DataGrid
           (DataGrid, DataGridRow, DataGridCell, DataGridHeadCell). Use when

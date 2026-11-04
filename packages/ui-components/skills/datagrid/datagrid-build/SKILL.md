@@ -7,9 +7,9 @@ description: >-
   provides data/feature requirements and asks for a DataGrid. Relies on the
   datagrid skill's DataGridSpec for all structural rules.
 requires:
-  - datagrid
+  - datagrid-spec
 sources:
-  - skills/datagrid/references/datagrid-spec.md
+  - skills/datagrid/datagrid-spec/references/datagrid-spec.md
 ---
 
 Produce a complete DataGrid that conforms to the **DataGridSpec**. Output is
@@ -18,10 +18,10 @@ Decision Trees, not by judgement.
 
 ## Source of truth — do not restate
 
-All structural rules live in the **datagrid** skill (`requires: [datagrid]`):
+All structural rules live in the **datagrid-spec** skill (`requires: [datagrid-spec]`):
 Input Schema, Decision Trees `DT-1`…`DT-9`, Invariants `INV-1`…`INV-20`, the
 Fragment Library, and the Component Props Reference. Read
-`datagrid/references/datagrid-spec.md` before emitting anything. This skill adds
+`../datagrid-spec/references/datagrid-spec.md` before emitting anything. This skill adds
 only the build-specific procedure. If you are tempted to write a structural rule
 here, it belongs in `datagrid-spec.md` instead.
 
