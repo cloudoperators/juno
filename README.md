@@ -44,7 +44,7 @@ To get started with Juno, follow the instructions in the [Getting Started Guide]
 
 Comprehensive documentation for Juno is available in the [docs](docs) directory. This includes detailed guides on using the various tools and libraries, best practices, and examples to help you get the most out of the platform.
 
-Maintainers shipping agent skills with a package should read the [TanStack Intent Guide](docs/tanstack-intent-guide.md), which explains what skills are, how to create them, and how to keep them current when components change.
+Anyone contributing to `ui-components` — whether changing a component or authoring new skills — should read the [TanStack Intent Guide](docs/tanstack-intent-guide.md), which explains what skills are, how to create them, and how to keep them current when components change.
 
 ## Support, Feedback, Contributing
 

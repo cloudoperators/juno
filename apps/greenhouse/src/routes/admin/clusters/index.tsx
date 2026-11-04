@@ -11,9 +11,8 @@ import { Clusters } from "../../../components/admin/Clusters"
 import { filterSearchParamsByPrefix } from "../../../lib/helpers"
 import { FILTER_IDS, SELECTED_FILTER_PREFIX } from "../../../components/admin/constants"
 import { extractFilterSettingsFromSearchParams, getFiltersForUrl } from "../../../components/admin/utils"
-
-// A module level flag that resets on page refresh but persists during SPA navigation
-let defaultFiltersApplied = false
+import { hasAdminTabBeenVisited, markAdminTabVisited } from "../../../components/admin/adminTabState"
+import { ADMIN_ROUTES } from "../../../components/admin/adminRoutes"
 
 const filterValueSchema = z.union([z.string(), z.array(z.string()), z.undefined()])
 
@@ -42,12 +41,12 @@ export const Route = createFileRoute("/admin/clusters/")({
   component: Clusters,
   validateSearch: validateClustersSearch,
   beforeLoad: ({ context, search }) => {
-    // Skip if defaults were already applied this session
-    if (defaultFiltersApplied) {
+    // Apply default filters only on the first visit to this tab.
+    // On return visits, respect whatever the user left (including an explicitly cleared state).
+    if (hasAdminTabBeenVisited(ADMIN_ROUTES.CLUSTERS)) {
       return
     }
-
-    defaultFiltersApplied = true
+    markAdminTabVisited(ADMIN_ROUTES.CLUSTERS)
 
     // Check if any filter is already applied
     const hasAnyFilter = Object.keys(search).some((key) => key.startsWith(SELECTED_FILTER_PREFIX))

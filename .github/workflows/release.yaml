@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: Generate GitHub App Token
         id: github-app-token
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         with:
           app-id: ${{ secrets.CLOUDOPERATOR_APP_ID }}
           private-key: ${{ secrets.CLOUDOPERATOR_APP_PRIVATE_KEY }}
@@ -38,7 +38,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
           registry-url: "https://registry.npmjs.org"
@@ -72,14 +72,33 @@ jobs:
           commit-message: "chore(version): update versions with Changesets"
           github-token: ${{ steps.github-app-token.outputs.token }}
 
+  format-published-packages:
+    if: needs.release.outputs.published == 'true'
+    needs: [release]
+    runs-on: ubuntu-latest
+    outputs:
+      message: ${{ steps.format.outputs.message }}
+    steps:
+      - name: Format published packages list
+        id: format
+        env:
+          PACKAGES: ${{ needs.release.outputs.publishedPackages }}
+        run: |
+          MESSAGE=$(echo "$PACKAGES" | jq -r '[.[] | "• \(.name)@\(.version)"] | join("\n")')
+          {
+            echo 'message<<EOF'
+            printf '%s\n' "$MESSAGE"
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
+
   notify-on-success:
     if: needs.release.outputs.published == 'true'
-    needs: [release] # List the jobs that should complete successfully
+    needs: [release, format-published-packages]
     uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@5cacb59856fa112604bb50bd0de94356c56d2c82 # main
     with:
       title: "JUNO Packages Released Successfully! 🚀"
-      body: ${{ needs.release.outputs.publishedPackages }}
-      rich_body: false
+      body: ${{ needs.format-published-packages.outputs.message }}
+      rich_body: true
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
