@@ -7,5 +7,6 @@
 // host (`apps/greenhouse/src/hooks/usePluginLoader.ts`).
 export type { PluginModule, PluginProps, MountOptions } from "./types"
 
-// Mount helper — centralises the `createRoot` lifecycle each plugin would otherwise hand-write.
-export { createPluginMount } from "./createPluginMount"
+// Plugin factory — produces the whole `PluginModule` value (currently `{ mount, unmount }`), so
+// each plugin's `src/index.{ts,tsx}` collapses to a single named export.
+export { createPlugin } from "./createPlugin"

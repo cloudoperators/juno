@@ -9,33 +9,30 @@ import { createRoot, type Root } from "react-dom/client"
 import type { MountOptions, PluginModule, PluginProps } from "./types"
 
 /**
- * Create the `{ mount, unmount }` pair that Greenhouse's plugin loader calls.
- *
- * A plugin's `src/index.tsx` becomes a single line:
+ * Create the `PluginModule` value Greenhouse's plugin loader calls into — currently
+ * `{ mount, unmount }`, and whatever else the contract grows later. A plugin's `src/index.tsx`
+ * collapses to a single line that exposes it:
  *
  * @example
  * ```tsx
- * import { createPluginMount } from "@cloudoperators/greenhouse-core"
+ * import { createPlugin } from "@cloudoperators/greenhouse-core"
  * import App from "./App"
  *
- * export const plugin = createPluginMount(App)
+ * export const plugin = createPlugin(App)
  * ```
  *
- * The returned object `satisfies PluginModule` by construction. Centralising this here means that:
+ * The returned object `satisfies PluginModule` by construction. Centralising it means:
  *
  * - The `createRoot` lifecycle (duplicated across every plugin's `index.tsx`) lives in one place.
  * - Mount-mechanics fixes reach every plugin via a `pnpm update` — no edits to plugin files.
- * - A plugin's hand-written mount can no longer silently drift from the contract; a plugin that
- *   wants a different mount shape writes it directly and adds its own `satisfies PluginModule`.
+ * - When the contract adds a new method, the shell adapts here; plugins stay unchanged.
  *
  * `P` is the plugin's own App-props shape. The constraint is `P extends object` — the minimum
- * React requires for a component's props type — not `P extends PluginProps`. Plugins typically
- * declare `AppProps` as a plain object type without an index signature, and a `P extends
- * PluginProps` constraint would fail because `PluginProps` carries `[key: string]: unknown`.
- * The host↔plugin contract lives on `PluginProps` for consumers who want to narrow it; this
- * helper stays shape-agnostic so any React component can be mounted.
+ * React requires for a component's props type. The host↔plugin contract lives on `PluginProps`
+ * for consumers who want to narrow it; this helper stays shape-agnostic so any React component
+ * can be mounted.
  */
-export function createPluginMount<P extends object = PluginProps>(App: ComponentType<P>): PluginModule {
+export function createPlugin<P extends object = PluginProps>(App: ComponentType<P>): PluginModule {
   // Scope `root` per returned module so repeated mount/unmount cycles do not leak React roots.
   let root: Root | null = null
 

@@ -5,7 +5,7 @@
 
 import React from "react"
 import { describe, it, expect, vi } from "vitest"
-import { createPluginMount } from "./createPluginMount"
+import { createPlugin } from "./createPlugin"
 import type { MountOptions, PluginModule, PluginProps } from "./types"
 
 interface AppProps extends PluginProps {
@@ -20,9 +20,9 @@ const App = ({ label = "default-label" }: AppProps) => <p data-testid="app">{lab
 // runtime (`...config.props` on the mount call in `usePluginLoader.ts`).
 const asHostOptions = (props: AppProps): MountOptions => ({ props })
 
-describe("createPluginMount", () => {
+describe("createPlugin", () => {
   it("returns an object with `mount` and `unmount` functions", () => {
-    const plugin = createPluginMount(App)
+    const plugin = createPlugin(App)
     expect(typeof plugin.mount).toBe("function")
     expect(typeof plugin.unmount).toBe("function")
   })
@@ -31,7 +31,7 @@ describe("createPluginMount", () => {
     const container = document.createElement("div")
     document.body.appendChild(container)
 
-    const { mount, unmount } = createPluginMount(App)
+    const { mount, unmount } = createPlugin(App)
     void mount(container, asHostOptions({ label: "hello" }))
 
     await vi.waitFor(() => {
@@ -46,7 +46,7 @@ describe("createPluginMount", () => {
     const container = document.createElement("div")
     document.body.appendChild(container)
 
-    const { mount, unmount } = createPluginMount(App)
+    const { mount, unmount } = createPlugin(App)
     void mount(container)
 
     await vi.waitFor(() => {
@@ -61,7 +61,7 @@ describe("createPluginMount", () => {
     const container = document.createElement("div")
     document.body.appendChild(container)
 
-    const { mount, unmount } = createPluginMount(App)
+    const { mount, unmount } = createPlugin(App)
     void mount(container, asHostOptions({ label: "will-be-gone" }))
     await vi.waitFor(() => {
       expect(container.querySelector("[data-testid='app']")).not.toBeNull()
@@ -77,7 +77,7 @@ describe("createPluginMount", () => {
     const container = document.createElement("div")
     document.body.appendChild(container)
 
-    const { mount, unmount } = createPluginMount(App)
+    const { mount, unmount } = createPlugin(App)
     void mount(container, asHostOptions({ label: "first" }))
     await vi.waitFor(() => {
       expect(container.querySelector("[data-testid='app']")?.textContent).toBe("first")
@@ -92,11 +92,11 @@ describe("createPluginMount", () => {
     document.body.removeChild(container)
   })
 
-  // Type-level regression guard: `createPluginMount(App)` MUST produce a `PluginModule`.
+  // Type-level regression guard: `createPlugin(App)` MUST produce a `PluginModule`.
   // If `PluginModule` ever changes in a way the helper no longer satisfies, `tsc` fails here
   // before any runtime test runs.
   it("satisfies the PluginModule contract (type-level)", () => {
-    const plugin = createPluginMount(App) satisfies PluginModule
+    const plugin = createPlugin(App) satisfies PluginModule
     expect(plugin).toBeDefined()
   })
 })
