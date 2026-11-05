@@ -3,7 +3,7 @@
   "baseline": "fac03386c50408123ab764ad6005e15412b58bd4",
   "items": {
     "planning:_artifacts": {
-      "fingerprint": "b59e64e9b61557f850c198933b2890f161e6dfc7a42b292a9604f803e33b8270",
+      "fingerprint": "bcb5093588afdb0ade1d2b340872343a3370fd69066f0af84d3b0ec0c3751d1b",
       "snapshot": {
         "_artifacts/domain_map.yaml": "8fc312dd0b13943c023a9ce8393a3744aa0fc07e176f13f6e7414a7e494bc0f4",
         "_artifacts/skill_spec.md": "e1e22ae5871a1e8d1d90d1a23861f69a51906dab1729927713df8db941261e11",
@@ -14,10 +14,10 @@
         "packages/ui-components/skills/datagrid/datagrid-spec/references/datagrid-spec.md": "53040c52d11304155171567756d5ee260fbd9c16d184316ef32fadcbee7fe53d",
         "packages/ui-components/skills/datagrid/datagrid-spec/references/fragment-library.md": "37eaf3d15c1b8efe590629ec24d6a27790d7e46ddffcedec67275ea7f09d2f78",
         "packages/ui-components/skills/datagrid/datagrid-validate/SKILL.md": "c191364210616c9766f08b9fed3bbc24927d4e065268f11c23153145414c4235",
-        "packages/ui-components/skills/status/status-build/SKILL.md": "2f8c27a2d030eb7bd7a407f08d42260a5e8d17a988af3c4ff1f7e82270cddf1e",
+        "packages/ui-components/skills/status/status-build/SKILL.md": "8be1139c63c101e7b9a2a76295e550248ebf2ffc3c7e5e059f50658dd67affe4",
         "packages/ui-components/skills/status/status-spec/SKILL.md": "d04ab7a0451b0feab267847e19b08f68e1afa25b33109879e6a85d9dacd2ee03",
-        "packages/ui-components/skills/status/status-spec/references/status-spec.md": "920d4dc90f993f2cd9e8e32494e7453e9a9de226dff1cd1f7495ed159405c4a4",
-        "packages/ui-components/skills/status/status-validate/SKILL.md": "559f182982f7772f7d91f061b193d98e4fa14bdc10f0b9cc7b9355eed431fba4",
+        "packages/ui-components/skills/status/status-spec/references/status-spec.md": "eed8d7f10cf0f362bc4be185286106379e53e1f725a7072686709ff1e72f423a",
+        "packages/ui-components/skills/status/status-validate/SKILL.md": "8336899f4c49ba1d178e8af0de5d3e2254451bfb8705e81b320af2f01a1815f3",
         "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
         "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "c1c52e3c778327d889e0c8741d09d4613fd9942dd065ddae4059592d3e2b505a",
         "packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx": "e71d9a2463a00f584ad3553f83f8457cc9479d7910de7050c31dd07d7a6854fd",
@@ -25,11 +25,11 @@
         "packages/ui-components/src/components/Status/Status.component.tsx": "c059455ddce76e658b21b940a71cbafe2271fd8dc0136d6c045fb291e565d73d",
         "packages/ui-components/src/components/Status/Status.stories.tsx": "6d9d849075e405caebf8085e5f071655d60948cbe8313ac7ab1f118c389cb65c"
       },
-      "head": "f109123798064f0bdf8e096fcf5b287ea7a5296b",
-      "outcome": "updated",
-      "reason": "added references field and developer tasks",
+      "head": "302f258001222a5d4f6055efa6dd46243804be5a",
+      "outcome": "no-change",
+      "reason": "markdown table formatting by pre-commit hook; guidance content unchanged",
       "evidence": [
-        "Changed: _artifacts/domain_map.yaml, _artifacts/skill_tree.yaml at f109123798064f0bdf8e096fcf5b287ea7a5296b"
+        "Changed: packages/ui-components/skills/status/status-build/SKILL.md, packages/ui-components/skills/status/status-spec/references/status-spec.md, packages/ui-components/skills/status/status-validate/SKILL.md at 302f258001222a5d4f6055efa6dd46243804be5a"
       ]
     },
     "source:packages/ui-components/src/components/DataGridCell/DataGridCell.component.tsx": {
@@ -1482,44 +1482,56 @@
       ]
     },
     "skill:packages/ui-components/skills/status/status-build/SKILL.md": {
-      "fingerprint": "d0472ed9eb7a366b954c2f2bc3b89b076e9e1b06c04ccbd2a268727de4f11b17",
+      "fingerprint": "6b5d107571a5ca404cb1ab34f37fe60daca6736133142627acaaeae5ae413d36",
       "snapshot": {
-        "packages/ui-components/skills/status/status-build/SKILL.md": "2f8c27a2d030eb7bd7a407f08d42260a5e8d17a988af3c4ff1f7e82270cddf1e",
-        "packages/ui-components/skills/status/status-spec/references/status-spec.md": "920d4dc90f993f2cd9e8e32494e7453e9a9de226dff1cd1f7495ed159405c4a4"
+        "packages/ui-components/skills/status/status-build/SKILL.md": "8be1139c63c101e7b9a2a76295e550248ebf2ffc3c7e5e059f50658dd67affe4",
+        "packages/ui-components/skills/status/status-spec/references/status-spec.md": "eed8d7f10cf0f362bc4be185286106379e53e1f725a7072686709ff1e72f423a"
       },
-      "head": "f109123798064f0bdf8e096fcf5b287ea7a5296b",
-      "outcome": "updated",
-      "reason": "new skill set for Status component",
+      "head": "302f258001222a5d4f6055efa6dd46243804be5a",
+      "outcome": "no-change",
+      "reason": "markdown table formatting by pre-commit hook; guidance content unchanged",
       "evidence": [
-        "Changed: packages/ui-components/skills/status/status-build/SKILL.md, packages/ui-components/skills/status/status-spec/references/status-spec.md at f109123798064f0bdf8e096fcf5b287ea7a5296b"
+        "Changed: packages/ui-components/skills/status/status-build/SKILL.md, packages/ui-components/skills/status/status-spec/references/status-spec.md at 302f258001222a5d4f6055efa6dd46243804be5a"
       ]
     },
     "skill:packages/ui-components/skills/status/status-spec/SKILL.md": {
-      "fingerprint": "73035127e3c0b2731769c435ca22bda3f341bff77685b7d1fdc455bf8eda2b44",
+      "fingerprint": "7afc18c2cb8688f11fd8efcb88303497267725e16da9fa7e449d76a18e74a36a",
       "snapshot": {
         "packages/ui-components/skills/status/status-spec/SKILL.md": "d04ab7a0451b0feab267847e19b08f68e1afa25b33109879e6a85d9dacd2ee03",
-        "packages/ui-components/skills/status/status-spec/references/status-spec.md": "920d4dc90f993f2cd9e8e32494e7453e9a9de226dff1cd1f7495ed159405c4a4",
+        "packages/ui-components/skills/status/status-spec/references/status-spec.md": "eed8d7f10cf0f362bc4be185286106379e53e1f725a7072686709ff1e72f423a",
         "packages/ui-components/src/components/Status/Status.component.tsx": "c059455ddce76e658b21b940a71cbafe2271fd8dc0136d6c045fb291e565d73d",
         "packages/ui-components/src/components/Status/Status.stories.tsx": "6d9d849075e405caebf8085e5f071655d60948cbe8313ac7ab1f118c389cb65c"
       },
-      "head": "f109123798064f0bdf8e096fcf5b287ea7a5296b",
-      "outcome": "updated",
-      "reason": "new skill set for Status component",
+      "head": "302f258001222a5d4f6055efa6dd46243804be5a",
+      "outcome": "no-change",
+      "reason": "markdown table formatting by pre-commit hook; guidance content unchanged",
       "evidence": [
-        "Changed: packages/ui-components/skills/status/status-spec/SKILL.md, packages/ui-components/skills/status/status-spec/references/status-spec.md at f109123798064f0bdf8e096fcf5b287ea7a5296b"
+        "Changed: packages/ui-components/skills/status/status-spec/references/status-spec.md at 302f258001222a5d4f6055efa6dd46243804be5a"
       ]
     },
     "skill:packages/ui-components/skills/status/status-validate/SKILL.md": {
-      "fingerprint": "1da3e192c99870f89f9e0bc0e11fd2b29764ccd4696d6d3d5b564adfd1b730d2",
+      "fingerprint": "5a024af92de1298a8c25b917b82721ef88539733eedb825828cac05b41b971c5",
       "snapshot": {
-        "packages/ui-components/skills/status/status-spec/references/status-spec.md": "920d4dc90f993f2cd9e8e32494e7453e9a9de226dff1cd1f7495ed159405c4a4",
-        "packages/ui-components/skills/status/status-validate/SKILL.md": "559f182982f7772f7d91f061b193d98e4fa14bdc10f0b9cc7b9355eed431fba4"
+        "packages/ui-components/skills/status/status-spec/references/status-spec.md": "eed8d7f10cf0f362bc4be185286106379e53e1f725a7072686709ff1e72f423a",
+        "packages/ui-components/skills/status/status-validate/SKILL.md": "8336899f4c49ba1d178e8af0de5d3e2254451bfb8705e81b320af2f01a1815f3"
       },
-      "head": "f109123798064f0bdf8e096fcf5b287ea7a5296b",
-      "outcome": "updated",
-      "reason": "new skill set for Status component",
+      "head": "302f258001222a5d4f6055efa6dd46243804be5a",
+      "outcome": "no-change",
+      "reason": "markdown table formatting by pre-commit hook; guidance content unchanged",
       "evidence": [
-        "Changed: packages/ui-components/skills/status/status-spec/references/status-spec.md, packages/ui-components/skills/status/status-validate/SKILL.md at f109123798064f0bdf8e096fcf5b287ea7a5296b"
+        "Changed: packages/ui-components/skills/status/status-spec/references/status-spec.md, packages/ui-components/skills/status/status-validate/SKILL.md at 302f258001222a5d4f6055efa6dd46243804be5a"
+      ]
+    },
+    "source:CONTRIBUTING.md": {
+      "fingerprint": "17df1ff0c9e2f2c0773044be4082c74a85f3268bac8d7a13d92aaca07cb2c3b5",
+      "snapshot": {
+        "CONTRIBUTING.md": "46d412cade3c224c2d37a7dd08934650dcbbfd59584f02c015838b5ab000f808"
+      },
+      "head": "302f258001222a5d4f6055efa6dd46243804be5a",
+      "outcome": "no-change",
+      "reason": "markdown table formatting by pre-commit hook; guidance content unchanged",
+      "evidence": [
+        "Changed: CONTRIBUTING.md at 302f258001222a5d4f6055efa6dd46243804be5a"
       ]
     }
   }
