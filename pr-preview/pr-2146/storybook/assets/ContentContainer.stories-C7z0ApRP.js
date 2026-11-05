@@ -1,3 +1,0 @@
-import{n as e}from"./rolldown-runtime-BCiCTKAo.js";import{r as t}from"./react-8KJKb_Eb.js";import{t as n}from"./jsx-runtime-BB9-612F.js";import{n as r,t as i}from"./ContentContainer.component-C07eXOBP.js";var a,o,s,c;function l(){return(l=e((()=>{t(),r(),a=n(),o={title:`Internal/ContentContainer`,component:i,argTypes:{children:{control:!1,table:{type:{summary:`ReactNode`}}}}},s={render:e=>(0,a.jsx)(i,{...e,children:`content`})},c=[`Centered`],s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
-  render: args => <ContentContainer {...args}>content</ContentContainer>
-}`,...s.parameters?.docs?.source}}}})))()}l();export{s as Centered,c as __namedExportsOrder,o as default};
