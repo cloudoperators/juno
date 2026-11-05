@@ -40,7 +40,7 @@
     "jsdom": "30.1.3",
     "juri-cutlery": "1.0.0",
     "lz-string": "1.5.0",
-    "typescript": "6.0.3",
+    "typescript": "7.0.2",
     "vite": "8.3.5",
     "vite-plugin-dts": "5.1.2",
     "vitest": "5.0.5"
