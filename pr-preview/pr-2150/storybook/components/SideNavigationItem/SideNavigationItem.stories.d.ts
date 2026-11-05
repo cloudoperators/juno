@@ -1,0 +1,16 @@
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { SideNavigationItem } from './SideNavigationItem.component';
+declare const meta: Meta<typeof SideNavigationItem>;
+export default meta;
+type Story = StoryObj<typeof meta>;
+export declare const Default: Story;
+export declare const Active: Story;
+export declare const Disabled: Story;
+export declare const WithIcon: Story;
+export declare const AsLink: Story;
+export declare const WithChildren: Story;
+export declare const Expandable: Story;
+export declare const ExpandableWithIcon: Story;
+export declare const DisabledWithExpandable: Story;
+export declare const Controlled: Story;
+//# sourceMappingURL=SideNavigationItem.stories.d.ts.map
