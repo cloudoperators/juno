@@ -1,5 +1,19 @@
 # @cloudoperators/juno-app-doop
 
+## 2.6.48
+
+### Patch Changes
+
+- 46600d6: refactor(doop): adopt the shared Greenhouse plugin contract
+
+  `src/index.ts` collapses to the two-line `export const plugin = createPlugin(App)` pattern — the hand-written `createRoot` / mount / unmount dance and the `options: any` are gone. `src/types/index.d.ts` is a tiny `declare module { export const plugin: Plugin }` so the host's dynamic `await import(...)` is typed. `@cloudoperators/greenhouse-core` is now a runtime dependency. No behaviour change.
+
+- Updated dependencies [68fc3fb]
+- Updated dependencies [46600d6]
+  - @cloudoperators/juno-ui-components@9.9.0
+  - @cloudoperators/greenhouse-core@0.2.0
+  - @cloudoperators/juno-messages-provider@0.2.60
+
 ## 2.6.47
 
 ### Patch Changes
