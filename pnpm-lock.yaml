@@ -165,13 +165,10 @@ settings:
 overrides:
   '@graphql-tools/utils@>=10.10.1 <12.0.2': ^12.0.2
   brace-expansion@<=5.0.8: ^5.0.9
-  decode-uri-component@<=0.5.0: ^0.5.1
-  fast-uri@<3.1.9: ^3.1.9
+  fast-uri@<3.1.5: ^3.1.5
   glob@>=9.0.0 <14.0.2: ^14.0.2
   minimatch@>=7.0.0 <11.0.1: ^11.0.1
   postcss@<=8.5.17: ^8.5.18
-  seroval@<1.6.11: ^1.6.11
-  zod@<4.6.6: ^4.6.6
 
 importers:
 
@@ -5602,7 +5599,7 @@ packages:
     resolution: {integrity: sha512-N7mWAMydj89EnYTHtRpS3LBrAz3J9O6oVrqpuXuvlAHfAUG8WEKqtbAd7SBiJNY5NfCAFhSdyAh7wI4Shjqy4g==}
     engines: {node: '>=10'}
     peerDependencies:
-      seroval: ^1.6.11
+      seroval: ^1.0
 
   seroval@1.7.7:
     resolution: {integrity: sha512-9OdYsqMLV5RSUNNtkgr6DT2bS/ncba6AqUJx8H7epNJNa0cKNWhQtF5GLRjkF/KuAdvAuRRitWrq86K/v1S/kg==}
@@ -6402,7 +6399,7 @@ packages:
     resolution: {integrity: sha512-Q6/nZLe6jxuU80qb/4uJ4t5v2VEZ44lzQjPDhYJNztRQ4wyWc6VF3D3Kb/fAuPetZQnhS3hnajCf9CsWesghLQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      zod: ^4.6.6
+      zod: ^3.25.0 || ^4.0.0
 
   zod@4.6.7:
     resolution: {integrity: sha512-g8W2D2kU6a8untc053fX1uVBKzM7yqAxW/3zwk83+6RyF2+SKOuV+c0wBDhUwzV1PaGapmZH+rmcUzPf+3CGwg==}
