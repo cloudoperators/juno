@@ -3,13 +3,13 @@
   "baseline": "fac03386c50408123ab764ad6005e15412b58bd4",
   "items": {
     "planning:_artifacts": {
-      "fingerprint": "bcb5093588afdb0ade1d2b340872343a3370fd69066f0af84d3b0ec0c3751d1b",
+      "fingerprint": "5d9e6e212cd64a4b0c4237cfefb9dd007f8408e10079129c0ff9228e0879f05b",
       "snapshot": {
         "_artifacts/domain_map.yaml": "8fc312dd0b13943c023a9ce8393a3744aa0fc07e176f13f6e7414a7e494bc0f4",
         "_artifacts/skill_spec.md": "e1e22ae5871a1e8d1d90d1a23861f69a51906dab1729927713df8db941261e11",
         "_artifacts/skill_tree.yaml": "db432f904cde41fe3d03f3ac84120a82273a9a0873b9b0bfbf5b4cbcce5c70f5",
         "packages/ui-components/skills/datagrid/datagrid-build/SKILL.md": "57f2aa21e3302df73aeded827bd82bec9e103576701e95cb43143048a7d6e263",
-        "packages/ui-components/skills/datagrid/datagrid-spec/SKILL.md": "d61b134752cc828bb0406d56a61a5ac932a33d5a8d54724afd4e565c5fc0f9a5",
+        "packages/ui-components/skills/datagrid/datagrid-spec/SKILL.md": "296af0cb487935036258019fc9d387bb9c25cec1f0be7ef14b2ef784b1295ab2",
         "packages/ui-components/skills/datagrid/datagrid-spec/references/component-props.md": "ab4f49dcb1bacbd9aa6e837a7fad54481d520db9f0842b4b54324e5cedb5ae61",
         "packages/ui-components/skills/datagrid/datagrid-spec/references/datagrid-spec.md": "53040c52d11304155171567756d5ee260fbd9c16d184316ef32fadcbee7fe53d",
         "packages/ui-components/skills/datagrid/datagrid-spec/references/fragment-library.md": "37eaf3d15c1b8efe590629ec24d6a27790d7e46ddffcedec67275ea7f09d2f78",
@@ -25,11 +25,11 @@
         "packages/ui-components/src/components/Status/Status.component.tsx": "c059455ddce76e658b21b940a71cbafe2271fd8dc0136d6c045fb291e565d73d",
         "packages/ui-components/src/components/Status/Status.stories.tsx": "6d9d849075e405caebf8085e5f071655d60948cbe8313ac7ab1f118c389cb65c"
       },
-      "head": "302f258001222a5d4f6055efa6dd46243804be5a",
-      "outcome": "no-change",
-      "reason": "markdown table formatting by pre-commit hook; guidance content unchanged",
+      "head": "99544d478087b9d2181e7652b7f571a5802a93cf",
+      "outcome": "updated",
+      "reason": "added See also section pointing to status-spec for DataGrid state row customisation",
       "evidence": [
-        "Changed: packages/ui-components/skills/status/status-build/SKILL.md, packages/ui-components/skills/status/status-spec/references/status-spec.md, packages/ui-components/skills/status/status-validate/SKILL.md at 302f258001222a5d4f6055efa6dd46243804be5a"
+        "Changed: packages/ui-components/skills/datagrid/datagrid-spec/SKILL.md at 99544d478087b9d2181e7652b7f571a5802a93cf"
       ]
     },
     "source:packages/ui-components/src/components/DataGridCell/DataGridCell.component.tsx": {
@@ -1378,9 +1378,9 @@
       ]
     },
     "skill:packages/ui-components/skills/datagrid/datagrid-spec/SKILL.md": {
-      "fingerprint": "c374527ad6fa7a9ad8be99c990537a8ded8fd9db36c0b2ee2a16198084d9e583",
+      "fingerprint": "423c80f5a59c385eda4a3536c6afd77aebffcd7494e028c07cd0a8a9dbab6392",
       "snapshot": {
-        "packages/ui-components/skills/datagrid/datagrid-spec/SKILL.md": "d61b134752cc828bb0406d56a61a5ac932a33d5a8d54724afd4e565c5fc0f9a5",
+        "packages/ui-components/skills/datagrid/datagrid-spec/SKILL.md": "296af0cb487935036258019fc9d387bb9c25cec1f0be7ef14b2ef784b1295ab2",
         "packages/ui-components/skills/datagrid/datagrid-spec/references/component-props.md": "ab4f49dcb1bacbd9aa6e837a7fad54481d520db9f0842b4b54324e5cedb5ae61",
         "packages/ui-components/skills/datagrid/datagrid-spec/references/datagrid-spec.md": "53040c52d11304155171567756d5ee260fbd9c16d184316ef32fadcbee7fe53d",
         "packages/ui-components/skills/datagrid/datagrid-spec/references/fragment-library.md": "37eaf3d15c1b8efe590629ec24d6a27790d7e46ddffcedec67275ea7f09d2f78",
@@ -1389,11 +1389,11 @@
         "packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx": "e71d9a2463a00f584ad3553f83f8457cc9479d7910de7050c31dd07d7a6854fd",
         "packages/ui-components/src/components/DataGrid/DataGridPattern.stories.tsx": "9115dba26dc4c89f766187f124eb2c38ea6c473360ffe55dcff3e38cb7c19abe"
       },
-      "head": "46600d68e4d836a50ca409e60a8bf5b7d9c9f34e",
+      "head": "99544d478087b9d2181e7652b7f571a5802a93cf",
       "outcome": "updated",
-      "reason": "Relocated into nested per-component skill dirs (#2145): datagrid hub renamed to datagrid-spec, references moved under it, task skills now require datagrid-spec. DataGrid guidance itself unchanged.",
+      "reason": "added See also section pointing to status-spec for DataGrid state row customisation",
       "evidence": [
-        "Changed: packages/ui-components/skills/datagrid/datagrid-spec/SKILL.md, packages/ui-components/skills/datagrid/datagrid-spec/references/component-props.md, packages/ui-components/skills/datagrid/datagrid-spec/references/datagrid-spec.md, packages/ui-components/skills/datagrid/datagrid-spec/references/fragment-library.md at 46600d68e4d836a50ca409e60a8bf5b7d9c9f34e"
+        "Changed: packages/ui-components/skills/datagrid/datagrid-spec/SKILL.md at 99544d478087b9d2181e7652b7f571a5802a93cf"
       ]
     },
     "skill:packages/ui-components/skills/datagrid/datagrid-validate/SKILL.md": {

@@ -58,3 +58,7 @@ detail view, a key/value property list, free-form or document content, or a smal
 fixed set of label/value pairs. Pagination, page shells, navigation, modals,
 panels, forms, and detail views are out of scope for this pattern; they belong to
 the consuming component (see the Scope section of `datagrid-spec.md`).
+
+## See also
+
+State rows (`DT-7`) — loading, error, empty, no-matches — use the **`Status`** component wrapped in a `DataGridRow` + `DataGridCell` spanning all columns. The fragment library (`fragment-library.md`) has the exact fragments. For customising copy, spinner, `details`, or the `action` slot in those rows, consult the **status-spec** skill.
