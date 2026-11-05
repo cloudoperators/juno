@@ -4,26 +4,26 @@ The `Status` component communicates non-data states: in-progress loading, errors
 
 ## Prop API
 
-| Prop | Type | Default | Notes |
-|---|---|---|---|
-| `status` | `"progress" \| "error" \| "empty" \| "no-matches"` | `"error"` | Selects the state type and activates per-status default copy. |
-| `title` | `ReactNode` | — | Overrides the default title. Use title case (e.g. "Something Went Wrong"). Accepts React nodes for links or formatted text. |
-| `body` | `ReactNode` | — | Overrides the default body text. Sentence case. Accepts React nodes. |
-| `spinner` | `boolean` | `true` when `status="progress"`, `false` otherwise | Renders a `Spinner` component above the title. |
-| `code` | `number \| string` | — | Large HTTP error code rendered prominently above the title. Suppressed inside a DataGrid (see INV-3). |
-| `details` | `string` | — | Rendered in a scrollable `<pre>` block. For stack traces and raw server responses only (see INV-6). |
-| `action` | `ReactNode` | — | Rendered below the content area. Typically a `Button` or a button-styled `<a>` (see INV-7). |
-| `className` | `string` | `""` | Additional CSS classes on the root `<div>`. |
+| Prop        | Type                                               | Default                                            | Notes                                                                                                                       |
+| ----------- | -------------------------------------------------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `status`    | `"progress" \| "error" \| "empty" \| "no-matches"` | `"error"`                                          | Selects the state type and activates per-status default copy.                                                               |
+| `title`     | `ReactNode`                                        | —                                                  | Overrides the default title. Use title case (e.g. "Something Went Wrong"). Accepts React nodes for links or formatted text. |
+| `body`      | `ReactNode`                                        | —                                                  | Overrides the default body text. Sentence case. Accepts React nodes.                                                        |
+| `spinner`   | `boolean`                                          | `true` when `status="progress"`, `false` otherwise | Renders a `Spinner` component above the title.                                                                              |
+| `code`      | `number \| string`                                 | —                                                  | Large HTTP error code rendered prominently above the title. Suppressed inside a DataGrid (see INV-3).                       |
+| `details`   | `string`                                           | —                                                  | Rendered in a scrollable `<pre>` block. For stack traces and raw server responses only (see INV-6).                         |
+| `action`    | `ReactNode`                                        | —                                                  | Rendered below the content area. Typically a `Button` or a button-styled `<a>` (see INV-7).                                 |
+| `className` | `string`                                           | `""`                                               | Additional CSS classes on the root `<div>`.                                                                                 |
 
 ## Status value selection
 
 Choose the `status` value based on the application state:
 
-| Situation | `status` value |
-|---|---|
-| Data is being fetched or an operation is in progress | `"progress"` |
-| A fetch or operation has failed | `"error"` |
-| The data source contains no items | `"empty"` |
+| Situation                                                | `status` value |
+| -------------------------------------------------------- | -------------- |
+| Data is being fetched or an operation is in progress     | `"progress"`   |
+| A fetch or operation has failed                          | `"error"`      |
+| The data source contains no items                        | `"empty"`      |
 | Items exist but none match the currently applied filters | `"no-matches"` |
 
 `"error"` is the default — if `status` is omitted, an error state renders.
@@ -40,30 +40,30 @@ If none of the three sources provides a value, that field is not rendered.
 
 ### Per-status defaults
 
-| `status` | Default `title` | Default `body` |
-|---|---|---|
-| `"progress"` | "Loading…" | _(none)_ |
-| `"error"` | "Something Went Wrong" | "An error occurred. Try again." |
-| `"empty"` | "No Items" | "There are no items to display." |
-| `"no-matches"` | _(none)_ | "No items match the current filters. Adjust or clear filters." |
+| `status`       | Default `title`        | Default `body`                                                 |
+| -------------- | ---------------------- | -------------------------------------------------------------- |
+| `"progress"`   | "Loading…"             | _(none)_                                                       |
+| `"error"`      | "Something Went Wrong" | "An error occurred. Try again."                                |
+| `"empty"`      | "No Items"             | "There are no items to display."                               |
+| `"no-matches"` | _(none)_               | "No items match the current filters. Adjust or clear filters." |
 
 ### HTTP error code defaults
 
 These apply when `code` is one of the following recognized values. An unrecognized numeric code falls through to the per-status defaults.
 
-| `code` | Default `title` | Default `body` |
-|---|---|---|
-| 400 | "Bad Request" | "The request could not be processed due to invalid syntax. Try again." |
-| 401 | "Authentication Required" | "Authentication failed. Verify your credentials and try again." |
-| 403 | "Access Denied" | "You do not have the required permissions to access this resource." |
-| 404 | "Page Not Found" | "The requested URL does not exist or may have moved." |
-| 408 | "Request Timeout" | "The request did not return a complete result in time. Check your connection and try again." |
-| 409 | "Conflict" | _(none)_ |
-| 429 | "Too Many Requests" | _(none)_ |
-| 500 | "Internal Server Error" | "An internal error occurred. Try again." |
-| 502 | "Bad Gateway" | "The server returned an invalid response. Try again." |
-| 503 | "Service Unavailable" | "The service is temporarily unavailable. Try again later." |
-| 504 | "Gateway Timeout" | "A server did not respond in time. Check your connection and try again." |
+| `code` | Default `title`           | Default `body`                                                                               |
+| ------ | ------------------------- | -------------------------------------------------------------------------------------------- |
+| 400    | "Bad Request"             | "The request could not be processed due to invalid syntax. Try again."                       |
+| 401    | "Authentication Required" | "Authentication failed. Verify your credentials and try again."                              |
+| 403    | "Access Denied"           | "You do not have the required permissions to access this resource."                          |
+| 404    | "Page Not Found"          | "The requested URL does not exist or may have moved."                                        |
+| 408    | "Request Timeout"         | "The request did not return a complete result in time. Check your connection and try again." |
+| 409    | "Conflict"                | _(none)_                                                                                     |
+| 429    | "Too Many Requests"       | _(none)_                                                                                     |
+| 500    | "Internal Server Error"   | "An internal error occurred. Try again."                                                     |
+| 502    | "Bad Gateway"             | "The server returned an invalid response. Try again."                                        |
+| 503    | "Service Unavailable"     | "The service is temporarily unavailable. Try again later."                                   |
+| 504    | "Gateway Timeout"         | "A server did not respond in time. Check your connection and try again."                     |
 
 ## Placement context
 

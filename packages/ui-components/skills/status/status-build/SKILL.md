@@ -28,14 +28,14 @@ Determine two things from the user's description:
 
 ### 2 · Choose props
 
-| Decision | Rule |
-|---|---|
-| `status` value | Match situation to the status value selection table in `status-spec.md`. |
-| `code` | Only when the error is an HTTP error with a known code. Never inside a DataGrid (`INV-3`). |
+| Decision         | Rule                                                                                                                                                                                                    |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `status` value   | Match situation to the status value selection table in `status-spec.md`.                                                                                                                                |
+| `code`           | Only when the error is an HTTP error with a known code. Never inside a DataGrid (`INV-3`).                                                                                                              |
 | `title` / `body` | Use defaults unless the user supplies custom copy or the defaults do not fit the context (e.g. qualify the resource: "Loading Servers…" rather than "Loading…"). When overriding, apply `INV-5` casing. |
-| `spinner` | Omit when `status="progress"` — it is the default (`INV-4`). Only set explicitly to `false` to suppress. |
-| `details` | Only when a stack trace or raw server response is available and the user wants it surfaced (`INV-6`). |
-| `action` | Only when a primary recovery action (retry, navigate) exists. Keep to one action (`INV-7`). |
+| `spinner`        | Omit when `status="progress"` — it is the default (`INV-4`). Only set explicitly to `false` to suppress.                                                                                                |
+| `details`        | Only when a stack trace or raw server response is available and the user wants it surfaced (`INV-6`).                                                                                                   |
+| `action`         | Only when a primary recovery action (retry, navigate) exists. Keep to one action (`INV-7`).                                                                                                             |
 
 ### 3 · Compose the output
 

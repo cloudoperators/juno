@@ -28,14 +28,14 @@ All rules live in the **status-spec** skill (`requires: [status-spec]`): prop AP
 
 One entry per violation:
 
-| field | content |
-|---|---|
-| rule | the ID being violated, e.g. `INV-2` |
+| field    | content                                                                                                           |
+| -------- | ----------------------------------------------------------------------------------------------------------------- |
+| rule     | the ID being violated, e.g. `INV-2`                                                                               |
 | severity | **error** (invariant violation or structural issue) · **warning** (likely wrong or redundant, needs confirmation) |
-| location | file:line, or the offending JSX element |
-| expected | what the rule requires |
-| actual | what the code does |
-| fix | the minimal change that satisfies the rule |
+| location | file:line, or the offending JSX element                                                                           |
+| expected | what the rule requires                                                                                            |
+| actual   | what the code does                                                                                                |
+| fix      | the minimal change that satisfies the rule                                                                        |
 
 ## Reporting rules
 
