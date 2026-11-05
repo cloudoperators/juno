@@ -84,12 +84,8 @@ jobs:
         env:
           PACKAGES: ${{ needs.release.outputs.publishedPackages }}
         run: |
-          MESSAGE=$(echo "$PACKAGES" | jq -r '[.[] | "• \(.name)@\(.version)"] | join("\n")')
-          {
-            echo 'message<<EOF'
-            printf '%s\n' "$MESSAGE"
-            echo 'EOF'
-          } >> "$GITHUB_OUTPUT"
+          MESSAGE=$(echo "$PACKAGES" | jq -r '[.[] | "\(.name)@\(.version)"] | join(", ")')
+          echo "message=$MESSAGE" >> "$GITHUB_OUTPUT"
 
   notify-on-success:
     if: needs.release.outputs.published == 'true'
@@ -98,7 +94,6 @@ jobs:
     with:
       title: "JUNO Packages Released Successfully! 🚀"
       body: ${{ needs.format-published-packages.outputs.message }}
-      rich_body: true
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
