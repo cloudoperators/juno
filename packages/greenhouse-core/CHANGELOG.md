@@ -1,5 +1,11 @@
 # @cloudoperators/greenhouse-core
 
+## 0.2.1
+
+### Patch Changes
+
+- 485fd71: chore: validate npm trusted publishing via OIDC
+
 ## 0.2.0
 
 ### Minor Changes
