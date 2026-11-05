@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and Juno contributors
 # SPDX-License-Identifier: Apache-2.0
 
-FROM node:22-alpine AS build
+FROM node:26-alpine AS build
 
 LABEL repository="https://github.com/cloudoperators/juno/tree/main/apps/greenhouse/docker/Dockerfile" 
 
@@ -16,7 +16,7 @@ WORKDIR /juno
 ADD . .
 
 # Enable corepack and install pnpm version from package.json packageManager field
-RUN corepack enable && corepack install
+RUN npm install -g corepack && corepack enable && corepack install
 
 RUN pnpm install && pnpx turbo build:static --filter @cloudoperators/juno-app-greenhouse
 

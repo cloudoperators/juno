@@ -7,7 +7,7 @@ on:
 
 env:
   HUSKY: 0
-  NODE_VERSION: "22.22.2"
+  NODE_VERSION: "26.13.0"
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
