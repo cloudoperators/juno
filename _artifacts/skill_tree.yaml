@@ -6,11 +6,11 @@ generated_from:
 skills:
   [
     {
-        name: datagrid,
-        slug: datagrid,
+        name: datagrid-spec,
+        slug: datagrid-spec,
         domain: data-display,
         package: packages/ui-components,
-        path: skills/datagrid/SKILL.md,
+        path: skills/datagrid/datagrid-spec/SKILL.md,
         description: "Compose a Juno DataGrid to display a collection of structured data
           (DataGrid, DataGridRow, DataGridCell, DataGridHeadCell). Owns the
           DataGridSpec — the shared rule set (Input Schema, Decision Trees,
@@ -38,30 +38,30 @@ skills:
         slug: datagrid-build,
         domain: data-display,
         package: packages/ui-components,
-        path: skills/datagrid-build/SKILL.md,
+        path: skills/datagrid/datagrid-build/SKILL.md,
         description: "Generate a complete, production-ready Juno DataGrid implementation
           from a BRD excerpt, feature list, or structured requirements. Use when
           the user says \"build a DataGrid for X\", \"generate a DataGrid\",
           \"scaffold a DataGrid\", or provides data/feature requirements and
-          asks for a DataGrid. Relies on the datagrid skill's DataGridSpec for
-          all structural rules.",
-        sources: [ skills/datagrid/references/datagrid-spec.md ],
-        requires: [ datagrid ]
+          asks for a DataGrid. Relies on the datagrid-spec skill's DataGridSpec
+          for all structural rules.",
+        sources: [ skills/datagrid/datagrid-spec/references/datagrid-spec.md ],
+        requires: [ datagrid-spec ]
       },
     {
         name: datagrid-validate,
         slug: datagrid-validate,
         domain: data-display,
         package: packages/ui-components,
-        path: skills/datagrid-validate/SKILL.md,
+        path: skills/datagrid/datagrid-validate/SKILL.md,
         description: "Check an existing Juno DataGrid implementation against the
           DataGridSpec and report violations. Use when the user says \"validate
           this DataGrid\", \"review this DataGrid\", \"check this DataGrid\",
           \"does this DataGrid follow the rules\", or pastes DataGrid code to be
-          audited. Relies on the datagrid skill's DataGridSpec for all
+          audited. Relies on the datagrid-spec skill's DataGridSpec for all
           structural rules.",
-        sources: [ skills/datagrid/references/datagrid-spec.md ],
-        requires: [ datagrid ]
+        sources: [ skills/datagrid/datagrid-spec/references/datagrid-spec.md ],
+        requires: [ datagrid-spec ]
       }
   ]
 distribution:
