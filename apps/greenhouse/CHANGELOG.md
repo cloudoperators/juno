@@ -1,5 +1,26 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.14.18
+
+### Patch Changes
+
+- 070df91: Fix admin tab filters being lost or mixed up after navigating away from the admin section and back. Default filters are now re-applied correctly on first visit to each tab, user-modified filters (including explicitly cleared state) are preserved on return, and filters no longer bleed between tabs when returning from a non-admin section like Compliance.
+- 46600d6: refactor(greenhouse): read `plugin` export from each dynamically-imported plugin
+
+  The loader at `src/hooks/usePluginLoader.ts` now imports `Plugin` from `@cloudoperators/greenhouse-core` instead of `@cloudoperators/juno-app-supernova`, and each `case` in the plugin switch pulls the single `plugin` export off the imported module: `module = (await import(...)).plugin`. Plugins expose their whole `Plugin` as one named export so future contract changes (new / renamed methods) do not require touching any plugin — the shell is the only side that adapts. Loader runtime behaviour is unchanged.
+
+- Updated dependencies [68fc3fb]
+- Updated dependencies [46600d6]
+- Updated dependencies [46600d6]
+- Updated dependencies [46600d6]
+- Updated dependencies [46600d6]
+  - @cloudoperators/juno-ui-components@9.9.0
+  - @cloudoperators/juno-app-doop@2.6.48
+  - @cloudoperators/greenhouse-core@0.2.0
+  - @cloudoperators/juno-app-heureka@1.1.23
+  - @cloudoperators/juno-app-supernova@0.20.17
+  - @cloudoperators/juno-messages-provider@0.2.60
+
 ## 0.14.17
 
 ### Patch Changes
