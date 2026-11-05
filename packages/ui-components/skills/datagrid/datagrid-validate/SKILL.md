@@ -4,7 +4,7 @@ description: >-
   Check an existing Juno DataGrid implementation against the DataGridSpec and
   report violations. Use when the user says "validate this DataGrid", "review
   this DataGrid", "check this DataGrid", "does this DataGrid follow the rules", or
-  pastes DataGrid code to be audited. Relies on the datagrid skill's DataGridSpec
+  pastes DataGrid code to be audited. Relies on the datagrid-spec skill's DataGridSpec
   for all structural rules.
 requires:
   - datagrid-spec

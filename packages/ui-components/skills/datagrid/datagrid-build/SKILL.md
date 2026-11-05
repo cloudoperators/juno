@@ -5,7 +5,7 @@ description: >-
   excerpt, feature list, or structured requirements. Use when the user says
   "build a DataGrid for X", "generate a DataGrid", "scaffold a DataGrid", or
   provides data/feature requirements and asks for a DataGrid. Relies on the
-  datagrid skill's DataGridSpec for all structural rules.
+  datagrid-spec skill's DataGridSpec for all structural rules.
 requires:
   - datagrid-spec
 sources:
