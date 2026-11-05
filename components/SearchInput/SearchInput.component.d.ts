@@ -1,4 +1,4 @@
-import { ReactNode, MouseEventHandler, KeyboardEventHandler, ChangeEventHandler, HTMLProps } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { ReactNode, MouseEventHandler, KeyboardEventHandler, ChangeEventHandler, HTMLProps } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export interface SearchInputProps extends Omit<HTMLProps<HTMLInputElement>, "onClick"> {
     /**
      * Specifies the name attribute for the input element.

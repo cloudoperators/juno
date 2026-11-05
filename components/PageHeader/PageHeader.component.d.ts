@@ -1,4 +1,4 @@
-import { HTMLAttributes, MouseEventHandler, ReactElement, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { HTMLAttributes, MouseEventHandler, ReactElement, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 /**
  * `PageHeader` component renders the top header of an application.
  * It includes customizable `logo`, `title`, and other options.

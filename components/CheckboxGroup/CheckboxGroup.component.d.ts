@@ -1,4 +1,4 @@
-import { default as React, ReactNode, HTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React, ReactNode, HTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 type EventUpdateHandler = (value: string) => void;
 export interface CheckboxGroupContextProps {
     selectedOptions?: string[];

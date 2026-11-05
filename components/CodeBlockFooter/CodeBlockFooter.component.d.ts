@@ -1,4 +1,4 @@
-import { default as React, HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React, HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export interface CodeBlockFooterProps extends Omit<HTMLAttributes<HTMLDivElement>, "onCopy"> {
     /**
      * Callback function to handle the copy action. Required when `copy` is true (the default).

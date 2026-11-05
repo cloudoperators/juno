@@ -1,4 +1,4 @@
-import { default as React, CSSProperties } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React, CSSProperties } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { useInteractions } from '@floating-ui/react';
 import { ToolTipVariant, TooltipPlacement } from './ToolTip.types';
 type TriggerEvent = "click" | "hover";

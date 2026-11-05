@@ -1,4 +1,4 @@
-import { default as React, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export interface StatusProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
     /** The status to display. Determines the default copy. Defaults to `"error"`. */
     status?: "progress" | "error" | "empty" | "no-matches";

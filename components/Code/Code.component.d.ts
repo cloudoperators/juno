@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { ComponentPropsWithoutRef, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 /**
  * The `Code` component is a lightweight inline `<code>` element used for displaying code snippets or text.
  * It can accept content directly through the `content` prop or render children encapsulated within it.

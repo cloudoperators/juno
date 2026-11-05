@@ -1,4 +1,4 @@
-import { ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export interface ThemeToggleProps {
     /**
      * Additional CSS classes for custom styling.

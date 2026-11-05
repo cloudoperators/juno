@@ -1,4 +1,4 @@
-import { ReactNode, HTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { ReactNode, HTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 /**
  * The `AppBody` component serves as the main container for the body of your application.
  * It is specifically useful when you require manual setup of the app's layout, providing

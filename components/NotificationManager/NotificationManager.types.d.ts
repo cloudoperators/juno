@@ -1,4 +1,4 @@
-import { CSSProperties, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { CSSProperties, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { toast as sonnerToast, ToastT } from 'sonner';
 import { ToastVariant } from '../Toast';
 export type ToastMessage = (() => ReactNode) | ReactNode;

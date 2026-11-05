@@ -1,4 +1,4 @@
-import { ReactNode, HTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { ReactNode, HTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 /**
  * The `CodeBlock` component renders a block of preformatted code or content. It offers features such
  * as optional wrapping, copying to clipboard, and syntax highlighting for JSON content via a custom viewer.

@@ -1,4 +1,4 @@
-import { ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 /** A PortalProvider.Portal component to directly use from within other components:
  *  ```
  *   <PortalProvider.Portal>

@@ -1,4 +1,4 @@
-import { ReactNode, HTMLAttributes, FocusEventHandler, ChangeEventHandler } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { ReactNode, HTMLAttributes, FocusEventHandler, ChangeEventHandler } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 /**
  * A component to hold a secret text, e.g. an SSH key, and conceal or reveal as needed.
  * @see https://cloudoperators.github.io/juno/?path=/docs/forms-secrettext--docs

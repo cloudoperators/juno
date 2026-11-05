@@ -1,4 +1,4 @@
-import { default as React } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export declare function TextColorCard(props: TextColorCardProps): React.JSX.Element;
 interface TextColorCardProps {
     colorName?: string;

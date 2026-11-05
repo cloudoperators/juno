@@ -1,4 +1,4 @@
-import { default as React, HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React, HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export interface TooltipContentProps extends HTMLAttributes<HTMLDivElement> {
     /** Pass child nodes to display in the tooltip */
     children?: ReactNode;

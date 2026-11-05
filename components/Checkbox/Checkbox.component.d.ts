@@ -1,4 +1,4 @@
-import { ReactNode, InputHTMLAttributes, ChangeEventHandler, MouseEventHandler } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { ReactNode, InputHTMLAttributes, ChangeEventHandler, MouseEventHandler } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 /**
  * The `Checkbox` component is a versatile form element that allows users to
  * select one or multiple options. It can display states such as checked,

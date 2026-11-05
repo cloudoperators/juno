@@ -1,4 +1,4 @@
-import { default as React } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 declare const Fonts: ({ inline }: FontsProps) => React.JSX.Element | null;
 export interface FontsProps {
     inline?: boolean;

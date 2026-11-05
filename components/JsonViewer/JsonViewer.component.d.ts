@@ -1,4 +1,4 @@
-import { HTMLProps, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { HTMLProps, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { TypeValueLabelType } from './JsonViewer.types';
 import * as themes from "./themes";
 export declare const getTypeOfTheValue: (value: unknown) => TypeValueLabelType;

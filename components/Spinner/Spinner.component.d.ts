@@ -1,4 +1,4 @@
-import { HTMLProps, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { HTMLProps, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 /**
  * A generic Spinner component to indicate an individual component or portion of the UI is busy processing or awaiting data.
  * To indicate full views, panels, or other larger parts of an interface are busy or waiting for data, use LoadingIndicator instead.

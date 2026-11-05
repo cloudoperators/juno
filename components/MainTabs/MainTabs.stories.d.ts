@@ -1,4 +1,4 @@
-import { default as React } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { TabPanelProps } from '../TabPanel/TabPanel.component';
 import { TabProps } from '../Tab/Tab.component';

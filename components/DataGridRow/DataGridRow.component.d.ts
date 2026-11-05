@@ -1,4 +1,4 @@
-import { default as React, HTMLAttributes, MouseEvent, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React, HTMLAttributes, MouseEvent, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 /**
  * `DataGridRow` represents a row in a `DataGrid`, supporting interactions such as selection and click handling.
  * It provides styles for active states and custom behavior when interacted with.

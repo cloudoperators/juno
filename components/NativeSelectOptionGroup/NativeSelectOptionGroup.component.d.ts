@@ -1,4 +1,4 @@
-import { OptgroupHTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { OptgroupHTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export interface NativeSelectOptionGroupProps extends OptgroupHTMLAttributes<HTMLOptGroupElement> {
     /**
      * A visible label for the option group.

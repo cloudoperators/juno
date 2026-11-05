@@ -1,4 +1,4 @@
-import { default as React, HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React, HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { TextContainType } from '../../shared/textContain';
 /**
  * `DataGridHeadCell` is designed for use within a `DataGrid` header, defining column attributes and appearance.

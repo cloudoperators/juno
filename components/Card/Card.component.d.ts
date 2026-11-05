@@ -1,4 +1,4 @@
-import { default as React, HTMLAttributes, MouseEventHandler, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React, HTMLAttributes, MouseEventHandler, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export interface CardProps extends HTMLAttributes<HTMLElement> {
     /**
      * Components or elements to be rendered as content.

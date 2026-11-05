@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export type BoxVariantType = "info" | "warning" | "danger" | "error" | "success";
 export interface BoxProps extends HTMLAttributes<HTMLDivElement> {
     /**

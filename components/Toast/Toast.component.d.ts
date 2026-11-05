@@ -1,4 +1,4 @@
-import { default as React, HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React, HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export type ToastVariant = "info" | "warning" | "danger" | "error" | "success";
 export interface ToastProps extends HTMLAttributes<HTMLDivElement> {
     /** Specify a semantic variant */

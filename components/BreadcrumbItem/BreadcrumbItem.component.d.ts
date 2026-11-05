@@ -1,4 +1,4 @@
-import { ReactNode, HTMLAttributes, MouseEventHandler } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { ReactNode, HTMLAttributes, MouseEventHandler } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { KnownIcons } from '../Icon/Icon.component';
 export interface BreadcrumbItemProps extends HTMLAttributes<HTMLElement> {
     /**

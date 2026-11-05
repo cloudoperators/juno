@@ -1,4 +1,4 @@
-import { OptionHTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { OptionHTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export interface NativeSelectOptionProps extends Omit<OptionHTMLAttributes<HTMLOptionElement>, "label" | "value"> {
     /**
      * A visible label for the option.

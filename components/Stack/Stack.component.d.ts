@@ -1,4 +1,4 @@
-import { HTMLProps, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { HTMLProps, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 /**
  * A Stack is a layout primitive that ensures its children are stacked either horizontally next to each other or vertically, one below the other.
  * In addition a gap can be defined which the Stack injects between its children so they have some margin from one another.

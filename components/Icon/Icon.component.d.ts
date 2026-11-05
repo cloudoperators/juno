@@ -1,4 +1,4 @@
-import { default as React, HTMLProps, MouseEventHandler } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React, HTMLProps, MouseEventHandler } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export declare enum KnownIconsEnum {
     accessTime = "accessTime",
     accountCircle = "accountCircle",

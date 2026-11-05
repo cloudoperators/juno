@@ -1,4 +1,4 @@
-import { ReactNode, ChangeEventHandler, MouseEventHandler, SelectHTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { ReactNode, ChangeEventHandler, MouseEventHandler, SelectHTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export interface NativeSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
     /**
      * Name of the select element.

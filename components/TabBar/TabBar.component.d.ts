@@ -1,4 +1,4 @@
-import { default as React, HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React, HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 /** @deprecated Use `"tabs"` instead. `"main"` remains functional but will be removed in a future major release. */
 export type DeprecatedTabBarAppearance = "main";
 export type TabBarAppearance = "tabs" | "buttons" | "content" | DeprecatedTabBarAppearance;

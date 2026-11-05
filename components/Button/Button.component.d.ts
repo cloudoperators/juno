@@ -1,4 +1,4 @@
-import { default as React, HTMLProps, MouseEventHandler, ReactNode, ButtonHTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React, HTMLProps, MouseEventHandler, ReactNode, ButtonHTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { KnownIcons } from '../Icon/Icon.component';
 /**
  * The `Button` component provides an interactive element for user actions, supporting various sizes,

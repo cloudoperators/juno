@@ -1,4 +1,4 @@
-import { default as React } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 declare const styles: string;
 declare const GlobalStyles: ({ inline }: GlobalStylesProps) => React.JSX.Element | null;
 interface GlobalStylesProps {

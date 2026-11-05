@@ -3,6 +3,7 @@ declare const meta: Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 export declare const WithPrimaryAction: Story;
+export declare const WithPredefinedFilters: Story;
 export declare const WithFiltersSearchAndState: Story;
 export declare const WithSearchOnly: Story;
 export declare const FullyFeatured: Story;

@@ -1,4 +1,4 @@
-import { ReactNode, FormHTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { ReactNode, FormHTMLAttributes } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 export interface SignInFormProps extends Omit<FormHTMLAttributes<HTMLFormElement>, "title"> {
     /**
      * Title for the sign-in form.

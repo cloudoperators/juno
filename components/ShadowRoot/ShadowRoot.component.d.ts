@@ -1,4 +1,4 @@
-import { ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 /**
  * Functional component which creates and inserts a shadow dom element
  * in to the current parent element. ShadowRoot allows html to be isolated from the rest of the DOM. If styles are given, these and

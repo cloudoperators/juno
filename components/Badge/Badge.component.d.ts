@@ -1,4 +1,4 @@
-import { default as React, AnchorHTMLAttributes, MouseEventHandler, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.0/node_modules/react';
+import { default as React, AnchorHTMLAttributes, MouseEventHandler, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { KnownIcons } from '../Icon/Icon.component';
 export type BadgeVariantType = "default" | "info" | "success" | "warning" | "danger" | "error";
 export interface BadgeProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "disabled"> {
