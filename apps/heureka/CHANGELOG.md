@@ -1,5 +1,12 @@
 # heureka
 
+## 1.1.24
+
+### Patch Changes
+
+- Updated dependencies [485fd71]
+  - @cloudoperators/greenhouse-core@0.2.1
+
 ## 1.1.23
 
 ### Patch Changes

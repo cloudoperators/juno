@@ -1,5 +1,12 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.20.18
+
+### Patch Changes
+
+- Updated dependencies [485fd71]
+  - @cloudoperators/greenhouse-core@0.2.1
+
 ## 0.20.17
 
 ### Patch Changes
