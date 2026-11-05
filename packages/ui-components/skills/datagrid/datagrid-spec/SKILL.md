@@ -1,5 +1,5 @@
 ---
-name: datagrid
+name: datagrid-spec
 description: >-
   Compose a Juno DataGrid to display a collection of structured data (DataGrid,
   DataGridRow, DataGridCell, DataGridHeadCell). Owns the DataGridSpec — the shared
@@ -26,7 +26,7 @@ truth — Input Schema, Decision Trees (`DT-1`…`DT-9`), and Invariants
 [references/component-props.md](references/component-props.md),
 [references/fragment-library.md](references/fragment-library.md).
 
-Task skills **do not restate** these rules. They declare `requires: [datagrid]`
+Task skills **do not restate** these rules. They declare `requires: [datagrid-spec]`
 and cite rule IDs:
 
 - **datagrid-build** turns a DataGridSpec into code (runs the trees forward).

@@ -4,12 +4,12 @@ description: >-
   Check an existing Juno DataGrid implementation against the DataGridSpec and
   report violations. Use when the user says "validate this DataGrid", "review
   this DataGrid", "check this DataGrid", "does this DataGrid follow the rules", or
-  pastes DataGrid code to be audited. Relies on the datagrid skill's DataGridSpec
+  pastes DataGrid code to be audited. Relies on the datagrid-spec skill's DataGridSpec
   for all structural rules.
 requires:
-  - datagrid
+  - datagrid-spec
 sources:
-  - skills/datagrid/references/datagrid-spec.md
+  - skills/datagrid/datagrid-spec/references/datagrid-spec.md
 ---
 
 Audit a DataGrid implementation against the **DataGridSpec** and report findings.
@@ -17,9 +17,9 @@ This skill never defines what is correct — it only checks, locates, and explai
 
 ## Source of truth — do not restate
 
-All structural rules live in the **datagrid** skill (`requires: [datagrid]`):
+All structural rules live in the **datagrid-spec** skill (`requires: [datagrid-spec]`):
 Input Schema, Decision Trees `DT-1`…`DT-9`, Invariants `INV-1`…`INV-20`. Read
-`datagrid/references/datagrid-spec.md` first. Cite these IDs in every finding. If
+`../datagrid-spec/references/datagrid-spec.md` first. Cite these IDs in every finding. If
 a check is not backed by a spec rule, it is not a finding — do not invent rules.
 
 ## Procedure

@@ -2,73 +2,28 @@
   "schemaVersion": 1,
   "baseline": "fac03386c50408123ab764ad6005e15412b58bd4",
   "items": {
-    "skill:packages/ui-components/skills/datagrid/SKILL.md": {
-      "fingerprint": "5c86f319dc9ee25116466511fd964b95be59054471cb861fb1401d9be46a9c58",
-      "snapshot": {
-        "packages/ui-components/skills/datagrid/SKILL.md": "2e7630e63a9901fbb063b4d19b67ae4842206f202915cf812e59d3bb2822aaa3",
-        "packages/ui-components/skills/datagrid/references/component-props.md": "ab4f49dcb1bacbd9aa6e837a7fad54481d520db9f0842b4b54324e5cedb5ae61",
-        "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "53040c52d11304155171567756d5ee260fbd9c16d184316ef32fadcbee7fe53d",
-        "packages/ui-components/skills/datagrid/references/fragment-library.md": "37eaf3d15c1b8efe590629ec24d6a27790d7e46ddffcedec67275ea7f09d2f78",
-        "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
-        "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "c1c52e3c778327d889e0c8741d09d4613fd9942dd065ddae4059592d3e2b505a",
-        "packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx": "e71d9a2463a00f584ad3553f83f8457cc9479d7910de7050c31dd07d7a6854fd",
-        "packages/ui-components/src/components/DataGrid/DataGridPattern.stories.tsx": "9115dba26dc4c89f766187f124eb2c38ea6c473360ffe55dcff3e38cb7c19abe"
-      },
-      "head": "8e3b49fc3061c5cc0a1f0c9403823cb375a62d5a",
-      "outcome": "no-change",
-      "reason": "Story source examples only: corrected the DataGrid Pattern item count to the unfiltered default and added notes that the count updates to X of Y when a predefined filter is active. No skill guidance changed — the invariants and fragments are unaffected.",
-      "evidence": [
-        "Changed: packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx, packages/ui-components/src/components/DataGrid/DataGridPattern.stories.tsx at 8e3b49fc3061c5cc0a1f0c9403823cb375a62d5a"
-      ]
-    },
     "planning:_artifacts": {
-      "fingerprint": "aa2add400910f4a63abf277a33eed547973a2442ec66f678bb91b9b0241d2921",
+      "fingerprint": "777c7b0587160ac0ac9f16290ef279d8ef354c34d938485ce5cfacfdc4997354",
       "snapshot": {
-        "_artifacts/domain_map.yaml": "a81e769dbf7e2f29ef7d6fa3994773181fbd23d2de50af1792e77cd736d318ef",
-        "_artifacts/skill_spec.md": "9a3ced4ddd907bf8c4e954407d3fd9db66fb9db23c8800848a8db4505193464a",
-        "_artifacts/skill_tree.yaml": "a78df02c3ecd42e677c1282cab50c8205523011dbc1a2d19d45b79493168caa1",
-        "packages/ui-components/skills/datagrid-build/SKILL.md": "d91474aa41ef649994153956ad7b14e95691f9843906d96473cc988ae6750acc",
-        "packages/ui-components/skills/datagrid-validate/SKILL.md": "7fe7b8e27276f2c371d67ab0aaa8a3b7ce3ecb082d4ed2cfbe4fcba4495fcd8e",
-        "packages/ui-components/skills/datagrid/SKILL.md": "2e7630e63a9901fbb063b4d19b67ae4842206f202915cf812e59d3bb2822aaa3",
-        "packages/ui-components/skills/datagrid/references/component-props.md": "ab4f49dcb1bacbd9aa6e837a7fad54481d520db9f0842b4b54324e5cedb5ae61",
-        "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "53040c52d11304155171567756d5ee260fbd9c16d184316ef32fadcbee7fe53d",
-        "packages/ui-components/skills/datagrid/references/fragment-library.md": "37eaf3d15c1b8efe590629ec24d6a27790d7e46ddffcedec67275ea7f09d2f78",
+        "_artifacts/domain_map.yaml": "e23c1c085e7f1ccf1a57cb37d81eb875e253e942f24a996e1c3c7c4dbee25414",
+        "_artifacts/skill_spec.md": "220c4aab4e778937c674f57d4ea36c50e17e1899c561d3c727c64ce2956cc580",
+        "_artifacts/skill_tree.yaml": "58bc53baf1f6ddbfa64231087913d0f093325b99ae1d865732232146224c0ada",
+        "packages/ui-components/skills/datagrid/datagrid-build/SKILL.md": "57f2aa21e3302df73aeded827bd82bec9e103576701e95cb43143048a7d6e263",
+        "packages/ui-components/skills/datagrid/datagrid-spec/SKILL.md": "d61b134752cc828bb0406d56a61a5ac932a33d5a8d54724afd4e565c5fc0f9a5",
+        "packages/ui-components/skills/datagrid/datagrid-spec/references/component-props.md": "ab4f49dcb1bacbd9aa6e837a7fad54481d520db9f0842b4b54324e5cedb5ae61",
+        "packages/ui-components/skills/datagrid/datagrid-spec/references/datagrid-spec.md": "53040c52d11304155171567756d5ee260fbd9c16d184316ef32fadcbee7fe53d",
+        "packages/ui-components/skills/datagrid/datagrid-spec/references/fragment-library.md": "37eaf3d15c1b8efe590629ec24d6a27790d7e46ddffcedec67275ea7f09d2f78",
+        "packages/ui-components/skills/datagrid/datagrid-validate/SKILL.md": "c191364210616c9766f08b9fed3bbc24927d4e065268f11c23153145414c4235",
         "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
         "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "c1c52e3c778327d889e0c8741d09d4613fd9942dd065ddae4059592d3e2b505a",
         "packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx": "e71d9a2463a00f584ad3553f83f8457cc9479d7910de7050c31dd07d7a6854fd",
         "packages/ui-components/src/components/DataGrid/DataGridPattern.stories.tsx": "9115dba26dc4c89f766187f124eb2c38ea6c473360ffe55dcff3e38cb7c19abe"
       },
-      "head": "8e3b49fc3061c5cc0a1f0c9403823cb375a62d5a",
-      "outcome": "no-change",
-      "reason": "Story source examples only: corrected the DataGrid Pattern item count to the unfiltered default and added notes that the count updates to X of Y when a predefined filter is active. No skill guidance changed — the invariants and fragments are unaffected.",
-      "evidence": [
-        "Changed: packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx, packages/ui-components/src/components/DataGrid/DataGridPattern.stories.tsx at 8e3b49fc3061c5cc0a1f0c9403823cb375a62d5a"
-      ]
-    },
-    "skill:packages/ui-components/skills/datagrid-build/SKILL.md": {
-      "fingerprint": "890373978752b3c77bd9c26cb7f58ecca2e808a92d675adfe8c7946d98b44599",
-      "snapshot": {
-        "packages/ui-components/skills/datagrid-build/SKILL.md": "d91474aa41ef649994153956ad7b14e95691f9843906d96473cc988ae6750acc",
-        "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "53040c52d11304155171567756d5ee260fbd9c16d184316ef32fadcbee7fe53d"
-      },
-      "head": "8a8d020177723de6add01a62452404da6a352178",
+      "head": "44bdac05e8376e3d3e1c5158c66938ba35478732",
       "outcome": "updated",
-      "reason": "Tightened predefined-filter determinism so render/omit is never a judgement call: schema filterTabs is now { tabs: string[] } | null (dropped the ambiguous bare boolean), DT-2/DT-3 gate on filterTabs.tabs.length > 0, added INV-20 (render iff a non-empty tabs array is present; tabs never inferred/invented), and datagrid-build §1 forbids introducing filterTabs without explicit concrete tabs. Invariant range bumped to INV-1..INV-20 across the skills and planning record.",
+      "reason": "Correct stale 'datagrid skill' references to 'datagrid-spec' in task-skill descriptions (PR review follow-up).",
       "evidence": [
-        "Changed: packages/ui-components/skills/datagrid-build/SKILL.md, packages/ui-components/skills/datagrid/references/datagrid-spec.md at 8a8d020177723de6add01a62452404da6a352178"
-      ]
-    },
-    "skill:packages/ui-components/skills/datagrid-validate/SKILL.md": {
-      "fingerprint": "154bfb51465accc15e92dafc6ecfe018adf20b97eea8c0ff1a37e999bf71a8c1",
-      "snapshot": {
-        "packages/ui-components/skills/datagrid-validate/SKILL.md": "7fe7b8e27276f2c371d67ab0aaa8a3b7ce3ecb082d4ed2cfbe4fcba4495fcd8e",
-        "packages/ui-components/skills/datagrid/references/datagrid-spec.md": "53040c52d11304155171567756d5ee260fbd9c16d184316ef32fadcbee7fe53d"
-      },
-      "head": "8a8d020177723de6add01a62452404da6a352178",
-      "outcome": "updated",
-      "reason": "Tightened predefined-filter determinism so render/omit is never a judgement call: schema filterTabs is now { tabs: string[] } | null (dropped the ambiguous bare boolean), DT-2/DT-3 gate on filterTabs.tabs.length > 0, added INV-20 (render iff a non-empty tabs array is present; tabs never inferred/invented), and datagrid-build §1 forbids introducing filterTabs without explicit concrete tabs. Invariant range bumped to INV-1..INV-20 across the skills and planning record.",
-      "evidence": [
-        "Changed: packages/ui-components/skills/datagrid-validate/SKILL.md, packages/ui-components/skills/datagrid/references/datagrid-spec.md at 8a8d020177723de6add01a62452404da6a352178"
+        "Changed: _artifacts/domain_map.yaml, _artifacts/skill_tree.yaml, packages/ui-components/skills/datagrid/datagrid-build/SKILL.md, packages/ui-components/skills/datagrid/datagrid-validate/SKILL.md at 44bdac05e8376e3d3e1c5158c66938ba35478732"
       ]
     },
     "source:packages/ui-components/src/components/DataGridCell/DataGridCell.component.tsx": {
@@ -252,15 +207,15 @@
       ]
     },
     "source:.github/workflows/release.yaml": {
-      "fingerprint": "0a1b46abd7b865407a549f19fb596bcaad0b75bcd0e13a9e33099d71fafbf1f0",
+      "fingerprint": "10d9260d6a44419007882bb5832c478f6121c93993d17d60e34bb08277d90288",
       "snapshot": {
-        ".github/workflows/release.yaml": "483a9f67f235d59a25ddf0a9184358bc9d7e27f548f5132283a741e53b41e9c4"
+        ".github/workflows/release.yaml": "567accbc65119b2a5015cab97f535fcb7aabb2d1a643003dbe49e13ad1d7b41e"
       },
-      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
-      "outcome": "no-change",
-      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "head": "44bdac05e8376e3d3e1c5158c66938ba35478732",
+      "outcome": "updated",
+      "reason": "Correct stale 'datagrid skill' references to 'datagrid-spec' in task-skill descriptions (PR review follow-up).",
       "evidence": [
-        "Changed: .github/workflows/release.yaml at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+        "Changed: .github/workflows/release.yaml at 44bdac05e8376e3d3e1c5158c66938ba35478732"
       ]
     },
     "source:.prettierignore": {
@@ -1401,6 +1356,123 @@
       "reason": "Storybook sidebar ordering only (added the Patterns section to the storySort 'order' array). Part of PR #2090 but affects no DataGrid skill guidance: no skill maps to it and no spec rule depends on sidebar order.",
       "evidence": [
         "Change is confined to the storySort 'order' array in .storybook/preview.js; no skills/* or _artifacts/* content depends on it."
+      ]
+    },
+    "skill:packages/ui-components/skills/datagrid/datagrid-build/SKILL.md": {
+      "fingerprint": "2fa4d47e9a67201c7ee43d9cf794a331112559a2966ff978dc346d4db05d8264",
+      "snapshot": {
+        "packages/ui-components/skills/datagrid/datagrid-build/SKILL.md": "57f2aa21e3302df73aeded827bd82bec9e103576701e95cb43143048a7d6e263",
+        "packages/ui-components/skills/datagrid/datagrid-spec/references/datagrid-spec.md": "53040c52d11304155171567756d5ee260fbd9c16d184316ef32fadcbee7fe53d"
+      },
+      "head": "44bdac05e8376e3d3e1c5158c66938ba35478732",
+      "outcome": "updated",
+      "reason": "Correct stale 'datagrid skill' references to 'datagrid-spec' in task-skill descriptions (PR review follow-up).",
+      "evidence": [
+        "Changed: packages/ui-components/skills/datagrid/datagrid-build/SKILL.md at 44bdac05e8376e3d3e1c5158c66938ba35478732"
+      ]
+    },
+    "skill:packages/ui-components/skills/datagrid/datagrid-spec/SKILL.md": {
+      "fingerprint": "c374527ad6fa7a9ad8be99c990537a8ded8fd9db36c0b2ee2a16198084d9e583",
+      "snapshot": {
+        "packages/ui-components/skills/datagrid/datagrid-spec/SKILL.md": "d61b134752cc828bb0406d56a61a5ac932a33d5a8d54724afd4e565c5fc0f9a5",
+        "packages/ui-components/skills/datagrid/datagrid-spec/references/component-props.md": "ab4f49dcb1bacbd9aa6e837a7fad54481d520db9f0842b4b54324e5cedb5ae61",
+        "packages/ui-components/skills/datagrid/datagrid-spec/references/datagrid-spec.md": "53040c52d11304155171567756d5ee260fbd9c16d184316ef32fadcbee7fe53d",
+        "packages/ui-components/skills/datagrid/datagrid-spec/references/fragment-library.md": "37eaf3d15c1b8efe590629ec24d6a27790d7e46ddffcedec67275ea7f09d2f78",
+        "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
+        "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "c1c52e3c778327d889e0c8741d09d4613fd9942dd065ddae4059592d3e2b505a",
+        "packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx": "e71d9a2463a00f584ad3553f83f8457cc9479d7910de7050c31dd07d7a6854fd",
+        "packages/ui-components/src/components/DataGrid/DataGridPattern.stories.tsx": "9115dba26dc4c89f766187f124eb2c38ea6c473360ffe55dcff3e38cb7c19abe"
+      },
+      "head": "46600d68e4d836a50ca409e60a8bf5b7d9c9f34e",
+      "outcome": "updated",
+      "reason": "Relocated into nested per-component skill dirs (#2145): datagrid hub renamed to datagrid-spec, references moved under it, task skills now require datagrid-spec. DataGrid guidance itself unchanged.",
+      "evidence": [
+        "Changed: packages/ui-components/skills/datagrid/datagrid-spec/SKILL.md, packages/ui-components/skills/datagrid/datagrid-spec/references/component-props.md, packages/ui-components/skills/datagrid/datagrid-spec/references/datagrid-spec.md, packages/ui-components/skills/datagrid/datagrid-spec/references/fragment-library.md at 46600d68e4d836a50ca409e60a8bf5b7d9c9f34e"
+      ]
+    },
+    "skill:packages/ui-components/skills/datagrid/datagrid-validate/SKILL.md": {
+      "fingerprint": "88bdcaf4e96a59c2c602e648bdc7bdac1bef76f9e109053f5ac41b9b58d05799",
+      "snapshot": {
+        "packages/ui-components/skills/datagrid/datagrid-spec/references/datagrid-spec.md": "53040c52d11304155171567756d5ee260fbd9c16d184316ef32fadcbee7fe53d",
+        "packages/ui-components/skills/datagrid/datagrid-validate/SKILL.md": "c191364210616c9766f08b9fed3bbc24927d4e065268f11c23153145414c4235"
+      },
+      "head": "44bdac05e8376e3d3e1c5158c66938ba35478732",
+      "outcome": "updated",
+      "reason": "Correct stale 'datagrid skill' references to 'datagrid-spec' in task-skill descriptions (PR review follow-up).",
+      "evidence": [
+        "Changed: packages/ui-components/skills/datagrid/datagrid-validate/SKILL.md at 44bdac05e8376e3d3e1c5158c66938ba35478732"
+      ]
+    },
+    "source:packages/ui-components/skills/datagrid-build/SKILL.md": {
+      "fingerprint": "3c1f6720cfd3cc3ada183d476463c98b18a3274b84afdf64ce5b2e823a39315b",
+      "snapshot": {
+        "packages/ui-components/skills/datagrid-build/SKILL.md": null
+      },
+      "head": "46600d68e4d836a50ca409e60a8bf5b7d9c9f34e",
+      "outcome": "updated",
+      "reason": "Relocated into nested per-component skill dirs (#2145): datagrid hub renamed to datagrid-spec, references moved under it, task skills now require datagrid-spec. DataGrid guidance itself unchanged.",
+      "evidence": [
+        "Changed: packages/ui-components/skills/datagrid-build/SKILL.md at 46600d68e4d836a50ca409e60a8bf5b7d9c9f34e"
+      ]
+    },
+    "source:packages/ui-components/skills/datagrid-validate/SKILL.md": {
+      "fingerprint": "865477e8a37b3ee390cd299030a9635b92f6f9f8209e0963a9e5f1867a2e3134",
+      "snapshot": {
+        "packages/ui-components/skills/datagrid-validate/SKILL.md": null
+      },
+      "head": "46600d68e4d836a50ca409e60a8bf5b7d9c9f34e",
+      "outcome": "updated",
+      "reason": "Relocated into nested per-component skill dirs (#2145): datagrid hub renamed to datagrid-spec, references moved under it, task skills now require datagrid-spec. DataGrid guidance itself unchanged.",
+      "evidence": [
+        "Changed: packages/ui-components/skills/datagrid-validate/SKILL.md at 46600d68e4d836a50ca409e60a8bf5b7d9c9f34e"
+      ]
+    },
+    "source:packages/ui-components/skills/datagrid/SKILL.md": {
+      "fingerprint": "183fcc45654ffc46bcc15e61fb79110f00722d3331beef431e5197eb8c730775",
+      "snapshot": {
+        "packages/ui-components/skills/datagrid/SKILL.md": null
+      },
+      "head": "46600d68e4d836a50ca409e60a8bf5b7d9c9f34e",
+      "outcome": "updated",
+      "reason": "Relocated into nested per-component skill dirs (#2145): datagrid hub renamed to datagrid-spec, references moved under it, task skills now require datagrid-spec. DataGrid guidance itself unchanged.",
+      "evidence": [
+        "Changed: packages/ui-components/skills/datagrid/SKILL.md at 46600d68e4d836a50ca409e60a8bf5b7d9c9f34e"
+      ]
+    },
+    "source:packages/ui-components/skills/datagrid/references/component-props.md": {
+      "fingerprint": "e08bab3e8a1f464ed1efa047fc943c8605c202a3b24247f1048d4f85fcbdaff9",
+      "snapshot": {
+        "packages/ui-components/skills/datagrid/references/component-props.md": null
+      },
+      "head": "46600d68e4d836a50ca409e60a8bf5b7d9c9f34e",
+      "outcome": "updated",
+      "reason": "Relocated into nested per-component skill dirs (#2145): datagrid hub renamed to datagrid-spec, references moved under it, task skills now require datagrid-spec. DataGrid guidance itself unchanged.",
+      "evidence": [
+        "Changed: packages/ui-components/skills/datagrid/references/component-props.md at 46600d68e4d836a50ca409e60a8bf5b7d9c9f34e"
+      ]
+    },
+    "source:packages/ui-components/skills/datagrid/references/datagrid-spec.md": {
+      "fingerprint": "10e55ac19ce7c9445e9936206e493dfd4924125b34ee512c3d05d74afe852eea",
+      "snapshot": {
+        "packages/ui-components/skills/datagrid/references/datagrid-spec.md": null
+      },
+      "head": "46600d68e4d836a50ca409e60a8bf5b7d9c9f34e",
+      "outcome": "updated",
+      "reason": "Relocated into nested per-component skill dirs (#2145): datagrid hub renamed to datagrid-spec, references moved under it, task skills now require datagrid-spec. DataGrid guidance itself unchanged.",
+      "evidence": [
+        "Changed: packages/ui-components/skills/datagrid/references/datagrid-spec.md at 46600d68e4d836a50ca409e60a8bf5b7d9c9f34e"
+      ]
+    },
+    "source:packages/ui-components/skills/datagrid/references/fragment-library.md": {
+      "fingerprint": "bb5f2b1883cf63835a4e595e69989e26b905daef913213c230b39f0a3545b7a0",
+      "snapshot": {
+        "packages/ui-components/skills/datagrid/references/fragment-library.md": null
+      },
+      "head": "46600d68e4d836a50ca409e60a8bf5b7d9c9f34e",
+      "outcome": "updated",
+      "reason": "Relocated into nested per-component skill dirs (#2145): datagrid hub renamed to datagrid-spec, references moved under it, task skills now require datagrid-spec. DataGrid guidance itself unchanged.",
+      "evidence": [
+        "Changed: packages/ui-components/skills/datagrid/references/fragment-library.md at 46600d68e4d836a50ca409e60a8bf5b7d9c9f34e"
       ]
     }
   }

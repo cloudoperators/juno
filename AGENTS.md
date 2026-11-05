@@ -11,3 +11,8 @@ Keep maintainer decisions and changes in the repository; do not require the user
 Use intent maintainer setup to initialize missing records, maintainer add to register skills, maintainer status to identify work, and maintainer sync to update generated metadata. Finish with intent maintainer check.
 
 <!-- intent-maintainer:end -->
+
+## Component skill sets
+
+When creating, moving, or removing the skills for a ui-components component or pattern, follow the per-component structure convention (one parent directory; nested `-spec`/`-build`/`-validate`; references owned by the `-spec` skill) documented in [docs/tanstack-intent-guide.md](docs/tanstack-intent-guide.md#structure-a-component-skill-set).
+
