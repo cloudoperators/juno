@@ -1,0 +1,1 @@
+@keyframes juno-progress-busy{0%{clip-path:inset(0 80% 0 0% round 9999px)}50%{clip-path:inset(0 10% 0 8% round 9999px)}to{clip-path:inset(0 0% 0 80% round 9999px)}}.juno-progressbar-busy-fill{will-change:clip-path;width:100%;animation:1.1s ease-in-out infinite alternate juno-progress-busy}
