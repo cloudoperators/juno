@@ -21,3 +21,9 @@ The `-build` and `-validate` skills never restate rules — they cite the spec's
 - `datagrid-spec` — compose a DataGrid; owns the shared DataGridSpec and references.
 - `datagrid-build` — generate a DataGrid implementation from requirements.
 - `datagrid-validate` — check a DataGrid implementation against the spec.
+
+### `status/`
+
+- `status-spec` — communicate a non-data state; owns the StatusSpec, copy tables, placement rules, and invariants.
+- `status-build` — generate correct Status usage from a described application state.
+- `status-validate` — check a Status usage against the spec.

@@ -62,6 +62,56 @@ skills:
           structural rules.",
         sources: [ skills/datagrid/datagrid-spec/references/datagrid-spec.md ],
         requires: [ datagrid-spec ]
+      },
+    {
+        name: status-spec,
+        slug: status-spec,
+        domain: data-display,
+        package: packages/ui-components,
+        path: skills/status/status-spec/SKILL.md,
+        description: "Use when working with the Juno Status component — covers all four
+          status values (progress, error, empty, no-matches), HTTP error code
+          display, copy defaults and override rules, DataGrid placement, and the
+          invariants that govern correct usage. The status-build and
+          status-validate skills rely on this skill for all rules.",
+        sources:
+          [
+            src/components/Status/Status.component.tsx,
+            src/components/Status/Status.stories.tsx
+          ],
+        references:
+          [
+            references/status-spec.md
+          ],
+        requires: []
+      },
+    {
+        name: status-build,
+        slug: status-build,
+        domain: data-display,
+        package: packages/ui-components,
+        path: skills/status/status-build/SKILL.md,
+        description: "Generate correct Juno Status usage from a described application
+          state. Use when the user says \"add a loading state\", \"show an error
+          state\", \"handle empty state\", \"add no-matches feedback\", or
+          describes a non-data state and asks for a Status component. Relies on
+          the status-spec skill for all rules.",
+        sources: [ skills/status/status-spec/references/status-spec.md ],
+        requires: [ status-spec ]
+      },
+    {
+        name: status-validate,
+        slug: status-validate,
+        domain: data-display,
+        package: packages/ui-components,
+        path: skills/status/status-validate/SKILL.md,
+        description: 'Check an existing Juno Status usage against the StatusSpec and
+          report violations. Use when the user says "validate this Status",
+          "check this Status usage", "review this Status", "is this Status
+          correct", or pastes Status code to be audited. Relies on the
+          status-spec skill for all rules.',
+        sources: [ skills/status/status-spec/references/status-spec.md ],
+        requires: [ status-spec ]
       }
   ]
 distribution:

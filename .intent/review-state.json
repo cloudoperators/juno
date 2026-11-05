@@ -3,27 +3,33 @@
   "baseline": "fac03386c50408123ab764ad6005e15412b58bd4",
   "items": {
     "planning:_artifacts": {
-      "fingerprint": "777c7b0587160ac0ac9f16290ef279d8ef354c34d938485ce5cfacfdc4997354",
+      "fingerprint": "b59e64e9b61557f850c198933b2890f161e6dfc7a42b292a9604f803e33b8270",
       "snapshot": {
-        "_artifacts/domain_map.yaml": "e23c1c085e7f1ccf1a57cb37d81eb875e253e942f24a996e1c3c7c4dbee25414",
-        "_artifacts/skill_spec.md": "220c4aab4e778937c674f57d4ea36c50e17e1899c561d3c727c64ce2956cc580",
-        "_artifacts/skill_tree.yaml": "58bc53baf1f6ddbfa64231087913d0f093325b99ae1d865732232146224c0ada",
+        "_artifacts/domain_map.yaml": "8fc312dd0b13943c023a9ce8393a3744aa0fc07e176f13f6e7414a7e494bc0f4",
+        "_artifacts/skill_spec.md": "e1e22ae5871a1e8d1d90d1a23861f69a51906dab1729927713df8db941261e11",
+        "_artifacts/skill_tree.yaml": "db432f904cde41fe3d03f3ac84120a82273a9a0873b9b0bfbf5b4cbcce5c70f5",
         "packages/ui-components/skills/datagrid/datagrid-build/SKILL.md": "57f2aa21e3302df73aeded827bd82bec9e103576701e95cb43143048a7d6e263",
         "packages/ui-components/skills/datagrid/datagrid-spec/SKILL.md": "d61b134752cc828bb0406d56a61a5ac932a33d5a8d54724afd4e565c5fc0f9a5",
         "packages/ui-components/skills/datagrid/datagrid-spec/references/component-props.md": "ab4f49dcb1bacbd9aa6e837a7fad54481d520db9f0842b4b54324e5cedb5ae61",
         "packages/ui-components/skills/datagrid/datagrid-spec/references/datagrid-spec.md": "53040c52d11304155171567756d5ee260fbd9c16d184316ef32fadcbee7fe53d",
         "packages/ui-components/skills/datagrid/datagrid-spec/references/fragment-library.md": "37eaf3d15c1b8efe590629ec24d6a27790d7e46ddffcedec67275ea7f09d2f78",
         "packages/ui-components/skills/datagrid/datagrid-validate/SKILL.md": "c191364210616c9766f08b9fed3bbc24927d4e065268f11c23153145414c4235",
+        "packages/ui-components/skills/status/status-build/SKILL.md": "2f8c27a2d030eb7bd7a407f08d42260a5e8d17a988af3c4ff1f7e82270cddf1e",
+        "packages/ui-components/skills/status/status-spec/SKILL.md": "d04ab7a0451b0feab267847e19b08f68e1afa25b33109879e6a85d9dacd2ee03",
+        "packages/ui-components/skills/status/status-spec/references/status-spec.md": "920d4dc90f993f2cd9e8e32494e7453e9a9de226dff1cd1f7495ed159405c4a4",
+        "packages/ui-components/skills/status/status-validate/SKILL.md": "559f182982f7772f7d91f061b193d98e4fa14bdc10f0b9cc7b9355eed431fba4",
         "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
         "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "c1c52e3c778327d889e0c8741d09d4613fd9942dd065ddae4059592d3e2b505a",
         "packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx": "e71d9a2463a00f584ad3553f83f8457cc9479d7910de7050c31dd07d7a6854fd",
-        "packages/ui-components/src/components/DataGrid/DataGridPattern.stories.tsx": "9115dba26dc4c89f766187f124eb2c38ea6c473360ffe55dcff3e38cb7c19abe"
+        "packages/ui-components/src/components/DataGrid/DataGridPattern.stories.tsx": "9115dba26dc4c89f766187f124eb2c38ea6c473360ffe55dcff3e38cb7c19abe",
+        "packages/ui-components/src/components/Status/Status.component.tsx": "c059455ddce76e658b21b940a71cbafe2271fd8dc0136d6c045fb291e565d73d",
+        "packages/ui-components/src/components/Status/Status.stories.tsx": "6d9d849075e405caebf8085e5f071655d60948cbe8313ac7ab1f118c389cb65c"
       },
-      "head": "44bdac05e8376e3d3e1c5158c66938ba35478732",
+      "head": "f109123798064f0bdf8e096fcf5b287ea7a5296b",
       "outcome": "updated",
-      "reason": "Correct stale 'datagrid skill' references to 'datagrid-spec' in task-skill descriptions (PR review follow-up).",
+      "reason": "added references field and developer tasks",
       "evidence": [
-        "Changed: _artifacts/domain_map.yaml, _artifacts/skill_tree.yaml, packages/ui-components/skills/datagrid/datagrid-build/SKILL.md, packages/ui-components/skills/datagrid/datagrid-validate/SKILL.md at 44bdac05e8376e3d3e1c5158c66938ba35478732"
+        "Changed: _artifacts/domain_map.yaml, _artifacts/skill_tree.yaml at f109123798064f0bdf8e096fcf5b287ea7a5296b"
       ]
     },
     "source:packages/ui-components/src/components/DataGridCell/DataGridCell.component.tsx": {
@@ -1473,6 +1479,47 @@
       "reason": "Relocated into nested per-component skill dirs (#2145): datagrid hub renamed to datagrid-spec, references moved under it, task skills now require datagrid-spec. DataGrid guidance itself unchanged.",
       "evidence": [
         "Changed: packages/ui-components/skills/datagrid/references/fragment-library.md at 46600d68e4d836a50ca409e60a8bf5b7d9c9f34e"
+      ]
+    },
+    "skill:packages/ui-components/skills/status/status-build/SKILL.md": {
+      "fingerprint": "d0472ed9eb7a366b954c2f2bc3b89b076e9e1b06c04ccbd2a268727de4f11b17",
+      "snapshot": {
+        "packages/ui-components/skills/status/status-build/SKILL.md": "2f8c27a2d030eb7bd7a407f08d42260a5e8d17a988af3c4ff1f7e82270cddf1e",
+        "packages/ui-components/skills/status/status-spec/references/status-spec.md": "920d4dc90f993f2cd9e8e32494e7453e9a9de226dff1cd1f7495ed159405c4a4"
+      },
+      "head": "f109123798064f0bdf8e096fcf5b287ea7a5296b",
+      "outcome": "updated",
+      "reason": "new skill set for Status component",
+      "evidence": [
+        "Changed: packages/ui-components/skills/status/status-build/SKILL.md, packages/ui-components/skills/status/status-spec/references/status-spec.md at f109123798064f0bdf8e096fcf5b287ea7a5296b"
+      ]
+    },
+    "skill:packages/ui-components/skills/status/status-spec/SKILL.md": {
+      "fingerprint": "73035127e3c0b2731769c435ca22bda3f341bff77685b7d1fdc455bf8eda2b44",
+      "snapshot": {
+        "packages/ui-components/skills/status/status-spec/SKILL.md": "d04ab7a0451b0feab267847e19b08f68e1afa25b33109879e6a85d9dacd2ee03",
+        "packages/ui-components/skills/status/status-spec/references/status-spec.md": "920d4dc90f993f2cd9e8e32494e7453e9a9de226dff1cd1f7495ed159405c4a4",
+        "packages/ui-components/src/components/Status/Status.component.tsx": "c059455ddce76e658b21b940a71cbafe2271fd8dc0136d6c045fb291e565d73d",
+        "packages/ui-components/src/components/Status/Status.stories.tsx": "6d9d849075e405caebf8085e5f071655d60948cbe8313ac7ab1f118c389cb65c"
+      },
+      "head": "f109123798064f0bdf8e096fcf5b287ea7a5296b",
+      "outcome": "updated",
+      "reason": "new skill set for Status component",
+      "evidence": [
+        "Changed: packages/ui-components/skills/status/status-spec/SKILL.md, packages/ui-components/skills/status/status-spec/references/status-spec.md at f109123798064f0bdf8e096fcf5b287ea7a5296b"
+      ]
+    },
+    "skill:packages/ui-components/skills/status/status-validate/SKILL.md": {
+      "fingerprint": "1da3e192c99870f89f9e0bc0e11fd2b29764ccd4696d6d3d5b564adfd1b730d2",
+      "snapshot": {
+        "packages/ui-components/skills/status/status-spec/references/status-spec.md": "920d4dc90f993f2cd9e8e32494e7453e9a9de226dff1cd1f7495ed159405c4a4",
+        "packages/ui-components/skills/status/status-validate/SKILL.md": "559f182982f7772f7d91f061b193d98e4fa14bdc10f0b9cc7b9355eed431fba4"
+      },
+      "head": "f109123798064f0bdf8e096fcf5b287ea7a5296b",
+      "outcome": "updated",
+      "reason": "new skill set for Status component",
+      "evidence": [
+        "Changed: packages/ui-components/skills/status/status-spec/references/status-spec.md, packages/ui-components/skills/status/status-validate/SKILL.md at f109123798064f0bdf8e096fcf5b287ea7a5296b"
       ]
     }
   }
