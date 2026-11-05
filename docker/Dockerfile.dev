@@ -1,6 +1,6 @@
 FROM node:26-alpine
 
-RUN npm i -g turbo
+RUN npm install -g corepack turbo
 # Enable corepack - pnpm version will be read from package.json packageManager field
 RUN corepack enable
 
