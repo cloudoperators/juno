@@ -2,19 +2,19 @@
   "extends": ["//"],
   "tasks": {
     "dev": {
-      "dependsOn": ["@cloudoperators/juno-ui-components#build"]
+      "dependsOn": ["@cloudoperators/juno-ui-components#build", "@cloudoperators/greenhouse-core#build"]
     },
     "test": {
-      "dependsOn": ["@cloudoperators/juno-ui-components#build"]
+      "dependsOn": ["@cloudoperators/juno-ui-components#build", "@cloudoperators/greenhouse-core#build"]
     },
     "build": {
-      "dependsOn": ["@cloudoperators/juno-ui-components#build"]
+      "dependsOn": ["@cloudoperators/juno-ui-components#build", "@cloudoperators/greenhouse-core#build"]
     },
     "build:static": {
-      "dependsOn": ["@cloudoperators/juno-ui-components#build"]
+      "dependsOn": ["@cloudoperators/juno-ui-components#build", "@cloudoperators/greenhouse-core#build"]
     },
     "typecheck": {
-      "dependsOn": ["@cloudoperators/juno-ui-components#build"]
+      "dependsOn": ["@cloudoperators/juno-ui-components#build", "@cloudoperators/greenhouse-core#build"]
     }
   }
 }

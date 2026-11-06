@@ -16,6 +16,15 @@ export default defineConfig(({ mode }: { mode: string }): UserConfig => {
       "process.env": {},
     },
 
+    resolve: {
+      // Collapse every `react`/`react-dom` import (the app's own code and greenhouse-core's
+      // createRoot) to a single copy. Without this, any React version skew between the template
+      // and a consumed workspace package resolves to two instances and throws "Invalid hook call"
+      // when running standalone (dev/static). Embedded in the Greenhouse host this is moot — the
+      // host owns the single React — but the reference app should be robust on its own.
+      dedupe: ["react", "react-dom"],
+    },
+
     plugins: [tailwindcss(), react(), tsconfigPaths()],
 
     server: {

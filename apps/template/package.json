@@ -26,6 +26,7 @@
     "clean:cache": "rm -rf .turbo"
   },
   "dependencies": {
+    "@cloudoperators/greenhouse-core": "workspace:*",
     "@cloudoperators/juno-ui-components": "workspace:*",
     "react": "19.3.1",
     "react-dom": "19.3.1"
@@ -47,5 +48,10 @@
     "vite": "8.3.5",
     "vite-tsconfig-paths": "6.1.1",
     "vitest": "5.0.5"
+  },
+  "intent": {
+    "skills": [
+      "workspace:@cloudoperators/juno-ui-components"
+    ]
   }
 }
