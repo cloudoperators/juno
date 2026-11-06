@@ -4,22 +4,20 @@
  */
 
 import { AppShell, AppShellProvider, Container } from "@cloudoperators/juno-ui-components"
+import type { PluginProps } from "@cloudoperators/greenhouse-core"
 import AppContent from "./components/AppContent"
 import styles from "./styles.css?inline"
 
-export type AppProps = {
-  theme?: "theme-dark" | "theme-light"
-  embedded?: string | boolean
+// `theme` and `embedded` come from the shared host↔plugin contract (`PluginProps`); the
+// template-specific `title`/`description` are this app's own additions.
+export interface AppProps extends PluginProps {
   title?: string
   description?: string
 }
 
 const App = (props: AppProps) => {
   return (
-    <AppShell
-      pageHeader={props.title ? props.title : "Juno | App Template"}
-      embedded={props.embedded === "true" || props.embedded === true}
-    >
+    <AppShell pageHeader={props.title ? props.title : "Juno | App Template"} embedded={props.embedded === true}>
       <Container>{props.description ? <>{props.description}</> : <AppContent />}</Container>
     </AppShell>
   )
