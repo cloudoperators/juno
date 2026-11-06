@@ -23,8 +23,8 @@ skills:
           from a BRD excerpt, feature list, or structured requirements. Use when
           the user says \"build a DataGrid for X\", \"generate a DataGrid\",
           \"scaffold a DataGrid\", or provides data/feature requirements and
-          asks for a DataGrid. Relies on the datagrid-spec skill's DataGridSpec for
-          all structural rules.",
+          asks for a DataGrid. Relies on the datagrid-spec skill's DataGridSpec
+          for all structural rules.",
         packages: [ "@cloudoperators/juno-ui-components" ],
         tasks: [ "Generate a DataGrid implementation from requirements" ],
         covers: []
@@ -41,6 +41,38 @@ skills:
           structural rules.",
         packages: [ "@cloudoperators/juno-ui-components" ],
         tasks: [ "Validate a DataGrid implementation against the DataGridSpec" ],
+        covers: []
+      },
+    {
+        name: status-spec,
+        slug: status-spec,
+        domain: data-display,
+        description: "Use when working with the Juno Status component — covers all four
+          status values, HTTP error code display, copy defaults and override
+          rules, DataGrid placement, and invariants.",
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks: [ "Communicate a non-data state (loading, error, empty, no-matches) using the Status component" ],
+        covers: []
+      },
+    {
+        name: status-build,
+        slug: status-build,
+        domain: data-display,
+        description: "Generate correct Juno Status usage from a described application
+          state — loading, error, empty, no-matches. Relies on status-spec for
+          all rules.",
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks: [ "Generate correct Status usage from a described application state" ],
+        covers: []
+      },
+    {
+        name: status-validate,
+        slug: status-validate,
+        domain: data-display,
+        description: Check an existing Juno Status usage against the StatusSpec and
+          report violations. Relies on status-spec for all rules.,
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks: [ "Validate a Status usage against the StatusSpec" ],
         covers: []
       }
   ]

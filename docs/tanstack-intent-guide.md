@@ -57,6 +57,8 @@ skills/<component>/
 
 ### Add a new set
 
+Run the commands below from the **owning package directory** (e.g. `packages/ui-components`), not from the repo root. Package-scoped skills — those that belong to a specific npm package and are published with it — must be registered from inside the package so that Intent sets the `package:` field correctly. Running `maintainer add` from the repo root creates skill files at the repo root instead of inside the package and omits `package:` from the artifact entries, which causes `review` to generate spurious bare-path entries that must be cleaned up by hand. Skills that are not bound to a package scope can live anywhere and may be registered from the repo root.
+
 From the owning package directory, scaffold each skill, then author the bodies (place the references under `-spec/references/`), then sync:
 
 ```bash
