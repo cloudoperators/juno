@@ -20,7 +20,7 @@
     "pnpm": ">=11.25.0"
   },
   "peerDependencies": {
-    "react": ">=19.0.0"
+    "react": "^19.1.0"
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
