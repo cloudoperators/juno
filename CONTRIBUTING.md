@@ -105,6 +105,8 @@ pnpm exec intent maintainer review --interactive   # walk through changed source
 pnpm exec intent maintainer check                  # verify the gate passes locally
 ```
 
+These commands can be run from the repo root. If you are authoring new skills with `maintainer add` for a package-scoped skill (one that belongs to a specific npm package), run it from that package's directory — see the [TanStack Intent Guide](docs/tanstack-intent-guide.md#add-a-new-set) for details.
+
 `maintainer review --interactive` walks you through each affected source file and asks you
 to record whether the associated skill guidance still holds or needs to be updated.
 `maintainer check` runs the same validation that CI runs.

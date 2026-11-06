@@ -100,3 +100,7 @@ every future component skill set follows.
   selection state management, empty/loading/error states via `Status`/`Message`).
 - Broaden beyond data-display: layout (`AppShell`/`Container`/`Stack`), forms,
   semantic color tokens and variants.
+
+- **`status-spec`** (`packages/ui-components`). Task: _Communicate a non-data state (loading, error, empty, no-matches) using the Status component._ Owns the **StatusSpec** — the single source of truth in `references/status-spec.md`: the prop API, status value selection rules, copy resolution priority chain, placement context rules (standalone vs. DataGrid), and Invariants (`INV-1`–`INV-8`).
+- **`status-build`** (`packages/ui-components`, requires `status-spec`). Task: _Generate correct Status usage from a described application state._ Maps the situation and context to props, applies copy defaults or overrides, and emits the correct usage (with DataGrid wrapper when needed). Holds only the build procedure; cites spec rule IDs.
+- **`status-validate`** (`packages/ui-components`, requires `status-spec`). Task: _Check an existing Status usage against the StatusSpec._ Verifies status value, copy casing, placement wrapper, and asserts Invariants `INV-1`–`INV-8`. Holds only the review procedure and findings format; cites spec rule IDs.

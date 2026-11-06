@@ -16,3 +16,5 @@ Use intent maintainer setup to initialize missing records, maintainer add to reg
 
 When creating, moving, or removing the skills for a ui-components component or pattern, follow the per-component structure convention (one parent directory; nested `-spec`/`-build`/`-validate`; references owned by the `-spec` skill) documented in [docs/tanstack-intent-guide.md](docs/tanstack-intent-guide.md#structure-a-component-skill-set).
 
+Run `maintainer add` from the owning package directory when registering package-scoped skills (skills that belong to a specific npm package and are published with it). Running it from the repo root omits the `package:` field from the artifact entries and places skill files at the repo root. Skills that are not bound to a package scope may be registered from the repo root or wherever they live.
+
