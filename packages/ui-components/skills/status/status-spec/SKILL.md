@@ -26,7 +26,7 @@ If you are tempted to add or change a rule, edit `status-spec.md` — never dupl
 ## Mental model
 
 - `status` selects the state type and activates per-status default copy. Defaults to `"error"`.
-- Copy resolution is a priority chain: explicit prop → HTTP code defaults → per-status defaults. The first non-empty value wins.
+- Copy resolution is a nullish-coalescing chain: explicit prop → HTTP code defaults → per-status defaults. Only `null`/`undefined` fall through to the next source; an explicit `""` or `false` stops the chain and then renders nothing (the field is suppressed, not defaulted).
 - `code` renders a large HTTP error code above the title. It is **suppressed automatically** inside a DataGrid — never rely on it rendering there.
 - `spinner` defaults to `true` when `status="progress"` and `false` otherwise.
 - `details` is for raw technical output only (stack traces, server responses) — not user-facing copy.

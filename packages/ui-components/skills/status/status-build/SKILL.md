@@ -28,20 +28,20 @@ Determine two things from the user's description:
 
 ### 2 · Choose props
 
-| Decision         | Rule                                                                                                                                                                                                    |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `status` value   | Match situation to the status value selection table in `status-spec.md`.                                                                                                                                |
-| `code`           | Only when the error is an HTTP error with a known code. Never inside a DataGrid (`INV-3`).                                                                                                              |
-| `title` / `body` | Use defaults unless the user supplies custom copy or the defaults do not fit the context (e.g. qualify the resource: "Loading Servers…" rather than "Loading…"). When overriding, apply `INV-5` casing. |
-| `spinner`        | Omit when `status="progress"` — it is the default (`INV-4`). Only set explicitly to `false` to suppress.                                                                                                |
-| `details`        | Only when a stack trace or raw server response is available and the user wants it surfaced (`INV-6`).                                                                                                   |
-| `action`         | Only when a primary recovery action (retry, navigate) exists. Keep to one action (`INV-7`).                                                                                                             |
+| Decision         | Rule                                                                                                                                                                                                                                                |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `status` value   | Match situation to the status value selection table in `status-spec.md`.                                                                                                                                                                            |
+| `code`           | Only when the error is an HTTP error with a known code. Inside a DataGrid the large number is suppressed, but `code` still selects HTTP-specific title/body copy there — so keep it for the copy, just do not rely on the number showing (`INV-3`). |
+| `title` / `body` | Use defaults unless the user supplies custom copy or the defaults do not fit the context (e.g. qualify the resource: "Loading Servers…" rather than "Loading…"). When overriding, apply `INV-5` casing.                                             |
+| `spinner`        | Omit when `status="progress"` — it is the default (`INV-4`). Only set explicitly to `false` to suppress.                                                                                                                                            |
+| `details`        | Only when a stack trace or raw server response is available and the user wants it surfaced (`INV-6`).                                                                                                                                               |
+| `action`         | Only when a primary recovery action (retry, navigate) exists. Keep to one action (`INV-7`).                                                                                                                                                         |
 
 ### 3 · Compose the output
 
 **Standalone:**
 
-```tsx
+```tsx no-check
 <Status status="…" />
 ```
 
@@ -49,7 +49,7 @@ Add only the props determined in step 2. Do not add props that are redundant wit
 
 **Inside a DataGrid** (INV-2):
 
-```tsx
+```tsx no-check
 <DataGridRow>
   <DataGridCell colSpan={N}>
     <Status status="…" />
@@ -65,4 +65,4 @@ Emit a single self-contained code snippet containing the `Status` usage with the
 
 ## Self-check before returning
 
-Verify the output satisfies every Invariant (`INV-1`…`INV-8`). In particular: correct `colSpan` if inside a DataGrid, no `code` inside a DataGrid, no redundant `spinner={true}` on progress, correct casing for any overridden copy.
+Verify the output satisfies every Invariant (`INV-1`…`INV-8`). In particular: correct `colSpan` if inside a DataGrid, no reliance on the `code` number displaying inside a DataGrid (it may still be passed for HTTP copy selection), no redundant `spinner={true}` on progress, correct casing for any overridden copy.

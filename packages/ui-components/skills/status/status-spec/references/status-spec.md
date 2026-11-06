@@ -30,13 +30,13 @@ Choose the `status` value based on the application state:
 
 ## Copy resolution priority
 
-For both `title` and `body`, the component resolves copy in this order:
+For both `title` and `body`, the component resolves copy with a nullish-coalescing (`??`) chain, in this order:
 
 1. **Explicit prop** (`title` or `body` passed by the caller) — highest priority.
 2. **HTTP error code defaults** — when `code` is a recognized HTTP status code (see table below).
 3. **Per-status defaults** — lowest-priority fallback.
 
-If none of the three sources provides a value, that field is not rendered.
+Only `null` or `undefined` falls through to the next source. An explicit `""` or `false` stops the chain — it is not replaced by a default, and because empty/false values are not rendered, the field is suppressed. If the resolved value is `null`, `undefined`, `""`, or `false`, that field is not rendered.
 
 ### Per-status defaults
 

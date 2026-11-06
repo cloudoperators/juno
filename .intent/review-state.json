@@ -3,7 +3,7 @@
   "baseline": "fac03386c50408123ab764ad6005e15412b58bd4",
   "items": {
     "planning:_artifacts": {
-      "fingerprint": "5d9e6e212cd64a4b0c4237cfefb9dd007f8408e10079129c0ff9228e0879f05b",
+      "fingerprint": "50e20127430cc3ef849af1d1df88c34fea394cd247f2e21ac2d14cb521913f92",
       "snapshot": {
         "_artifacts/domain_map.yaml": "8fc312dd0b13943c023a9ce8393a3744aa0fc07e176f13f6e7414a7e494bc0f4",
         "_artifacts/skill_spec.md": "e1e22ae5871a1e8d1d90d1a23861f69a51906dab1729927713df8db941261e11",
@@ -14,9 +14,9 @@
         "packages/ui-components/skills/datagrid/datagrid-spec/references/datagrid-spec.md": "53040c52d11304155171567756d5ee260fbd9c16d184316ef32fadcbee7fe53d",
         "packages/ui-components/skills/datagrid/datagrid-spec/references/fragment-library.md": "37eaf3d15c1b8efe590629ec24d6a27790d7e46ddffcedec67275ea7f09d2f78",
         "packages/ui-components/skills/datagrid/datagrid-validate/SKILL.md": "c191364210616c9766f08b9fed3bbc24927d4e065268f11c23153145414c4235",
-        "packages/ui-components/skills/status/status-build/SKILL.md": "8be1139c63c101e7b9a2a76295e550248ebf2ffc3c7e5e059f50658dd67affe4",
-        "packages/ui-components/skills/status/status-spec/SKILL.md": "d04ab7a0451b0feab267847e19b08f68e1afa25b33109879e6a85d9dacd2ee03",
-        "packages/ui-components/skills/status/status-spec/references/status-spec.md": "eed8d7f10cf0f362bc4be185286106379e53e1f725a7072686709ff1e72f423a",
+        "packages/ui-components/skills/status/status-build/SKILL.md": "56820859ae15dd539097a36fc8c4eee528853fa4dfe4d1bfd54cb3a0a73e0e29",
+        "packages/ui-components/skills/status/status-spec/SKILL.md": "bc247e2ed3cbcc14f2d0311ea74399c45a445e4fb46d6fba60c1403b69bf9a6e",
+        "packages/ui-components/skills/status/status-spec/references/status-spec.md": "eca099036124444838619b752cf031c3ba5809662b0ed73a2ad0c855803f773f",
         "packages/ui-components/skills/status/status-validate/SKILL.md": "8336899f4c49ba1d178e8af0de5d3e2254451bfb8705e81b320af2f01a1815f3",
         "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
         "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "c1c52e3c778327d889e0c8741d09d4613fd9942dd065ddae4059592d3e2b505a",
@@ -25,11 +25,11 @@
         "packages/ui-components/src/components/Status/Status.component.tsx": "c059455ddce76e658b21b940a71cbafe2271fd8dc0136d6c045fb291e565d73d",
         "packages/ui-components/src/components/Status/Status.stories.tsx": "6d9d849075e405caebf8085e5f071655d60948cbe8313ac7ab1f118c389cb65c"
       },
-      "head": "99544d478087b9d2181e7652b7f571a5802a93cf",
-      "outcome": "updated",
-      "reason": "added See also section pointing to status-spec for DataGrid state row customisation",
+      "head": "8f7f6c5bc76590c907147c65c0a0feee9cd714c1",
+      "outcome": "no-change",
+      "reason": "markdown table re-padding by pre-commit prettier; guidance content unchanged",
       "evidence": [
-        "Changed: packages/ui-components/skills/datagrid/datagrid-spec/SKILL.md at 99544d478087b9d2181e7652b7f571a5802a93cf"
+        "Changed: packages/ui-components/skills/status/status-build/SKILL.md at 8f7f6c5bc76590c907147c65c0a0feee9cd714c1"
       ]
     },
     "source:packages/ui-components/src/components/DataGridCell/DataGridCell.component.tsx": {
@@ -1482,44 +1482,44 @@
       ]
     },
     "skill:packages/ui-components/skills/status/status-build/SKILL.md": {
-      "fingerprint": "6b5d107571a5ca404cb1ab34f37fe60daca6736133142627acaaeae5ae413d36",
+      "fingerprint": "35ad79690792aeec432765701c33599cfabfc434fde42560f32a53d90e9f02e5",
       "snapshot": {
-        "packages/ui-components/skills/status/status-build/SKILL.md": "8be1139c63c101e7b9a2a76295e550248ebf2ffc3c7e5e059f50658dd67affe4",
-        "packages/ui-components/skills/status/status-spec/references/status-spec.md": "eed8d7f10cf0f362bc4be185286106379e53e1f725a7072686709ff1e72f423a"
+        "packages/ui-components/skills/status/status-build/SKILL.md": "56820859ae15dd539097a36fc8c4eee528853fa4dfe4d1bfd54cb3a0a73e0e29",
+        "packages/ui-components/skills/status/status-spec/references/status-spec.md": "eca099036124444838619b752cf031c3ba5809662b0ed73a2ad0c855803f773f"
       },
-      "head": "302f258001222a5d4f6055efa6dd46243804be5a",
+      "head": "8f7f6c5bc76590c907147c65c0a0feee9cd714c1",
       "outcome": "no-change",
-      "reason": "markdown table formatting by pre-commit hook; guidance content unchanged",
+      "reason": "markdown table re-padding by pre-commit prettier; guidance content unchanged",
       "evidence": [
-        "Changed: packages/ui-components/skills/status/status-build/SKILL.md, packages/ui-components/skills/status/status-spec/references/status-spec.md at 302f258001222a5d4f6055efa6dd46243804be5a"
+        "Changed: packages/ui-components/skills/status/status-build/SKILL.md at 8f7f6c5bc76590c907147c65c0a0feee9cd714c1"
       ]
     },
     "skill:packages/ui-components/skills/status/status-spec/SKILL.md": {
-      "fingerprint": "7afc18c2cb8688f11fd8efcb88303497267725e16da9fa7e449d76a18e74a36a",
+      "fingerprint": "26b5e951805b9a86a5ea5280e3a44705ea07618afe5faf6c1a955f4e37f37f5b",
       "snapshot": {
-        "packages/ui-components/skills/status/status-spec/SKILL.md": "d04ab7a0451b0feab267847e19b08f68e1afa25b33109879e6a85d9dacd2ee03",
-        "packages/ui-components/skills/status/status-spec/references/status-spec.md": "eed8d7f10cf0f362bc4be185286106379e53e1f725a7072686709ff1e72f423a",
+        "packages/ui-components/skills/status/status-spec/SKILL.md": "bc247e2ed3cbcc14f2d0311ea74399c45a445e4fb46d6fba60c1403b69bf9a6e",
+        "packages/ui-components/skills/status/status-spec/references/status-spec.md": "eca099036124444838619b752cf031c3ba5809662b0ed73a2ad0c855803f773f",
         "packages/ui-components/src/components/Status/Status.component.tsx": "c059455ddce76e658b21b940a71cbafe2271fd8dc0136d6c045fb291e565d73d",
         "packages/ui-components/src/components/Status/Status.stories.tsx": "6d9d849075e405caebf8085e5f071655d60948cbe8313ac7ab1f118c389cb65c"
       },
-      "head": "302f258001222a5d4f6055efa6dd46243804be5a",
-      "outcome": "no-change",
-      "reason": "markdown table formatting by pre-commit hook; guidance content unchanged",
+      "head": "836effc0eeb378468dff01da57576196dd6a2866",
+      "outcome": "updated",
+      "reason": "Corrected guidance per Copilot PR review: code still selects HTTP copy inside DataGrid (only the number display is suppressed); marked illustrative TSX fences no-check; clarified copy resolution is nullish-coalescing (explicit ''/false suppresses rather than defaults).",
       "evidence": [
-        "Changed: packages/ui-components/skills/status/status-spec/references/status-spec.md at 302f258001222a5d4f6055efa6dd46243804be5a"
+        "Changed: packages/ui-components/skills/status/status-spec/SKILL.md, packages/ui-components/skills/status/status-spec/references/status-spec.md at 836effc0eeb378468dff01da57576196dd6a2866"
       ]
     },
     "skill:packages/ui-components/skills/status/status-validate/SKILL.md": {
-      "fingerprint": "5a024af92de1298a8c25b917b82721ef88539733eedb825828cac05b41b971c5",
+      "fingerprint": "3c7c63f1cc5c978b08588f232a938dbef2beb54485868e711073413dcda35305",
       "snapshot": {
-        "packages/ui-components/skills/status/status-spec/references/status-spec.md": "eed8d7f10cf0f362bc4be185286106379e53e1f725a7072686709ff1e72f423a",
+        "packages/ui-components/skills/status/status-spec/references/status-spec.md": "eca099036124444838619b752cf031c3ba5809662b0ed73a2ad0c855803f773f",
         "packages/ui-components/skills/status/status-validate/SKILL.md": "8336899f4c49ba1d178e8af0de5d3e2254451bfb8705e81b320af2f01a1815f3"
       },
-      "head": "302f258001222a5d4f6055efa6dd46243804be5a",
-      "outcome": "no-change",
-      "reason": "markdown table formatting by pre-commit hook; guidance content unchanged",
+      "head": "836effc0eeb378468dff01da57576196dd6a2866",
+      "outcome": "updated",
+      "reason": "Corrected guidance per Copilot PR review: code still selects HTTP copy inside DataGrid (only the number display is suppressed); marked illustrative TSX fences no-check; clarified copy resolution is nullish-coalescing (explicit ''/false suppresses rather than defaults).",
       "evidence": [
-        "Changed: packages/ui-components/skills/status/status-spec/references/status-spec.md, packages/ui-components/skills/status/status-validate/SKILL.md at 302f258001222a5d4f6055efa6dd46243804be5a"
+        "Changed: packages/ui-components/skills/status/status-spec/references/status-spec.md at 836effc0eeb378468dff01da57576196dd6a2866"
       ]
     },
     "source:CONTRIBUTING.md": {
