@@ -48,6 +48,7 @@ Communicate constraints and requirements before the user encounters an error. Al
 - **Group-level hints** — use the `helptext` prop on `RadioGroup` or `CheckboxGroup` to give the group context once rather than repeating it on each option.
 - **Complex requirements** — for fields with multi-part requirements such as password complexity, list all constraints upfront in `helptext`. Revealing them one by one as each constraint fails is disorienting.
 - **Placeholder text** — acceptable for example values that illustrate format (e.g., `user@example.com`) but never the sole source of instruction, since it disappears as soon as the user starts typing. Always pair with a visible `label`.
+- **Character limits** — when a field accepts only a limited number of characters, state the maximum length in the helper text before the user starts typing. Where the interface supports it, complement this with a live character counter that shows remaining characters as the user types.
 
 ### Autocomplete
 
@@ -61,7 +62,7 @@ There is no single right answer — the appropriate moment depends on the type o
 
 - **On blur** — validate when the user leaves a field. This is the safest default: it avoids flagging errors before the user has finished typing, while still providing early feedback.
 - **On submit** — validate all fields when the user attempts to submit the form. Always validate on submit regardless of whether earlier validation was already applied.
-- **As-you-type** — use sparingly. Appropriate for fields with strict format requirements (e.g. a slug or an API key pattern) where immediate feedback is genuinely helpful. Avoid for fields where partial input is always temporarily invalid, such as a number field being typed character by character.
+- **As-you-type** — use sparingly. Appropriate for fields with strict format requirements (e.g. a slug or an API key pattern) where immediate feedback is genuinely helpful. Avoid for fields where partial input is always temporarily invalid, such as a number field being typed character by character. Fields with a maximum character length are a clear exception: input is valid while within the limit and only becomes invalid the moment it is exceeded, so surfacing the error immediately rather than waiting for the user to leave the field is appropriate and expected.
 
 Never show validation errors on required but untouched fields before the user has interacted with them or attempted to submit.
 
