@@ -1,5 +1,14 @@
 # heureka
 
+## 1.1.26
+
+### Patch Changes
+
+- Updated dependencies [4afc2c5]
+- Updated dependencies [b808e6b]
+  - @cloudoperators/juno-url-state-provider@3.0.13
+  - @cloudoperators/juno-ui-components@9.9.2
+
 ## 1.1.25
 
 ### Patch Changes
