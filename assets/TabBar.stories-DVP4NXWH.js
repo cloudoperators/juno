@@ -1,0 +1,97 @@
+import{n as e}from"./rolldown-runtime-BCiCTKAo.js";import{r as t}from"./react-8KJKb_Eb.js";import{t as n}from"./jsx-runtime-BB9-612F.js";import{i as r,l as i,o as a,t as o}from"./TabBarItem--axpOHfk.js";var s,c,l,u,d,f,p,m,h,g,_;function v(){return(v=e((()=>{t(),a(),o(),s=n(),c={title:`Navigation/TabBar/TabBar`,component:i,argTypes:{children:{control:!1},onActiveItemChange:{control:!1},appearance:{options:[`tabs`,`content`,`buttons`],control:{type:`radio`}},tabStyle:{table:{disable:!0}}}},l={args:{children:[(0,s.jsx)(r,{label:`Item 1`},`item-1`),(0,s.jsx)(r,{label:`Item 2`,active:!0},`item-2`),(0,s.jsx)(r,{label:`Item with Icon`,icon:`warning`},`item-3`),(0,s.jsx)(r,{label:`Disabled Item`,disabled:!0},`item-4`)]}},u={parameters:{docs:{description:{story:"All tab bar items can be disabled by passing `disabled` to the `TabBar`."}}},args:{disabled:!0,children:[(0,s.jsx)(r,{label:`Item 1`},`item-1`),(0,s.jsx)(r,{label:`Item 2`},`item-2`),(0,s.jsx)(r,{label:`Item 3`},`item-3`),(0,s.jsx)(r,{label:`Item 4`},`item-4`)]}},d={parameters:{docs:{description:{story:"When needed, tab bar items can take a `value` prop as a technical identifier that is different from the human-readable `label`. You may use any of the provided props as an identifier to set an active item on the parent. Alternatively, an individual `TabBarItem` can be set to `active`. When both an individual item is set to active and an activeItem is set on the parent, the latter will win."}}},args:{activeItem:`item-3`,children:[(0,s.jsx)(r,{label:`Item 1`,value:`item-1`},`i-1`),(0,s.jsx)(r,{label:`Item 2`,value:`item-2`},`i-2`),(0,s.jsx)(r,{label:`Item 3`,value:`item-3`},`i-3`),(0,s.jsx)(r,{label:`Item 4`,value:`item-4`},`i-4`)]}},f={parameters:{docs:{description:{story:`Alternatively, tab bar items can render children passed to them.`}}},args:{activeItem:`item-1`,children:[(0,s.jsx)(r,{value:`item-1`,children:`Item 1`},`i-1`),(0,s.jsx)(r,{value:`item-2`,children:`Item 2`},`i-2`),(0,s.jsx)(r,{value:`item-3`,children:`Item 3`},`i-3`),(0,s.jsx)(r,{value:`item-4`,children:`Item 4`},`i-4`)]}},p={parameters:{docs:{description:{story:'**Deprecated.** Use `appearance="tabs"` instead. `appearance="main"` keeps working but will be removed in a future major release.'}}},args:{appearance:`main`,children:[(0,s.jsx)(r,{label:`Item 1`,active:!0},`item-1`),(0,s.jsx)(r,{label:`Item 2`},`item-2`),(0,s.jsx)(r,{label:`Item 3`},`item-3`),(0,s.jsx)(r,{label:`Disabled Item`,disabled:!0},`item-4`)]}},m={parameters:{docs:{description:{story:'Use `appearance="tabs"` as the default appearance for the primary navigation bar, e.g. as the first child in an AppShell. Each item carries its own bottom border, highlighted on the active item.'}}},args:{appearance:`tabs`,children:[(0,s.jsx)(r,{label:`Item 1`,active:!0},`item-1`),(0,s.jsx)(r,{label:`Item 2`},`item-2`),(0,s.jsx)(r,{label:`Item 3`},`item-3`),(0,s.jsx)(r,{label:`Disabled Item`,disabled:!0},`item-4`)]}},h={parameters:{docs:{description:{story:'Use `appearance="buttons"` for a pill-style segmented control. Items are displayed as buttons with a shared background container.'}}},args:{appearance:`buttons`,children:[(0,s.jsx)(r,{label:`Item 1`,active:!0},`item-1`),(0,s.jsx)(r,{label:`Item 2`},`item-2`),(0,s.jsx)(r,{label:`Item 3`},`item-3`),(0,s.jsx)(r,{label:`Disabled Item`,disabled:!0},`item-4`)]}},g={parameters:{docs:{description:{story:'Use `appearance="content"` for tabs inside page content. Inactive items share a darkened bottom border to visually distinguish them from the active item.'}}},args:{appearance:`content`,children:[(0,s.jsx)(r,{label:`Item 1`,active:!0},`item-1`),(0,s.jsx)(r,{label:`Item 2`},`item-2`),(0,s.jsx)(r,{label:`Item 3`},`item-3`),(0,s.jsx)(r,{label:`Disabled Item`,disabled:!0},`item-4`)]}},_=[`Default`,`Disabled`,`WithValues`,`WithChildren`,`MainAppearance`,`TabsAppearance`,`ButtonsAppearance`,`ContentAppearance`],l.parameters={...l.parameters,docs:{...l.parameters?.docs,source:{originalSource:`{
+  args: {
+    children: [<TabBarItem label="Item 1" key="item-1"></TabBarItem>, <TabBarItem label="Item 2" key="item-2" active></TabBarItem>, <TabBarItem label="Item with Icon" key="item-3" icon="warning"></TabBarItem>, <TabBarItem label="Disabled Item" key="item-4" disabled></TabBarItem>]
+  }
+}`,...l.parameters?.docs?.source}}},u.parameters={...u.parameters,docs:{...u.parameters?.docs,source:{originalSource:`{
+  parameters: {
+    docs: {
+      description: {
+        story: "All tab bar items can be disabled by passing \`disabled\` to the \`TabBar\`."
+      }
+    }
+  },
+  args: {
+    disabled: true,
+    children: [<TabBarItem label="Item 1" key="item-1"></TabBarItem>, <TabBarItem label="Item 2" key="item-2"></TabBarItem>, <TabBarItem label="Item 3" key="item-3"></TabBarItem>, <TabBarItem label="Item 4" key="item-4"></TabBarItem>]
+  }
+}`,...u.parameters?.docs?.source}}},d.parameters={...d.parameters,docs:{...d.parameters?.docs,source:{originalSource:`{
+  parameters: {
+    docs: {
+      description: {
+        story: "When needed, tab bar items can take a \`value\` prop as a technical identifier that is different from the human-readable \`label\`. You may use any of the provided props as an identifier to set an active item on the parent. Alternatively, an individual \`TabBarItem\` can be set to \`active\`. When both an individual item is set to active and an activeItem is set on the parent, the latter will win."
+      }
+    }
+  },
+  args: {
+    activeItem: "item-3",
+    children: [<TabBarItem label="Item 1" key="i-1" value="item-1"></TabBarItem>, <TabBarItem label="Item 2" key="i-2" value="item-2"></TabBarItem>, <TabBarItem label="Item 3" key="i-3" value="item-3"></TabBarItem>, <TabBarItem label="Item 4" key="i-4" value="item-4"></TabBarItem>]
+  }
+}`,...d.parameters?.docs?.source}}},f.parameters={...f.parameters,docs:{...f.parameters?.docs,source:{originalSource:`{
+  parameters: {
+    docs: {
+      description: {
+        story: "Alternatively, tab bar items can render children passed to them."
+      }
+    }
+  },
+  args: {
+    activeItem: "item-1",
+    children: [<TabBarItem key="i-1" value="item-1">
+        Item 1
+      </TabBarItem>, <TabBarItem key="i-2" value="item-2">
+        Item 2
+      </TabBarItem>, <TabBarItem key="i-3" value="item-3">
+        Item 3
+      </TabBarItem>, <TabBarItem key="i-4" value="item-4">
+        Item 4
+      </TabBarItem>]
+  }
+}`,...f.parameters?.docs?.source}}},p.parameters={...p.parameters,docs:{...p.parameters?.docs,source:{originalSource:`{
+  parameters: {
+    docs: {
+      description: {
+        story: '**Deprecated.** Use \`appearance="tabs"\` instead. \`appearance="main"\` keeps working but will be removed in a future major release.'
+      }
+    }
+  },
+  args: {
+    appearance: "main",
+    children: [<TabBarItem label="Item 1" key="item-1" active></TabBarItem>, <TabBarItem label="Item 2" key="item-2"></TabBarItem>, <TabBarItem label="Item 3" key="item-3"></TabBarItem>, <TabBarItem label="Disabled Item" key="item-4" disabled></TabBarItem>]
+  }
+}`,...p.parameters?.docs?.source}}},m.parameters={...m.parameters,docs:{...m.parameters?.docs,source:{originalSource:`{
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use \`appearance="tabs"\` as the default appearance for the primary navigation bar, e.g. as the first child in an AppShell. Each item carries its own bottom border, highlighted on the active item.'
+      }
+    }
+  },
+  args: {
+    appearance: "tabs",
+    children: [<TabBarItem label="Item 1" key="item-1" active></TabBarItem>, <TabBarItem label="Item 2" key="item-2"></TabBarItem>, <TabBarItem label="Item 3" key="item-3"></TabBarItem>, <TabBarItem label="Disabled Item" key="item-4" disabled></TabBarItem>]
+  }
+}`,...m.parameters?.docs?.source}}},h.parameters={...h.parameters,docs:{...h.parameters?.docs,source:{originalSource:`{
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use \`appearance="buttons"\` for a pill-style segmented control. Items are displayed as buttons with a shared background container.'
+      }
+    }
+  },
+  args: {
+    appearance: "buttons",
+    children: [<TabBarItem label="Item 1" key="item-1" active></TabBarItem>, <TabBarItem label="Item 2" key="item-2"></TabBarItem>, <TabBarItem label="Item 3" key="item-3"></TabBarItem>, <TabBarItem label="Disabled Item" key="item-4" disabled></TabBarItem>]
+  }
+}`,...h.parameters?.docs?.source}}},g.parameters={...g.parameters,docs:{...g.parameters?.docs,source:{originalSource:`{
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use \`appearance="content"\` for tabs inside page content. Inactive items share a darkened bottom border to visually distinguish them from the active item.'
+      }
+    }
+  },
+  args: {
+    appearance: "content",
+    children: [<TabBarItem label="Item 1" key="item-1" active></TabBarItem>, <TabBarItem label="Item 2" key="item-2"></TabBarItem>, <TabBarItem label="Item 3" key="item-3"></TabBarItem>, <TabBarItem label="Disabled Item" key="item-4" disabled></TabBarItem>]
+  }
+}`,...g.parameters?.docs?.source}}}})))()}v();export{h as ButtonsAppearance,g as ContentAppearance,l as Default,u as Disabled,p as MainAppearance,m as TabsAppearance,f as WithChildren,d as WithValues,_ as __namedExportsOrder,c as default};
