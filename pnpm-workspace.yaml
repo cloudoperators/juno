@@ -8,8 +8,14 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - postcss@8.5.18
   - brace-expansion@5.0.9
+  - "@graphql-tools/utils@12.0.2"
+  - fast-uri@3.1.5
+  - glob@14.0.2
+  - minimatch@11.0.1
 overrides:
   "@graphql-tools/utils@>=10.10.1 <12.0.2": ^12.0.2
   brace-expansion@<=5.0.8: ^5.0.9
   fast-uri@<3.1.5: ^3.1.5
+  glob@>=9.0.0 <14.0.2: ^14.0.2
+  minimatch@>=7.0.0 <11.0.1: ^11.0.1
   postcss@<=8.5.17: ^8.5.18
