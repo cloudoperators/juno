@@ -13,6 +13,9 @@
     "build:static": {
       "dependsOn": ["@cloudoperators/juno-ui-components#build", "@cloudoperators/greenhouse-core#build"]
     },
+    "lint": {
+      "dependsOn": ["@cloudoperators/juno-ui-components#build", "@cloudoperators/greenhouse-core#build"]
+    },
     "typecheck": {
       "dependsOn": ["@cloudoperators/juno-ui-components#build", "@cloudoperators/greenhouse-core#build"]
     }
