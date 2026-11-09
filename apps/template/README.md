@@ -60,7 +60,9 @@ This template is set up as a [TanStack Intent](https://www.npmjs.com/package/@ta
   }
   ```
 
-- **`AGENTS.md`** — a generated "Skill Loading" block that instructs an agent to look for and load matching skills before making substantial changes.
+- **`AGENTS.md`** — contains the "Skill Loading" block that instructs an agent to look for and load matching skills before making substantial changes.
+
+  > **`CLAUDE.md` vs `AGENTS.md`:** `intent install` writes the skill-loading block to `AGENTS.md` by default. Claude Code, however, auto-reads `CLAUDE.md` files by walking up the directory tree and only falls back to `AGENTS.md` when no `CLAUDE.md` exists anywhere in the tree. If your repo already has a `CLAUDE.md`, copy the skill-loading block from `AGENTS.md` into your app's `CLAUDE.md` so Claude Code picks it up.
 
 ### Using the skills
 
