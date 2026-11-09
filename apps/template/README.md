@@ -22,29 +22,59 @@ This project uses many tools like:
 - [Tailwindcss](https://tailwindcss.com)
 - [Eslint](https://eslint.org)
 - [Prettier](https://prettier.io)
-- [Juno UI components](https://github.com/cloudoperators/juno/tree/main/packages/juno-ui-components)
+- [Juno UI components](https://github.com/cloudoperators/juno/tree/main/packages/ui-components)
+- [Greenhouse core](https://github.com/cloudoperators/juno/tree/main/packages/greenhouse-core) — the shared plugin contract (`createPlugin`)
+- [TanStack Intent](https://www.npmjs.com/package/@tanstack/intent) — loads AI skills shipped by the design system (see below)
 
-## Installation and usage
+## Creating a new app in the monorepo
 
-To use the **Template** app as a template to generate your next app, you don't need to install it inside your monorepo. Simply follow the instructions below:
+The **Template** app is the starting point for a new app in the Juno monorepo. It is not something you install — it is the blueprint that the generator copies to scaffold your new app under `apps/<name-of-your-app>`.
+
+To generate a new monorepo app from this template, follow the instructions below:
 
 1. Make sure you have Node.js installed on your machine.
 
-2. Open your terminal and navigate to the root directory of your project.
+2. Open your terminal and navigate to the root directory of the monorepo.
 
-3. Run the following command to install the **Template** app as a global dependency:
+3. Run the following command to scaffold a new app from the **Template**:
 
 ```bash
 pnpx turbo gen workspace --type app --copy @cloudoperators/juno-app-template
 ```
 
-All your apps should start with `@cloudoperators/juno-` prefix.
+All your apps should start with the `@cloudoperators/juno-` prefix.
 
-That's it! You can now use the **Template** app as a template to generate your next app without installing it inside your monorepo.
+That's it! A new app is created in the monorepo under `apps/<name-of-your-app>`, pre-wired with the plugin contract, Juno UI components, and the Intent tooling described below.
 
-## Contributing
+## AI skills via TanStack Intent
 
-We welcome contributions from the community. Please follow our [contribution guidelines](../../CONTRIBUTING.md) to contribute to this project.
+This template is set up as a [TanStack Intent](https://www.npmjs.com/package/@tanstack/intent) **consumer**, so a coding agent working in the app can discover and load the AI **skills** shipped by the `@cloudoperators/juno-ui-components` design system. Skills are versioned, task-focused guidance (a `SKILL.md` plus references) that travel with the package, teaching an agent how to build and validate Juno components correctly instead of guessing from source. Run `pnpm exec intent list` to see the skills the design system currently offers.
+
+### How it is wired
+
+- **`package.json` → `intent.skills`** — an allowlist that opts the app in to the skill sources it trusts. This template allows the design system:
+
+  ```json
+  "intent": {
+    "skills": ["@cloudoperators/juno-ui-components"]
+  }
+  ```
+
+- **`AGENTS.md`** — a generated "Skill Loading" block that instructs an agent to look for and load matching skills before making substantial changes.
+
+### Using the skills
+
+Run these from the workspace root (Intent discovers skills across the monorepo):
+
+```bash
+# List the skills available to this app
+pnpm exec intent list
+
+# Load a specific skill by its <package>#<skill> id from the list above (prints its SKILL.md)
+pnpm exec intent load <package>#<skill>
+```
+
+An agent working in the app should, before a substantial task, run `intent list`, and if a listed skill matches the task, `intent load <package>#<skill>` and follow the loaded guidance. Because skills ship inside `@cloudoperators/juno-ui-components`, they update together with the design system through the normal package update flow. See the [TanStack Intent Guide](../../docs/tanstack-intent-guide.md) for how skills are authored and maintained.
 
 ## Contributing
 
