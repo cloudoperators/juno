@@ -30,6 +30,7 @@
     "lint": "eslint",
     "typecheck": "tsc --project tsconfig.json --noEmit",
     "clean": "rm -rf build && rm -rf template && rm -rf node_modules && rm -rf .turbo",
+    "test:e2e": "node scripts/smoke-e2e.mjs",
     "clean:cache": "rm -rf .turbo"
   },
   "devDependencies": {
