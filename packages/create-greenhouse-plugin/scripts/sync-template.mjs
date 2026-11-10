@@ -46,6 +46,8 @@ function monorepoVersion(pkgRelPath) {
 
 const UI_COMPONENTS_VERSION = monorepoVersion("packages/ui-components")
 const GREENHOUSE_CORE_VERSION = monorepoVersion("packages/greenhouse-core")
+const INTENT_VERSION = monorepoVersion("node_modules/@tanstack/intent")
+const TEMPLATE_PKG = JSON.parse(readFileSync(join(TEMPLATE_SRC, "package.json"), "utf8"))
 
 /** Scaffold a fresh vite react-ts app into TEMPLATE_OUT. */
 function scaffoldVite() {
@@ -89,7 +91,6 @@ function patchPackageJson() {
   pkg.exports = { ".": "./build/index.js" }
 
   // Add Greenhouse runtime deps alongside the vite template's react deps.
-  const intentVersion = monorepoVersion("node_modules/@tanstack/intent")
   pkg.dependencies = {
     ...pkg.dependencies,
     "@cloudoperators/greenhouse-core": `^${GREENHOUSE_CORE_VERSION}`,
@@ -98,7 +99,10 @@ function patchPackageJson() {
 
   pkg.devDependencies = {
     ...pkg.devDependencies,
-    "@tanstack/intent": `^${intentVersion}`,
+    "@tanstack/intent": `^${INTENT_VERSION}`,
+    // vite.config.ts imports these; src/styles.css imports tailwindcss
+    "@tailwindcss/vite": TEMPLATE_PKG.devDependencies["@tailwindcss/vite"],
+    "tailwindcss": TEMPLATE_PKG.devDependencies["tailwindcss"],
   }
 
   // Add build:static and typecheck which vite's template doesn't include.

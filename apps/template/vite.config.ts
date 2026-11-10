@@ -6,7 +6,6 @@
 import { defineConfig, UserConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import tailwindcss from "@tailwindcss/vite"
-import tsconfigPaths from "vite-tsconfig-paths"
 
 export default defineConfig(({ mode }: { mode: string }): UserConfig => {
   const sharedConfig = {
@@ -25,7 +24,7 @@ export default defineConfig(({ mode }: { mode: string }): UserConfig => {
       dedupe: ["react", "react-dom"],
     },
 
-    plugins: [tailwindcss(), react(), tsconfigPaths()],
+    plugins: [tailwindcss(), react()],
 
     server: {
       host: "0.0.0.0",
