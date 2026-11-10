@@ -9,7 +9,7 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "build:static": "vite build --mode static",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc -b"
   },
   "dependencies": {
     "react": "^19.3.1",

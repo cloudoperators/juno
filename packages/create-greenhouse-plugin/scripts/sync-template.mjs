@@ -109,7 +109,7 @@ function patchPackageJson() {
   pkg.scripts = {
     ...pkg.scripts,
     "build:static": "vite build --mode static",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc -b",
   }
   pkg.intent = {
     skills: ["@cloudoperators/juno-ui-components"],
