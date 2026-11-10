@@ -189,27 +189,27 @@
       ]
     },
     "source:.github/workflows/build-push-greenhouse-image.yaml": {
-      "fingerprint": "98fef6c9f19fc24622d6d986df093bae6ff0e2d3cc83c9ba37b9fce593a68a30",
+      "fingerprint": "fe9f076d0c491c15424720b5e7a865671159a222395d385c209735a812b5d310",
       "snapshot": {
-        ".github/workflows/build-push-greenhouse-image.yaml": "818ef4edc88ffd8bd1cd8c1b8b362f6f65289b44af095b0c4825b2db18a35cd0"
+        ".github/workflows/build-push-greenhouse-image.yaml": "fd51cee5fdc60aa52cfa02389030f6331d0f671a003d752c33d3086393d4c6dd"
       },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
+      "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
+      "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
       "evidence": [
-        "Changed: .github/workflows/build-push-greenhouse-image.yaml at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+        "Changed: .github/workflows/build-push-greenhouse-image.yaml at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
       ]
     },
     "source:.github/workflows/build-push-supernova-image.yaml": {
-      "fingerprint": "3b33b7084f59519946fdc64a7df984b540ddbcc8305ca678d9f7d620194459ec",
+      "fingerprint": "b763c5d05c7994af3194f885926cba748e48f1b15cedb53a98da21f9cf7bb9ac",
       "snapshot": {
-        ".github/workflows/build-push-supernova-image.yaml": "4dc8f8eb795c26857fb1bb9e6b79d68a4158e2238569e5b2c2160dac05b30889"
+        ".github/workflows/build-push-supernova-image.yaml": "9f946b9a5f691a8edfdfae95397d29340b3fdd58bd019911681fbc96b2655068"
       },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
+      "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
+      "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
       "evidence": [
-        "Changed: .github/workflows/build-push-supernova-image.yaml at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+        "Changed: .github/workflows/build-push-supernova-image.yaml at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
       ]
     },
     "source:.github/workflows/release.yaml": {
@@ -1547,27 +1547,27 @@
       ]
     },
     "source:.github/workflows/build-push-greenhouse-pr-preview.yaml": {
-      "fingerprint": "800742b7c74907c4d79f4f7378a5dc48261fdf0a9e14071ef4d9e59e2789d95e",
+      "fingerprint": "d912b10a3ab46eaa801cc36edcf6585cd54c59581593675c5029d55f5b0e8c10",
       "snapshot": {
-        ".github/workflows/build-push-greenhouse-pr-preview.yaml": "e707f6cd3f2e5e8f6c5b64620d7ae98bfc0a010f7c726740d78916eff0a66867"
+        ".github/workflows/build-push-greenhouse-pr-preview.yaml": "e983b5565b6700eb2dc2292f907d28daf9eeed45c44e077281d61ddc59fe57e9"
       },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
+      "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
+      "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
       "evidence": [
-        "Changed: .github/workflows/build-push-greenhouse-pr-preview.yaml at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+        "Changed: .github/workflows/build-push-greenhouse-pr-preview.yaml at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
       ]
     },
     "source:.github/workflows/ci-checks.yaml": {
-      "fingerprint": "2e64d7083b78304aa59de4848f818b57940ef9a8a96ff0c48c4a58fc55e16f65",
+      "fingerprint": "74e90229008a8062193c922b87520a3371545b39e615d82b52c23220ca7cf165",
       "snapshot": {
-        ".github/workflows/ci-checks.yaml": "8adaea32759c3763e022c0a68743b904681b9a0198c5c98d119c72e5d5e3972f"
+        ".github/workflows/ci-checks.yaml": "72f293747378493b90f4942d91abbb9e4a9da64d5bb08d0fe36d016e5174630b"
       },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
+      "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
+      "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
       "evidence": [
-        "Changed: .github/workflows/ci-checks.yaml at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+        "Changed: .github/workflows/ci-checks.yaml at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
       ]
     },
     "source:.github/workflows/deploy-github-pages.yaml": {
@@ -2039,27 +2039,27 @@
       ]
     },
     "source:apps/template/vite.config.ts": {
-      "fingerprint": "0d683381dfda8d7ae2284e09210579878ca6ff4e3daf6b1ffcf8b257c69a446b",
+      "fingerprint": "87e03f2ba338840748053395668cafdda921cea4996403b62be537bef1c7cbda",
       "snapshot": {
-        "apps/template/vite.config.ts": "5a698de27eb65c1cddd0979a65e6cb1c24199642387afaad8b3b6b31b0783664"
+        "apps/template/vite.config.ts": "32f02fdf4e21d4d67fe755c3394fbea632edb9e61e0998ce5968399da4dd229b"
       },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
+      "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
+      "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
       "evidence": [
-        "Changed: apps/template/vite.config.ts at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+        "Changed: apps/template/vite.config.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
       ]
     },
     "source:commitlint.config.mjs": {
-      "fingerprint": "95177744cce0fdd25e25de5a130ae980d02d55ee3be548904e68a9c140cee878",
+      "fingerprint": "a21624b552330698c91c47e95949e604da594cde40ce27e86c03671aff0ee86c",
       "snapshot": {
-        "commitlint.config.mjs": "6024b59819a3c49ac25799ab180000311266d9aa5ac84b84d2fdc76caea48f79"
+        "commitlint.config.mjs": "13bda9b2e56de6d3a782b4c08e2898c6419b9fae8891db0e13d9d2c6e7785202"
       },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
+      "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
+      "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
       "evidence": [
-        "Changed: commitlint.config.mjs at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+        "Changed: commitlint.config.mjs at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
       ]
     },
     "source:docker/Dockerfile.dev": {
@@ -2087,75 +2087,75 @@
       ]
     },
     "source:packages/create-greenhouse-plugin/eslint.config.mjs": {
-      "fingerprint": "b1c5875d3edfeae9a698db0d3da17a31b7e31d5dcc4a633d124eb25cf95e97f6",
+      "fingerprint": "9661bccbbaf4976bfcf26b7b2adc55aaa758aae4ec94774bacbde4cfd53f2668",
       "snapshot": {
-        "packages/create-greenhouse-plugin/eslint.config.mjs": "abeec24a4a5152817e22a39fdfdfa9100ed5c13dcbbe8188aee6defe4ab0f799"
+        "packages/create-greenhouse-plugin/eslint.config.mjs": "d69151c9dea0bf92d09f604af57077b6b88f492b72315d03cbb062615801a033"
       },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
+      "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
+      "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
       "evidence": [
-        "Changed: packages/create-greenhouse-plugin/eslint.config.mjs at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+        "Changed: packages/create-greenhouse-plugin/eslint.config.mjs at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
       ]
     },
     "source:packages/create-greenhouse-plugin/scripts/sync-template.mjs": {
-      "fingerprint": "d5084b1981c383be50764516a4bf2935fe4400bcc35ffa0b2fa5081d9dea5da0",
+      "fingerprint": "646548809bd3f8ef861c2e2762dfe7f1d9ff9d1abeca422fe951fa074355aeea",
       "snapshot": {
-        "packages/create-greenhouse-plugin/scripts/sync-template.mjs": "8024fdfbe2fa8c2192f54a94c4d12943e583ecfbb961989e40c37b62c188c0ae"
+        "packages/create-greenhouse-plugin/scripts/sync-template.mjs": "0e7c7909f628d1612abef75cf2d9f576cc90e42a548a82f4ac8d9268bbc1ea9a"
       },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
+      "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
+      "reason": "Adjust create-greenhouse-plugin template sync: keep AGENTS.md and README.md verbatim from apps/template, drop CLAUDE.md; no skill guidance affected.",
       "evidence": [
-        "Changed: packages/create-greenhouse-plugin/scripts/sync-template.mjs at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+        "Changed: packages/create-greenhouse-plugin/scripts/sync-template.mjs at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
       ]
     },
     "source:packages/create-greenhouse-plugin/src/cli.ts": {
-      "fingerprint": "6d2c89b76badbb5b37012c93519f62ec0b30959fca9d7d7d39ea5ae3bfb7cc23",
+      "fingerprint": "4ee1e3c3b60eafcb001dd960bdc01cdace111266326f78dabecb331c8b700789",
       "snapshot": {
-        "packages/create-greenhouse-plugin/src/cli.ts": "a5400b7ab4113e3b2c3e0b6aa05589f5de18d678c3a867cc882999e0f0a33e3b"
+        "packages/create-greenhouse-plugin/src/cli.ts": "da5279b67021f04d7f34a9576a88afaaaf3e7679388ba775a7238c4438c4bbd1"
       },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
+      "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
+      "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
       "evidence": [
-        "Changed: packages/create-greenhouse-plugin/src/cli.ts at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+        "Changed: packages/create-greenhouse-plugin/src/cli.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
       ]
     },
     "source:packages/create-greenhouse-plugin/src/scaffold.test.ts": {
-      "fingerprint": "f7b759d7e49b8bb181a4f06a3a36bbe763897bb2e2d59839e39aea639553d928",
+      "fingerprint": "4023ffac61632e17d1e5e3954cb7001e2cdb603efb7d6fb0f9937cbb549600b1",
       "snapshot": {
-        "packages/create-greenhouse-plugin/src/scaffold.test.ts": "c378598c8d7359586923f4818bf003d1cdf199b126a8e37672632c987c45eda8"
+        "packages/create-greenhouse-plugin/src/scaffold.test.ts": "1e7968ec36e26578fc56a6a21349adba2a1be476f06695c232a1ab777e1c0a7e"
       },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
+      "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
+      "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
       "evidence": [
-        "Changed: packages/create-greenhouse-plugin/src/scaffold.test.ts at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+        "Changed: packages/create-greenhouse-plugin/src/scaffold.test.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
       ]
     },
     "source:packages/create-greenhouse-plugin/src/scaffold.ts": {
-      "fingerprint": "dfdccd5cd0c8acfc86c0fae4599b906bb485d19603b4a2afd792f502f8a9db8e",
+      "fingerprint": "c2671172594073e67806f5df494d016c68f00ee4b722a9042b407fc5bbf31c80",
       "snapshot": {
-        "packages/create-greenhouse-plugin/src/scaffold.ts": "4659fadebca259facfdf778d015d9665468755a3b7114474f8fcf2cb7d88e6b0"
+        "packages/create-greenhouse-plugin/src/scaffold.ts": "212e84588c337b6d72841b7d1ed8fa6fea265dca7a366679b2edf4af9f6aa2a9"
       },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
+      "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
+      "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
       "evidence": [
-        "Changed: packages/create-greenhouse-plugin/src/scaffold.ts at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+        "Changed: packages/create-greenhouse-plugin/src/scaffold.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
       ]
     },
     "source:packages/create-greenhouse-plugin/template/.gitignore": {
-      "fingerprint": "c079419d24731e788244fbc2cad8f6415d2a0d9f30dd5eae1871188a875c91b2",
+      "fingerprint": "7926e470fb3554b6ae7bfb05e04e3de1fe2814d0096687ba73ce1a05d0fa41b8",
       "snapshot": {
-        "packages/create-greenhouse-plugin/template/.gitignore": "fe718e7babb14f3cbad2d97f08889b9ce5215ed3fe0e43b2b8cfbfb3b9b844e8"
+        "packages/create-greenhouse-plugin/template/.gitignore": "ca7a5a35d7a04e5e4c36abf815ab3310881abf6187e28bb0fc00768845135404"
       },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
+      "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
+      "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
       "evidence": [
-        "Changed: packages/create-greenhouse-plugin/template/.gitignore at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+        "Changed: packages/create-greenhouse-plugin/template/.gitignore at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
       ]
     },
     "source:packages/create-greenhouse-plugin/template/LICENSE": {
@@ -2279,27 +2279,27 @@
       ]
     },
     "source:packages/create-greenhouse-plugin/template/tsconfig.json": {
-      "fingerprint": "a9eba8d37cc75b9d34b08b820ec18aba21f552e2327accc66d0e76321771ba63",
+      "fingerprint": "94c293bb8a89e773583aa4c4c98a3b45d1353e57355e21f86daa508140edad1d",
       "snapshot": {
-        "packages/create-greenhouse-plugin/template/tsconfig.json": "770b4140bbb581e2dfd9ea9946ffc9c75a1d86ba7d2db5f77c83e37cbdf9d808"
+        "packages/create-greenhouse-plugin/template/tsconfig.json": "11d5c328a30091fbeb52a3959a684a12f777d857adfab29b2bc5cc5706779b24"
       },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
+      "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
+      "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
       "evidence": [
-        "Changed: packages/create-greenhouse-plugin/template/tsconfig.json at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+        "Changed: packages/create-greenhouse-plugin/template/tsconfig.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
       ]
     },
     "source:packages/create-greenhouse-plugin/template/vite.config.ts": {
-      "fingerprint": "e9b496438c4f97aa777437378588b897b8f4edc56abb2f1466bf436e39815035",
+      "fingerprint": "1abe7613ef8387d8a3feb4b01d9a24b6eadf4992c0a910d170df82d4eed9c591",
       "snapshot": {
-        "packages/create-greenhouse-plugin/template/vite.config.ts": "5a698de27eb65c1cddd0979a65e6cb1c24199642387afaad8b3b6b31b0783664"
+        "packages/create-greenhouse-plugin/template/vite.config.ts": "32f02fdf4e21d4d67fe755c3394fbea632edb9e61e0998ce5968399da4dd229b"
       },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
+      "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
+      "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
       "evidence": [
-        "Changed: packages/create-greenhouse-plugin/template/vite.config.ts at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+        "Changed: packages/create-greenhouse-plugin/template/vite.config.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
       ]
     },
     "source:packages/create-greenhouse-plugin/template/vitest.config.ts": {
@@ -2339,27 +2339,27 @@
       ]
     },
     "source:packages/create-greenhouse-plugin/tsconfig.json": {
-      "fingerprint": "4d4472020f817824468ac7ad71df62489dbe31e3d084251bd987734dbac38057",
+      "fingerprint": "9554b0afef5c9b970a99ceca0316bdd8d47dd43679ed6d8c91d8d61fae681cf7",
       "snapshot": {
-        "packages/create-greenhouse-plugin/tsconfig.json": "b6ad9f42239e09278fd0f62ec6c697efd0f84f5ac0594bbb48ec7c3892432a51"
+        "packages/create-greenhouse-plugin/tsconfig.json": "5156b304bf1df5d3b1d6db7f30f7baf4c8f18ceb1769868684dbf32645ef4e5e"
       },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
+      "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
+      "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
       "evidence": [
-        "Changed: packages/create-greenhouse-plugin/tsconfig.json at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+        "Changed: packages/create-greenhouse-plugin/tsconfig.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
       ]
     },
     "source:packages/create-greenhouse-plugin/turbo.json": {
-      "fingerprint": "0a5809bb9975933a1191da51db385f7d1f69744899da873fabeb3c442b91960e",
+      "fingerprint": "4fd0be0e368c4967490557b6c935d6f350e2e14ac58b78faa209a939d1483124",
       "snapshot": {
-        "packages/create-greenhouse-plugin/turbo.json": "1b9b67935347906e3d80a01674b28cd123129635f27a954f8a44f878e316b5c9"
+        "packages/create-greenhouse-plugin/turbo.json": "8bb2edfe50993dd4589a56f3ab77cf8cf71a5c3128c444dc206e9e17ffc83fcf"
       },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
+      "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
+      "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
       "evidence": [
-        "Changed: packages/create-greenhouse-plugin/turbo.json at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+        "Changed: packages/create-greenhouse-plugin/turbo.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
       ]
     },
     "source:packages/create-greenhouse-plugin/vitest.config.ts": {
@@ -2612,102 +2612,6 @@
       "reason": "Adjust create-greenhouse-plugin template sync: keep AGENTS.md and README.md verbatim from apps/template, drop CLAUDE.md; no skill guidance affected.",
       "evidence": [
         "Changed: packages/create-greenhouse-plugin/template/AGENTS.md at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
-      ]
-    },
-    "source:.github/scripts/check-pinned-dependencies.js": {
-      "fingerprint": "1da9491fe7f0bc1b5436bef70ec533bd7bcbe96e1888c4f70b80d2aadc707857",
-      "snapshot": {
-        ".github/scripts/check-pinned-dependencies.js": "10e4c668e73d9b8c9a394b48d8ca0eaca1a28a8d540463c9196cb12b8ccc682a"
-      },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
-      "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
-      "evidence": [
-        "Changed: .github/scripts/check-pinned-dependencies.js at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
-      ]
-    },
-    "source:apps/template/appProps.template.json": {
-      "fingerprint": "51960a6f6cbd066cacb8e127a3f0c9b9cecd9289530f6897ab0f68e30e18a9aa",
-      "snapshot": {
-        "apps/template/appProps.template.json": "7540887f9b2c3b17bfd9bdc540db2fb9fb1ec6558d35796b54822706d71cc05f"
-      },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
-      "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
-      "evidence": [
-        "Changed: apps/template/appProps.template.json at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
-      ]
-    },
-    "source:packages/create-greenhouse-plugin/scripts/smoke-e2e.mjs": {
-      "fingerprint": "b83426b16b286e5783749a814e6e0bed885d5946f948b2b0bac9cb88b82b130d",
-      "snapshot": {
-        "packages/create-greenhouse-plugin/scripts/smoke-e2e.mjs": "7f894bcebc7e2cee4edca88e7d493a80289fe65d27c2b5f13964c3b2a6d02d80"
-      },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
-      "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
-      "evidence": [
-        "Changed: packages/create-greenhouse-plugin/scripts/smoke-e2e.mjs at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
-      ]
-    },
-    "source:packages/create-greenhouse-plugin/scripts/template-readme.md": {
-      "fingerprint": "f12ea7b8d4e0e80f32609ff57f8f82f1b614b98dac4106081192114bb14fef57",
-      "snapshot": {
-        "packages/create-greenhouse-plugin/scripts/template-readme.md": "c95ceee477d9199ece049026d78fb50318c0a6cf2ac4e4edfc5c109a63aa1ec0"
-      },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
-      "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
-      "evidence": [
-        "Changed: packages/create-greenhouse-plugin/scripts/template-readme.md at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
-      ]
-    },
-    "source:packages/create-greenhouse-plugin/template/.oxlintrc.json": {
-      "fingerprint": "c113b8f6b9815da06e21a0bb199785f22ff2a9c7ab4b9ddb592efd20c54e1b9c",
-      "snapshot": {
-        "packages/create-greenhouse-plugin/template/.oxlintrc.json": "b4d344818a1e1bf43997e4744a9153c8eef770c98b58229cd86363dabb85ded4"
-      },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
-      "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
-      "evidence": [
-        "Changed: packages/create-greenhouse-plugin/template/.oxlintrc.json at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
-      ]
-    },
-    "source:packages/create-greenhouse-plugin/template/appProps.template.json": {
-      "fingerprint": "37cc0fdeabfb4ca769a96aa49f5bd0d86a918fb5bc5063b5704e8f721cbef6bd",
-      "snapshot": {
-        "packages/create-greenhouse-plugin/template/appProps.template.json": "7540887f9b2c3b17bfd9bdc540db2fb9fb1ec6558d35796b54822706d71cc05f"
-      },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
-      "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
-      "evidence": [
-        "Changed: packages/create-greenhouse-plugin/template/appProps.template.json at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
-      ]
-    },
-    "source:packages/create-greenhouse-plugin/template/tsconfig.app.json": {
-      "fingerprint": "4cf4623ce994c4b357816e37e6f65b2eb81870b8b69aac11ac3fefa0c708405b",
-      "snapshot": {
-        "packages/create-greenhouse-plugin/template/tsconfig.app.json": "8e5d12ba330e7d86409edec74b95451e0db22ee09b9426c94b5bf817571eddb0"
-      },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
-      "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
-      "evidence": [
-        "Changed: packages/create-greenhouse-plugin/template/tsconfig.app.json at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
-      ]
-    },
-    "source:packages/create-greenhouse-plugin/template/tsconfig.node.json": {
-      "fingerprint": "378d4062f218ebe9812d04f92ff09667c26ba37af7a08e6da4862c7e1877aae9",
-      "snapshot": {
-        "packages/create-greenhouse-plugin/template/tsconfig.node.json": "d366cc0827139db39c61815f22491bbfda56c654354a42ad7795143d314e45e8"
-      },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
-      "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
-      "evidence": [
-        "Changed: packages/create-greenhouse-plugin/template/tsconfig.node.json at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
       ]
     }
   }
