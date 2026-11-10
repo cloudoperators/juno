@@ -54,6 +54,17 @@ export default defineConfig(({ mode }: { mode: string }): UserConfig => {
         formats: ["es"],
         fileName: () => `index.js`,
       },
+
+      rollupOptions: {
+        external: (id) => {
+          if (id === "react" || id.startsWith("react/") || id === "react-dom" || id.startsWith("react-dom/")) {
+            return true
+          }
+          if (id.startsWith("@cloudoperators/juno-ui-components")) return true
+          if (id.startsWith("@cloudoperators/greenhouse-core")) return true
+          return false
+        },
+      },
     },
   }
 })

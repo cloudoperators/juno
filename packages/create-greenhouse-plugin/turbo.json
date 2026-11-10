@@ -1,0 +1,23 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "sync:template": {
+      "inputs": ["../../apps/template/**"],
+      "outputs": ["template/**"]
+    },
+    "build": {
+      "dependsOn": ["sync:template"],
+      "inputs": ["src/**", "scripts/**", "../../apps/template/**"],
+      "outputs": ["build/**", "template/**"]
+    },
+    "test": {
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "dependsOn": ["build"]
+    },
+    "typecheck": {
+      "dependsOn": ["build"]
+    }
+  }
+}

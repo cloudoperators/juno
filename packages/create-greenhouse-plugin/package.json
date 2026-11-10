@@ -1,0 +1,42 @@
+{
+  "name": "@cloudoperators/create-greenhouse-plugin",
+  "version": "0.1.0",
+  "description": "Scaffolder that bootstraps a standalone Greenhouse plugin app (no monorepo dependencies) from the Juno app template.",
+  "author": "UI-Team",
+  "repository": "https://github.com/cloudoperators/juno/tree/main/packages/create-greenhouse-plugin",
+  "license": "Apache-2.0",
+  "type": "module",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "create-greenhouse-plugin": "./build/cli.js"
+  },
+  "files": [
+    "build/**",
+    "template/**",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20.19.0",
+    "pnpm": ">=11.25.0"
+  },
+  "scripts": {
+    "sync:template": "node scripts/sync-template.mjs",
+    "build": "node scripts/sync-template.mjs && tsc --project tsconfig.build.json",
+    "test": "vitest run",
+    "lint": "eslint",
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "clean": "rm -rf build && rm -rf template && rm -rf node_modules && rm -rf .turbo",
+    "clean:cache": "rm -rf .turbo"
+  },
+  "devDependencies": {
+    "@cloudoperators/juno-config": "workspace:*",
+    "@types/node": "26.6.4",
+    "create-vite": "9.3.4",
+    "typescript": "6.0.3",
+    "vitest": "5.0.5"
+  }
+}

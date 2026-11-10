@@ -1,0 +1,15 @@
+{
+  "extends": "@cloudoperators/juno-config/typescript/base.json",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022"],
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "types": ["node", "vitest/globals"]
+  },
+  "include": ["src/**/*.ts", "types/**/*.ts", "*.config.ts", "*.setup.ts"],
+  "exclude": ["node_modules", "build", "template"]
+}
