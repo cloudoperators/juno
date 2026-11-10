@@ -43,8 +43,7 @@ const HELP = `
 create-greenhouse-plugin — bootstrap a standalone Greenhouse plugin
 
 Usage:
-  npm create greenhouse-plugin <target-dir> [--name <package-name>]
-  pnpm create greenhouse-plugin <target-dir> [--name <package-name>]
+  npx @cloudoperators/create-greenhouse-plugin <target-dir> [--name <package-name>]
 
 Arguments:
   <target-dir>        Directory to create the plugin in (must be empty or non-existent).

@@ -12,4 +12,4 @@ Scaffolds a fresh `create-vite` react-ts app and overlays the Greenhouse-specifi
 externals), `appProps.json`, `AGENTS.md`, and pinned `@cloudoperators/greenhouse-core` +
 `@cloudoperators/juno-ui-components` deps.
 
-Run with `npm create greenhouse-plugin <dir>` or `pnpm create greenhouse-plugin <dir>`.
+Run with `npx @cloudoperators/create-greenhouse-plugin <dir>`.

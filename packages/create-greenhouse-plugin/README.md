@@ -18,14 +18,12 @@ design system.
 ## Usage
 
 ```bash
-npm create greenhouse-plugin ./my-plugin
-# or
-pnpm create greenhouse-plugin ./my-plugin
+npx @cloudoperators/create-greenhouse-plugin ./my-plugin
 ```
 
 ```
 Usage:
-  npm create greenhouse-plugin <target-dir> [--name <package-name>]
+  npx @cloudoperators/create-greenhouse-plugin <target-dir> [--name <package-name>]
 
 Arguments:
   <target-dir>   Directory to create the plugin in (must be empty or non-existent).
