@@ -18,6 +18,16 @@ pnpm dev
 
 See `package.json` for the full list of available scripts.
 
+## Plugin props (`appProps.json`)
+
+`appProps.json` is intentionally **not** bundled into the static build output. The Greenhouse host
+injects plugin props at runtime, so bundling them would risk leaking credentials or environment-specific
+config into a distributed artifact.
+
+For local development `pnpm dev` serves the file from the project root. For a static deployment
+(`pnpm build:static`) you are responsible for providing `appProps.json` at the path your server
+expects — either as a separate file alongside the bundle or injected by your deployment pipeline.
+
 ## AI skills via TanStack Intent
 
 This app is wired as a [TanStack Intent](https://www.npmjs.com/package/@tanstack/intent) consumer.
