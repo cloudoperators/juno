@@ -2,12 +2,17 @@
   "extends": ["//"],
   "tasks": {
     "sync:template": {
-      "inputs": ["../../apps/template/**"],
+      "inputs": ["$TURBO_DEFAULT$", "../../apps/template/**"],
       "outputs": ["template/**"]
     },
     "build": {
       "dependsOn": ["sync:template"],
-      "inputs": ["src/**", "scripts/**", "../../apps/template/**"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "../../apps/template/**",
+        "../../packages/ui-components/package.json",
+        "../../packages/greenhouse-core/package.json"
+      ],
       "outputs": ["build/**", "template/**"]
     },
     "test": {
