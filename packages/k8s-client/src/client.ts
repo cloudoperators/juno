@@ -61,20 +61,20 @@ function createClient(options: ClientOptions) {
       .catch(handleApiError)
   }
 
-  function post(path: string, data: object, options: RequestOptions = {}): Promise<unknown> {
+  function post(path: string, data: object | string, options: RequestOptions = {}): Promise<unknown> {
     const result = request("POST", buildUrl(apiEndpoint, path), extendOptions(options, { body: data }))
       .then((res) => res.json())
       .catch(handleApiError)
     return result
   }
 
-  function put(path: string, data: object, options: RequestOptions = {}): Promise<unknown> {
+  function put(path: string, data: object | string, options: RequestOptions = {}): Promise<unknown> {
     return request("PUT", buildUrl(apiEndpoint, path), extendOptions(options, { body: data }))
       .then((res) => res.json())
       .catch(handleApiError)
   }
 
-  function patch(path: string, data: object, options: RequestOptions = {}): Promise<unknown> {
+  function patch(path: string, data: object | string, options: RequestOptions = {}): Promise<unknown> {
     return request(
       "PATCH",
       buildUrl(apiEndpoint, path),
@@ -87,7 +87,7 @@ function createClient(options: ClientOptions) {
       .catch(handleApiError)
   }
 
-  function del(path: string, data?: object | null, options: RequestOptions = {}): Promise<unknown> {
+  function del(path: string, data?: object | string | null, options: RequestOptions = {}): Promise<unknown> {
     return request("DELETE", buildUrl(apiEndpoint, path), extendOptions(options, { body: data }))
       .then((res) => res.json())
       .catch(handleApiError)
