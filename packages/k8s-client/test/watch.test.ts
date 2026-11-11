@@ -164,6 +164,10 @@ describe("Watch", () => {
     beforeEach(() => {
       vi.useFakeTimers()
       requestMock = request as Mock
+      // Clear call history so the absolute-index assertions (mock.calls[0]/[1]) and
+      // toHaveBeenCalledTimes below see only this test's requests. The project does not
+      // enable clearMocks, and the outer beforeEach only sets a return value.
+      requestMock.mockClear()
     })
 
     afterEach(() => {
