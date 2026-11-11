@@ -118,10 +118,12 @@ describe("Watch", () => {
     // This test locks that invariant in: it fails if `cancel` is ever turned back into an
     // unbound prototype method (which is what would have forced the `that = this` workaround).
     test("returns a cancel function that aborts the connection when called detached", () => {
-      // Supply a resourceVersion so getResourceVersion() short-circuits without a fetch: this
-      // test is only about the binding of the returned cancel, and skipping the bootstrap keeps
-      // it from scheduling the catch-handler's 30s recovery restart (the outer fixture's
-      // json()->null would otherwise throw and leak a background timer past the test).
+      // Give this test its own request mock returning a valid, empty byte-stream so neither the
+      // bootstrap nor the stream read throws. The outer fixture's reader yields a *string*
+      // ("test"), which TextDecoder.decode() rejects -> the catch handler would schedule a 30s
+      // recovery restart that outlives the test. A resourceVersion also skips the bootstrap fetch.
+      // This test is only about the binding of the returned cancel, so it must leave no background work.
+      ;(request as Mock).mockReturnValue(Promise.resolve(streamResponse([])))
       const w = new Watch(url, { params: { resourceVersion: "1" } })
 
       // start() returns a reference to cancel. Capture it and invoke it detached from the
