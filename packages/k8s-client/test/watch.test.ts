@@ -118,18 +118,24 @@ describe("Watch", () => {
     // This test locks that invariant in: it fails if `cancel` is ever turned back into an
     // unbound prototype method (which is what would have forced the `that = this` workaround).
     test("returns a cancel function that aborts the connection when called detached", () => {
+      // Supply a resourceVersion so getResourceVersion() short-circuits without a fetch: this
+      // test is only about the binding of the returned cancel, and skipping the bootstrap keeps
+      // it from scheduling the catch-handler's 30s recovery restart (the outer fixture's
+      // json()->null would otherwise throw and leak a background timer past the test).
+      const w = new Watch(url, { params: { resourceVersion: "1" } })
+
       // start() returns a reference to cancel. Capture it and invoke it detached from the
       // instance: this only aborts the controller if the returned value is the instance-bound
       // `cancel` arrow field.
-      const stop = watch.start()
+      const stop = w.start()
 
       // The returned reference is the bound cancel method itself.
-      expect(stop).toBe(watch.cancel)
+      expect(stop).toBe(w.cancel)
 
       // Observe the abort via the signal cancel() aborts. `start`/`cancel` are arrow fields,
       // so `this.signal` / `this.controller` resolve lexically with no `that` alias.
       const aborted = vi.fn()
-      const signal: AbortSignal = watch["signal"]
+      const signal: AbortSignal = w["signal"]
       signal.addEventListener("abort", aborted)
       expect(signal.aborted).toBe(false)
 
