@@ -42,6 +42,7 @@ export const scopes = [
   "url-state-provider",
   "version",
   "greenhouse-core",
+  "k8s-client",
   /^ISSUE-\d+$/, // Regex pattern for ISSUE-<number>
 ]
 
@@ -50,7 +51,11 @@ export default {
   rules: {
     "type-enum": [2, "always", types],
     "scope-enum": [2, "always", scopes],
-    "scope-case": [2, "always", "kebab-case"], // Enforces kebab-case
+    // Enforces lowercase, dash-separated scopes. "lower-case" is included alongside
+    // "kebab-case" so whitelisted scopes containing digits (e.g. "k8s-client") are accepted:
+    // lodash kebab-case inserts a dash at letter/digit boundaries ("k8s" -> "k-8s"), which
+    // would otherwise reject an explicitly allowed scope-enum value.
+    "scope-case": [2, "always", ["kebab-case", "lower-case"]],
     "subject-case": [
       2,
       "never",

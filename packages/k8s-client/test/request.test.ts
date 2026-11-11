@@ -11,7 +11,7 @@ import https from "https"
 vi.mock("https", () => {
   const AgentMock = vi.fn(
     class {
-      constructor(public _options?: any) {}
+      constructor(public _options?: https.AgentOptions) {}
     }
   )
   return {

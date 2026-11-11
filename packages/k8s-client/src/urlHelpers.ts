@@ -8,10 +8,10 @@ import { isString, isNumber, isObject } from "./utils"
 /**
  * URL encoder for query params
  *
- * @param {Record<string, any>} data - Key-value object.
+ * @param {Record<string, unknown>} data - Key-value object.
  * @return {string | undefined}
  */
-const encodeQueryData = (data: Record<string, any>): string | undefined => {
+const encodeQueryData = (data: Record<string, unknown>): string | undefined => {
   if (!data) return
   const ret = []
   for (const key in data) {
@@ -26,18 +26,19 @@ const encodeQueryData = (data: Record<string, any>): string | undefined => {
 
 /**
  * Builds a URL from all path parts passed to the function.
- * @param {...(string | number)} path - A part of the URL.
- * @param {Record<string, any>} params - Params, headers, and other options supported by fetch.
+ * Path parts must be strings or numbers; an optional trailing hash map provides query params.
+ * Arguments are also validated at runtime and the function throws on anything else.
+ * @param {...(string | number | Record<string, unknown>)} args - Path parts and an optional trailing params object.
  * @return {string}
  */
-function buildUrl(...args: (string | number | Record<string, any>)[]): string {
+function buildUrl(...args: (string | number | Record<string, unknown>)[]): string {
   // This function needs at least two parameters
   if (args.length < 2) {
     throw new Error("Bad parameters: buildUrl needs at least two non-empty parameters.")
   }
 
   // Pop parameters object. This is the last argument
-  const params = isObject(args[args.length - 1]) ? (args.pop() as Record<string, any>) : null
+  const params = isObject(args[args.length - 1]) ? (args.pop() as Record<string, unknown>) : null
 
   // Validate arguments
   args.forEach((arg) => {

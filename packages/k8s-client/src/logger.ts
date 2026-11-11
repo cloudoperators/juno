@@ -7,7 +7,7 @@ const PREFIX = "[k8sClient]:"
 
 type ConsoleType = "log" | "error" | "debug" | "info"
 // Define a type that describes the arguments to be passed to the console methods
-type ConsoleArgs = [message?: any, ...optionalParams: any[]]
+type ConsoleArgs = [message?: unknown, ...optionalParams: unknown[]]
 
 // Add prefix to all log functions
 const prefixedLog = (name: ConsoleType) => {
