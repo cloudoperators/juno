@@ -42,7 +42,7 @@ const coverStyles = `
   jn:right-0
   jn:bottom-0
   jn:cursor-not-allowed
-  jn:backdrop-blur-[4px]
+  jn:backdrop-blur-sm
   jn:bg-theme-background-lvl-2/30
   jn:z-10
   jn:flex
@@ -189,13 +189,16 @@ export const SecretText = ({
   return (
     <div
       className={`
-        juno-secret-wrapper  
-        ${wrapperClassName}  
+        juno-secrettext
+        juno-secrettext-wrapper
+        ${isRevealed ? "juno-secrettext-revealed" : "juno-secrettext-hidden"}
+        ${disabled ? "juno-secrettext-disabled" : ""}
+        ${wrapperClassName}
       `}
     >
       <div
         className={`
-          juno-secret-wrapper-inner
+          juno-secrettext-wrapper-inner
           ${innerWrapperStyles} 
         `}
       >
@@ -227,7 +230,7 @@ export const SecretText = ({
 
         <Textarea
           autoComplete={autoComplete}
-          className={`juno-secret-textarea jn:font-mono ${textareaStyles} ${className}`}
+          className={`juno-secrettext-textarea jn:font-mono ${textareaStyles} ${className}`}
           disabled={disabled}
           id={theId}
           invalid={invalid}
