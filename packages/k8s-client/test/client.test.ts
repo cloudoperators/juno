@@ -10,7 +10,7 @@ import https from "https"
 vi.mock("https", () => {
   const AgentMock = vi.fn(
     class {
-      constructor(public _options?: any) {}
+      constructor(public _options?: https.AgentOptions) {}
     }
   )
   return {
@@ -21,7 +21,7 @@ vi.mock("https", () => {
 
 // Helper function to create proper Response mock
 const createMockResponse = (
-  data: any = {},
+  data: unknown = {},
   options: {
     status?: number
     statusText?: string

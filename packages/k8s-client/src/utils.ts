@@ -5,64 +5,64 @@
 
 /**
  * Returns true if a value is a string
- * @param {any} value value to be tested
+ * @param {unknown} value value to be tested
  * @return {boolean} true or false
  */
-function isString(value: any): value is string {
+function isString(value: unknown): value is string {
   return typeof value === "string" || value instanceof String
 }
 
 /**
  * Returns true if a value is a number
- * @param {any} value value to be tested
+ * @param {unknown} value value to be tested
  * @return {boolean} true or false
  */
-function isNumber(value: any): value is number {
+function isNumber(value: unknown): value is number {
   return typeof value === "number" && value.constructor === Number
 }
 
 /**
  * Returns true if a value is an object
- * @param {any} value value to be tested
+ * @param {unknown} value value to be tested
  * @return {boolean} true or false
  */
-function isObject<T>(value: T): boolean {
+function isObject(value: unknown): boolean {
   return value !== null && typeof value === "object" && value.constructor === Object
 }
 
 /**
  * Returns true if a value is an array
- * @param {any} value value to be tested
+ * @param {unknown} value value to be tested
  * @return {boolean} true or false
  */
-function isArray(value: any): value is any[] {
+function isArray(value: unknown): value is unknown[] {
   return Array.isArray(value)
 }
 
 /**
  * Returns true if a value is a function
- * @param {any} value value to be tested
+ * @param {unknown} value value to be tested
  * @return {boolean} true or false
  */
-function isFunction(value: any): value is Function {
+function isFunction(value: unknown): value is (...args: unknown[]) => unknown {
   return typeof value === "function"
 }
 
 /**
  * Returns true if a value is null
- * @param {any} value value to be tested
+ * @param {unknown} value value to be tested
  * @return {boolean} true or false
  */
-function isNull(value: any): value is null {
+function isNull(value: unknown): value is null {
   return value === null
 }
 
 /**
  * Returns true if a value is undefined
- * @param {any} value value to be tested
+ * @param {unknown} value value to be tested
  * @return {boolean} true or false
  */
-function isUndefined(value: any): value is undefined {
+function isUndefined(value: unknown): value is undefined {
   return typeof value === "undefined"
 }
 

@@ -33,7 +33,8 @@ describe("buildUrl", () => {
   })
 
   it("should not accept an array parameter", () => {
-    expect(() => buildUrl(hostUrl, "v", [2, 45])).toThrow()
+    // Deliberately invalid input: arrays are rejected at runtime, so bypass the compile-time check.
+    expect(() => buildUrl(hostUrl, "v", [2, 45] as unknown as number)).toThrow()
   })
 
   it("should not accept a hashmap parameter in the middle", () => {

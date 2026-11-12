@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import request from "./request"
+import request, { RequestOptions } from "./request"
 import * as logger from "./logger"
 import { K8sApiError } from "./apiErrorHandler"
 
@@ -32,18 +32,6 @@ interface ApiResponseData {
   }
 }
 
-interface WatchOptions {
-  params?: Record<string, string>
-  headers?: Record<string, string>
-  signal?: AbortSignal
-  body?: Object | null
-  mode?: RequestMode
-  cache?: RequestCache
-  credentials?: RequestCredentials
-  ignoreSsl?: boolean // Allow per-request SSL override
-  debug?: boolean // Optional debug flag
-}
-
 class Watch {
   private readonly listeners: Record<string, Listener[]> = {
     [ADDED]: [],
@@ -57,16 +45,16 @@ class Watch {
   private readonly PREFIX = "watch >"
   private readonly decoder = new TextDecoder()
   private readonly url: string
-  private readonly options: WatchOptions
+  private readonly options: RequestOptions
   private readonly getCurrentToken?: () => string
 
-  constructor(url: string, options: WatchOptions = {}, getCurrentToken?: () => string) {
+  constructor(url: string, options: RequestOptions = {}, getCurrentToken?: () => string) {
     this.url = url
     this.options = options
     this.getCurrentToken = getCurrentToken
 
     // Use given resourceVersion if provided
-    if (options?.params?.resourceVersion) {
+    if (typeof options?.params?.resourceVersion === "string") {
       this.resourceVersion = options.params.resourceVersion
       delete options.params.resourceVersion
     }
@@ -106,15 +94,12 @@ class Watch {
   private handleEvents = (events: WatchEvent | WatchEvent[]) => {
     if (!Array.isArray(events)) events = [events]
 
-    // Pass correct "this" context to be referenced in asynchronous callbacks
-    const that = this
-
     setTimeout(() => {
-      const eventsByType: Record<string, any[]> = {}
+      const eventsByType: Record<string, unknown[]> = {}
 
       events.forEach((event: WatchEvent) => {
         if (event.type === BOOKMARK) {
-          that.resourceVersion = event?.object?.metadata?.resourceVersion ?? null
+          this.resourceVersion = event?.object?.metadata?.resourceVersion ?? null
         } else {
           if (!eventsByType[event.type]) {
             eventsByType[event.type] = []
@@ -123,7 +108,7 @@ class Watch {
         }
       })
 
-      Object.keys(eventsByType).forEach((type) => that.informListeners(type, eventsByType[type]))
+      Object.keys(eventsByType).forEach((type) => this.informListeners(type, eventsByType[type]))
     })
   }
 
@@ -143,26 +128,22 @@ class Watch {
   }
 
   start = () => {
-    // Pass correct "this" context to be referenced in asynchronous callbacks
-    const that = this
-
-    if (that.getCurrentToken) {
-      that.refreshToken(that.getCurrentToken())
+    if (this.getCurrentToken) {
+      this.refreshToken(this.getCurrentToken())
     }
 
-    that
-      .getResourceVersion()
+    this.getResourceVersion()
       .then((resourceVersion) => {
-        logger.debug(that.PREFIX, "current resource version", resourceVersion)
-        return request("GET", that.url, {
-          ...that.options,
+        logger.debug(this.PREFIX, "current resource version", resourceVersion)
+        return request("GET", this.url, {
+          ...this.options,
           params: {
-            ...that.options.params,
+            ...this.options.params,
             watch: 1,
             allowWatchBookmarks: true,
             resourceVersion,
           },
-          signal: that.signal,
+          signal: this.signal,
         })
       })
       .then(async (res) => {
@@ -171,10 +152,10 @@ class Watch {
         let data = ""
 
         while (!done) {
-          logger.debug(that.PREFIX, "read stream chunk")
+          logger.debug(this.PREFIX, "read stream chunk")
           const result = await reader?.read()
           done = result?.done ?? true
-          data += that.decoder.decode(result?.value || new Uint8Array())
+          data += this.decoder.decode(result?.value || new Uint8Array())
 
           const events = data.split(/\n|\r|\r\n/)
           data = events.pop() ?? ""
@@ -184,18 +165,18 @@ class Watch {
             // 'JSON.parse' type definition expects 'any' as a return value
             const parsedEvent = JSON.parse(e) as WatchEvent
             if (parsedEvent.type === ERROR && parsedEvent?.object?.code === 410) {
-              that.cancel()
+              this.cancel()
               setTimeout(() => {
-                logger.debug(that.PREFIX, "resource is gone 410", "recreate watch request!")
-                that.start()
+                logger.debug(this.PREFIX, "resource is gone 410", "recreate watch request!")
+                this.start()
               })
               return
             }
             parsedEvents.push(parsedEvent)
           })
 
-          logger.debug(that.PREFIX, "inform listeners", events)
-          that.handleEvents(parsedEvents)
+          logger.debug(this.PREFIX, "inform listeners", events)
+          this.handleEvents(parsedEvents)
         }
       })
       .catch((e: K8sApiError) => {
@@ -203,15 +184,15 @@ class Watch {
         const status = e.code ?? e?.response?.status
 
         if (status === 410) {
-          logger.debug(that.PREFIX, "resource is gone 410")
-          that.resourceVersion = null
-          setTimeout(() => that.start(), 0)
+          logger.debug(this.PREFIX, "resource is gone 410")
+          this.resourceVersion = null
+          setTimeout(() => this.start(), 0)
           return
         }
 
         if (status === 404) {
-          that.handleEvents({ type: ERROR, object: e })
-          that.cancel()
+          this.handleEvents({ type: ERROR, object: e })
+          this.cancel()
           return
         }
 
@@ -219,12 +200,12 @@ class Watch {
         console.dir(e)
 
         setTimeout(() => {
-          logger.debug(that.PREFIX, "recover connection", "restart!")
-          that.start()
+          logger.debug(this.PREFIX, "recover connection", "restart!")
+          this.start()
         }, 30000)
       })
 
-    return that.cancel
+    return this.cancel
   }
 
   on = (type: string, listener: Listener) => {

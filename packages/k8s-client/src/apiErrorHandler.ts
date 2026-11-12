@@ -7,7 +7,7 @@ export interface K8sApiError extends Error {
   apiVersion?: string
   kind?: string
   message: string
-  metadata?: Record<string, any>
+  metadata?: Record<string, unknown>
   reason?: string
   status?: string
   code?: number

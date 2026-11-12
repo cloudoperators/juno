@@ -9,16 +9,16 @@ import https from "https"
 
 // Define the shape of the options parameter
 interface RequestOptions {
-  params?: Record<string, any>
+  params?: Record<string, unknown>
   signal?: AbortSignal
-  headers?: Record<string, any>
-  body?: Object | null
+  headers?: Record<string, string>
+  body?: object | string | null
   mode?: RequestMode
   cache?: RequestCache
   credentials?: RequestCredentials
   ignoreSsl?: boolean
   debug?: boolean
-  [key: string]: any
+  [key: string]: unknown
 }
 
 // Check response status
