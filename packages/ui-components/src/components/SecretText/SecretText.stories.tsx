@@ -148,6 +148,11 @@ const secretValue =
 
 export const CustomSecretTextFooter: Story = {
   name: "SecretText with Custom Footer",
+  args: {
+    clear: false,
+    paste: false,
+    value: secretValue,
+  },
   parameters: {
     docs: {
       description: {
@@ -158,14 +163,11 @@ export const CustomSecretTextFooter: Story = {
         code: `<SecretText
   value={secret}
   secretTextFooter={<Button size="small">Download</Button>}
+  clear={false}
+  paste={false}
 />`,
       },
     },
   },
-  render: () => (
-    <SecretText
-      value={secretValue}
-      secretTextFooter={<Button size="small">Download</Button>}
-    />
-  ),
+  render: (args) => <SecretText {...args} secretTextFooter={<Button size="small">Download</Button>} />,
 }
