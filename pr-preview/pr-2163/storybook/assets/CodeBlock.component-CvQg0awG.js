@@ -1,4 +1,4 @@
-import{n as e,o as t}from"./rolldown-runtime-BCiCTKAo.js";import{r as n}from"./react-8KJKb_Eb.js";import{t as r}from"./jsx-runtime-BB9-612F.js";import{n as i,t as a}from"./JsonViewer-NFOhZ7Q6.js";import{n as o,t as s}from"./CodeBlockFooter.component-CaazePbV.js";function c(){return(c=e((()=>{o()})))()}var l,u,d,f,p,m,h,g,_,v,y;function b(){return(b=e((()=>{l=t(n()),a(),c(),u=r(),d=`
+import{n as e,o as t}from"./rolldown-runtime-BCiCTKAo.js";import{r as n}from"./react-8KJKb_Eb.js";import{t as r}from"./jsx-runtime-BB9-612F.js";import{n as i,t as a}from"./JsonViewer-DfZxytCU.js";import{n as o,t as s}from"./CodeBlockFooter.component-CGy6HU8P.js";function c(){return(c=e((()=>{o()})))()}var l,u,d,f,p,m,h,g,_,v,y;function b(){return(b=e((()=>{l=t(n()),a(),c(),u=r(),d=`
   jn:bg-theme-code-block
   jn:rounded
 `,f=e=>`
