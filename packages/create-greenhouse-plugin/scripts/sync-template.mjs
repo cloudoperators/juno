@@ -44,10 +44,29 @@ function monorepoVersion(pkgRelPath) {
   return pkg.version
 }
 
-const UI_COMPONENTS_VERSION = monorepoVersion("packages/ui-components")
-const GREENHOUSE_CORE_VERSION = monorepoVersion("packages/greenhouse-core")
-const INTENT_VERSION = monorepoVersion("node_modules/@tanstack/intent")
+/**
+ * Return the latest published version of a package from the npm registry.
+ * Falls back to the monorepo version if the package hasn't been published yet
+ * or the registry is unreachable — so the template always references an
+ * installable version.
+ */
+function publishedVersion(packageName, fallbackPkgRelPath) {
+  try {
+    const version = execSync(`npm view ${packageName} version`, { encoding: "utf8" }).trim()
+    if (version) return version
+  } catch {
+    // fall through to monorepo fallback
+  }
+  const fallback = monorepoVersion(fallbackPkgRelPath)
+  console.warn(`[sync-template] could not fetch published version for ${packageName}, falling back to monorepo version ${fallback}`)
+  return fallback
+}
+
 const TEMPLATE_PKG = JSON.parse(readFileSync(join(TEMPLATE_SRC, "package.json"), "utf8"))
+const MONOREPO_PKG = JSON.parse(readFileSync(join(MONOREPO_ROOT, "package.json"), "utf8"))
+const UI_COMPONENTS_VERSION = publishedVersion("@cloudoperators/juno-ui-components", "packages/ui-components")
+const GREENHOUSE_CORE_VERSION = publishedVersion("@cloudoperators/greenhouse-core", "packages/greenhouse-core")
+const INTENT_VERSION = MONOREPO_PKG.devDependencies["@tanstack/intent"]
 
 /** Scaffold a fresh vite react-ts app into TEMPLATE_OUT. */
 function scaffoldVite() {
