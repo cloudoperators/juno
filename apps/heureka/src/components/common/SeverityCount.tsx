@@ -5,7 +5,7 @@
 // juno-ui-components' KnownIcons and color types resolve as error-typed values in CI
 // (node_modules not fully resolved during type-checking). These disables are CI-only
 // suppressions and have no effect in local development where types resolve correctly.
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+ 
 
 import { Icon, Tooltip, TooltipTrigger, TooltipContent, KnownIcons, Stack } from "@cloudoperators/juno-ui-components"
 
@@ -50,7 +50,7 @@ const getSeverityColor = (severity: SeverityCountProps["severity"]): string => {
 }
 
 export const SeverityCount = ({ severity, count, tooltipContent }: SeverityCountProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+   
   const icon = getSeverityIcon(severity)
   const color = getSeverityColor(severity)
 

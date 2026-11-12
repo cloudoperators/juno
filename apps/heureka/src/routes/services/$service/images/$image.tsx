@@ -47,7 +47,7 @@ export const Route = createFileRoute("/services/$service/images/$image")({
   component: ImageDetailsPage,
 })
 
-function ImageDetailsPage() {
+export function ImageDetailsPage() {
   const { imagesPromise, decodedParams } = Route.useLoaderData()
   const { service, image } = decodedParams
   const search = Route.useSearch()
