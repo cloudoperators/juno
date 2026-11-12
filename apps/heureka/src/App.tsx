@@ -31,7 +31,7 @@ export interface AppProps extends PluginProps {
   initialFilters?: InitialFilters
   basePath?: string
   enableHashedRouting?: boolean
-   
+
   auth?: EmbeddedAuth | AuthState
 }
 
@@ -65,11 +65,10 @@ const App = (props: AppProps) => {
     routeTree,
     context: { appProps: props, apiClient, queryClient },
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
-     
+
     stringifySearch: encodeV2,
     parseSearch: (searchString) => {
       if (!props.enableHashedRouting) {
-         
         return decodeV2(searchString)
       }
 
@@ -87,7 +86,6 @@ const App = (props: AppProps) => {
       const preHashParams = searchString.indexOf("?", postHashParams + 1)
       const searchStringFromHash = searchString.slice(postHashParams, preHashParams === -1 ? undefined : preHashParams)
 
-       
       return decodeV2(searchStringFromHash)
     },
   })
@@ -105,9 +103,7 @@ const App = (props: AppProps) => {
                   <AuthProvider
                     embedded={props.embedded && !!props.auth}
                     auth={
-                       
                       props.auth &&
-                       
                       ("getSnapshot" in props.auth ? props.auth : { getSnapshot: () => props.auth as AuthState })
                     }
                   >

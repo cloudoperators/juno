@@ -13,9 +13,8 @@ import { RemediationTypeValues, SeverityValues } from "../../../../generated/gra
 
 // Mock DateTimePicker and Select so tests work without flatpickr/portal DOM interaction
 vi.mock("@cloudoperators/juno-ui-components", async (importActual) => {
-   
   const actual = await importActual<typeof import("@cloudoperators/juno-ui-components")>()
-   
+
   return {
     ...actual,
     DateTimePicker: ({
