@@ -1,0 +1,17 @@
+/*
+ * SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Juno contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/// <reference types="vite/client" />
+
+import type { Plugin } from "@cloudoperators/greenhouse-core"
+
+// Declare this plugin's module shape so the host's `await import("__APP_NAME__")`
+// is typed as `{ plugin: Plugin }` instead of `any`. This declaration is NOT verified
+// against src/index.tsx at build time — a plugin that renames or removes its `plugin`
+// export would still compile. The real safety against runtime drift (external plugins loaded via
+// dynamic URL) comes from the host's runtime validation, not from this file.
+declare module "__APP_NAME__" {
+  export const plugin: Plugin
+}

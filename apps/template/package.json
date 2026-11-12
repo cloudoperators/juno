@@ -1,8 +1,8 @@
 {
   "name": "@cloudoperators/juno-app-template",
   "version": "2.0.60",
-  "author": "UI-Team",
-  "repository": "https://github.com/cloudoperators/juno/tree/main/apps/template",
+  "author": "__AUTHOR__",
+  "repository": "__REPOSITORY__",
   "license": "Apache-2.0",
   "source": "src/index.js",
   "type": "module",
@@ -46,7 +46,6 @@
     "tailwindcss": "4.3.3",
     "typescript": "6.0.3",
     "vite": "8.3.5",
-    "vite-tsconfig-paths": "6.1.1",
     "vitest": "5.1.0"
   },
   "intent": {
