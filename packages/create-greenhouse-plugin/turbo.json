@@ -1,0 +1,32 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "sync:template": {
+      "inputs": ["$TURBO_DEFAULT$", "../../apps/template/**"],
+      "outputs": ["template/**"]
+    },
+    "build": {
+      "dependsOn": ["sync:template"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "../../apps/template/**",
+        "../../packages/ui-components/package.json",
+        "../../packages/greenhouse-core/package.json"
+      ],
+      "outputs": ["build/**", "template/**"]
+    },
+    "test": {
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "dependsOn": ["build"]
+    },
+    "typecheck": {
+      "dependsOn": ["build"]
+    },
+    "test:e2e": {
+      "dependsOn": ["build"],
+      "cache": false
+    }
+  }
+}

@@ -43,6 +43,7 @@ export const scopes = [
   "version",
   "greenhouse-core",
   "k8s-client",
+  "create-greenhouse-plugin",
   /^ISSUE-\d+$/, // Regex pattern for ISSUE-<number>
 ]
 

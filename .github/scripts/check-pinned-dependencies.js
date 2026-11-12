@@ -213,6 +213,13 @@ function findPackageJsonFiles(dir, fileList = []) {
       continue
     }
 
+    // Skip the scaffolder's generated template/ — it's a blueprint for external consumers,
+    // ranges there are intentional. apps/template (a real workspace package) is still checked.
+    const relDir = path.relative(process.cwd(), filePath)
+    if (relDir === path.join("packages", "create-greenhouse-plugin", "template")) {
+      continue
+    }
+
     if (stat.isDirectory()) {
       findPackageJsonFiles(filePath, fileList)
     } else if (file === "package.json") {

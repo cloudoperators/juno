@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { defineConfig, UserConfig } from "vite"
+import { defineConfig } from "vite"
+import type { UserConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import tailwindcss from "@tailwindcss/vite"
-import tsconfigPaths from "vite-tsconfig-paths"
 
 export default defineConfig(({ mode }: { mode: string }): UserConfig => {
   const sharedConfig = {
@@ -25,7 +25,7 @@ export default defineConfig(({ mode }: { mode: string }): UserConfig => {
       dedupe: ["react", "react-dom"],
     },
 
-    plugins: [tailwindcss(), react(), tsconfigPaths()],
+    plugins: [tailwindcss(), react()],
 
     server: {
       host: "0.0.0.0",
@@ -53,6 +53,17 @@ export default defineConfig(({ mode }: { mode: string }): UserConfig => {
         entry: "src/index.tsx",
         formats: ["es"],
         fileName: () => `index.js`,
+      },
+
+      rollupOptions: {
+        external: (id) => {
+          if (id === "react" || id.startsWith("react/") || id === "react-dom" || id.startsWith("react-dom/")) {
+            return true
+          }
+          if (id.startsWith("@cloudoperators/juno-ui-components")) return true
+          if (id.startsWith("@cloudoperators/greenhouse-core")) return true
+          return false
+        },
       },
     },
   }
