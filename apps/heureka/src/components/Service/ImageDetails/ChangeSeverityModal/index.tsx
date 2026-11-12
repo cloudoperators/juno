@@ -121,6 +121,7 @@ export const ChangeSeverityModal: React.FC<ChangeSeverityModalProps> = ({
         setApiError(result.error)
       } else {
         setForm(EMPTY_FORM)
+        setApiError(null)
         onClose()
       }
     } catch (error) {

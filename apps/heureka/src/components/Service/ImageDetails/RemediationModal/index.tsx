@@ -135,6 +135,7 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
         setApiError(result.error)
       } else if (isMountedRef.current) {
         setForm(EMPTY_FORM)
+        setApiError(null)
         onClose()
       }
     } catch (error) {
