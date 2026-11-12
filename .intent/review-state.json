@@ -957,15 +957,15 @@
       ]
     },
     "source:packages/k8s-client/eslint.config.mjs": {
-      "fingerprint": "4ce6e43ab2e7b884c3ab2e04b19ba0f01d3155c7c6d0d97afad442a0f7f6f26e",
+      "fingerprint": "64dd0cc6618262c34b039f3d8c4bdb9777e183df0c182b9cf46083ad8bc2d9ff",
       "snapshot": {
-        "packages/k8s-client/eslint.config.mjs": "3cbb0b1bd0889934e8809061a7c07a1cc9fdeec95a0c755e89d389d2dd37a126"
+        "packages/k8s-client/eslint.config.mjs": "22b7b630e90329d060c3aa4cf8ea9ac77040f1a66c7af5680768bf8cb0ebad55"
       },
-      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
-      "outcome": "no-change",
-      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package with no skill mapping",
       "evidence": [
-        "Changed: packages/k8s-client/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+        "No skill exists for this file in ui-components skills/"
       ]
     },
     "source:packages/k8s-client/tsconfig.json": {
@@ -2051,15 +2051,15 @@
       ]
     },
     "source:commitlint.config.mjs": {
-      "fingerprint": "95177744cce0fdd25e25de5a130ae980d02d55ee3be548904e68a9c140cee878",
+      "fingerprint": "a3cee8f091704f41874c64b8d3d7a7aa983cd128b28cdd10a4612fc248622847",
       "snapshot": {
-        "commitlint.config.mjs": "6024b59819a3c49ac25799ab180000311266d9aa5ac84b84d2fdc76caea48f79"
+        "commitlint.config.mjs": "0a8421b77016ce02142762d352d5ba32d2b354a2af80b7fc5ec5d0615b05cbfc"
       },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
-      "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
+      "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package with no skill mapping",
       "evidence": [
-        "Changed: commitlint.config.mjs at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+        "No skill exists for this file in ui-components skills/"
       ]
     },
     "source:docker/Dockerfile.dev": {
@@ -2099,15 +2099,15 @@
       ]
     },
     "source:packages/create-greenhouse-plugin/scripts/sync-template.mjs": {
-      "fingerprint": "d5084b1981c383be50764516a4bf2935fe4400bcc35ffa0b2fa5081d9dea5da0",
+      "fingerprint": "3b0a24213924f9eba32622b012c050af84b3609bd62876c9027885a8ffa434bd",
       "snapshot": {
-        "packages/create-greenhouse-plugin/scripts/sync-template.mjs": "8024fdfbe2fa8c2192f54a94c4d12943e583ecfbb961989e40c37b62c188c0ae"
+        "packages/create-greenhouse-plugin/scripts/sync-template.mjs": "21e721da0bbae61c42b94622ce1e1e9f0bd561faa6bc2fe05996b1d9e7d8c73b"
       },
-      "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
-      "outcome": "no-change",
-      "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
+      "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package with no skill mapping",
       "evidence": [
-        "Changed: packages/create-greenhouse-plugin/scripts/sync-template.mjs at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+        "No skill exists for this file in ui-components skills/"
       ]
     },
     "source:packages/create-greenhouse-plugin/src/cli.ts": {
@@ -2708,6 +2708,174 @@
       "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
       "evidence": [
         "Changed: packages/create-greenhouse-plugin/template/tsconfig.node.json at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+      ]
+    },
+    "source:packages/ui-components/src/components/SecretText/SecretText.component.tsx": {
+      "fingerprint": "f3a57e2aaf27bbc61b94713d6160ad57a920387816619ddcf90801e69307f0ee",
+      "snapshot": {
+        "packages/ui-components/src/components/SecretText/SecretText.component.tsx": "7676fce0d765918142460f8fa694e395a7ceb88f572547656d161dfb41ca2309"
+      },
+      "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
+      "outcome": "out-of-scope",
+      "reason": "SecretText has no skills defined yet; changes add secretTextFooter prop and fix identifier/state classes",
+      "evidence": [
+        "skills/ directory has no SecretText entry"
+      ]
+    },
+    "source:packages/ui-components/src/components/SecretText/SecretText.stories.tsx": {
+      "fingerprint": "9f93fc3757d4aa77f511342c0f67aa6a774630095f65d0d3b36f5ad9f7cd5722",
+      "snapshot": {
+        "packages/ui-components/src/components/SecretText/SecretText.stories.tsx": "3014bc130b3cce91e7e4931e1b5b1c7c3ceb61225c1804d5690591e290e14bfc"
+      },
+      "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
+      "outcome": "out-of-scope",
+      "reason": "SecretText has no skills defined yet; changes add secretTextFooter prop and fix identifier/state classes",
+      "evidence": [
+        "skills/ directory has no SecretText entry"
+      ]
+    },
+    "source:packages/ui-components/src/components/SecretText/SecretText.test.tsx": {
+      "fingerprint": "c634809f759e3e8bc3c63730d131ceba7864cafdeec676f1a2949265e3032bf7",
+      "snapshot": {
+        "packages/ui-components/src/components/SecretText/SecretText.test.tsx": "98c874b0892530c37f8ed5b94b69320dc776b2999e68ceb543d6068d5cccccd5"
+      },
+      "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
+      "outcome": "out-of-scope",
+      "reason": "SecretText has no skills defined yet; changes add secretTextFooter prop and fix identifier/state classes",
+      "evidence": [
+        "skills/ directory has no SecretText entry"
+      ]
+    },
+    "source:packages/k8s-client/src/apiErrorHandler.ts": {
+      "fingerprint": "4cc832c8d4fa0d0b816548693f1cdd9b6e3fc24f8d51dd3913522041dcf1354e",
+      "snapshot": {
+        "packages/k8s-client/src/apiErrorHandler.ts": "7163d31cefd7c6155a5fe086792c0f4d4e0a8e32f7e9db678884ed1b0f091c79"
+      },
+      "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:packages/k8s-client/src/client.ts": {
+      "fingerprint": "29fae2260ab7270f30619969fe395eeb039f8f1fef00d527bc190b04623fbdd1",
+      "snapshot": {
+        "packages/k8s-client/src/client.ts": "a085bf0f29f6c48b887b72c7372446814d54f6db2297a21afa00a6ac491bda89"
+      },
+      "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:packages/k8s-client/src/logger.ts": {
+      "fingerprint": "96e080f90bdb61f333817a245555b5fbaecaa76d99af02fafc2b5f1aefb29fc3",
+      "snapshot": {
+        "packages/k8s-client/src/logger.ts": "54554f1f8b50f6bbb261961c16af78f1f42f453d92087ea66b8b43b4a4a20581"
+      },
+      "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:packages/k8s-client/src/request.ts": {
+      "fingerprint": "e9f66ceeca9491d0867732ed8a1fad3658cde2ac3d6c7362619b086ffbee871f",
+      "snapshot": {
+        "packages/k8s-client/src/request.ts": "52ab6482ad2f5322f5e0e53e9dd687c905f9e513098ba97c665665ef2b626618"
+      },
+      "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:packages/k8s-client/src/urlHelpers.ts": {
+      "fingerprint": "90bc8af907e47de1ba1888cbaa1bd998549f588504322015285d086e526aba38",
+      "snapshot": {
+        "packages/k8s-client/src/urlHelpers.ts": "64b24aeb96591a6e39d9b7d0fb5571feaa11ad75a3fe5bd6b6db724e5cce7a33"
+      },
+      "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:packages/k8s-client/src/utils.ts": {
+      "fingerprint": "5c2351062ead9468eefbeba040914e140a8ce1aa5e491941dfc36da9f786a467",
+      "snapshot": {
+        "packages/k8s-client/src/utils.ts": "5e0454526187b3e38d6d198a88d81fc37864520580376ae7818ebdaf7922d64c"
+      },
+      "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:packages/k8s-client/src/watch.ts": {
+      "fingerprint": "99ad1cde08929c01de8c56cd31013bd0d1002c0f02eadf379dc352cc9330fb14",
+      "snapshot": {
+        "packages/k8s-client/src/watch.ts": "67f9c5647a1359f92877cfb2d2a071d1de0811f86ad7fd29f39b6dc35ab8ff05"
+      },
+      "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:packages/k8s-client/test/client.test.ts": {
+      "fingerprint": "2d50f499120e345c77db862f10fa2db7739a35146f19fe23c26e0356454d332a",
+      "snapshot": {
+        "packages/k8s-client/test/client.test.ts": "9ed98b2aee5ecbfde3a4b4345b4e66cd938d2b9b2874e70cebf13c72560ae9d8"
+      },
+      "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:packages/k8s-client/test/request.test.ts": {
+      "fingerprint": "77027fc39419a96dcae4cd6c2a729cb4be55c71106ff7bac4e9889be80c0a4fc",
+      "snapshot": {
+        "packages/k8s-client/test/request.test.ts": "a3a47a89e43566de0f351cf6b3188ca28568b14978ca8e1e7bcb08fd77ef1dd5"
+      },
+      "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:packages/k8s-client/test/urlHelpers.test.ts": {
+      "fingerprint": "6b1fd7e75ed5767e44bf4ccdac01d3c37b8e38f56d7d4193cb636c0bd1704d0d",
+      "snapshot": {
+        "packages/k8s-client/test/urlHelpers.test.ts": "d48ca5cc6deca0dbb9e15677d50814f559345801efedd01a64e7a7b421f171ce"
+      },
+      "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:packages/k8s-client/test/watch.test.ts": {
+      "fingerprint": "77331eb4dc63233a858247fd333deb71c3229adba480bb0bb73f7a6a94d9bc34",
+      "snapshot": {
+        "packages/k8s-client/test/watch.test.ts": "a0793ce100c1111938e73f1642a085b4655c8e74cfee80eea06290f44deef4e9"
+      },
+      "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
       ]
     }
   }
