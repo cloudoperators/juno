@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { useState } from "react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { createBrowserHistory, createHashHistory, createRouter, RouterProvider } from "@tanstack/react-router"
 import { z } from "zod"
@@ -16,22 +16,6 @@ import styles from "./styles.css?inline"
 import { StoreProvider } from "./components/StoreProvider"
 import { routeTree } from "./routeTree.gen"
 import { convertAppStateToUrlState, extractSearchStringFromHashFragment, readLegacyUrlState } from "./lib/urlStateUtils"
-
-// Create a new router instance
-const router = createRouter({
-  routeTree,
-  context: {
-    appProps: undefined!,
-    queryClient: undefined!,
-  },
-})
-
-// Register the router instance for type safety
-declare module "@tanstack/react-router" {
-  interface Register {
-    router: typeof router
-  }
-}
 
 export interface AppProps extends PluginProps {
   endpoint: string
@@ -78,16 +62,12 @@ const fallbackRender = ({ error }: any) => {
 
 const urlStateManager = registerConsumer("supernova")
 
-function App(props: AppProps) {
-  /*
-   * Dynamically change the type of history on the router
-   * based on the enableHashedRouting prop. This ensures that
-   * the correct history type is used when A Shell app does not
-   * want the app to use browser history.
-   */
-  router.update({
+// Build the router per mount (not a module-level singleton) so each mount resolves routes fresh.
+const createAppRouter = (props: AppProps) =>
+  createRouter({
     routeTree,
     context: { appProps: props, queryClient },
+    basepath: props.basePath || "/",
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
     stringifySearch: encodeV2,
     parseSearch: (searchString) => {
@@ -121,11 +101,21 @@ function App(props: AppProps) {
     },
   })
 
+// Register the router type for type safety.
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: ReturnType<typeof createAppRouter>
+  }
+}
+
+function App(props: AppProps) {
+  const [router] = useState(() => createAppRouter(props))
+
   return (
     <ErrorBoundary fallbackRender={fallbackRender}>
       <MessagesProvider>
         <QueryClientProvider client={queryClient}>
-          <RouterProvider basepath={props.basePath || "/"} router={router} />
+          <RouterProvider router={router} />
         </QueryClientProvider>
       </MessagesProvider>
     </ErrorBoundary>

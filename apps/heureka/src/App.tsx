@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { StrictMode } from "react"
+import React, { StrictMode, useState } from "react"
 import { ApolloProvider } from "@apollo/client/react"
 import { createRouter, RouterProvider, createHashHistory, createBrowserHistory } from "@tanstack/react-router"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
@@ -35,35 +35,12 @@ export interface AppProps extends PluginProps {
   auth?: EmbeddedAuth | AuthState
 }
 
-const router = createRouter({
-  routeTree,
-  context: {
-    appProps: undefined!,
-    apiClient: undefined!,
-    queryClient: undefined!,
-  },
-})
-
-declare module "@tanstack/react-router" {
-  interface Register {
-    router: typeof router
-  }
-}
-
-const App = (props: AppProps) => {
-  const apiClient = getClient({
-    uri: props.apiEndpoint,
-  })
-
-  /*
-   * Dynamically change the type of history on the router
-   * based on the enableHashedRouting prop. This ensures that
-   * the correct history type is used when A Shell app does not
-   * want the app to use browser history.
-   */
-  router.update({
+// Build the router per mount (not a module-level singleton) so each mount resolves routes fresh.
+const createAppRouter = (props: AppProps, apiClient: ReturnType<typeof getClient>) =>
+  createRouter({
     routeTree,
     context: { appProps: props, apiClient, queryClient },
+    basepath: props.basePath || "/",
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
 
     stringifySearch: encodeV2,
@@ -90,6 +67,17 @@ const App = (props: AppProps) => {
     },
   })
 
+// Register the router type for type safety.
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: ReturnType<typeof createAppRouter>
+  }
+}
+
+const App = (props: AppProps) => {
+  const [apiClient] = useState(() => getClient({ uri: props.apiEndpoint }))
+  const [router] = useState(() => createAppRouter(props, apiClient))
+
   return (
     <QueryClientProvider client={queryClient}>
       <ApolloProvider client={apiClient}>
@@ -108,7 +96,7 @@ const App = (props: AppProps) => {
                     }
                   >
                     <StoreProvider>
-                      <RouterProvider basepath={props.basePath || "/"} router={router} />
+                      <RouterProvider router={router} />
                     </StoreProvider>
                   </AuthProvider>
                 </StrictMode>

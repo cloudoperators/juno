@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { StrictMode, useLayoutEffect } from "react"
+import React, { StrictMode, useLayoutEffect, useState } from "react"
 
 import { AppShellProvider } from "@cloudoperators/juno-ui-components"
 import type { PluginProps } from "@cloudoperators/greenhouse-core"
@@ -18,22 +18,6 @@ import { useGlobalsActions } from "./components/StoreProvider"
 import { routeTree } from "./routeTree.gen"
 import { convertAppStateToUrlState, extractSearchStringFromHashFragment, readLegacyUrlState } from "./lib/urlStateUtils"
 
-// Create a new router instance
-const router = createRouter({
-  routeTree,
-  context: {
-    appProps: undefined!,
-    queryClient: undefined!,
-  },
-})
-
-// Register the router instance for type safety
-declare module "@tanstack/react-router" {
-  interface Register {
-    router: typeof router
-  }
-}
-
 export interface AppProps extends PluginProps {
   id?: string
   apiEndpoint?: string
@@ -45,29 +29,12 @@ export interface AppProps extends PluginProps {
 
 const urlStateManager = registerConsumer("doop")
 
-const App = (props: AppProps = {}) => {
-  // @ts-expect-error TS(2339) FIXME: Property 'setEndpoint' does not exist on type '{}'.
-  const { setEndpoint } = useGlobalsActions()
-
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        meta: {
-          endpoint: props.apiEndpoint,
-        },
-      },
-    },
-  })
-
-  /*
-   * Dynamically change the type of history on the router
-   * based on the enableHashedRouting prop. This ensures that
-   * the correct history type is used when A Shell app does not
-   * want the app to use browser history.
-   */
-  router.update({
+// Build the router per mount (not a module-level singleton) so each mount resolves routes fresh.
+const createAppRouter = (props: AppProps, queryClient: QueryClient) =>
+  createRouter({
     routeTree,
     context: { appProps: props, queryClient },
+    basepath: props.basePath || "/",
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
     stringifySearch: encodeV2,
     parseSearch: (searchString) => {
@@ -103,6 +70,32 @@ const App = (props: AppProps = {}) => {
     },
   })
 
+// Register the router type for type safety.
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: ReturnType<typeof createAppRouter>
+  }
+}
+
+const App = (props: AppProps = {}) => {
+  // @ts-expect-error TS(2339) FIXME: Property 'setEndpoint' does not exist on type '{}'.
+  const { setEndpoint } = useGlobalsActions()
+
+  // One QueryClient and router per mount.
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            meta: {
+              endpoint: props.apiEndpoint,
+            },
+          },
+        },
+      })
+  )
+  const [router] = useState(() => createAppRouter(props, queryClient))
+
   // on load application save the props to be used in oder components
   useLayoutEffect(() => {
     setEndpoint(window.location.origin)
@@ -113,7 +106,7 @@ const App = (props: AppProps = {}) => {
       <AppShell pageHeader={`Doop`} embedded={props.embedded === true}>
         <QueryClientProvider client={queryClient}>
           <StrictMode>
-            <RouterProvider basepath={props.basePath || "/"} router={router} />
+            <RouterProvider router={router} />
           </StrictMode>
         </QueryClientProvider>
       </AppShell>
