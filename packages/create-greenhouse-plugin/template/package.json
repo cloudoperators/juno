@@ -26,8 +26,8 @@
     "typescript": "~7.0.2",
     "vite": "^8.3.6",
     "@tanstack/intent": "^0.5.6",
-    "@tailwindcss/vite": "4.3.3",
-    "tailwindcss": "4.3.3"
+    "@tailwindcss/vite": "4.3.4",
+    "tailwindcss": "4.3.4"
   },
   "author": "__AUTHOR__",
   "repository": "__REPOSITORY__",
