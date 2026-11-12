@@ -104,6 +104,7 @@ export const SecretText = ({
   readOnly = false,
   required = false,
   reveal = false,
+  secretTextFooter,
   successtext,
   toggle = true,
   valid = false,
@@ -258,6 +259,7 @@ export const SecretText = ({
         </div>
 
         <ButtonRow className="jn-secret-actions jn:justify-self-end jn:mt-2">
+          {secretTextFooter}
           {clear && !readOnly ? (
             <Button
               size="small"
@@ -379,6 +381,8 @@ export interface SecretTextProps extends Omit<HTMLAttributes<HTMLTextAreaElement
   required?: boolean
   /** Whether the secret's content is revealed / legible. */
   reveal?: boolean
+  /** Custom content to render to the left of the built-in action buttons. */
+  secretTextFooter?: ReactNode
   /** A small text to display giving information in the context of the secret, e.g. when it was successfully validated or matches specific requirements, etc.  */
   successtext?: ReactNode
   /** Whether a button to toggle visibility of the SecretText's content should be rendered. */

@@ -361,4 +361,17 @@ describe("SecretText", () => {
     render(<SecretText wrapperClassName="my-wrapper-class" />)
     expect(document.querySelector(".my-wrapper-class")).toBeInTheDocument()
   })
+
+  test("renders custom footer content as passed", () => {
+    render(<SecretText secretTextFooter={<button>Download</button>} />)
+    expect(screen.getByRole("button", { name: "Download" })).toBeInTheDocument()
+  })
+
+  test("renders custom footer content before the built-in buttons", () => {
+    render(<SecretText secretTextFooter={<button>Download</button>} />)
+    const buttons = screen.getAllByRole("button")
+    const downloadIndex = buttons.findIndex((b) => b.textContent === "Download")
+    const clearIndex = buttons.findIndex((b) => b.textContent === "Clear")
+    expect(downloadIndex).toBeLessThan(clearIndex)
+  })
 })
