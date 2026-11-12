@@ -1,5 +1,0 @@
-import{n as e}from"./rolldown-runtime-BCiCTKAo.js";import{r as t}from"./react-8KJKb_Eb.js";import{t as n}from"./jsx-runtime-BB9-612F.js";import{n as r,t as i}from"./FormRow.component-6W9z2eqI.js";import{n as a,t as o}from"./TextInput.component-CZf-sP4A.js";var s,c,l,u;function d(){return(d=e((()=>{t(),r(),a(),s=n(),c={title:`Forms/FormRow`,component:i,argTypes:{children:{control:!1,table:{type:{summary:`ReactNode`}}}}},l={args:{children:[(0,s.jsx)(o,{label:`TextInput in a FormRow`,placeholder:`Your input here…`},`1`)]}},u=[`Default`],l.parameters={...l.parameters,docs:{...l.parameters?.docs,source:{originalSource:`{
-  args: {
-    children: [<TextInput label="TextInput in a FormRow" placeholder="Your input here…" key="1" />]
-  }
-}`,...l.parameters?.docs?.source}}}})))()}d();export{l as Default,u as __namedExportsOrder,c as default};
