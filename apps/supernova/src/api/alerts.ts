@@ -15,7 +15,7 @@ export const fetchAlerts = async (endpoint: string) => {
     const response = await fetch(`${endpoint}/alerts`)
 
     if (!response.ok) {
-      // Parse the error object from the responses body
+      // Parse the error object from the response body
       const errorObject = await response.json().catch(() => {
         throw new Error(`Unexpected error: Unable to parse error response.`)
       })
