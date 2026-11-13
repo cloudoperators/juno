@@ -309,27 +309,27 @@
       ]
     },
     "source:apps/heureka/eslint.config.mjs": {
-      "fingerprint": "121642390474539cef52e0046b3cce3e7aead5d0f8b600fe13e6d2f33500dabf",
+      "fingerprint": "640913d2d94abf9b0a6eda2b8650b5179ba4fe617a8bdd3819b70b5c060ee433",
       "snapshot": {
-        "apps/heureka/eslint.config.mjs": "c80e4f09921b3a8945b3bb3aeb02ebf672433a10d424d0a5641ee120be57d922"
+        "apps/heureka/eslint.config.mjs": "5dc8ce8b2d43426c4fb31e9c545dfdf659c24c84f9e8d81b32b531c41ebb6478"
       },
-      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
-      "outcome": "no-change",
-      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
       "evidence": [
-        "Changed: apps/heureka/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+        "No skill exists for this file in ui-components skills/"
       ]
     },
     "source:apps/heureka/src/components/Service/ImageDetails/ChangeSeverityModal/ChangeSeverityModal.test.tsx": {
-      "fingerprint": "592a0208f300e8ca8792be7b5455ae8a6d18faf47927184b8ba3d43a86cddebe",
+      "fingerprint": "072c472d13754ac73d3bcf048e0730d937372877ba4ac03b08a41b33bf80c386",
       "snapshot": {
-        "apps/heureka/src/components/Service/ImageDetails/ChangeSeverityModal/ChangeSeverityModal.test.tsx": "234bce9022cb7426d5d43c32d1c7409aeb8703db2663dbd4b74e2df3b665bd6f"
+        "apps/heureka/src/components/Service/ImageDetails/ChangeSeverityModal/ChangeSeverityModal.test.tsx": "0f78c1c3fb0d08cac6e2bfff24ec2ba2420a8927646a17db0005e45a0732a2d5"
       },
-      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
-      "outcome": "no-change",
-      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
       "evidence": [
-        "Changed: apps/heureka/src/components/Service/ImageDetails/ChangeSeverityModal/ChangeSeverityModal.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+        "No skill exists for this file in ui-components skills/"
       ]
     },
     "source:apps/heureka/src/components/Service/ImageDetails/FalsePositiveModal/FalsePositiveModal.test.tsx": {
@@ -393,27 +393,27 @@
       ]
     },
     "source:apps/heureka/src/components/Service/ImageDetails/RemediationModal/RemediationModal.test.tsx": {
-      "fingerprint": "0bb64d0df273fa01e2a505f978f70169d289eba769c2c1ead084f196922e51d8",
+      "fingerprint": "5d41144608c6eb6219e8dfa8d3e806e062b91b58f21e087d4859441290e56be5",
       "snapshot": {
-        "apps/heureka/src/components/Service/ImageDetails/RemediationModal/RemediationModal.test.tsx": "4d3597f9cf164e38dcf488995d109489df1c85dd288b93bdbbfb732b53104658"
+        "apps/heureka/src/components/Service/ImageDetails/RemediationModal/RemediationModal.test.tsx": "42fc9cf4811f9a872229656658f02ff17f6f39486b33fe44b39da9f46d3a660b"
       },
-      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
-      "outcome": "no-change",
-      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
       "evidence": [
-        "Changed: apps/heureka/src/components/Service/ImageDetails/RemediationModal/RemediationModal.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+        "No skill exists for this file in ui-components skills/"
       ]
     },
     "source:apps/heureka/src/components/Service/ImageDetails/RiskAcceptanceModal/RiskAcceptanceModal.test.tsx": {
-      "fingerprint": "6a0760ecd47a9e7efa95ffbae8771cc4c1daf8d1129ea7af3178cdea21eb2f32",
+      "fingerprint": "cfc62d70a94d7cb460630398a6a3efd2453cc7ce9f371262abaec0872c8add53",
       "snapshot": {
-        "apps/heureka/src/components/Service/ImageDetails/RiskAcceptanceModal/RiskAcceptanceModal.test.tsx": "d50c4b04859e14f08e25e0fb687e8df4729c5be1641bcd908b1d481df53372ff"
+        "apps/heureka/src/components/Service/ImageDetails/RiskAcceptanceModal/RiskAcceptanceModal.test.tsx": "57ba39bb5eacd734ede3ad98b7e44b62b9121f76f1c06cadfb52b9a31f14773e"
       },
-      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
-      "outcome": "no-change",
-      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
       "evidence": [
-        "Changed: apps/heureka/src/components/Service/ImageDetails/RiskAcceptanceModal/RiskAcceptanceModal.test.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+        "No skill exists for this file in ui-components skills/"
       ]
     },
     "source:apps/heureka/src/components/Service/ImageDetails/RiskAcceptanceModal/index.tsx": {
@@ -489,15 +489,15 @@
       ]
     },
     "source:apps/heureka/src/components/common/Breadcrumb.tsx": {
-      "fingerprint": "2db4d1e2bcbb4967366cc589de0dda6d3eae0d6b46d754ed17b79fe697bc63b4",
+      "fingerprint": "74c52a7a7959f6161002ecfed00fc3bd47f408ddfbdc707e6583c3953e0a5591",
       "snapshot": {
-        "apps/heureka/src/components/common/Breadcrumb.tsx": "6529bdf92480f110fc4d01c10470c727b0cc0d62caf30c68d8a461655c236ec4"
+        "apps/heureka/src/components/common/Breadcrumb.tsx": "5a8fd62eda5b00f08d8f214428d59d472a321580e7ca6738f9d8dfa931bde45a"
       },
-      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
-      "outcome": "no-change",
-      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
       "evidence": [
-        "Changed: apps/heureka/src/components/common/Breadcrumb.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+        "No skill exists for this file in ui-components skills/"
       ]
     },
     "source:apps/heureka/src/components/common/EmptyDataGridRow.tsx": {
@@ -609,15 +609,15 @@
       ]
     },
     "source:apps/heureka/src/components/common/IssueIcon.tsx": {
-      "fingerprint": "8481c3b9842f29592def9ced7f26f135827f37f40dd39746372fcd4420d6cd3c",
+      "fingerprint": "97040c50582848db068b60f5453ac1ac66c4668c34527cce183f5d5efb73f213",
       "snapshot": {
-        "apps/heureka/src/components/common/IssueIcon.tsx": "0d23287634f8c4ff2cffd9ec462fad37e22b8277ad6646e21c51a832bcbdc0f1"
+        "apps/heureka/src/components/common/IssueIcon.tsx": "0eab6235564708999024d5356c47eace74af600be5606a0090a5214684c9f562"
       },
-      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
-      "outcome": "no-change",
-      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
       "evidence": [
-        "Changed: apps/heureka/src/components/common/IssueIcon.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+        "No skill exists for this file in ui-components skills/"
       ]
     },
     "source:apps/heureka/src/components/common/IssueTimestamp.tsx": {
@@ -693,15 +693,15 @@
       ]
     },
     "source:apps/heureka/src/components/common/SeverityCount.tsx": {
-      "fingerprint": "aa889d5bc1abfbff207801faf5bbc7378268264835d017810a6a55ec0813d3f9",
+      "fingerprint": "c14698339d02de7723a9cdf9382c7996285c52c6823ab5b656a04f17a2cf29fa",
       "snapshot": {
-        "apps/heureka/src/components/common/SeverityCount.tsx": "f747993853b4abfc57c7591aed76312129d021bf0e5c4cbbf710b1b59d815262"
+        "apps/heureka/src/components/common/SeverityCount.tsx": "747ef873ab5a04a60d4827582d97d6c343915324bdecd5ea4cab00952c5b9a7b"
       },
-      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
-      "outcome": "no-change",
-      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
       "evidence": [
-        "Changed: apps/heureka/src/components/common/SeverityCount.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+        "No skill exists for this file in ui-components skills/"
       ]
     },
     "source:apps/heureka/src/components/common/getErrorDataRow.test.tsx": {
@@ -741,15 +741,15 @@
       ]
     },
     "source:apps/heureka/src/routes/__root.tsx": {
-      "fingerprint": "1c0a35f5436d0e9670a980ee7442f71fa8042da905aa8f8deed97ef8f3f11479",
+      "fingerprint": "cb33e6e79699da3d362c5d6b12579a4f5850e36de33fd28c2eec3895efc2781c",
       "snapshot": {
-        "apps/heureka/src/routes/__root.tsx": "e796b639461d30585730ba429590898a8568fffb128e8e5f4f82bfcfd8ee212a"
+        "apps/heureka/src/routes/__root.tsx": "8a252197e82f9f71bfa64a473047e9db344981f4362c6c2138c2d26c15a9062f"
       },
-      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
-      "outcome": "no-change",
-      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
       "evidence": [
-        "Changed: apps/heureka/src/routes/__root.tsx at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+        "No skill exists for this file in ui-components skills/"
       ]
     },
     "source:apps/heureka/tsconfig.json": {
@@ -909,15 +909,15 @@
       ]
     },
     "source:packages/config/eslint/vite-react-ts.mjs": {
-      "fingerprint": "b41b2f044255bbe42899071037b132216142054eccdc9dd81b8c68f02fdac759",
+      "fingerprint": "79f87bc7a7d6d2155808c6af70773261882b7643a917cda730c7e7ab3565a070",
       "snapshot": {
-        "packages/config/eslint/vite-react-ts.mjs": "cfa4467420a664cfe207cf7adea3d931cde3267116ab29eda218a27a44c85b5e"
+        "packages/config/eslint/vite-react-ts.mjs": "2e393c34c441aa553fb303a21e4e678f975b32789b6742bdc4601c270f5d6187"
       },
-      "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
-      "outcome": "no-change",
-      "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
       "evidence": [
-        "Changed: packages/config/eslint/vite-react-ts.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+        "No skill exists for this file in ui-components skills/"
       ]
     },
     "source:packages/config/eslint/vite-ts.mjs": {
@@ -1859,15 +1859,15 @@
       ]
     },
     "source:apps/heureka/src/App.tsx": {
-      "fingerprint": "b8ec24ba0f7492ab768106bf07ad9244d43911bd1d783b53277f13468fa819a0",
+      "fingerprint": "d312fbebda8b1f20933ef6876494eb223b5f1e7936e4c93f80093f4b78a3567b",
       "snapshot": {
-        "apps/heureka/src/App.tsx": "528194082391ddc4ffd91b4f279a2423fd6f9f0fcc5fd23db5297d2c65380d24"
+        "apps/heureka/src/App.tsx": "c11fcb12502ab4b0d6af4eda42152152cdb67d4b6c1310f4fd9310245ea8e923"
       },
-      "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
-      "outcome": "no-change",
-      "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
       "evidence": [
-        "Changed: apps/heureka/src/App.tsx at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+        "No skill exists for this file in ui-components skills/"
       ]
     },
     "source:apps/heureka/src/types/index.d.ts": {
@@ -2711,13 +2711,13 @@
       ]
     },
     "source:packages/ui-components/src/components/SecretText/SecretText.component.tsx": {
-      "fingerprint": "f3a57e2aaf27bbc61b94713d6160ad57a920387816619ddcf90801e69307f0ee",
+      "fingerprint": "903a87897306b021ca6be72820810d189e6c0112efd30a58767428fa1a8e7325",
       "snapshot": {
-        "packages/ui-components/src/components/SecretText/SecretText.component.tsx": "7676fce0d765918142460f8fa694e395a7ceb88f572547656d161dfb41ca2309"
+        "packages/ui-components/src/components/SecretText/SecretText.component.tsx": "b6f3e719150da4e85c7302e8c58c692430112b9d8d05d5eedcebc6741aa0aa8f"
       },
-      "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
-      "reason": "SecretText has no skills defined yet; changes add secretTextFooter prop and fix identifier/state classes",
+      "reason": "SecretText has no skills defined yet",
       "evidence": [
         "skills/ directory has no SecretText entry"
       ]
@@ -2874,6 +2874,174 @@
       "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:apps/heureka/src/components/Service/ImageDetails/ChangeSeverityModal/index.tsx": {
+      "fingerprint": "6e9e78f637a1b7de497c7c5fb68febec258451f8d52cb5e756b879fcbd7fba5a",
+      "snapshot": {
+        "apps/heureka/src/components/Service/ImageDetails/ChangeSeverityModal/index.tsx": "9128c522fc753aa9e78ca4176cac210c60cb1aeb64db99735e1b06365ce6d437"
+      },
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:apps/heureka/src/components/Service/ImageDetails/ImageIssuesList/index.tsx": {
+      "fingerprint": "a94769748048a63de759fe9bc375cb5d72c60a1b6a5e620cd651b389ec8e8712",
+      "snapshot": {
+        "apps/heureka/src/components/Service/ImageDetails/ImageIssuesList/index.tsx": "5f6f05caa0df4352d71475549811cd3d8b22126c42c74b0c23db6ff4a4d74a4a"
+      },
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:apps/heureka/src/components/Service/ImageDetails/ImageVersionOccurrences.tsx": {
+      "fingerprint": "b9732eea70f69987677bd39c5cf8a2af602c2b195c96fc37b56f3cdebe27fd8d",
+      "snapshot": {
+        "apps/heureka/src/components/Service/ImageDetails/ImageVersionOccurrences.tsx": "8ca43cd87ac06fef58bc5575934d58fabadff9a38b84b0b2d5c1c486b677c729"
+      },
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:apps/heureka/src/components/Service/ImageDetails/RemediationModal/index.tsx": {
+      "fingerprint": "ae182e6a8d3a9324c1ad8b36271bf9a0990a9444f04bc2361205f04fecd2737b",
+      "snapshot": {
+        "apps/heureka/src/components/Service/ImageDetails/RemediationModal/index.tsx": "0a1cb1957f8a76e99943315e9dcee4137ae3bc8310c23333085758cc99e86739"
+      },
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:apps/heureka/src/components/Service/ImageVersionDetails/ImageVersionOccurrences.tsx": {
+      "fingerprint": "886bc8a9c3b5c00496447cfa8e3bcf820f0a275de78f78feece55f971a52c7f9",
+      "snapshot": {
+        "apps/heureka/src/components/Service/ImageVersionDetails/ImageVersionOccurrences.tsx": "42dd88d1ad8844eb3c23ef8c432f23b31066c8bd74111f3be33a5d2752c519a2"
+      },
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:apps/heureka/src/components/Service/index.tsx": {
+      "fingerprint": "a6facb76c2e2e651d3452e939a76ade97e140922316b3ed10fb0268eae0057c1",
+      "snapshot": {
+        "apps/heureka/src/components/Service/index.tsx": "ba54156b970f5fcddb70279a3ee3374454c85a62c8764039e6b41dfc1a08f185"
+      },
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:apps/heureka/src/components/Services/ServicesList/index.tsx": {
+      "fingerprint": "cbaade263823ed5de9c2384eeb54f1022d10087bc55585349a020f736c256491",
+      "snapshot": {
+        "apps/heureka/src/components/Services/ServicesList/index.tsx": "c46678191db2e1f0c5a6015cbbc26d9378d1eb1b812a550819af7136d208d197"
+      },
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:apps/heureka/src/components/Vulnerabilities/VulnerabilitiesList/VulnerabilitiesDataRows/VulnerabilityDataRow.tsx": {
+      "fingerprint": "bfdf8599f347bd890b3379da263eb449ff2e7883f8d1e3935b53ce6a85060a6e",
+      "snapshot": {
+        "apps/heureka/src/components/Vulnerabilities/VulnerabilitiesList/VulnerabilitiesDataRows/VulnerabilityDataRow.tsx": "f41e704cad406420805b122c83c178c1555d5373250520340d10d8bad2c6a419"
+      },
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:apps/heureka/src/components/Vulnerabilities/VulnerabilitiesList/index.tsx": {
+      "fingerprint": "52d8cf5f36455e0d431a8c9718a061f9a567479025e5ce83059f33231f19a232",
+      "snapshot": {
+        "apps/heureka/src/components/Vulnerabilities/VulnerabilitiesList/index.tsx": "460f1c3c087c500b67033d22d0714b02f92eb635ced612557a4ed72bf8afb97f"
+      },
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:apps/heureka/src/routes/services/$service/images/$image.tsx": {
+      "fingerprint": "04d849fadd42a84a8b2cf46f8e254ba158a23e41bf6f03d85013831adc6eeae5",
+      "snapshot": {
+        "apps/heureka/src/routes/services/$service/images/$image.tsx": "448b85206287c12bdad1ddca3e9dfd72880a44b779278c7bfc06a58a8ecbc3d3"
+      },
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:apps/heureka/src/routes/services/$service/images/$image/versions/$version.tsx": {
+      "fingerprint": "15ea3dc75b398051287d5912ea279031edace88dc9aa6caf6dcff44046b3124a",
+      "snapshot": {
+        "apps/heureka/src/routes/services/$service/images/$image/versions/$version.tsx": "a98770c8a6ce9974dbfc770470552ab45ad9123fa0acf0b6a26de0ba25e49e30"
+      },
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:apps/heureka/src/routes/services/index.tsx": {
+      "fingerprint": "488d58c96d685411defc51992f83584474bf7e81a00a9311592f5219fb9a720e",
+      "snapshot": {
+        "apps/heureka/src/routes/services/index.tsx": "e465cb0bdac0faeaeb87f3816ff5a288f68f2577193cbe59852937b9c19a0106"
+      },
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:apps/heureka/src/store/StoreContext.ts": {
+      "fingerprint": "61b8884d013f9ce9185579343768ed9eb5b24d9012a4c63d3c0c48aeeb81617a",
+      "snapshot": {
+        "apps/heureka/src/store/StoreContext.ts": "7e444bc24d52bd7b10abd84a07bec7a5909a5367240e4c0bb0d1bfea7134c330"
+      },
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "source:apps/heureka/src/store/StoreProvider.tsx": {
+      "fingerprint": "063e7afc8fa46e0e271dfd9bcdc377a13595df54098a9aadb653c8cee5e9d280",
+      "snapshot": {
+        "apps/heureka/src/store/StoreProvider.tsx": "45646b01c0a103920e3eb88e08e628255c16fd517dc2236b7cc8b235df4c5808"
+      },
+      "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
+      "outcome": "out-of-scope",
+      "reason": "Source file from unrelated package/app with no skill mapping",
       "evidence": [
         "No skill exists for this file in ui-components skills/"
       ]
