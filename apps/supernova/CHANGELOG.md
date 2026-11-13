@@ -1,5 +1,18 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.20.21
+
+### Patch Changes
+
+- b3d8a3f: Build the TanStack router per mount so a plugin restores its sub-route when navigating away and back.
+- 671b1f4: fix(supernova): remove stale module-level deduplication in fetchAlerts that caused alerts to be empty after switching apps on the demo domain
+- Updated dependencies [6633d54]
+- Updated dependencies [6633d54]
+- Updated dependencies [c8bbbd8]
+  - @cloudoperators/greenhouse-core@0.2.2
+  - @cloudoperators/juno-messages-provider@0.2.63
+  - @cloudoperators/juno-ui-components@9.10.0
+
 ## 0.20.20
 
 ### Patch Changes

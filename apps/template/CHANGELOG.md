@@ -1,5 +1,32 @@
 # @cloudoperators/juno-app-template
 
+## 2.0.61
+
+### Patch Changes
+
+- 6633d54: feat(template): instrument on greenhouse-core and initialize TanStack Intent
+
+  Migrate `apps/template` to the shared plugin contract and set it up as the
+  reference TanStack Intent consumer:
+  - Export the plugin via `createPlugin(App)` from `@cloudoperators/greenhouse-core`
+    instead of the hand-written mount/unmount lifecycle, matching doop/heureka/supernova.
+  - Adopt the shared `PluginProps` contract in `App.tsx` (theme/embedded) while
+    preserving the existing template content.
+  - Standalone `index.html` now mounts via `app.plugin.mount(...)`.
+  - Add an `intent.skills` allowlist so the app discovers and loads the skills shipped
+    by `@cloudoperators/juno-ui-components`, with skill-loading guidance in `AGENTS.md`.
+
+- ad7d348: fix(template): externalize react, greenhouse-core, and juno-ui-components in library build
+
+  Add `rollupOptions.external` to `vite.config.ts` so the library build does not bundle
+  react, `@cloudoperators/greenhouse-core`, or `@cloudoperators/juno-ui-components` — these
+  are provided by the host at runtime.
+
+- Updated dependencies [6633d54]
+- Updated dependencies [c8bbbd8]
+  - @cloudoperators/greenhouse-core@0.2.2
+  - @cloudoperators/juno-ui-components@9.10.0
+
 ## 2.0.60
 
 ### Patch Changes

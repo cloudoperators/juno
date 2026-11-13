@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 9.10.0
+
+### Minor Changes
+
+- c8bbbd8: feat(ui): add secretTextFooter prop to SecretText
+
 ## 9.9.2
 
 ### Patch Changes

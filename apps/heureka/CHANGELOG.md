@@ -1,5 +1,15 @@
 # heureka
 
+## 1.1.27
+
+### Patch Changes
+
+- b3d8a3f: Build the TanStack router per mount so a plugin restores its sub-route when navigating away and back.
+- Updated dependencies [6633d54]
+- Updated dependencies [c8bbbd8]
+  - @cloudoperators/greenhouse-core@0.2.2
+  - @cloudoperators/juno-ui-components@9.10.0
+
 ## 1.1.26
 
 ### Patch Changes
