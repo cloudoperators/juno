@@ -19,8 +19,8 @@ const mockOnToggle = vi.fn()
 describe("SecretText", () => {
   test("renders a SecretText component", () => {
     render(<SecretText />)
-    expect(screen.getByRole("textbox")).toBeInTheDocument()
-    expect(screen.getByRole("textbox")).toHaveClass("juno-secret-textarea")
+    expect(document.querySelector(".juno-secrettext")).toBeInTheDocument()
+    expect(screen.getByRole("textbox")).toHaveClass("juno-secrettext-textarea")
   })
 
   test("renders an autocomplete attribute to the SecretText textarea", () => {
@@ -175,21 +175,21 @@ describe("SecretText", () => {
   test("does not render a Toggle button if passed", () => {
     render(<SecretText toggle={false} />)
     expect(screen.getByRole("textbox")).toBeInTheDocument()
-    expect(screen.getByRole("textbox")).toHaveClass("juno-secret-textarea")
+    expect(screen.getByRole("textbox")).toHaveClass("juno-secrettext-textarea")
     expect(screen.queryByRole("button", { name: "Hide" })).not.toBeInTheDocument()
     expect(screen.queryByRole("button", { name: "Reveal" })).not.toBeInTheDocument()
   })
 
   test("renders an invalid SecretText", () => {
     render(<SecretText invalid />)
-    expect(screen.getByRole("textbox")).toHaveClass("juno-secret-textarea")
+    expect(screen.getByRole("textbox")).toHaveClass("juno-secrettext-textarea")
     expect(screen.getByRole("textbox")).toHaveClass("juno-textarea-invalid")
     expect(screen.getByTitle("Dangerous")).toBeInTheDocument()
   })
 
   test("renders a valid SecretText", () => {
     render(<SecretText valid />)
-    expect(screen.getByRole("textbox")).toHaveClass("juno-secret-textarea")
+    expect(screen.getByRole("textbox")).toHaveClass("juno-secrettext-textarea")
     expect(screen.getByRole("textbox")).toHaveClass("juno-textarea-valid")
     expect(screen.getByTitle("CheckCircle")).toBeInTheDocument()
   })
@@ -360,5 +360,33 @@ describe("SecretText", () => {
   test("renders a wrapperClassName to the outermost wrapping element", () => {
     render(<SecretText wrapperClassName="my-wrapper-class" />)
     expect(document.querySelector(".my-wrapper-class")).toBeInTheDocument()
+  })
+
+  test("renders a hidden state class by default", () => {
+    render(<SecretText />)
+    expect(document.querySelector(".juno-secrettext")).toHaveClass("juno-secrettext-hidden")
+  })
+
+  test("renders a revealed state class when set to reveal", () => {
+    render(<SecretText reveal />)
+    expect(document.querySelector(".juno-secrettext")).toHaveClass("juno-secrettext-revealed")
+  })
+
+  test("renders a disabled state class when disabled", () => {
+    render(<SecretText disabled />)
+    expect(document.querySelector(".juno-secrettext")).toHaveClass("juno-secrettext-disabled")
+  })
+
+  test("renders custom footer content as passed", () => {
+    render(<SecretText secretTextFooter={<button>Download</button>} />)
+    expect(screen.getByRole("button", { name: "Download" })).toBeInTheDocument()
+  })
+
+  test("renders custom footer content before the built-in buttons", () => {
+    render(<SecretText secretTextFooter={<button>Download</button>} />)
+    const buttons = screen.getAllByRole("button")
+    const downloadIndex = buttons.findIndex((b) => b.textContent === "Download")
+    const clearIndex = buttons.findIndex((b) => b.textContent === "Clear")
+    expect(downloadIndex).toBeLessThan(clearIndex)
   })
 })

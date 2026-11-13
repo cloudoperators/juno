@@ -4,7 +4,9 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react-vite"
+import React from "react"
 import { SecretText } from "./SecretText.component"
+import { Button } from "../Button"
 
 const meta: Meta<typeof SecretText> = {
   title: "Forms/SecretText",
@@ -20,6 +22,10 @@ const meta: Meta<typeof SecretText> = {
     },
     successtext: {
       control: "text",
+      table: { type: { summary: "ReactNode" } },
+    },
+    secretTextFooter: {
+      control: false,
       table: { type: { summary: "ReactNode" } },
     },
     onBlur: {
@@ -135,4 +141,33 @@ export const ReadOnly: Story = {
       "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEArvLhT1yR4G3l0aTmUjP6ktK8xVJcQoZi/s5NQq5Z9ENJkZnQ+2lPkhslk/qf3AQHfw5QrI2vQjN5CvX0b8LS5yX+TYEkFpeQZD6b2CqY3OJVTzH1eENBoM1yTlgZe9UdU6wYuR+9p/JrDJ8KjzOG6uToINt6XodR9nMFLAnZHSqQoP/M2w1PCoWXgF5VtRt1UOcMZJX1C8KRdzvF4X6YBY4tMX1FfH5/Uj2Kn6h8u38fUqsn2wrAVzpPnSXPU1eHsdJZGn4dd+3Q8p0K9rwnX1LrF57ZxKxe/mKm",
     helptext: "This secret text can not be edited.",
   },
+}
+
+const secretValue =
+  "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEArvLhT1yR4G3l0aTmUjP6ktK8xVJcQoZi/s5NQq5Z9ENJkZnQ+2lPkhslk/qf3AQHfw5QrI2vQjN5CvX0b8LS5yX+TYEkFpeQZD6b2CqY3OJVTzH1eENBoM1yTlgZe9UdU6wYuR+9p/JrDJ8KjzOG6uToINt6XodR9nMFLAnZHSqQoP/M2w1PCoWXgF5VtRt1UOcMZJX1C8KRdzvF4X6YBY4tMX1FfH5/Uj2Kn6h8u38fUqsn2wrAVzpPnSXPU1eHsdJZGn4dd+3Q8p0K9rwnX1LrF57ZxKxe/mKm"
+
+export const CustomSecretTextFooter: Story = {
+  name: "SecretText with Custom Footer",
+  args: {
+    clear: false,
+    paste: false,
+    value: secretValue,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Pass content into `secretTextFooter` to add custom actions to the action bar, rendered to the left of the built-in buttons.",
+      },
+      source: {
+        code: `<SecretText
+  value={secret}
+  secretTextFooter={<Button size="small">Download</Button>}
+  clear={false}
+  paste={false}
+/>`,
+      },
+    },
+  },
+  render: (args) => <SecretText {...args} secretTextFooter={<Button size="small">Download</Button>} />,
 }
