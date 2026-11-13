@@ -4,7 +4,6 @@
  */
 
 import { sortAlerts, countAlerts } from "../lib/utils"
-let compareAlertString: any
 
 export interface AlertsData {
   alerts: any
@@ -16,7 +15,7 @@ export const fetchAlerts = async (endpoint: string) => {
     const response = await fetch(`${endpoint}/alerts`)
 
     if (!response.ok) {
-      // Parse the error object from the response body
+      // Parse the error object from the responses body
       const errorObject = await response.json().catch(() => {
         throw new Error(`Unexpected error: Unable to parse error response.`)
       })
@@ -36,19 +35,9 @@ export const fetchAlerts = async (endpoint: string) => {
       }
     })
 
-    // check if new loaded alerts are different from the last response
-    const newCompareString = JSON.stringify(alerts)
-    if (compareAlertString !== newCompareString) {
-      compareAlertString = newCompareString
-
-      // inform listener to receive new alerts
-      return {
-        alerts: alerts,
-        counts: countAlerts(alerts),
-      }
-    } else {
-      // return null when nothing new
-      return null
+    return {
+      alerts: alerts,
+      counts: countAlerts(alerts),
     }
   } catch (error) {
     console.error(error)
