@@ -261,7 +261,7 @@ export const SecretText = ({
           {helptext && isNotEmptyString(helptext) ? <FormHint text={helptext} className={`${hintStyles}`} /> : ""}
         </div>
 
-        <ButtonRow className="jn-secret-actions jn:justify-self-end jn:mt-2">
+        <ButtonRow className="juno-secrettext-actions jn:justify-self-end jn:mt-2">
           {secretTextFooter}
           {clear && !readOnly ? (
             <Button
