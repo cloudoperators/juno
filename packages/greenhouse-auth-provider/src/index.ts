@@ -6,4 +6,5 @@
 export type { AuthState, EmbeddedAuth } from "./shared/auth-contract"
 export { createAuthStore } from "./shell/createAuthStore"
 export type { AuthStore } from "./shell/createAuthStore"
-export { AuthProvider, useAuth } from "./plugin/AuthProvider"
+export { AuthProvider } from "./plugin/AuthProvider"
+export { useAuth } from "./plugin/useAuth"

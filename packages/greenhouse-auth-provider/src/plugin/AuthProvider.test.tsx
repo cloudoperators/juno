@@ -5,7 +5,8 @@
 
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import { AuthProvider, useAuth } from "./AuthProvider"
+import { AuthProvider } from "./AuthProvider"
+import { useAuth } from "./useAuth"
 import type { EmbeddedAuth } from "../shared/auth-contract"
 
 const TestComponent = () => {

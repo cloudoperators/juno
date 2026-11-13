@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { createContext, useContext, ReactNode } from "react"
-import type { AuthState, EmbeddedAuth } from "../shared/auth-contract"
+import React, { ReactNode } from "react"
+import type { EmbeddedAuth } from "../shared/auth-contract"
+import { AuthContext } from "./AuthContext"
 
 type EmbeddedAuthProps = {
   auth: EmbeddedAuth
@@ -17,8 +18,6 @@ type StandaloneAuthProps = {
 
 type AuthProviderProps = ({ embedded: true } & EmbeddedAuthProps) | ({ embedded?: false } & StandaloneAuthProps)
 
-const AuthContext = createContext<AuthState | null>(null)
-
 const EmbeddedAuthProvider = ({ auth, children }: EmbeddedAuthProps) => {
   // Read the snapshot on every render - the shell remounts the plugin when auth changes
   return <AuthContext.Provider value={auth.getSnapshot()}>{children}</AuthContext.Provider>
@@ -27,10 +26,4 @@ const EmbeddedAuthProvider = ({ auth, children }: EmbeddedAuthProps) => {
 export function AuthProvider(props: AuthProviderProps) {
   if (!props.embedded) return <>{props.children}</>
   return <EmbeddedAuthProvider auth={props.auth}>{props.children}</EmbeddedAuthProvider>
-}
-
-export const useAuth = () => {
-  const context = useContext(AuthContext)
-  if (!context) throw new Error("useAuth must be used inside AuthProvider")
-  return context
 }

@@ -12,7 +12,7 @@ interface AppProps extends PluginProps {
   label?: string
 }
 
-const App = ({ label = "default-label" }: AppProps) => <p data-testid="app">{label}</p>
+const App = ({ label = "default-label" }: AppProps) => React.createElement("p", { "data-testid": "app" }, label)
 
 // Build `MountOptions` from the plugin's own `AppProps` for the tests below. Since `AppProps
 // extends PluginProps`, the plugin's shape is assignable to the host's `MountOptions.props`
