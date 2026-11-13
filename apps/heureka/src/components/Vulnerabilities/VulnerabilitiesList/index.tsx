@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Suspense, useCallback, useEffect, useState } from "react"
+import React, { Suspense, useCallback, useState } from "react"
 import { useRouteContext, useLoaderData } from "@tanstack/react-router"
 import { DataGrid, DataGridRow, DataGridHeadCell, Icon } from "@cloudoperators/juno-ui-components"
 import { getNormalizedVulnerabilitiesResponse } from "../utils"
@@ -21,6 +21,11 @@ export const VulnerabilitiesList = () => {
     from: "/vulnerabilities/",
   })
   const [vulnerabilitiesPromise, setVulnerabilitiesPromise] = useState(pageLevelVulnerabilitiesPromise)
+  const [prevPageLevelPromise, setPrevPageLevelPromise] = useState(pageLevelVulnerabilitiesPromise)
+  if (prevPageLevelPromise !== pageLevelVulnerabilitiesPromise) {
+    setPrevPageLevelPromise(pageLevelVulnerabilitiesPromise)
+    setVulnerabilitiesPromise(pageLevelVulnerabilitiesPromise)
+  }
 
   // fetch vulnerabilities for a specific page
   const goToPage = useCallback(
@@ -35,15 +40,6 @@ export const VulnerabilitiesList = () => {
     },
     [setVulnerabilitiesPromise, queryClient, apiClient, filterSettings]
   )
-
-  /*
-   * If pageLevelVulnerabilitiesPromise is changed because of changed filter settings for example,
-   * we need to update the vulnerabilitiesPromise state to trigger a re-render.
-   * ¯\_(ツ)_/¯
-   */
-  useEffect(() => {
-    setVulnerabilitiesPromise(pageLevelVulnerabilitiesPromise)
-  }, [setVulnerabilitiesPromise, pageLevelVulnerabilitiesPromise])
 
   return (
     <div className="datagrid-hover">

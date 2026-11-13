@@ -80,14 +80,6 @@ export const ChangeSeverityModal: React.FC<ChangeSeverityModalProps> = ({
     }
   }, [])
 
-  useEffect(() => {
-    if (!open) {
-      setForm(EMPTY_FORM)
-      setErrors(EMPTY_ERRORS)
-      setApiError(null)
-    }
-  }, [open])
-
   const descriptionTrimmed = form.description.trim()
 
   const handleConfirm = async () => {
@@ -129,6 +121,7 @@ export const ChangeSeverityModal: React.FC<ChangeSeverityModalProps> = ({
         setApiError(result.error)
       } else {
         setForm(EMPTY_FORM)
+        setApiError(null)
         onClose()
       }
     } catch (error) {

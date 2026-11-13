@@ -30,6 +30,8 @@ export default tseslint.config(
       ...tseslint.configs.recommendedTypeChecked,
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
+      // Allow TanStack Router's Route export alongside component exports in route files
+      { rules: { "react-refresh/only-export-components": ["warn", { allowConstantExport: true, allowExportNames: ["Route"] }] } },
     ],
     languageOptions: {
       globals: globals.browser,

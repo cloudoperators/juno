@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, MouseEvent, useEffect } from "react"
+import React, { useState, MouseEvent } from "react"
 import { Box, Stack, Tooltip, TooltipTrigger, TooltipContent, Icon } from "@cloudoperators/juno-ui-components"
 import { ServiceImageVersion, ComponentInstance } from "../../Services/utils"
 
@@ -64,13 +64,13 @@ type ImageVersionOccurrencesProps = {
 
 const ImageVersionOccurrences = ({ imageVersion }: ImageVersionOccurrencesProps) => {
   const [displayOccurrences, setDisplayOccurrences] = useState(false)
+  const [prevImageVersion, setPrevImageVersion] = useState(imageVersion)
+  if (prevImageVersion !== imageVersion) {
+    setPrevImageVersion(imageVersion)
+    setDisplayOccurrences(false)
+  }
   const componentInstances = imageVersion.componentInstances || []
   const grouped = groupInstances(componentInstances)
-
-  useEffect(() => {
-    // Reset state when myProp changes
-    setDisplayOccurrences(false)
-  }, [imageVersion])
 
   const onShowMoreClicked = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()

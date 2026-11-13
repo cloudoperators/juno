@@ -41,7 +41,7 @@ export const Route = createFileRoute("/services/$service/images/$image/versions/
   component: ImageVersionDetailsPage,
 })
 
-function ImageVersionDetailsPage() {
+export function ImageVersionDetailsPage() {
   const { imageVersionsPromise, decodedParams } = Route.useLoaderData()
   const { service, image, version } = decodedParams
 
