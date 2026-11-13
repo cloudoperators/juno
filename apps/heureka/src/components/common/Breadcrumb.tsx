@@ -26,7 +26,7 @@ export const Breadcrumb = () => {
           <BreadcrumbItem
             key={i}
             label={crumb?.label}
-            icon={"icon" in crumb ? crumb.icon : undefined} // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+            icon={"icon" in crumb ? crumb.icon : undefined}
             onClick={(e: MouseEvent) => {
               e.preventDefault()
               void navigate({

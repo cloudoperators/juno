@@ -15,7 +15,7 @@ export const Route = createRootRouteWithContext<RouteContext>()({
   errorComponent: RootError,
 })
 
-function Root() {
+export function Root() {
   return (
     <>
       <Navigation />
@@ -27,7 +27,7 @@ function Root() {
   )
 }
 
-function RootError({ error }: ErrorComponentProps) {
+export function RootError({ error }: ErrorComponentProps) {
   return (
     <>
       <Navigation />

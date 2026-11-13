@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Suspense, useState, useCallback, useEffect } from "react"
+import React, { Suspense, useState, useCallback } from "react"
 import { useNavigate, useRouteContext } from "@tanstack/react-router"
 import {
   DataGrid,
@@ -243,6 +243,11 @@ export const ImageIssuesList = ({
   const [remediatedSearchTerm, setRemediatedSearchTerm] = useState<string | undefined>(undefined)
   const [pageCursor, setPageCursor] = useState<string | null | undefined>(undefined)
   const [remediatedPageCursor, setRemediatedPageCursor] = useState<string | null | undefined>(undefined)
+  const [prevRemediatedSearchTerm, setPrevRemediatedSearchTerm] = useState(remediatedSearchTerm)
+  if (prevRemediatedSearchTerm !== remediatedSearchTerm) {
+    setPrevRemediatedSearchTerm(remediatedSearchTerm)
+    setRemediatedPageCursor(undefined)
+  }
   const selectedTabIndex = vulnerabilitiesTab === "remediated" ? 1 : 0
   const handleTabSelect = useCallback(
     (index: number) => {
@@ -329,10 +334,6 @@ export const ImageIssuesList = ({
     afterVulnerabilities: remediatedPageCursor,
     vulFilter: remediatedVulFilter,
   })
-
-  useEffect(() => {
-    setRemediatedPageCursor(undefined)
-  }, [remediatedSearchTerm])
 
   const remediationsPromise = fetchRemediations({
     apiClient,

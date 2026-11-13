@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Suspense, useCallback, useEffect, useState } from "react"
+import React, { Suspense, useCallback, useState } from "react"
 import { DataGrid, DataGridRow, DataGridHeadCell } from "@cloudoperators/juno-ui-components"
 import { ServicePanel } from "./ServicePanel"
 import { ServicesDataRows } from "./ServicesDataRows"
@@ -21,6 +21,11 @@ export const ServicesList = () => {
   const { queryClient, apiClient } = useRouteContext({ from: "/services/" })
   const { servicesPromise: pageLevelServicesPromise, filterSettings } = useLoaderData({ from: "/services/" })
   const [servicesPromise, setServicesPromise] = useState(pageLevelServicesPromise)
+  const [prevPageLevelPromise, setPrevPageLevelPromise] = useState(pageLevelServicesPromise)
+  if (prevPageLevelPromise !== pageLevelServicesPromise) {
+    setPrevPageLevelPromise(pageLevelServicesPromise)
+    setServicesPromise(pageLevelServicesPromise)
+  }
 
   // fetch services for a specific page
   const goToPage = useCallback(
@@ -35,15 +40,6 @@ export const ServicesList = () => {
     },
     [setServicesPromise, queryClient, apiClient, filterSettings]
   )
-
-  /*
-   * If pageLevelServicesPromise is changed because of changed filter settings for example,
-   * we need to update the servicesPromise state to trigger a re-render.
-   * ¯\_(ツ)_/¯
-   */
-  useEffect(() => {
-    setServicesPromise(pageLevelServicesPromise)
-  }, [setServicesPromise, pageLevelServicesPromise])
 
   return (
     <div className="datagrid-hover">

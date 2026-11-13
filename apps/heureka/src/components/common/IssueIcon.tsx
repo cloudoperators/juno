@@ -5,7 +5,6 @@
 // juno-ui-components' KnownIcons and color types resolve as error-typed values in CI
 // (node_modules not fully resolved during type-checking). This disable is CI-only
 // and has no effect in local development where types resolve correctly.
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 import { FC } from "react"
 import { Icon } from "@cloudoperators/juno-ui-components"

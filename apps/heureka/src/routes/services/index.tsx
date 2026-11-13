@@ -5,7 +5,7 @@
 import React, { useLayoutEffect } from "react"
 import { useNavigate, useRouteContext, useSearch } from "@tanstack/react-router"
 import { getFiltersForUrl, getInitialFilters } from "../../components/Services/utils"
-import { useStore } from "../../store/StoreProvider"
+import { useStore } from "../../store/StoreContext"
 import { createFileRoute } from "@tanstack/react-router"
 import { z } from "zod"
 import { Services } from "../../components/Services"
@@ -60,7 +60,7 @@ export const Route = createFileRoute("/services/")({
   component: RouteComponent,
 })
 
-function RouteComponent() {
+export function RouteComponent() {
   const navigate = useNavigate()
   const { appProps } = useRouteContext({ from: "/services/" })
   const search = useSearch({ from: "/services/" })

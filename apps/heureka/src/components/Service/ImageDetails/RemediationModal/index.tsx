@@ -87,14 +87,6 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
     }
   }, [])
 
-  useEffect(() => {
-    if (!open) {
-      setForm(EMPTY_FORM)
-      setErrors(EMPTY_ERRORS)
-      setApiError(null)
-    }
-  }, [open])
-
   const descriptionTrimmed = form.description.trim()
   const sourceTicketTrimmed = form.sourceTicket.trim()
 
@@ -143,6 +135,7 @@ export const RemediationModal: React.FC<RemediationModalProps> = ({
         setApiError(result.error)
       } else if (isMountedRef.current) {
         setForm(EMPTY_FORM)
+        setApiError(null)
         onClose()
       }
     } catch (error) {
