@@ -1,0 +1,12 @@
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { Toast } from './index';
+declare const meta: Meta<typeof Toast>;
+export default meta;
+type Story = StoryObj<typeof meta>;
+export declare const Default: Story;
+export declare const Warning: Story;
+export declare const Error: Story;
+export declare const Danger: Story;
+export declare const Success: Story;
+export declare const ToastWithLongText: Story;
+//# sourceMappingURL=Toast.stories.d.ts.map
