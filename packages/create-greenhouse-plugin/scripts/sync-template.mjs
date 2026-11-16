@@ -109,14 +109,15 @@ function patchPackageJson() {
     "@tanstack/intent": `^${INTENT_VERSION}`,
     // vite.config.ts imports these; src/styles.css imports tailwindcss
     "@tailwindcss/vite": TEMPLATE_PKG.devDependencies["@tailwindcss/vite"],
-    "tailwindcss": TEMPLATE_PKG.devDependencies["tailwindcss"],
+    tailwindcss: TEMPLATE_PKG.devDependencies["tailwindcss"],
   }
 
-  // Add build:static and typecheck which vite's template doesn't include.
+  // Add build:remote/build:static and typecheck which vite's template doesn't include.
   pkg.scripts = {
     ...pkg.scripts,
+    "build:remote": "vite build --mode remote",
     "build:static": "vite build --mode static",
-    "typecheck": "tsc -b",
+    typecheck: "tsc -b",
   }
   pkg.intent = {
     skills: ["@cloudoperators/juno-ui-components"],
@@ -142,7 +143,9 @@ function main() {
   patchPackageJson()
   rewriteAppNameToken()
 
-  console.log(`[sync-template] done — greenhouse-core@^${GREENHOUSE_CORE_VERSION}, juno-ui-components@^${UI_COMPONENTS_VERSION}`)
+  console.log(
+    `[sync-template] done — greenhouse-core@^${GREENHOUSE_CORE_VERSION}, juno-ui-components@^${UI_COMPONENTS_VERSION}`
+  )
 }
 
 main()

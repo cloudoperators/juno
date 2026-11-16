@@ -46,6 +46,28 @@ All your apps should start with the `@cloudoperators/juno-` prefix.
 
 That's it! A new app is created in the monorepo under `apps/<name-of-your-app>`, pre-wired with the plugin contract, Juno UI components, and the Intent tooling described below.
 
+## Building and deploying as a Greenhouse plugin
+
+A plugin exposes a single `plugin` value (`{ mount, unmount }`) created with `createPlugin(App)` in `src/index.tsx`. Greenhouse imports that value and mounts it into the shell.
+
+| Command             | Output                                                 | Use                                               |
+| ------------------- | ------------------------------------------------------ | ------------------------------------------------- |
+| `pnpm dev`          | dev server                                             | local development                                 |
+| `pnpm build:remote` | self-contained `build/index.js`                        | **remote plugin** loaded by Greenhouse at runtime |
+| `pnpm build:static` | standalone app (`build/`)                              | run/preview the plugin on its own                 |
+| `pnpm build`        | library `build/index.js` with shared deps externalized | in-repo (co-located) embedding only               |
+
+To deploy as a **remote** plugin:
+
+1. Run `pnpm build:remote`. This produces `build/index.js` — a single ES module with all dependencies (React, UI components, the plugin contract) bundled in, so it can be imported from any origin.
+2. Host `build/index.js` on any static host reachable by Greenhouse.
+3. Point the plugin's Kubernetes `Plugin` resource at that URL. Greenhouse imports the module at runtime and mounts the exported `plugin`.
+
+Notes:
+
+- The URL must point at the JS module (e.g. `https://your-host/index.js`), not a directory.
+- Each plugin runs in its own React root and brings its own React, so keep it isolated and pass data via props. If you add routing, honor the `enableHashedRouting` prop so the plugin does not fight the shell over the browser URL.
+
 ## AI skills via TanStack Intent
 
 This template is set up as a [TanStack Intent](https://www.npmjs.com/package/@tanstack/intent) **consumer**, so a coding agent working in the app can discover and load the AI **skills** shipped by the `@cloudoperators/juno-ui-components` design system. Skills are versioned, task-focused guidance (a `SKILL.md` plus references) that travel with the package, teaching an agent how to build and validate Juno components correctly instead of guessing from source. Run `pnpm exec intent list` to see the skills the design system currently offers.

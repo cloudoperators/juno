@@ -9,7 +9,7 @@ import { createBrowserHistory, createHashHistory, createRouter, RouterProvider }
 import { z } from "zod"
 import { ErrorBoundary } from "react-error-boundary"
 import { decodeV2, encodeV2, registerConsumer } from "@cloudoperators/juno-url-state-provider"
-import { AppShellProvider, CodeBlock } from "@cloudoperators/juno-ui-components"
+import { AppShellProvider, CodeBlock, Status } from "@cloudoperators/juno-ui-components"
 import type { PluginProps } from "@cloudoperators/greenhouse-core"
 import { MessagesProvider } from "@cloudoperators/juno-messages-provider"
 import styles from "./styles.css?inline"
@@ -66,6 +66,8 @@ const urlStateManager = registerConsumer("supernova")
 const createAppRouter = (props: AppProps) =>
   createRouter({
     routeTree,
+    // Render the Status 404 for unmatched routes instead of TanStack's plain "Not Found".
+    defaultNotFoundComponent: () => <Status status="error" code={404} />,
     context: { appProps: props, queryClient },
     basepath: props.basePath || "/",
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
