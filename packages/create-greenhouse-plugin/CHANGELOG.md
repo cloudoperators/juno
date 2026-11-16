@@ -1,5 +1,11 @@
 # @cloudoperators/create-greenhouse-plugin
 
+## 0.2.1
+
+### Patch Changes
+
+- ca24745: chore: update template dependencies to latest versions
+
 ## 0.2.0
 
 ### Minor Changes
