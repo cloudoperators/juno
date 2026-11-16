@@ -16,20 +16,14 @@ type ExtensionProps = {
 }
 
 function Extension({ id, config, appProps, pluginAuth }: ExtensionProps) {
-  const { isLoading, containerRef } = usePluginLoader({
+  // Suspends while the plugin loads (handled by the <Suspense> in the route) and throws to the
+  // route's <PluginErrorBoundary> on failure; renders the mount container once ready.
+  const { containerRef } = usePluginLoader({
     pluginName: config.name,
     config,
     appProps,
     pluginAuth,
   })
-
-  if (isLoading) {
-    return (
-      <div>
-        <div>Loading...</div>
-      </div>
-    )
-  }
 
   return <div key={id} ref={containerRef}></div>
 }

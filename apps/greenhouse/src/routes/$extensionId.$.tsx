@@ -3,12 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect } from "react"
+import React, { Suspense } from "react"
 import { createFileRoute, ErrorComponentProps } from "@tanstack/react-router"
-import { useActions } from "@cloudoperators/juno-messages-provider"
+import { Status } from "@cloudoperators/juno-ui-components"
 import { usePlugin } from "../components/StoreProvider"
 import { useAuth } from "../components/AuthProvider"
 import Extension from "../components/Extension"
+import PluginErrorBoundary from "../components/PluginErrorBoundary"
+import { clearPluginCache, pluginCacheKey } from "../hooks/usePluginLoader"
 
 export const Route = createFileRoute("/$extensionId/$")({
   component: RouteComponent,
@@ -26,24 +28,28 @@ function RouteComponent() {
   const appConfig = config[extensionId]
 
   if (!appConfig) {
-    throw new Error(`No such "${extensionId}" plugin found`)
+    return (
+      <Status
+        code={404}
+        status="error"
+        title="Plugin Not Found"
+        body={`No plugin named "${extensionId}" is available.`}
+      />
+    )
   }
 
-  return <Extension id={extensionId} config={appConfig} appProps={appProps} pluginAuth={pluginAuth} />
+  const cacheKey = pluginCacheKey({ name: appConfig.name, url: appConfig.url })
+
+  return (
+    <PluginErrorBoundary resetKey={cacheKey} onReset={() => clearPluginCache(cacheKey)}>
+      <Suspense fallback={<Status status="progress" title={`Loading ${appConfig.displayName ?? extensionId}…`} />}>
+        <Extension id={extensionId} config={appConfig} appProps={appProps} pluginAuth={pluginAuth} />
+      </Suspense>
+    </PluginErrorBoundary>
+  )
 }
 
+// Fallback for unexpected errors thrown while rendering the route.
 function ErrorComponent({ error }: ErrorComponentProps) {
-  const { addMessage, removeMessage } = useActions()
-  useEffect(() => {
-    const normalizedError = error instanceof Error ? error : new Error(String(error))
-    const messageId = addMessage({
-      variant: "error",
-      text: normalizedError.message,
-      dismissible: false,
-    })
-
-    return () => removeMessage(messageId)
-  }, [addMessage, removeMessage, error])
-
-  return null
+  return <Status status="error" body={error instanceof Error ? error.message : String(error)} />
 }

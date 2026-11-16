@@ -18,6 +18,7 @@
     "dev": "vite",
     "build": "vite build",
     "build:static": "vite build --mode static",
+    "build:remote": "vite build --mode remote",
     "serve": "vite preview",
     "test": "vitest run",
     "lint": "eslint",
