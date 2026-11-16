@@ -4,7 +4,7 @@
  */
 
 import { defineConfig } from "vite"
-import type { UserConfig } from "vite"
+import type { UserConfig, BuildOptions } from "vite"
 import react from "@vitejs/plugin-react"
 import tailwindcss from "@tailwindcss/vite"
 
@@ -43,17 +43,28 @@ export default defineConfig(({ mode }: { mode: string }): UserConfig => {
     }
   }
 
-  // Production library build
+  const libBuild = {
+    outDir: "build",
+    lib: {
+      entry: "src/index.tsx",
+      formats: ["es"],
+      fileName: () => `index.js`,
+    },
+  } satisfies BuildOptions
+
+  // Self-contained module: bundle all deps so the hosted index.js can be imported from any origin.
+  if (mode === "remote") {
+    return {
+      ...sharedConfig,
+      build: libBuild,
+    }
+  }
+
+  // Library build: externalize shared deps for in-repo (co-located) embedding.
   return {
     ...sharedConfig,
     build: {
-      outDir: "build",
-
-      lib: {
-        entry: "src/index.tsx",
-        formats: ["es"],
-        fileName: () => `index.js`,
-      },
+      ...libBuild,
 
       rollupOptions: {
         external: (id) => {

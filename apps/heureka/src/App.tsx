@@ -7,7 +7,7 @@ import React, { StrictMode, useState } from "react"
 import { ApolloProvider } from "@apollo/client/react"
 import { createRouter, RouterProvider, createHashHistory, createBrowserHistory } from "@tanstack/react-router"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { AppShell, AppShellProvider, PageHeader } from "@cloudoperators/juno-ui-components"
+import { AppShell, AppShellProvider, PageHeader, Status } from "@cloudoperators/juno-ui-components"
 import type { PluginProps } from "@cloudoperators/greenhouse-core"
 import { encodeV2, decodeV2 } from "@cloudoperators/juno-url-state-provider"
 import styles from "./styles.css?inline"
@@ -39,6 +39,8 @@ export interface AppProps extends PluginProps {
 const createAppRouter = (props: AppProps, apiClient: ReturnType<typeof getClient>) =>
   createRouter({
     routeTree,
+    // Render the Status 404 for unmatched routes instead of TanStack's plain "Not Found".
+    defaultNotFoundComponent: () => <Status status="error" code={404} />,
     context: { appProps: props, apiClient, queryClient },
     basepath: props.basePath || "/",
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),
