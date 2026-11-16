@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/greenhouse-core",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Shared ground between the Greenhouse shell and its plugins: the plugin contract (Plugin, PluginProps, MountOptions) and a createPlugin helper. The single versioned source of truth imported by both sides.",
   "author": "UI-Team",
   "source": "src/index.ts",

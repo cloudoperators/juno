@@ -1,5 +1,17 @@
 # @cloudoperators/juno-app-doop
 
+## 2.6.52
+
+### Patch Changes
+
+- b3d8a3f: Build the TanStack router per mount so a plugin restores its sub-route when navigating away and back.
+- Updated dependencies [6633d54]
+- Updated dependencies [6633d54]
+- Updated dependencies [c8bbbd8]
+  - @cloudoperators/greenhouse-core@0.2.2
+  - @cloudoperators/juno-messages-provider@0.2.63
+  - @cloudoperators/juno-ui-components@9.10.0
+
 ## 2.6.51
 
 ### Patch Changes

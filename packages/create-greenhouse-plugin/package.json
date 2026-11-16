@@ -1,6 +1,6 @@
 {
   "name": "@cloudoperators/create-greenhouse-plugin",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Scaffolder that bootstraps a standalone Greenhouse plugin app (no monorepo dependencies) from the Juno app template.",
   "author": "UI-Team",
   "repository": "https://github.com/cloudoperators/juno/tree/main/packages/create-greenhouse-plugin",

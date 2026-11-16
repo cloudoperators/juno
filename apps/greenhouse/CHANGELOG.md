@@ -1,5 +1,23 @@
 # @cloudoperators/juno-app-greenhouse
 
+## 0.14.22
+
+### Patch Changes
+
+- Updated dependencies [b3d8a3f]
+- Updated dependencies [6633d54]
+- Updated dependencies [090ed75]
+- Updated dependencies [6633d54]
+- Updated dependencies [671b1f4]
+- Updated dependencies [c8bbbd8]
+  - @cloudoperators/juno-app-supernova@0.20.21
+  - @cloudoperators/juno-app-doop@2.6.52
+  - @cloudoperators/juno-app-heureka@1.1.27
+  - @cloudoperators/greenhouse-core@0.2.2
+  - @cloudoperators/juno-k8s-client@1.1.8
+  - @cloudoperators/juno-messages-provider@0.2.63
+  - @cloudoperators/juno-ui-components@9.10.0
+
 ## 0.14.21
 
 ### Patch Changes
