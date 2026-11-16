@@ -12,4 +12,5 @@ export declare const RequiredWithLabel: Story;
 export declare const NoClearNoToggleNoPaste: Story;
 export declare const Disabled: Story;
 export declare const ReadOnly: Story;
+export declare const CustomSecretTextFooter: Story;
 //# sourceMappingURL=SecretText.stories.d.ts.map

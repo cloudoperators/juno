@@ -4,7 +4,7 @@ import { ReactNode, HTMLAttributes, FocusEventHandler, ChangeEventHandler } from
  * @see https://cloudoperators.github.io/juno/?path=/docs/forms-secrettext--docs
  * @see {@link SecretTextProps}
  */
-export declare const SecretText: ({ autoComplete, className, clear, copy, copyConfirmtext, disableClear, disableCopy, disabled, disablePaste, disableToggle, errortext, helptext, id, onBlur, onChange, onClear, onCopy, onFocus, onHide, onPaste, onReveal, onToggle, label, name, paste, placeholder, readOnly, required, reveal, successtext, toggle, valid, invalid, value, wrapperClassName, ...props }: SecretTextProps) => ReactNode;
+export declare const SecretText: ({ autoComplete, className, clear, copy, copyConfirmtext, disableClear, disableCopy, disabled, disablePaste, disableToggle, errortext, helptext, id, onBlur, onChange, onClear, onCopy, onFocus, onHide, onPaste, onReveal, onToggle, label, name, paste, placeholder, readOnly, required, reveal, secretTextFooter, successtext, toggle, valid, invalid, value, wrapperClassName, ...props }: SecretTextProps) => ReactNode;
 export interface SecretTextProps extends Omit<HTMLAttributes<HTMLTextAreaElement>, "onCopy" | "onPaste"> {
     /** Whether the secret field should autocomplete. */
     autoComplete?: string;
@@ -66,6 +66,8 @@ export interface SecretTextProps extends Omit<HTMLAttributes<HTMLTextAreaElement
     required?: boolean;
     /** Whether the secret's content is revealed / legible. */
     reveal?: boolean;
+    /** Custom content to render to the left of the built-in action buttons. */
+    secretTextFooter?: ReactNode;
     /** A small text to display giving information in the context of the secret, e.g. when it was successfully validated or matches specific requirements, etc.  */
     successtext?: ReactNode;
     /** Whether a button to toggle visibility of the SecretText's content should be rendered. */
