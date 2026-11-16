@@ -1,0 +1,1 @@
+import{t as e}from"./iframe-BaNX2ICD.js";e();
