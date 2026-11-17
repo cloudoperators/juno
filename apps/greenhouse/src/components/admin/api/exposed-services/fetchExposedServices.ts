@@ -14,6 +14,7 @@ export interface FlattenedExposedServices {
   serviceName: string
   clusterName: string
   pluginName: string
+  pluginPresetName?: string
   supportGroup: string
 }
 
@@ -24,6 +25,7 @@ const flattenExposedServices = (plugins: PluginsWithExposedServices[]): Flattene
   plugins.forEach((plugin) => {
     const clusterName = plugin.spec?.clusterName || NO_VALUE_DEFAULT
     const pluginName = plugin.metadata?.name || NO_VALUE_DEFAULT
+    const pluginPresetName = plugin.metadata?.ownerReferences?.[0]?.name
     const supportGroup = plugin.metadata?.labels?.[SUPPORT_GROUP_LABEL] || NO_VALUE_DEFAULT
     const exposedServices = plugin.status?.exposedServices || {}
 
@@ -33,6 +35,7 @@ const flattenExposedServices = (plugins: PluginsWithExposedServices[]): Flattene
         serviceName: service.name || NO_VALUE_DEFAULT,
         clusterName: clusterName,
         pluginName: pluginName,
+        pluginPresetName: pluginPresetName,
         supportGroup: supportGroup,
       })
     })

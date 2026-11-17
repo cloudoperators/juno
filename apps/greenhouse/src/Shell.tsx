@@ -41,6 +41,10 @@ declare module "@tanstack/react-router" {
   }
 }
 
+export type InitialFilters = {
+  support_group?: string[]
+}
+
 export type AppProps = {
   authClientId?: string
   authIssuerUrl?: string
@@ -50,6 +54,7 @@ export type AppProps = {
   currentHost?: string
   enableHashedRouting?: boolean
   basePath?: string
+  initialFilters?: InitialFilters
 }
 
 const getUser = (auth: AuthContextValue) => ({

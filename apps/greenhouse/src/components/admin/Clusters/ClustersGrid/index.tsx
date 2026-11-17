@@ -10,7 +10,7 @@ import { DataRows } from "./DataRows"
 import { ErrorBoundary } from "../../common/ErrorBoundary"
 import { LoadingDataRow } from "../../common/LoadingDataRow"
 import { getErrorDataRowComponent } from "../../common/getErrorDataRow"
-import { DataGrid, DataGridRow, DataGridHeadCell, Icon } from "@cloudoperators/juno-ui-components"
+import { DataGrid, DataGridRow, DataGridHeadCell } from "@cloudoperators/juno-ui-components"
 
 const COLUMN_SPAN = 9
 
@@ -19,9 +19,7 @@ export const ClustersDataGrid = () => {
   return (
     <DataGrid minContentColumns={[0, 8]} columns={COLUMN_SPAN}>
       <DataGridRow>
-        <DataGridHeadCell className="align-center">
-          <Icon icon="monitorHeart" />
-        </DataGridHeadCell>
+        <DataGridHeadCell></DataGridHeadCell>
         <DataGridHeadCell>Name</DataGridHeadCell>
         <DataGridHeadCell>Region</DataGridHeadCell>
         <DataGridHeadCell>Cluster Type</DataGridHeadCell>

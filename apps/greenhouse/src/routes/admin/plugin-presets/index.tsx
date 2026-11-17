@@ -6,12 +6,15 @@
 import { createFileRoute, redirect } from "@tanstack/react-router"
 import { z } from "zod"
 import { PluginPresets } from "../../../components/admin/PluginPresets"
-import { FILTER_IDS, SELECTED_FILTER_PREFIX } from "../../../components/admin/constants"
-import { extractFilterSettingsFromSearchParams, getFiltersForUrl } from "../../../components/admin/utils"
+import { SELECTED_FILTER_PREFIX } from "../../../components/admin/constants"
+import {
+  extractFilterSettingsFromSearchParams,
+  getDefaultSupportGroupFilters,
+  getFiltersForUrl,
+} from "../../../components/admin/utils"
 import { filterSearchParamsByPrefix } from "../../../lib/helpers"
 import { hasAdminTabBeenVisited, markAdminTabVisited } from "../../../components/admin/adminTabState"
 import { ADMIN_ROUTES } from "../../../components/admin/adminRoutes"
-import { User } from "../../__root"
 
 const filterValueSchema = z.union([z.string(), z.array(z.string()), z.undefined()])
 
@@ -28,14 +31,6 @@ function validatePluginPresetsSearch(search: Record<string, unknown>): PluginPre
   return searchParamsSchema.parse(filtered)
 }
 
-const getDefaultFilters = (user: User) => {
-  const defaultSupportGroupFilters = user.supportGroups.map((sg) => ({
-    id: FILTER_IDS.SUPPORT_GROUP,
-    value: sg,
-  }))
-  return defaultSupportGroupFilters
-}
-
 export const Route = createFileRoute("/admin/plugin-presets/")({
   component: PluginPresets,
   validateSearch: validatePluginPresetsSearch,
@@ -49,7 +44,7 @@ export const Route = createFileRoute("/admin/plugin-presets/")({
 
     // Check if any filter is already applied
     const hasAnyFilter = Object.keys(search).some((key) => key.startsWith(SELECTED_FILTER_PREFIX))
-    const defaultFilters = getDefaultFilters(context.user)
+    const defaultFilters = getDefaultSupportGroupFilters(context.appProps?.initialFilters, context.user.supportGroups)
     // If no filters in the url but there are some default filters to apply, redirect with default filters
     if (!hasAnyFilter && defaultFilters.length > 0) {
       // eslint-disable-next-line @typescript-eslint/only-throw-error
