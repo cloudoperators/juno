@@ -84,11 +84,7 @@ export const Details: React.FC<DetailsProps> = ({ plugin }) => {
             <DataGridHeadCell nowrap>Cluster</DataGridHeadCell>
             <DataGridCell>
               {clusterName ? (
-                <Link
-                  to="/admin/clusters/$clusterName"
-                  params={{ clusterName }}
-                  className="cursor-pointer self-start"
-                >
+                <Link to="/admin/clusters/$clusterName" params={{ clusterName }} className="cursor-pointer self-start">
                   {clusterName}
                 </Link>
               ) : (
