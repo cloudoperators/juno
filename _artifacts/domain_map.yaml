@@ -51,7 +51,11 @@ skills:
           status values, HTTP error code display, copy defaults and override
           rules, DataGrid placement, and invariants.",
         packages: [ "@cloudoperators/juno-ui-components" ],
-        tasks: [ "Communicate a non-data state (loading, error, empty, no-matches) using the Status component" ],
+        tasks:
+          [
+            "Communicate a non-data state (loading, error, empty, no-matches)
+              using the Status component"
+          ],
         covers: []
       },
     {
@@ -73,6 +77,53 @@ skills:
           report violations. Relies on status-spec for all rules.,
         packages: [ "@cloudoperators/juno-ui-components" ],
         tasks: [ "Validate a Status usage against the StatusSpec" ],
+        covers: []
+      },
+    {
+        name: messages-and-notifications-spec,
+        slug: messages-and-notifications-spec,
+        domain: feedback,
+        description: "Use when communicating feedback to the user with a Juno Message or
+          Notification — covers the Message vs Notification decision, the
+          Message prop API, the toast() and NotificationManager API, semantic
+          variants, and the invariants that govern correct usage. The
+          messages-and-notifications-build and
+          messages-and-notifications-validate skills rely on this skill for all
+          rules.",
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks:
+          [
+            "Choose and compose the correct feedback mechanism (Message vs
+              Notification) using the MessagesAndNotificationsSpec"
+          ],
+        covers: []
+      },
+    {
+        name: messages-and-notifications-build,
+        slug: messages-and-notifications-build,
+        domain: feedback,
+        description: 'Generate correct Juno Message or Notification usage from a
+          described situation. Use when the user says "add a success message",
+          "show a toast", "notify the user that…", "display a warning banner",
+          or describes feedback to surface and asks for a Message or
+          notification. Relies on the messages-and-notifications-spec skill for
+          all rules.',
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks: [ "Generate correct Message or Notification usage from a described situation" ],
+        covers: []
+      },
+    {
+        name: messages-and-notifications-validate,
+        slug: messages-and-notifications-validate,
+        domain: feedback,
+        description: 'Check an existing Juno Message or Notification usage against the
+          MessagesAndNotificationsSpec and report violations. Use when the user
+          says "validate this Message", "check this toast", "review this
+          notification", "is this message correct", or pastes Message or
+          notification code to be audited. Relies on the
+          messages-and-notifications-spec skill for all rules.',
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks: [ "Validate a Message or Notification usage against the MessagesAndNotificationsSpec" ],
         covers: []
       }
   ]

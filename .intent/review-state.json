@@ -3,33 +3,40 @@
   "baseline": "fac03386c50408123ab764ad6005e15412b58bd4",
   "items": {
     "planning:_artifacts": {
-      "fingerprint": "50e20127430cc3ef849af1d1df88c34fea394cd247f2e21ac2d14cb521913f92",
+      "fingerprint": "01fd9ccd1cd0cfa8a487ebcd78b8ee43f73c39c1365ec877034109af51555261",
       "snapshot": {
-        "_artifacts/domain_map.yaml": "8fc312dd0b13943c023a9ce8393a3744aa0fc07e176f13f6e7414a7e494bc0f4",
-        "_artifacts/skill_spec.md": "e1e22ae5871a1e8d1d90d1a23861f69a51906dab1729927713df8db941261e11",
-        "_artifacts/skill_tree.yaml": "db432f904cde41fe3d03f3ac84120a82273a9a0873b9b0bfbf5b4cbcce5c70f5",
+        "_artifacts/domain_map.yaml": "ac052f6c20e9cfdb47ba27dcfdd106958640024c61cd6d0034fb648100dafa06",
+        "_artifacts/skill_spec.md": "0dab276d094b3c8dec07d37f8f058bb385f1370fa5d6bd46dcd45e9e618fdee9",
+        "_artifacts/skill_tree.yaml": "973c4b9a6a3178cab8ac6cfbff9d5fd1191730e362709f987e00cc2dcf77f9b2",
         "packages/ui-components/skills/datagrid/datagrid-build/SKILL.md": "57f2aa21e3302df73aeded827bd82bec9e103576701e95cb43143048a7d6e263",
         "packages/ui-components/skills/datagrid/datagrid-spec/SKILL.md": "296af0cb487935036258019fc9d387bb9c25cec1f0be7ef14b2ef784b1295ab2",
         "packages/ui-components/skills/datagrid/datagrid-spec/references/component-props.md": "ab4f49dcb1bacbd9aa6e837a7fad54481d520db9f0842b4b54324e5cedb5ae61",
         "packages/ui-components/skills/datagrid/datagrid-spec/references/datagrid-spec.md": "53040c52d11304155171567756d5ee260fbd9c16d184316ef32fadcbee7fe53d",
         "packages/ui-components/skills/datagrid/datagrid-spec/references/fragment-library.md": "37eaf3d15c1b8efe590629ec24d6a27790d7e46ddffcedec67275ea7f09d2f78",
         "packages/ui-components/skills/datagrid/datagrid-validate/SKILL.md": "c191364210616c9766f08b9fed3bbc24927d4e065268f11c23153145414c4235",
+        "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-build/SKILL.md": "1330878c0c1831c322c5aa6a7eed4dfedd0319abd540e0a2a61efec8bdf27b34",
+        "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/SKILL.md": "e8ba9b9a32259f096e68cbabfacd1dc76ad60dbc2d9867de2ac4e3508226583a",
+        "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md": "d95d363442a989209bedafceb9e34eacd8af9740431a73094c9943be6b23ebcd",
+        "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-validate/SKILL.md": "bf84369fcf060f97381465be6512c71bbd05abc490ee2e6ed4ed271212dbdae7",
         "packages/ui-components/skills/status/status-build/SKILL.md": "56820859ae15dd539097a36fc8c4eee528853fa4dfe4d1bfd54cb3a0a73e0e29",
-        "packages/ui-components/skills/status/status-spec/SKILL.md": "bc247e2ed3cbcc14f2d0311ea74399c45a445e4fb46d6fba60c1403b69bf9a6e",
+        "packages/ui-components/skills/status/status-spec/SKILL.md": "5585cbe083e20d7814230c46d717ac796fad1de8f7836143eb9bddaca30663be",
         "packages/ui-components/skills/status/status-spec/references/status-spec.md": "eca099036124444838619b752cf031c3ba5809662b0ed73a2ad0c855803f773f",
         "packages/ui-components/skills/status/status-validate/SKILL.md": "8336899f4c49ba1d178e8af0de5d3e2254451bfb8705e81b320af2f01a1815f3",
         "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
         "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "c1c52e3c778327d889e0c8741d09d4613fd9942dd065ddae4059592d3e2b505a",
         "packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx": "e71d9a2463a00f584ad3553f83f8457cc9479d7910de7050c31dd07d7a6854fd",
         "packages/ui-components/src/components/DataGrid/DataGridPattern.stories.tsx": "9115dba26dc4c89f766187f124eb2c38ea6c473360ffe55dcff3e38cb7c19abe",
+        "packages/ui-components/src/components/Message/Message.component.tsx": "c7a594561fd75df7840f5d7b819dce410c54c51a71f8ec8501dfb925a64d01f9",
+        "packages/ui-components/src/components/NotificationManager/NotificationManager.component.tsx": "501bc8ef00f6ea14483ba523c3825bd800bed6a4ac33b404f1660a57fd9248c1",
         "packages/ui-components/src/components/Status/Status.component.tsx": "c059455ddce76e658b21b940a71cbafe2271fd8dc0136d6c045fb291e565d73d",
-        "packages/ui-components/src/components/Status/Status.stories.tsx": "6d9d849075e405caebf8085e5f071655d60948cbe8313ac7ab1f118c389cb65c"
+        "packages/ui-components/src/components/Status/Status.stories.tsx": "6d9d849075e405caebf8085e5f071655d60948cbe8313ac7ab1f118c389cb65c",
+        "packages/ui-components/src/components/Toast/Toast.component.tsx": "b6c34273713c8cbacc119205df2a6998d55bbf139a75d71450f90b204fda65f6"
       },
-      "head": "8f7f6c5bc76590c907147c65c0a0feee9cd714c1",
-      "outcome": "no-change",
-      "reason": "markdown table re-padding by pre-commit prettier; guidance content unchanged",
+      "head": "cdabd148bb519ca89741807a4fb1143b33b1341b",
+      "outcome": "updated",
+      "reason": "re-record after pre-commit prettier reformatted the skill markdown; guidance unchanged except a prettier-stable NotificationManager snippet. Issue #2194.",
       "evidence": [
-        "Changed: packages/ui-components/skills/status/status-build/SKILL.md at 8f7f6c5bc76590c907147c65c0a0feee9cd714c1"
+        "Changed: packages/ui-components/skills/messages-and-notifications/messages-and-notifications-build/SKILL.md, packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md, packages/ui-components/skills/messages-and-notifications/messages-and-notifications-validate/SKILL.md at cdabd148bb519ca89741807a4fb1143b33b1341b"
       ]
     },
     "source:packages/ui-components/src/components/DataGridCell/DataGridCell.component.tsx": {
@@ -1495,18 +1502,18 @@
       ]
     },
     "skill:packages/ui-components/skills/status/status-spec/SKILL.md": {
-      "fingerprint": "26b5e951805b9a86a5ea5280e3a44705ea07618afe5faf6c1a955f4e37f37f5b",
+      "fingerprint": "a4a1e5dfcdd10ad33c38db3ff29cb3180e6c9689c0261516316b1aa882f88026",
       "snapshot": {
-        "packages/ui-components/skills/status/status-spec/SKILL.md": "bc247e2ed3cbcc14f2d0311ea74399c45a445e4fb46d6fba60c1403b69bf9a6e",
+        "packages/ui-components/skills/status/status-spec/SKILL.md": "5585cbe083e20d7814230c46d717ac796fad1de8f7836143eb9bddaca30663be",
         "packages/ui-components/skills/status/status-spec/references/status-spec.md": "eca099036124444838619b752cf031c3ba5809662b0ed73a2ad0c855803f773f",
         "packages/ui-components/src/components/Status/Status.component.tsx": "c059455ddce76e658b21b940a71cbafe2271fd8dc0136d6c045fb291e565d73d",
         "packages/ui-components/src/components/Status/Status.stories.tsx": "6d9d849075e405caebf8085e5f071655d60948cbe8313ac7ab1f118c389cb65c"
       },
-      "head": "836effc0eeb378468dff01da57576196dd6a2866",
+      "head": "1b3a5ba53b3ff143992eb1c91d3c91c8f0334a4b",
       "outcome": "updated",
-      "reason": "Corrected guidance per Copilot PR review: code still selects HTTP copy inside DataGrid (only the number display is suppressed); marked illustrative TSX fences no-check; clarified copy resolution is nullish-coalescing (explicit ''/false suppresses rather than defaults).",
+      "reason": "Authored the messages-and-notifications skill set (spec owns MN-1..MN-10 + selection table and prop/toast APIs; build and validate cite it); updated status-spec handoff to cite MN-1/MN-9; planning records register the new feedback domain. Issue #2194.",
       "evidence": [
-        "Changed: packages/ui-components/skills/status/status-spec/SKILL.md, packages/ui-components/skills/status/status-spec/references/status-spec.md at 836effc0eeb378468dff01da57576196dd6a2866"
+        "Changed: packages/ui-components/skills/status/status-spec/SKILL.md at 1b3a5ba53b3ff143992eb1c91d3c91c8f0334a4b"
       ]
     },
     "skill:packages/ui-components/skills/status/status-validate/SKILL.md": {
@@ -3044,6 +3051,48 @@
       "reason": "Source file from unrelated package/app with no skill mapping",
       "evidence": [
         "No skill exists for this file in ui-components skills/"
+      ]
+    },
+    "skill:packages/ui-components/skills/messages-and-notifications/messages-and-notifications-build/SKILL.md": {
+      "fingerprint": "0e7ee196f442efc401701b014a41c0a023b19bb59d11ef7c0bdf0be0cf315340",
+      "snapshot": {
+        "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-build/SKILL.md": "1330878c0c1831c322c5aa6a7eed4dfedd0319abd540e0a2a61efec8bdf27b34",
+        "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md": "d95d363442a989209bedafceb9e34eacd8af9740431a73094c9943be6b23ebcd"
+      },
+      "head": "cdabd148bb519ca89741807a4fb1143b33b1341b",
+      "outcome": "updated",
+      "reason": "re-record after pre-commit prettier reformatted the skill markdown; guidance unchanged except a prettier-stable NotificationManager snippet. Issue #2194.",
+      "evidence": [
+        "Changed: packages/ui-components/skills/messages-and-notifications/messages-and-notifications-build/SKILL.md, packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md at cdabd148bb519ca89741807a4fb1143b33b1341b"
+      ]
+    },
+    "skill:packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/SKILL.md": {
+      "fingerprint": "2b46dc9d3fc8d3d83a1e077a4fb6aaf05dd4aff1adb44a0371f1228743cd1fa6",
+      "snapshot": {
+        "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/SKILL.md": "e8ba9b9a32259f096e68cbabfacd1dc76ad60dbc2d9867de2ac4e3508226583a",
+        "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md": "d95d363442a989209bedafceb9e34eacd8af9740431a73094c9943be6b23ebcd",
+        "packages/ui-components/src/components/Message/Message.component.tsx": "c7a594561fd75df7840f5d7b819dce410c54c51a71f8ec8501dfb925a64d01f9",
+        "packages/ui-components/src/components/NotificationManager/NotificationManager.component.tsx": "501bc8ef00f6ea14483ba523c3825bd800bed6a4ac33b404f1660a57fd9248c1",
+        "packages/ui-components/src/components/Toast/Toast.component.tsx": "b6c34273713c8cbacc119205df2a6998d55bbf139a75d71450f90b204fda65f6"
+      },
+      "head": "cdabd148bb519ca89741807a4fb1143b33b1341b",
+      "outcome": "updated",
+      "reason": "re-record after pre-commit prettier reformatted the skill markdown; guidance unchanged except a prettier-stable NotificationManager snippet. Issue #2194.",
+      "evidence": [
+        "Changed: packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md at cdabd148bb519ca89741807a4fb1143b33b1341b"
+      ]
+    },
+    "skill:packages/ui-components/skills/messages-and-notifications/messages-and-notifications-validate/SKILL.md": {
+      "fingerprint": "cdbd569566c2a2c70824a5feb728b08e8ac4b88dd16cc23c7d2937f708c3e548",
+      "snapshot": {
+        "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md": "d95d363442a989209bedafceb9e34eacd8af9740431a73094c9943be6b23ebcd",
+        "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-validate/SKILL.md": "bf84369fcf060f97381465be6512c71bbd05abc490ee2e6ed4ed271212dbdae7"
+      },
+      "head": "cdabd148bb519ca89741807a4fb1143b33b1341b",
+      "outcome": "updated",
+      "reason": "re-record after pre-commit prettier reformatted the skill markdown; guidance unchanged except a prettier-stable NotificationManager snippet. Issue #2194.",
+      "evidence": [
+        "Changed: packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md, packages/ui-components/skills/messages-and-notifications/messages-and-notifications-validate/SKILL.md at cdabd148bb519ca89741807a4fb1143b33b1341b"
       ]
     }
   }

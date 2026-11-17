@@ -79,10 +79,7 @@ skills:
             src/components/Status/Status.component.tsx,
             src/components/Status/Status.stories.tsx
           ],
-        references:
-          [
-            references/status-spec.md
-          ],
+        references: [ references/status-spec.md ],
         requires: []
       },
     {
@@ -112,6 +109,64 @@ skills:
           status-spec skill for all rules.',
         sources: [ skills/status/status-spec/references/status-spec.md ],
         requires: [ status-spec ]
+      },
+    {
+        name: messages-and-notifications-spec,
+        slug: messages-and-notifications-spec,
+        domain: feedback,
+        package: packages/ui-components,
+        path: skills/messages-and-notifications/messages-and-notifications-spec/SKILL.md,
+        description: "Use when communicating feedback to the user with a Juno Message or
+          Notification — covers the Message vs Notification decision, the
+          Message prop API, the toast() and NotificationManager API, semantic
+          variants, and the invariants that govern correct usage. The
+          messages-and-notifications-build and
+          messages-and-notifications-validate skills rely on this skill for all
+          rules.",
+        sources:
+          [
+            src/components/Message/Message.component.tsx,
+            src/components/Toast/Toast.component.tsx,
+            src/components/NotificationManager/NotificationManager.component.tsx
+          ],
+        references: [ references/messages-and-notifications-spec.md ],
+        requires: []
+      },
+    {
+        name: messages-and-notifications-build,
+        slug: messages-and-notifications-build,
+        domain: feedback,
+        package: packages/ui-components,
+        path: skills/messages-and-notifications/messages-and-notifications-build/SKILL.md,
+        description: 'Generate correct Juno Message or Notification usage from a
+          described situation. Use when the user says "add a success message",
+          "show a toast", "notify the user that…", "display a warning banner",
+          or describes feedback to surface and asks for a Message or
+          notification. Relies on the messages-and-notifications-spec skill for
+          all rules.',
+        sources:
+          [
+            skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md
+          ],
+        requires: [ messages-and-notifications-spec ]
+      },
+    {
+        name: messages-and-notifications-validate,
+        slug: messages-and-notifications-validate,
+        domain: feedback,
+        package: packages/ui-components,
+        path: skills/messages-and-notifications/messages-and-notifications-validate/SKILL.md,
+        description: 'Check an existing Juno Message or Notification usage against the
+          MessagesAndNotificationsSpec and report violations. Use when the user
+          says "validate this Message", "check this toast", "review this
+          notification", "is this message correct", or pastes Message or
+          notification code to be audited. Relies on the
+          messages-and-notifications-spec skill for all rules.',
+        sources:
+          [
+            skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md
+          ],
+        requires: [ messages-and-notifications-spec ]
       }
   ]
 distribution:
