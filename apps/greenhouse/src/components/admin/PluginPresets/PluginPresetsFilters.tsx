@@ -70,6 +70,7 @@ export const PluginPresetsFilters = () => {
       <Stack alignment="start" gap="4">
         <FilterSelect
           filters={filters}
+          selectedFilters={filterSettings.selectedFilters}
           isLoading={isLoading}
           error={error}
           onChange={(selectedFilter: SelectedFilter) => {

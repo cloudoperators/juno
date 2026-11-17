@@ -5,7 +5,7 @@
 
 import React from "react"
 import { useSuspenseQuery } from "@tanstack/react-query"
-import { useRouteContext, useSearch } from "@tanstack/react-router"
+import { Link, useRouteContext, useSearch } from "@tanstack/react-router"
 import { DataGridRow, DataGridCell } from "@cloudoperators/juno-ui-components"
 
 import { NO_VALUE_DEFAULT } from "../../../constants"
@@ -45,8 +45,32 @@ export const DataRows = ({ colSpan }: DataRowsProps) => {
       {flattenedExposedServices.map((service, index) => (
         <DataGridRow key={`${service.serviceName}-${index}`}>
           <DataGridCell>{<ExternalLink url={service.serviceUrl} label={service.serviceName} />}</DataGridCell>
-          <DataGridCell>{service.clusterName || NO_VALUE_DEFAULT}</DataGridCell>
-          <DataGridCell>{service.pluginName || NO_VALUE_DEFAULT}</DataGridCell>
+          <DataGridCell>
+            {service.clusterName && service.clusterName !== NO_VALUE_DEFAULT ? (
+              <Link
+                to="/admin/clusters/$clusterName"
+                params={{ clusterName: service.clusterName }}
+                className="cursor-pointer self-start"
+              >
+                {service.clusterName}
+              </Link>
+            ) : (
+              NO_VALUE_DEFAULT
+            )}
+          </DataGridCell>
+          <DataGridCell>
+            {service.pluginPresetName && service.pluginName && service.pluginName !== NO_VALUE_DEFAULT ? (
+              <Link
+                to="/admin/plugin-presets/$pluginPresetName/plugin-instances/$pluginInstance"
+                params={{ pluginPresetName: service.pluginPresetName, pluginInstance: service.pluginName }}
+                className="cursor-pointer self-start"
+              >
+                {service.pluginName}
+              </Link>
+            ) : (
+              service.pluginName || NO_VALUE_DEFAULT
+            )}
+          </DataGridCell>
           <DataGridCell>{service.supportGroup || NO_VALUE_DEFAULT}</DataGridCell>
         </DataGridRow>
       ))}

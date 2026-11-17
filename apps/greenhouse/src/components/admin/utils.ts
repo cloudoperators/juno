@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { InitialFilters } from "../../Shell"
 import { PluginPresetSearchParams } from "../../routes/admin/plugin-presets"
-import { FilterSettings } from "./common/types"
-import { SELECTED_FILTER_PREFIX } from "./constants"
+import { FilterSettings, SelectedFilter } from "./common/types"
+import { FILTER_IDS, SELECTED_FILTER_PREFIX } from "./constants"
 import { Cluster, PluginPreset } from "./types/k8sTypes"
 
 // Get the "Ready" condition from a PluginPreset
@@ -126,4 +127,17 @@ export const getSafeExternalUrl = (url: string) => {
     return null
   }
   return null
+}
+
+/**
+ * Build the default support-group filters applied on first load of an admin tab.
+ * Prefer support groups configured via appProps.initialFilters.
+ * Fall back to the user's support groups from the auth token when no config is provided.
+ */
+export const getDefaultSupportGroupFilters = (
+  initialFilters: InitialFilters | undefined,
+  userSupportGroups: string[]
+): SelectedFilter[] => {
+  const supportGroups = initialFilters?.support_group?.length ? initialFilters.support_group : userSupportGroups
+  return supportGroups.map((value) => ({ id: FILTER_IDS.SUPPORT_GROUP, value }))
 }

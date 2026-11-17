@@ -13,6 +13,9 @@ import {
   DataGridCell,
   Icon,
   Stack,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
   ContentHeading,
   PopupMenu,
   PopupMenuOptions,
@@ -29,7 +32,7 @@ const isPluginReady = (plugin: Plugin) => {
   return plugin.status?.statusConditions?.conditions?.some((c) => c.type === "Ready" && c.status === "True") ?? false
 }
 
-const COLUMN_SPAN = 6
+const COLUMN_SPAN = 5
 
 const DataRows = ({ colSpan }: { colSpan: number }) => {
   const { pluginPresetName } = useParams({ from: "/admin/plugin-presets/$pluginPresetName" })
@@ -66,11 +69,23 @@ const DataRows = ({ colSpan }: { colSpan: number }) => {
         return (
           <DataGridRow key={plugin.metadata?.name} onClick={navigateToDetails}>
             <DataGridCell>
-              <Icon icon={ready ? "checkCircle" : "error"} color={ready ? "text-theme-success" : "text-theme-danger"} />
+              <Stack gap="2" alignment="center">
+                <Tooltip triggerEvent="hover">
+                  <TooltipTrigger asChild>
+                    <span className="inline-flex">
+                      <Icon
+                        icon={ready ? "checkCircle" : "error"}
+                        color={ready ? "text-theme-success" : "text-theme-danger"}
+                      />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>{ready ? "Ready" : "Not Ready"}</TooltipContent>
+                </Tooltip>
+                <span>{ready ? "Ready" : "Not Ready"}</span>
+              </Stack>
             </DataGridCell>
             <DataGridCell>{plugin.metadata?.name}</DataGridCell>
             <DataGridCell>{plugin.spec?.clusterName}</DataGridCell>
-            <DataGridCell>{ready ? "Ready" : "Not Ready"}</DataGridCell>
             <DataGridCell>{plugin.status?.helmChart?.version ?? NO_VALUE_DEFAULT}</DataGridCell>
             <DataGridCell nowrap>
               <PopupMenu onClick={(e) => e.stopPropagation()}>
@@ -111,14 +126,11 @@ export const PluginInstances = () => {
             <span>{`(${ready} ready, ${notReady} not ready)`}</span>
           </div>
         </Stack>
-        <DataGrid columns={COLUMN_SPAN} minContentColumns={[4]}>
+        <DataGrid columns={COLUMN_SPAN} minContentColumns={[0, 4]}>
           <DataGridRow>
-            <DataGridHeadCell>
-              <Icon icon="monitorHeart" />
-            </DataGridHeadCell>
+            <DataGridHeadCell>Status</DataGridHeadCell>
             <DataGridHeadCell>Plugin Name</DataGridHeadCell>
             <DataGridHeadCell>Cluster</DataGridHeadCell>
-            <DataGridHeadCell>Status</DataGridHeadCell>
             <DataGridHeadCell nowrap>Helm Chart Version</DataGridHeadCell>
             <DataGridHeadCell></DataGridHeadCell>
           </DataGridRow>

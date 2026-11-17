@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import { Link } from "@tanstack/react-router"
 import {
   DataGrid,
   DataGridRow,
@@ -24,6 +25,8 @@ interface DetailsProps {
 export const Details: React.FC<DetailsProps> = ({ plugin }) => {
   const exposedServices = plugin.status?.exposedServices || {}
   const exposedServicesEntries = Object.entries(exposedServices)
+  const pluginPresetName = plugin.metadata?.labels?.["greenhouse.sap/pluginpreset"]
+  const clusterName = plugin.spec?.clusterName
   const exposedServicesLinks = exposedServicesEntries.map(([url, service], index) => (
     <span key={`${url}-${service.name}-${index}`}>
       {<ExternalLink url={url} label={service.name} />}
@@ -33,7 +36,7 @@ export const Details: React.FC<DetailsProps> = ({ plugin }) => {
   return (
     <Stack gap="4" direction="vertical">
       <ContentHeading>Details</ContentHeading>
-      <Stack direction="horizontal">
+      <div className="flex flex-col lg:flex-row gap-4">
         <DataGrid columns={2} minContentColumns={[0]} className="flex-1">
           <DataGridRow>
             <DataGridHeadCell nowrap>Name</DataGridHeadCell>
@@ -41,7 +44,19 @@ export const Details: React.FC<DetailsProps> = ({ plugin }) => {
           </DataGridRow>
           <DataGridRow>
             <DataGridHeadCell nowrap>PluginPreset</DataGridHeadCell>
-            <DataGridCell>{plugin.metadata?.labels?.["greenhouse.sap/pluginpreset"] ?? NO_VALUE_DEFAULT}</DataGridCell>
+            <DataGridCell>
+              {pluginPresetName ? (
+                <Link
+                  to="/admin/plugin-presets/$pluginPresetName"
+                  params={{ pluginPresetName }}
+                  className="cursor-pointer self-start"
+                >
+                  {pluginPresetName}
+                </Link>
+              ) : (
+                NO_VALUE_DEFAULT
+              )}
+            </DataGridCell>
           </DataGridRow>
           <DataGridRow>
             <DataGridHeadCell nowrap>PluginDefinition</DataGridHeadCell>
@@ -67,7 +82,19 @@ export const Details: React.FC<DetailsProps> = ({ plugin }) => {
         <DataGrid columns={2} minContentColumns={[0]} className="flex-1">
           <DataGridRow>
             <DataGridHeadCell nowrap>Cluster</DataGridHeadCell>
-            <DataGridCell>{plugin.spec?.clusterName ?? NO_VALUE_DEFAULT}</DataGridCell>
+            <DataGridCell>
+              {clusterName ? (
+                <Link
+                  to="/admin/clusters/$clusterName"
+                  params={{ clusterName }}
+                  className="cursor-pointer self-start"
+                >
+                  {clusterName}
+                </Link>
+              ) : (
+                NO_VALUE_DEFAULT
+              )}
+            </DataGridCell>
           </DataGridRow>
           {plugin.metadata?.labels && Object.keys(plugin.metadata.labels).length > 0 && (
             <DataGridRow>
@@ -86,7 +113,7 @@ export const Details: React.FC<DetailsProps> = ({ plugin }) => {
             <DataGridCell>{exposedServicesLinks.length > 0 ? exposedServicesLinks : NO_VALUE_DEFAULT}</DataGridCell>
           </DataGridRow>
         </DataGrid>
-      </Stack>
+      </div>
     </Stack>
   )
 }
