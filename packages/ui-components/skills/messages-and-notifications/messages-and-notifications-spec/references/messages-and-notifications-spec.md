@@ -81,6 +81,6 @@ Notifications use the same semantic variants as Messages (`MN-8`).
 
 **MN-8:** Variants (`info`, `success`, `warning`, `error`, `danger`) are semantic — choose the one matching the nature of the information, never for visual effect. Default is `info`. (For the meaning of each variant, see the Semantic Variants guidance.)
 
-**MN-9:** Neither mechanism is for non-data states. Loading, error, empty, and no-matches states inside a data container belong to `Status` (**status-spec**, `INV-1`). Use a `Message` or Notification for feedback about actions and events — not to represent the state of a data collection.
+**MN-9:** Neither mechanism is for non-data states. Loading, error, empty, and no-matches states inside a data container belong to `Status` instead. Use a `Message` or Notification for feedback about actions and events — not to represent the state of a data collection.
 
 **MN-10:** Notifications queue — `visibleToasts` (default 3) caps how many render at once. Do not assume all triggered notifications are simultaneously visible.

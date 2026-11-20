@@ -3,7 +3,7 @@
   "baseline": "fac03386c50408123ab764ad6005e15412b58bd4",
   "items": {
     "planning:_artifacts": {
-      "fingerprint": "01fd9ccd1cd0cfa8a487ebcd78b8ee43f73c39c1365ec877034109af51555261",
+      "fingerprint": "dab45c0061c9057d770dcc94b771dc420a45c12e9f0d02c7ad8fd706623d084d",
       "snapshot": {
         "_artifacts/domain_map.yaml": "ac052f6c20e9cfdb47ba27dcfdd106958640024c61cd6d0034fb648100dafa06",
         "_artifacts/skill_spec.md": "0dab276d094b3c8dec07d37f8f058bb385f1370fa5d6bd46dcd45e9e618fdee9",
@@ -16,10 +16,10 @@
         "packages/ui-components/skills/datagrid/datagrid-validate/SKILL.md": "c191364210616c9766f08b9fed3bbc24927d4e065268f11c23153145414c4235",
         "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-build/SKILL.md": "1330878c0c1831c322c5aa6a7eed4dfedd0319abd540e0a2a61efec8bdf27b34",
         "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/SKILL.md": "e8ba9b9a32259f096e68cbabfacd1dc76ad60dbc2d9867de2ac4e3508226583a",
-        "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md": "d95d363442a989209bedafceb9e34eacd8af9740431a73094c9943be6b23ebcd",
+        "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md": "d756cc77bd74722265dd25a70e630f99d3f1d689e54a3d91dbc0a992cccef70a",
         "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-validate/SKILL.md": "bf84369fcf060f97381465be6512c71bbd05abc490ee2e6ed4ed271212dbdae7",
         "packages/ui-components/skills/status/status-build/SKILL.md": "56820859ae15dd539097a36fc8c4eee528853fa4dfe4d1bfd54cb3a0a73e0e29",
-        "packages/ui-components/skills/status/status-spec/SKILL.md": "5585cbe083e20d7814230c46d717ac796fad1de8f7836143eb9bddaca30663be",
+        "packages/ui-components/skills/status/status-spec/SKILL.md": "11958f170bcebe2cea4f7f916632eb3b217c5aa3b0dbab36a6994e157f5f5a17",
         "packages/ui-components/skills/status/status-spec/references/status-spec.md": "eca099036124444838619b752cf031c3ba5809662b0ed73a2ad0c855803f773f",
         "packages/ui-components/skills/status/status-validate/SKILL.md": "8336899f4c49ba1d178e8af0de5d3e2254451bfb8705e81b320af2f01a1815f3",
         "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
@@ -32,11 +32,11 @@
         "packages/ui-components/src/components/Status/Status.stories.tsx": "6d9d849075e405caebf8085e5f071655d60948cbe8313ac7ab1f118c389cb65c",
         "packages/ui-components/src/components/Toast/Toast.component.tsx": "b6c34273713c8cbacc119205df2a6998d55bbf139a75d71450f90b204fda65f6"
       },
-      "head": "cdabd148bb519ca89741807a4fb1143b33b1341b",
+      "head": "287052e657a3c2f67b88aeed25968da7e9610ca0",
       "outcome": "updated",
-      "reason": "re-record after pre-commit prettier reformatted the skill markdown; guidance unchanged except a prettier-stable NotificationManager snippet. Issue #2194.",
+      "reason": "removed reciprocal cross-skill citation (status-spec/INV-1) from MN-9 to match the status-spec side; boundary still stated in prose. Issue #2194.",
       "evidence": [
-        "Changed: packages/ui-components/skills/messages-and-notifications/messages-and-notifications-build/SKILL.md, packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md, packages/ui-components/skills/messages-and-notifications/messages-and-notifications-validate/SKILL.md at cdabd148bb519ca89741807a4fb1143b33b1341b"
+        "Changed: packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md at 287052e657a3c2f67b88aeed25968da7e9610ca0"
       ]
     },
     "source:packages/ui-components/src/components/DataGridCell/DataGridCell.component.tsx": {
@@ -1502,18 +1502,18 @@
       ]
     },
     "skill:packages/ui-components/skills/status/status-spec/SKILL.md": {
-      "fingerprint": "a4a1e5dfcdd10ad33c38db3ff29cb3180e6c9689c0261516316b1aa882f88026",
+      "fingerprint": "fe06b5a0c062517251d480b733a01bb853bc6dc8c071ff04771c03cffb3acd40",
       "snapshot": {
-        "packages/ui-components/skills/status/status-spec/SKILL.md": "5585cbe083e20d7814230c46d717ac796fad1de8f7836143eb9bddaca30663be",
+        "packages/ui-components/skills/status/status-spec/SKILL.md": "11958f170bcebe2cea4f7f916632eb3b217c5aa3b0dbab36a6994e157f5f5a17",
         "packages/ui-components/skills/status/status-spec/references/status-spec.md": "eca099036124444838619b752cf031c3ba5809662b0ed73a2ad0c855803f773f",
         "packages/ui-components/src/components/Status/Status.component.tsx": "c059455ddce76e658b21b940a71cbafe2271fd8dc0136d6c045fb291e565d73d",
         "packages/ui-components/src/components/Status/Status.stories.tsx": "6d9d849075e405caebf8085e5f071655d60948cbe8313ac7ab1f118c389cb65c"
       },
-      "head": "1b3a5ba53b3ff143992eb1c91d3c91c8f0334a4b",
+      "head": "287052e657a3c2f67b88aeed25968da7e9610ca0",
       "outcome": "updated",
-      "reason": "Authored the messages-and-notifications skill set (spec owns MN-1..MN-10 + selection table and prop/toast APIs; build and validate cite it); updated status-spec handoff to cite MN-1/MN-9; planning records register the new feedback domain. Issue #2194.",
+      "reason": "removed cross-skill rule-ID citation (MN-1/MN-9) from status-spec's message/notification handoff to avoid a brittle inter-skill dependency; boundary still stated in prose. Issue #2194.",
       "evidence": [
-        "Changed: packages/ui-components/skills/status/status-spec/SKILL.md at 1b3a5ba53b3ff143992eb1c91d3c91c8f0334a4b"
+        "Changed: packages/ui-components/skills/status/status-spec/SKILL.md at 287052e657a3c2f67b88aeed25968da7e9610ca0"
       ]
     },
     "skill:packages/ui-components/skills/status/status-validate/SKILL.md": {
@@ -3054,45 +3054,45 @@
       ]
     },
     "skill:packages/ui-components/skills/messages-and-notifications/messages-and-notifications-build/SKILL.md": {
-      "fingerprint": "0e7ee196f442efc401701b014a41c0a023b19bb59d11ef7c0bdf0be0cf315340",
+      "fingerprint": "43ca9263aac6f8cf9a3e8bb3eabf6791bf0bb006a9e641b47566ed6c6ade2713",
       "snapshot": {
         "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-build/SKILL.md": "1330878c0c1831c322c5aa6a7eed4dfedd0319abd540e0a2a61efec8bdf27b34",
-        "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md": "d95d363442a989209bedafceb9e34eacd8af9740431a73094c9943be6b23ebcd"
+        "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md": "d756cc77bd74722265dd25a70e630f99d3f1d689e54a3d91dbc0a992cccef70a"
       },
-      "head": "cdabd148bb519ca89741807a4fb1143b33b1341b",
+      "head": "287052e657a3c2f67b88aeed25968da7e9610ca0",
       "outcome": "updated",
-      "reason": "re-record after pre-commit prettier reformatted the skill markdown; guidance unchanged except a prettier-stable NotificationManager snippet. Issue #2194.",
+      "reason": "removed reciprocal cross-skill citation (status-spec/INV-1) from MN-9 to match the status-spec side; boundary still stated in prose. Issue #2194.",
       "evidence": [
-        "Changed: packages/ui-components/skills/messages-and-notifications/messages-and-notifications-build/SKILL.md, packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md at cdabd148bb519ca89741807a4fb1143b33b1341b"
+        "Changed: packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md at 287052e657a3c2f67b88aeed25968da7e9610ca0"
       ]
     },
     "skill:packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/SKILL.md": {
-      "fingerprint": "2b46dc9d3fc8d3d83a1e077a4fb6aaf05dd4aff1adb44a0371f1228743cd1fa6",
+      "fingerprint": "fc5c3594d4211d55b7d7aae43d5f0358c0b5977a787fbf92691db18f4a1f6b57",
       "snapshot": {
         "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/SKILL.md": "e8ba9b9a32259f096e68cbabfacd1dc76ad60dbc2d9867de2ac4e3508226583a",
-        "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md": "d95d363442a989209bedafceb9e34eacd8af9740431a73094c9943be6b23ebcd",
+        "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md": "d756cc77bd74722265dd25a70e630f99d3f1d689e54a3d91dbc0a992cccef70a",
         "packages/ui-components/src/components/Message/Message.component.tsx": "c7a594561fd75df7840f5d7b819dce410c54c51a71f8ec8501dfb925a64d01f9",
         "packages/ui-components/src/components/NotificationManager/NotificationManager.component.tsx": "501bc8ef00f6ea14483ba523c3825bd800bed6a4ac33b404f1660a57fd9248c1",
         "packages/ui-components/src/components/Toast/Toast.component.tsx": "b6c34273713c8cbacc119205df2a6998d55bbf139a75d71450f90b204fda65f6"
       },
-      "head": "cdabd148bb519ca89741807a4fb1143b33b1341b",
+      "head": "287052e657a3c2f67b88aeed25968da7e9610ca0",
       "outcome": "updated",
-      "reason": "re-record after pre-commit prettier reformatted the skill markdown; guidance unchanged except a prettier-stable NotificationManager snippet. Issue #2194.",
+      "reason": "removed reciprocal cross-skill citation (status-spec/INV-1) from MN-9 to match the status-spec side; boundary still stated in prose. Issue #2194.",
       "evidence": [
-        "Changed: packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md at cdabd148bb519ca89741807a4fb1143b33b1341b"
+        "Changed: packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md at 287052e657a3c2f67b88aeed25968da7e9610ca0"
       ]
     },
     "skill:packages/ui-components/skills/messages-and-notifications/messages-and-notifications-validate/SKILL.md": {
-      "fingerprint": "cdbd569566c2a2c70824a5feb728b08e8ac4b88dd16cc23c7d2937f708c3e548",
+      "fingerprint": "6c3cff1a625780389f46f4a8ed4fa77166fe0b41742121ff9b5a298ecb8d9981",
       "snapshot": {
-        "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md": "d95d363442a989209bedafceb9e34eacd8af9740431a73094c9943be6b23ebcd",
+        "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md": "d756cc77bd74722265dd25a70e630f99d3f1d689e54a3d91dbc0a992cccef70a",
         "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-validate/SKILL.md": "bf84369fcf060f97381465be6512c71bbd05abc490ee2e6ed4ed271212dbdae7"
       },
-      "head": "cdabd148bb519ca89741807a4fb1143b33b1341b",
+      "head": "287052e657a3c2f67b88aeed25968da7e9610ca0",
       "outcome": "updated",
-      "reason": "re-record after pre-commit prettier reformatted the skill markdown; guidance unchanged except a prettier-stable NotificationManager snippet. Issue #2194.",
+      "reason": "removed reciprocal cross-skill citation (status-spec/INV-1) from MN-9 to match the status-spec side; boundary still stated in prose. Issue #2194.",
       "evidence": [
-        "Changed: packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md, packages/ui-components/skills/messages-and-notifications/messages-and-notifications-validate/SKILL.md at cdabd148bb519ca89741807a4fb1143b33b1341b"
+        "Changed: packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md at 287052e657a3c2f67b88aeed25968da7e9610ca0"
       ]
     }
   }
