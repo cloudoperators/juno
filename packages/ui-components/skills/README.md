@@ -27,3 +27,9 @@ The `-build` and `-validate` skills never restate rules — they cite the spec's
 - `status-spec` — communicate a non-data state; owns the StatusSpec, copy tables, placement rules, and invariants.
 - `status-build` — generate correct Status usage from a described application state.
 - `status-validate` — check a Status usage against the spec.
+
+### `messages-and-notifications/`
+
+- `messages-and-notifications-spec` — communicate feedback with a Message or Notification; owns the MessagesAndNotificationsSpec, the mechanism selection table, the Message and notification APIs, and invariants.
+- `messages-and-notifications-build` — generate correct Message or Notification usage from a described situation.
+- `messages-and-notifications-validate` — check a Message or Notification usage against the spec.
