@@ -23,14 +23,28 @@ env:
 
 jobs:
   reuse-compliance:
-    uses: cloudoperators/common/.github/workflows/shared-reuse.yaml@4c90d3c7b7e98f1edd2c894e533c70a31f2ec28e # main
+    name: reuse
+    runs-on: [ubuntu-latest]
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: REUSE Compliance Check
+        run: pipx run reuse lint
 
   license-headers:
+    name: license-headers
+    runs-on: [ubuntu-latest]
     permissions:
-      contents: write
-    uses: cloudoperators/common/.github/workflows/shared-license.yaml@4c90d3c7b7e98f1edd2c894e533c70a31f2ec28e # main
-    with:
-      apply_header: false
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Check license headers
+        run: |
+          go install github.com/apache/skywalking-eyes/cmd/license-eye@v0.9.0
+          "$(go env GOPATH)/bin/license-eye" -c .github/licenserc.yaml header check
 
   cache-dependencies:
     runs-on: [ubuntu-latest]
