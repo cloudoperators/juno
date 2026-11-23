@@ -43,10 +43,85 @@ jobs:
 
   validate:
     needs: setup
+    name: Validate intent skills
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: read
-    uses: TanStack/intent/.github/workflows/check-skills.yml@b9f205d69ba2bec93954508ff76281ae2178062c # v0.5.6
-    with:
-      artifacts: '_artifacts'
-      node-version: ${{ needs.setup.outputs.node-version }}
-      repair: true
+    env:
+      INTENT_ARTIFACTS: _artifacts
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup pnpm via Corepack
+        run: corepack enable
+        shell: bash
+
+      - name: Setup Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ needs.setup.outputs.node-version }}
+          cache: pnpm
+
+      - name: Install intent
+        run: |
+          pnpm install --frozen-lockfile --ignore-scripts
+          if [ ! -e node_modules/.bin/intent ]; then
+            echo "::error::@tanstack/intent is not installed. Add it to devDependencies so CI runs the pinned version."
+            exit 1
+          fi
+          echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
+
+      - name: Prepare repairs
+        id: repairs
+        continue-on-error: true
+        run: |
+          DIRECTORY=$(mktemp -d "$RUNNER_TEMP/intent-repairs.XXXXXX")
+          echo "directory=$DIRECTORY" >> "$GITHUB_OUTPUT"
+          git -c core.fsmonitor=false rev-parse HEAD > "$DIRECTORY/base-sha.txt"
+          if [ -n "$(git -c core.fsmonitor=false status --porcelain --untracked-files=all)" ]; then
+            echo "::error::Repair patches require a clean checkout after dependency installation."
+            exit 1
+          fi
+          status=0
+          intent repair --write --json > "$DIRECTORY/repair-report.json" || status=1
+          intent maintainer sync --artifacts "$INTENT_ARTIFACTS" > "$DIRECTORY/sync.log" 2>&1 || status=1
+          # Stage newly generated manifests into the patch without committing them.
+          git -c core.fsmonitor=false add --intent-to-add -- .
+          git -c core.fsmonitor=false diff --no-ext-diff --no-textconv --binary HEAD > "$DIRECTORY/mechanical.patch"
+          intent repair --patch > "$DIRECTORY/example-suggestions.patch" || status=1
+          if [ -s "$DIRECTORY/mechanical.patch" ]; then
+            echo "pending=true" >> "$GITHUB_OUTPUT"
+          fi
+          exit "$status"
+
+      - name: Check skills
+        env:
+          INTENT_REVIEW_BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          intent maintainer check --base "$INTENT_REVIEW_BASE" --github-summary --artifacts "$INTENT_ARTIFACTS"
+
+      - name: Save repair patches
+        if: always() && steps.repairs.outputs.directory != ''
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: intent-repairs
+          path: ${{ steps.repairs.outputs.directory }}
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Require repair review
+        if: always() && steps.repairs.outcome != 'skipped'
+        env:
+          REPAIR_PENDING: ${{ steps.repairs.outputs.pending }}
+          REPAIR_OUTCOME: ${{ steps.repairs.outcome }}
+        run: |
+          if [ "$REPAIR_PENDING" = true ] || [ "$REPAIR_OUTCOME" != success ]; then
+            echo "::error::Review the intent-repairs artifact. Apply mechanical.patch first; assess example-suggestions.patch separately. Resolve remaining checks before merging."
+            exit 1
+          fi
