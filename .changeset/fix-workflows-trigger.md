@@ -1,5 +1,4 @@
 ---
-"@cloudoperators/juno-ui-components": patch
 "@cloudoperators/juno-app-greenhouse": patch
 ---
 
