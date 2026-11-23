@@ -34,56 +34,70 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   detect-changes:
     runs-on: ${{ inputs.runs-on}}
     outputs:
-      changes: ${{ steps.package-filters.outputs.changes}}
+      changes: ${{ steps.package-filters.outputs.changes }}
     steps:
-      - name: Print Inputs
-        run: |
-          echo "====${{ github.workflow }} Inputs===="
-          echo "Inputs: ${{ toJson(inputs) }}"
-          echo "===="
-
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Generate filters
-        id: generate-filters
-        run: |
-          items=()
-          echo "" > package_filters.yaml
-
-          if [ -n "${{ inputs.paths }}" ]; then
-            # Create a filter for each folder/package in the paths
-            for path in ${{ inputs.paths }}; do
-              for folder in $path/*; do
-                echo "$folder: $folder/**" >> package_filters.yaml
-              done
-            done
-          fi
-
-          if [ -n "${{ inputs.folders }}" ]; then
-            # Create a filter for each folder
-            for folder in ${{ inputs.folders }}; do
-              echo "$folder: $folder/**" >> package_filters.yaml
-            done
-          fi
-
-      - name: Set specific filters for the packages wihtin the paths
-        uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
+      - name: Detect changed packages
         id: package-filters
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v8.0.0
+        env:
+          INPUT_PATHS: ${{ inputs.paths }}
+          INPUT_FOLDERS: ${{ inputs.folders }}
         with:
-          list-files: json
-          filters: package_filters.yaml
+          script: |
+            const fs = require("node:fs")
 
-      - name: Show outputs
-        run: |
-          echo "===${{ github.workflow }} Outputs==="
-          echo "====Package filters===="
-          cat package_filters.yaml
-          echo "========"
-          echo changed packages: ${{ steps.package-filters.outputs.changes}}
-          echo "===================="
+            const paths = (process.env.INPUT_PATHS || "").split(/\s+/).filter(Boolean)
+            const folders = (process.env.INPUT_FOLDERS || "").split(/\s+/).filter(Boolean)
+
+            // Candidate packages: every immediate subdirectory of each input path,
+            // plus any explicitly listed folders. Mirrors the previous "path/*" expansion.
+            const candidates = new Set(folders)
+            for (const root of paths) {
+              let entries = []
+              try {
+                entries = fs.readdirSync(root, { withFileTypes: true })
+              } catch {
+                continue
+              }
+              for (const entry of entries) {
+                if (entry.isDirectory()) candidates.add(`${root}/${entry.name}`)
+              }
+            }
+
+            // Collect the files changed by this event.
+            let changedFiles = []
+            const pr = context.payload.pull_request
+            if (pr) {
+              const files = await github.paginate(github.rest.pulls.listFiles, {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr.number,
+                per_page: 100,
+              })
+              changedFiles = files.map((file) => file.filename)
+            } else if (context.payload.before && context.payload.after) {
+              const { data } = await github.rest.repos.compareCommits({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                base: context.payload.before,
+                head: context.payload.after,
+              })
+              changedFiles = (data.files || []).map((file) => file.filename)
+            }
+
+            // A candidate counts as changed if any changed file sits inside it.
+            const changed = [...candidates].filter((folder) =>
+              changedFiles.some((file) => file === folder || file.startsWith(`${folder}/`))
+            )
+
+            core.info(`Changed packages: ${JSON.stringify(changed)}`)
+            core.setOutput("changes", JSON.stringify(changed))
