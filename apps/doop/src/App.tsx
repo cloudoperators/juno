@@ -33,7 +33,6 @@ const urlStateManager = registerConsumer("doop")
 const createAppRouter = (props: AppProps, queryClient: QueryClient) =>
   createRouter({
     routeTree,
-    // Render the Status 404 for unmatched routes instead of TanStack's plain "Not Found".
     defaultNotFoundComponent: () => <Status status="error" code={404} />,
     context: { appProps: props, queryClient },
     basepath: props.basePath || "/",

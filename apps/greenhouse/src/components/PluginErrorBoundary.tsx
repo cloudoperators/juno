@@ -20,6 +20,8 @@ type PluginErrorBoundaryProps = {
 
 type PluginErrorBoundaryState = {
   error: Error | null
+  /** Incremented on retry to remount children and clear any post-mount error state. */
+  retryCount: number
 }
 
 /**
@@ -30,9 +32,9 @@ type PluginErrorBoundaryState = {
  * taking down the shell. The fallback is the ui-components `Status` component with a Retry action.
  */
 export class PluginErrorBoundary extends React.Component<PluginErrorBoundaryProps, PluginErrorBoundaryState> {
-  state: PluginErrorBoundaryState = { error: null }
+  state: PluginErrorBoundaryState = { error: null, retryCount: 0 }
 
-  static getDerivedStateFromError(error: Error): PluginErrorBoundaryState {
+  static getDerivedStateFromError(error: Error): Pick<PluginErrorBoundaryState, "error"> {
     return { error }
   }
 
@@ -45,7 +47,7 @@ export class PluginErrorBoundary extends React.Component<PluginErrorBoundaryProp
 
   handleRetry = () => {
     this.props.onReset?.()
-    this.setState({ error: null })
+    this.setState((s) => ({ error: null, retryCount: s.retryCount + 1 }))
   }
 
   render() {
@@ -65,7 +67,7 @@ export class PluginErrorBoundary extends React.Component<PluginErrorBoundaryProp
         />
       )
     }
-    return this.props.children
+    return <React.Fragment key={this.state.retryCount}>{this.props.children}</React.Fragment>
   }
 }
 
