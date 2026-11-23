@@ -65,13 +65,65 @@ jobs:
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
-        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
-        with:
-          # This expects you to have a script called release which does a build for your packages and calls changeset publish
-          publish-script: pnpm release
-          pr-title: "publish(npm): automate Package Versioning and Publishing with Changesets"
-          commit-message: "chore(version): update versions with Changesets"
-          github-token: ${{ steps.github-app-token.outputs.token }}
+        env:
+          GITHUB_TOKEN: ${{ steps.github-app-token.outputs.token }}
+          GH_TOKEN: ${{ steps.github-app-token.outputs.token }}
+          PR_TITLE: "publish(npm): automate Package Versioning and Publishing with Changesets"
+          COMMIT_MESSAGE: "chore(version): update versions with Changesets"
+          VERSION_BRANCH: changeset-release/main
+        run: |
+          set -euo pipefail
+          git config user.name "cloud-operator-bot[bot]"
+          git config user.email "cloud-operator-bot[bot]@users.noreply.github.com"
+          # Push via the GitHub App token so pushed branches and tags trigger CI.
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+          # Any changeset markdown other than the README means there are pending releases.
+          pending="$(find .changeset -maxdepth 1 -name '*.md' ! -name 'README.md' | head -n 1 || true)"
+
+          if [ -n "$pending" ]; then
+            echo "Pending changesets detected - creating or updating the version PR."
+            pnpm changeset version
+            git checkout -B "$VERSION_BRANCH"
+            git add -A
+            git commit -m "$COMMIT_MESSAGE"
+            git push --force origin "$VERSION_BRANCH"
+
+            existing="$(gh pr list --head "$VERSION_BRANCH" --state open --json number --jq '.[0].number // empty')"
+            if [ -z "$existing" ]; then
+              gh pr create --base main --head "$VERSION_BRANCH" \
+                --title "$PR_TITLE" \
+                --body "Automated by the release workflow. Merging this PR versions the packages and publishes them to npm."
+            fi
+
+            echo "published=false" >> "$GITHUB_OUTPUT"
+            echo "publishedPackages=[]" >> "$GITHUB_OUTPUT"
+          else
+            echo "No pending changesets - publishing to npm."
+            before="$(git tag | sort -u)"
+            pnpm release
+            after="$(git tag | sort -u)"
+
+            # Git tags created by `changeset publish` identify the packages it published.
+            new_tags="$(comm -13 <(printf '%s\n' "$before") <(printf '%s\n' "$after") | grep -v '^$' || true)"
+
+            if [ -n "$new_tags" ]; then
+              git push --tags origin
+              packages_json="$(printf '%s\n' "$new_tags" | node -e '
+                const tags = require("fs").readFileSync(0, "utf8").split("\n").filter(Boolean)
+                const pkgs = tags.map((tag) => {
+                  const at = tag.lastIndexOf("@")
+                  return { name: tag.slice(0, at), version: tag.slice(at + 1) }
+                })
+                process.stdout.write(JSON.stringify(pkgs))
+              ')"
+              echo "published=true" >> "$GITHUB_OUTPUT"
+              echo "publishedPackages=$packages_json" >> "$GITHUB_OUTPUT"
+            else
+              echo "published=false" >> "$GITHUB_OUTPUT"
+              echo "publishedPackages=[]" >> "$GITHUB_OUTPUT"
+            fi
+          fi
 
   format-published-packages:
     if: needs.release.outputs.published == 'true'
