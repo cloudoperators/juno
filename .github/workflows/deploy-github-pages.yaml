@@ -59,8 +59,28 @@ jobs:
         run: echo > packages/ui-components/storybook-static/.nojekyll
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@fa24774553152dd7873cd16ebd8d959b010c5445 # v4.9.0
-        with:
-          folder: packages/ui-components/storybook-static
-          clean-exclude: pr-preview/
-          force: false
+        env:
+          SOURCE_DIR: packages/ui-components/storybook-static
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          worktree="$(mktemp -d)"
+          git fetch origin gh-pages || true
+          if git show-ref --verify --quiet refs/remotes/origin/gh-pages; then
+            git worktree add "$worktree" origin/gh-pages
+          else
+            git worktree add --orphan -b gh-pages "$worktree"
+          fi
+          # Replace the published root but keep the pr-preview/ umbrella (clean-exclude).
+          find "$worktree" -mindepth 1 -maxdepth 1 \
+            ! -name '.git' ! -name 'pr-preview' -exec rm -rf {} +
+          cp -r "${SOURCE_DIR}/." "${worktree}/"
+          git -C "$worktree" add --all
+          if git -C "$worktree" diff --cached --quiet; then
+            echo "No storybook changes to publish."
+          else
+            git -C "$worktree" commit -m "Deploy storybook to GitHub Pages"
+            git -C "$worktree" push origin gh-pages
+          fi
+          git worktree remove --force "$worktree"

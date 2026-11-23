@@ -170,10 +170,75 @@ jobs:
 
           echo "</ul></body></html>" >> ${{ env.DEPLOY_PATH }}/index.html
 
-      - uses: rossjrw/pr-preview-action@873417d2df72380da1f3978378fb58560bcde976 # v1.8.2
+      - name: Deploy preview to gh-pages
+        if: github.event.action != 'closed'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          SOURCE_DIR: ${{ env.DEPLOY_PATH }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          target="pr-preview/pr-${PR_NUMBER}"
+          worktree="$(mktemp -d)"
+          git fetch origin gh-pages || true
+          if git show-ref --verify --quiet refs/remotes/origin/gh-pages; then
+            git worktree add "$worktree" origin/gh-pages
+          else
+            git worktree add --orphan -b gh-pages "$worktree"
+          fi
+          rm -rf "${worktree:?}/${target}"
+          mkdir -p "${worktree}/${target}"
+          cp -r "${SOURCE_DIR}/." "${worktree}/${target}/"
+          git -C "$worktree" add --all
+          if git -C "$worktree" diff --cached --quiet; then
+            echo "No preview changes to publish."
+          else
+            git -C "$worktree" commit -m "Deploy preview for PR #${PR_NUMBER}"
+            git -C "$worktree" push origin gh-pages
+          fi
+          git worktree remove --force "$worktree"
+
+      - name: Remove preview from gh-pages
+        if: github.event.action == 'closed'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin gh-pages || exit 0
+          git show-ref --verify --quiet refs/remotes/origin/gh-pages || exit 0
+          target="pr-preview/pr-${PR_NUMBER}"
+          worktree="$(mktemp -d)"
+          git worktree add "$worktree" origin/gh-pages
+          if [ -d "${worktree}/${target}" ]; then
+            git -C "$worktree" rm -r "${target}"
+            git -C "$worktree" commit -m "Remove preview for PR #${PR_NUMBER}"
+            git -C "$worktree" push origin gh-pages
+          fi
+          git worktree remove --force "$worktree"
+
+      - name: Comment preview link
+        if: github.event.action != 'closed'
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v8.0.0
+        env:
+          PREVIEW_URL: ${{ env.PREVIEW_URL }}
         with:
-          source-dir: ${{ env.DEPLOY_PATH }}/
-          preview-branch: gh-pages
-          umbrella-dir: pr-preview
-          action: ${{ github.event.action == 'labeled' && 'deploy' || 'auto' }}
-          qr-code: false
+          script: |
+            const marker = "<!-- pr-preview-comment -->"
+            const body = `${marker}\n🔍 PR preview deployed: ${process.env.PREVIEW_URL}/`
+            const { owner, repo } = context.repo
+            const issue_number = context.payload.pull_request.number
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner,
+              repo,
+              issue_number,
+              per_page: 100,
+            })
+            const existing = comments.find((comment) => comment.body && comment.body.includes(marker))
+            if (existing) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body })
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body })
+            }
