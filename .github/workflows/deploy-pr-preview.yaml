@@ -200,7 +200,7 @@ jobs:
             echo "No preview changes to publish."
           else
             git -C "$worktree" commit -m "Deploy preview for PR #${PR_NUMBER}"
-            git -C "$worktree" push origin gh-pages
+            git -C "$worktree" push origin HEAD:gh-pages
           fi
           git worktree remove --force "$worktree"
 
@@ -220,7 +220,7 @@ jobs:
           if [ -d "${worktree}/${target}" ]; then
             git -C "$worktree" rm -r "${target}"
             git -C "$worktree" commit -m "Remove preview for PR #${PR_NUMBER}"
-            git -C "$worktree" push origin gh-pages
+            git -C "$worktree" push origin HEAD:gh-pages
           fi
           git worktree remove --force "$worktree"
 
