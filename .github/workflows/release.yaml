@@ -67,7 +67,7 @@ jobs:
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v8.0.0
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           PR_TITLE: "publish(npm): automate Package Versioning and Publishing with Changesets"
           COMMIT_MESSAGE: "chore(version): update versions with Changesets"
