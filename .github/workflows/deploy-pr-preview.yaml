@@ -25,8 +25,7 @@ concurrency: deploy-pr-preview-${{ github.ref }}
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 env:
   DEPLOY_PATH: tmp
@@ -53,6 +52,9 @@ jobs:
   run-detect-changes:
     # skip if the PR is from a forked repository
     if: github.event.pull_request.head.repo.full_name == github.repository
+    permissions:
+      contents: read
+      pull-requests: read
     uses: ./.github/workflows/shared-detect-pkg-changes.yaml
     with:
       paths: "packages apps"
@@ -68,6 +70,9 @@ jobs:
        needs.check-preview-label.outputs.has-preview-label == 'true')
     needs: [check-preview-label, run-detect-changes]
     runs-on: [ubuntu-latest]
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -85,11 +90,12 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Install pnpm
+      - name: Setup pnpm via Corepack
         if: github.event.action != 'closed'
-        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
-        with:
-          package_json_file: package.json
+        run: |
+          corepack enable
+          corepack prepare --activate
+        shell: bash
 
       - name: Get pnpm store directory
         if: github.event.action != 'closed'
@@ -169,10 +175,75 @@ jobs:
 
           echo "</ul></body></html>" >> ${{ env.DEPLOY_PATH }}/index.html
 
-      - uses: rossjrw/pr-preview-action@873417d2df72380da1f3978378fb58560bcde976 # v1.8.2
+      - name: Deploy preview to gh-pages
+        if: github.event.action != 'closed'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          SOURCE_DIR: ${{ env.DEPLOY_PATH }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          target="pr-preview/pr-${PR_NUMBER}"
+          worktree="$(mktemp -d)"
+          git fetch origin gh-pages || true
+          if git show-ref --verify --quiet refs/remotes/origin/gh-pages; then
+            git worktree add "$worktree" origin/gh-pages
+          else
+            git worktree add --orphan -b gh-pages "$worktree"
+          fi
+          rm -rf "${worktree:?}/${target}"
+          mkdir -p "${worktree}/${target}"
+          cp -r "${SOURCE_DIR}/." "${worktree}/${target}/"
+          git -C "$worktree" add --all
+          if git -C "$worktree" diff --cached --quiet; then
+            echo "No preview changes to publish."
+          else
+            git -C "$worktree" commit -m "Deploy preview for PR #${PR_NUMBER}"
+            git -C "$worktree" push origin gh-pages
+          fi
+          git worktree remove --force "$worktree"
+
+      - name: Remove preview from gh-pages
+        if: github.event.action == 'closed'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin gh-pages || exit 0
+          git show-ref --verify --quiet refs/remotes/origin/gh-pages || exit 0
+          target="pr-preview/pr-${PR_NUMBER}"
+          worktree="$(mktemp -d)"
+          git worktree add "$worktree" origin/gh-pages
+          if [ -d "${worktree}/${target}" ]; then
+            git -C "$worktree" rm -r "${target}"
+            git -C "$worktree" commit -m "Remove preview for PR #${PR_NUMBER}"
+            git -C "$worktree" push origin gh-pages
+          fi
+          git worktree remove --force "$worktree"
+
+      - name: Comment preview link
+        if: github.event.action != 'closed'
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          PREVIEW_URL: ${{ env.PREVIEW_URL }}
         with:
-          source-dir: ${{ env.DEPLOY_PATH }}/
-          preview-branch: gh-pages
-          umbrella-dir: pr-preview
-          action: ${{ github.event.action == 'labeled' && 'deploy' || 'auto' }}
-          qr-code: false
+          script: |
+            const marker = "<!-- pr-preview-comment -->"
+            const body = `${marker}\n🔍 PR preview deployed: ${process.env.PREVIEW_URL}/`
+            const { owner, repo } = context.repo
+            const issue_number = context.payload.pull_request.number
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner,
+              repo,
+              issue_number,
+              per_page: 100,
+            })
+            const existing = comments.find((comment) => comment.body && comment.body.includes(marker))
+            if (existing) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body })
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body })
+            }
