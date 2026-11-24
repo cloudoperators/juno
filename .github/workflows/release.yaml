@@ -69,7 +69,6 @@ jobs:
         env:
           PR_TITLE: "publish(npm): automate Package Versioning and Publishing with Changesets"
           COMMIT_MESSAGE: "chore(version): update versions with Changesets"
-          VERSION_BRANCH: changeset-release/main
         with:
           # The GitHub App token makes the API commit, so GitHub signs it as the
           # App identity ("Verified") — matching the old changesets/action behaviour
@@ -80,8 +79,10 @@ jobs:
             const fs = require("node:fs")
 
             const { owner, repo } = context.repo
-            const baseBranch = "main"
-            const versionBranch = process.env.VERSION_BRANCH
+            // changeset version/publish read .changeset/config.json themselves; the
+            // branch name follows the triggering branch, exactly like changesets/action.
+            const baseBranch = context.ref.replace("refs/heads/", "")
+            const versionBranch = `changeset-release/${baseBranch}`
             const prTitle = process.env.PR_TITLE
             const commitMessage = process.env.COMMIT_MESSAGE
             const baseSha = context.sha
