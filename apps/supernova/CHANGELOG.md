@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.20.22
+
+### Patch Changes
+
+- Updated dependencies [858e274]
+  - @cloudoperators/juno-ui-components@9.10.1
+  - @cloudoperators/juno-messages-provider@0.2.64
+
 ## 0.20.21
 
 ### Patch Changes
