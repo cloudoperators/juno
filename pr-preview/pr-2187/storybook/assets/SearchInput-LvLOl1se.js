@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-BCiCTKAo.js";import{n as t}from"./SearchInput.component-Bc0as4Au.js";function n(){return(n=e((()=>{t()})))()}export{n as t};
