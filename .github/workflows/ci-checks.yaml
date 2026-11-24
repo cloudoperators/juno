@@ -11,11 +11,7 @@ on:
       - changeset-release/main
 
 permissions:
-  contents: write
-  pull-requests: write
-  actions: read
-  checks: write
-  statuses: write
+  contents: read
 
 env:
   HUSKY: 0
@@ -29,6 +25,8 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: REUSE Compliance Check
         run: pipx run reuse lint
@@ -40,6 +38,8 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Check license headers
         run: |
@@ -50,6 +50,8 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Use Node.js
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
@@ -82,6 +84,8 @@ jobs:
     needs: cache-dependencies
     runs-on: [ubuntu-latest]
     strategy:
+      # matrix.command is executed verbatim via `run:` — keep these values
+      # static/in-repo; never source them from event or external input.
       matrix:
         include:
           - title: "license-check"
@@ -100,6 +104,8 @@ jobs:
     name: ${{ matrix.title }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Use Node.js
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
@@ -136,6 +142,8 @@ jobs:
     name: e2e-smoke
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Use Node.js
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0

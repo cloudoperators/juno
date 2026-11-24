@@ -25,8 +25,7 @@ concurrency: deploy-pr-preview-${{ github.ref }}
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 env:
   DEPLOY_PATH: tmp
@@ -53,6 +52,9 @@ jobs:
   run-detect-changes:
     # skip if the PR is from a forked repository
     if: github.event.pull_request.head.repo.full_name == github.repository
+    permissions:
+      contents: read
+      pull-requests: read
     uses: ./.github/workflows/shared-detect-pkg-changes.yaml
     with:
       paths: "packages apps"
@@ -68,6 +70,9 @@ jobs:
        needs.check-preview-label.outputs.has-preview-label == 'true')
     needs: [check-preview-label, run-detect-changes]
     runs-on: [ubuntu-latest]
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 

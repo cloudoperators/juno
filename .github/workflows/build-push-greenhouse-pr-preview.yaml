@@ -121,13 +121,16 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
 
       - name: Generate PR version tag
         if: steps.check-label.outputs.should-build == 'true'
         id: pr-version
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
-          PR_NUMBER=${{ github.event.pull_request.number }}
-          SHORT_SHA=$(echo ${{ github.event.pull_request.head.sha }} | cut -c1-7)
+          SHORT_SHA=$(echo "${PR_SHA}" | cut -c1-7)
           PR_VERSION="pr-${PR_NUMBER}-${SHORT_SHA}"
           echo "PR_VERSION=${PR_VERSION}" >> $GITHUB_OUTPUT
           echo "Building version: ${PR_VERSION}"
