@@ -83,6 +83,6 @@ jobs:
             echo "No storybook changes to publish."
           else
             git -C "$worktree" commit -m "Deploy storybook to GitHub Pages"
-            git -C "$worktree" push origin gh-pages
+            git -C "$worktree" push origin HEAD:gh-pages
           fi
           git worktree remove --force "$worktree"
