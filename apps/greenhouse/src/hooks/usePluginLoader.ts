@@ -3,72 +3,90 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useEffect, useRef, useState } from "react"
+import { use, useCallback, useEffect, useRef, useState } from "react"
 import { useRouter } from "@tanstack/react-router"
 import { AppProps } from "../Shell"
 import type { AuthStore } from "@cloudoperators/greenhouse-auth-provider"
 import type { Plugin, PluginProps } from "@cloudoperators/greenhouse-core"
 
-// Cache loaded modules at the module level (persists across component mounts)
-const moduleCache = new Map<string, Plugin>()
-
-const getApp = async (appName: string): Promise<Plugin | null> => {
-  // Return cached module immediately if available
-  if (moduleCache.has(appName)) {
-    return moduleCache.get(appName)!
-  }
-
-  // Load the module and extract its `plugin` export (the single Plugin surface each plugin's
-  // `src/index.{ts,tsx}` exports). Letting plugins expose the whole Plugin value as one named
-  // export means a future contract change (new method, renamed method, …) does not require editing
-  // any plugin — only the shell adapts to the new shape.
+const getApp = async ({
+  name,
+  url,
+  nonce,
+}: {
+  name: string
+  url?: string | null
+  nonce?: string
+}): Promise<Plugin | null> => {
   let module: Plugin | null = null
-  switch (appName) {
-    case "supernova":
-      module = (await import("@cloudoperators/juno-app-supernova")).plugin
-      break
-    case "doop":
-      module = (await import("@cloudoperators/juno-app-doop")).plugin
-      break
-    case "heureka":
-      module = (await import("@cloudoperators/juno-app-heureka")).plugin
-      break
-  }
 
-  // Cache it for next time
-  if (module) {
-    moduleCache.set(appName, module)
+  if (url) {
+    // Append nonce on retry to bypass the browser's native ES-module cache.
+    const sep = url.includes("?") ? "&" : "?"
+    const importUrl = nonce ? `${url}${sep}_v=${nonce}` : url
+    const remote: Record<string, unknown> = await import(/* @vite-ignore */ importUrl)
+    // Accept a `plugin` export or bare mount/unmount; normalise to the Plugin contract.
+    const candidate = (remote.plugin ?? { mount: remote.mount, unmount: remote.unmount }) as Partial<Plugin>
+    if (typeof candidate.mount === "function" && typeof candidate.unmount === "function") {
+      module = candidate as Plugin
+    }
+  } else {
+    // Internal plugins are bundled into the shell and resolved by name at build time.
+    switch (name) {
+      case "supernova":
+        module = (await import("@cloudoperators/juno-app-supernova")).plugin
+        break
+      case "doop":
+        module = (await import("@cloudoperators/juno-app-doop")).plugin
+        break
+      case "heureka":
+        module = (await import("@cloudoperators/juno-app-heureka")).plugin
+        break
+    }
   }
 
   return module
 }
 
-/**
- * The subset of a plugin's config entry the loader needs to see.
- *
- * The plugin store's upstream shape is `any` (loaded dynamically from JSON config); this interface
- * narrows it to just the three fields `usePluginLoader` and `Extension` actually touch. The `props`
- * field is typed against the shared `PluginProps` contract so a change to the contract surfaces as
- * a `pnpm typecheck` error at this call site too (not only inside the plugins).
- */
+// Stable promise per plugin for use() (keyed by url, else name); rejects on failure so the
+// surrounding ErrorBoundary catches it.
+const pluginPromiseCache = new Map<string, Promise<Plugin>>()
+
+// Cache-bust nonce per key — set by clearPluginCache so the next import() uses a fresh URL,
+// bypassing the browser's native ES-module cache for remote bundles.
+const pluginRetryNonce = new Map<string, string>()
+
+export const pluginCacheKey = ({ name, url }: { name: string; url?: string | null }) => url || name
+
+const loadPlugin = (params: { name: string; url?: string | null }): Promise<Plugin> => {
+  const key = pluginCacheKey(params)
+  if (!pluginPromiseCache.has(key)) {
+    const nonce = pluginRetryNonce.get(key)
+    const promise = getApp({ ...params, nonce }).then((module) => {
+      if (!module) throw new Error(`Plugin "${params.name}" could not be loaded`)
+      return module
+    })
+    pluginPromiseCache.set(key, promise)
+  }
+  return pluginPromiseCache.get(key)!
+}
+
+// Drop a plugin's cached promise and record a nonce so the next import() fetches a fresh URL.
+export const clearPluginCache = (key: string): void => {
+  pluginPromiseCache.delete(key)
+  pluginRetryNonce.set(key, String(Date.now()))
+}
+
+// Fields of a plugin's store config the loader and Extension use.
 export interface PluginLoaderConfig {
   id: string
   name: string
+  // Remote bundle URL from the plugin's k8s CR; when set, the loader imports it instead of a bundled plugin.
+  url?: string | null
   props?: PluginProps
 }
 
-/**
- * The host-side shape of the props Greenhouse forwards to a plugin at mount time.
- *
- * `PluginProps` (from `@cloudoperators/greenhouse-core`) is the contract — the fields every plugin
- * can rely on. The three fields added here (`basePath`, `enableHashedRouting`, `auth`) are the
- * host's own convention: `apps/greenhouse` happens to forward them, but they are not part of the
- * shared contract. Keeping them in a host-local type means that changing what the host forwards
- * (renaming, adding, removing a field) is a change inside this file — it does NOT require bumping
- * `greenhouse-core`, publishing it, and asking every plugin to update.
- *
- * A plugin that reads one of these fields opts in by declaring it on its own `AppProps`.
- */
+// Props the host forwards at mount time — host convention, not part of the greenhouse-core contract.
 interface GreenhouseMountProps extends PluginProps {
   basePath?: string
   enableHashedRouting?: boolean
@@ -83,14 +101,11 @@ type UsePluginLoaderParams = {
 }
 
 type UsePluginLoaderResult = {
-  isLoading: boolean
   containerRef: React.RefObject<HTMLDivElement | null>
 }
 
-/**
- * Custom hook to handle plugin loading and mounting
- * Loads plugins dynamically with caching and handles mount/unmount lifecycle
- */
+// Loads the plugin as a Suspense resource (use() suspends; failures throw to the ErrorBoundary)
+// and mounts/unmounts it into the container ref.
 export function usePluginLoader({
   pluginName,
   config,
@@ -100,41 +115,18 @@ export function usePluginLoader({
   const router = useRouter()
   const containerRef = useRef<HTMLDivElement>(null)
 
-  // Check if module is already cached - if so, start with it loaded!
-  const cachedModule = moduleCache.get(pluginName)
-  const [app, setApp] = useState<Plugin | null>(cachedModule || null)
-  const [isLoading, setIsLoading] = useState(!cachedModule) // Only show loading if not cached
+  // Suspends until the module resolves; re-throws to the ErrorBoundary if the load rejects.
+  const app = use(loadPlugin({ name: pluginName, url: config.url }))
 
-  // Load the plugin module dynamically (only if not already loaded)
-  useEffect(() => {
-    if (cachedModule) {
-      return
-    }
+  // Catch errors thrown inside the plugin's separate React root (after a successful mount) and
+  // re-throw them into greenhouse's tree so PluginErrorBoundary can display a recoverable UI.
+  const [runtimeError, setRuntimeError] = useState<Error | null>(null)
+  if (runtimeError) throw runtimeError
 
-    let cancelled = false
-
-    const loadApp = async () => {
-      setIsLoading(true)
-      try {
-        const appModule = await getApp(pluginName)
-        if (!cancelled) {
-          setApp(appModule)
-          setIsLoading(false)
-        }
-      } catch (error) {
-        if (!cancelled) {
-          setIsLoading(false)
-        }
-        throw error
-      }
-    }
-
-    loadApp()
-
-    return () => {
-      cancelled = true
-    }
-  }, [pluginName, cachedModule])
+  // Normalise the unknown passed by onUncaughtError / a rejected mount into an Error.
+  const reportError = useCallback((err: unknown) => {
+    setRuntimeError(err instanceof Error ? err : new Error(String(err)))
+  }, [])
 
   // Mount the app once it's loaded
   useEffect(() => {
@@ -142,9 +134,9 @@ export function usePluginLoader({
       return
     }
 
-    // The literal below is typed as `GreenhouseMountProps` (host-side convention), which extends
-    // the shared contract's `PluginProps`. If the host adds or removes a forwarded field, it is
-    // changed here — not in `@cloudoperators/greenhouse-core`.
+    let cancelled = false
+
+    // Host-forwarded props; changing these stays in this file, not greenhouse-core.
     const mountProps: GreenhouseMountProps = {
       ...config.props,
       embedded: true,
@@ -153,12 +145,21 @@ export function usePluginLoader({
       auth: pluginAuth,
     }
 
-    app.mount(containerRef.current, { props: mountProps })
+    const result = app.mount(containerRef.current, { props: mountProps, onError: reportError })
+
+    // Handle plugins with async initialization: a rejected promise would otherwise produce an
+    // unhandled rejection and a blank container instead of the error/retry UI.
+    if (result instanceof Promise) {
+      result.catch((err) => {
+        if (!cancelled) reportError(err)
+      })
+    }
 
     return () => {
+      cancelled = true
       app.unmount()
     }
-  }, [app, config, router, pluginAuth, appProps])
+  }, [app, config, router, pluginAuth, appProps, reportError])
 
-  return { isLoading, containerRef }
+  return { containerRef }
 }

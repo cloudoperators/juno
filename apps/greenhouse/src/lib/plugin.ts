@@ -66,7 +66,12 @@ const filterAndSortConfigByType = (config: any, navtype: any) => {
     .filter((a: any) => a.navigable)
     .filter((a: any) => a.navType === navtype)
     .sort((a: any, b: any) => {
-      // sort by weight, then by name
+      // Internal (bundled, no remote url) plugins first, then remote ones.
+      const remoteA = a.url ? 1 : 0
+      const remoteB = b.url ? 1 : 0
+      if (remoteA !== remoteB) return remoteA - remoteB
+
+      // then by weight, then by name
       // if weight is not defined, app is sorted to the end
       const w1 = a.weight === undefined ? Infinity : a.weight
       const w2 = b.weight === undefined ? Infinity : b.weight

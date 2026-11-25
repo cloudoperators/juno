@@ -12,15 +12,17 @@ env:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 permissions:
-  contents: write
-  pull-requests: write
-  id-token: write # required for npm trusted publishing via OIDC
+  contents: read
 
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
     environment: npm-publish
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write # required for npm trusted publishing via OIDC
     outputs:
       published: ${{ steps.changesets.outputs.published }}
       publishedPackages: ${{ steps.changesets.outputs.publishedPackages }}
@@ -46,10 +48,11 @@ jobs:
       - name: Upgrade npm for trusted publishing
         run: npm install -g npm@11.5.1
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
-        with:
-          package_json_file: package.json
+      - name: Setup pnpm via Corepack
+        run: |
+          corepack enable
+          corepack prepare --activate
+        shell: bash
 
       - name: Cache \ store
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -64,13 +67,133 @@ jobs:
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
-        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          PR_TITLE: "publish(npm): automate Package Versioning and Publishing with Changesets"
+          COMMIT_MESSAGE: "chore(version): update versions with Changesets"
         with:
-          # This expects you to have a script called release which does a build for your packages and calls changeset publish
-          publish-script: pnpm release
-          pr-title: "publish(npm): automate Package Versioning and Publishing with Changesets"
-          commit-message: "chore(version): update versions with Changesets"
+          # The GitHub App token makes the API commit, so GitHub signs it as the
+          # App identity ("Verified") — matching the old changesets/action behaviour
+          # and satisfying the "require signed commits" branch protection.
           github-token: ${{ steps.github-app-token.outputs.token }}
+          script: |
+            const { execSync } = require("node:child_process")
+            const fs = require("node:fs")
+
+            const { owner, repo } = context.repo
+            // changeset version/publish read .changeset/config.json themselves; the
+            // branch name follows the triggering branch, exactly like changesets/action.
+            const baseBranch = context.ref.replace("refs/heads/", "")
+            const versionBranch = `changeset-release/${baseBranch}`
+            const prTitle = process.env.PR_TITLE
+            const commitMessage = process.env.COMMIT_MESSAGE
+            const baseSha = context.sha
+
+            // Any changeset markdown other than the README means there are pending releases.
+            const pending = fs
+              .readdirSync(".changeset")
+              .filter((file) => file.endsWith(".md") && file.toLowerCase() !== "readme.md")
+
+            if (pending.length > 0) {
+              core.info(`Found ${pending.length} pending changeset(s); creating the version commit.`)
+              execSync("pnpm changeset version", { stdio: "inherit" })
+
+              // Collect the working-tree changes as a GraphQL file-change set.
+              execSync("git add -A")
+              const records = execSync("git diff --cached --name-status -z", { encoding: "utf8" })
+                .split("\0")
+                .filter(Boolean)
+              const additions = []
+              const deletions = []
+              for (let i = 0; i < records.length; ) {
+                const status = records[i++]
+                if (status.startsWith("R")) {
+                  deletions.push({ path: records[i++] })
+                  const newPath = records[i++]
+                  additions.push({ path: newPath, contents: fs.readFileSync(newPath).toString("base64") })
+                } else if (status === "D") {
+                  deletions.push({ path: records[i++] })
+                } else {
+                  const filePath = records[i++]
+                  additions.push({ path: filePath, contents: fs.readFileSync(filePath).toString("base64") })
+                }
+              }
+
+              // Point the version branch at the current main commit before committing on top.
+              try {
+                await github.rest.git.getRef({ owner, repo, ref: `heads/${versionBranch}` })
+                await github.rest.git.updateRef({ owner, repo, ref: `heads/${versionBranch}`, sha: baseSha, force: true })
+              } catch (error) {
+                if (error.status === 404) {
+                  await github.rest.git.createRef({ owner, repo, ref: `refs/heads/${versionBranch}`, sha: baseSha })
+                } else {
+                  throw error
+                }
+              }
+
+              await github.graphql(
+                `mutation ($input: CreateCommitOnBranchInput!) {
+                  createCommitOnBranch(input: $input) { commit { oid } }
+                }`,
+                {
+                  input: {
+                    branch: { repositoryNameWithOwner: `${owner}/${repo}`, branchName: versionBranch },
+                    message: { headline: commitMessage },
+                    expectedHeadOid: baseSha,
+                    fileChanges: { additions, deletions },
+                  },
+                }
+              )
+
+              const open = await github.rest.pulls.list({ owner, repo, base: baseBranch, head: `${owner}:${versionBranch}`, state: "open" })
+              if (open.data.length === 0) {
+                await github.rest.pulls.create({
+                  owner,
+                  repo,
+                  base: baseBranch,
+                  head: versionBranch,
+                  title: prTitle,
+                  body: "Automated by the release workflow. Merging this PR versions the packages and publishes them to npm.",
+                })
+              }
+
+              core.setOutput("published", "false")
+              core.setOutput("publishedPackages", "[]")
+              return
+            }
+
+            core.info("No pending changesets; publishing to npm.")
+            const tagsBefore = new Set(execSync("git tag", { encoding: "utf8" }).split("\n").filter(Boolean))
+            execSync("pnpm release", { stdio: "inherit" })
+            const newTags = execSync("git tag", { encoding: "utf8" })
+              .split("\n")
+              .filter(Boolean)
+              .filter((tag) => !tagsBefore.has(tag))
+
+            if (newTags.length === 0) {
+              core.setOutput("published", "false")
+              core.setOutput("publishedPackages", "[]")
+              return
+            }
+
+            // Publish the tags `changeset publish` created locally through the API.
+            for (const tag of newTags) {
+              const sha = execSync(`git rev-list -n 1 "${tag}"`, { encoding: "utf8" }).trim()
+              try {
+                await github.rest.git.createRef({ owner, repo, ref: `refs/tags/${tag}`, sha })
+              } catch (error) {
+                if (error.status !== 422) {
+                  core.warning(`Could not create tag ${tag}: ${error.message}`)
+                }
+              }
+            }
+
+            const publishedPackages = newTags.map((tag) => {
+              const at = tag.lastIndexOf("@")
+              return { name: tag.slice(0, at), version: tag.slice(at + 1) }
+            })
+            core.setOutput("published", "true")
+            core.setOutput("publishedPackages", JSON.stringify(publishedPackages))
 
   format-published-packages:
     if: needs.release.outputs.published == 'true'

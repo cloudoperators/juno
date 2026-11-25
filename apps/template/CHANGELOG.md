@@ -1,5 +1,23 @@
 # @cloudoperators/juno-app-template
 
+## 2.1.0
+
+### Minor Changes
+
+- b552bb4: Add a `build:remote` build that bundles a self-contained plugin module for remote loading, and wrap the app in an error boundary.
+
+### Patch Changes
+
+- Updated dependencies [b552bb4]
+  - @cloudoperators/greenhouse-core@0.2.3
+
+## 2.0.62
+
+### Patch Changes
+
+- Updated dependencies [858e274]
+  - @cloudoperators/juno-ui-components@9.10.1
+
 ## 2.0.61
 
 ### Patch Changes

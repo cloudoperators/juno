@@ -5,7 +5,7 @@
 
 import React, { StrictMode, useLayoutEffect, useState } from "react"
 
-import { AppShellProvider } from "@cloudoperators/juno-ui-components"
+import { AppShellProvider, Status } from "@cloudoperators/juno-ui-components"
 import type { PluginProps } from "@cloudoperators/greenhouse-core"
 import { RouterProvider, createBrowserHistory, createHashHistory, createRouter } from "@tanstack/react-router"
 import { decodeV2, encodeV2, registerConsumer } from "@cloudoperators/juno-url-state-provider"
@@ -33,6 +33,7 @@ const urlStateManager = registerConsumer("doop")
 const createAppRouter = (props: AppProps, queryClient: QueryClient) =>
   createRouter({
     routeTree,
+    defaultNotFoundComponent: () => <Status status="error" code={404} />,
     context: { appProps: props, queryClient },
     basepath: props.basePath || "/",
     history: props.enableHashedRouting ? createHashHistory() : createBrowserHistory(),

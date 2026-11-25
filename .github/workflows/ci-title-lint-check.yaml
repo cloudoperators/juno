@@ -9,81 +9,91 @@ on:
       - reopened
 
 permissions:
+  contents: read
   pull-requests: read
-  statuses: write
 
 jobs:
   title-lint:
     name: Validate PR title
     runs-on: [ubuntu-latest]
+    # skip if the PR is from a forked repository
+    if: github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
-      - name: Load config
-        # skip if the PR is from a forked repository
-        if: github.event.pull_request.head.repo.full_name == github.repository
-        id: load_config
-        run: |
-          # Load types and scopes directly from commitlint.config.mjs and set as environment variables
-          node --experimental-modules -e "
-            import('./commitlint.config.mjs').then(({ types, scopes }) => {
-              // Write types and scopes as multiline environment variables
-              console.log('TYPES<<EOF');
-              console.log(types.join('\n'));
-              console.log('EOF');
-              
-              console.log('SCOPES<<EOF');
-              console.log(scopes.join('\n'));
-              console.log('EOF');
-            });
-          " >> $GITHUB_ENV
-          echo "Done!"
-
-      - name: CI Check Title
-        # skip if the PR is from a forked repository
-        if: github.event.pull_request.head.repo.full_name == github.repository
-        uses: amannn/action-semantic-pull-request@48f256284bd46cdaab1048c3721360e808335d50 # v6.1.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          wip: true
-          # Configure which types are allowed (newline-delimited).
-          # Default: https://github.com/commitizen/conventional-commit-types
-          types: |
-            ${{ env.TYPES }}
-          scopes: |
-            ${{ env.SCOPES }}
-          # Configure that a scope must always be provided.
-          requireScope: true
-          # Configure which scopes are disallowed in PR titles (newline-delimited).
-          # For instance by setting the value below, `chore(release): ...` (lowercase)
-          # and `ci(e2e,release): ...` (unknown scope) will be rejected.
-          # These are regex patterns auto-wrapped in `^ $`.
-          disallowScopes: |
-            release
-            [A-Z]+
-          # Configure additional validation for the subject based on a regex.
-          # This example ensures the subject doesn't start with an uppercase character.
-          subjectPattern: ^(?![A-Z]).+$
-          # If `subjectPattern` is configured, you can use this property to override
-          # the default error message that is shown when the pattern doesn't match.
-          # The variables `subject` and `title` can be used within the message.
-          subjectPatternError: |
-            The subject "{subject}" found in the pull request title "{title}"
-            didn't match the configured pattern. Please ensure that the subject
-            doesn't start with an uppercase character.
-          # If the PR contains one of these newline-delimited labels, the
-          # validation is skipped. If you want to rerun the validation when
-          # labels change, you might want to use the `labeled` and `unlabeled`
-          # event triggers in your workflow.
-          ignoreLabels: |
-            bot
-            ignore-semantic-pull-request
-          # If you're using a format for the PR title that differs from the traditional Conventional
-          # Commits spec, you can use these options to customize the parsing of the type, scope and
-          # subject. The `headerPattern` should contain a regex where the capturing groups in parentheses
-          # correspond to the parts listed in `headerPatternCorrespondence`.
-          # See: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#headerpattern
-          headerPattern: '^(\w*)(?:\(([\w$.\-*/ ]*)\))?: (.*)$'
-          headerPatternCorrespondence: type, scope, subject
+          persist-credentials: false
+
+      - name: Validate PR title
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const path = require("node:path")
+            const { pathToFileURL } = require("node:url")
+
+            // Load the shared conventional-commit rules so the workflow stays in
+            // sync with commitlint (local validation) without duplicating the lists.
+            const configUrl = pathToFileURL(path.join(process.env.GITHUB_WORKSPACE, "commitlint.config.mjs")).href
+            const { types, scopes } = await import(configUrl)
+
+            const pr = context.payload.pull_request
+            const title = pr.title || ""
+            const labels = (pr.labels || []).map((label) => label.name)
+
+            const ignoreLabels = ["bot", "ignore-semantic-pull-request"]
+            if (labels.some((label) => ignoreLabels.includes(label))) {
+              core.info(`Skipping validation: PR carries an ignore label (${ignoreLabels.join(", ")}).`)
+              return
+            }
+
+            // WIP titles are allowed to pass while the PR is still in progress.
+            if (/^wip\b/i.test(title)) {
+              core.info(`Skipping validation: title marked as work in progress.`)
+              return
+            }
+
+            const headerPattern = /^(\w*)(?:\(([\w$.\-*/ ]*)\))?: (.*)$/
+            const match = title.match(headerPattern)
+            if (!match) {
+              core.setFailed(`PR title "${title}" must follow "type(scope): subject".`)
+              return
+            }
+
+            const [, type, rawScope, subject] = match
+
+            if (!types.includes(type)) {
+              core.setFailed(`Type "${type}" is not allowed. Allowed types: ${types.join(", ")}.`)
+              return
+            }
+
+            if (!rawScope) {
+              core.setFailed(`A scope is required: use "type(scope): subject".`)
+              return
+            }
+
+            const describeScopes = () =>
+              scopes.map((scope) => (scope instanceof RegExp ? scope.toString() : scope)).join(", ")
+
+            // Disallowed scope patterns, matched against the whole scope: `release`
+            // is reserved and fully-uppercase scopes (e.g. "UI", "API") are rejected.
+            const disallowScopes = [/^release$/, /^[A-Z]+$/]
+            for (const scope of rawScope.split(/[\s,/]+/).filter(Boolean)) {
+              if (disallowScopes.some((pattern) => pattern.test(scope))) {
+                core.setFailed(`Scope "${scope}" is not allowed (matches a disallowed pattern).`)
+                return
+              }
+              const allowed = scopes.some((allowedScope) =>
+                allowedScope instanceof RegExp ? allowedScope.test(scope) : allowedScope === scope
+              )
+              if (!allowed) {
+                core.setFailed(`Scope "${scope}" is not allowed. Allowed scopes: ${describeScopes()}.`)
+                return
+              }
+            }
+
+            if (/^[A-Z]/.test(subject)) {
+              core.setFailed(`Subject "${subject}" must not start with an uppercase character.`)
+              return
+            }
+
+            core.info(`PR title "${title}" is valid.`)

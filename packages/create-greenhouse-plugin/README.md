@@ -41,6 +41,19 @@ pnpm install
 pnpm dev
 ```
 
+## Deploy as a remote plugin
+
+Build a self-contained module and host it so Greenhouse can load it at runtime:
+
+```bash
+pnpm build:remote   # → build/index.js (all dependencies bundled, importable from any origin)
+```
+
+Host `build/index.js` on any static host, then set the UI asset URL on your Greenhouse `Plugin`
+resource to it. Greenhouse imports the module at runtime and mounts its exported `plugin`. The URL
+must point at the JS module (e.g. `https://your-host/index.js`), not a directory. See the generated
+app's `README.md` for the full list of build modes.
+
 ## How it works
 
 The scaffolder ships a checked-in `template/` directory. The CLI copies that directory into the

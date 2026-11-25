@@ -7,7 +7,7 @@ import { createRoot } from "react-dom/client"
 import React from "react"
 import { version } from "../package.json"
 
-const logAppName = (version: any) => {
+const logAppName = (version: string) => {
   const appName = `%c
   ____ ____  _____ _____ _   _ _   _  ___  _   _ ____  _____ 
  / ___|  _ \\| ____| ____| \\ | | | | |/ _ \\| | | / ___|| ____|

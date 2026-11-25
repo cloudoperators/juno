@@ -1,5 +1,11 @@
 # @cloudoperators/greenhouse-core
 
+## 0.2.3
+
+### Patch Changes
+
+- b552bb4: `MountOptions` gains an optional `onError` callback forwarded to `createRoot`'s `onUncaughtError`, so the host can receive uncaught errors from a plugin's React root.
+
 ## 0.2.2
 
 ### Patch Changes

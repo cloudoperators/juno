@@ -42,6 +42,8 @@ export interface PluginProps {
 export interface MountOptions<P extends object = PluginProps> {
   /** Props Greenhouse passes to the plugin's root React component. */
   props?: P
+  /** Called when an error escapes all error boundaries in the plugin tree. */
+  onError?: (error: unknown) => void
 }
 
 /**
