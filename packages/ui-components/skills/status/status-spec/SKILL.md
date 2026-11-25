@@ -34,7 +34,7 @@ If you are tempted to add or change a rule, edit `status-spec.md` — never dupl
 
 ## When NOT to use Status
 
-`Status` is for non-data states only. Do not use it to render data, content, or informational messages that are part of the normal data flow. Do not use it as a generic message or notification component — those have dedicated components (`Toast`, `Message`).
+`Status` is for non-data states only. Do not use it to render data, content, or informational messages that are part of the normal data flow. Do not use it as a generic message or notification component — that feedback belongs to a `Message` or a notification instead.
 
 ## Placement
 
