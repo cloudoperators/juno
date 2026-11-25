@@ -68,7 +68,7 @@ export const TooltipContent = forwardRef<HTMLElement, TooltipContentProps>(funct
     <>
       {state.open && (
         <div
-          className={`juno-tooltip juno-tooltip-${variant} ${popoverStyles} ${className}`}
+          className={`juno-tooltip${variant ? ` juno-tooltip-${variant}` : ""} ${popoverStyles} ${className}`}
           ref={ref}
           style={{
             ...state.floatingStyles,
