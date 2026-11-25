@@ -55,7 +55,7 @@ export const useTooltip = ({
   refs?: {
     reference: React.RefObject<HTMLElement>
     floating: React.RefObject<HTMLElement>
-    setReference: () => void
+    setReference: (node: HTMLElement | null) => void
     setFloating: (node: HTMLElement | null) => void
   }
   x?: number | null
