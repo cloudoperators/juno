@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { createContext, HTMLAttributes, ReactNode, useContext } from "react"
-import { useTooltip, UseTooltipProps } from "./useTooltip"
+import React, { createContext, ReactNode, useContext } from "react"
+import { useTooltip } from "./useTooltip"
 import { ToolTipVariant, TooltipPlacement } from "./ToolTip.types"
 
 // Define a type for TooltipContext, which holds the return value of useTooltip
@@ -27,7 +27,7 @@ export const useTooltipState: () => NonNullable<TooltipContextType> = () => {
   return context
 }
 
-export interface TooltipProps extends HTMLAttributes<HTMLElement> {
+export interface TooltipProps {
   /** The semantic variant of the tooltip, or `plain` */
   variant?: ToolTipVariant
   /** Uncontrolled Tooltip: Choose which event should trigger the opening of the tooltip (click or hover) */
@@ -61,10 +61,7 @@ export const Tooltip = ({
   triggerEvent = "click",
   disabled = false,
   children,
-  ...props
 }: TooltipProps): ReactNode => {
-  // This can accept any floating ui props as options, e.g. `placement`,
-  // or other positioning options.
   const tooltip = useTooltip({
     initialOpen,
     placement,
@@ -72,7 +69,6 @@ export const Tooltip = ({
     open,
     triggerEvent,
     disabled,
-    props,
-  } as UseTooltipProps)
+  })
   return <TooltipContext.Provider value={tooltip}>{children}</TooltipContext.Provider>
 }
