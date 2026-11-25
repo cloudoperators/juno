@@ -55,15 +55,15 @@ export const useTooltip = ({
   refs?: {
     reference: React.RefObject<HTMLElement>
     floating: React.RefObject<HTMLElement>
-    setReference: () => void
+    setReference: (node: HTMLElement | null) => void
     setFloating: (node: HTMLElement | null) => void
   }
   x?: number | null
   y?: number | null
   strategy: "absolute" | "fixed"
   placement: TooltipPlacement
-  middlewareData: any
-  context: any
+  middlewareData: ReturnType<typeof useFloating>["middlewareData"]
+  context: ReturnType<typeof useFloating>["context"]
 } => {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(initialOpen)
 
@@ -109,8 +109,7 @@ export const useTooltip = ({
       refs: {
         reference: data.refs.reference as React.RefObject<HTMLElement>,
         floating: data.refs.floating as React.RefObject<HTMLElement>,
-        setReference: (node?: HTMLElement | null) => {
-          // @ts-ignore
+        setReference: (node: HTMLElement | null) => {
           data.refs.setReference(node)
         },
         setFloating: (node: HTMLElement | null) => {

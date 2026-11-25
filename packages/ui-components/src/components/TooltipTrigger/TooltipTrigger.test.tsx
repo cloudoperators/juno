@@ -17,8 +17,7 @@ describe("TooltipTrigger", () => {
         <TooltipContent>TEST</TooltipContent>
       </Tooltip>
     )
-    // screen.debug()
-    expect(screen.getByText("Click me to show tooltip")).toBeInTheDocument()
+    expect(screen.getByRole("button")).toHaveClass("juno-tooltip-trigger")
   })
 
   it("renders a TooltipTrigger with a custom className as passed", () => {
@@ -30,8 +29,30 @@ describe("TooltipTrigger", () => {
         <TooltipContent>TEST</TooltipContent>
       </Tooltip>
     )
-    // screen.debug()
     expect(screen.getByRole("button")).toHaveClass("custom-test-tooltip")
+  })
+
+  it("passes arbitrary data attributes to the trigger element", () => {
+    render(
+      <Tooltip>
+        <TooltipTrigger data-testid="my-trigger" data-lolol="123">
+          Click me
+        </TooltipTrigger>
+        <TooltipContent>TEST</TooltipContent>
+      </Tooltip>
+    )
+    expect(screen.getByTestId("my-trigger")).toHaveAttribute("data-lolol", "123")
+  })
+
+  it("forwards ref to the underlying button element", () => {
+    const ref = React.createRef<HTMLElement>()
+    render(
+      <Tooltip>
+        <TooltipTrigger ref={ref}>Click me</TooltipTrigger>
+        <TooltipContent>TEST</TooltipContent>
+      </Tooltip>
+    )
+    expect(ref.current).toBeInstanceOf(HTMLButtonElement)
   })
 
   it("throws error if TooltipTrigger is not wrapped in a Tooltip", () => {
