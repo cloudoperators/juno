@@ -13,13 +13,12 @@ import { TooltipContent } from "./index"
 
 describe("TooltipContent", () => {
   it("render a TooltipContent", () => {
-    const { container } = render(
+    render(
       <Tooltip initialOpen={true}>
-        <TooltipContent className="test-tooltip-content">TEST</TooltipContent>
+        <TooltipContent>TEST</TooltipContent>
       </Tooltip>
     )
-    // screen.debug()
-    expect(container.querySelector('[class~="test-tooltip-content"]')).toBeInTheDocument()
+    expect(screen.getByRole("tooltip")).toHaveClass("juno-tooltip")
   })
 
   it("renders a TooltipContent with a custom className as passed", () => {
@@ -31,7 +30,6 @@ describe("TooltipContent", () => {
         </TooltipContent>
       </Tooltip>
     )
-    // screen.debug()
     expect(screen.getByTestId("tooltip-content")).toHaveClass("custom-test-tooltip")
   })
 
