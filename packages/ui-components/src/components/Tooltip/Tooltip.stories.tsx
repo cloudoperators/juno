@@ -189,7 +189,7 @@ export const InfoTooltip: Story = {
   args: {
     variant: "info",
     text: "An Info Tooltip",
-    open: true,
+    initialOpen: true,
   },
   render: AsChildIconTemplate,
 }
@@ -198,7 +198,7 @@ export const WarningTooltip: Story = {
   args: {
     variant: "warning",
     text: "A Warning Tooltip",
-    open: true,
+    initialOpen: true,
   },
   render: AsChildIconTemplate,
 }
@@ -207,7 +207,7 @@ export const ErrorTooltip: Story = {
   args: {
     variant: "error",
     text: "An Error Tooltip",
-    open: true,
+    initialOpen: true,
   },
   render: AsChildIconTemplate,
 }
@@ -216,7 +216,7 @@ export const DangerTooltip: Story = {
   args: {
     variant: "danger",
     text: "A Danger Tooltip.",
-    open: true,
+    initialOpen: true,
   },
   render: AsChildIconTemplate,
 }
@@ -225,7 +225,7 @@ export const SuccessTooltip: Story = {
   args: {
     variant: "success",
     text: "A Success Tooltip",
-    open: true,
+    initialOpen: true,
   },
   render: AsChildIconTemplate,
 }
