@@ -17,8 +17,7 @@ describe("TooltipTrigger", () => {
         <TooltipContent>TEST</TooltipContent>
       </Tooltip>
     )
-    // screen.debug()
-    expect(screen.getByText("Click me to show tooltip")).toBeInTheDocument()
+    expect(screen.getByRole("button")).toHaveClass("juno-tooltip-trigger")
   })
 
   it("renders a TooltipTrigger with a custom className as passed", () => {
