@@ -129,9 +129,7 @@ const AsChildButtonTemplate = ({
       disabled={disabled}
     >
       <TooltipTrigger asChild={true}>
-        <TooltipTrigger>
-          <button>hover me</button>
-        </TooltipTrigger>
+        <button>hover me</button>
       </TooltipTrigger>
       <TooltipContent {...args}>{text}</TooltipContent>
     </Tooltip>
