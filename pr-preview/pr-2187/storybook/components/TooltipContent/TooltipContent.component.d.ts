@@ -2,8 +2,6 @@ import { default as React, HTMLAttributes, ReactNode } from '../../../../../node
 export interface TooltipContentProps extends HTMLAttributes<HTMLDivElement> {
     /** Pass child nodes to display in the tooltip */
     children?: ReactNode;
-    /** Pass a className to render to the icon button*/
-    className?: string;
 }
 /**
  * Put content for a tooltip here. See Tooltip for more in-depth explanation and examples.

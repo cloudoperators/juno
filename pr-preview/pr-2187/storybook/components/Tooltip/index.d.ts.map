@@ -1,1 +1,1 @@
-{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/components/Tooltip/index.ts"],"names":[],"mappings":"AAKA,OAAO,EAAE,OAAO,EAAE,MAAM,qBAAqB,CAAA"}
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/components/Tooltip/index.ts"],"names":[],"mappings":"AAKA,OAAO,EAAE,OAAO,EAAE,MAAM,qBAAqB,CAAA;AAC7C,YAAY,EAAE,YAAY,EAAE,MAAM,qBAAqB,CAAA;AACvD,OAAO,EAAE,eAAe,EAAE,MAAM,qBAAqB,CAAA;AACrD,YAAY,EAAE,gBAAgB,EAAE,cAAc,EAAE,MAAM,iBAAiB,CAAA"}

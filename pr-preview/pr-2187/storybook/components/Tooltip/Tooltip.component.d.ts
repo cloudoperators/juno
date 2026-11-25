@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
+import { ReactNode } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
 import { useTooltip } from './useTooltip';
 import { ToolTipVariant, TooltipPlacement } from './ToolTip.types';
 type TooltipContextType = ReturnType<typeof useTooltip> | null;
@@ -8,7 +8,7 @@ type TooltipContextType = ReturnType<typeof useTooltip> | null;
  * @returns TooltipContext
  */
 export declare const useTooltipState: () => NonNullable<TooltipContextType>;
-export interface TooltipProps extends HTMLAttributes<HTMLElement> {
+export interface TooltipProps {
     /** The semantic variant of the tooltip, or `plain` */
     variant?: ToolTipVariant;
     /** Uncontrolled Tooltip: Choose which event should trigger the opening of the tooltip (click or hover) */
@@ -32,6 +32,6 @@ export interface TooltipProps extends HTMLAttributes<HTMLElement> {
  * @see https://cloudoperators.github.io/juno/?path=/docs/components-tooltip-tooltip--docs
  * @see {@link TooltipProps}
  */
-export declare const Tooltip: ({ initialOpen, placement, variant, open, triggerEvent, disabled, children, ...props }: TooltipProps) => ReactNode;
+export declare const Tooltip: ({ initialOpen, placement, variant, open, triggerEvent, disabled, children, }: TooltipProps) => ReactNode;
 export {};
 //# sourceMappingURL=Tooltip.component.d.ts.map
