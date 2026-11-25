@@ -1,0 +1,1 @@
+import{t as e}from"./iframe-DMuAC_56.js";e();
