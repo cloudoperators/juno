@@ -46,7 +46,7 @@ export const TooltipTrigger = forwardRef<HTMLElement, TooltipTriggerProps>(funct
       ...props,
       ...childrenProps,
       "data-state": state.open ? "open" : "closed",
-      className: childrenProps.className + `${state.disabled && " jn:cursor-default"}`,
+      className: `${childrenProps.className ?? ""}${state.disabled ? " jn:cursor-default" : ""}`,
     }
     const combinedProps = state.getReferenceProps(referencedProps)
 
@@ -59,7 +59,7 @@ export const TooltipTrigger = forwardRef<HTMLElement, TooltipTriggerProps>(funct
       // The user can style the trigger based on the state
       data-state={state.open ? "open" : "closed"}
       {...state.getReferenceProps(props)}
-      className={`${className} ${state.disabled && " jn:cursor-default"}`}
+      className={`${className}${state.disabled ? " jn:cursor-default" : ""}`}
     >
       {children}
     </button>
