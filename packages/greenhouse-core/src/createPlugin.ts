@@ -39,7 +39,8 @@ export function createPlugin<P extends object = PluginProps>(App: ComponentType<
   const mount: Plugin["mount"] = (container, options: MountOptions = {}) => {
     // Idempotent re-mount: tear down any prior root before creating a new one for the same module.
     if (root) root.unmount()
-    root = createRoot(container)
+    // Forward uncaught errors (no internal ErrorBoundary) to Greenhouse via onError.
+    root = createRoot(container, { onUncaughtError: options.onError })
     // `options.props` is typed as the shared `PluginProps` here (because `MountOptions` defaults
     // to it). Greenhouse always passes `props` compatible with the plugin's expected shape; when
     // `options.props` is absent we fall back to `{}`. The cast is at runtime safe and expresses

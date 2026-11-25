@@ -14,6 +14,20 @@ pnpm install
 pnpm dev
 ```
 
+## Building and deploying as a Greenhouse plugin
+
+This plugin exposes a single `plugin` value (`{ mount, unmount }`) created with `createPlugin(App)` in `src/index.tsx`. Greenhouse imports that value and mounts it into the shell.
+
+To deploy as a remote plugin:
+
+1. Run `pnpm build:remote`. This produces `build/index.js` — a single ES module with all dependencies (React, UI components, the plugin contract) bundled in, so it can be imported from any origin.
+2. Host `build/index.js` on any static host reachable by Greenhouse.
+3. Point your Greenhouse `Plugin` resource's UI asset URL at that module (e.g. `https://your-host/index.js`, not a directory). Greenhouse imports it at runtime and mounts the exported `plugin`.
+
+`pnpm build:static` instead produces a standalone app for running the plugin on its own.
+
+Each plugin runs in its own React root and bundles its own React, so keep it isolated and pass data via props. If you add routing, honor the `enableHashedRouting` prop so the plugin does not fight the shell over the browser URL.
+
 ## Scripts
 
 See `package.json` for the full list of available scripts.

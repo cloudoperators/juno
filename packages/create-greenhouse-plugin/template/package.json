@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
+    "build:remote": "vite build --mode remote",
     "build:static": "vite build --mode static",
     "typecheck": "tsc -b"
   },
