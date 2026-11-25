@@ -3045,6 +3045,126 @@
       "evidence": [
         "No skill exists for this file in ui-components skills/"
       ]
+    },
+    "source:packages/ui-components/src/components/Tooltip/Tooltip.component.tsx": {
+      "fingerprint": "15cb5aed90b9a2546117d6cff2e26c1b7fc5950d37c757758014b3067f34ef01",
+      "snapshot": {
+        "packages/ui-components/src/components/Tooltip/Tooltip.component.tsx": "3c32ea5dc2af7b02fdc088e5f80e5d31039da1cef51055b07f98116cf429cea2"
+      },
+      "head": "307fc3310d0d82a5c85f81161a917f9ab5bae939",
+      "outcome": "no-change",
+      "reason": "bug fix and cleanup — Tooltip family has no skills defined",
+      "evidence": [
+        "correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"
+      ]
+    },
+    "source:packages/ui-components/src/components/Tooltip/Tooltip.stories.tsx": {
+      "fingerprint": "29144f0ae0a8532b73b1bdb617a9e159994df0a75243129da12c941d81dff715",
+      "snapshot": {
+        "packages/ui-components/src/components/Tooltip/Tooltip.stories.tsx": "b5bffd2a017aa9a8bc9488ba67b757f70e72145e9bd3c3687115f1204e0453ef"
+      },
+      "head": "307fc3310d0d82a5c85f81161a917f9ab5bae939",
+      "outcome": "no-change",
+      "reason": "bug fix and cleanup — Tooltip family has no skills defined",
+      "evidence": [
+        "correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"
+      ]
+    },
+    "source:packages/ui-components/src/components/Tooltip/index.ts": {
+      "fingerprint": "a76c1cbf394ec7af3c8baf0c024e9f4b4bc4816854211ea4e980e1df7a60c023",
+      "snapshot": {
+        "packages/ui-components/src/components/Tooltip/index.ts": "6ced1cc0c0daad80f25bb8ff6cd95b15bb14951c0c89f50ef7c3353f4ef5f5e4"
+      },
+      "head": "307fc3310d0d82a5c85f81161a917f9ab5bae939",
+      "outcome": "no-change",
+      "reason": "bug fix and cleanup — Tooltip family has no skills defined",
+      "evidence": [
+        "correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"
+      ]
+    },
+    "source:packages/ui-components/src/components/Tooltip/useTooltip.ts": {
+      "fingerprint": "f61e41b34cc3334ad6d919e71087d882a5e0f0cd78834071211b29e4f870e138",
+      "snapshot": {
+        "packages/ui-components/src/components/Tooltip/useTooltip.ts": "c25cf4f3f465541767365e671d52388ca669e8d5824a76918b8e55095cba697a"
+      },
+      "head": "307fc3310d0d82a5c85f81161a917f9ab5bae939",
+      "outcome": "no-change",
+      "reason": "bug fix and cleanup — Tooltip family has no skills defined",
+      "evidence": [
+        "correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"
+      ]
+    },
+    "source:packages/ui-components/src/components/TooltipContent/TooltipContent.component.tsx": {
+      "fingerprint": "f2ac02ad7e96ee1edd6ee952a9071f34966293f49746327e8b74407810f8f7a6",
+      "snapshot": {
+        "packages/ui-components/src/components/TooltipContent/TooltipContent.component.tsx": "897df4bbc5ccd141467efd9b16424ee6ce7837470f888d4ff450126dd5b96ebf"
+      },
+      "head": "307fc3310d0d82a5c85f81161a917f9ab5bae939",
+      "outcome": "no-change",
+      "reason": "bug fix and cleanup — Tooltip family has no skills defined",
+      "evidence": [
+        "correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"
+      ]
+    },
+    "source:packages/ui-components/src/components/TooltipContent/TooltipContent.test.tsx": {
+      "fingerprint": "a1fdce33ca3e681091b7508832a8836f7dd6fe256be960b52187bb60ea598585",
+      "snapshot": {
+        "packages/ui-components/src/components/TooltipContent/TooltipContent.test.tsx": "83c2c97986379e45211252341f1db490e9357a2760efb3e2f6f0130c8a8471f6"
+      },
+      "head": "307fc3310d0d82a5c85f81161a917f9ab5bae939",
+      "outcome": "no-change",
+      "reason": "bug fix and cleanup — Tooltip family has no skills defined",
+      "evidence": [
+        "correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"
+      ]
+    },
+    "source:packages/ui-components/src/components/TooltipContent/index.ts": {
+      "fingerprint": "7599deb58b407293a6e20af45b5afbe12135bb87eef9bcd7eaa73ad1d3129fde",
+      "snapshot": {
+        "packages/ui-components/src/components/TooltipContent/index.ts": "eaecbaac67e889243caee6ebc743a92463e96602113cecb3a5fc670efef37f7e"
+      },
+      "head": "307fc3310d0d82a5c85f81161a917f9ab5bae939",
+      "outcome": "no-change",
+      "reason": "bug fix and cleanup — Tooltip family has no skills defined",
+      "evidence": [
+        "correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"
+      ]
+    },
+    "source:packages/ui-components/src/components/TooltipTrigger/TooltipTrigger.component.tsx": {
+      "fingerprint": "14a3d2811114760005c6019e9c02376c7c4f1d016409c7213828f5b2159823e3",
+      "snapshot": {
+        "packages/ui-components/src/components/TooltipTrigger/TooltipTrigger.component.tsx": "2ba7157c7f75d76f04330dc4ebadd198bc5e7db650f9fc28f92118da3cec1e71"
+      },
+      "head": "307fc3310d0d82a5c85f81161a917f9ab5bae939",
+      "outcome": "no-change",
+      "reason": "bug fix and cleanup — Tooltip family has no skills defined",
+      "evidence": [
+        "correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"
+      ]
+    },
+    "source:packages/ui-components/src/components/TooltipTrigger/TooltipTrigger.test.tsx": {
+      "fingerprint": "86bfe85e688d5ec40198cabe17bd9c3f741886ac12438e9ab4a76f2e115e2126",
+      "snapshot": {
+        "packages/ui-components/src/components/TooltipTrigger/TooltipTrigger.test.tsx": "0ee19be0f15a6efb5231d333daf1327b49e85ecb86519d8086a74b92c70507ff"
+      },
+      "head": "307fc3310d0d82a5c85f81161a917f9ab5bae939",
+      "outcome": "no-change",
+      "reason": "bug fix and cleanup — Tooltip family has no skills defined",
+      "evidence": [
+        "correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"
+      ]
+    },
+    "source:packages/ui-components/src/components/TooltipTrigger/index.ts": {
+      "fingerprint": "940ed87c4d004c6058321e1e3f7c13a7402e390e25508405b9346bef38687c3d",
+      "snapshot": {
+        "packages/ui-components/src/components/TooltipTrigger/index.ts": "a3971793b3db719bb973d75ce2cd8cbbfbc89efde97e95a8a60617c16c6439f0"
+      },
+      "head": "307fc3310d0d82a5c85f81161a917f9ab5bae939",
+      "outcome": "no-change",
+      "reason": "bug fix and cleanup — Tooltip family has no skills defined",
+      "evidence": [
+        "correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"
+      ]
     }
   }
 }

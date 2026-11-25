@@ -34,9 +34,7 @@ export const TooltipTrigger = forwardRef<HTMLElement, TooltipTriggerProps>(funct
   // Extract the child's ref before any hook calls so both useMergeRefs calls below
   // can be made unconditionally at the top level. The Rules of Hooks require that the
   // number of hook calls per render never depends on a condition. useMergeRefs silently skips null entries.
-  const childrenRef = isValidElement(children)
-    ? ((children.props as CustomProps).ref as RefObject<HTMLElement>)
-    : null
+  const childrenRef = isValidElement(children) ? ((children.props as CustomProps).ref as RefObject<HTMLElement>) : null
 
   // buttonRef: used by the default <button> branch
   const buttonRef = useMergeRefs([state.refs?.setReference, propRef])

@@ -35,7 +35,9 @@ describe("TooltipTrigger", () => {
   it("passes arbitrary data attributes to the trigger element", () => {
     render(
       <Tooltip>
-        <TooltipTrigger data-testid="my-trigger" data-lolol="123">Click me</TooltipTrigger>
+        <TooltipTrigger data-testid="my-trigger" data-lolol="123">
+          Click me
+        </TooltipTrigger>
         <TooltipContent>TEST</TooltipContent>
       </Tooltip>
     )
