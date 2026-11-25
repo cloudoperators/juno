@@ -43,8 +43,6 @@ const getIcon = (variant: ToolTipVariant) => {
 export interface TooltipContentProps extends HTMLAttributes<HTMLDivElement> {
   /** Pass child nodes to display in the tooltip */
   children?: ReactNode
-  /** Pass a className to render to the icon button*/
-  className?: string
 }
 
 /**
@@ -82,7 +80,7 @@ export const TooltipContent = forwardRef<HTMLElement, TooltipContentProps>(funct
               className={`juno-tooltip-popover-icon ${popoverIconStyles}`}
             />
           )}
-          <p className={`${popoverTextStyles}`}>{children}</p>
+          <p className={popoverTextStyles}>{children}</p>
         </div>
       )}
     </>
