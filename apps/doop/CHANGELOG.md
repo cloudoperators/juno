@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-doop
 
+## 2.6.54
+
+### Patch Changes
+
+- b552bb4: Show a 404 "Page Not Found" status for unmatched routes instead of a plain "Not found" string.
+- Updated dependencies [b552bb4]
+  - @cloudoperators/greenhouse-core@0.2.3
+
 ## 2.6.53
 
 ### Patch Changes

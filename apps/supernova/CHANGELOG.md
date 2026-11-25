@@ -1,5 +1,13 @@
 # @cloudoperators/juno-app-supernova
 
+## 0.20.23
+
+### Patch Changes
+
+- b552bb4: Show a 404 "Page Not Found" status for unmatched routes instead of a plain "Not found" string.
+- Updated dependencies [b552bb4]
+  - @cloudoperators/greenhouse-core@0.2.3
+
 ## 0.20.22
 
 ### Patch Changes

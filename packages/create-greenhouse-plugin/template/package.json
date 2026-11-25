@@ -16,7 +16,7 @@
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "@cloudoperators/greenhouse-core": "^0.2.2",
-    "@cloudoperators/juno-ui-components": "^9.10.0"
+    "@cloudoperators/juno-ui-components": "^9.10.1"
   },
   "devDependencies": {
     "@types/node": "^24.19.2",
