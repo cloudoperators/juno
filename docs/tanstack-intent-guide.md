@@ -14,13 +14,14 @@ the underlying component changes. Our first batch is the DataGrid skills in
 
 ## Where things live
 
-| Path                                    | What                                                                     |
-| --------------------------------------- | ------------------------------------------------------------------------ |
-| `packages/<pkg>/skills/<name>/SKILL.md` | A skill, beside its package.                                             |
-| `_artifacts/*.yaml`, `skill_spec.md`    | Shared planning records (domains, decisions, source mappings).           |
-| `.intent/review-state.json`             | Which source reviews are complete. Commit with the changes it describes. |
-| `AGENTS.md`                             | Maintainer procedure agents follow automatically.                        |
-| `.github/workflows/check-skills.yml`    | CI gate for skills and recorded reviews.                                 |
+| Path                                    | What                                                                                      |
+| --------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `packages/<pkg>/skills/<name>/SKILL.md` | A skill, beside its package.                                                              |
+| `_artifacts/*.yaml`, `skill_spec.md`    | Shared planning records (domains, decisions, source mappings).                            |
+| `.intent/review-state.json`             | Recorded review outcomes (fingerprints + evidence). Commit with the changes it describes. |
+| `.intent/review.json`                   | Annotated report written and read by `maintainer review --record` (per-item outcomes).    |
+| `AGENTS.md`                             | Maintainer procedure agents follow automatically.                                         |
+| `.github/workflows/check-skills.yml`    | CI gate for skills and recorded reviews.                                                  |
 
 ## Create a skill
 
@@ -36,7 +37,8 @@ pnpm exec intent maintainer add <name> \
 
 This scaffolds `SKILL.md` and updates the planning records. Author the body (ask your
 agent for the `meta generate-skill` procedure, or write it by hand), then `maintainer
-sync`.
+sync`. This is the _scaffold_ mode, for starting from an empty skill; to author the files
+first and register them, see author-first registration under _Add a new set_ below.
 
 ## Structure a component skill set
 
@@ -54,26 +56,31 @@ skills/<component>/
 - The `-spec` skill owns the rule set and the `references/` that back it. Intent resolves a skill's references only at `<skillDir>/references/`, so they must sit under the skill that owns them — not at the component root.
 - A skill's name must equal its directory basename (`datagrid-spec` lives in `datagrid-spec/`).
 - `-build` and `-validate` declare `requires: [<component>-spec]` and point their `sources` at the spec's reference file. They cite the spec's rule IDs and never restate rules, so there is one source of truth per component.
+- `validate` type-checks `ts`/`tsx` code fences. Mark non-compiling, illustrative snippets ` ```tsx no-check `. Repo Prettier is no-semi, so a fence whose statement starts with bare JSX gets a leading `;` on format — wrap the JSX in a function/`return` so it doesn't.
 
 ### Add a new set
 
 Run the commands below from the **owning package directory** (e.g. `packages/ui-components`), not from the repo root. Package-scoped skills — those that belong to a specific npm package and are published with it — must be registered from inside the package so that Intent sets the `package:` field correctly. Running `maintainer add` from the repo root creates skill files at the repo root instead of inside the package and omits `package:` from the artifact entries, which causes `review` to generate spurious bare-path entries that must be cleaned up by hand. Skills that are not bound to a package scope can live anywhere and may be registered from the repo root.
 
-From the owning package directory, scaffold each skill, then author the bodies (place the references under `-spec/references/`), then sync:
+From the owning package directory, **author all four files first** — the three `SKILL.md` bodies (with their frontmatter) and the `-spec`'s `references/<component>-spec.md` — then register each existing `SKILL.md`. Because the files already exist, pass only `--path` and `--domain`; `sources` and `requires` are read from the frontmatter. Passing `--source`/`--requires` for a file that already exists is rejected (`To register an existing skill, supply its --path and --domain…`) — those flags only scaffold a new, empty skill. Domains are free-form: a new domain is just a new slug.
 
 ```bash
-pnpm exec intent maintainer add <component>-spec \
-  --path skills/<component>/<component>-spec/SKILL.md --domain <domain> \
-  --source "src/components/<Component>/<Component>.component.tsx"
-pnpm exec intent maintainer add <component>-build \
-  --path skills/<component>/<component>-build/SKILL.md --domain <domain> \
-  --requires <component>-spec \
-  --source "skills/<component>/<component>-spec/references/<component>-spec.md"
-pnpm exec intent maintainer add <component>-validate \
-  --path skills/<component>/<component>-validate/SKILL.md --domain <domain> \
-  --requires <component>-spec \
-  --source "skills/<component>/<component>-spec/references/<component>-spec.md"
-pnpm exec intent maintainer sync
+pnpm exec intent maintainer add <component>-spec     --path skills/<component>/<component>-spec/SKILL.md     --domain <domain>
+pnpm exec intent maintainer add <component>-build    --path skills/<component>/<component>-build/SKILL.md    --domain <domain>
+pnpm exec intent maintainer add <component>-validate --path skills/<component>/<component>-validate/SKILL.md --domain <domain>
+```
+
+`maintainer add` does not fill everything in the planning records. Complete these by hand:
+
+- **`_artifacts/domain_map.yaml`** — each new skill is added with `tasks: []`; fill in the developer task(s) it covers.
+- **`_artifacts/skill_tree.yaml`** — add the `-spec` entry's reference file under `references:` (e.g. `references: [ references/<component>-spec.md ]`). **`validate` fails without it**, and neither `add` nor `sync` populates it.
+- **`_artifacts/skill_spec.md`** — `add` appends placeholder bullets ("Task coverage, decisions, and checks still need to be recorded"); replace them with a real batch entry.
+
+Then align and validate:
+
+```bash
+pnpm exec intent maintainer sync       # aligns artifact metadata with the frontmatter
+pnpm exec intent validate skills       # structural checks + ts/tsx fence type-checks
 ```
 
 ### Move or rename a skill
@@ -98,16 +105,14 @@ is the point of the tool: it forces a decision whenever the library moves.
 pnpm exec intent maintainer review --base origin/main --interactive
 ```
 
-Record each item as `--updated "<reason>"` (you changed the guidance) or `--unchanged
-"<reason>"` (source moved, guidance still correct; the reason is your evidence). Do **not**
-auto-rubber-stamp reviews with a hook; that defeats the drift check.
+`--interactive` walks each pending item so you can record outcomes individually. Non-interactively, `--updated "<reason>"` or `--unchanged "<reason>"` records **every** pending item at once (updated = you changed the guidance; unchanged = source moved, guidance still correct — the reason is your evidence), and `--record <file>` reads per-item outcomes from an annotated JSON report. Do **not** auto-rubber-stamp reviews with a hook; that defeats the drift check.
 
 ## Before you merge
 
 ```bash
-pnpm exec intent maintainer sync       # regenerate derived metadata
-pnpm exec intent maintainer review     # record pending reviews
-pnpm exec intent maintainer check      # the full gate (also run in CI)
+pnpm exec intent maintainer sync                        # regenerate derived metadata
+pnpm exec intent maintainer review --base origin/main   # record pending reviews
+pnpm exec intent maintainer check  --base origin/main   # the full gate (also run in CI)
 ```
 
 Add a changeset for any published `ui-components` change, and commit
