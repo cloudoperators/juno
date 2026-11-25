@@ -1,5 +1,11 @@
 # @cloudoperators/create-greenhouse-plugin
 
+## 0.3.0
+
+### Minor Changes
+
+- b552bb4: Scaffold plugins with a `build:remote` command and an error-boundary fallback, and document deploying a plugin as a remote module.
+
 ## 0.2.1
 
 ### Patch Changes
