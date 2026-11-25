@@ -2,4 +2,5 @@
 # the repo. Unless a later match takes precedence,
 
 * @cloudoperators/frontend-core
+/.github/ @cloudoperators/frontend-core
 /packages/ui-components/ @cloudoperators/frontend-core @franzheidl

@@ -11,11 +11,7 @@ on:
       - changeset-release/main
 
 permissions:
-  contents: write
-  pull-requests: write
-  actions: read
-  checks: write
-  statuses: write
+  contents: read
 
 env:
   HUSKY: 0
@@ -23,29 +19,50 @@ env:
 
 jobs:
   reuse-compliance:
-    uses: cloudoperators/common/.github/workflows/shared-reuse.yaml@4c90d3c7b7e98f1edd2c894e533c70a31f2ec28e # main
+    name: reuse
+    runs-on: [ubuntu-latest]
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: REUSE Compliance Check
+        run: pipx run reuse lint
 
   license-headers:
+    name: license-headers
+    runs-on: [ubuntu-latest]
     permissions:
-      contents: write
-    uses: cloudoperators/common/.github/workflows/shared-license.yaml@4c90d3c7b7e98f1edd2c894e533c70a31f2ec28e # main
-    with:
-      apply_header: false
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check license headers
+        run: |
+          go install github.com/apache/skywalking-eyes/cmd/license-eye@v0.9.0
+          "$(go env GOPATH)/bin/license-eye" -c .github/licenserc.yaml header check
 
   cache-dependencies:
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Use Node.js
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
-        with:
-          package_json_file: package.json
+      - name: Setup pnpm via Corepack
+        run: |
+          corepack enable
+          corepack prepare --activate
+        shell: bash
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -67,6 +84,8 @@ jobs:
     needs: cache-dependencies
     runs-on: [ubuntu-latest]
     strategy:
+      # matrix.command is executed verbatim via `run:` — keep these values
+      # static/in-repo; never source them from event or external input.
       matrix:
         include:
           - title: "license-check"
@@ -85,16 +104,19 @@ jobs:
     name: ${{ matrix.title }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Use Node.js
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
-        with:
-          package_json_file: package.json
+      - name: Setup pnpm via Corepack
+        run: |
+          corepack enable
+          corepack prepare --activate
+        shell: bash
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -120,16 +142,19 @@ jobs:
     name: e2e-smoke
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Use Node.js
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
-        with:
-          package_json_file: package.json
+      - name: Setup pnpm via Corepack
+        run: |
+          corepack enable
+          corepack prepare --activate
+        shell: bash
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile

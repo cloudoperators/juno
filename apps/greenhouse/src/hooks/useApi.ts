@@ -49,7 +49,9 @@ const useApi = () => {
           const displayName = conf.spec?.displayName
           const weight = conf.status?.weight
           const version = conf.status?.uiApplication?.version
-          const url = conf.status?.uiApplication?.url
+          // Prefer an exposed-service URL (map keyed by URL); otherwise use the static uiApplication URL.
+          const exposedServiceUrls = Object.keys(conf.status?.exposedServices ?? {})
+          const url = exposedServiceUrls.length > 0 ? exposedServiceUrls[0] : conf.status?.uiApplication?.url
 
           // temporary fix to forward initialFilters to the Plugins until middleware is implemented
           // Extract username and support group information for appProps

@@ -121,13 +121,16 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
 
       - name: Generate PR version tag
         if: steps.check-label.outputs.should-build == 'true'
         id: pr-version
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
-          PR_NUMBER=${{ github.event.pull_request.number }}
-          SHORT_SHA=$(echo ${{ github.event.pull_request.head.sha }} | cut -c1-7)
+          SHORT_SHA=$(echo "${PR_SHA}" | cut -c1-7)
           PR_VERSION="pr-${PR_NUMBER}-${SHORT_SHA}"
           echo "PR_VERSION=${PR_VERSION}" >> $GITHUB_OUTPUT
           echo "Building version: ${PR_VERSION}"
@@ -179,29 +182,98 @@ jobs:
     name: Cleanup Old PR Images
     needs: build-and-push
     if: needs.build-and-push.outputs.image-built == 'true'
+    runs-on: ubuntu-latest
     permissions:
       packages: write
-    uses: cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml@4c90d3c7b7e98f1edd2c894e533c70a31f2ec28e # main
-    with:
-      runs-on: ubuntu-latest
-      package: juno-app-greenhouse-pr-preview
-      delete-tags: pr-${{ github.event.pull_request.number }}-*
-      exclude-tags: ${{ needs.build-and-push.outputs.pr-version }}
-      delete-partial-images: true
+    steps:
+      - name: Delete superseded PR preview images
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          PACKAGE_NAME: ${{ env.IMAGE_NAME }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          EXCLUDE_TAG: ${{ needs.build-and-push.outputs.pr-version }}
+        with:
+          script: |
+            const org = context.repo.owner
+            const packageName = process.env.PACKAGE_NAME
+            const prefix = `pr-${process.env.PR_NUMBER}-`
+            const excludeTag = process.env.EXCLUDE_TAG || ""
+
+            let versions = []
+            try {
+              versions = await github.paginate(
+                github.rest.packages.getAllPackageVersionsForPackageOwnedByOrg,
+                { package_type: "container", package_name: packageName, org, per_page: 100 }
+              )
+            } catch (error) {
+              if (error.status === 404) {
+                core.info(`Package ${packageName} not found; nothing to clean up.`)
+                return
+              }
+              throw error
+            }
+
+            for (const version of versions) {
+              const tags = version.metadata?.container?.tags || []
+              const matchesPr = tags.some((tag) => tag.startsWith(prefix))
+              const isExcluded = excludeTag !== "" && tags.includes(excludeTag)
+              if (matchesPr && !isExcluded) {
+                core.info(`Deleting version ${version.id} (tags: ${tags.join(", ") || "none"})`)
+                await github.rest.packages.deletePackageVersionForOrg({
+                  package_type: "container",
+                  package_name: packageName,
+                  org,
+                  package_version_id: version.id,
+                })
+              }
+            }
 
   cleanup:
     name: Cleanup PR Preview Image
     # Skip if PR is not closed or from a forked repository
     if: github.event.action == 'closed' &&
       github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
     permissions:
       packages: write
-    uses: cloudoperators/common/.github/workflows/shared-ghcr-cleanup.yaml@4c90d3c7b7e98f1edd2c894e533c70a31f2ec28e # main
-    with:
-      runs-on: ubuntu-latest
-      package: juno-app-greenhouse-pr-preview
-      delete-tags: pr-${{ github.event.pull_request.number }}-*
-      delete-partial-images: true
+    steps:
+      - name: Delete all PR preview images
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          PACKAGE_NAME: ${{ env.IMAGE_NAME }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        with:
+          script: |
+            const org = context.repo.owner
+            const packageName = process.env.PACKAGE_NAME
+            const prefix = `pr-${process.env.PR_NUMBER}-`
+
+            let versions = []
+            try {
+              versions = await github.paginate(
+                github.rest.packages.getAllPackageVersionsForPackageOwnedByOrg,
+                { package_type: "container", package_name: packageName, org, per_page: 100 }
+              )
+            } catch (error) {
+              if (error.status === 404) {
+                core.info(`Package ${packageName} not found; nothing to clean up.`)
+                return
+              }
+              throw error
+            }
+
+            for (const version of versions) {
+              const tags = version.metadata?.container?.tags || []
+              if (tags.some((tag) => tag.startsWith(prefix))) {
+                core.info(`Deleting version ${version.id} (tags: ${tags.join(", ") || "none"})`)
+                await github.rest.packages.deletePackageVersionForOrg({
+                  package_type: "container",
+                  package_name: packageName,
+                  org,
+                  package_version_id: version.id,
+                })
+              }
+            }
 
   remove-label:
     name: Remove PR Preview Label

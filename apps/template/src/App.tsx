@@ -6,6 +6,7 @@
 import { AppShell, AppShellProvider, Container } from "@cloudoperators/juno-ui-components"
 import type { PluginProps } from "@cloudoperators/greenhouse-core"
 import AppContent from "./components/AppContent"
+import { ErrorBoundary } from "./components/ErrorBoundary"
 import styles from "./styles.css?inline"
 
 // `theme` and `embedded` come from the shared host↔plugin contract (`PluginProps`); the
@@ -18,7 +19,9 @@ export interface AppProps extends PluginProps {
 const App = (props: AppProps) => {
   return (
     <AppShell pageHeader={props.title ? props.title : "Juno | App Template"} embedded={props.embedded === true}>
-      <Container>{props.description ? <>{props.description}</> : <AppContent />}</Container>
+      <ErrorBoundary>
+        <Container>{props.description ? <>{props.description}</> : <AppContent />}</Container>
+      </ErrorBoundary>
     </AppShell>
   )
 }

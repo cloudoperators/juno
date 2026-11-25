@@ -1,5 +1,11 @@
 # @cloudoperators/juno-ui-components
 
+## 9.10.1
+
+### Patch Changes
+
+- 858e274: chore: trigger CI to identify and fix workflow issues
+
 ## 9.10.0
 
 ### Minor Changes
