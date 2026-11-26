@@ -1,5 +1,5 @@
 import { default as React, CSSProperties } from '../../../../../node_modules/.pnpm/react@19.3.1/node_modules/react';
-import { useInteractions } from '@floating-ui/react';
+import { useFloating, useInteractions } from '@floating-ui/react';
 import { ToolTipVariant, TooltipPlacement } from './ToolTip.types';
 type TriggerEvent = "click" | "hover";
 export interface UseTooltipProps {
@@ -28,15 +28,15 @@ export declare const useTooltip: ({ initialOpen, variant, placement, triggerEven
     refs?: {
         reference: React.RefObject<HTMLElement>;
         floating: React.RefObject<HTMLElement>;
-        setReference: () => void;
+        setReference: (node: HTMLElement | null) => void;
         setFloating: (node: HTMLElement | null) => void;
     };
     x?: number | null;
     y?: number | null;
     strategy: "absolute" | "fixed";
     placement: TooltipPlacement;
-    middlewareData: any;
-    context: any;
+    middlewareData: ReturnType<typeof useFloating>["middlewareData"];
+    context: ReturnType<typeof useFloating>["context"];
 };
 export {};
 //# sourceMappingURL=useTooltip.d.ts.map
