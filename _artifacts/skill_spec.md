@@ -113,3 +113,21 @@ First set outside `data-display`, establishing the `feedback` domain.
 - **`messages-and-notifications-build`** (`packages/ui-components`, requires `messages-and-notifications-spec`). Task: _Generate correct Message or Notification usage from a described situation._ Picks the mechanism, variant, copy, and dismissal behaviour, and emits the usage with setup notes. Holds only the build procedure; cites spec rule IDs.
 - **`messages-and-notifications-validate`** (`packages/ui-components`, requires `messages-and-notifications-spec`). Task: _Check an existing Message or Notification usage against the MessagesAndNotificationsSpec._ Verifies mechanism fit, dismissal behaviour, content/variant, and asserts Invariants `MN-1`–`MN-10`. Holds only the review procedure and findings format; cites spec rule IDs.
 - Formalized the Status boundary: `status-spec` now cites `MN-1`/`MN-9` at its "use a dedicated component" handoff, and `MN-9` points back at `status-spec` `INV-1`.
+
+### Batch — Semantic Variants (domain `foundations`, issue #2215)
+
+First **horizontal topic** skill, and the pilot for the two-plane architecture: one aspect (the semantic `variant`) across many components, rather than one component across every aspect. It establishes the `foundations` domain and the `-spec` + `-review` **pair** shape — no `-build`, because a topic has no single artifact to scaffold.
+
+- **`semantic-variants-spec`** (`packages/ui-components`). Task: _Choose the correct semantic variant across Juno components using the SemanticVariantsSpec._ Owns the **SemanticVariantsSpec** — the single source of truth in `references/semantic-variants-spec.md`: the five variant meanings, the communication vs. validation planes, the in/out-of-scope component lists (semantic vs. visual `variant` props), and Invariants (`SEMV-1`–`SEMV-5`). Sources the four communication-plane components (`Message`, `Toast`, `Badge`, `Box`).
+- **`semantic-variants-review`** (`packages/ui-components`, requires `semantic-variants-spec`). Task: _Sweep a change for semantic-variant misuse against the SemanticVariantsSpec._ A cross-cutting sweep (not a single-usage validate): collects every in-scope semantic-variant usage in a diff/view, excludes visual variants, and judges each by intent. Holds only the sweep procedure and findings format; cites spec rule IDs. Its `sources` point at the spec reference — the single drift edge for the topic.
+
+Architecture decisions:
+
+- **Two planes, drift edge on the sweep.** Component specs may cite `SEMV-*` in prose but must not add the semantic-variants reference to their own `sources`; only `semantic-variants-review` sources it. A rulebook edit therefore re-reviews one skill (the sweep), not every component that uses a variant — O(1), not O(N).
+- **Pair, not triad.** Deliberate exception to the always-3-per-component rule; topics drop `-build`.
+- **Scope boundary made explicit** so the sweep does not false-positive: visual `variant` props (`Button`, `Select`), `Status` data-state values, `Badge` `default`, and `Tabs`/`TabBar` appearance are out of scope (`SEMV-5`). The validation plane (`errortext`/`successtext`) is a binary state, in scope for `SEMV-4` only.
+
+### Checks recorded
+
+- `intent validate skills` → structural checks pass for both new skills; the spec entry carries its `references/semantic-variants-spec.md`.
+- Component binding verified empirically against the library: only `Message`, `Toast`, `Badge`, `Box` expose the full five-value semantic `variant` type (`Icon` dropped — no `variant` prop).

@@ -109,7 +109,11 @@ skills:
           notification. Relies on the messages-and-notifications-spec skill for
           all rules.',
         packages: [ "@cloudoperators/juno-ui-components" ],
-        tasks: [ "Generate correct Message or Notification usage from a described situation" ],
+        tasks:
+          [
+            "Generate correct Message or Notification usage from a described
+              situation"
+          ],
         covers: []
       },
     {
@@ -123,7 +127,39 @@ skills:
           notification code to be audited. Relies on the
           messages-and-notifications-spec skill for all rules.',
         packages: [ "@cloudoperators/juno-ui-components" ],
-        tasks: [ "Validate a Message or Notification usage against the MessagesAndNotificationsSpec" ],
+        tasks:
+          [
+            "Validate a Message or Notification usage against the
+              MessagesAndNotificationsSpec"
+          ],
+        covers: []
+      },
+    {
+        name: semantic-variants-spec,
+        slug: semantic-variants-spec,
+        domain: foundations,
+        description: "Use when choosing or reviewing a semantic variant (info, success,
+          warning, error, danger) on a Juno component — covers the fixed meaning
+          of each variant, error vs danger, warning vs error, which components
+          carry a semantic variant versus a visual or validation one, and the
+          invariants that govern correct usage across components. The
+          semantic-variants-review skill relies on this skill for all rules.",
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks: [ "Choose the correct semantic variant across Juno components using the SemanticVariantsSpec" ],
+        covers: []
+      },
+    {
+        name: semantic-variants-review,
+        slug: semantic-variants-review,
+        domain: foundations,
+        description: 'Sweep a change, file, or view for every semantic-variant usage and
+          report misuse against the SemanticVariantsSpec. Use when the user says
+          "review semantic variants", "check variant usage", "are the variants
+          correct", "sweep this PR for variant misuse", or pastes code using
+          Message, Toast, Badge, or Box variants to be audited across
+          components. Relies on the semantic-variants-spec skill for all rules.',
+        packages: [ "@cloudoperators/juno-ui-components" ],
+        tasks: [ "Sweep a change for semantic-variant misuse against the SemanticVariantsSpec" ],
         covers: []
       }
   ]

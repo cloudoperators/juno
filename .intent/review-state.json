@@ -3,11 +3,11 @@
   "baseline": "fac03386c50408123ab764ad6005e15412b58bd4",
   "items": {
     "planning:_artifacts": {
-      "fingerprint": "dab45c0061c9057d770dcc94b771dc420a45c12e9f0d02c7ad8fd706623d084d",
+      "fingerprint": "21f6c724f87ef2d69e96fd6d929e4e2bd9aff64c2def8e4f7feb5317e3363954",
       "snapshot": {
-        "_artifacts/domain_map.yaml": "ac052f6c20e9cfdb47ba27dcfdd106958640024c61cd6d0034fb648100dafa06",
-        "_artifacts/skill_spec.md": "0dab276d094b3c8dec07d37f8f058bb385f1370fa5d6bd46dcd45e9e618fdee9",
-        "_artifacts/skill_tree.yaml": "973c4b9a6a3178cab8ac6cfbff9d5fd1191730e362709f987e00cc2dcf77f9b2",
+        "_artifacts/domain_map.yaml": "fbf5679ef3c4615b83d8721e7978b528af9633bd2b2395dfe010d45af849d06f",
+        "_artifacts/skill_spec.md": "23b69a19278ea1f62e5948a2e11a23b602c777c611fbbc6fa9ac5b03059d0b4d",
+        "_artifacts/skill_tree.yaml": "271c79fc1d448f29aff95e6bc8fd92ee8efdbe50a6d499add8d242c79fca2f23",
         "packages/ui-components/skills/datagrid/datagrid-build/SKILL.md": "57f2aa21e3302df73aeded827bd82bec9e103576701e95cb43143048a7d6e263",
         "packages/ui-components/skills/datagrid/datagrid-spec/SKILL.md": "296af0cb487935036258019fc9d387bb9c25cec1f0be7ef14b2ef784b1295ab2",
         "packages/ui-components/skills/datagrid/datagrid-spec/references/component-props.md": "ab4f49dcb1bacbd9aa6e837a7fad54481d520db9f0842b4b54324e5cedb5ae61",
@@ -18,10 +18,15 @@
         "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/SKILL.md": "e8ba9b9a32259f096e68cbabfacd1dc76ad60dbc2d9867de2ac4e3508226583a",
         "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md": "d756cc77bd74722265dd25a70e630f99d3f1d689e54a3d91dbc0a992cccef70a",
         "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-validate/SKILL.md": "bf84369fcf060f97381465be6512c71bbd05abc490ee2e6ed4ed271212dbdae7",
+        "packages/ui-components/skills/semantic-variants/semantic-variants-review/SKILL.md": "6a1ae8b93a5b75dd5a707252c8e5c51ed58591d0abdeca527741408376af000c",
+        "packages/ui-components/skills/semantic-variants/semantic-variants-spec/SKILL.md": "7bf643acc83622a68cad1457a82e10b0bf0c4c9a060c75b3cb58b51163e14b85",
+        "packages/ui-components/skills/semantic-variants/semantic-variants-spec/references/semantic-variants-spec.md": "9fe0dc4b55e015d216ab95283a4fedbc4b06c56dcde72e6b50aa6bc8e1375ad8",
         "packages/ui-components/skills/status/status-build/SKILL.md": "56820859ae15dd539097a36fc8c4eee528853fa4dfe4d1bfd54cb3a0a73e0e29",
         "packages/ui-components/skills/status/status-spec/SKILL.md": "11958f170bcebe2cea4f7f916632eb3b217c5aa3b0dbab36a6994e157f5f5a17",
         "packages/ui-components/skills/status/status-spec/references/status-spec.md": "eca099036124444838619b752cf031c3ba5809662b0ed73a2ad0c855803f773f",
         "packages/ui-components/skills/status/status-validate/SKILL.md": "8336899f4c49ba1d178e8af0de5d3e2254451bfb8705e81b320af2f01a1815f3",
+        "packages/ui-components/src/components/Badge/Badge.component.tsx": "524f7cb642ab7cb3be0d5b20bf74eabd13b878973dd6df106ee5f079671c86dc",
+        "packages/ui-components/src/components/Box/Box.component.tsx": "d3f1285de707d847a1bb3a221b2b5259ba9d534e2d43513bff160c32d177326c",
         "packages/ui-components/src/components/DataGrid/DataGrid.component.tsx": "6fbf8b63ca291d4fcae42bd59efde3e945b1148c198a6d6c1a4bc8bb64199904",
         "packages/ui-components/src/components/DataGrid/DataGrid.stories.tsx": "c1c52e3c778327d889e0c8741d09d4613fd9942dd065ddae4059592d3e2b505a",
         "packages/ui-components/src/components/DataGrid/DataGridHeader.stories.tsx": "e71d9a2463a00f584ad3553f83f8457cc9479d7910de7050c31dd07d7a6854fd",
@@ -32,11 +37,11 @@
         "packages/ui-components/src/components/Status/Status.stories.tsx": "6d9d849075e405caebf8085e5f071655d60948cbe8313ac7ab1f118c389cb65c",
         "packages/ui-components/src/components/Toast/Toast.component.tsx": "b6c34273713c8cbacc119205df2a6998d55bbf139a75d71450f90b204fda65f6"
       },
-      "head": "287052e657a3c2f67b88aeed25968da7e9610ca0",
+      "head": "d0a1e07e1296cc3ea260f4fd4e6bc72fea46565a",
       "outcome": "updated",
-      "reason": "removed reciprocal cross-skill citation (status-spec/INV-1) from MN-9 to match the status-spec side; boundary still stated in prose. Issue #2194.",
+      "reason": "Record formatter-aligned markdown (prettier table padding) for the semantic-variants spec reference and review skill; content unchanged.",
       "evidence": [
-        "Changed: packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md at 287052e657a3c2f67b88aeed25968da7e9610ca0"
+        "Changed: packages/ui-components/skills/semantic-variants/semantic-variants-review/SKILL.md, packages/ui-components/skills/semantic-variants/semantic-variants-spec/references/semantic-variants-spec.md at d0a1e07e1296cc3ea260f4fd4e6bc72fea46565a"
       ]
     },
     "source:packages/ui-components/src/components/DataGridCell/DataGridCell.component.tsx": {
@@ -83,7 +88,9 @@
       "head": "0ccfc41dfedc0c935055a2d7effb9cffa60ef837",
       "outcome": "updated",
       "reason": "Add textContain prop to DataGridCell; guidance updated in datagrid skill component-props.md",
-      "evidence": ["Changed: packages/ui-components/src/index.ts at 0ccfc41dfedc0c935055a2d7effb9cffa60ef837"]
+      "evidence": [
+        "Changed: packages/ui-components/src/index.ts at 0ccfc41dfedc0c935055a2d7effb9cffa60ef837"
+      ]
     },
     "source:packages/ui-components/src/shared/textContain/index.ts": {
       "fingerprint": "048e5499b290b3186715dd7be178d44518de3a0541316466a1ab8e556477038c",
@@ -189,7 +196,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: .github/licenserc.yaml at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: .github/licenserc.yaml at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:.github/workflows/build-push-greenhouse-image.yaml": {
       "fingerprint": "98fef6c9f19fc24622d6d986df093bae6ff0e2d3cc83c9ba37b9fce593a68a30",
@@ -223,7 +232,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: .github/workflows/release.yaml at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: .github/workflows/release.yaml at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:.prettierignore": {
       "fingerprint": "2231ce26e71553ee68a3fa70edf80628cd8a1ea5aecb6a2727c02d03013145a8",
@@ -233,7 +244,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: .prettierignore at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: .prettierignore at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:apps/doop/eslint.config.mjs": {
       "fingerprint": "dcf7b633af05e5b929d17f1e8d7600555b8eae910aceb70e861bc8c130f597cb",
@@ -243,7 +256,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: apps/doop/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: apps/doop/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:apps/doop/tsconfig.json": {
       "fingerprint": "395f6230353081c15b3198ec4590b643b55bd2144ecde7767f7404c7a108628e",
@@ -253,7 +268,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/doop/tsconfig.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/doop/tsconfig.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/doop/vite.config.ts": {
       "fingerprint": "55fb1f0fe0a2e569137783fc61176bd51affd42bb230424afd1b421c0957a730",
@@ -263,7 +280,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: apps/doop/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: apps/doop/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:apps/greenhouse/eslint.config.mjs": {
       "fingerprint": "38ea6acf0d4adc93d3f22285b069adc92ac4205f906a0aef8b2c1764dc654d0d",
@@ -273,7 +292,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: apps/greenhouse/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: apps/greenhouse/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:apps/greenhouse/tsconfig.json": {
       "fingerprint": "3f404fa8391e0d72361e4a3b3c508ea482acc4747967eb2598c4395ed0653fd7",
@@ -283,7 +304,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: apps/greenhouse/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: apps/greenhouse/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:apps/greenhouse/vite.config.ts": {
       "fingerprint": "7c5537ecfe8cf04a44b048f6478f496b4e6f6197444b819bf95fcaf9de53c9a4",
@@ -293,7 +316,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: apps/greenhouse/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: apps/greenhouse/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:apps/heureka/eslint.config.mjs": {
       "fingerprint": "640913d2d94abf9b0a6eda2b8650b5179ba4fe617a8bdd3819b70b5c060ee433",
@@ -303,7 +328,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/components/Service/ImageDetails/ChangeSeverityModal/ChangeSeverityModal.test.tsx": {
       "fingerprint": "072c472d13754ac73d3bcf048e0730d937372877ba4ac03b08a41b33bf80c386",
@@ -313,7 +340,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/components/Service/ImageDetails/FalsePositiveModal/FalsePositiveModal.test.tsx": {
       "fingerprint": "5383e7ad9ab2fefc18e1ece60a7986b5e0d0ffa46ac03f870f0e656c63e729fa",
@@ -383,7 +412,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/components/Service/ImageDetails/RiskAcceptanceModal/RiskAcceptanceModal.test.tsx": {
       "fingerprint": "cfc62d70a94d7cb460630398a6a3efd2453cc7ce9f371262abaec0872c8add53",
@@ -393,7 +424,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/components/Service/ImageDetails/RiskAcceptanceModal/index.tsx": {
       "fingerprint": "71437352d3f5dd1eb087bfc3b93eea2b8f734b32be6396cb995445cf22b0ed99",
@@ -475,7 +508,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/components/common/EmptyDataGridRow.tsx": {
       "fingerprint": "7815e328bb738550f921aa3cc9cf94f52c2530566de4f59d60ac40c0e5e88149",
@@ -593,7 +628,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/components/common/IssueTimestamp.tsx": {
       "fingerprint": "f9673c2c4a72994e25cca606fe0a1bc295370d0600d7c10d899176b32c40ce88",
@@ -675,7 +712,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/components/common/getErrorDataRow.test.tsx": {
       "fingerprint": "b42a03c18c4742fb18934de4da4eaee26086132be786c600c887bd666dcb15cb",
@@ -709,7 +748,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/heureka/src/index.tsx at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/heureka/src/index.tsx at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/heureka/src/routes/__root.tsx": {
       "fingerprint": "cb33e6e79699da3d362c5d6b12579a4f5850e36de33fd28c2eec3895efc2781c",
@@ -719,7 +760,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/tsconfig.json": {
       "fingerprint": "53142d24ad00dc4b43b2e0bbaf34680d59f1693a6902a827b68bcf51d1ac2b25",
@@ -729,7 +772,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/heureka/tsconfig.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/heureka/tsconfig.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/heureka/vite.config.ts": {
       "fingerprint": "ab0e145651bdc41fd489b0e08d624e6a6aeb6c7d0c583459a7670448bb7c5ca5",
@@ -739,7 +784,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: apps/heureka/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: apps/heureka/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:apps/supernova/eslint.config.mjs": {
       "fingerprint": "c9a19fb98c6f1e637fcafed4433d0502af005063fd6f25a938cc4fb6586a0698",
@@ -749,7 +796,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: apps/supernova/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: apps/supernova/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:apps/supernova/src/components/filters/FilterSelect.test.tsx": {
       "fingerprint": "2c426c089a4ec566a7dc79966c9e5146a0589f9bf266d2d0cc39285453063b31",
@@ -783,7 +832,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/supernova/tsconfig.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/supernova/tsconfig.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/supernova/vite.config.ts": {
       "fingerprint": "712e472cb3891e03f6160def01edf21beadf6fa55e51b910cad57bfac4f1c141",
@@ -793,7 +844,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: apps/supernova/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: apps/supernova/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:apps/template/eslint.config.mjs": {
       "fingerprint": "7357194df5ac3f35b1ce56b725fea1f72bcd0c043fe0416b0023c2a84a97e173",
@@ -803,7 +856,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: apps/template/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: apps/template/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:apps/template/tsconfig.json": {
       "fingerprint": "822193df5ae94eaf418ef5799b6a6cbfdb528a54a4e17cab9e8196f967d86bbd",
@@ -813,7 +868,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/template/tsconfig.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/template/tsconfig.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:packages/communicator/tsconfig.json": {
       "fingerprint": "7c8f1b9662bb14a76ea5e015fdb5736a819a4f7f44913ff77c3e0ab61fa14734",
@@ -823,7 +880,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: packages/communicator/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: packages/communicator/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:packages/communicator/vite.config.ts": {
       "fingerprint": "5bc231f290d374a8f66a8eb7c7acc02137251411ea9d9f8860ad7369729d9872",
@@ -833,7 +892,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: packages/communicator/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: packages/communicator/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:packages/config/eslint/build-config.mjs": {
       "fingerprint": "5485126d271dab2a16a8b1bfc505797ad47117100584770c24b99fb6314e44d7",
@@ -843,7 +904,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: packages/config/eslint/build-config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: packages/config/eslint/build-config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:packages/config/eslint/juno-typescript.mjs": {
       "fingerprint": "55b8e6d85df12dfd64e1ce6d7b4547d9381305d3f5133a35153b31ae71167f69",
@@ -853,7 +916,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: packages/config/eslint/juno-typescript.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: packages/config/eslint/juno-typescript.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:packages/config/eslint/vite-react-ts.mjs": {
       "fingerprint": "79f87bc7a7d6d2155808c6af70773261882b7643a917cda730c7e7ab3565a070",
@@ -863,7 +928,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:packages/config/eslint/vite-ts.mjs": {
       "fingerprint": "b85413e4c31e83a79edf4331801d5c1c1f00247b4d239246e57dadc0c026d83b",
@@ -873,7 +940,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: packages/config/eslint/vite-ts.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: packages/config/eslint/vite-ts.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:packages/greenhouse-auth-provider/tsconfig.json": {
       "fingerprint": "d8f5315c252893030ea5d35a60bd332fe121cd1513b88ca3fe4ac232d62abda9",
@@ -907,7 +976,9 @@
       "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:packages/k8s-client/tsconfig.json": {
       "fingerprint": "e4642f563115fd580ed60a5418518e75aef8d8b557d73102feb12593144a62e4",
@@ -917,7 +988,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: packages/k8s-client/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: packages/k8s-client/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:packages/k8s-client/vite.config.ts": {
       "fingerprint": "d3a42147c00344eeb8eb0d3b39e01a9b15ec77910bce84fa186f3923ea71b778",
@@ -927,7 +1000,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: packages/k8s-client/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: packages/k8s-client/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:packages/messages-provider/tsconfig.json": {
       "fingerprint": "0a287896c40924296130b5c39c3cd64502ae177cf38cc2f5a98cd3bbdf83c053",
@@ -937,7 +1012,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: packages/messages-provider/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: packages/messages-provider/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:packages/messages-provider/vite.config.ts": {
       "fingerprint": "ad6730931c823aa1dd73eb6f8e458a9144fdcb74dff70929d2a1302a93fbd704",
@@ -947,7 +1024,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: packages/messages-provider/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: packages/messages-provider/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:packages/oauth/eslint.config.mjs": {
       "fingerprint": "222ba27c654284fdbbc8e723d4ebd742e0a310aaf6abd14dd0b17a75e0d18b11",
@@ -957,7 +1036,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: packages/oauth/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: packages/oauth/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:packages/oauth/tsconfig.json": {
       "fingerprint": "d10c874031e39299f7e96ebe78d902ac634b66a00dcaf0ec4335c007143fca69",
@@ -967,7 +1048,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: packages/oauth/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: packages/oauth/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:packages/oauth/vite.config.ts": {
       "fingerprint": "420f7796485d19cc69f0302186079d14e0a6c99ebabe5f8fe7cc32da505c4837",
@@ -977,7 +1060,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: packages/oauth/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: packages/oauth/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:packages/template/tsconfig.json": {
       "fingerprint": "8ca1890752020237d558ac2e0482e8eef87b7bb7dfdccc2640020d08cab44d93",
@@ -987,7 +1072,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: packages/template/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: packages/template/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:packages/template/vite.config.ts": {
       "fingerprint": "4390ef49fd6c56d34cf29ec04ffe78a79127cb53d78dcf112b18721d43ab9a7a",
@@ -997,7 +1084,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: packages/template/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: packages/template/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:packages/ui-components/src/components/ComboBox/ComboBox.component.tsx": {
       "fingerprint": "d051aaf371f01ead4c20b6b10695ff7eccffef4e5c9a6ac1265dbcdc94d099f2",
@@ -1199,7 +1288,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: packages/ui-components/src/global.css at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: packages/ui-components/src/global.css at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:packages/ui-components/src/theme.css": {
       "fingerprint": "5dab0a637de0f486611933127b00b1c767f13408699959a8c5d05a158f5f9384",
@@ -1209,7 +1300,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: packages/ui-components/src/theme.css at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: packages/ui-components/src/theme.css at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:packages/ui-components/tsconfig.json": {
       "fingerprint": "efcc74e05ba9c7d6dc7a6fce9dd41a0975a1983d8e67f5d992eac76aabc478b7",
@@ -1219,7 +1312,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: packages/ui-components/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: packages/ui-components/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:packages/ui-components/vite.config.mts": {
       "fingerprint": "aa1f2aebedcb7f5e1a6a0dcbc21bf727fc130103c30422e728be9448b71a937f",
@@ -1229,7 +1324,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: packages/ui-components/vite.config.mts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: packages/ui-components/vite.config.mts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:packages/url-state-provider/eslint.config.mjs": {
       "fingerprint": "1fee3c9b158470ef4b663863a27867d18933afd6a2190c664f7fb002f3b653ba",
@@ -1239,7 +1336,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: packages/url-state-provider/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: packages/url-state-provider/eslint.config.mjs at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:packages/url-state-provider/tsconfig.json": {
       "fingerprint": "bd2ffb7af81ad5458050349f01fa4c8509aef74151c5514963d52f595e41d57f",
@@ -1249,7 +1348,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: packages/url-state-provider/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: packages/url-state-provider/tsconfig.json at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:packages/url-state-provider/vite.config.ts": {
       "fingerprint": "3563ad4fe55b2b10a3258e7aa3253fce20dbef1222e263fd42340fe781d1cdb1",
@@ -1259,7 +1360,9 @@
       "head": "7e032554a6cbf4f562dce6266df1e65fc5e4b2df",
       "outcome": "no-change",
       "reason": "source-only changes — no guidance items affected; DT/DD/DescriptionList files follow the existing shared textContain pattern, all other files are out of scope for this branch",
-      "evidence": ["Changed: packages/url-state-provider/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"]
+      "evidence": [
+        "Changed: packages/url-state-provider/vite.config.ts at 7e032554a6cbf4f562dce6266df1e65fc5e4b2df"
+      ]
     },
     "source:packages/ui-components/.storybook/preview.js": {
       "fingerprint": "e8c0b6a947c6ba95b3f1f2ce147e8762953a7bdb541f32387aadf14dab1ffe85",
@@ -1439,7 +1542,9 @@
       "head": "302f258001222a5d4f6055efa6dd46243804be5a",
       "outcome": "no-change",
       "reason": "markdown table formatting by pre-commit hook; guidance content unchanged",
-      "evidence": ["Changed: CONTRIBUTING.md at 302f258001222a5d4f6055efa6dd46243804be5a"]
+      "evidence": [
+        "Changed: CONTRIBUTING.md at 302f258001222a5d4f6055efa6dd46243804be5a"
+      ]
     },
     "source:.github/pull_request_template.md": {
       "fingerprint": "0c4f1ceb85261397d671e17e3a0b11affbc78ba29e076f0c4a1bafaf2fa5f686",
@@ -1449,7 +1554,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: .github/pull_request_template.md at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: .github/pull_request_template.md at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:.github/workflows/build-push-greenhouse-pr-preview.yaml": {
       "fingerprint": "800742b7c74907c4d79f4f7378a5dc48261fdf0a9e14071ef4d9e59e2789d95e",
@@ -1471,7 +1578,9 @@
       "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
       "outcome": "no-change",
       "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
-      "evidence": ["Changed: .github/workflows/ci-checks.yaml at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"]
+      "evidence": [
+        "Changed: .github/workflows/ci-checks.yaml at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+      ]
     },
     "source:.github/workflows/deploy-github-pages.yaml": {
       "fingerprint": "463c519bf3e731927b6aabe1dff1b3adb1d05f2258a5326af809d05163200dd6",
@@ -1481,7 +1590,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: .github/workflows/deploy-github-pages.yaml at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: .github/workflows/deploy-github-pages.yaml at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:.github/workflows/deploy-pr-preview.yaml": {
       "fingerprint": "456842d5cc5c902b27d28fde3d3d82387dc3c2c922ce1caeb1902793b39137c3",
@@ -1491,7 +1602,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: .github/workflows/deploy-pr-preview.yaml at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: .github/workflows/deploy-pr-preview.yaml at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:.nvmrc": {
       "fingerprint": "9eda4e64ae2840c1656dd2e0bfcc444d6a54e3e0e1f140e2d5924794de4f2582",
@@ -1501,7 +1614,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: .nvmrc at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: .nvmrc at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/doop/index.html": {
       "fingerprint": "813430d20528b2c9a5214547155085e2e31551e894889e683b92aa289aa4c5cd",
@@ -1511,7 +1626,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/doop/index.html at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/doop/index.html at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/doop/src/App.tsx": {
       "fingerprint": "b933988858be084b3b05b553a7813a226a1d1ebd2035f35d495a76cc4f1c8a59",
@@ -1521,7 +1638,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/doop/src/App.tsx at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/doop/src/App.tsx at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/doop/src/index.ts": {
       "fingerprint": "f553f69354f697c9cb3f17e5444a246197eab4350cad66aa32296a41a0ac856c",
@@ -1531,7 +1650,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/doop/src/index.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/doop/src/index.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/doop/src/types/index.d.ts": {
       "fingerprint": "7f07e3e9322ee7e37e359d2ca7338da8c44d2c65dd2d5d0256703978b62bdef2",
@@ -1541,7 +1662,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/doop/src/types/index.d.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/doop/src/types/index.d.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/doop/turbo.json": {
       "fingerprint": "9837dc6e099f8106d1455adc140482ac28fcc29c461f3ff2c2d8e51754f85ef7",
@@ -1551,7 +1674,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/doop/turbo.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/doop/turbo.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/greenhouse/docker/Dockerfile": {
       "fingerprint": "26c5ca7601c126e3175ebddb9c6e82c78457fb0442ab58cef25d577d9324c234",
@@ -1561,7 +1686,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/greenhouse/docker/Dockerfile at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/greenhouse/docker/Dockerfile at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/greenhouse/src/components/Extension.tsx": {
       "fingerprint": "d1c593ed46e877ceeac48d45857f33dc4ebb8c0504397febbc0793c4d7fa7adf",
@@ -1571,7 +1698,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/greenhouse/src/components/Extension.tsx at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/greenhouse/src/components/Extension.tsx at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/greenhouse/src/components/admin/Layout/Navigation.test.tsx": {
       "fingerprint": "b3213cfa2908aa4dcb155b38c45740d86af963c7497d350b4da87c78628bb4a9",
@@ -1653,7 +1782,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/greenhouse/src/hooks/usePluginLoader.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/greenhouse/src/hooks/usePluginLoader.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/greenhouse/src/routes/admin/clusters/index.tsx": {
       "fingerprint": "ec461345b6edc9bbd2e27e49cfb190638f64e2f109cba1c74899cf54e35ec74d",
@@ -1699,7 +1830,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/greenhouse/src/routes/admin/index.tsx at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/greenhouse/src/routes/admin/index.tsx at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/greenhouse/src/routes/admin/plugin-presets/index.tsx": {
       "fingerprint": "e7a31f4baf089efdd8d8a38683b9a028b795803452e408aa42fc46326965fac8",
@@ -1721,7 +1854,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/greenhouse/turbo.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/greenhouse/turbo.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/heureka/index.html": {
       "fingerprint": "414e7ed71a7c2acf235728baa8888f61260e5c068170e9ffd80cb7362f5440d2",
@@ -1731,7 +1866,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/heureka/index.html at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/heureka/index.html at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/heureka/src/App.tsx": {
       "fingerprint": "d312fbebda8b1f20933ef6876494eb223b5f1e7936e4c93f80093f4b78a3567b",
@@ -1741,7 +1878,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/types/index.d.ts": {
       "fingerprint": "07e0ea799490062f91c67dba5afceb9b5b605ab3559b8be72b6c8e82959f68c0",
@@ -1751,7 +1890,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/heureka/src/types/index.d.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/heureka/src/types/index.d.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/heureka/turbo.json": {
       "fingerprint": "15333b7c96507076519322b77698d644e44e9ac52bc96d8020c6478f88cd0bfa",
@@ -1761,7 +1902,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/heureka/turbo.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/heureka/turbo.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/supernova/docker/Dockerfile": {
       "fingerprint": "f3ffa7e7c774643d977e9e15479fb9d6fc73ab35e69472ce0a62d2f1b5f55acd",
@@ -1771,7 +1914,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/supernova/docker/Dockerfile at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/supernova/docker/Dockerfile at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/supernova/index.html": {
       "fingerprint": "87271d2b1363c61be2a70a68927e2b372abe01e33c0491893af790d28144bd57",
@@ -1781,7 +1926,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/supernova/index.html at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/supernova/index.html at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/supernova/src/App.tsx": {
       "fingerprint": "dcc75f3420860114243efbfaffd70e4878d229d088e7ef42608539db2798494c",
@@ -1791,7 +1938,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/supernova/src/App.tsx at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/supernova/src/App.tsx at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/supernova/src/index.tsx": {
       "fingerprint": "ffdbafbc5f5fc3faad993c6bf60435bbf8cded6bb8aff0103dfd3a655d008e53",
@@ -1801,7 +1950,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/supernova/src/index.tsx at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/supernova/src/index.tsx at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/supernova/src/types/index.d.ts": {
       "fingerprint": "6cd404d4977198b168d735d68d3c9d7706290c899ef5bdf643c428683d2c9f3a",
@@ -1811,7 +1962,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/supernova/src/types/index.d.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/supernova/src/types/index.d.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/supernova/turbo.json": {
       "fingerprint": "38d486350dcfff4edc9fa40f53433de5a0f3f1a3d0da2db8aaa4c3b4e535f64c",
@@ -1821,7 +1974,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/supernova/turbo.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/supernova/turbo.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/template/AGENTS.md": {
       "fingerprint": "c7bf83192311cb7e1f68f408b7876b8763987027bb06b206c9ebb64ed29f3bf4",
@@ -1831,7 +1986,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/template/AGENTS.md at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/template/AGENTS.md at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/template/index.html": {
       "fingerprint": "28ca5be8a2fde7d7b96db661c767d067d5d7161ed7f8398e811215cfe2dfe83c",
@@ -1841,7 +1998,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/template/index.html at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/template/index.html at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/template/src/App.tsx": {
       "fingerprint": "ed10b2ea3cec99fc328039cc2043aebf18315b4425fb56fd74757aad971af3e6",
@@ -1851,7 +2010,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/template/src/App.tsx at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/template/src/App.tsx at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/template/src/index.tsx": {
       "fingerprint": "d24ec8780a46dbc7d9cf8bc57ccae4c0d72329efa9b5b7aa0a827657a32690f3",
@@ -1861,7 +2022,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/template/src/index.tsx at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/template/src/index.tsx at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/template/src/types/index.d.ts": {
       "fingerprint": "4c89c7b2b6f313f3ba2e8dd31a0f25957ffca818ebacdfab7e9dca181f3e4bab",
@@ -1871,7 +2034,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/template/src/types/index.d.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/template/src/types/index.d.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/template/turbo.json": {
       "fingerprint": "3276ebc867ee4b1ece0cf73c10a7d9786aadabe9c8d9f0376162a4dffbd4dd3f",
@@ -1881,7 +2046,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: apps/template/turbo.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: apps/template/turbo.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:apps/template/vite.config.ts": {
       "fingerprint": "0d683381dfda8d7ae2284e09210579878ca6ff4e3daf6b1ffcf8b257c69a446b",
@@ -1891,7 +2058,9 @@
       "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
       "outcome": "no-change",
       "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
-      "evidence": ["Changed: apps/template/vite.config.ts at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"]
+      "evidence": [
+        "Changed: apps/template/vite.config.ts at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+      ]
     },
     "source:commitlint.config.mjs": {
       "fingerprint": "a3cee8f091704f41874c64b8d3d7a7aa983cd128b28cdd10a4612fc248622847",
@@ -1901,7 +2070,9 @@
       "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:docker/Dockerfile.dev": {
       "fingerprint": "fab38457368bf485b3382ace6aff9c35d1ebb6161c09230cd233a6141b2df336",
@@ -1911,7 +2082,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: docker/Dockerfile.dev at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: docker/Dockerfile.dev at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:packages/create-greenhouse-plugin/LICENSE": {
       "fingerprint": "08af18e928f73d6364fd9c6e051529b95bbd682d433e859839a2e471c4460095",
@@ -1921,7 +2094,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: packages/create-greenhouse-plugin/LICENSE at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: packages/create-greenhouse-plugin/LICENSE at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:packages/create-greenhouse-plugin/eslint.config.mjs": {
       "fingerprint": "b1c5875d3edfeae9a698db0d3da17a31b7e31d5dcc4a633d124eb25cf95e97f6",
@@ -1943,7 +2118,9 @@
       "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:packages/create-greenhouse-plugin/src/cli.ts": {
       "fingerprint": "6d2c89b76badbb5b37012c93519f62ec0b30959fca9d7d7d39ea5ae3bfb7cc23",
@@ -1953,7 +2130,9 @@
       "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
       "outcome": "no-change",
       "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
-      "evidence": ["Changed: packages/create-greenhouse-plugin/src/cli.ts at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"]
+      "evidence": [
+        "Changed: packages/create-greenhouse-plugin/src/cli.ts at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+      ]
     },
     "source:packages/create-greenhouse-plugin/src/scaffold.test.ts": {
       "fingerprint": "f7b759d7e49b8bb181a4f06a3a36bbe763897bb2e2d59839e39aea639553d928",
@@ -2191,7 +2370,9 @@
       "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
       "outcome": "no-change",
       "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
-      "evidence": ["Changed: packages/create-greenhouse-plugin/turbo.json at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"]
+      "evidence": [
+        "Changed: packages/create-greenhouse-plugin/turbo.json at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+      ]
     },
     "source:packages/create-greenhouse-plugin/vitest.config.ts": {
       "fingerprint": "573f2a9a34dbcfd59697683cb4602148ba5dd0136bfa10b1f238fc57d13fb61c",
@@ -2213,7 +2394,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: packages/greenhouse-core/LICENSE at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: packages/greenhouse-core/LICENSE at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:packages/greenhouse-core/eslint.config.mjs": {
       "fingerprint": "09bfb75d5d43d6b546795684059dd6f5105cb33238da487bd57768694c038acc",
@@ -2223,7 +2406,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: packages/greenhouse-core/eslint.config.mjs at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: packages/greenhouse-core/eslint.config.mjs at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:packages/greenhouse-core/src/contract.test.ts": {
       "fingerprint": "f66f4bf48be2bf28fefa65f72c2b29e3f8acf2f44b51527669f3929faa2d7d84",
@@ -2233,7 +2418,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: packages/greenhouse-core/src/contract.test.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: packages/greenhouse-core/src/contract.test.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:packages/greenhouse-core/src/createPlugin.test.tsx": {
       "fingerprint": "1ed65ffe34004e268468bd20ce8031d615ea94eb815886482da1f476dc93c18f",
@@ -2255,7 +2442,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: packages/greenhouse-core/src/createPlugin.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: packages/greenhouse-core/src/createPlugin.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:packages/greenhouse-core/src/index.ts": {
       "fingerprint": "563ab17a80e38fb10bfebdebea9ec96894e75ea8bd55c0fa8fe5aa569fbd7771",
@@ -2265,7 +2454,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: packages/greenhouse-core/src/index.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: packages/greenhouse-core/src/index.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:packages/greenhouse-core/src/types.ts": {
       "fingerprint": "9132d574c206687cfc0f917354fb91306be9682d142d1ff7e222b013c9c07490",
@@ -2275,7 +2466,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: packages/greenhouse-core/src/types.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: packages/greenhouse-core/src/types.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:packages/greenhouse-core/tsconfig.build.json": {
       "fingerprint": "807f59a6d22990a541d53dc08272889e342c04dc62089d4b0bb3ec9709874ac7",
@@ -2285,7 +2478,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: packages/greenhouse-core/tsconfig.build.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: packages/greenhouse-core/tsconfig.build.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:packages/greenhouse-core/tsconfig.json": {
       "fingerprint": "07ce2f98b71ffe3746aeda1405263c99c831604a77d41349e4cbce1dbfde21d9",
@@ -2295,7 +2490,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: packages/greenhouse-core/tsconfig.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: packages/greenhouse-core/tsconfig.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:packages/greenhouse-core/turbo.json": {
       "fingerprint": "0042678d56327ef8c7ba3533a10b3a391a9582150c29d3cd8e0e7dd7e897536d",
@@ -2305,7 +2502,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: packages/greenhouse-core/turbo.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: packages/greenhouse-core/turbo.json at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:packages/greenhouse-core/vitest.config.ts": {
       "fingerprint": "2e0318b7c7e224d2bfc1855d295e9b3ba74df1243996664ef5ad322f81cedcad",
@@ -2315,7 +2514,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: packages/greenhouse-core/vitest.config.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: packages/greenhouse-core/vitest.config.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:packages/greenhouse-core/vitest.setup.ts": {
       "fingerprint": "36bbe59ef383656a8252e9b6694c8609dce10cca92eacb4ff7662996e070b198",
@@ -2325,7 +2526,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: packages/greenhouse-core/vitest.setup.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: packages/greenhouse-core/vitest.setup.ts at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:packages/k8s-client/docker/Dockerfile.dev": {
       "fingerprint": "b921d77a4e7095b68f894b3cc659e30e733d8043ce44b616d9b2433d55c6a973",
@@ -2335,7 +2538,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: packages/k8s-client/docker/Dockerfile.dev at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: packages/k8s-client/docker/Dockerfile.dev at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:packages/ui-components/.claude/skills/component-analyze/SKILL.md": {
       "fingerprint": "842ec00906932437822ffb7c2e4c5b1b6c903c139b05bd0384c67bed522e129b",
@@ -2405,7 +2610,9 @@
       "head": "0681de30413a4a3f2c82aed6417fa87cedc5d29e",
       "outcome": "no-change",
       "reason": "Add @cloudoperators/create-greenhouse-plugin scaffolder (new package, ships no skills) and sync its standalone template/; no existing skill guidance is affected.",
-      "evidence": ["Changed: pnpm-workspace.yaml at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"]
+      "evidence": [
+        "Changed: pnpm-workspace.yaml at 0681de30413a4a3f2c82aed6417fa87cedc5d29e"
+      ]
     },
     "source:packages/create-greenhouse-plugin/template/AGENTS.md": {
       "fingerprint": "ae36f8c48505b93762bcd9ea95e9766fb2ff8852d764cbab8b5b568f23fb149f",
@@ -2427,7 +2634,9 @@
       "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
       "outcome": "no-change",
       "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
-      "evidence": ["Changed: .github/scripts/check-pinned-dependencies.js at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"]
+      "evidence": [
+        "Changed: .github/scripts/check-pinned-dependencies.js at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+      ]
     },
     "source:apps/template/appProps.template.json": {
       "fingerprint": "51960a6f6cbd066cacb8e127a3f0c9b9cecd9289530f6897ab0f68e30e18a9aa",
@@ -2437,7 +2646,9 @@
       "head": "163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3",
       "outcome": "no-change",
       "reason": "non-skill changes: new create-greenhouse-plugin package, CI, template updates",
-      "evidence": ["Changed: apps/template/appProps.template.json at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"]
+      "evidence": [
+        "Changed: apps/template/appProps.template.json at 163451ab80b584f6cfe8ff3ec0bd5e4da55dcbb3"
+      ]
     },
     "source:packages/create-greenhouse-plugin/scripts/smoke-e2e.mjs": {
       "fingerprint": "b83426b16b286e5783749a814e6e0bed885d5946f948b2b0bac9cb88b82b130d",
@@ -2519,7 +2730,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "SecretText has no skills defined yet",
-      "evidence": ["skills/ directory has no SecretText entry"]
+      "evidence": [
+        "skills/ directory has no SecretText entry"
+      ]
     },
     "source:packages/ui-components/src/components/SecretText/SecretText.stories.tsx": {
       "fingerprint": "9f93fc3757d4aa77f511342c0f67aa6a774630095f65d0d3b36f5ad9f7cd5722",
@@ -2529,7 +2742,9 @@
       "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
       "outcome": "out-of-scope",
       "reason": "SecretText has no skills defined yet; changes add secretTextFooter prop and fix identifier/state classes",
-      "evidence": ["skills/ directory has no SecretText entry"]
+      "evidence": [
+        "skills/ directory has no SecretText entry"
+      ]
     },
     "source:packages/ui-components/src/components/SecretText/SecretText.test.tsx": {
       "fingerprint": "c634809f759e3e8bc3c63730d131ceba7864cafdeec676f1a2949265e3032bf7",
@@ -2539,7 +2754,9 @@
       "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
       "outcome": "out-of-scope",
       "reason": "SecretText has no skills defined yet; changes add secretTextFooter prop and fix identifier/state classes",
-      "evidence": ["skills/ directory has no SecretText entry"]
+      "evidence": [
+        "skills/ directory has no SecretText entry"
+      ]
     },
     "source:packages/k8s-client/src/apiErrorHandler.ts": {
       "fingerprint": "4cc832c8d4fa0d0b816548693f1cdd9b6e3fc24f8d51dd3913522041dcf1354e",
@@ -2549,7 +2766,9 @@
       "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:packages/k8s-client/src/client.ts": {
       "fingerprint": "29fae2260ab7270f30619969fe395eeb039f8f1fef00d527bc190b04623fbdd1",
@@ -2559,7 +2778,9 @@
       "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:packages/k8s-client/src/logger.ts": {
       "fingerprint": "96e080f90bdb61f333817a245555b5fbaecaa76d99af02fafc2b5f1aefb29fc3",
@@ -2569,7 +2790,9 @@
       "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:packages/k8s-client/src/request.ts": {
       "fingerprint": "e9f66ceeca9491d0867732ed8a1fad3658cde2ac3d6c7362619b086ffbee871f",
@@ -2579,7 +2802,9 @@
       "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:packages/k8s-client/src/urlHelpers.ts": {
       "fingerprint": "90bc8af907e47de1ba1888cbaa1bd998549f588504322015285d086e526aba38",
@@ -2589,7 +2814,9 @@
       "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:packages/k8s-client/src/utils.ts": {
       "fingerprint": "5c2351062ead9468eefbeba040914e140a8ce1aa5e491941dfc36da9f786a467",
@@ -2599,7 +2826,9 @@
       "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:packages/k8s-client/src/watch.ts": {
       "fingerprint": "99ad1cde08929c01de8c56cd31013bd0d1002c0f02eadf379dc352cc9330fb14",
@@ -2609,7 +2838,9 @@
       "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:packages/k8s-client/test/client.test.ts": {
       "fingerprint": "2d50f499120e345c77db862f10fa2db7739a35146f19fe23c26e0356454d332a",
@@ -2619,7 +2850,9 @@
       "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:packages/k8s-client/test/request.test.ts": {
       "fingerprint": "77027fc39419a96dcae4cd6c2a729cb4be55c71106ff7bac4e9889be80c0a4fc",
@@ -2629,7 +2862,9 @@
       "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:packages/k8s-client/test/urlHelpers.test.ts": {
       "fingerprint": "6b1fd7e75ed5767e44bf4ccdac01d3c37b8e38f56d7d4193cb636c0bd1704d0d",
@@ -2639,7 +2874,9 @@
       "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:packages/k8s-client/test/watch.test.ts": {
       "fingerprint": "77331eb4dc63233a858247fd333deb71c3229adba480bb0bb73f7a6a94d9bc34",
@@ -2649,7 +2886,9 @@
       "head": "72c09f0264beb11d5471813b2636c2ed33846a77",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/components/Service/ImageDetails/ChangeSeverityModal/index.tsx": {
       "fingerprint": "6e9e78f637a1b7de497c7c5fb68febec258451f8d52cb5e756b879fcbd7fba5a",
@@ -2659,7 +2898,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/components/Service/ImageDetails/ImageIssuesList/index.tsx": {
       "fingerprint": "a94769748048a63de759fe9bc375cb5d72c60a1b6a5e620cd651b389ec8e8712",
@@ -2669,7 +2910,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/components/Service/ImageDetails/ImageVersionOccurrences.tsx": {
       "fingerprint": "b9732eea70f69987677bd39c5cf8a2af602c2b195c96fc37b56f3cdebe27fd8d",
@@ -2679,7 +2922,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/components/Service/ImageDetails/RemediationModal/index.tsx": {
       "fingerprint": "ae182e6a8d3a9324c1ad8b36271bf9a0990a9444f04bc2361205f04fecd2737b",
@@ -2689,7 +2934,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/components/Service/ImageVersionDetails/ImageVersionOccurrences.tsx": {
       "fingerprint": "886bc8a9c3b5c00496447cfa8e3bcf820f0a275de78f78feece55f971a52c7f9",
@@ -2699,7 +2946,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/components/Service/index.tsx": {
       "fingerprint": "a6facb76c2e2e651d3452e939a76ade97e140922316b3ed10fb0268eae0057c1",
@@ -2709,7 +2958,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/components/Services/ServicesList/index.tsx": {
       "fingerprint": "cbaade263823ed5de9c2384eeb54f1022d10087bc55585349a020f736c256491",
@@ -2719,7 +2970,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/components/Vulnerabilities/VulnerabilitiesList/VulnerabilitiesDataRows/VulnerabilityDataRow.tsx": {
       "fingerprint": "bfdf8599f347bd890b3379da263eb449ff2e7883f8d1e3935b53ce6a85060a6e",
@@ -2729,7 +2982,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/components/Vulnerabilities/VulnerabilitiesList/index.tsx": {
       "fingerprint": "52d8cf5f36455e0d431a8c9718a061f9a567479025e5ce83059f33231f19a232",
@@ -2739,7 +2994,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/routes/services/$service/images/$image.tsx": {
       "fingerprint": "04d849fadd42a84a8b2cf46f8e254ba158a23e41bf6f03d85013831adc6eeae5",
@@ -2749,7 +3006,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/routes/services/$service/images/$image/versions/$version.tsx": {
       "fingerprint": "15ea3dc75b398051287d5912ea279031edace88dc9aa6caf6dcff44046b3124a",
@@ -2759,7 +3018,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/routes/services/index.tsx": {
       "fingerprint": "488d58c96d685411defc51992f83584474bf7e81a00a9311592f5219fb9a720e",
@@ -2769,7 +3030,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/store/StoreContext.ts": {
       "fingerprint": "61b8884d013f9ce9185579343768ed9eb5b24d9012a4c63d3c0c48aeeb81617a",
@@ -2779,7 +3042,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "source:apps/heureka/src/store/StoreProvider.tsx": {
       "fingerprint": "063e7afc8fa46e0e271dfd9bcdc377a13595df54098a9aadb653c8cee5e9d280",
@@ -2789,7 +3054,9 @@
       "head": "fe60d99fca3ef7b536054ff5f6ec1b8175ebc7ed",
       "outcome": "out-of-scope",
       "reason": "Source file from unrelated package/app with no skill mapping",
-      "evidence": ["No skill exists for this file in ui-components skills/"]
+      "evidence": [
+        "No skill exists for this file in ui-components skills/"
+      ]
     },
     "skill:packages/ui-components/skills/messages-and-notifications/messages-and-notifications-build/SKILL.md": {
       "fingerprint": "43ca9263aac6f8cf9a3e8bb3eabf6791bf0bb006a9e641b47566ed6c6ade2713",
@@ -2841,7 +3108,9 @@
       "head": "307fc3310d0d82a5c85f81161a917f9ab5bae939",
       "outcome": "no-change",
       "reason": "bug fix and cleanup — Tooltip family has no skills defined",
-      "evidence": ["correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"]
+      "evidence": [
+        "correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"
+      ]
     },
     "source:packages/ui-components/src/components/Tooltip/Tooltip.stories.tsx": {
       "fingerprint": "29144f0ae0a8532b73b1bdb617a9e159994df0a75243129da12c941d81dff715",
@@ -2851,7 +3120,9 @@
       "head": "307fc3310d0d82a5c85f81161a917f9ab5bae939",
       "outcome": "no-change",
       "reason": "bug fix and cleanup — Tooltip family has no skills defined",
-      "evidence": ["correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"]
+      "evidence": [
+        "correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"
+      ]
     },
     "source:packages/ui-components/src/components/Tooltip/index.ts": {
       "fingerprint": "a76c1cbf394ec7af3c8baf0c024e9f4b4bc4816854211ea4e980e1df7a60c023",
@@ -2861,7 +3132,9 @@
       "head": "307fc3310d0d82a5c85f81161a917f9ab5bae939",
       "outcome": "no-change",
       "reason": "bug fix and cleanup — Tooltip family has no skills defined",
-      "evidence": ["correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"]
+      "evidence": [
+        "correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"
+      ]
     },
     "source:packages/ui-components/src/components/Tooltip/useTooltip.ts": {
       "fingerprint": "f61e41b34cc3334ad6d919e71087d882a5e0f0cd78834071211b29e4f870e138",
@@ -2871,7 +3144,9 @@
       "head": "307fc3310d0d82a5c85f81161a917f9ab5bae939",
       "outcome": "no-change",
       "reason": "bug fix and cleanup — Tooltip family has no skills defined",
-      "evidence": ["correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"]
+      "evidence": [
+        "correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"
+      ]
     },
     "source:packages/ui-components/src/components/TooltipContent/TooltipContent.component.tsx": {
       "fingerprint": "f2ac02ad7e96ee1edd6ee952a9071f34966293f49746327e8b74407810f8f7a6",
@@ -2881,7 +3156,9 @@
       "head": "307fc3310d0d82a5c85f81161a917f9ab5bae939",
       "outcome": "no-change",
       "reason": "bug fix and cleanup — Tooltip family has no skills defined",
-      "evidence": ["correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"]
+      "evidence": [
+        "correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"
+      ]
     },
     "source:packages/ui-components/src/components/TooltipContent/TooltipContent.test.tsx": {
       "fingerprint": "a1fdce33ca3e681091b7508832a8836f7dd6fe256be960b52187bb60ea598585",
@@ -2891,7 +3168,9 @@
       "head": "307fc3310d0d82a5c85f81161a917f9ab5bae939",
       "outcome": "no-change",
       "reason": "bug fix and cleanup — Tooltip family has no skills defined",
-      "evidence": ["correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"]
+      "evidence": [
+        "correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"
+      ]
     },
     "source:packages/ui-components/src/components/TooltipContent/index.ts": {
       "fingerprint": "7599deb58b407293a6e20af45b5afbe12135bb87eef9bcd7eaa73ad1d3129fde",
@@ -2901,7 +3180,9 @@
       "head": "307fc3310d0d82a5c85f81161a917f9ab5bae939",
       "outcome": "no-change",
       "reason": "bug fix and cleanup — Tooltip family has no skills defined",
-      "evidence": ["correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"]
+      "evidence": [
+        "correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"
+      ]
     },
     "source:packages/ui-components/src/components/TooltipTrigger/TooltipTrigger.component.tsx": {
       "fingerprint": "14a3d2811114760005c6019e9c02376c7c4f1d016409c7213828f5b2159823e3",
@@ -2911,7 +3192,9 @@
       "head": "307fc3310d0d82a5c85f81161a917f9ab5bae939",
       "outcome": "no-change",
       "reason": "bug fix and cleanup — Tooltip family has no skills defined",
-      "evidence": ["correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"]
+      "evidence": [
+        "correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"
+      ]
     },
     "source:packages/ui-components/src/components/TooltipTrigger/TooltipTrigger.test.tsx": {
       "fingerprint": "86bfe85e688d5ec40198cabe17bd9c3f741886ac12438e9ab4a76f2e115e2126",
@@ -2921,7 +3204,9 @@
       "head": "307fc3310d0d82a5c85f81161a917f9ab5bae939",
       "outcome": "no-change",
       "reason": "bug fix and cleanup — Tooltip family has no skills defined",
-      "evidence": ["correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"]
+      "evidence": [
+        "correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"
+      ]
     },
     "source:packages/ui-components/src/components/TooltipTrigger/index.ts": {
       "fingerprint": "940ed87c4d004c6058321e1e3f7c13a7402e390e25508405b9346bef38687c3d",
@@ -2931,7 +3216,39 @@
       "head": "307fc3310d0d82a5c85f81161a917f9ab5bae939",
       "outcome": "no-change",
       "reason": "bug fix and cleanup — Tooltip family has no skills defined",
-      "evidence": ["correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"]
+      "evidence": [
+        "correctness fixes and type cleanup only; no new props or behaviours requiring skill coverage"
+      ]
+    },
+    "skill:packages/ui-components/skills/semantic-variants/semantic-variants-review/SKILL.md": {
+      "fingerprint": "7810f7ebfa649f70390201934f3032ac40afcb0322cdf14ab1e98a846e2e9ee6",
+      "snapshot": {
+        "packages/ui-components/skills/semantic-variants/semantic-variants-review/SKILL.md": "6a1ae8b93a5b75dd5a707252c8e5c51ed58591d0abdeca527741408376af000c",
+        "packages/ui-components/skills/semantic-variants/semantic-variants-spec/references/semantic-variants-spec.md": "9fe0dc4b55e015d216ab95283a4fedbc4b06c56dcde72e6b50aa6bc8e1375ad8"
+      },
+      "head": "d0a1e07e1296cc3ea260f4fd4e6bc72fea46565a",
+      "outcome": "updated",
+      "reason": "Record formatter-aligned markdown (prettier table padding) for the semantic-variants spec reference and review skill; content unchanged.",
+      "evidence": [
+        "Changed: packages/ui-components/skills/semantic-variants/semantic-variants-review/SKILL.md, packages/ui-components/skills/semantic-variants/semantic-variants-spec/references/semantic-variants-spec.md at d0a1e07e1296cc3ea260f4fd4e6bc72fea46565a"
+      ]
+    },
+    "skill:packages/ui-components/skills/semantic-variants/semantic-variants-spec/SKILL.md": {
+      "fingerprint": "8539bb3d246db529e094ab09ab8a59b33d31fcde87e16e4ccb42373da03a4a9c",
+      "snapshot": {
+        "packages/ui-components/skills/semantic-variants/semantic-variants-spec/SKILL.md": "7bf643acc83622a68cad1457a82e10b0bf0c4c9a060c75b3cb58b51163e14b85",
+        "packages/ui-components/skills/semantic-variants/semantic-variants-spec/references/semantic-variants-spec.md": "9fe0dc4b55e015d216ab95283a4fedbc4b06c56dcde72e6b50aa6bc8e1375ad8",
+        "packages/ui-components/src/components/Badge/Badge.component.tsx": "524f7cb642ab7cb3be0d5b20bf74eabd13b878973dd6df106ee5f079671c86dc",
+        "packages/ui-components/src/components/Box/Box.component.tsx": "d3f1285de707d847a1bb3a221b2b5259ba9d534e2d43513bff160c32d177326c",
+        "packages/ui-components/src/components/Message/Message.component.tsx": "c7a594561fd75df7840f5d7b819dce410c54c51a71f8ec8501dfb925a64d01f9",
+        "packages/ui-components/src/components/Toast/Toast.component.tsx": "b6c34273713c8cbacc119205df2a6998d55bbf139a75d71450f90b204fda65f6"
+      },
+      "head": "d0a1e07e1296cc3ea260f4fd4e6bc72fea46565a",
+      "outcome": "updated",
+      "reason": "Record formatter-aligned markdown (prettier table padding) for the semantic-variants spec reference and review skill; content unchanged.",
+      "evidence": [
+        "Changed: packages/ui-components/skills/semantic-variants/semantic-variants-spec/references/semantic-variants-spec.md at d0a1e07e1296cc3ea260f4fd4e6bc72fea46565a"
+      ]
     }
   }
 }
