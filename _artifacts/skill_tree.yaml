@@ -167,6 +167,47 @@ skills:
             skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md
           ],
         requires: [ messages-and-notifications-spec ]
+      },
+    {
+        name: semantic-variants-spec,
+        slug: semantic-variants-spec,
+        domain: foundations,
+        package: packages/ui-components,
+        path: skills/semantic-variants/semantic-variants-spec/SKILL.md,
+        description: "Use when choosing or reviewing a semantic variant (info, success,
+          warning, error, danger) on a Juno component — covers the fixed meaning
+          of each variant, error vs danger, warning vs error, which components
+          carry a semantic variant versus a visual or validation one, and the
+          invariants that govern correct usage across components. The
+          semantic-variants-review skill relies on this skill for all rules.",
+        sources:
+          [
+            src/components/Message/Message.component.tsx,
+            src/components/Toast/Toast.component.tsx,
+            src/components/Badge/Badge.component.tsx,
+            src/components/Box/Box.component.tsx,
+            src/components/Tooltip/ToolTip.types.ts
+          ],
+        references: [ references/semantic-variants-spec.md ],
+        requires: []
+      },
+    {
+        name: semantic-variants-review,
+        slug: semantic-variants-review,
+        domain: foundations,
+        package: packages/ui-components,
+        path: skills/semantic-variants/semantic-variants-review/SKILL.md,
+        description: 'Sweep a change, file, or view for every semantic-variant usage and
+          report misuse against the SemanticVariantsSpec. Use when the user says
+          "review semantic variants", "check variant usage", "are the variants
+          correct", "sweep this PR for variant misuse", or pastes code using
+          Message, Toast, Badge, Box, or Tooltip variants to be audited across
+          components. Relies on the semantic-variants-spec skill for all rules.',
+        sources:
+          [
+            skills/semantic-variants/semantic-variants-spec/references/semantic-variants-spec.md
+          ],
+        requires: [ semantic-variants-spec ]
       }
   ]
 distribution:
