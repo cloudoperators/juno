@@ -18,7 +18,7 @@
   "peerDependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "zustand": "5.0.16"
+    "zustand": "5.1.0"
   },
   "devDependencies": {
     "@cloudoperators/juno-config": "workspace:*",
@@ -33,7 +33,7 @@
     "vite": "8.3.6",
     "vite-plugin-dts": "5.1.2",
     "vitest": "5.1.0",
-    "zustand": "5.0.16"
+    "zustand": "5.1.0"
   },
   "dependencies": {
     "@cloudoperators/juno-ui-components": "workspace:*"
