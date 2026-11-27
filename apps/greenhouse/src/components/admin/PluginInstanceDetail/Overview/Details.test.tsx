@@ -3,38 +3,49 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react"
+import React, { act } from "react"
+import { createMemoryHistory, createRootRoute, createRouter, RouterProvider } from "@tanstack/react-router"
 import { render, screen } from "@testing-library/react"
 import { Details } from "./Details"
 import { Plugin } from "../../types/k8sTypes"
 
-describe("Details", () => {
-  it("should render plugin details", () => {
-    const mockPlugin: Plugin = {
-      metadata: {
-        name: "test-plugin",
-        labels: {
-          "greenhouse.sap/pluginpreset": "test-preset",
-          "greenhouse.sap/owned-by": "test-team",
-        },
-      },
-      spec: {
-        clusterName: "test-cluster",
-        pluginDefinition: "test-plugin-def",
-        pluginDefinitionRef: { name: "test-plugin-def" },
-        deletionPolicy: "Delete",
-        releaseName: "Release",
-      },
-      status: {
-        helmChart: {
-          name: "my-chart",
-          repository: "https://charts.example.com",
-          version: "3.1.4",
-        },
-      },
-    }
+const mockPlugin: Plugin = {
+  metadata: {
+    name: "test-plugin",
+    labels: {
+      "greenhouse.sap/pluginpreset": "test-preset",
+      "greenhouse.sap/owned-by": "test-team",
+    },
+  },
+  spec: {
+    clusterName: "test-cluster",
+    pluginDefinition: "test-plugin-def",
+    pluginDefinitionRef: { name: "test-plugin-def" },
+    deletionPolicy: "Delete",
+    releaseName: "Release",
+  },
+  status: {
+    helmChart: {
+      name: "my-chart",
+      repository: "https://charts.example.com",
+      version: "3.1.4",
+    },
+  },
+}
 
-    render(<Details plugin={mockPlugin} />)
+// Details renders router Links, so it must be rendered inside a RouterProvider.
+const renderComponent = async () => {
+  const rootRoute = createRootRoute({ component: () => <Details plugin={mockPlugin} /> })
+  const router = createRouter({
+    routeTree: rootRoute,
+    history: createMemoryHistory({ initialEntries: ["/"] }),
+  })
+  return await act(async () => render(<RouterProvider router={router} />))
+}
+
+describe("Details", () => {
+  it("should render plugin details", async () => {
+    await renderComponent()
 
     expect(screen.getByText("Details")).toBeInTheDocument()
     expect(screen.getByText("test-plugin")).toBeInTheDocument()
@@ -45,5 +56,15 @@ describe("Details", () => {
     expect(screen.getByText("Release")).toBeInTheDocument()
     expect(screen.getByText("my-chart")).toBeInTheDocument()
     expect(screen.getByText("3.1.4")).toBeInTheDocument()
+  })
+
+  it("renders the cluster and plugin preset as navigation links", async () => {
+    await renderComponent()
+
+    const clusterLink = screen.getByRole("link", { name: "test-cluster" })
+    expect(clusterLink).toHaveAttribute("href", "/admin/clusters/test-cluster")
+
+    const presetLink = screen.getByRole("link", { name: "test-preset" })
+    expect(presetLink).toHaveAttribute("href", "/admin/plugin-presets/test-preset")
   })
 })

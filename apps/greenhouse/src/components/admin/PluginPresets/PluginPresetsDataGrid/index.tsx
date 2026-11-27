@@ -5,7 +5,7 @@
 
 import React, { Suspense } from "react"
 import { useLoaderData } from "@tanstack/react-router"
-import { DataGrid, DataGridRow, DataGridHeadCell, Icon } from "@cloudoperators/juno-ui-components"
+import { DataGrid, DataGridRow, DataGridHeadCell } from "@cloudoperators/juno-ui-components"
 import { DataRows } from "./DataRows"
 import { LoadingDataRow } from "../../common/LoadingDataRow"
 import { ErrorBoundary } from "../../common/ErrorBoundary"
@@ -18,9 +18,7 @@ export const PluginPresetsDataGrid = () => {
   return (
     <DataGrid minContentColumns={[0, 1, 7]} columns={COLUMN_SPAN}>
       <DataGridRow>
-        <DataGridHeadCell>
-          <Icon icon="monitorHeart" />
-        </DataGridHeadCell>
+        <DataGridHeadCell></DataGridHeadCell>
         <DataGridHeadCell>Instances</DataGridHeadCell>
         <DataGridHeadCell>Name</DataGridHeadCell>
         <DataGridHeadCell>PluginDefinition</DataGridHeadCell>

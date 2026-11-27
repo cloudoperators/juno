@@ -8,6 +8,9 @@ import {
   DataGridRow,
   DataGridCell,
   Icon,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
   PopupMenu,
   PopupMenuOptions,
   PopupMenuItem,
@@ -52,11 +55,17 @@ export const DataRows = ({ colSpan }: DataRowsProps) => {
       {pluginPresets.map((preset: PluginPreset) => (
         <DataGridRow key={preset.metadata?.name} onClick={() => handleRowClick(preset.metadata?.name || "")}>
           <DataGridCell>
-            <Icon
-              icon={isReady(preset) ? "checkCircle" : "error"}
-              color={isReady(preset) ? "text-theme-success" : "text-theme-danger"}
-              title={isReady(preset) ? "Ready" : "Not Ready"}
-            />
+            <Tooltip triggerEvent="hover">
+              <TooltipTrigger asChild>
+                <span className="inline-flex">
+                  <Icon
+                    icon={isReady(preset) ? "checkCircle" : "error"}
+                    color={isReady(preset) ? "text-theme-success" : "text-theme-danger"}
+                  />
+                </span>
+              </TooltipTrigger>
+              <TooltipContent>{isReady(preset) ? "Ready" : "Not Ready"}</TooltipContent>
+            </Tooltip>
           </DataGridCell>
           <DataGridCell>
             {preset.status?.readyPlugins || 0}/{preset.status?.totalPlugins || 0}

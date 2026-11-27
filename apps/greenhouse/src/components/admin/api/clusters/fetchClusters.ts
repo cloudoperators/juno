@@ -8,36 +8,28 @@ import { FilterSettings } from "../../common/types"
 import { Cluster } from "../../types/k8sTypes"
 import { CLUSTER_TYPE_LABEL, FILTER_IDS, REGION_LABEL, SUPPORT_GROUP_LABEL } from "../../constants"
 
+// Dynamic filtering. Maps a filter ID to the cluster metadata label it filters on.
+const CLUSTER_FILTER_LABELS: Record<string, string> = {
+  [FILTER_IDS.CLUSTER_TYPE]: CLUSTER_TYPE_LABEL,
+  [FILTER_IDS.REGION]: REGION_LABEL,
+  [FILTER_IDS.SUPPORT_GROUP]: SUPPORT_GROUP_LABEL,
+}
+
 const applyFilterSettings = (clusters: Cluster[], filterSettings?: FilterSettings): Cluster[] => {
-  if (filterSettings?.selectedFilters) {
-    // filter by cluster type
-    const clusterTypeValues = filterSettings.selectedFilters
-      .filter((f) => f.id === FILTER_IDS.CLUSTER_TYPE)
-      .map((f) => f.value)
-    if (clusterTypeValues.length > 0) {
-      clusters = clusters.filter((preset) => {
-        const clusterType = preset.metadata?.labels?.[CLUSTER_TYPE_LABEL]
-        return clusterType && clusterTypeValues.includes(clusterType)
-      })
-    }
+  let result = clusters
 
-    // filter by region
-    const regionValues = filterSettings.selectedFilters.filter((f) => f.id === FILTER_IDS.REGION).map((f) => f.value)
-    if (regionValues.length > 0) {
-      clusters = clusters.filter((preset) => {
-        const region = preset.metadata?.labels?.[REGION_LABEL]
-        return region && regionValues.includes(region)
-      })
-    }
+  if (filterSettings?.selectedFilters?.length) {
+    const valuesByFilterId = filterSettings.selectedFilters.reduce<Record<string, string[]>>((acc, filter) => {
+      ;(acc[filter.id] ||= []).push(filter.value)
+      return acc
+    }, {})
 
-    // filter by support group
-    const supportGroupValues = filterSettings.selectedFilters
-      .filter((f) => f.id === FILTER_IDS.SUPPORT_GROUP)
-      .map((f) => f.value)
-    if (supportGroupValues.length > 0) {
-      clusters = clusters.filter((preset) => {
-        const supportGroup = preset.metadata?.labels?.[SUPPORT_GROUP_LABEL]
-        return supportGroup && supportGroupValues.includes(supportGroup)
+    for (const [filterId, label] of Object.entries(CLUSTER_FILTER_LABELS)) {
+      const values = valuesByFilterId[filterId]
+      if (!values?.length) continue
+      result = result.filter((cluster) => {
+        const labelValue = cluster.metadata?.labels?.[label]
+        return !!labelValue && values.includes(labelValue)
       })
     }
   }
@@ -45,13 +37,10 @@ const applyFilterSettings = (clusters: Cluster[], filterSettings?: FilterSetting
   // filter by search term
   if (filterSettings?.searchTerm) {
     const searchTerm = filterSettings.searchTerm.toLowerCase()
-    return clusters.filter((preset) => {
-      const presetName = preset.metadata?.name?.toLowerCase() || ""
-      return presetName.includes(searchTerm)
-    })
+    result = result.filter((cluster) => (cluster.metadata?.name?.toLowerCase() || "").includes(searchTerm))
   }
 
-  return clusters
+  return result
 }
 
 const applySorting = (clusters: Cluster[]): Cluster[] => {

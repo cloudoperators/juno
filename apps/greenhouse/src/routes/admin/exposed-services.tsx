@@ -6,11 +6,14 @@
 import { createFileRoute, redirect } from "@tanstack/react-router"
 import { z } from "zod"
 
-import { User } from "../__root"
 import { filterSearchParamsByPrefix } from "../../lib/helpers"
 import { ExposedServices } from "../../components/admin/ExposedServices"
-import { FILTER_IDS, SELECTED_FILTER_PREFIX } from "../../components/admin/constants"
-import { extractFilterSettingsFromSearchParams, getFiltersForUrl } from "../../components/admin/utils"
+import { SELECTED_FILTER_PREFIX } from "../../components/admin/constants"
+import {
+  extractFilterSettingsFromSearchParams,
+  getDefaultSupportGroupFilters,
+  getFiltersForUrl,
+} from "../../components/admin/utils"
 import { hasAdminTabBeenVisited, markAdminTabVisited } from "../../components/admin/adminTabState"
 import { ADMIN_ROUTES } from "../../components/admin/adminRoutes"
 
@@ -29,15 +32,6 @@ function validateExposedServicesSearch(search: Record<string, unknown>): Exposed
   return searchParamsSchema.parse(filtered)
 }
 
-// Generate default filters based on user context
-const getDefaultFilters = (user: User) => {
-  const defaultSupportGroupFilters = user.supportGroups.map((sg) => ({
-    id: FILTER_IDS.SUPPORT_GROUP,
-    value: sg,
-  }))
-  return defaultSupportGroupFilters
-}
-
 // Create the route with necessary validation and filter logic
 export const Route = createFileRoute("/admin/exposed-services")({
   component: ExposedServices,
@@ -52,7 +46,7 @@ export const Route = createFileRoute("/admin/exposed-services")({
 
     // Check if any filter is already applied
     const hasAnyFilter = Object.keys(search).some((key) => key.startsWith(SELECTED_FILTER_PREFIX))
-    const defaultFilters = getDefaultFilters(context.user)
+    const defaultFilters = getDefaultSupportGroupFilters(context.appProps?.initialFilters, context.user.supportGroups)
 
     // If no filters in the URL but there are some default filters to apply, redirect with default filters
     if (!hasAnyFilter && defaultFilters.length > 0) {

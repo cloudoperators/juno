@@ -11,16 +11,34 @@ import { ErrorMessage } from "./ErrorBoundary/ErrorMessage"
 
 type FilterSelectProps = {
   filters?: Filter[]
+  selectedFilters?: SelectedFilter[]
   isLoading?: boolean
   error?: Error | null
   onChange: (filter: SelectedFilter) => void
 }
 
-export const FilterSelect = ({ filters, isLoading, error, onChange }: FilterSelectProps) => {
+export const FilterSelect = ({ filters, selectedFilters, isLoading, error, onChange }: FilterSelectProps) => {
   const [selectedFilterId, setSelectedFilterId] = useState<string>("")
   const [selectedFilterValue, setSelectedFilterValue] = useState<string>("")
-  // first filter gets the values, second one filters emtpy values
-  const filterValues = filters?.find((filter) => filter.id === selectedFilterId)?.values?.filter((value) => value)
+
+  // group already-selected values by filter ID so we can hide them from options
+  const selectedValuesByFilterId = (selectedFilters ?? []).reduce<Record<string, Set<string>>>((acc, filter) => {
+    ;(acc[filter.id] ??= new Set()).add(filter.value)
+    return acc
+  }, {})
+
+  // only offer filter types that still have at least one unselected value
+  const availableFilters = filters?.filter((filter) => {
+    const nonEmptyValues = filter.values?.filter((value) => value) ?? []
+    if (nonEmptyValues.length === 0) return true
+    const selected = selectedValuesByFilterId[filter.id]
+    return !selected || nonEmptyValues.some((value) => !selected.has(value))
+  })
+
+  // first filter gets the values, second one filters empty and already-selected values
+  const filterValues = filters
+    ?.find((filter) => filter.id === selectedFilterId)
+    ?.values?.filter((value) => value && !selectedValuesByFilterId[selectedFilterId]?.has(value))
 
   const handleValueChange = useCallback(
     (value: string) => {
@@ -47,7 +65,7 @@ export const FilterSelect = ({ filters, isLoading, error, onChange }: FilterSele
           className="filter-label-select w-64 mb-0"
           name="filter"
           data-testid="select-filterValue"
-          label="Filter"
+          label="Filter by"
           value={selectedFilterId}
           loading={isLoading}
           errortext={error ? <ErrorMessage error={error} /> : undefined}
@@ -55,7 +73,7 @@ export const FilterSelect = ({ filters, isLoading, error, onChange }: FilterSele
             setSelectedFilterId(String(value))
           }}
         >
-          {filters?.map(({ label, id }) => (
+          {availableFilters?.map(({ label, id }) => (
             <SelectOption value={id} label={label} key={id} data-testid={id} />
           ))}
         </Select>

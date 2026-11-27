@@ -4,7 +4,7 @@
  */
 
 import React from "react"
-import { Icon, Stack } from "@cloudoperators/juno-ui-components"
+import { Icon } from "@cloudoperators/juno-ui-components"
 import { getSafeExternalUrl } from "../utils"
 
 interface LinkElementProps {
@@ -23,12 +23,10 @@ export const ExternalLink: React.FC<LinkElementProps> = ({ url, label }) => {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Open ${displayName} in a new tab`}
-      className="cursor-pointer"
+      className="cursor-pointer self-start"
     >
-      <Stack gap="2" alignment="center">
-        <div>{displayName}</div>
-        <Icon size="18" icon="openInNew" />
-      </Stack>
+      {displayName}
+      <Icon size="16" icon="openInNew" className="inline-flex align-middle ml-1 relative top-[2px]" />
     </a>
   ) : (
     <span>{displayName}</span>

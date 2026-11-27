@@ -6,11 +6,14 @@
 import { z } from "zod"
 import { createFileRoute, redirect } from "@tanstack/react-router"
 
-import { User } from "../../__root"
 import { Clusters } from "../../../components/admin/Clusters"
 import { filterSearchParamsByPrefix } from "../../../lib/helpers"
-import { FILTER_IDS, SELECTED_FILTER_PREFIX } from "../../../components/admin/constants"
-import { extractFilterSettingsFromSearchParams, getFiltersForUrl } from "../../../components/admin/utils"
+import { SELECTED_FILTER_PREFIX } from "../../../components/admin/constants"
+import {
+  extractFilterSettingsFromSearchParams,
+  getDefaultSupportGroupFilters,
+  getFiltersForUrl,
+} from "../../../components/admin/utils"
 import { hasAdminTabBeenVisited, markAdminTabVisited } from "../../../components/admin/adminTabState"
 import { ADMIN_ROUTES } from "../../../components/admin/adminRoutes"
 
@@ -29,14 +32,6 @@ function validateClustersSearch(search: Record<string, unknown>): ClusterSearchP
   return searchParamsSchema.parse(filtered)
 }
 
-const getDefaultFilters = (user: User) => {
-  const defaultSupportGroupFilters = user.supportGroups.map((sg) => ({
-    id: FILTER_IDS.SUPPORT_GROUP,
-    value: sg,
-  }))
-  return defaultSupportGroupFilters
-}
-
 export const Route = createFileRoute("/admin/clusters/")({
   component: Clusters,
   validateSearch: validateClustersSearch,
@@ -50,7 +45,7 @@ export const Route = createFileRoute("/admin/clusters/")({
 
     // Check if any filter is already applied
     const hasAnyFilter = Object.keys(search).some((key) => key.startsWith(SELECTED_FILTER_PREFIX))
-    const defaultFilters = getDefaultFilters(context.user)
+    const defaultFilters = getDefaultSupportGroupFilters(context.appProps?.initialFilters, context.user.supportGroups)
     // If no filters in the url but there are some default filters to apply, redirect with default filters
     if (!hasAnyFilter && defaultFilters.length > 0) {
       // eslint-disable-next-line @typescript-eslint/only-throw-error
