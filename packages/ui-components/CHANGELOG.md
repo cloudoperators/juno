@@ -1,5 +1,15 @@
 # @cloudoperators/juno-ui-components
 
+## 9.11.0
+
+### Minor Changes
+
+- ca8b6a9: add the `messages-and-notifications` Intent skill set (`spec` + `build` + `validate`) covering the `Message` and `Toast`/`NotificationManager` feedback mechanisms and the decision tree between them, and formalize the boundary with the `status` skill set
+
+### Patch Changes
+
+- c4f9f59: fix(ui): fix TooltipTrigger className bug and misc fixes to Tooltip family components
+
 ## 9.10.1
 
 ### Patch Changes
