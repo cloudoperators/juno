@@ -4,8 +4,8 @@ description: >-
   Sweep a change, file, or view for every semantic-variant usage and report
   misuse against the SemanticVariantsSpec. Use when the user says "review
   semantic variants", "check variant usage", "are the variants correct", "sweep
-  this PR for variant misuse", or pastes code using Message, Toast, Badge, or
-  Box variants to be audited across components. Relies on the
+  this PR for variant misuse", or pastes code using Message, Toast, Badge,
+  Box, or Tooltip variants to be audited across components. Relies on the
   semantic-variants-spec skill for all rules.
 requires:
   - semantic-variants-spec
@@ -24,7 +24,7 @@ All rules live in the **semantic-variants-spec** skill (`requires: [semantic-var
 ## Procedure
 
 1. **Collect in-scope usages.** Find semantic-variant usages on the communication plane only:
-   - `variant="…"` on `Message`, `Badge`, `Box`.
+   - `variant="…"` on `Message`, `Badge`, `Box`, `Tooltip`.
    - `toast.info() / .success() / .warning() / .error() / .danger()` calls (the `Toast` variant).
    - Validation state on form fields (`errortext` / `successtext`) — in scope for `SEMV-4` only.
 2. **Exclude out-of-scope `variant` props.** Do **not** flag `variant` props from a different vocabulary: `Button`/`Select` action emphasis (`primary` / `primary-danger` / `subdued` / `default`), `Spinner` color, `Tabs`/`TabBar` appearance, `Status` data-state values (`progress` / `error` / `empty` / `no-matches`), or `Badge`'s non-semantic `default`. Mistaking these for semantic variants is the most common false positive — when unsure whether a `variant` is in scope, check the component against `SEMV-5` before reporting. (Choosing one of these for looks is still wrong under `SEMV-4`, but it is not this sweep's finding to make.)

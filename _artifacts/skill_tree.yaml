@@ -185,7 +185,8 @@ skills:
             src/components/Message/Message.component.tsx,
             src/components/Toast/Toast.component.tsx,
             src/components/Badge/Badge.component.tsx,
-            src/components/Box/Box.component.tsx
+            src/components/Box/Box.component.tsx,
+            src/components/Tooltip/ToolTip.types.ts
           ],
         references: [ references/semantic-variants-spec.md ],
         requires: []
@@ -200,7 +201,7 @@ skills:
           report misuse against the SemanticVariantsSpec. Use when the user says
           "review semantic variants", "check variant usage", "are the variants
           correct", "sweep this PR for variant misuse", or pastes code using
-          Message, Toast, Badge, or Box variants to be audited across
+          Message, Toast, Badge, Box, or Tooltip variants to be audited across
           components. Relies on the semantic-variants-spec skill for all rules.',
         sources:
           [

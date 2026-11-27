@@ -2,8 +2,6 @@
 
 Several Juno components accept a semantic `variant` prop that both styles the element and carries a fixed meaning. The variant must be chosen by the nature of the information, never for visual effect. This is a **cross-component** rule set: the same five variants mean the same thing everywhere they appear, so consistency cannot be enforced by any single component's skill. This spec owns the meanings (`SEMV-1`…`SEMV-5`); the **semantic-variants-review** skill sweeps a change for violations.
 
-Human-facing source: [docs/ux/semantic-variants.md](../../../../../docs/ux/semantic-variants.md). That document states the principle for people; this spec binds it to rule IDs and the component surface for agents. The UX doc stays principle-only — do not expect it to name components or props.
-
 ## The five variants
 
 | Variant   | Meaning                  | Use for                                                    |
@@ -18,7 +16,7 @@ Human-facing source: [docs/ux/semantic-variants.md](../../../../../docs/ux/seman
 
 Two planes. Keep them distinct — a rule about one is not a rule about the other.
 
-**Communication plane — the free semantic choice.** Four components take the full five-value `variant` and let the author pick any of them:
+**Communication plane — the free semantic choice.** Five components take the full five-value `variant` and let the author pick any of them:
 
 | Component | Variant type         | Values                                                          |
 | --------- | -------------------- | --------------------------------------------------------------- |
@@ -26,8 +24,9 @@ Two planes. Keep them distinct — a rule about one is not a rule about the othe
 | `Toast`   | `ToastVariant`       | `info` · `success` · `warning` · `error` · `danger`             |
 | `Badge`   | `BadgeVariantType`   | `default` · `info` · `success` · `warning` · `error` · `danger` |
 | `Box`     | `BoxVariantType`     | `info` · `success` · `warning` · `error` · `danger`             |
+| `Tooltip` | `ToolTipVariant`     | `info` · `success` · `warning` · `error` · `danger`             |
 
-`Toast` is never rendered directly — the variant is chosen through the `toast.info()` / `toast.success()` / `toast.warning()` / `toast.error()` / `toast.danger()` helpers (see **messages-and-notifications-spec**). `Badge`'s `default` is the non-semantic, neutral badge; it is outside `SEMV-1`…`SEMV-4`.
+`Toast` is never rendered directly — the variant is chosen through the `toast.info()` / `toast.success()` / `toast.warning()` / `toast.error()` / `toast.danger()` helpers (see **messages-and-notifications-spec**). `Badge`'s `default` is the non-semantic, neutral badge; it is outside `SEMV-1`…`SEMV-4`. `Tooltip`'s `variant` is optional: omitting it yields a neutral (`plain`) tooltip — the absence of a status, not a sixth one — exactly like a `Box` with no `variant`.
 
 **Validation plane — a binary state, not a free choice.** Form fields do not expose the five-value set. They express a validation result as `error` or `success` through the field's own `errortext` / `successtext` props (rendered internally as a `FormHint` variant). This is the outcome of validation, not an authored communication variant, so `SEMV-2` (error vs danger) and `SEMV-3` (warning vs error) do not apply — a field is either valid, invalid (`error`), or confirmed (`success`). `SEMV-4` still holds: never use the validation styling for emphasis.
 
@@ -49,4 +48,4 @@ Two planes. Keep them distinct — a rule about one is not a rule about the othe
 
 **SEMV-4:** The variant is chosen by semantic intent, never for emphasis, color, or aesthetics. Using `danger` to make an element stand out, or `success` for a neutral confirmation, degrades the signal for users and breaks cross-product consistency. This principle is **universal** — it holds for every `variant` prop in Juno, not only these five. The action-emphasis variant on `Button`/`Select` and the validation styling on form fields are likewise chosen by meaning (which action is primary, whether a field is valid), never by visual weight. Choosing any variant for appearance is always wrong, even where the prop is out of this spec's scope.
 
-**SEMV-5:** Scope. The free semantic choice (`SEMV-1`…`SEMV-4`) applies to the communication-plane components — `Message`, `Toast`, `Badge`, `Box`. The validation plane (`error`/`success` via `errortext`/`successtext` on form fields) is a binary validation state, not a free choice. `variant` props from a different vocabulary — `Button`/`Select` action emphasis, `Spinner` color, `Tabs`/`TabBar` appearance — and `Status` data-state values are out of scope here, as is `Badge`'s neutral `default`. Out of scope is not out of `SEMV-4`: none of these may be chosen for looks either.
+**SEMV-5:** Scope. The free semantic choice (`SEMV-1`…`SEMV-4`) applies to the communication-plane components — `Message`, `Toast`, `Badge`, `Box`, `Tooltip`. The validation plane (`error`/`success` via `errortext`/`successtext` on form fields) is a binary validation state, not a free choice. `variant` props from a different vocabulary — `Button`/`Select` action emphasis, `Spinner` color, `Tabs`/`TabBar` appearance — and `Status` data-state values are out of scope here, as is `Badge`'s neutral `default`. Out of scope is not out of `SEMV-4`: none of these may be chosen for looks either.
