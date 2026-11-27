@@ -1,0 +1,189 @@
+name: Build and Push create-greenhouse-plugin Image
+
+on:
+  workflow_dispatch: {}
+  workflow_run:
+    workflows: [Release]
+    types: [completed]
+    branches: [main]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: juno-app-greenhouse-external-plugin
+  PACKAGE_PATH: packages/create-greenhouse-plugin
+  DESCRIPTION: "Static plugin bundle host built with @cloudoperators/create-greenhouse-plugin"
+
+jobs:
+  build-and-push:
+    name: Build and Push Plugin Bundle Image
+    runs-on: [ubuntu-latest]
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'workflow_run' &&
+       github.event.workflow_run.conclusion == 'success')
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+      security-events: write
+    outputs:
+      failed: ${{ steps.set-failure-output.outputs.failed }}
+      image_version: ${{ steps.read_version.outputs.IMAGE_VERSION }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Reads the version from package.json and waits until it is available on npm.
+      # npm propagation can take a few minutes after publish, so we retry up to 5 times.
+      - name: Read version from package.json
+        id: read_version
+        working-directory: ${{ env.PACKAGE_PATH }}
+        run: |
+          VERSION=$(jq -r '.version' package.json)
+          echo "Plugin version: $VERSION"
+          for i in 1 2 3 4 5; do
+            if npm show @cloudoperators/create-greenhouse-plugin@${VERSION} version > /dev/null 2>&1; then
+              echo "Version ${VERSION} is available on npm"
+              break
+            fi
+            echo "Attempt $i: version ${VERSION} not yet available, waiting 30s..."
+            [ $i -eq 5 ] && echo "Version ${VERSION} not published after retries, aborting." && exit 1
+            sleep 30
+          done
+          echo "IMAGE_VERSION=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Log into registry ${{ env.REGISTRY }}
+        uses: docker/login-action@81c6f93d4bc991e510b342a00b419b3bb4efc5c6 # v4.7.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check if image already exists
+        id: check-image
+        run: |
+          if docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }} 2>/dev/null; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "Image ${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }} already exists, skipping build."
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Install cosign
+        if: steps.check-image.outputs.exists != 'true'
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
+
+      - name: Set up Docker Buildx
+        if: steps.check-image.outputs.exists != 'true'
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+
+      - name: Generate Docker metadata
+        id: meta
+        if: steps.check-image.outputs.exists != 'true'
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{major}}.{{minor}}.{{patch}},value=${{ steps.read_version.outputs.IMAGE_VERSION }}
+            type=raw,value=latest
+          labels: |
+            org.opencontainers.image.description=${{ env.DESCRIPTION }}
+            org.opencontainers.image.title=create-greenhouse-plugin
+            org.opencontainers.image.url=https://github.com/cloudoperators/juno/tree/main/packages/create-greenhouse-plugin
+            org.opencontainers.image.source=https://github.com/cloudoperators/juno/tree/main/packages/create-greenhouse-plugin
+            org.opencontainers.image.version=${{ steps.read_version.outputs.IMAGE_VERSION }}
+
+      - name: Build and push Docker image
+        id: build-image
+        if: steps.check-image.outputs.exists != 'true'
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: ${{ env.PACKAGE_PATH }}
+          file: ${{ env.PACKAGE_PATH }}/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            PLUGIN_VERSION=${{ steps.read_version.outputs.IMAGE_VERSION }}
+          provenance: false
+          no-cache: true
+
+      - name: Sign the published Docker image
+        if: steps.check-image.outputs.exists != 'true'
+        env:
+          TAGS: ${{ steps.meta.outputs.tags }}
+          DIGEST: ${{ steps.build-image.outputs.digest }}
+        run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
+
+      - name: Set failure output
+        id: set-failure-output
+        if: failure()
+        run: echo "failed=build-and-push" >> $GITHUB_OUTPUT
+
+  vulnerability-scan:
+    permissions:
+      contents: read
+      packages: read
+      security-events: write
+    name: Vulnerability Scan
+    needs: build-and-push
+    runs-on: [ubuntu-latest]
+    outputs:
+      failed: ${{ steps.set-failure-output.outputs.failed }}
+    steps:
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
+          ignore-unfixed: true
+          format: "sarif"
+          output: "trivy-results.sarif"
+          severity: "CRITICAL,HIGH,MEDIUM"
+
+      - name: Trivy vulnerability scanner (table output)
+        id: table-trivy
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        env:
+          TRIVY_SKIP_DB_UPDATE: true
+          TRIVY_SKIP_JAVA_DB_UPDATE: true
+          TRIVY_FORMAT: "table"
+          TRIVY_OUTPUT: ""
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-and-push.outputs.image_version }}
+          format: "table"
+          ignore-unfixed: true
+          severity: "CRITICAL,HIGH,MEDIUM"
+          skip-setup-trivy: true
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
+        if: always()
+        with:
+          sarif_file: trivy-results.sarif
+
+      - name: Set failure output
+        id: set-failure-output
+        if: failure()
+        run: echo "failed=vulnerability-scan" >> $GITHUB_OUTPUT
+
+  notify-on-failure:
+    if: failure()
+    permissions:
+      contents: read
+    needs: [build-and-push, vulnerability-scan]
+    uses: cloudoperators/juno/.github/workflows/shared-slack-notification.yaml@5cacb59856fa112604bb50bd0de94356c56d2c82 # main
+    with:
+      title: "🚨 JUNO Greenhouse External Plugin Image Failed 🚨"
+      body: |
+        An error occurred while building the Greenhouse External Plugin image for the branch `${{ github.head_ref || github.ref_name }}`.
+
+        ❌ Failing jobs:
+        - ${{ needs.build-and-push.outputs.failed }}
+        - ${{ needs.vulnerability-scan.outputs.failed }}
+
+        <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Check the logs>
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
