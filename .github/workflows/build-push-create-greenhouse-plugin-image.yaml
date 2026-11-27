@@ -1,0 +1,112 @@
+name: Build and Push create-greenhouse-plugin Image
+
+on:
+  workflow_dispatch: {}
+  pull_request:
+    paths:
+      - packages/create-greenhouse-plugin/**
+      - packages/create-greenhouse-plugin/Dockerfile
+  workflow_run:
+    workflows: [Release]
+    types: [completed]
+    branches: [main]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: juno-app-greenhouse-external-plugin
+  PACKAGE_PATH: packages/create-greenhouse-plugin
+  DESCRIPTION: "Static plugin bundle host built with @cloudoperators/create-greenhouse-plugin"
+
+jobs:
+  build-and-push:
+    name: Build and Push Plugin Bundle Image
+    runs-on: [ubuntu-latest]
+    if: >-
+      github.event_name == 'pull_request' ||
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'workflow_run' &&
+       github.event.workflow_run.conclusion == 'success')
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Reads the version from package.json and waits until it is available on npm.
+      # npm propagation can take a few minutes after publish, so we retry up to 5 times.
+      # On pull_request the npm check is skipped and the image is tagged as <version>-beta.
+      - name: Read version from package.json
+        id: read_version
+        working-directory: ${{ env.PACKAGE_PATH }}
+        run: |
+          VERSION=$(jq -r '.version' package.json)
+          echo "Plugin version: $VERSION"
+          if [ "${{ github.event_name }}" != "pull_request" ]; then
+            for i in 1 2 3 4 5; do
+              if npm show @cloudoperators/create-greenhouse-plugin@${VERSION} version > /dev/null 2>&1; then
+                echo "Version ${VERSION} is available on npm"
+                break
+              fi
+              echo "Attempt $i: version ${VERSION} not yet available, waiting 30s..."
+              [ $i -eq 5 ] && echo "Version ${VERSION} not published after retries, aborting." && exit 1
+              sleep 30
+            done
+          fi
+          echo "IMAGE_VERSION=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Log into registry ${{ env.REGISTRY }}
+        uses: docker/login-action@81c6f93d4bc991e510b342a00b419b3bb4efc5c6 # v4.7.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check if image already exists
+        id: check-image
+        if: github.event_name != 'pull_request'
+        run: |
+          if docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }} 2>/dev/null; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "Image ${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }} already exists, skipping build."
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set up Docker Buildx
+        if: steps.check-image.outputs.exists != 'true'
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+
+      - name: Generate Docker metadata
+        id: meta
+        if: steps.check-image.outputs.exists != 'true'
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=${{ steps.read_version.outputs.IMAGE_VERSION }}-beta,enable=${{ github.event_name == 'pull_request' }}
+            type=semver,pattern={{major}}.{{minor}}.{{patch}},value=${{ steps.read_version.outputs.IMAGE_VERSION }},enable=${{ github.event_name != 'pull_request' }}
+            type=raw,value=latest,enable=${{ github.event_name != 'pull_request' }}
+          labels: |
+            org.opencontainers.image.description=${{ env.DESCRIPTION }}
+            org.opencontainers.image.title=create-greenhouse-plugin
+            org.opencontainers.image.url=https://github.com/cloudoperators/juno/tree/main/packages/create-greenhouse-plugin
+            org.opencontainers.image.source=https://github.com/cloudoperators/juno/tree/main/packages/create-greenhouse-plugin
+            org.opencontainers.image.version=${{ steps.read_version.outputs.IMAGE_VERSION }}
+
+      - name: Build and push Docker image
+        if: steps.check-image.outputs.exists != 'true'
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: ${{ env.PACKAGE_PATH }}
+          file: ${{ env.PACKAGE_PATH }}/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            PLUGIN_VERSION=${{ steps.read_version.outputs.IMAGE_VERSION }}
+          provenance: false
+          no-cache: true
