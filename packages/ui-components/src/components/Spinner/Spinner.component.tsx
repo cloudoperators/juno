@@ -46,7 +46,8 @@ export const Spinner = ({
 }: SpinnerProps): ReactNode => {
   const mode = () => {
     switch (variant) {
-      case "primary":
+      case "info":
+      case "primary": // legacy alias for "info"; kept for backwards compatibility
         return primary
       case "danger":
         return danger
@@ -92,10 +93,10 @@ export const Spinner = ({
   )
 }
 
-type SpinnerVariant = "primary" | "danger" | "default" | "success" | "warning"
+type SpinnerVariant = "info" | "primary" | "danger" | "default" | "success" | "warning"
 
 export interface SpinnerProps extends Omit<HTMLProps<SVGSVGElement>, "size"> {
-  /** The semantic color variant of the Spinner */
+  /** The semantic color variant of the Spinner. Use `"info"` for the accent color; `"primary"` is a deprecated alias for `"info"` kept for backwards compatibility. */
   variant?: SpinnerVariant
   /** The size of the spinner: `small`, `large`, or any valid CSS length like `1.5rem`*/
   size?: string

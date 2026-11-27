@@ -25,6 +25,12 @@ describe("Spinner", () => {
     expect(screen.getByRole("progressbar")).toHaveClass("jn:text-theme-accent")
   })
 
+  test("renders an info color spinner", () => {
+    render(<Spinner variant="info" />)
+    expect(screen.getByRole("progressbar")).toBeInTheDocument()
+    expect(screen.getByRole("progressbar")).toHaveClass("jn:text-theme-accent")
+  })
+
   test("renders a warning color spinner", () => {
     render(<Spinner variant="warning" />)
     expect(screen.getByRole("progressbar")).toBeInTheDocument()

@@ -20,9 +20,22 @@ const meta: Meta<typeof Spinner> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+export const Info: Story = {
+  args: {
+    variant: "info",
+  },
+}
+
 export const Primary: Story = {
   args: {
     variant: "primary",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '`primary` is a deprecated alias for `info`. Use `variant="info"` instead.',
+      },
+    },
   },
 }
 
