@@ -3,7 +3,7 @@
   "baseline": "fac03386c50408123ab764ad6005e15412b58bd4",
   "items": {
     "planning:_artifacts": {
-      "fingerprint": "c01148cdcf2a44dd6393880e72dbaa902862c2749c7ef306b2a37048149a765a",
+      "fingerprint": "6fbdabd0380e9c1dd68d315f106932df2278eeb380c87d5242378f3e650b4d20",
       "snapshot": {
         "_artifacts/domain_map.yaml": "fbf5679ef3c4615b83d8721e7978b528af9633bd2b2395dfe010d45af849d06f",
         "_artifacts/skill_spec.md": "23b69a19278ea1f62e5948a2e11a23b602c777c611fbbc6fa9ac5b03059d0b4d",
@@ -18,9 +18,9 @@
         "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/SKILL.md": "e8ba9b9a32259f096e68cbabfacd1dc76ad60dbc2d9867de2ac4e3508226583a",
         "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-spec/references/messages-and-notifications-spec.md": "d756cc77bd74722265dd25a70e630f99d3f1d689e54a3d91dbc0a992cccef70a",
         "packages/ui-components/skills/messages-and-notifications/messages-and-notifications-validate/SKILL.md": "bf84369fcf060f97381465be6512c71bbd05abc490ee2e6ed4ed271212dbdae7",
-        "packages/ui-components/skills/semantic-variants/semantic-variants-review/SKILL.md": "b0466308fe62699fcf9f76a330a87fa94c15ec56929019d471b6276b28cdaf99",
+        "packages/ui-components/skills/semantic-variants/semantic-variants-review/SKILL.md": "b2a008a58f664c6ceb1f94d3eacf02ec19835762dc641d0f5e28b42d3c5808eb",
         "packages/ui-components/skills/semantic-variants/semantic-variants-spec/SKILL.md": "9316be2ef2936ba0424b87832666f72066a293a937e996df697e7cadd2f3badc",
-        "packages/ui-components/skills/semantic-variants/semantic-variants-spec/references/semantic-variants-spec.md": "5b856c3b1743dc94f3a1b49b573726484ebdf5e2b511da6c441ebf4a76cba834",
+        "packages/ui-components/skills/semantic-variants/semantic-variants-spec/references/semantic-variants-spec.md": "2b5e1a039a503dc824876a1074aef85cc9c97d3eb2162ef837e56662eb086437",
         "packages/ui-components/skills/status/status-build/SKILL.md": "56820859ae15dd539097a36fc8c4eee528853fa4dfe4d1bfd54cb3a0a73e0e29",
         "packages/ui-components/skills/status/status-spec/SKILL.md": "11958f170bcebe2cea4f7f916632eb3b217c5aa3b0dbab36a6994e157f5f5a17",
         "packages/ui-components/skills/status/status-spec/references/status-spec.md": "eca099036124444838619b752cf031c3ba5809662b0ed73a2ad0c855803f773f",
@@ -38,11 +38,11 @@
         "packages/ui-components/src/components/Toast/Toast.component.tsx": "b6c34273713c8cbacc119205df2a6998d55bbf139a75d71450f90b204fda65f6",
         "packages/ui-components/src/components/Tooltip/ToolTip.types.ts": "0b62fbd688ca4202708fceeb73859306cd16af7bc529728bfe335f6a9b4a7c9a"
       },
-      "head": "ad06eb95f6b93e7cec91844fc6eb79a4a0a0fe21",
+      "head": "d60e59eeac018fc4a36eec9362225f2bb848c833",
       "outcome": "updated",
-      "reason": "add Tooltip to the semantic-variants communication plane (it carries the identical five-value ToolTipVariant); remove the dangling docs/ux link (UX docs are not yet packaged/shipped)",
+      "reason": "scope out Icon and the per-component variant→icon representation choice explicitly; agents judge the variant value, never the glyph",
       "evidence": [
-        "Changed: _artifacts/skill_tree.yaml, packages/ui-components/skills/semantic-variants/semantic-variants-review/SKILL.md, packages/ui-components/skills/semantic-variants/semantic-variants-spec/SKILL.md, packages/ui-components/skills/semantic-variants/semantic-variants-spec/references/semantic-variants-spec.md, packages/ui-components/src/components/Tooltip/ToolTip.types.ts at ad06eb95f6b93e7cec91844fc6eb79a4a0a0fe21"
+        "Changed: packages/ui-components/skills/semantic-variants/semantic-variants-review/SKILL.md, packages/ui-components/skills/semantic-variants/semantic-variants-spec/references/semantic-variants-spec.md at d60e59eeac018fc4a36eec9362225f2bb848c833"
       ]
     },
     "source:packages/ui-components/src/components/DataGridCell/DataGridCell.component.tsx": {
@@ -3222,34 +3222,34 @@
       ]
     },
     "skill:packages/ui-components/skills/semantic-variants/semantic-variants-review/SKILL.md": {
-      "fingerprint": "5c94227c482ad6b68db2e5bf258099a354b96d6066aeca01ec2102e95a33e9cd",
+      "fingerprint": "06b0711636886b6a3e751d1d4651038ab917118a3f174c4492fbf56d7b161636",
       "snapshot": {
-        "packages/ui-components/skills/semantic-variants/semantic-variants-review/SKILL.md": "b0466308fe62699fcf9f76a330a87fa94c15ec56929019d471b6276b28cdaf99",
-        "packages/ui-components/skills/semantic-variants/semantic-variants-spec/references/semantic-variants-spec.md": "5b856c3b1743dc94f3a1b49b573726484ebdf5e2b511da6c441ebf4a76cba834"
+        "packages/ui-components/skills/semantic-variants/semantic-variants-review/SKILL.md": "b2a008a58f664c6ceb1f94d3eacf02ec19835762dc641d0f5e28b42d3c5808eb",
+        "packages/ui-components/skills/semantic-variants/semantic-variants-spec/references/semantic-variants-spec.md": "2b5e1a039a503dc824876a1074aef85cc9c97d3eb2162ef837e56662eb086437"
       },
-      "head": "ad06eb95f6b93e7cec91844fc6eb79a4a0a0fe21",
+      "head": "d60e59eeac018fc4a36eec9362225f2bb848c833",
       "outcome": "updated",
-      "reason": "add Tooltip to the semantic-variants communication plane (it carries the identical five-value ToolTipVariant); remove the dangling docs/ux link (UX docs are not yet packaged/shipped)",
+      "reason": "scope out Icon and the per-component variant→icon representation choice explicitly; agents judge the variant value, never the glyph",
       "evidence": [
-        "Changed: packages/ui-components/skills/semantic-variants/semantic-variants-review/SKILL.md, packages/ui-components/skills/semantic-variants/semantic-variants-spec/references/semantic-variants-spec.md at ad06eb95f6b93e7cec91844fc6eb79a4a0a0fe21"
+        "Changed: packages/ui-components/skills/semantic-variants/semantic-variants-review/SKILL.md, packages/ui-components/skills/semantic-variants/semantic-variants-spec/references/semantic-variants-spec.md at d60e59eeac018fc4a36eec9362225f2bb848c833"
       ]
     },
     "skill:packages/ui-components/skills/semantic-variants/semantic-variants-spec/SKILL.md": {
-      "fingerprint": "8f07436162374fbd4295e2a68d6928db9c69dcd07bf818ff4ff727d4e893da7c",
+      "fingerprint": "475db5f9e61a34ab013c75d1677e1596653a1c04554d26202a6c8ac42a8b6c43",
       "snapshot": {
         "packages/ui-components/skills/semantic-variants/semantic-variants-spec/SKILL.md": "9316be2ef2936ba0424b87832666f72066a293a937e996df697e7cadd2f3badc",
-        "packages/ui-components/skills/semantic-variants/semantic-variants-spec/references/semantic-variants-spec.md": "5b856c3b1743dc94f3a1b49b573726484ebdf5e2b511da6c441ebf4a76cba834",
+        "packages/ui-components/skills/semantic-variants/semantic-variants-spec/references/semantic-variants-spec.md": "2b5e1a039a503dc824876a1074aef85cc9c97d3eb2162ef837e56662eb086437",
         "packages/ui-components/src/components/Badge/Badge.component.tsx": "524f7cb642ab7cb3be0d5b20bf74eabd13b878973dd6df106ee5f079671c86dc",
         "packages/ui-components/src/components/Box/Box.component.tsx": "d3f1285de707d847a1bb3a221b2b5259ba9d534e2d43513bff160c32d177326c",
         "packages/ui-components/src/components/Message/Message.component.tsx": "c7a594561fd75df7840f5d7b819dce410c54c51a71f8ec8501dfb925a64d01f9",
         "packages/ui-components/src/components/Toast/Toast.component.tsx": "b6c34273713c8cbacc119205df2a6998d55bbf139a75d71450f90b204fda65f6",
         "packages/ui-components/src/components/Tooltip/ToolTip.types.ts": "0b62fbd688ca4202708fceeb73859306cd16af7bc529728bfe335f6a9b4a7c9a"
       },
-      "head": "ad06eb95f6b93e7cec91844fc6eb79a4a0a0fe21",
+      "head": "d60e59eeac018fc4a36eec9362225f2bb848c833",
       "outcome": "updated",
-      "reason": "add Tooltip to the semantic-variants communication plane (it carries the identical five-value ToolTipVariant); remove the dangling docs/ux link (UX docs are not yet packaged/shipped)",
+      "reason": "scope out Icon and the per-component variant→icon representation choice explicitly; agents judge the variant value, never the glyph",
       "evidence": [
-        "Changed: packages/ui-components/skills/semantic-variants/semantic-variants-spec/SKILL.md, packages/ui-components/skills/semantic-variants/semantic-variants-spec/references/semantic-variants-spec.md, packages/ui-components/src/components/Tooltip/ToolTip.types.ts at ad06eb95f6b93e7cec91844fc6eb79a4a0a0fe21"
+        "Changed: packages/ui-components/skills/semantic-variants/semantic-variants-spec/references/semantic-variants-spec.md at d60e59eeac018fc4a36eec9362225f2bb848c833"
       ]
     }
   }

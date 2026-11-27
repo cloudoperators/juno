@@ -38,6 +38,8 @@ Two planes. Keep them distinct — a rule about one is not a rule about the othe
 - `Spinner` — a loading indicator whose `variant` selects a color and happens to reuse some of these names (`primary` · `danger` · `success` · `warning` · `default`); it does not communicate the five statuses. Treat its current API as a known inconsistency, not a model to copy.
 - `Tabs` / `TabBar` — `appearance` is genuinely presentational (layout), not a status.
 
+**The icon a component shows for a variant is out of scope.** `Icon` has no semantic `variant` prop — it takes a named icon — so it is not a plane component. Separately, which icon (if any) a component renders to express a given variant is a design/representation decision that can change at any time; it is not a mechanical "variant X always uses icon Y" rule and may legitimately differ between components. This spec governs the `variant` value an author chooses, never the glyph that renders it — do not judge, flag, or gatekeep icon choices.
+
 ## Invariants
 
 **SEMV-1:** The five variants carry fixed meanings — `info` = neutral/informational; `success` = a positive outcome; `warning` = caution, nothing has failed yet; `error` = something has already failed; `danger` = destructive or irreversible. The meaning is identical in every component that exposes the variant.
