@@ -2,7 +2,7 @@ FROM node:22-alpine AS build
 
 ARG PLUGIN_VERSION=latest
 
-RUN npm install -g corepack && corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
 WORKDIR /build
 
