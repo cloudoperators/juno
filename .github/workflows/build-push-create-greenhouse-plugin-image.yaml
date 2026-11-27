@@ -2,10 +2,6 @@ name: Build and Push create-greenhouse-plugin Image
 
 on:
   workflow_dispatch: {}
-  pull_request:
-    paths:
-      - packages/create-greenhouse-plugin/**
-      - packages/create-greenhouse-plugin/Dockerfile
   workflow_run:
     workflows: [Release]
     types: [completed]
@@ -22,7 +18,6 @@ jobs:
     name: Build and Push Plugin Bundle Image
     runs-on: [ubuntu-latest]
     if: >-
-      github.event_name == 'pull_request' ||
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'workflow_run' &&
        github.event.workflow_run.conclusion == 'success')
@@ -38,24 +33,21 @@ jobs:
 
       # Reads the version from package.json and waits until it is available on npm.
       # npm propagation can take a few minutes after publish, so we retry up to 5 times.
-      # On pull_request the npm check is skipped and the image is tagged as <version>-beta.
       - name: Read version from package.json
         id: read_version
         working-directory: ${{ env.PACKAGE_PATH }}
         run: |
           VERSION=$(jq -r '.version' package.json)
           echo "Plugin version: $VERSION"
-          if [ "${{ github.event_name }}" != "pull_request" ]; then
-            for i in 1 2 3 4 5; do
-              if npm show @cloudoperators/create-greenhouse-plugin@${VERSION} version > /dev/null 2>&1; then
-                echo "Version ${VERSION} is available on npm"
-                break
-              fi
-              echo "Attempt $i: version ${VERSION} not yet available, waiting 30s..."
-              [ $i -eq 5 ] && echo "Version ${VERSION} not published after retries, aborting." && exit 1
-              sleep 30
-            done
-          fi
+          for i in 1 2 3 4 5; do
+            if npm show @cloudoperators/create-greenhouse-plugin@${VERSION} version > /dev/null 2>&1; then
+              echo "Version ${VERSION} is available on npm"
+              break
+            fi
+            echo "Attempt $i: version ${VERSION} not yet available, waiting 30s..."
+            [ $i -eq 5 ] && echo "Version ${VERSION} not published after retries, aborting." && exit 1
+            sleep 30
+          done
           echo "IMAGE_VERSION=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Log into registry ${{ env.REGISTRY }}
@@ -67,7 +59,6 @@ jobs:
 
       - name: Check if image already exists
         id: check-image
-        if: github.event_name != 'pull_request'
         run: |
           if docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.read_version.outputs.IMAGE_VERSION }} 2>/dev/null; then
             echo "exists=true" >> $GITHUB_OUTPUT
@@ -87,9 +78,8 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value=${{ steps.read_version.outputs.IMAGE_VERSION }}-beta,enable=${{ github.event_name == 'pull_request' }}
-            type=semver,pattern={{major}}.{{minor}}.{{patch}},value=${{ steps.read_version.outputs.IMAGE_VERSION }},enable=${{ github.event_name != 'pull_request' }}
-            type=raw,value=latest,enable=${{ github.event_name != 'pull_request' }}
+            type=semver,pattern={{major}}.{{minor}}.{{patch}},value=${{ steps.read_version.outputs.IMAGE_VERSION }}
+            type=raw,value=latest
           labels: |
             org.opencontainers.image.description=${{ env.DESCRIPTION }}
             org.opencontainers.image.title=create-greenhouse-plugin
